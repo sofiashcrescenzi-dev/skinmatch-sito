@@ -4,6 +4,35 @@ Registro di ogni modifica fatta al repository. Ordine: dal più recente al più 
 
 ---
 
+## 2026-09-13 — Primo catalogo funzionante + homepage
+
+- Definita insieme la struttura del sito: catalogo come impalcatura principale
+  (genere, categoria, fascia Base/Top/Premium, K-beauty), test pelle come
+  scorciatoia ("Trova il tuo SkinMatch") per chi non sa da dove iniziare.
+- Definito insieme il flusso del test pelle (10 step, ramificato per genere —
+  documentato in questa conversazione, da implementare).
+- `src/lib/products.ts`: modello dati prodotto (genere, categoria, fascia,
+  K-beauty, prezzo, link affiliazione) + **14 prodotti segnaposto**, chiaramente
+  marcati `isPlaceholder: true` e con badge visivo "Esempio" — da sostituire con
+  prodotti reali prima della pubblicazione.
+- `src/app/catalogo/page.tsx`: pagina catalogo con filtri (genere, categoria,
+  fascia, K-beauty), legge anche i filtri dalla URL (link diretti da home).
+- `src/components/ProductCard.tsx`, `src/components/Header.tsx`: card prodotto
+  e navigazione condivisa.
+- `src/app/page.tsx`: homepage con hero "Trova il tuo SkinMatch", categorie in
+  evidenza, sezione K-beauty.
+- `src/app/test/page.tsx`: pagina segnaposto (il quiz vero è da costruire).
+- Repo collegato a GitHub (`sofiashcrescenzi-dev/skinmatch-sito`).
+
+### Da fare
+- [ ] Costruire il quiz vero (10 step, logica ramificata per genere)
+- [ ] Sostituire i 14 prodotti segnaposto con un catalogo reale
+- [ ] Pagine legali: privacy/cookie policy + disclosure affiliazione
+- [ ] Collegare Cloudflare Workers + dominio `skinmatch.it` (in attesa che Aruba
+      risolva la privacy WHOIS)
+
+---
+
 ## 2026-09-12 — Avvio progetto
 
 - Progetto creato con `create-next-app` (Next.js, TypeScript, Tailwind, App Router,
