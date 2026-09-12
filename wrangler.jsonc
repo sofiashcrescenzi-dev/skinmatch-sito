@@ -1,0 +1,13 @@
+{
+  // Deploy del sito statico (cartella out/) come Cloudflare Worker "solo asset".
+  // Nessuno script server: sito statico puro generato da `next build` (output: 'export').
+  "name": "skinmatch-sito",
+  "compatibility_date": "2026-09-01",
+  "assets": {
+    "directory": "./out",
+    // /pagina -> serve out/pagina.html (URL puliti senza .html)
+    "html_handling": "auto-trailing-slash",
+    // pagina non trovata -> out/404.html
+    "not_found_handling": "404-page"
+  }
+}
