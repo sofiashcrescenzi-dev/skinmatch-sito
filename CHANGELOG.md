@@ -100,3 +100,19 @@ Registro di ogni modifica fatta al repository. Ordine: dal più recente al più 
 - **Il catalogo non ha più alcun prodotto finto (`isPlaceholder`)**: 22 prodotti
   reali su tutte le categorie, tutti in attesa del link di affiliazione
   (`linkPending: true`).
+
+---
+
+## 2026-09-14 — Dermocosmesi + altri K-beauty e lusso virali
+
+- Aggiunti **13 nuovi prodotti reali** dopo ricerca su bestseller/virali 2026:
+  - **Dermocosmesi (farmacia)**: CeraVe (Moisturizing Cream, Foaming Cleanser),
+    Bioderma Sensibio H2O, La Roche-Posay (Cicaplast Baume B5, Anthelios
+    UVMune 400), Avène Cicalfate+
+  - **K-beauty aggiuntivi**: Anua Heartleaf 77% Toner, SKIN1004 Madagascar
+    Centella Ampoule, COSRX Advanced Snail 96 Mucin Essence, Round Lab 1025
+    Dokdo Toner, Torriden Dive-In Hyaluronic Serum
+  - **Lusso aggiuntivo**: Augustinus Bader The Cream, SkinCeuticals C E Ferulic
+- Catalogo ora a **35 prodotti reali**, tutti `linkPending: true` (in attesa
+  di link di affiliazione). Prezzi indicativi da fonti web, alcuni convertiti
+  da USD — da verificare sul rivenditore reale prima del lancio.
