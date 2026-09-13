@@ -83,3 +83,20 @@ Registro di ogni modifica fatta al repository. Ordine: dal più recente al più 
 - `src/lib/products.ts`: nuovo campo `linkPending` per distinguere "prodotto
   reale, link da collegare" da "prodotto finto, da sostituire" (`isPlaceholder`).
 - `src/components/ProductCard.tsx`: badge distinto per i due casi.
+
+---
+
+## 2026-09-14 — Shampoo, capelli, barba: prodotti reali
+
+- Sostituiti i 6 prodotti finti residui (shampoo/capelli/barba) con **11 prodotti
+  reali**, ricercati per notorietà/viralità:
+  - Shampoo da farmacia: Vichy Dercos (aminexil), Ducray Anaphase, Bioscalin
+    Nova Genina, ISDIN Psorisdin (antidesquamazione/psoriasi)
+  - Capelli, K-beauty + farmacia: Ryo (Hanbang), Elizavecca CER-100 (trattamento
+    virale sui social), Mise en Scène Perfect Serum, Bioscalin Attivatore Capillare
+  - Barba: King C. Gillette Beard Balm, Vichy Homme Sensi Baume, Collistar Dopobarba
+  - Prezzi indicativi (alcuni confermati via ricerca, es. Dercos ~18€ su
+    comparatori italiani; altri stimati) — da verificare prima del lancio.
+- **Il catalogo non ha più alcun prodotto finto (`isPlaceholder`)**: 22 prodotti
+  reali su tutte le categorie, tutti in attesa del link di affiliazione
+  (`linkPending: true`).
