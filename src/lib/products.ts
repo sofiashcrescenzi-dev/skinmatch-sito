@@ -1,7 +1,14 @@
-// Modello dati del catalogo prodotti + dati segnaposto.
-// I prodotti qui sotto sono SEGNAPOSTO (isPlaceholder: true) — servono solo a far
-// funzionare l'interfaccia del catalogo. Vanno sostituiti con prodotti reali
-// (marca, prezzo, link di affiliazione) prima della pubblicazione del sito.
+// Modello dati del catalogo prodotti.
+//
+// Due tipi di prodotto in questa fase:
+// - isPlaceholder: true  -> prodotto FITTIZIO, serve solo a testare l'interfaccia
+//                           per categorie non ancora coperte da marche vere.
+//                           Va rimosso appena c'è un prodotto reale al suo posto.
+// - linkPending: true    -> prodotto REALE (marca e nome veri), ma il link di
+//                           affiliazione non è ancora collegato (affiliateUrl è
+//                           un segnaposto '#'). Anche i prezzi sono indicativi,
+//                           trovati via ricerca web, da verificare sul rivenditore
+//                           reale prima della pubblicazione.
 
 export type Gender = 'donna' | 'uomo' | 'unisex';
 export type Category =
@@ -46,116 +53,183 @@ export type Product = {
   korean: boolean;
   price: number; // prezzo indicativo in EUR
   description: string;
-  affiliateUrl: string; // segnaposto finché non ci sono link reali
-  /** Vero finché il prodotto non viene sostituito con uno reale verificato. */
-  isPlaceholder: true;
+  affiliateUrl: string; // '#' finché non c'è un link di affiliazione reale
+  isPlaceholder?: boolean;
+  linkPending?: boolean;
 };
 
 export const PRODUCTS: Product[] = [
+  // ────────────────────────────────────────────────────────────
+  // K-BEAUTY
+  // ────────────────────────────────────────────────────────────
   {
-    id: 'p1',
-    name: 'Detergente delicato viso',
-    brand: 'Marca di esempio',
-    gender: 'unisex',
-    category: 'detergenti',
-    tier: 'base',
-    korean: false,
-    price: 9.9,
-    description: 'Detergente delicato per pelli sensibili, senza sapone, pH bilanciato.',
-    affiliateUrl: '#',
-    isPlaceholder: true,
-  },
-  {
-    id: 'p2',
-    name: 'Gel detergente purificante',
-    brand: 'Marca di esempio',
-    gender: 'unisex',
-    category: 'detergenti',
-    tier: 'top',
-    korean: false,
-    price: 18.5,
-    description: 'Gel detergente per pelli grasse e miste, con acido salicilico.',
-    affiliateUrl: '#',
-    isPlaceholder: true,
-  },
-  {
-    id: 'p3',
-    name: 'Crema idratante quotidiana',
-    brand: 'Marca di esempio',
-    gender: 'donna',
-    category: 'creme',
-    tier: 'base',
-    korean: false,
-    price: 12.9,
-    description: 'Crema leggera per idratazione quotidiana, adatta a pelle normale e secca.',
-    affiliateUrl: '#',
-    isPlaceholder: true,
-  },
-  {
-    id: 'p4',
-    name: 'Crema barriera riparatrice',
-    brand: 'Marca di esempio',
+    id: 'kb1',
+    name: 'Relief Sun: Rice + Probiotics SPF50+ PA++++',
+    brand: 'Beauty of Joseon',
     gender: 'unisex',
     category: 'creme',
-    tier: 'premium',
-    korean: false,
-    price: 48,
-    description: 'Crema ad alta concentrazione di ceramidi per rinforzare la barriera cutanea.',
+    tier: 'base',
+    korean: true,
+    price: 17,
+    description: 'Il solare coreano più virale al mondo: protezione SPF50+, finish naturale, non unge. Con estratto di riso e probiotici.',
     affiliateUrl: '#',
-    isPlaceholder: true,
+    linkPending: true,
   },
   {
-    id: 'p5',
-    name: 'Siero vitamina C',
-    brand: 'Marca di esempio',
-    gender: 'donna',
-    category: 'sieri',
-    tier: 'top',
-    korean: false,
-    price: 29,
-    description: 'Siero antiossidante illuminante con vitamina C stabilizzata.',
-    affiliateUrl: '#',
-    isPlaceholder: true,
-  },
-  {
-    id: 'p6',
-    name: 'Siero snail mucin',
-    brand: 'Marca coreana di esempio',
+    id: 'kb2',
+    name: 'Glow Serum: Propolis + Niacinamide',
+    brand: 'Beauty of Joseon',
     gender: 'unisex',
     category: 'sieri',
     tier: 'base',
     korean: true,
-    price: 14.5,
-    description: 'Siero idratante e lenitivo alla mucina di lumaca, classico K-beauty.',
+    price: 17,
+    description: 'Siero illuminante con propoli e niacinamide, texture leggera, per un incarnato luminoso e uniforme.',
     affiliateUrl: '#',
-    isPlaceholder: true,
+    linkPending: true,
   },
   {
-    id: 'p7',
-    name: 'Essenza fermentata',
-    brand: 'Marca coreana di esempio',
+    id: 'kb3',
+    name: 'Zero Pore Pad 2.0',
+    brand: 'Medicube',
     gender: 'unisex',
-    category: 'attivi',
-    tier: 'premium',
+    category: 'detergenti',
+    tier: 'top',
     korean: true,
-    price: 65,
-    description: 'Essenza fermentata per luminosità e uniformità dell’incarnato.',
+    price: 25,
+    description: 'Dischetti esfolianti imbevuti di acidi (AHA/BHA/PHA) per minimizzare i pori e opacizzare la pelle mista/grassa.',
     affiliateUrl: '#',
-    isPlaceholder: true,
+    linkPending: true,
   },
   {
-    id: 'p8',
-    name: 'Retinolo notte',
-    brand: 'Marca di esempio',
+    id: 'kb4',
+    name: 'Collagen Jelly Cream',
+    brand: 'Medicube',
     gender: 'donna',
-    category: 'attivi',
+    category: 'creme',
+    tier: 'top',
+    korean: true,
+    price: 35,
+    description: 'Crema-gelatina rimpolpante al collagene, texture gel-cream, per elasticità e idratazione profonda.',
+    affiliateUrl: '#',
+    linkPending: true,
+  },
+  {
+    id: 'kb5',
+    name: '345 Relief Cream',
+    brand: 'Dr. Althea',
+    gender: 'unisex',
+    category: 'creme',
+    tier: 'top',
+    korean: true,
+    price: 28,
+    description: 'Crema barriera lenitiva, formulata per pelli reattive e post-trattamento, con centella e ceramidi.',
+    affiliateUrl: '#',
+    linkPending: true,
+  },
+
+  // ────────────────────────────────────────────────────────────
+  // FASCIA PREMIUM (alta cosmesi)
+  // ────────────────────────────────────────────────────────────
+  {
+    id: 'pr1',
+    name: "Sisleÿa L'Intégral Anti-Âge",
+    brand: 'Sisley',
+    gender: 'donna',
+    category: 'creme',
+    tier: 'premium',
+    korean: false,
+    price: 425,
+    description: 'Il trattamento anti-età globale di punta di Sisley, formulato con estratti botanici, per rassodare e rigenerare in profondità.',
+    affiliateUrl: '#',
+    linkPending: true,
+  },
+  {
+    id: 'pr2',
+    name: 'Le Démaquillant Baume aux Trois Huiles',
+    brand: 'Sisley',
+    gender: 'unisex',
+    category: 'detergenti',
+    tier: 'premium',
+    korean: false,
+    price: 101,
+    description: 'Balsamo struccante ai tre oli (mandorla dolce, girasole, papavero), scioglie il trucco senza aggredire la pelle.',
+    affiliateUrl: '#',
+    linkPending: true,
+  },
+  {
+    id: 'pr3',
+    name: 'Crème de la Mer (30ml)',
+    brand: 'La Mer',
+    gender: 'unisex',
+    category: 'creme',
+    tier: 'premium',
+    korean: false,
+    price: 190,
+    description: 'La crema iconica al Miracle Broth™, per riparazione intensiva della barriera cutanea e idratazione profonda.',
+    affiliateUrl: '#',
+    linkPending: true,
+  },
+  {
+    id: 'pr4',
+    name: 'The Treatment Lotion',
+    brand: 'La Mer',
+    gender: 'unisex',
+    category: 'sieri',
+    tier: 'premium',
+    korean: false,
+    price: 145,
+    description: 'Lozione preparatrice fermentata, prepara la pelle ad assorbire meglio i trattamenti successivi.',
+    affiliateUrl: '#',
+    linkPending: true,
+  },
+
+  // ────────────────────────────────────────────────────────────
+  // FASCIA INTERMEDIA
+  // ────────────────────────────────────────────────────────────
+  {
+    id: 'md1',
+    name: 'Daily Microfoliant',
+    brand: 'Dermalogica',
+    gender: 'unisex',
+    category: 'detergenti',
     tier: 'top',
     korean: false,
-    price: 32,
-    description: 'Trattamento notturno al retinolo per texture e prevenzione rughe.',
+    price: 38,
+    description: 'Esfoliante enzimatico in polvere, si attiva a contatto con l’acqua: uso quotidiano per una grana della pelle più fine.',
     affiliateUrl: '#',
-    isPlaceholder: true,
+    linkPending: true,
   },
+  {
+    id: 'md2',
+    name: 'Special Cleansing Gel',
+    brand: 'Dermalogica',
+    gender: 'unisex',
+    category: 'detergenti',
+    tier: 'top',
+    korean: false,
+    price: 33,
+    description: 'Detergente gel-schiuma delicato adatto a tutti i tipi di pelle, deterge senza seccare.',
+    affiliateUrl: '#',
+    linkPending: true,
+  },
+  {
+    id: 'md3',
+    name: 'UltraCalming Serum Concentrate',
+    brand: 'Dermalogica',
+    gender: 'unisex',
+    category: 'sieri',
+    tier: 'top',
+    korean: false,
+    price: 60,
+    description: 'Siero lenitivo concentrato per pelli sensibili e reattive, riduce arrossamenti e irritazione.',
+    affiliateUrl: '#',
+    linkPending: true,
+  },
+
+  // ────────────────────────────────────────────────────────────
+  // SEGNAPOSTO — categorie non ancora coperte da marche reali
+  // ────────────────────────────────────────────────────────────
   {
     id: 'p9',
     name: 'Shampoo anticaduta',

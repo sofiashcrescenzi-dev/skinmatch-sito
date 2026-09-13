@@ -8,6 +8,11 @@ export default function ProductCard({ product }: { product: Product }) {
           Esempio — prodotto segnaposto
         </span>
       )}
+      {product.linkPending && (
+        <span className="self-start text-[10px] font-semibold tracking-wide uppercase bg-sky-100 text-sky-800 px-2 py-0.5 rounded">
+          Prodotto reale — link in arrivo
+        </span>
+      )}
       <div className="flex items-center gap-2 flex-wrap text-xs">
         <span className="uppercase tracking-wide font-medium" style={{ color: 'var(--accent)' }}>
           {CATEGORY_LABELS[product.category]}

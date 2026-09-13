@@ -62,3 +62,24 @@ Registro di ogni modifica fatta al repository. Ordine: dal più recente al più 
 - [ ] Costruire il catalogo prodotti (fasce di prezzo + sezione K-beauty).
 - [ ] Pagine legali: privacy/cookie policy + disclosure affiliazione (obbligatoria
       per legge sui link che generano commissione).
+
+---
+
+## 2026-09-14 — Primi prodotti reali nel catalogo
+
+- Rimossi gli 8 prodotti finti nelle categorie detergenti/creme/sieri/attivi,
+  sostituiti con **12 prodotti reali** dei brand richiesti:
+  - K-beauty: Beauty of Joseon (Relief Sun, Glow Serum), Medicube (Zero Pore
+    Pad 2.0, Collagen Jelly Cream), Dr. Althea (345 Relief Cream)
+  - Fascia Premium: Sisley (Sisleÿa L'Intégral, Balsamo ai Tre Oli), La Mer
+    (Crème de la Mer, The Treatment Lotion)
+  - Fascia intermedia: Dermalogica (Daily Microfoliant, Special Cleansing Gel,
+    UltraCalming Serum Concentrate)
+  - Prezzi indicativi trovati via ricerca web (alcuni confermati da rivenditori
+    italiani, altri stimati) — da verificare sul rivenditore reale prima del
+    lancio. Nessun link di affiliazione ancora attivo (`affiliateUrl: '#'`).
+  - Restano segnaposto **solo** shampoo/barba/capelli (nessun brand fornito
+    per queste categorie).
+- `src/lib/products.ts`: nuovo campo `linkPending` per distinguere "prodotto
+  reale, link da collegare" da "prodotto finto, da sostituire" (`isPlaceholder`).
+- `src/components/ProductCard.tsx`: badge distinto per i due casi.
