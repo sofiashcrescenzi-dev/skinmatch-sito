@@ -4,6 +4,25 @@ Registro di ogni modifica fatta al repository. Ordine: dal più recente al più 
 
 ---
 
+## 2026-09-18 — Fix pagina catalogo vuota nell'HTML statico
+
+- Trovato un bug reale sul sito pubblicato: `/catalogo` restituiva un HTML
+  statico quasi vuoto (~8 KB, nessun nome prodotto presente), perché il
+  filtro-da-URL usava `useSearchParams()` dentro un `<Suspense fallback={null}>`
+  — in export statico Next.js "cuoce" nell'HTML il fallback (`null`), non il
+  contenuto vero, quindi i prodotti comparivano solo dopo il caricamento del
+  JavaScript lato client. Non ideale per la SEO e poco affidabile.
+- `src/app/catalogo/page.tsx`: rimosso `useSearchParams()`/`Suspense`; i filtri
+  di default (nessun filtro attivo) sono ora quello che viene renderizzato
+  nell'HTML statico, mentre la lettura di `?categoria=` e `?kbeauty=1` dalla URL
+  (usata dai link diretti dalla home) avviene in un `useEffect` dopo il mount,
+  con `window.location.search`. Verificato via build: `out/catalogo.html` passa
+  da 8.399 byte a 48.277 byte e contiene i nomi prodotto reali (es. "Beauty of
+  Joseon", "Medicube").
+- Aggiornato anche il banner della pagina, rimasto obsoleto da quando i 35
+  prodotti reali hanno sostituito i placeholder: da "prodotti mostrati sono
+  segnaposto" a "prodotti reali — link di affiliazione in fase di attivazione".
+
 ## 2026-09-13 — Primo catalogo funzionante + homepage
 
 - Definita insieme la struttura del sito: catalogo come impalcatura principale

@@ -1,7 +1,6 @@
 'use client';
 
-import { Suspense, useMemo, useState } from 'react';
-import { useSearchParams } from 'next/navigation';
+import { useEffect, useMemo, useState } from 'react';
 import Link from 'next/link';
 import ProductCard from '@/components/ProductCard';
 import {
@@ -21,26 +20,21 @@ type TierFilter = Tier | 'tutti';
 const CATEGORY_KEYS = Object.keys(CATEGORY_LABELS) as Category[];
 
 export default function CatalogoPage() {
-  return (
-    <Suspense fallback={null}>
-      <CatalogoContent />
-    </Suspense>
-  );
-}
-
-function CatalogoContent() {
-  const searchParams = useSearchParams();
-  const initialCategory = searchParams.get('categoria');
-  const initialKorean = searchParams.get('kbeauty') === '1';
-
   const [gender, setGender] = useState<GenderFilter>('tutti');
-  const [category, setCategory] = useState<CategoryFilter>(
-    initialCategory && CATEGORY_KEYS.includes(initialCategory as Category)
-      ? (initialCategory as Category)
-      : 'tutti'
-  );
+  const [category, setCategory] = useState<CategoryFilter>('tutti');
   const [tier, setTier] = useState<TierFilter>('tutti');
-  const [koreanOnly, setKoreanOnly] = useState(initialKorean);
+  const [koreanOnly, setKoreanOnly] = useState(false);
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const initialCategory = params.get('categoria');
+    if (initialCategory && CATEGORY_KEYS.includes(initialCategory as Category)) {
+      setCategory(initialCategory as Category);
+    }
+    if (params.get('kbeauty') === '1') {
+      setKoreanOnly(true);
+    }
+  }, []);
 
   const results = useMemo(() => {
     return PRODUCTS.filter((p) => {
@@ -62,8 +56,8 @@ function CatalogoContent() {
             Trova il tuo SkinMatch →
           </Link>
         </p>
-        <p className="mt-4 text-xs bg-amber-50 border border-amber-200 text-amber-800 px-3 py-2 rounded inline-block">
-          Il catalogo è in costruzione: i prodotti mostrati sono segnaposto, non ancora reali.
+        <p className="mt-4 text-xs bg-sky-50 border border-sky-200 text-sky-800 px-3 py-2 rounded inline-block">
+          Prodotti reali — i link di affiliazione sono in fase di attivazione.
         </p>
       </div>
 
