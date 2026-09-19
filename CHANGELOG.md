@@ -4,6 +4,31 @@ Registro di ogni modifica fatta al repository. Ordine: dal più recente al più 
 
 ---
 
+## 2026-09-19 — Nuovo header a pill fissa (stesso stile di sofiacrescenzi.it)
+
+- Sostituito l'header statico a barra intera (che su mobile andava in
+  sovrapposizione/a capo su 3 righe con logo, Catalogo, K-beauty e il
+  pulsante CTA) con lo stesso pattern usato su sofiacrescenzi.it: una
+  "pill" flottante fissa in alto (`position: fixed`, sfondo sfumato con
+  blur, bordi arrotondati), con i link centrali visibili solo da desktop
+  e un menu hamburger che apre un dropdown a schermo intero su mobile.
+- `src/components/Header.tsx`: riscritto da zero su questo modello — logo
+  "SkinMatch", link Catalogo/K-beauty, CTA "Trova il tuo SkinMatch" sempre
+  visibile su desktop (nascosto nel dropdown su mobile), hamburger che
+  anima in una X quando il menu è aperto. Aggiunto uno spacer nel flusso
+  normale del documento (subito sotto la nav fissa) per evitare che il
+  contenuto delle pagine finisca sotto la pill.
+- `src/app/globals.css`: nuove classi `.sm-nav-links`, `.sm-nav-link`,
+  `.sm-nav-cta-pill`, `.sm-nav-burger` con la stessa media query
+  (`max-width: 640px`) usata sul sito medico per nascondere i link
+  desktop e mostrare l'hamburger.
+- Ridotto leggermente il padding-top di homepage, catalogo e pagina test
+  (che prima presupponevano un header non fisso) per compensare lo
+  spacer e mantenere le proporzioni corrette.
+- Verificato via build + screenshot Playwright: desktop (pill centrata
+  con link e CTA), mobile chiuso (solo logo + hamburger, una riga) e
+  mobile con menu aperto (dropdown con Catalogo, K-beauty, CTA).
+
 ## 2026-09-19 — Immagini reali in homepage
 
 - Recuperate dal Mac le immagini in `Desktop/SITO INTERNET/IMMAGINI SITO` (usate

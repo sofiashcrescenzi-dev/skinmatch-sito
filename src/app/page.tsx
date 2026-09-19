@@ -15,7 +15,7 @@ export default function Home() {
   return (
     <main>
       {/* Hero */}
-      <section className="max-w-6xl mx-auto px-6 pt-16 pb-20">
+      <section className="max-w-6xl mx-auto px-6 pt-4 pb-20">
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <div className="text-center md:text-left">
             <p className="text-xs font-semibold uppercase tracking-widest mb-4" style={{ color: 'var(--accent)' }}>

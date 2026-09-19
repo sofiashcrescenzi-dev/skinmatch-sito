@@ -47,7 +47,7 @@ export default function CatalogoPage() {
   }, [gender, category, tier, koreanOnly]);
 
   return (
-    <main className="max-w-6xl mx-auto px-6 py-16">
+    <main className="max-w-6xl mx-auto px-6 pt-4 pb-16">
       <div className="mb-10">
         <h1 className="text-3xl font-semibold mb-2">Catalogo</h1>
         <p className="opacity-70 max-w-xl">
