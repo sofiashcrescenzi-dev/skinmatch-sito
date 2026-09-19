@@ -4,6 +4,31 @@ Registro di ogni modifica fatta al repository. Ordine: dal più recente al più 
 
 ---
 
+## 2026-09-19 — Immagini reali in homepage
+
+- Recuperate dal Mac le immagini in `Desktop/SITO INTERNET/IMMAGINI SITO` (usate
+  anche per sofiacrescenzi.it). Selezionate SOLO le foto a tema skincare/capelli
+  generiche (pelle, creme, sieri, maschere in tessuto, gruppi di persone),
+  escludendo esplicitamente tutte quelle di trattamenti medici/estetici (botox,
+  filler, siringhe, PRP, radiofrequenza, ecc.) — SkinMatch non deve avere alcun
+  collegamento visivo o di contenuto con l'ambito medico-estetico.
+  Ogni immagine candidata è stata aperta e controllata a mano per escludere
+  scritte, loghi o riferimenti al nome "Sofia Crescenzi": nessuna delle otto
+  immagini scelte ne conteneva.
+- Immagini ridimensionate e compresse (da 0,6–3,5 MB a 70–380 KB l'una) e
+  copiate in `public/images/`: `hero-viso.jpg`, `cat-detergenti.jpg`,
+  `cat-creme.jpg`, `cat-sieri.jpg`, `cat-shampoo.jpg`, `cat-barba.jpg`,
+  `cat-capelli.jpg`, `kbeauty-mask.jpg`.
+- `src/app/page.tsx`: aggiunta immagine hero accanto al testo introduttivo,
+  ogni card categoria ora mostra una foto con overlay ed etichetta invece del
+  solo testo, sezione K-beauty affiancata da un'immagine di maschera in
+  tessuto coreana. Verificato via build + screenshot Playwright (desktop e
+  mobile 390×844).
+- Notato (non ancora corretto, fuori dallo scope di questa modifica): su
+  mobile l'header (`src/components/Header.tsx`) è affollato — "SkinMatch",
+  "Catalogo", "K-beauty" e il pulsante CTA si sovrappongono/vanno a capo su
+  3 righe. Da sistemare in un prossimo intervento.
+
 ## 2026-09-18 — Fix pagina catalogo vuota nell'HTML statico
 
 - Trovato un bug reale sul sito pubblicato: `/catalogo` restituiva un HTML
