@@ -4,6 +4,46 @@ Registro di ogni modifica fatta al repository. Ordine: dal più recente al più 
 
 ---
 
+## 2026-09-21 — Test "Trova il tuo SkinMatch" (quiz reale) + catalogo integratori
+
+- **`src/lib/products.ts`**: aggiunto il tagging necessario al test — `skinTypes`
+  (secca/grassa/mista/normale/sensibile), `concerns` (idratazione, anti-age,
+  acne-sebo, macchie-luminosità, rossori-sensibilità, barriera-cutanea,
+  pori-dilatati, protezione-solare), `hairConcerns` (caduta, forfora,
+  secchi-crespi, mantenimento), `beardConcerns` (irritazione, mantenimento),
+  `pregnancySafe` e `sensitiveSafe` su tutti i 35 prodotti esistenti, assegnati
+  in base alle formulazioni reali/posizionamento pubblico di ciascun prodotto
+  (prudenziale: `pregnancySafe: false` per attivi ad alta concentrazione o
+  anti-age con complessi brevettati, in assenza di certezza).
+- Nuova categoria **`integratori`**, con 4 prodotti reali (ricercati via web,
+  prezzi indicativi verificati su più farmacie online): Bioscalin TricoAge 50+
+  (anticaduta, donna), Imedeen Time Perfection (anti-age pelle, donna),
+  Vitabiotics Perfectil Original (pelle/capelli/unghie, unisex), Gold Collagen
+  Forte Plus (collagene da bere, unisex). Catalogo totale: 39 prodotti.
+- **`src/lib/quiz.ts`** (nuovo): motore di raccomandazione. Applica filtri
+  prudenziali rigidi (genere, `pregnancySafe` se gravidanza/allattamento,
+  `sensitiveSafe` se pelle sensibile) e poi assegna un punteggio ai prodotti
+  compatibili in base a corrispondenza tipo di pelle/obiettivo/fascia di
+  prezzo preferita, per proporre: routine skincare (detergente + siero +
+  crema, + protezione solare se esposizione al sole medio/alta), 1-2 prodotti
+  capelli, un prodotto barba (solo ramo uomo), un integratore.
+- **`src/app/test/page.tsx`**: riscritta da zero (prima era un placeholder).
+  Quiz a step con percorso **differenziato uomo/donna** (12 domande totali,
+  di cui "gravidanza/allattamento" solo per il ramo donna e "barba" solo per
+  il ramo uomo): genere, gravidanza, tipo di pelle, pelle sensibile, obiettivo
+  principale, condizioni diagnosticate (dermatite/rosacea/psoriasi),
+  esposizione solare, stile di vita, ambiente di vita, capelli, barba, fascia
+  di prezzo preferita. Selezione singola → avanzamento automatico; selezione
+  multipla → pulsante "Continua". Pagina risultati con routine completa,
+  sezione capelli, sezione barba (solo se pertinente), integratore consigliato
+  e avviso a consultare un dermatologo se sono state indicate condizioni
+  diagnosticate. Nessuna diagnosi medica: solo un punto di partenza.
+- Verificato via build + Playwright: percorso donna completo (11 domande,
+  routine coerente con pelle secca/sensibile), percorso uomo completo (11
+  domande inclusa barba, routine coerente con pelle grassa/fascia base),
+  step multi-select su mobile, comparsa del disclaimer con una condizione
+  diagnosticata selezionata. Nessun errore in console.
+
 ## 2026-09-21 — Ripresa migrazione dominio skinmatch.it
 
 - Controllato lo stato del dominio: `skinmatch.it` è ancora sui nameserver

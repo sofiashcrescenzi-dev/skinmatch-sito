@@ -9,6 +9,14 @@
 //                           un segnaposto '#'). Anche i prezzi sono indicativi,
 //                           trovati via ricerca web, da verificare sul rivenditore
 //                           reale prima della pubblicazione.
+//
+// Tag per il test skin-match (skinTypes, concerns, hairConcerns, beardConcerns,
+// pregnancySafe, sensitiveSafe): assegnati sulla base delle formulazioni reali e
+// del posizionamento pubblico di ciascun prodotto. Non sostituiscono un consiglio
+// medico/dermatologico — servono solo a orientare il consiglio d'acquisto.
+// pregnancySafe: false è usato in modo prudenziale per referenti/attivi ad alta
+// concentrazione (es. anti-age con retinoidi/complessi brevettati, esfolianti
+// leave-on con acidi) — in assenza di certezza, meglio escludere che rischiare.
 
 export type Gender = 'donna' | 'uomo' | 'unisex';
 export type Category =
@@ -18,8 +26,22 @@ export type Category =
   | 'attivi'
   | 'shampoo'
   | 'barba'
-  | 'capelli';
+  | 'capelli'
+  | 'integratori';
 export type Tier = 'base' | 'top' | 'premium';
+
+export type SkinType = 'secca' | 'grassa' | 'mista' | 'normale' | 'sensibile';
+export type Concern =
+  | 'idratazione'
+  | 'anti-age'
+  | 'acne-sebo'
+  | 'macchie-luminosita'
+  | 'rossori-sensibilita'
+  | 'barriera-cutanea'
+  | 'pori-dilatati'
+  | 'protezione-solare';
+export type HairConcern = 'caduta' | 'forfora' | 'secchi-crespi' | 'mantenimento';
+export type BeardConcern = 'irritazione' | 'mantenimento';
 
 export const GENDER_LABELS: Record<Gender, string> = {
   donna: 'Donna',
@@ -35,6 +57,7 @@ export const CATEGORY_LABELS: Record<Category, string> = {
   shampoo: 'Shampoo',
   barba: 'Prodotti Barba',
   capelli: 'Prodotti Capelli',
+  integratori: 'Integratori',
 };
 
 export const TIER_LABELS: Record<Tier, string> = {
@@ -56,6 +79,14 @@ export type Product = {
   affiliateUrl: string; // '#' finché non c'è un link di affiliazione reale
   isPlaceholder?: boolean;
   linkPending?: boolean;
+  // Tag per il test skin-match — opzionali (i prodotti barba/capelli/shampoo
+  // usano hairConcerns/beardConcerns invece di skinTypes/concerns).
+  skinTypes?: SkinType[];
+  concerns?: Concern[];
+  hairConcerns?: HairConcern[];
+  beardConcerns?: BeardConcern[];
+  pregnancySafe?: boolean;
+  sensitiveSafe?: boolean;
 };
 
 export const PRODUCTS: Product[] = [
@@ -74,6 +105,10 @@ export const PRODUCTS: Product[] = [
     description: 'Il solare coreano più virale al mondo: protezione SPF50+, finish naturale, non unge. Con estratto di riso e probiotici.',
     affiliateUrl: '#',
     linkPending: true,
+    skinTypes: ['secca', 'grassa', 'mista', 'normale'],
+    concerns: ['protezione-solare'],
+    pregnancySafe: true,
+    sensitiveSafe: true,
   },
   {
     id: 'kb2',
@@ -87,6 +122,10 @@ export const PRODUCTS: Product[] = [
     description: 'Siero illuminante con propoli e niacinamide, texture leggera, per un incarnato luminoso e uniforme.',
     affiliateUrl: '#',
     linkPending: true,
+    skinTypes: ['mista', 'normale', 'grassa'],
+    concerns: ['macchie-luminosita', 'pori-dilatati'],
+    pregnancySafe: true,
+    sensitiveSafe: true,
   },
   {
     id: 'kb3',
@@ -100,6 +139,10 @@ export const PRODUCTS: Product[] = [
     description: 'Dischetti esfolianti imbevuti di acidi (AHA/BHA/PHA) per minimizzare i pori e opacizzare la pelle mista/grassa.',
     affiliateUrl: '#',
     linkPending: true,
+    skinTypes: ['grassa', 'mista'],
+    concerns: ['pori-dilatati', 'acne-sebo'],
+    pregnancySafe: false,
+    sensitiveSafe: false,
   },
   {
     id: 'kb4',
@@ -113,6 +156,10 @@ export const PRODUCTS: Product[] = [
     description: 'Crema-gelatina rimpolpante al collagene, texture gel-cream, per elasticità e idratazione profonda.',
     affiliateUrl: '#',
     linkPending: true,
+    skinTypes: ['secca', 'normale', 'mista'],
+    concerns: ['anti-age', 'idratazione'],
+    pregnancySafe: true,
+    sensitiveSafe: true,
   },
   {
     id: 'kb5',
@@ -126,6 +173,10 @@ export const PRODUCTS: Product[] = [
     description: 'Crema barriera lenitiva, formulata per pelli reattive e post-trattamento, con centella e ceramidi.',
     affiliateUrl: '#',
     linkPending: true,
+    skinTypes: ['sensibile', 'secca', 'normale'],
+    concerns: ['rossori-sensibilita', 'barriera-cutanea'],
+    pregnancySafe: true,
+    sensitiveSafe: true,
   },
   {
     id: 'kb6',
@@ -139,6 +190,10 @@ export const PRODUCTS: Product[] = [
     description: 'Tonico lenitivo al 77% di houttuynia cordata (heartleaf): virale su TikTok per calmare rossori e sensibilità in pochi giorni.',
     affiliateUrl: '#',
     linkPending: true,
+    skinTypes: ['sensibile', 'grassa', 'mista'],
+    concerns: ['rossori-sensibilita', 'acne-sebo'],
+    pregnancySafe: true,
+    sensitiveSafe: true,
   },
   {
     id: 'kb7',
@@ -152,6 +207,10 @@ export const PRODUCTS: Product[] = [
     description: 'Ampolla lenitiva al 100% di estratto di centella asiatica del Madagascar, virale per l’effetto "calm & glow".',
     affiliateUrl: '#',
     linkPending: true,
+    skinTypes: ['sensibile', 'secca', 'normale'],
+    concerns: ['rossori-sensibilita', 'barriera-cutanea'],
+    pregnancySafe: true,
+    sensitiveSafe: true,
   },
   {
     id: 'kb8',
@@ -165,6 +224,10 @@ export const PRODUCTS: Product[] = [
     description: 'L’essenza alla mucina di lumaca più ricomprata del K-beauty: idrata, ripara e leviga la texture della pelle.',
     affiliateUrl: '#',
     linkPending: true,
+    skinTypes: ['secca', 'normale', 'mista'],
+    concerns: ['idratazione', 'barriera-cutanea'],
+    pregnancySafe: true,
+    sensitiveSafe: true,
   },
   {
     id: 'kb9',
@@ -178,6 +241,10 @@ export const PRODUCTS: Product[] = [
     description: 'Tonico con acqua minerale di profondità marina, adatto a tutti i tipi di pelle, molto amato per la semplicità della formula.',
     affiliateUrl: '#',
     linkPending: true,
+    skinTypes: ['secca', 'grassa', 'mista', 'normale'],
+    concerns: ['idratazione'],
+    pregnancySafe: true,
+    sensitiveSafe: true,
   },
   {
     id: 'kb10',
@@ -191,6 +258,10 @@ export const PRODUCTS: Product[] = [
     description: 'Siero con 5 pesi molecolari di acido ialuronico per un’idratazione multi-livello: tra i prodotti più venduti su Olive Young.',
     affiliateUrl: '#',
     linkPending: true,
+    skinTypes: ['secca', 'normale', 'mista'],
+    concerns: ['idratazione'],
+    pregnancySafe: true,
+    sensitiveSafe: true,
   },
 
   // ────────────────────────────────────────────────────────────
@@ -208,6 +279,10 @@ export const PRODUCTS: Product[] = [
     description: 'La crema idratante da farmacia diventata virale su TikTok: 3 ceramidi essenziali e acido ialuronico, per pelle secca e normale.',
     affiliateUrl: '#',
     linkPending: true,
+    skinTypes: ['secca', 'normale'],
+    concerns: ['idratazione', 'barriera-cutanea'],
+    pregnancySafe: true,
+    sensitiveSafe: true,
   },
   {
     id: 'dc2',
@@ -221,6 +296,10 @@ export const PRODUCTS: Product[] = [
     description: 'Detergente schiuma con ceramidi e niacinamide per pelle grassa e mista, non altera la barriera cutanea.',
     affiliateUrl: '#',
     linkPending: true,
+    skinTypes: ['grassa', 'mista'],
+    concerns: ['acne-sebo', 'barriera-cutanea'],
+    pregnancySafe: true,
+    sensitiveSafe: true,
   },
   {
     id: 'dc3',
@@ -234,6 +313,10 @@ export const PRODUCTS: Product[] = [
     description: 'L’acqua micellare più iconica della dermocosmesi: struccante e detergente per pelli sensibili, senza risciacquo.',
     affiliateUrl: '#',
     linkPending: true,
+    skinTypes: ['sensibile', 'secca', 'normale', 'grassa', 'mista'],
+    concerns: ['rossori-sensibilita'],
+    pregnancySafe: true,
+    sensitiveSafe: true,
   },
   {
     id: 'dc4',
@@ -247,6 +330,10 @@ export const PRODUCTS: Product[] = [
     description: 'Balsamo lenitivo e riparatore multiuso, per pelle irritata, screpolata o post-trattamento estetico.',
     affiliateUrl: '#',
     linkPending: true,
+    skinTypes: ['sensibile', 'secca'],
+    concerns: ['barriera-cutanea', 'rossori-sensibilita'],
+    pregnancySafe: true,
+    sensitiveSafe: true,
   },
   {
     id: 'dc5',
@@ -260,6 +347,10 @@ export const PRODUCTS: Product[] = [
     description: 'Protezione solare avanzata ad ampio spettro, tra i solari da farmacia più consigliati dai dermatologi.',
     affiliateUrl: '#',
     linkPending: true,
+    skinTypes: ['secca', 'grassa', 'mista', 'normale', 'sensibile'],
+    concerns: ['protezione-solare'],
+    pregnancySafe: true,
+    sensitiveSafe: true,
   },
   {
     id: 'dc6',
@@ -273,6 +364,10 @@ export const PRODUCTS: Product[] = [
     description: 'Crema riparatrice antibatterica per pelle lesa o post-procedura, con Acqua Termale di Avène.',
     affiliateUrl: '#',
     linkPending: true,
+    skinTypes: ['sensibile', 'secca'],
+    concerns: ['barriera-cutanea', 'rossori-sensibilita'],
+    pregnancySafe: true,
+    sensitiveSafe: true,
   },
 
   // ────────────────────────────────────────────────────────────
@@ -290,6 +385,10 @@ export const PRODUCTS: Product[] = [
     description: 'Il trattamento anti-età globale di punta di Sisley, formulato con estratti botanici, per rassodare e rigenerare in profondità.',
     affiliateUrl: '#',
     linkPending: true,
+    skinTypes: ['normale', 'secca', 'mista'],
+    concerns: ['anti-age'],
+    pregnancySafe: false,
+    sensitiveSafe: true,
   },
   {
     id: 'pr2',
@@ -303,6 +402,10 @@ export const PRODUCTS: Product[] = [
     description: 'Balsamo struccante ai tre oli (mandorla dolce, girasole, papavero), scioglie il trucco senza aggredire la pelle.',
     affiliateUrl: '#',
     linkPending: true,
+    skinTypes: ['secca', 'normale', 'sensibile'],
+    concerns: ['idratazione'],
+    pregnancySafe: true,
+    sensitiveSafe: true,
   },
   {
     id: 'pr3',
@@ -316,6 +419,10 @@ export const PRODUCTS: Product[] = [
     description: 'La crema iconica al Miracle Broth™, per riparazione intensiva della barriera cutanea e idratazione profonda.',
     affiliateUrl: '#',
     linkPending: true,
+    skinTypes: ['secca', 'normale'],
+    concerns: ['idratazione', 'barriera-cutanea'],
+    pregnancySafe: true,
+    sensitiveSafe: true,
   },
   {
     id: 'pr4',
@@ -329,6 +436,10 @@ export const PRODUCTS: Product[] = [
     description: 'Lozione preparatrice fermentata, prepara la pelle ad assorbire meglio i trattamenti successivi.',
     affiliateUrl: '#',
     linkPending: true,
+    skinTypes: ['secca', 'normale', 'mista'],
+    concerns: ['idratazione'],
+    pregnancySafe: true,
+    sensitiveSafe: true,
   },
   {
     id: 'pr5',
@@ -342,6 +453,10 @@ export const PRODUCTS: Product[] = [
     description: 'Crema con tecnologia brevettata TFC8®, tra le più virali del lusso skincare: bestseller assoluto del brand.',
     affiliateUrl: '#',
     linkPending: true,
+    skinTypes: ['secca', 'normale', 'mista'],
+    concerns: ['anti-age', 'idratazione'],
+    pregnancySafe: false,
+    sensitiveSafe: true,
   },
   {
     id: 'pr6',
@@ -355,6 +470,10 @@ export const PRODUCTS: Product[] = [
     description: 'Il siero antiossidante alla vitamina C più noto della dermocosmesi prestige: protegge da stress ossidativo e fotoinvecchiamento.',
     affiliateUrl: '#',
     linkPending: true,
+    skinTypes: ['normale', 'mista', 'grassa'],
+    concerns: ['anti-age', 'macchie-luminosita'],
+    pregnancySafe: true,
+    sensitiveSafe: false,
   },
 
   // ────────────────────────────────────────────────────────────
@@ -372,6 +491,10 @@ export const PRODUCTS: Product[] = [
     description: 'Esfoliante enzimatico in polvere, si attiva a contatto con l’acqua: uso quotidiano per una grana della pelle più fine.',
     affiliateUrl: '#',
     linkPending: true,
+    skinTypes: ['normale', 'mista', 'grassa'],
+    concerns: ['pori-dilatati', 'macchie-luminosita'],
+    pregnancySafe: true,
+    sensitiveSafe: true,
   },
   {
     id: 'md2',
@@ -385,6 +508,10 @@ export const PRODUCTS: Product[] = [
     description: 'Detergente gel-schiuma delicato adatto a tutti i tipi di pelle, deterge senza seccare.',
     affiliateUrl: '#',
     linkPending: true,
+    skinTypes: ['secca', 'grassa', 'mista', 'normale'],
+    concerns: ['idratazione'],
+    pregnancySafe: true,
+    sensitiveSafe: true,
   },
   {
     id: 'md3',
@@ -398,6 +525,10 @@ export const PRODUCTS: Product[] = [
     description: 'Siero lenitivo concentrato per pelli sensibili e reattive, riduce arrossamenti e irritazione.',
     affiliateUrl: '#',
     linkPending: true,
+    skinTypes: ['sensibile', 'secca', 'normale'],
+    concerns: ['rossori-sensibilita', 'barriera-cutanea'],
+    pregnancySafe: true,
+    sensitiveSafe: true,
   },
 
   // ────────────────────────────────────────────────────────────
@@ -415,6 +546,7 @@ export const PRODUCTS: Product[] = [
     description: 'Shampoo energizzante da farmacia, con aminexil, per capelli deboli e soggetti a caduta.',
     affiliateUrl: '#',
     linkPending: true,
+    hairConcerns: ['caduta'],
   },
   {
     id: 'sh2',
@@ -428,6 +560,7 @@ export const PRODUCTS: Product[] = [
     description: 'Shampoo-crema che rinforza la fibra capillare, in complemento a trattamenti anticaduta.',
     affiliateUrl: '#',
     linkPending: true,
+    hairConcerns: ['caduta'],
   },
   {
     id: 'sh3',
@@ -441,6 +574,7 @@ export const PRODUCTS: Product[] = [
     description: 'Shampoo energizzante quotidiano, uno dei prodotti da farmacia più discussi su TikTok per la cura dei capelli deboli.',
     affiliateUrl: '#',
     linkPending: true,
+    hairConcerns: ['caduta', 'mantenimento'],
   },
   {
     id: 'sh4',
@@ -454,6 +588,7 @@ export const PRODUCTS: Product[] = [
     description: 'Shampoo con acido salicilico e Ichtyol pale per cuoio capelluto desquamante, arrossato o pruriginoso.',
     affiliateUrl: '#',
     linkPending: true,
+    hairConcerns: ['forfora'],
   },
 
   // ────────────────────────────────────────────────────────────
@@ -471,6 +606,7 @@ export const PRODUCTS: Product[] = [
     description: 'Shampoo nutriente Hanbang (erboristeria tradizionale coreana), per capelli danneggiati e sfibrati.',
     affiliateUrl: '#',
     linkPending: true,
+    hairConcerns: ['secchi-crespi'],
   },
   {
     id: 'ca2',
@@ -484,6 +620,7 @@ export const PRODUCTS: Product[] = [
     description: 'Trattamento proteico "effetto salone" virale sui social: rende i capelli visibilmente più lisci e forti dopo un solo utilizzo.',
     affiliateUrl: '#',
     linkPending: true,
+    hairConcerns: ['secchi-crespi'],
   },
   {
     id: 'ca3',
@@ -497,6 +634,7 @@ export const PRODUCTS: Product[] = [
     description: 'Siero lucidante e districante, uno dei sieri per capelli coreani più venduti.',
     affiliateUrl: '#',
     linkPending: true,
+    hairConcerns: ['secchi-crespi', 'mantenimento'],
   },
   {
     id: 'ca4',
@@ -510,6 +648,7 @@ export const PRODUCTS: Product[] = [
     description: 'Trattamento settimanale in fiale contro la caduta, da applicare senza risciacquo.',
     affiliateUrl: '#',
     linkPending: true,
+    hairConcerns: ['caduta'],
   },
 
   // ────────────────────────────────────────────────────────────
@@ -527,6 +666,7 @@ export const PRODUCTS: Product[] = [
     description: 'Balsamo per barba al burro di cacao, ammorbidisce e dona definizione senza appesantire.',
     affiliateUrl: '#',
     linkPending: true,
+    beardConcerns: ['mantenimento'],
   },
   {
     id: 'ba2',
@@ -540,6 +680,7 @@ export const PRODUCTS: Product[] = [
     description: 'Dopobarba lenitivo da farmacia per pelli sensibili, riduce bruciore e rossore post-rasatura.',
     affiliateUrl: '#',
     linkPending: true,
+    beardConcerns: ['irritazione'],
   },
   {
     id: 'ba3',
@@ -553,6 +694,68 @@ export const PRODUCTS: Product[] = [
     description: 'Dopobarba riparatore con aloe vera, acido ialuronico e camomilla, azione lenitiva intensiva.',
     affiliateUrl: '#',
     linkPending: true,
+    beardConcerns: ['irritazione'],
+  },
+
+  // ────────────────────────────────────────────────────────────
+  // INTEGRATORI — brand da farmacia più noti/virali
+  // ────────────────────────────────────────────────────────────
+  {
+    id: 'in1',
+    name: 'TricoAge 50+ Integratore Anticaduta',
+    brand: 'Bioscalin',
+    gender: 'donna',
+    category: 'integratori',
+    tier: 'top',
+    korean: false,
+    price: 27,
+    description: 'Integratore in compresse per capelli assottigliati e indeboliti da stress, sbalzi ormonali o menopausa. Con BioEquolo, zinco e rame.',
+    affiliateUrl: '#',
+    linkPending: true,
+    hairConcerns: ['caduta'],
+  },
+  {
+    id: 'in2',
+    name: 'Time Perfection',
+    brand: 'Imedeen',
+    gender: 'donna',
+    category: 'integratori',
+    tier: 'premium',
+    korean: false,
+    price: 45,
+    description: 'Complemento alimentare anti-age (dai 35-40 anni) con Marine Complex e LycoPhence GS Forte, per idratazione, elasticità e riduzione delle rughe.',
+    affiliateUrl: '#',
+    linkPending: true,
+    concerns: ['anti-age'],
+  },
+  {
+    id: 'in3',
+    name: 'Perfectil Original',
+    brand: 'Vitabiotics',
+    gender: 'unisex',
+    category: 'integratori',
+    tier: 'top',
+    korean: false,
+    price: 20,
+    description: "L'integratore per pelle, capelli e unghie più noto in farmacia: L-cisteina, zinco e iodio a supporto della struttura di pelle e capelli.",
+    affiliateUrl: '#',
+    linkPending: true,
+    hairConcerns: ['mantenimento'],
+    concerns: ['barriera-cutanea'],
+  },
+  {
+    id: 'in4',
+    name: 'Gold Collagen Forte Plus',
+    brand: 'Gold Collagen',
+    gender: 'unisex',
+    category: 'integratori',
+    tier: 'premium',
+    korean: false,
+    price: 55,
+    description: 'Collagene da bere in flaconcini, con 23 ingredienti attivi per pelle, unghie e capelli: uno degli integratori di collagene più noti in farmacia.',
+    affiliateUrl: '#',
+    linkPending: true,
+    concerns: ['anti-age'],
   },
 ];
 
