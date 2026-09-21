@@ -10,6 +10,7 @@ type AnswersState = {
   gender?: 'donna' | 'uomo';
   pregnant?: 'si' | 'no';
   skinType?: string;
+  oilySubtype?: string;
   sensitiveSkinAnswer?: 'si' | 'no';
   goal?: string;
   conditions: string[];
@@ -17,6 +18,7 @@ type AnswersState = {
   lifestyle: string[];
   environment?: string;
   hairConcern?: string;
+  dandruffSubtype?: string;
   beardConcern?: string;
   pricePref?: string;
 };
@@ -65,6 +67,17 @@ const STEPS: StepConfig[] = [
       { value: 'mista', label: 'Mista' },
       { value: 'normale', label: 'Normale' },
     ],
+  },
+  {
+    key: 'oilySubtype',
+    question: 'Quale descrizione si avvicina di più alla tua pelle?',
+    type: 'single',
+    options: [
+      { value: 'idratata', label: 'Grassa/lucida, ma senza particolari imperfezioni' },
+      { value: 'acneica', label: 'Punti neri, brufoli o comedoni frequenti' },
+      { value: 'seborroica-secca', label: 'Grassa a chiazze ma con desquamazione o prurito (naso, sopracciglia)' },
+    ],
+    visible: (a) => a.skinType === 'grassa' || a.skinType === 'mista',
   },
   {
     key: 'sensitiveSkinAnswer',
@@ -145,6 +158,16 @@ const STEPS: StepConfig[] = [
       { value: 'secchi-crespi', label: 'Capelli secchi o crespi' },
       { value: 'mantenimento', label: 'Nessuna in particolare' },
     ],
+  },
+  {
+    key: 'dandruffSubtype',
+    question: 'Come si presenta la forfora?',
+    type: 'single',
+    options: [
+      { value: 'grassa', label: 'A scaglie giallastre e untuose, cuoio capelluto che si unge in fretta' },
+      { value: 'secca', label: 'A scagliette bianche e sottili, con prurito e cute secca' },
+    ],
+    visible: (a) => a.hairConcern === 'forfora',
   },
   {
     key: 'beardConcern',
@@ -245,12 +268,14 @@ export default function TestPage() {
       pregnant: answers.pregnant === 'si',
       skinType: (answers.skinType as QuizAnswers['skinType']) ?? 'normale',
       sensitiveSkin: answers.sensitiveSkinAnswer === 'si',
+      oilySubtype: (answers.oilySubtype as QuizAnswers['oilySubtype']) ?? null,
       goal: (answers.goal as QuizAnswers['goal']) ?? 'idratazione',
       conditions: answers.conditions,
       sunExposure: (answers.sunExposure as QuizAnswers['sunExposure']) ?? 'media',
       lifestyle: answers.lifestyle,
       environment: answers.environment ?? 'non-so',
       hairConcern: (answers.hairConcern as QuizAnswers['hairConcern']) ?? 'mantenimento',
+      dandruffSubtype: (answers.dandruffSubtype as QuizAnswers['dandruffSubtype']) ?? null,
       beardConcern: (answers.beardConcern as QuizAnswers['beardConcern']) ?? null,
       pricePref: (answers.pricePref as QuizAnswers['pricePref']) ?? 'nessuna',
     };
@@ -264,8 +289,9 @@ export default function TestPage() {
           </p>
           <h1 className="text-3xl font-semibold mb-3">La tua skincare su misura</h1>
           <p className="opacity-70 max-w-xl mx-auto">
-            In base alle tue risposte, ecco una proposta di partenza. Non è una diagnosi medica: se hai dubbi o
-            condizioni della pelle diagnosticate, parlane con un dermatologo.
+            In base alle tue risposte, ecco il biotipo che più ti somiglia e una proposta di prodotti di partenza.
+            Non è una diagnosi medica: se hai dubbi o condizioni della pelle diagnosticate, parlane con un
+            dermatologo.
           </p>
         </div>
 
@@ -275,6 +301,23 @@ export default function TestPage() {
             consigliamo comunque di parlarne con un dermatologo prima di introdurre nuovi prodotti in routine.
           </div>
         )}
+
+        <section className="mb-12 grid grid-cols-1 sm:grid-cols-2 gap-6">
+          <div className="border rounded-xl p-6" style={{ borderColor: 'var(--border)', background: '#fff' }}>
+            <p className="text-xs font-semibold uppercase tracking-wide mb-2" style={{ color: 'var(--accent)' }}>
+              Il tuo biotipo cutaneo
+            </p>
+            <h2 className="text-lg font-semibold mb-2">{result.skinBiotype.title}</h2>
+            <p className="text-sm opacity-70 leading-relaxed">{result.skinBiotype.description}</p>
+          </div>
+          <div className="border rounded-xl p-6" style={{ borderColor: 'var(--border)', background: '#fff' }}>
+            <p className="text-xs font-semibold uppercase tracking-wide mb-2" style={{ color: 'var(--accent)' }}>
+              Il tuo cuoio capelluto
+            </p>
+            <h2 className="text-lg font-semibold mb-2">{result.scalpBiotype.title}</h2>
+            <p className="text-sm opacity-70 leading-relaxed">{result.scalpBiotype.description}</p>
+          </div>
+        </section>
 
         {result.routine.length > 0 && (
           <section className="mb-12">

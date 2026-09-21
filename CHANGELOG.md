@@ -4,6 +4,36 @@ Registro di ogni modifica fatta al repository. Ordine: dal più recente al più 
 
 ---
 
+## 2026-09-21 — Identificazione del biotipo cutaneo e del cuoio capelluto nel test
+
+- Su richiesta esplicita: prima dei consigli sui prodotti, il test ora
+  identifica e **spiega** il biotipo cutaneo e del cuoio capelluto più
+  probabile, come primo blocco della pagina risultati.
+- `src/lib/quiz.ts`: aggiunti 8 biotipi cutanei (atopica, disidratata
+  sensibile con barriera danneggiata, acneica, seborroica-secca,
+  seborroica idratata, idratata mista, secca, normale-equilibrata) e 5
+  biotipi del cuoio capelluto (diradamento, seborroico, secco e
+  desquamante, capelli secchi/disidratati, equilibrato), ciascuno con
+  titolo e spiegazione in linguaggio accessibile. Classificazione ad
+  albero con priorità (condizioni diagnosticate > pelle sensibile con
+  barriera compromessa > sottotipo pelle grassa/mista > pelle secca >
+  normale), esposta come `getSkinBiotype` / `getScalpBiotype` e inclusa
+  nel risultato di `getRecommendation` (`skinBiotype`, `scalpBiotype`).
+- `src/app/test/page.tsx`: aggiunti due step condizionali per raccogliere
+  il segnale necessario a distinguere i biotipi senza allungare il test
+  per chi non ne ha bisogno — "Quale descrizione si avvicina di più alla
+  tua pelle?" (solo se pelle grassa/mista: grassa senza imperfezioni /
+  con punti neri e brufoli / grassa a chiazze con desquamazione) e "Come
+  si presenta la forfora?" (solo se forfora: untuosa/giallastra o
+  secca/bianca). Nella pagina risultati, due card affiancate ("Il tuo
+  biotipo cutaneo" / "Il tuo cuoio capelluto") compaiono subito dopo
+  l'eventuale avviso condizioni, prima della routine consigliata.
+- Verificato via build + Playwright: comparsa dello step condizionale
+  pelle grassa, percorso "pelle acneica + forfora secca" (entrambe le
+  card biotipo corrette, routine coerente), priorità "dermatite atopica"
+  sopra ogni altro segnale, resa mobile delle card biotipo. Nessun
+  errore in console.
+
 ## 2026-09-21 — Test "Trova il tuo SkinMatch" (quiz reale) + catalogo integratori
 
 - **`src/lib/products.ts`**: aggiunto il tagging necessario al test — `skinTypes`
