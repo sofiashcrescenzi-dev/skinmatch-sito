@@ -4,6 +4,18 @@ Registro di ogni modifica fatta al repository. Ordine: dal più recente al più 
 
 ---
 
+## 2026-09-21 — Ripresa migrazione dominio skinmatch.it
+
+- Controllato lo stato del dominio: `skinmatch.it` è ancora sui nameserver
+  Aruba e mostra la pagina di parcheggio (nessuna email attiva, solo un
+  record MX di default). Il Worker `skinmatch-sito` è già live e
+  raggiungibile su `skinmatch-sito.sofiashcrescenzi.workers.dev`.
+- Creato `DEPLOY.md` (stesso schema di sofiacrescenzi-sito) con lo stato
+  della migrazione e i passaggi ancora da fare per portare online
+  `skinmatch.it`: aggiunta a Cloudflare, cambio nameserver su Aruba,
+  collegamento come Custom Domain al Worker, `www` → redirect, SSL Full
+  (strict), verifica WHOIS privacy, Google Search Console.
+
 ## 2026-09-19 — Nuovo header a pill fissa (stesso stile di sofiacrescenzi.it)
 
 - Sostituito l'header statico a barra intera (che su mobile andava in
