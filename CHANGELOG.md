@@ -4,6 +4,18 @@ Registro di ogni modifica fatta al repository. Ordine: dal più recente al più 
 
 ---
 
+## 2026-09-21 — Sezione introduttiva "Cosa significa trovare il tuo SkinMatch"
+
+- `src/app/test/page.tsx`: aggiunta una schermata introduttiva prima della
+  prima domanda (non conteggiata nella barra di avanzamento), che spiega il
+  senso del test — capire prima il biotipo di pelle e cuoio capelluto,
+  ricevere poi una routine coerente invece del prodotto più venduto del
+  momento — con 3 card "Poche domande / Scopri il tuo biotipo / Routine su
+  misura" e il pulsante "Inizia il test →". "Rifai il test" ora riporta a
+  questa schermata invece che direttamente alla prima domanda.
+- Verificato via build + screenshot Playwright: resa desktop e mobile, click
+  su "Inizia il test" che avvia correttamente la prima domanda.
+
 ## 2026-09-21 — Identificazione del biotipo cutaneo e del cuoio capelluto nel test
 
 - Su richiesta esplicita: prima dei consigli sui prodotti, il test ora

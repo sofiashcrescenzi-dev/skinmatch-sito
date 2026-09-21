@@ -204,6 +204,7 @@ function routineLabel(p: Product): string {
 }
 
 export default function TestPage() {
+  const [hasStarted, setHasStarted] = useState(false);
   const [answers, setAnswers] = useState<AnswersState>({ conditions: [], lifestyle: [] });
   const [stepIndex, setStepIndex] = useState(0);
   const [showResults, setShowResults] = useState(false);
@@ -260,6 +261,63 @@ export default function TestPage() {
     setAnswers({ conditions: [], lifestyle: [] });
     setStepIndex(0);
     setShowResults(false);
+    setHasStarted(false);
+  }
+
+  if (!hasStarted) {
+    return (
+      <main className="max-w-2xl mx-auto px-6 pt-4 pb-24">
+        <div className="text-center mb-12">
+          <p className="text-xs font-semibold uppercase tracking-widest mb-4" style={{ color: 'var(--accent)' }}>
+            Trova il tuo SkinMatch
+          </p>
+          <h1 className="text-3xl sm:text-4xl font-semibold mb-5 leading-tight">
+            Cosa significa "trovare il tuo SkinMatch"?
+          </h1>
+          <p className="opacity-70 max-w-xl mx-auto leading-relaxed">
+            Non tutte le pelli — e non tutti i cuoi capelluti — sono uguali: due persone con la "pelle grassa"
+            possono avere bisogno di prodotti completamente diversi. Questo test ti aiuta a capire prima di tutto
+            <strong> di che biotipo è la tua pelle</strong> (es. seborroica idratata, disidratata e sensibile,
+            acneica, atopica...) <strong>e del tuo cuoio capelluto</strong> (es. seborroico, secco e desquamante,
+            con tendenza al diradamento), spiegandoti cosa significa. Solo dopo ti proponiamo una routine e dei
+            prodotti reali coerenti con quel biotipo — non il prodotto più venduto del momento, ma quello giusto
+            per te.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 mb-12">
+          <div className="border rounded-xl p-5 text-center" style={{ borderColor: 'var(--border)' }}>
+            <p className="text-2xl font-semibold mb-2" style={{ color: 'var(--accent)' }}>1</p>
+            <p className="text-sm font-medium mb-1">Poche domande</p>
+            <p className="text-xs opacity-60">Pelle, cuoio capelluto, stile di vita — meno di 2 minuti.</p>
+          </div>
+          <div className="border rounded-xl p-5 text-center" style={{ borderColor: 'var(--border)' }}>
+            <p className="text-2xl font-semibold mb-2" style={{ color: 'var(--accent)' }}>2</p>
+            <p className="text-sm font-medium mb-1">Scopri il tuo biotipo</p>
+            <p className="text-xs opacity-60">Ti spieghiamo cosa significa e perché è così per te.</p>
+          </div>
+          <div className="border rounded-xl p-5 text-center" style={{ borderColor: 'var(--border)' }}>
+            <p className="text-2xl font-semibold mb-2" style={{ color: 'var(--accent)' }}>3</p>
+            <p className="text-sm font-medium mb-1">Routine su misura</p>
+            <p className="text-xs opacity-60">Detergente, siero, crema, capelli, barba e integratore coerenti.</p>
+          </div>
+        </div>
+
+        <div className="text-center">
+          <button
+            onClick={() => setHasStarted(true)}
+            className="px-8 py-3.5 rounded-full text-white font-medium text-lg"
+            style={{ background: 'var(--accent)' }}
+          >
+            Inizia il test →
+          </button>
+          <p className="text-xs opacity-50 mt-4">
+            Non è una diagnosi medica: in presenza di condizioni della pelle diagnosticate, parlane con un
+            dermatologo.
+          </p>
+        </div>
+      </main>
+    );
   }
 
   if (showResults) {
