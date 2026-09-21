@@ -39,7 +39,18 @@ export type QuizAnswers = {
   pricePref: Tier | 'nessuna';
 };
 
-export type Biotype = { id: string; title: string; description: string };
+export type BiotypeKind = 'pelle' | 'cuoio-capelluto';
+export type Biotype = {
+  id: string;
+  kind: BiotypeKind;
+  title: string;
+  description: string;
+  characteristics: string[];
+  lookFor: string[];
+  avoid: string[];
+  relatedConcern?: Concern;
+  relatedHairConcern?: HairConcern;
+};
 
 export type QuizResult = {
   skinBiotype: Biotype;
@@ -54,85 +65,179 @@ export type QuizResult = {
 const SKIN_BIOTYPES: Record<string, Biotype> = {
   atopica: {
     id: 'atopica',
+    kind: 'pelle',
     title: 'Pelle atopica',
     description:
       'La tua pelle ha una barriera cutanea costituzionalmente più fragile, che fatica a trattenere acqua e a proteggersi dagli irritanti esterni. Tende a secchezza persistente, prurito e arrossamenti (dermatite atopica). Ha bisogno di prodotti molto delicati, senza profumo, pensati per rinforzare il film idrolipidico.',
+    characteristics: [
+      'Secchezza persistente, anche cronica',
+      'Prurito frequente, soprattutto nelle pieghe (gomiti, ginocchia, collo)',
+      'Arrossamenti e chiazze ruvide',
+      'Barriera cutanea più permeabile su base costituzionale',
+      'Riacutizzazioni con freddo, stress o alcuni tessuti',
+    ],
+    lookFor: ['Ceramidi e lipidi (colesterolo, acidi grassi)', 'Formule senza profumo', 'Emollienti ricchi (burri, oli vegetali)', 'Detergenti extra-delicati, senza tensioattivi aggressivi'],
+    avoid: ['Profumi e oli essenziali', 'Alcol denaturato ad alte concentrazioni', 'Esfolianti fisici o chimici aggressivi', 'Detergenti schiumogeni con SLS'],
+    relatedConcern: 'barriera-cutanea',
   },
   'disidratata-sensibile': {
     id: 'disidratata-sensibile',
+    kind: 'pelle',
     title: 'Pelle disidratata e sensibile, con barriera danneggiata',
     description:
       "Manca di acqua — non necessariamente di sebo — e la barriera che dovrebbe proteggerla è indebolita: capita con detergenti aggressivi, stress, freddo o esfolianti troppo frequenti. Si arrossa facilmente, tira, a volte brucia con prodotti nuovi. La priorità è riparare la barriera prima di tutto il resto.",
+    characteristics: [
+      'Sensazione di tirare, soprattutto dopo la detersione',
+      'Arrossamenti reattivi a prodotti nuovi',
+      'Bruciore o pizzicore occasionale',
+      'Barriera cutanea indebolita (spesso da over-esfoliazione)',
+      'Texture opaca, a volte desquamata a chiazze',
+    ],
+    lookFor: ['Ceramidi, niacinamide, pantenolo', 'Formule minimaliste, poche referenze attive alla volta', 'Texture in crema/balsamo, non gel astringenti'],
+    avoid: ['Acidi esfolianti ad alta concentrazione', 'Detersione con acqua troppo calda', 'Profumo e alcol'],
+    relatedConcern: 'barriera-cutanea',
   },
   acneica: {
     id: 'acneica',
+    kind: 'pelle',
     title: 'Pelle acneica',
     description:
       "Produzione di sebo elevata associata a un'alterata cheratinizzazione dei follicoli: i pori si ostruiscono più facilmente, favorendo comedoni, punti neri e brufoli. Va trattata con delicatezza — detergenti troppo sgrassanti peggiorano la produzione di sebo per compenso.",
+    characteristics: [
+      'Punti neri e punti bianchi (comedoni)',
+      'Papule e pustole infiammate',
+      'Pelle spesso lucida/untuosa nella zona T',
+      'Pori dilatati',
+      'Possibili esiti post-infiammatori (macchie o cicatrici)',
+    ],
+    lookFor: ['Niacinamide', 'Acido salicilico (BHA) a basse percentuali', 'Formule oil-free, non comedogene'],
+    avoid: ['Oli comedogeni pesanti', 'Detersione troppo aggressiva o frequente', 'Prodotti alcolici astringenti in eccesso'],
+    relatedConcern: 'acne-sebo',
   },
   'seborroica-secca': {
     id: 'seborroica-secca',
+    kind: 'pelle',
     title: 'Pelle seborroica-secca',
     description:
       'Una combinazione che confonde: le ghiandole sebacee sono iperattive in alcune zone (fronte, naso, mento) ma la superficie appare secca o desquamata, spesso per un’alterazione della barriera o una lieve dermatite seborroica del viso. Serve equilibrio: detergere senza seccare, idratare senza appesantire.',
+    characteristics: [
+      'Zona T lucida/grassa ma guance che tirano o desquamano',
+      'Possibile prurito o arrossamento tra sopracciglia e lati del naso',
+      'Texture irregolare, a chiazze',
+      'Sensibilità ai detergenti sgrassanti',
+    ],
+    lookFor: ['Detergenti delicati non schiumogeni', 'Idratanti leggeri ma non occlusivi', 'Niacinamide, zinco PCA'],
+    avoid: ['Detergenti troppo sgrassanti', 'Creme molto ricche e occlusive su tutto il viso'],
+    relatedConcern: 'barriera-cutanea',
   },
   'seborroica-idratata': {
     id: 'seborroica-idratata',
+    kind: 'pelle',
     title: 'Pelle seborroica idratata',
     description:
       'Sebo abbondante ma barriera cutanea integra e buona idratazione: la pelle è lucida, soprattutto nella zona T, con pori più visibili, ma raramente tira o si irrita. È il tipo di pelle grassa più semplice da gestire.',
+    characteristics: ['Pelle lucida, soprattutto nella zona T', 'Pori dilatati ma texture uniforme', 'Nessuna reale secchezza o tensione', 'Rara sensibilità o irritazione'],
+    lookFor: ['Formule leggere, gel-crema', 'Niacinamide per opacizzare senza seccare', 'Acidi esfolianti leggeri (PHA, mandelico) per la texture'],
+    avoid: ['Creme troppo ricche o occlusive', 'Oli pesanti non necessari'],
+    relatedConcern: 'pori-dilatati',
   },
   'idratata-mista': {
     id: 'idratata-mista',
+    kind: 'pelle',
     title: 'Pelle idratata mista',
     description:
       'Zona T (fronte, naso, mento) più grassa, guance normali o quasi secche, ma senza reale disidratazione né irritazione. È il tipo di pelle più comune: la routine deve bilanciare le due zone senza esagerare in nessuna direzione.',
+    characteristics: ['Zona T (fronte, naso, mento) più grassa', 'Guance normali o leggermente secche', 'Texture generalmente uniforme', 'Poche imperfezioni'],
+    lookFor: ['Formule bilanciate, non troppo ricche né troppo leggere', 'Routine differenziata per zone, se necessario'],
+    avoid: ['Prodotti pensati solo per pelli grasse (possono seccare le guance)', 'Prodotti molto ricchi pensati solo per pelli secche (appesantiscono la zona T)'],
+    relatedConcern: 'idratazione',
   },
   secca: {
     id: 'secca',
+    kind: 'pelle',
     title: 'Pelle secca',
     description:
       'Produzione di sebo ridotta: la pelle tende a tirare, può apparire opaca o con una texture ruvida, soprattutto in inverno o con aria secca. Ha bisogno di lipidi e umettanti per restare confortevole tutto il giorno.',
+    characteristics: ['Sensazione di tensione, soprattutto dopo la detersione', 'Texture opaca o ruvida', 'Possibile desquamazione visibile', 'Pori poco visibili', 'Peggiora con freddo e aria secca'],
+    lookFor: ['Acido ialuronico e glicerina (umettanti)', 'Burri e oli (emollienti)', 'Ceramidi per rinforzare la barriera'],
+    avoid: ['Detergenti schiumogeni aggressivi', 'Alcol denaturato', 'Esfoliazione troppo frequente'],
+    relatedConcern: 'idratazione',
   },
   normale: {
     id: 'normale',
+    kind: 'pelle',
     title: 'Pelle normale-equilibrata',
     description:
       'Produzione di sebo e livello di idratazione ben bilanciati, poche imperfezioni. La routine serve soprattutto a mantenere questo equilibrio nel tempo, non a correggere un problema specifico.',
+    characteristics: ['Sebo e idratazione bilanciati', 'Texture uniforme', 'Poche imperfezioni', 'Buona tolleranza a nuovi prodotti'],
+    lookFor: ['Routine semplice di mantenimento: detergente delicato, siero antiossidante, crema idratante, protezione solare'],
+    avoid: ['Routine eccessivamente complesse, non necessarie'],
+    relatedConcern: 'idratazione',
   },
 };
 
 const SCALP_BIOTYPES: Record<string, Biotype> = {
   diradamento: {
     id: 'diradamento',
+    kind: 'cuoio-capelluto',
     title: 'Cute con tendenza al diradamento',
     description:
       'Il cuoio capelluto può essere nella norma, ma la densità dei capelli si sta riducendo: può dipendere da fattori ormonali, stress, carenze nutrizionali o predisposizione genetica. Prodotti energizzanti aiutano, ma se il fenomeno persiste vale la pena farlo valutare da uno specialista.',
+    characteristics: ['Capelli visibilmente più radi o sottili nel tempo', 'Maggiore evidenza del cuoio capelluto (vertice, attaccatura)', 'Possibile aumento della caduta quotidiana', 'Cuoio capelluto spesso nella norma'],
+    lookFor: ['Aminexil, caffeina', 'Integratori con zinco/BioEquolo', 'Shampoo energizzanti, fiale anticaduta senza risciacquo'],
+    avoid: ['Styling che tira il capello (trazione)', 'Aspettare troppo prima di intervenire se la caduta persiste'],
+    relatedHairConcern: 'caduta',
   },
   seborroico: {
     id: 'seborroico',
+    kind: 'cuoio-capelluto',
     title: 'Cuoio capelluto seborroico',
     description:
       'Le ghiandole sebacee del cuoio capelluto sono iperattive: i capelli si ungono in fretta e può comparire una forfora giallastra e untuosa (dermatite seborroica del cuoio capelluto). Serve un lavaggio più frequente, con prodotti che regolano il sebo senza irritare.',
+    characteristics: ['Capelli che si ungono in fretta (1-2 giorni dal lavaggio)', 'Forfora giallastra, a scaglie untuose', 'Possibile prurito lieve', 'Cuoio capelluto lucido'],
+    lookFor: ['Shampoo sebo-regolatori', 'Zinco piritione, acido salicilico', 'Lavaggi più frequenti con prodotti delicati'],
+    avoid: ['Balsami o maschere applicati direttamente sul cuoio capelluto', 'Diradare troppo i lavaggi "per abituare" il cuoio capelluto'],
+    relatedHairConcern: 'forfora',
   },
   'secco-desquamante': {
     id: 'secco-desquamante',
+    kind: 'cuoio-capelluto',
     title: 'Cuoio capelluto secco e desquamante',
     description:
       'Il cuoio capelluto produce poco sebo e tende a seccarsi, con prurito e una forfora bianca e sottile che si stacca facilmente. Ha bisogno di lavaggi delicati e nutrienti, mai troppo sgrassanti.',
+    characteristics: ['Forfora bianca, sottile, a scagliette', 'Prurito frequente', 'Cuoio capelluto che tira o è sensibile', 'Capelli spesso opachi'],
+    lookFor: ['Shampoo delicati, senza solfati aggressivi', 'Piroctone olamine, oli leggeri lenitivi'],
+    avoid: ['Shampoo sgrassanti/anti-grasso', 'Acqua molto calda durante il lavaggio'],
+    relatedHairConcern: 'forfora',
   },
   'capelli-secchi': {
     id: 'capelli-secchi',
+    kind: 'cuoio-capelluto',
     title: 'Capelli secchi e disidratati',
     description:
       'Il cuoio capelluto è spesso nella norma, ma la fibra capillare in lunghezza è disidratata, opaca o crespa (calore, colorazioni, agenti atmosferici). Serve un trattamento nutriente sulle lunghezze, non necessariamente sulla cute.',
+    characteristics: ['Lunghezze opache, ruvide al tatto', 'Doppie punte, effetto crespo', 'Cuoio capelluto spesso normale', 'Capelli che si spezzano facilmente'],
+    lookFor: ['Sieri e maschere nutrienti sulle lunghezze', 'Trattamenti proteici occasionali', 'Protezione dal calore'],
+    avoid: ['Calore eccessivo senza protezione', 'Acqua molto calda', 'Spazzolatura aggressiva da bagnati'],
+    relatedHairConcern: 'secchi-crespi',
   },
   equilibrato: {
     id: 'equilibrato',
+    kind: 'cuoio-capelluto',
     title: 'Cuoio capelluto equilibrato',
     description: 'Nessuna problematica particolare: l’obiettivo è mantenere questo equilibrio con una routine di manutenzione leggera.',
+    characteristics: ['Nessuna problematica evidente', 'Capelli che mantengono volume e lucentezza tra un lavaggio e l’altro', 'Cuoio capelluto confortevole, senza prurito o untuosità eccessiva'],
+    lookFor: ['Routine di mantenimento leggera', 'Shampoo delicato, trattamenti mirati solo all’occorrenza'],
+    avoid: ['Cambiare prodotto troppo spesso senza un vero motivo'],
+    relatedHairConcern: 'mantenimento',
   },
 };
+
+export const ALL_BIOTYPES: Biotype[] = [...Object.values(SKIN_BIOTYPES), ...Object.values(SCALP_BIOTYPES)];
+
+export function getBiotypeById(id: string): Biotype | undefined {
+  return ALL_BIOTYPES.find((b) => b.id === id);
+}
 
 export function getSkinBiotype(a: QuizAnswers): Biotype {
   if (a.conditions.includes('dermatite')) return SKIN_BIOTYPES.atopica;

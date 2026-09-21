@@ -4,6 +4,54 @@ Registro di ogni modifica fatta al repository. Ordine: dal più recente al più 
 
 ---
 
+## 2026-09-21 — skinmatch.it collegato al Worker (HTTP + HTTPS attivi)
+
+- Rimosso il vecchio record DNS `A skinmatch.it → 62.149.128.40` (pagina di
+  parcheggio Aruba) rimasto dall'import automatico, che bloccava l'aggiunta
+  del Custom Domain ("Hostname already has externally managed DNS records").
+- `skinmatch.it` collegato come Custom Domain al Worker `skinmatch-sito`.
+  Verificato: HTTP serve già il sito nuovo, e il certificato SSL emesso
+  automaticamente da Cloudflare è ora attivo (`https://skinmatch.it` → 200,
+  `server: cloudflare`).
+- Ancora da fare: `www.skinmatch.it` (CNAME + redirect 301 verso l'apex,
+  stesso schema di sofiacrescenzi.it), SSL/TLS su "Full (strict)".
+
+## 2026-09-21 — Pagine dedicate ai biotipi di pelle e cuoio capelluto
+
+- Su richiesta: create pagine esplorabili con le caratteristiche di ogni
+  biotipo (prima erano spiegati solo nel risultato del test).
+- `src/lib/quiz.ts`: il modello `Biotype` è stato esteso con `kind`
+  ('pelle' | 'cuoio-capelluto'), `characteristics` (elenco caratteristiche),
+  `lookFor` (cosa cercare in un prodotto) e `avoid` (cosa evitare), per
+  ciascuno degli 8 biotipi di pelle e 5 di cuoio capelluto. Esportati
+  `ALL_BIOTYPES` e `getBiotypeById()`.
+- **`src/app/biotipi/page.tsx`** (nuova): indice con tutti i biotipi divisi
+  in due sezioni ("Biotipi di pelle" / "Biotipi di cuoio capelluto"), card
+  cliccabili con titolo, estratto della descrizione e link alla pagina di
+  dettaglio.
+- **`src/app/biotipi/[id]/page.tsx`** (nuova, route dinamica con
+  `generateStaticParams` per l'export statico): titolo, descrizione,
+  "Caratteristiche principali", "Cosa cercare" / "Cosa evitare", CTA verso
+  il test e il catalogo. Metadata (title/description) generati per pagina.
+- `src/components/Header.tsx`: aggiunta voce "Biotipi" alla navigazione
+  (desktop e dropdown mobile).
+- `src/app/test/page.tsx`: le due card del risultato ("Il tuo biotipo
+  cutaneo" / "Il tuo cuoio capelluto") ora linkano alla pagina di dettaglio
+  corrispondente ("Scopri di più su questo biotipo →").
+- **Bug trovato e corretto durante il test**: le 13 pagine `/biotipi/[id]`
+  generavano tutte un 404 in produzione (`notFound()` sempre attivato).
+  Causa: in questa versione di Next.js (16.3.5) `params` nelle route
+  dinamiche è una `Promise`, non un oggetto sincrono — `generateMetadata`
+  e il componente pagina leggevano `params.id` senza `await`, ottenendo
+  sempre `undefined`. Risolto rendendo entrambe le funzioni `async` con
+  `const { id } = await params`. Verificato sul file HTML statico generato
+  (conteneva il boundary `notFound` di Next.js, non il contenuto) prima e
+  dopo la correzione.
+- Verificato via build + Playwright: indice con tutti i 13 biotipi, pagina
+  di dettaglio (caratteristiche, cosa cercare/evitare, CTA), percorso
+  completo dal test al link "Scopri di più" fino alla pagina di dettaglio
+  corretta. Nessun errore in console.
+
 ## 2026-09-21 — Sezione introduttiva "Cosa significa trovare il tuo SkinMatch"
 
 - `src/app/test/page.tsx`: aggiunta una schermata introduttiva prima della

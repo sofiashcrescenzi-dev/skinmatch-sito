@@ -366,14 +366,28 @@ export default function TestPage() {
               Il tuo biotipo cutaneo
             </p>
             <h2 className="text-lg font-semibold mb-2">{result.skinBiotype.title}</h2>
-            <p className="text-sm opacity-70 leading-relaxed">{result.skinBiotype.description}</p>
+            <p className="text-sm opacity-70 leading-relaxed mb-4">{result.skinBiotype.description}</p>
+            <Link
+              href={`/biotipi/${result.skinBiotype.id}`}
+              className="text-sm font-medium underline"
+              style={{ color: 'var(--accent)' }}
+            >
+              Scopri di più su questo biotipo →
+            </Link>
           </div>
           <div className="border rounded-xl p-6" style={{ borderColor: 'var(--border)', background: '#fff' }}>
             <p className="text-xs font-semibold uppercase tracking-wide mb-2" style={{ color: 'var(--accent)' }}>
               Il tuo cuoio capelluto
             </p>
             <h2 className="text-lg font-semibold mb-2">{result.scalpBiotype.title}</h2>
-            <p className="text-sm opacity-70 leading-relaxed">{result.scalpBiotype.description}</p>
+            <p className="text-sm opacity-70 leading-relaxed mb-4">{result.scalpBiotype.description}</p>
+            <Link
+              href={`/biotipi/${result.scalpBiotype.id}`}
+              className="text-sm font-medium underline"
+              style={{ color: 'var(--accent)' }}
+            >
+              Scopri di più su questo biotipo →
+            </Link>
           </div>
         </section>
 

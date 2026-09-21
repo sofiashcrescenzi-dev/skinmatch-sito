@@ -8,6 +8,7 @@ type NavItem = { label: string; href: string };
 const NAV_LINKS: NavItem[] = [
   { label: 'Catalogo', href: '/catalogo' },
   { label: 'K-beauty', href: '/catalogo?kbeauty=1' },
+  { label: 'Biotipi', href: '/biotipi' },
 ];
 
 export default function Header() {
