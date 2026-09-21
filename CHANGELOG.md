@@ -4,6 +4,42 @@ Registro di ogni modifica fatta al repository. Ordine: dal più recente al più 
 
 ---
 
+## 2026-09-21 — Biotipi misti: nuovi tratti combinabili + pelle con psoriasi
+
+- Su richiesta: il biotipo di pelle ora può essere **misto** (es. "pelle
+  acneica" + "con tendenza a macchie"), invece di un'unica etichetta fissa.
+- `src/lib/quiz.ts`:
+  - Aggiunto un nono biotipo di pelle, **"Pelle con psoriasi"** — prima la
+    domanda "Psoriasi" esisteva nel test ma non portava a nessun biotipo
+    dedicato (finiva comunque in un altro biotipo in base alle altre
+    risposte): incongruenza corretta.
+  - Aggiunti 3 **tratti indipendenti**, che si sommano a qualsiasi biotipo
+    di pelle di base invece di sostituirlo: "Con tendenza a macchie e
+    discromie" (nuova domanda dedicata nel test), "Con tendenza a
+    rosacea/couperose" (dalla domanda "condizioni diagnosticate" già
+    esistente — prima la rosacea forzava il biotipo su "disidratata
+    sensibile", ora è un tratto a sé che può comparire con qualunque
+    biotipo), "Con segni di invecchiamento cutaneo" (dedotto quando
+    l'obiettivo scelto è "Anti-age", senza bisogno di una domanda in più).
+  - `getSkinTraits()` calcola i tratti applicabili; `getRecommendation()`
+    li usa anche per affinare i consigli prodotto: la rosacea applica lo
+    stesso filtro prudenziale `sensitiveSafe` della pelle sensibile, le
+    macchie danno un bonus ai prodotti con `macchie-luminosita`.
+- `src/app/test/page.tsx`: nuova domanda "Hai macchie scure, segni
+  post-acne o altre discromie?" dopo l'obiettivo principale. Nella pagina
+  risultati, il biotipo primario ora mostra sotto di sé dei "chip"
+  cliccabili per ogni tratto aggiuntivo rilevato, ciascuno verso la propria
+  pagina di dettaglio.
+- `src/app/biotipi/page.tsx` e `src/app/biotipi/[id]/page.tsx`: aggiunta la
+  terza sezione "Tratti che si possono aggiungere a qualsiasi biotipo" e
+  l'etichetta "Tratto aggiuntivo" con una nota che spiega che non è un
+  biotipo a sé. La sitemap (generata da `ALL_BIOTYPES`) passa così da 13 a
+  17 pagine biotipo/tratto in automatico, senza modifiche manuali.
+- Verificato via build + Playwright: percorso "pelle acneica + macchie"
+  (badge combinato corretto), percorso "psoriasi" (biotipo dedicato),
+  navigazione dall'indice biotipi al tratto "rosacea". Nessun errore in
+  console.
+
 ## 2026-09-21 — Controllo indicizzazione: metadata, canonical, sitemap, robots, IndexNow
 
 - Controllo completo su richiesta esplicita. Trovati e corretti diversi

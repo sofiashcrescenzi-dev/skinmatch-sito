@@ -29,6 +29,7 @@ export type QuizAnswers = {
   sensitiveSkin: boolean;
   oilySubtype: OilySubtype | null; // solo se skinType è grassa/mista
   goal: Concern;
+  pigmentedSkin: boolean; // macchie/discromie — indipendente dal biotipo di base
   conditions: string[];
   sunExposure: SunExposure;
   lifestyle: string[];
@@ -39,7 +40,7 @@ export type QuizAnswers = {
   pricePref: Tier | 'nessuna';
 };
 
-export type BiotypeKind = 'pelle' | 'cuoio-capelluto';
+export type BiotypeKind = 'pelle' | 'cuoio-capelluto' | 'tratto';
 export type Biotype = {
   id: string;
   kind: BiotypeKind;
@@ -54,6 +55,7 @@ export type Biotype = {
 
 export type QuizResult = {
   skinBiotype: Biotype;
+  skinTraits: Biotype[];
   scalpBiotype: Biotype;
   routine: Product[];
   hair: Product[];
@@ -78,6 +80,23 @@ const SKIN_BIOTYPES: Record<string, Biotype> = {
     ],
     lookFor: ['Ceramidi e lipidi (colesterolo, acidi grassi)', 'Formule senza profumo', 'Emollienti ricchi (burri, oli vegetali)', 'Detergenti extra-delicati, senza tensioattivi aggressivi'],
     avoid: ['Profumi e oli essenziali', 'Alcol denaturato ad alte concentrazioni', 'Esfolianti fisici o chimici aggressivi', 'Detergenti schiumogeni con SLS'],
+    relatedConcern: 'barriera-cutanea',
+  },
+  psoriasica: {
+    id: 'psoriasica',
+    kind: 'pelle',
+    title: 'Pelle con psoriasi',
+    description:
+      'Condizione infiammatoria cronica su base autoimmune, con un ricambio cellulare accelerato che forma placche ispessite, arrossate e ricoperte da squame argentee. È diagnosticabile e va gestita con un dermatologo: la skincare può accompagnare la terapia, non sostituirla.',
+    characteristics: [
+      'Placche ispessite, arrossate, ben delimitate',
+      'Squame argentee o biancastre in superficie',
+      'Prurito, a volte bruciore o dolore',
+      'Zone tipiche: gomiti, ginocchia, cuoio capelluto, ma anche viso',
+      'Andamento a fasi, con remissioni e riacutizzazioni',
+    ],
+    lookFor: ['Emollienti ricchi, ceramidi', 'Formule senza profumo', 'Detergenti extra-delicati'],
+    avoid: ['Esfolianti fisici o chimici sulle placche attive', 'Profumo e alcol', 'Interrompere la terapia dermatologica senza parlarne con lo specialista'],
     relatedConcern: 'barriera-cutanea',
   },
   'disidratata-sensibile': {
@@ -233,7 +252,46 @@ const SCALP_BIOTYPES: Record<string, Biotype> = {
   },
 };
 
-export const ALL_BIOTYPES: Biotype[] = [...Object.values(SKIN_BIOTYPES), ...Object.values(SCALP_BIOTYPES)];
+// Tratti indipendenti: possono aggiungersi a QUALSIASI biotipo di pelle di
+// base (es. "pelle acneica" + "con tendenza a macchie"). Non sostituiscono
+// il biotipo primario, lo completano.
+const SKIN_TRAITS: Record<string, Biotype> = {
+  macchie: {
+    id: 'macchie',
+    kind: 'tratto',
+    title: 'Con tendenza a macchie e discromie',
+    description:
+      'Oltre alle caratteristiche del tuo biotipo, la tua pelle tende a sviluppare macchie scure, segni post-infiammatori o discromie — comuni dopo acne, esposizione solare non protetta o semplicemente con il tempo.',
+    characteristics: ['Macchie scure localizzate (macchie solari, post-acne)', 'Incarnato disomogeneo', 'Le macchie si accentuano con l’esposizione solare'],
+    lookFor: ['Vitamina C, niacinamide, acido azelaico', 'Protezione solare quotidiana — senza, le macchie non schiariscono', 'Esfolianti delicati per uniformare la texture'],
+    avoid: ['Esposizione solare senza protezione', 'Manipolare o schiacciare le imperfezioni (peggiora le macchie post-infiammatorie)'],
+    relatedConcern: 'macchie-luminosita',
+  },
+  rosacea: {
+    id: 'rosacea',
+    kind: 'tratto',
+    title: 'Con tendenza a rosacea/couperose',
+    description:
+      'Oltre alle caratteristiche del tuo biotipo, la tua pelle mostra arrossamenti persistenti, vampate o capillari visibili, tipici della rosacea. È una condizione diagnosticabile: se non l’hai già fatto, vale la pena parlarne con un dermatologo.',
+    characteristics: ['Arrossamento persistente, soprattutto su guance e naso', 'Vampate improvvise (calore, alcol, cibi piccanti, sole)', 'Capillari visibili', 'Pelle spesso reattiva a nuovi prodotti'],
+    lookFor: ['Formule lenitive (centella, niacinamide, azelaico)', 'Protezione solare rigorosa — il sole è un trigger frequente', 'Prodotti senza profumo, poche referenze attive alla volta'],
+    avoid: ['Sbalzi di temperatura, alcol, cibi molto speziati (trigger comuni)', 'Esfolianti fisici o chimici aggressivi', 'Alcol denaturato e oli essenziali'],
+    relatedConcern: 'rossori-sensibilita',
+  },
+  matura: {
+    id: 'matura',
+    kind: 'tratto',
+    title: 'Con segni di invecchiamento cutaneo',
+    description:
+      'Oltre alle caratteristiche del tuo biotipo, la tua pelle mostra una minore elasticità, rughe o perdita di volume — normale con il tempo, e gestibile con gli attivi giusti.',
+    characteristics: ['Minore elasticità e tono', 'Rughe sottili o più marcate', 'Perdita di volume nelle guance/contorno viso'],
+    lookFor: ['Retinoidi (se non in gravidanza/allattamento)', 'Peptidi, vitamina C, acido ialuronico ad alto peso molecolare', 'Protezione solare quotidiana — il fotoinvecchiamento è la causa più prevenibile'],
+    avoid: ['Aspettarsi risultati immediati (gli attivi anti-age richiedono settimane/mesi)', 'Saltare la protezione solare'],
+    relatedConcern: 'anti-age',
+  },
+};
+
+export const ALL_BIOTYPES: Biotype[] = [...Object.values(SKIN_BIOTYPES), ...Object.values(SCALP_BIOTYPES), ...Object.values(SKIN_TRAITS)];
 
 export function getBiotypeById(id: string): Biotype | undefined {
   return ALL_BIOTYPES.find((b) => b.id === id);
@@ -241,7 +299,8 @@ export function getBiotypeById(id: string): Biotype | undefined {
 
 export function getSkinBiotype(a: QuizAnswers): Biotype {
   if (a.conditions.includes('dermatite')) return SKIN_BIOTYPES.atopica;
-  if (a.sensitiveSkin && (a.skinType === 'secca' || a.conditions.includes('rosacea'))) {
+  if (a.conditions.includes('psoriasi')) return SKIN_BIOTYPES.psoriasica;
+  if (a.sensitiveSkin && a.skinType === 'secca') {
     return SKIN_BIOTYPES['disidratata-sensibile'];
   }
   if (a.skinType === 'grassa' || a.skinType === 'mista') {
@@ -251,6 +310,16 @@ export function getSkinBiotype(a: QuizAnswers): Biotype {
   }
   if (a.skinType === 'secca') return SKIN_BIOTYPES.secca;
   return SKIN_BIOTYPES.normale;
+}
+
+// Tratti indipendenti: si sommano al biotipo primario, non lo sostituiscono
+// (es. "pelle acneica" + "con tendenza a macchie" sono compatibili).
+export function getSkinTraits(a: QuizAnswers): Biotype[] {
+  const traits: Biotype[] = [];
+  if (a.conditions.includes('rosacea')) traits.push(SKIN_TRAITS.rosacea);
+  if (a.pigmentedSkin) traits.push(SKIN_TRAITS.macchie);
+  if (a.goal === 'anti-age') traits.push(SKIN_TRAITS.matura);
+  return traits;
 }
 
 export function getScalpBiotype(a: QuizAnswers): Biotype {
@@ -264,7 +333,8 @@ export function getScalpBiotype(a: QuizAnswers): Biotype {
 
 function passesHardFilters(p: Product, a: QuizAnswers): boolean {
   if (p.gender !== 'unisex' && p.gender !== a.gender) return false;
-  if (a.sensitiveSkin && p.sensitiveSafe === false) return false;
+  // La rosacea, come la pelle sensibile, richiede prudenza sugli attivi aggressivi.
+  if ((a.sensitiveSkin || a.conditions.includes('rosacea')) && p.sensitiveSafe === false) return false;
   if (a.pregnant && p.pregnancySafe === false) return false;
   return true;
 }
@@ -274,6 +344,10 @@ function skincareScore(p: Product, a: QuizAnswers): number {
   if (p.skinTypes?.includes(a.skinType)) score += 3;
   if (a.sensitiveSkin && p.skinTypes?.includes('sensibile')) score += 2;
   if (p.concerns?.includes(a.goal)) score += 3;
+  // Tratti aggiuntivi (indipendenti dal biotipo primario): danno un bonus
+  // ai prodotti pertinenti, senza escludere gli altri.
+  if (a.conditions.includes('rosacea') && p.concerns?.includes('rossori-sensibilita')) score += 2;
+  if (a.pigmentedSkin && p.concerns?.includes('macchie-luminosita')) score += 2;
   if (a.pricePref !== 'nessuna' && p.tier === a.pricePref) score += 1;
   return score;
 }
@@ -338,6 +412,7 @@ export function getRecommendation(a: QuizAnswers): QuizResult {
 
   return {
     skinBiotype: getSkinBiotype(a),
+    skinTraits: getSkinTraits(a),
     scalpBiotype: getScalpBiotype(a),
     routine,
     hair,

@@ -23,7 +23,8 @@ export default async function BiotypePage({ params }: { params: Promise<{ id: st
   const biotype = getBiotypeById(id);
   if (!biotype) notFound();
 
-  const kindLabel = biotype.kind === 'pelle' ? 'Biotipo di pelle' : 'Biotipo di cuoio capelluto';
+  const kindLabel =
+    biotype.kind === 'pelle' ? 'Biotipo di pelle' : biotype.kind === 'cuoio-capelluto' ? 'Biotipo di cuoio capelluto' : 'Tratto aggiuntivo';
 
   return (
     <main className="max-w-2xl mx-auto px-6 pt-4 pb-24">
@@ -37,6 +38,12 @@ export default async function BiotypePage({ params }: { params: Promise<{ id: st
         </p>
         <h1 className="text-3xl sm:text-4xl font-semibold mb-5 leading-tight">{biotype.title}</h1>
         <p className="opacity-70 leading-relaxed">{biotype.description}</p>
+        {biotype.kind === 'tratto' && (
+          <p className="text-sm mt-4 opacity-60">
+            Questo non è un biotipo a sé: può aggiungersi a qualsiasi tipo di pelle di base (es. pelle acneica +
+            questo tratto).
+          </p>
+        )}
       </div>
 
       <section className="mb-10">

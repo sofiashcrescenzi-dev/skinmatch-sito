@@ -11,6 +11,7 @@ export const metadata: Metadata = {
 
 const skinBiotypes = ALL_BIOTYPES.filter((b) => b.kind === 'pelle');
 const scalpBiotypes = ALL_BIOTYPES.filter((b) => b.kind === 'cuoio-capelluto');
+const skinTraits = ALL_BIOTYPES.filter((b) => b.kind === 'tratto');
 
 export default function BiotipiPage() {
   return (
@@ -22,7 +23,8 @@ export default function BiotipiPage() {
         <h1 className="text-3xl sm:text-4xl font-semibold mb-5 leading-tight">Biotipi di pelle e cuoio capelluto</h1>
         <p className="opacity-70 max-w-xl mx-auto leading-relaxed">
           Non tutte le pelli — e non tutti i cuoi capelluti — sono uguali. Esplora i biotipi più comuni per capire
-          quali caratteristiche hanno, cosa cercare in un prodotto e cosa evitare. Non sai qual è il tuo?{' '}
+          quali caratteristiche hanno, cosa cercare in un prodotto e cosa evitare. Il biotipo può anche essere
+          misto — una pelle acneica può avere anche macchie, per esempio. Non sai qual è il tuo?{' '}
           <Link href="/test" className="underline font-medium" style={{ color: 'var(--accent)' }}>
             Fai il test →
           </Link>
@@ -33,6 +35,31 @@ export default function BiotipiPage() {
         <h2 className="text-sm font-semibold uppercase tracking-wide opacity-50 mb-6">Biotipi di pelle</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
           {skinBiotypes.map((b) => (
+            <Link
+              key={b.id}
+              href={`/biotipi/${b.id}`}
+              className="border rounded-xl p-6 hover:bg-neutral-50 transition-colors"
+              style={{ borderColor: 'var(--border)' }}
+            >
+              <h3 className="text-lg font-semibold mb-2">{b.title}</h3>
+              <p className="text-sm opacity-70 leading-relaxed line-clamp-3">{b.description}</p>
+              <span className="inline-block mt-4 text-sm font-medium underline" style={{ color: 'var(--accent)' }}>
+                Scopri di più →
+              </span>
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      <section className="mb-14">
+        <h2 className="text-sm font-semibold uppercase tracking-wide opacity-50 mb-2">
+          Tratti che si possono aggiungere a qualsiasi biotipo
+        </h2>
+        <p className="text-sm opacity-60 mb-6">
+          Non sono biotipi a sé, ma caratteristiche che possono comparire insieme a uno qualsiasi di quelli sopra.
+        </p>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+          {skinTraits.map((b) => (
             <Link
               key={b.id}
               href={`/biotipi/${b.id}`}

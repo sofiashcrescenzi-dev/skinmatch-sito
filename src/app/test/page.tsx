@@ -13,6 +13,7 @@ type AnswersState = {
   oilySubtype?: string;
   sensitiveSkinAnswer?: 'si' | 'no';
   goal?: string;
+  pigmentedSkin?: 'si' | 'no';
   conditions: string[];
   sunExposure?: string;
   lifestyle: string[];
@@ -99,6 +100,16 @@ const STEPS: StepConfig[] = [
       { value: 'acne-sebo', label: 'Controllo sebo e imperfezioni' },
       { value: 'macchie-luminosita', label: 'Uniformità e luminosità' },
       { value: 'barriera-cutanea', label: 'Rinforzare la barriera cutanea' },
+    ],
+  },
+  {
+    key: 'pigmentedSkin',
+    question: 'Hai macchie scure, segni post-acne o altre discromie?',
+    subtitle: 'Può capitare insieme a qualsiasi tipo di pelle — non è legato solo a pelle secca o grassa.',
+    type: 'single',
+    options: [
+      { value: 'si', label: 'Sì' },
+      { value: 'no', label: 'No' },
     ],
   },
   {
@@ -328,6 +339,7 @@ export default function TestPage() {
       sensitiveSkin: answers.sensitiveSkinAnswer === 'si',
       oilySubtype: (answers.oilySubtype as QuizAnswers['oilySubtype']) ?? null,
       goal: (answers.goal as QuizAnswers['goal']) ?? 'idratazione',
+      pigmentedSkin: answers.pigmentedSkin === 'si',
       conditions: answers.conditions,
       sunExposure: (answers.sunExposure as QuizAnswers['sunExposure']) ?? 'media',
       lifestyle: answers.lifestyle,
@@ -367,6 +379,20 @@ export default function TestPage() {
             </p>
             <h2 className="text-lg font-semibold mb-2">{result.skinBiotype.title}</h2>
             <p className="text-sm opacity-70 leading-relaxed mb-4">{result.skinBiotype.description}</p>
+            {result.skinTraits.length > 0 && (
+              <div className="flex flex-wrap gap-2 mb-4">
+                {result.skinTraits.map((t) => (
+                  <Link
+                    key={t.id}
+                    href={`/biotipi/${t.id}`}
+                    className="text-xs font-medium px-3 py-1.5 rounded-full border"
+                    style={{ borderColor: 'var(--border)', color: 'var(--text)' }}
+                  >
+                    + {t.title}
+                  </Link>
+                ))}
+              </div>
+            )}
             <Link
               href={`/biotipi/${result.skinBiotype.id}`}
               className="text-sm font-medium underline"
