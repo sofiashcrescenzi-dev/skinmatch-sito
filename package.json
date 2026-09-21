@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "postbuild": "node scripts/indexnow-ping.js || true",
     "start": "next start",
     "lint": "next lint",
     "deploy": "next build && npx wrangler deploy"

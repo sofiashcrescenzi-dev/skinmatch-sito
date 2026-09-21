@@ -4,6 +4,47 @@ Registro di ogni modifica fatta al repository. Ordine: dal più recente al più 
 
 ---
 
+## 2026-09-21 — Controllo indicizzazione: metadata, canonical, sitemap, robots, IndexNow
+
+- Controllo completo su richiesta esplicita. Trovati e corretti diversi
+  problemi reali (il sito non aveva mai avuto un controllo SEO/indicizzazione
+  prima d'ora):
+  - `src/app/layout.tsx`: mancava `metadataBase` (impostato su
+    `https://skinmatch.it`) e non c'era nessun canonical, nemmeno sulla
+    homepage.
+  - `/catalogo` e `/test` sono componenti client (`'use client'`) e non
+    avevano **nessun** title/description propri: mostravano entrambi il
+    titolo generico "SkinMatch" ereditato dal layout — stesso problema di
+    duplicazione già risolto su sofiacrescenzi.it. Risolto con due
+    `layout.tsx` "ponte" (`src/app/catalogo/layout.tsx`,
+    `src/app/test/layout.tsx`) che forniscono title/description/canonical
+    dedicati senza dover convertire le pagine in server component.
+  - `/biotipi` e `/biotipi/[id]` avevano già metadata propri ma senza
+    canonical: aggiunto a entrambi.
+  - **Non esisteva alcuna sitemap** (`/sitemap.xml` → 404) né un
+    `robots.txt` con direttive proprie (solo il blocco automatico
+    "Content Signal" iniettato da Cloudflare, senza riferimento alla
+    sitemap). Aggiunti `src/app/sitemap.ts` (17 URL: pagine principali +
+    generato dinamicamente da `ALL_BIOTYPES` per restare sempre
+    sincronizzato, non un elenco manuale da aggiornare a mano) e
+    `src/app/robots.ts` (allow-all + riferimento alla sitemap) — stesso
+    schema di sofiacrescenzi-sito. Entrambi richiedono
+    `export const dynamic = 'force-static'` per l'export statico in questa
+    versione di Next.js.
+  - **IndexNow** non era mai stato configurato su questo repo (presente solo
+    su sofiacrescenzi-sito): aggiunta chiave
+    (`public/8024a1b66a7bc1e8930a628e07b25337.txt`),
+    `scripts/indexnow-ping.js` e script `postbuild` in `package.json` — ping
+    automatico a ogni build (verificato: risposta 202, 17 URL notificati).
+  - Ancora aperto, non risolvibile da qui: **verifica proprietà su Google
+    Search Console** e invio della sitemap — il dominio è appena diventato
+    raggiungibile, va fatta appena possibile (stesso percorso già seguito
+    per sofiacrescenzi.it: DNS TXT record su Cloudflare).
+- Verificato via build: 18 pagine generate, ciascuna con canonical unico e
+  corretto (controllato uno per uno, nessuna duplicazione), sitemap.xml con
+  tutti i 17 URL, robots.txt con `Sitemap:`/`Host:`, file chiave IndexNow
+  presente nell'export statico.
+
 ## 2026-09-21 — skinmatch.it collegato al Worker (HTTP + HTTPS attivi)
 
 - Rimosso il vecchio record DNS `A skinmatch.it → 62.149.128.40` (pagina di

@@ -14,6 +14,7 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
   return {
     title: `${biotype.title} — Caratteristiche e consigli | SkinMatch`,
     description: biotype.description,
+    alternates: { canonical: `/biotipi/${biotype.id}` },
   };
 }
 

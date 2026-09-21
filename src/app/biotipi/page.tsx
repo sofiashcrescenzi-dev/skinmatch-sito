@@ -6,6 +6,7 @@ export const metadata: Metadata = {
   title: 'Biotipi di pelle e cuoio capelluto — SkinMatch',
   description:
     'Scopri le caratteristiche dei principali biotipi di pelle (seborroica, secca, sensibile, acneica, atopica...) e di cuoio capelluto (seborroico, secco, con diradamento...).',
+  alternates: { canonical: '/biotipi' },
 };
 
 const skinBiotypes = ALL_BIOTYPES.filter((b) => b.kind === 'pelle');
