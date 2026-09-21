@@ -4,6 +4,32 @@ Registro di ogni modifica fatta al repository. Ordine: dal più recente al più 
 
 ---
 
+## 2026-09-21 — Domanda su perimenopausa/menopausa + nuovo tratto
+
+- Su richiesta: aggiunta una domanda dedicata alla menopausa, considerando
+  quanto cambia la pelle in questa fase (calo di sebo anche su pelli
+  storicamente grasse, barriera più fragile, possibile acne ormonale,
+  rughe più marcate).
+- `src/lib/quiz.ts`: nuovo campo `menopause: boolean` su `QuizAnswers`;
+  nuovo tratto indipendente **"In perimenopausa o menopausa"** (stesso
+  meccanismo dei tratti già esistenti — macchie, rosacea, segni di
+  invecchiamento — si somma al biotipo primario, non lo sostituisce).
+  `skincareScore()` dà un piccolo bonus ai prodotti per barriera cutanea,
+  idratazione o anti-age quando il tratto è presente, anche se il biotipo
+  di base è ancora "grasso": in menopausa serve più supporto a barriera e
+  idratazione a prescindere dal tipo di pelle di partenza.
+- `src/app/test/page.tsx`: nuova domanda "Sei in perimenopausa o
+  menopausa?" (Sì/No), visibile solo nel ramo donna, subito dopo la
+  domanda su gravidanza/allattamento (13 domande totali per la donna,
+  invariate le 12 per l'uomo).
+- Aggiornati `/biotipi` e la sitemap (ora 18 pagine biotipo/tratto, 22 URL
+  totali) in automatico, nessuna modifica manuale necessaria.
+- Verificato via build + Playwright: la domanda compare solo nel ramo
+  donna (confermato che il ramo uomo salta direttamente da genere a tipo
+  di pelle), il tratto compare correttamente nel risultato ("Pelle
+  seborroica idratata" + "In perimenopausa o menopausa"), pagina di
+  dettaglio `/biotipi/menopausa` corretta. Nessun errore in console.
+
 ## 2026-09-21 — Biotipi misti: nuovi tratti combinabili + pelle con psoriasi
 
 - Su richiesta: il biotipo di pelle ora può essere **misto** (es. "pelle

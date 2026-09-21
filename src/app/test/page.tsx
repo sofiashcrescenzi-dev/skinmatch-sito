@@ -9,6 +9,7 @@ import type { Product } from '@/lib/products';
 type AnswersState = {
   gender?: 'donna' | 'uomo';
   pregnant?: 'si' | 'no';
+  menopause?: 'si' | 'no';
   skinType?: string;
   oilySubtype?: string;
   sensitiveSkinAnswer?: 'si' | 'no';
@@ -51,6 +52,17 @@ const STEPS: StepConfig[] = [
     key: 'pregnant',
     question: 'Sei in gravidanza o allattamento?',
     subtitle: 'Alcuni ingredienti (es. retinoidi, acidi ad alta concentrazione) sono da evitare in questi periodi.',
+    type: 'single',
+    options: [
+      { value: 'si', label: 'Sì' },
+      { value: 'no', label: 'No' },
+    ],
+    visible: (a) => a.gender === 'donna',
+  },
+  {
+    key: 'menopause',
+    question: 'Sei in perimenopausa o menopausa?',
+    subtitle: 'Il calo di estrogeni cambia la pelle anche in modo sensibile — utile saperlo per la routine giusta.',
     type: 'single',
     options: [
       { value: 'si', label: 'Sì' },
@@ -247,7 +259,7 @@ export default function TestPage() {
     const newAnswers: AnswersState =
       key === 'gender'
         // Se cambia il genere, resettiamo eventuali risposte legate al genere precedente
-        ? { ...answers, gender: value as 'donna' | 'uomo', pregnant: undefined, beardConcern: undefined }
+        ? { ...answers, gender: value as 'donna' | 'uomo', pregnant: undefined, menopause: undefined, beardConcern: undefined }
         : { ...answers, [key]: value };
     setAnswers(newAnswers);
     setTimeout(() => advanceFrom(computeVisibleSteps(newAnswers)), 120);
@@ -335,6 +347,7 @@ export default function TestPage() {
     const quizAnswers: QuizAnswers = {
       gender: answers.gender ?? 'donna',
       pregnant: answers.pregnant === 'si',
+      menopause: answers.menopause === 'si',
       skinType: (answers.skinType as QuizAnswers['skinType']) ?? 'normale',
       sensitiveSkin: answers.sensitiveSkinAnswer === 'si',
       oilySubtype: (answers.oilySubtype as QuizAnswers['oilySubtype']) ?? null,

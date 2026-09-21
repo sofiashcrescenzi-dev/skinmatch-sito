@@ -25,6 +25,7 @@ export type DandruffSubtype = 'grassa' | 'secca';
 export type QuizAnswers = {
   gender: Extract<Gender, 'donna' | 'uomo'>;
   pregnant: boolean;
+  menopause: boolean;
   skinType: SkinType;
   sensitiveSkin: boolean;
   oilySubtype: OilySubtype | null; // solo se skinType è grassa/mista
@@ -289,6 +290,27 @@ const SKIN_TRAITS: Record<string, Biotype> = {
     avoid: ['Aspettarsi risultati immediati (gli attivi anti-age richiedono settimane/mesi)', 'Saltare la protezione solare'],
     relatedConcern: 'anti-age',
   },
+  menopausa: {
+    id: 'menopausa',
+    kind: 'tratto',
+    title: 'In perimenopausa o menopausa',
+    description:
+      'Il calo di estrogeni tipico di questa fase riduce la produzione di collagene ed elastina, assottiglia la pelle e ne cambia l’equilibrio idro-lipidico: anche una pelle che è sempre stata grassa può diventare più secca e reattiva. Non è raro comparire acne ormonale proprio in questa fase, insieme a rughe più marcate.',
+    characteristics: [
+      'Pelle più sottile, meno elastica e tonica',
+      'Produzione di sebo ridotta — anche chi ha sempre avuto pelle grassa può notare più secchezza',
+      'Barriera cutanea più fragile, maggiore sensibilità e reattività',
+      'Possibile acne ormonale, soprattutto su mento e mandibola',
+      'Vampate che possono dare arrossamento transitorio',
+    ],
+    lookFor: [
+      'Attivi che stimolano il collagene (peptidi, retinoidi a bassa concentrazione)',
+      'Ceramidi e acido ialuronico per rinforzare la barriera',
+      'Texture più ricche di quelle usate in passato, anche su pelli storicamente miste o grasse',
+    ],
+    avoid: ['Continuare la stessa routine "da pelle grassa" di prima senza adattarla', 'Esfolianti aggressivi — la pelle è più sottile e reattiva', 'Saltare la protezione solare (il fotoinvecchiamento si somma al calo ormonale)'],
+    relatedConcern: 'barriera-cutanea',
+  },
 };
 
 export const ALL_BIOTYPES: Biotype[] = [...Object.values(SKIN_BIOTYPES), ...Object.values(SCALP_BIOTYPES), ...Object.values(SKIN_TRAITS)];
@@ -319,6 +341,7 @@ export function getSkinTraits(a: QuizAnswers): Biotype[] {
   if (a.conditions.includes('rosacea')) traits.push(SKIN_TRAITS.rosacea);
   if (a.pigmentedSkin) traits.push(SKIN_TRAITS.macchie);
   if (a.goal === 'anti-age') traits.push(SKIN_TRAITS.matura);
+  if (a.menopause) traits.push(SKIN_TRAITS.menopausa);
   return traits;
 }
 
@@ -348,6 +371,9 @@ function skincareScore(p: Product, a: QuizAnswers): number {
   // ai prodotti pertinenti, senza escludere gli altri.
   if (a.conditions.includes('rosacea') && p.concerns?.includes('rossori-sensibilita')) score += 2;
   if (a.pigmentedSkin && p.concerns?.includes('macchie-luminosita')) score += 2;
+  // In menopausa la pelle ha bisogno di più barriera/idratazione anche se il
+  // biotipo di base è ancora "grasso" — piccolo bonus, non un filtro rigido.
+  if (a.menopause && (p.concerns?.includes('barriera-cutanea') || p.concerns?.includes('idratazione') || p.concerns?.includes('anti-age'))) score += 1;
   if (a.pricePref !== 'nessuna' && p.tier === a.pricePref) score += 1;
   return score;
 }
