@@ -47,6 +47,55 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Quiz — biotipo + routine su misura */}
+      <section className="border-t" style={{ borderColor: 'var(--border)', background: 'rgba(182,130,90,0.06)' }}>
+        <div className="max-w-4xl mx-auto px-6 py-20 text-center">
+          <p className="text-xs font-semibold uppercase tracking-widest mb-4" style={{ color: 'var(--accent)' }}>
+            Non sai da dove iniziare?
+          </p>
+          <h2 className="text-3xl sm:text-4xl font-semibold mb-5 leading-tight">
+            Scopri il tuo biotipo di pelle e cuoio capelluto
+          </h2>
+          <p className="opacity-70 max-w-xl mx-auto mb-10 leading-relaxed">
+            Un test di 2 minuti che identifica il tuo biotipo — es. pelle seborroica idratata, disidratata e
+            sensibile, acneica — te lo spiega, e ti propone una routine su misura: detergente, siero, crema,
+            capelli, barba e integratore.
+          </p>
+
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 mb-10 text-left sm:text-center">
+            <div className="bg-white rounded-xl p-5 border" style={{ borderColor: 'var(--border)' }}>
+              <p className="text-xl font-semibold mb-1" style={{ color: 'var(--accent)' }}>1</p>
+              <p className="text-sm font-medium">Poche domande</p>
+            </div>
+            <div className="bg-white rounded-xl p-5 border" style={{ borderColor: 'var(--border)' }}>
+              <p className="text-xl font-semibold mb-1" style={{ color: 'var(--accent)' }}>2</p>
+              <p className="text-sm font-medium">Scopri il tuo biotipo</p>
+            </div>
+            <div className="bg-white rounded-xl p-5 border" style={{ borderColor: 'var(--border)' }}>
+              <p className="text-xl font-semibold mb-1" style={{ color: 'var(--accent)' }}>3</p>
+              <p className="text-sm font-medium">Routine su misura</p>
+            </div>
+          </div>
+
+          <div className="flex flex-wrap gap-4 justify-center">
+            <Link
+              href="/test"
+              className="px-8 py-3.5 rounded-full text-white font-medium text-lg"
+              style={{ background: 'var(--accent)' }}
+            >
+              Fai il test →
+            </Link>
+            <Link
+              href="/biotipi"
+              className="px-8 py-3.5 rounded-full border font-medium text-lg bg-white"
+              style={{ borderColor: 'var(--border)' }}
+            >
+              Scopri i biotipi
+            </Link>
+          </div>
+        </div>
+      </section>
+
       {/* Categorie */}
       <section className="max-w-6xl mx-auto px-6 pb-24">
         <h2 className="text-sm font-semibold uppercase tracking-wide opacity-50 mb-6 text-center">

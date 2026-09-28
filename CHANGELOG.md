@@ -4,6 +4,21 @@ Registro di ogni modifica fatta al repository. Ordine: dal più recente al più 
 
 ---
 
+## 2026-09-28 — Quiz più visibile in homepage
+
+- Su richiesta: prima il test era richiamato solo dal pulsante nell'hero e
+  dal menu — nessuna sezione dedicata in homepage lo spiegava.
+- `src/app/page.tsx`: aggiunta una sezione dedicata subito dopo l'hero
+  (sfondo tinto per distinguerla, coerente con lo stile della sezione
+  K-beauty già esistente): eyebrow "Non sai da dove iniziare?", titolo
+  "Scopri il tuo biotipo di pelle e cuoio capelluto", breve spiegazione, 3
+  card "Poche domande / Scopri il tuo biotipo / Routine su misura" (stesso
+  concetto della schermata introduttiva di `/test`), doppia CTA — "Fai il
+  test →" e "Scopri i biotipi" (verso `/biotipi`).
+- Verificato via build + screenshot Playwright: resa desktop (sezione ben
+  distinta, subito visibile senza scroll eccessivo) e mobile (le 3 card si
+  impilano correttamente).
+
 ## 2026-09-21 — Domanda su perimenopausa/menopausa + nuovo tratto
 
 - Su richiesta: aggiunta una domanda dedicata alla menopausa, considerando
