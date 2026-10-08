@@ -4,6 +4,28 @@ Registro di ogni modifica fatta al repository. Ordine: dal più recente al più 
 
 ---
 
+## 2026-10-08 — Primi link di affiliazione reali (Amazon Associates) + 2 nuove marche
+
+- Creato l'account **Amazon Associates Italia** (Associate ID `skinmatch21-21`).
+- Collegati i primi link di affiliazione **reali e verificati** (ricercati uno per
+  uno su Amazon.it, non inventati) per 4 prodotti già in catalogo — rimosso
+  `linkPending`: Beauty of Joseon Relief Sun (kb1), Medicube Collagen Jelly
+  Cream (kb4, prezzo aggiornato a 26€ in base alla scheda reale collegata),
+  La Roche-Posay Cicaplast Baume B5 (dc4), Avène Cicalfate+ (dc6).
+- **Trovato un vincolo reale**: Sisley non è vendibile tramite Amazon in
+  Italia — un tribunale di Milano ha dato ragione a Sisley contro Amazon
+  (distribuzione selettiva, Amazon non è rivenditore autorizzato). I due
+  prodotti Sisley in catalogo (pr1, pr2) restano `linkPending`: serve un
+  canale diverso (programma diretto del brand o un rivenditore autorizzato
+  con affiliazione, es. tramite Awin).
+- Aggiunte **2 nuove marche di dermocosmesi francese**, con link reali già
+  collegati fin da subito: **Caudalie** (Vinoperfect Siero Illuminante
+  Anti-Macchie, cd1) e **SVR** (Sebiaclear Gel Moussant per pelle grassa/
+  acneica, sv1; Topialyse Baume Lavant per pelle secca/atopica, sv2).
+  Catalogo totale: 42 prodotti.
+- Verificato via build: i 7 link Amazon compaiono correttamente nell'HTML
+  statico del catalogo con il tag di affiliazione `skinmatch21-21`.
+
 ## 2026-09-28 — Quiz più visibile in homepage
 
 - Su richiesta: prima il test era richiamato solo dal pulsante nell'hero e
