@@ -3,8 +3,7 @@
 import { useMemo, useState } from 'react';
 import Link from 'next/link';
 import ProductCard from '@/components/ProductCard';
-import { getRecommendation, type QuizAnswers } from '@/lib/quiz';
-import type { Product } from '@/lib/products';
+import { getRecommendation, type QuizAnswers, type RoutineStep } from '@/lib/quiz';
 
 type AnswersState = {
   gender?: 'donna' | 'uomo';
@@ -215,15 +214,25 @@ const STEPS: StepConfig[] = [
   },
 ];
 
-const ROUTINE_LABELS: Record<string, string> = {
-  detergenti: 'Detergente',
-  sieri: 'Siero',
-  creme: 'Crema',
-};
-
-function routineLabel(p: Product): string {
-  if (p.category === 'creme' && p.concerns?.includes('protezione-solare')) return 'Protezione solare';
-  return ROUTINE_LABELS[p.category] ?? p.category;
+function StepBlock({ step }: { step: RoutineStep }) {
+  return (
+    <div>
+      <p className="text-xs font-semibold uppercase tracking-wide mb-2" style={{ color: 'var(--accent)' }}>
+        {step.label}
+      </p>
+      <ProductCard product={step.main} />
+      {step.alternatives.length > 0 && (
+        <div className="mt-3">
+          <p className="text-xs opacity-60 mb-2">Alternative in altre fasce di prezzo</p>
+          <div className="flex flex-col gap-2">
+            {step.alternatives.map((p) => (
+              <ProductCard key={p.id} product={p} compact />
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+  );
 }
 
 export default function TestPage() {
@@ -434,13 +443,8 @@ export default function TestPage() {
           <section className="mb-12">
             <h2 className="text-xl font-semibold mb-5">La tua routine skincare</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-              {result.routine.map((p) => (
-                <div key={p.id}>
-                  <p className="text-xs font-semibold uppercase tracking-wide mb-2" style={{ color: 'var(--accent)' }}>
-                    {routineLabel(p)}
-                  </p>
-                  <ProductCard product={p} />
-                </div>
+              {result.routine.map((step) => (
+                <StepBlock key={step.key} step={step} />
               ))}
             </div>
           </section>
@@ -450,7 +454,9 @@ export default function TestPage() {
           <section className="mb-12">
             <h2 className="text-xl font-semibold mb-5">Per i tuoi capelli</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-              {result.hair.map((p) => <ProductCard key={p.id} product={p} />)}
+              {result.hair.map((step) => (
+                <StepBlock key={step.key} step={step} />
+              ))}
             </div>
           </section>
         )}
@@ -472,6 +478,11 @@ export default function TestPage() {
             </div>
           </section>
         )}
+
+        <p className="text-xs opacity-60 text-center max-w-xl mx-auto mb-6">
+          Alcuni link sono di affiliazione: se acquisti tramite questi link, SkinMatch può ricevere una
+          commissione, senza alcun costo aggiuntivo per te. Non influisce sui prodotti consigliati.
+        </p>
 
         <div className="flex flex-wrap gap-4 justify-center pt-4">
           <button

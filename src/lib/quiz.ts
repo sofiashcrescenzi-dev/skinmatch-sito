@@ -54,12 +54,20 @@ export type Biotype = {
   relatedHairConcern?: HairConcern;
 };
 
+// Una tappa della routine: il prodotto consigliato più alternative in altre fasce di prezzo.
+export type RoutineStep = {
+  key: string;
+  label: string;
+  main: Product;
+  alternatives: Product[];
+};
+
 export type QuizResult = {
   skinBiotype: Biotype;
   skinTraits: Biotype[];
   scalpBiotype: Biotype;
-  routine: Product[];
-  hair: Product[];
+  routine: RoutineStep[];
+  hair: RoutineStep[];
   beard: Product[];
   integratori: Product[];
   disclaimerCondizioni: boolean;
@@ -362,11 +370,42 @@ function passesHardFilters(p: Product, a: QuizAnswers): boolean {
   return true;
 }
 
-function skincareScore(p: Product, a: QuizAnswers): number {
+// A parità di pertinenza vince un link già tracciato (commissione attiva).
+function linkBonus(p: Product): number {
+  return p.linkPending ? 0 : 0.5;
+}
+
+// Ambiente e stile di vita: piccoli bonus verso le esigenze che comportano.
+const ENVIRONMENT_NEEDS: Record<string, Concern[]> = {
+  citta: ['macchie-luminosita', 'anti-age'],
+  'clima-secco': ['barriera-cutanea', 'idratazione'],
+  'clima-umido': ['acne-sebo', 'pori-dilatati'],
+};
+const LIFESTYLE_NEEDS: Record<string, Concern[]> = {
+  fumo: ['anti-age', 'macchie-luminosita'],
+  stress: ['barriera-cutanea', 'rossori-sensibilita'],
+  'poco-sonno': ['barriera-cutanea', 'idratazione'],
+};
+
+function skincareScore(p: Product, a: QuizAnswers, biotype: Biotype): number {
   let score = 0;
-  if (p.skinTypes?.includes(a.skinType)) score += 3;
+  // "Sensibile" nel test è una domanda a parte, non un tipo di pelle: un prodotto
+  // specifico per pelle sensibile corrisponde a chi l'ha dichiarata, qualunque sia il tipo.
+  const fitsSkin = p.skinTypes?.includes(a.skinType) || (a.sensitiveSkin && p.skinTypes?.includes('sensibile'));
+  if (fitsSkin) {
+    score += 3;
+    // Un prodotto pensato per una o due tipologie batte un generico "per tutte".
+    if (p.skinTypes!.length <= 2) score += 1;
+  }
   if (a.sensitiveSkin && p.skinTypes?.includes('sensibile')) score += 2;
-  if (p.concerns?.includes(a.goal)) score += 3;
+  if (p.concerns?.includes(a.goal)) {
+    score += 3;
+    if (p.concerns[0] === a.goal) score += 1; // obiettivo principale del prodotto
+  }
+  const needs = [...(ENVIRONMENT_NEEDS[a.environment] ?? []), ...a.lifestyle.flatMap((l) => LIFESTYLE_NEEDS[l] ?? [])];
+  if (needs.some((n) => p.concerns?.includes(n))) score += 1;
+  // Il biotipo identificato orienta la scelta (es. atopica → barriera, acneica → sebo).
+  if (biotype.relatedConcern && p.concerns?.includes(biotype.relatedConcern)) score += 2;
   // Tratti aggiuntivi (indipendenti dal biotipo primario): danno un bonus
   // ai prodotti pertinenti, senza escludere gli altri.
   if (a.conditions.includes('rosacea') && p.concerns?.includes('rossori-sensibilita')) score += 2;
@@ -374,76 +413,116 @@ function skincareScore(p: Product, a: QuizAnswers): number {
   // In menopausa la pelle ha bisogno di più barriera/idratazione anche se il
   // biotipo di base è ancora "grasso" — piccolo bonus, non un filtro rigido.
   if (a.menopause && (p.concerns?.includes('barriera-cutanea') || p.concerns?.includes('idratazione') || p.concerns?.includes('anti-age'))) score += 1;
-  if (a.pricePref !== 'nessuna' && p.tier === a.pricePref) score += 1;
-  return score;
+  // Linee pensate per l'uomo: piccola preferenza nel ramo uomo.
+  if (a.gender === 'uomo' && p.gender === 'uomo') score += 1;
+  return score + linkBonus(p);
 }
 
-function bestOf(candidates: Product[], score: (p: Product) => number, exclude: string[] = []): Product | null {
-  const pool = candidates.filter((p) => !exclude.includes(p.id));
-  if (pool.length === 0) return null;
-  return pool.reduce<{ p: Product; s: number } | null>((best, p) => {
-    const s = score(p);
-    if (!best || s > best.s) return { p, s };
-    return best;
-  }, null)!.p;
+const normalize = (s: string) => s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
+
+function hairScore(p: Product, a: QuizAnswers): number {
+  let score = p.hairConcerns?.includes(a.hairConcern) ? 3 : 0;
+  const text = normalize(`${p.name} ${p.description}`);
+  // Forfora secca e grassa richiedono shampoo diversi: lo dicono i nomi stessi dei prodotti.
+  if (a.hairConcern === 'forfora' && a.dandruffSubtype) {
+    if (text.includes(a.dandruffSubtype === 'secca' ? 'secc' : 'grass')) score += 1;
+  }
+  if (a.conditions.includes('psoriasi') && /\bpso/i.test(p.name)) score += 2;
+  return score + linkBonus(p);
+}
+
+const TIER_ORDER: Tier[] = ['base', 'top', 'premium'];
+
+// Spareggio tra prodotti ugualmente adatti: deterministico (stesse risposte → stesso
+// risultato) ma diverso da un profilo all'altro, così l'intero catalogo viene proposto.
+function tieBreak(seed: string, id: string): number {
+  let h = 2166136261;
+  for (const c of seed + id) h = Math.imul(h ^ c.charCodeAt(0), 16777619);
+  return ((h >>> 0) % 1000) / 2500; // 0 – 0.4: non supera mai una differenza reale di punteggio
+}
+
+// Sceglie il prodotto principale di una tappa e fino a 2 alternative in altre fasce di prezzo.
+// Se l'utente ha una fascia preferita, il principale viene da lì quando è quasi altrettanto adatto.
+function pickStep(
+  pool: Product[],
+  score: (p: Product) => number,
+  a: QuizAnswers,
+  used: Set<string>
+): { main: Product; alternatives: Product[] } | null {
+  const seed = JSON.stringify(a);
+  const scored = pool
+    .filter((p) => !used.has(p.id))
+    .map((p) => ({ p, s: score(p) + tieBreak(seed, p.id) }))
+    .sort((x, y) => y.s - x.s);
+  if (scored.length === 0) return null;
+  let main = scored[0];
+  if (a.pricePref !== 'nessuna') {
+    const inTier = scored.find((x) => x.p.tier === a.pricePref);
+    if (inTier && inTier.s >= scored[0].s - 2) main = inTier;
+  }
+  const alternatives = TIER_ORDER.filter((t) => t !== main.p.tier)
+    .map((t) => scored.find((x) => x.p.tier === t))
+    .filter((x): x is { p: Product; s: number } => !!x && x.s >= Math.max(1, main.s - 2))
+    .map((x) => x.p);
+  used.add(main.p.id);
+  alternatives.forEach((p) => used.add(p.id));
+  return { main: main.p, alternatives };
 }
 
 export function getRecommendation(a: QuizAnswers): QuizResult {
-  const safe = PRODUCTS.filter((p) => passesHardFilters(p, a));
+  // Il test consiglia solo prodotti acquistabili: quelli senza link restano nel catalogo.
+  const safe = PRODUCTS.filter((p) => p.affiliateUrl !== '#' && passesHardFilters(p, a));
+  const skinBiotype = getSkinBiotype(a);
+  const used = new Set<string>();
+  const skin = (p: Product) => skincareScore(p, a, skinBiotype);
+  const isSpf = (p: Product) => !!p.concerns?.includes('protezione-solare');
 
-  const usedIds: string[] = [];
-  const routine: Product[] = [];
-
-  const detergente = bestOf(safe.filter((p) => p.category === 'detergenti'), (p) => skincareScore(p, a));
-  if (detergente) { routine.push(detergente); usedIds.push(detergente.id); }
-
-  const siero = bestOf(safe.filter((p) => p.category === 'sieri'), (p) => skincareScore(p, a), usedIds);
-  if (siero) { routine.push(siero); usedIds.push(siero.id); }
-
-  const crema = bestOf(safe.filter((p) => p.category === 'creme' && !p.concerns?.includes('protezione-solare')), (p) => skincareScore(p, a), usedIds);
-  if (crema) { routine.push(crema); usedIds.push(crema.id); }
-
+  const routine: RoutineStep[] = [];
+  const steps: { key: string; label: string; pool: Product[] }[] = [
+    { key: 'detergente', label: 'Detergente', pool: safe.filter((p) => p.category === 'detergenti') },
+    { key: 'siero', label: 'Siero', pool: safe.filter((p) => p.category === 'sieri') },
+    { key: 'crema', label: 'Crema', pool: safe.filter((p) => p.category === 'creme' && !isSpf(p)) },
+  ];
   if (a.sunExposure !== 'bassa') {
-    const spf = bestOf(
-      safe.filter((p) => p.category === 'creme' && p.concerns?.includes('protezione-solare')),
-      (p) => skincareScore(p, a),
-      usedIds
-    );
-    if (spf) { routine.push(spf); usedIds.push(spf.id); }
+    steps.push({ key: 'spf', label: 'Protezione solare', pool: safe.filter((p) => p.category === 'creme' && isSpf(p)) });
+  }
+  for (const step of steps) {
+    const picked = pickStep(step.pool, skin, a, used);
+    if (picked) routine.push({ key: step.key, label: step.label, ...picked });
   }
 
   // Capelli: uno shampoo + un trattamento specifico
-  const hair: Product[] = [];
-  const hairScore = (p: Product) => (p.hairConcerns?.includes(a.hairConcern) ? 3 : 0) + (a.pricePref !== 'nessuna' && p.tier === a.pricePref ? 1 : 0);
-  const shampoo = bestOf(safe.filter((p) => p.category === 'shampoo'), hairScore);
-  if (shampoo) hair.push(shampoo);
-  const trattamentoCapelli = bestOf(safe.filter((p) => p.category === 'capelli'), hairScore, shampoo ? [shampoo.id] : []);
-  if (trattamentoCapelli) hair.push(trattamentoCapelli);
+  const hair: RoutineStep[] = [];
+  const hairSteps = [
+    { key: 'shampoo', label: 'Shampoo', category: 'shampoo' },
+    { key: 'trattamento-capelli', label: 'Trattamento', category: 'capelli' },
+  ];
+  for (const step of hairSteps) {
+    const picked = pickStep(safe.filter((p) => p.category === step.category), (p) => hairScore(p, a), a, used);
+    if (picked) hair.push({ key: step.key, label: step.label, ...picked });
+  }
 
   // Barba: solo per il ramo uomo
   const beard: Product[] = [];
   if (a.gender === 'uomo' && a.beardConcern) {
-    const beardScore = (p: Product) => (p.beardConcerns?.includes(a.beardConcern!) ? 3 : 0);
-    const prodottoBarba = bestOf(safe.filter((p) => p.category === 'barba'), beardScore);
-    if (prodottoBarba) beard.push(prodottoBarba);
+    const beardScore = (p: Product) => (p.beardConcerns?.includes(a.beardConcern!) ? 3 : 0) + linkBonus(p);
+    const picked = pickStep(safe.filter((p) => p.category === 'barba'), beardScore, a, used);
+    if (picked) beard.push(picked.main);
   }
 
   // Integratore: uno solo, il più coerente con obiettivo pelle o capelli
   const integratoriScore = (p: Product) =>
-    (p.concerns?.includes(a.goal) ? 3 : 0) +
-    (p.hairConcerns?.includes(a.hairConcern) ? 3 : 0) +
-    (a.pricePref !== 'nessuna' && p.tier === a.pricePref ? 1 : 0);
-  const integratore = bestOf(safe.filter((p) => p.category === 'integratori'), integratoriScore);
-  const integratori = integratore ? [integratore] : [];
+    (p.concerns?.includes(a.goal) ? 3 : 0) + (p.hairConcerns?.includes(a.hairConcern) ? 3 : 0) + linkBonus(p);
+  const integratore = pickStep(safe.filter((p) => p.category === 'integratori'), integratoriScore, a, used);
 
   return {
-    skinBiotype: getSkinBiotype(a),
+    skinBiotype,
     skinTraits: getSkinTraits(a),
     scalpBiotype: getScalpBiotype(a),
     routine,
     hair,
     beard,
-    integratori,
+    integratori: integratore ? [integratore.main] : [],
     disclaimerCondizioni: a.conditions.some((c) => c !== 'nessuna'),
   };
 }

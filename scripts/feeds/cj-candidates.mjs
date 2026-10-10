@@ -81,6 +81,7 @@ for (const brand of brands) {
         joined: p.joinedStatus,
         brand: p.brand,
         title: p.title,
+        description: (p.description || '').replace(/\s+/g, ' ').trim(),
         price: Number(p.salePrice?.amount || p.price?.amount),
         currency: p.price?.currency,
         image: p.imageLink,

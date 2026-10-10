@@ -33,6 +33,19 @@ Ultimo aggiornamento: 2026-09-21
 
 ---
 
+## 2b. Catalogo dai feed di affiliazione (CJ)
+
+Strumenti solo locali; credenziali in `~/.secrets/cj-affiliate.env` (token, CID,
+PID), mai nel repo né su Cloudflare.
+
+1. `node scripts/feeds/cj-candidates.mjs` → scarica i prodotti delle marche scelte
+   da Notino.it / Marionnaud IT / QVC IT in `feeds-out/` (ignorata da git).
+2. Selezione e tag a mano → `src/lib/products-feed.ts`.
+3. `npx tsx scripts/quiz/coverage.ts` → verifica che ogni prodotto sia
+   raggiungibile dal test (`--alt` per vedere anche quelli solo come alternativa).
+4. Quando un merchant approva l'account: `node scripts/feeds/cj-sync-links.mjs`
+   sostituisce i link `linkPending` con quelli tracciati; poi build e deploy.
+
 ## 3. Migrazione dominio — stato dei passaggi
 
 ### Fatto

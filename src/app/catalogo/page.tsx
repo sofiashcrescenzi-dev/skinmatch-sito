@@ -37,13 +37,16 @@ export default function CatalogoPage() {
   }, []);
 
   const results = useMemo(() => {
-    return PRODUCTS.filter((p) => {
+    const filtered = PRODUCTS.filter((p) => {
       if (gender !== 'tutti' && p.gender !== gender && p.gender !== 'unisex') return false;
       if (category !== 'tutti' && p.category !== category) return false;
       if (tier !== 'tutti' && p.tier !== tier) return false;
       if (koreanOnly && !p.korean) return false;
       return true;
     });
+    // Prima i prodotti acquistabili con foto, in fondo quelli ancora senza link.
+    const rank = (p: (typeof PRODUCTS)[number]) => (p.affiliateUrl === '#' ? 2 : 0) + (p.image ? 0 : 1);
+    return filtered.sort((x, y) => rank(x) - rank(y));
   }, [gender, category, tier, koreanOnly]);
 
   return (
@@ -56,8 +59,9 @@ export default function CatalogoPage() {
             Trova il tuo SkinMatch →
           </Link>
         </p>
-        <p className="mt-4 text-xs bg-sky-50 border border-sky-200 text-sky-800 px-3 py-2 rounded inline-block">
-          Prodotti reali — i link di affiliazione sono in fase di attivazione.
+        <p className="mt-4 text-xs opacity-60 max-w-xl">
+          Alcuni link sono di affiliazione: se acquisti tramite questi link, SkinMatch può ricevere una
+          commissione, senza alcun costo aggiuntivo per te.
         </p>
       </div>
 

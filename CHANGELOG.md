@@ -4,6 +4,51 @@ Registro di ogni modifica fatta al repository. Ordine: dal più recente al più 
 
 ---
 
+## 2026-10-10 — Catalogo da feed CJ (138 nuovi prodotti) collegato al test
+
+- **Catalogo**: da 43 a 181 prodotti. Dai 2.212 prodotti scaricati da Notino.it e
+  Marionnaud IT ne ho selezionati 138 a mano (scartati trucco, profumi, corpo,
+  cofanetti e doppioni), scegliendo i prodotti di punta di ogni marca per coprire
+  ogni tipo di pelle, tappa della routine e fascia di prezzo. Nuovo file
+  `src/lib/products-feed.ts`; nome, prezzo, foto e link vengono dal feed, i tag
+  del test (tipo di pelle, obiettivi, compatibilità gravidanza/pelle sensibile)
+  sono assegnati in base alla funzione dichiarata del prodotto. Aggiornati anche
+  17 prodotti già in catalogo che erano senza link.
+- **Link**: finché Notino e Marionnaud non approvano l'account, i link portano alla
+  pagina prodotto senza tracciamento (`linkPending`) — i clic non generano
+  commissione. Nuovo `scripts/feeds/cj-sync-links.mjs`: all'approvazione sostituisce
+  in automatico i link con quelli tracciati (oggi: 155 in attesa).
+- **Integratori su Amazon**: Bioscalin TricoAge 50+ (ora confezione da 60
+  compresse, 42,50€), Imedeen Time Perfection, Perfectil, Gold Collagen Forte Plus
+  collegati con il tag `skinmatch21-21`.
+- **Motore del test** (`src/lib/quiz.ts`), corretto e ampliato:
+  - ogni tappa (detergente, siero, crema, solare, shampoo, trattamento) mostra il
+    prodotto consigliato più fino a 2 alternative in altre fasce di prezzo;
+  - il biotipo identificato ora orienta la scelta (prima veniva ignorato);
+  - **bug corretto**: i prodotti specifici per pelle sensibile non ricevevano mai
+    il punteggio di corrispondenza ("sensibile" è una domanda a parte, non un tipo
+    di pelle) — proprio chi ha la pelle sensibile riceveva prodotti generici;
+  - usate anche le risposte su ambiente e stile di vita, finora ignorate;
+  - preferenza di prezzo più incisiva; forfora secca/grassa e psoriasi del cuoio
+    capelluto ora portano a shampoo diversi;
+  - a parità di punteggio la scelta varia col profilo (stesse risposte → stesso
+    risultato) invece di premiare sempre il primo dell'elenco;
+  - il test non consiglia più prodotti senza link d'acquisto.
+- **Verifica di copertura** (`scripts/quiz/coverage.ts`): simula 25.600 percorsi del
+  test. Prima delle correzioni 80 prodotti su 181 non venivano mai consigliati; ora
+  158 dei 166 prodotti acquistabili sono raggiungibili (gli 8 esclusi sono
+  equivalenti a un altro prodotto che vince sempre).
+- **Schede prodotto**: foto, nome del negozio ("Vedi su Notino →"), link in nuova
+  scheda con `rel="sponsored nofollow"`, versione compatta per le alternative,
+  riquadro neutro per i prodotti senza foto. Le immagini Marionnaud non vengono
+  usate perché il sito blocca il caricamento da altri domini (403).
+- **Avviso di affiliazione** nel catalogo e nei risultati del test (sostituisce la
+  nota interna "link in fase di attivazione"). Catalogo ordinato con i prodotti
+  acquistabili e con foto in cima.
+- Verificato via build + Playwright: 181 prodotti, 147/147 immagini caricate,
+  percorsi donna (menopausa, rosacea, macchie, budget base) e uomo (pelle acneica,
+  caduta, barba irritata) coerenti, nessun errore in console.
+
 ## 2026-10-10 — Integrazione API CJ Affiliate: importazione prodotti dai merchant
 
 - Collegata l'API di **CJ Affiliate** (Personal Access Token, CID e PID salvati
