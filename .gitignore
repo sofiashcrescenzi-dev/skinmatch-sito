@@ -37,3 +37,6 @@ next-env.d.ts
 
 # Claude Code local settings
 .claude/
+
+# Candidati scaricati dai feed di affiliazione (strumento locale)
+feeds-out/

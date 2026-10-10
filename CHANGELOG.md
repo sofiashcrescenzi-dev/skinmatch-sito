@@ -4,6 +4,28 @@ Registro di ogni modifica fatta al repository. Ordine: dal più recente al più 
 
 ---
 
+## 2026-10-10 — Integrazione API CJ Affiliate: importazione prodotti dai merchant
+
+- Collegata l'API di **CJ Affiliate** (Personal Access Token, CID e PID salvati
+  solo in locale in `~/.secrets/cj-affiliate.env`, mai nel repo né su
+  Cloudflare). Testata con successo dopo l'attivazione dell'account editore.
+- Mappati i merchant CJ che vendono davvero in Italia. Adatti a SkinMatch:
+  **Notino.it** (copre quasi tutte le marche del catalogo e quelle richieste:
+  Medicube, Caudalie, Sisley, SVR, La Roche-Posay, Avène, CeraVe, Bioderma,
+  tutta la K-beauty, La Mer, Vichy, Ducray…), **Marionnaud IT** (forte su
+  Sisley e La Mer — profumeria tradizionale, canale coerente con la
+  distribuzione selettiva di Sisley) e **QVC IT** (Medicube, Missha, Beauty
+  of Joseon). Scartati i marketplace generici (SHEIN, Temu, OnBuy).
+  Non disponibili su CJ Italia: Augustinus Bader, SkinCeuticals, Bioscalin,
+  Imedeen, Perfectil.
+- Nuovo `scripts/feeds/cj-candidates.mjs`: scarica i prodotti delle marche
+  scelte dai merchant indicati e li salva in `feeds-out/` (ignorata da git)
+  come candidati da valutare prima di aggiungerli al catalogo. Per i merchant
+  già approvati genera anche il link tracciato con il PID di skinmatch.it.
+- Test: 139 prodotti reali per Caudalie/Sisley/SVR/Medicube (titoli in
+  italiano, prezzi in EUR). Link tracciati ancora vuoti: in attesa
+  dell'approvazione da Notino.it e Marionnaud IT.
+
 ## 2026-10-08 — Primi link di affiliazione reali (Amazon Associates) + 2 nuove marche
 
 - Creato l'account **Amazon Associates Italia** (Associate ID `skinmatch21-21`).
