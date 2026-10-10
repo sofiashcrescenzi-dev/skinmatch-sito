@@ -2356,6 +2356,7 @@ export const FEED_PRODUCTS: Product[] = [
     merchant: "Notino",
     feedId: "cj:4917850:VCHDADW_KSHA31",
     hairConcerns: ["forfora"],
+    scalpTypes: ["grasso", "normale"],
   },
   {
     id: "nt-vichy-dercos-anti-dandruff-per-capelli-s",
@@ -2373,6 +2374,7 @@ export const FEED_PRODUCTS: Product[] = [
     merchant: "Notino",
     feedId: "cj:4917850:VCHEWTM_DDZZ03",
     hairConcerns: ["forfora"],
+    scalpTypes: ["secco"],
   },
   {
     id: "nt-ducray-kelual-squanorm-regulating-treatm",
@@ -2390,6 +2392,7 @@ export const FEED_PRODUCTS: Product[] = [
     merchant: "Notino",
     feedId: "cj:4917850:DURSQAW_KSHA12",
     hairConcerns: ["forfora"],
+    scalpTypes: ["grasso"],
   },
   {
     id: "nt-ducray-kelual-squanorm-moisturizing-trea",
@@ -2407,6 +2410,7 @@ export const FEED_PRODUCTS: Product[] = [
     merchant: "Notino",
     feedId: "cj:4917850:DURXQOW_KSHA01",
     hairConcerns: ["forfora"],
+    scalpTypes: ["secco"],
   },
   {
     id: "nt-ducray-kelual-ds-intensive-anti-dandruff",
@@ -2424,6 +2428,7 @@ export const FEED_PRODUCTS: Product[] = [
     merchant: "Notino",
     feedId: "cj:4917850:DURZBCK_BVUR01",
     hairConcerns: ["forfora"],
+    scalpTypes: ["grasso", "sensibile"],
   },
   {
     id: "nt-vichy-dercos-psolution",
@@ -2458,6 +2463,7 @@ export const FEED_PRODUCTS: Product[] = [
     merchant: "Notino",
     feedId: "cj:4917850:LRPQCQW_KSHM04",
     hairConcerns: ["forfora"],
+    scalpTypes: ["grasso", "normale"],
   },
   {
     id: "nt-bioderma-node-ds",
@@ -2475,6 +2481,7 @@ export const FEED_PRODUCTS: Product[] = [
     merchant: "Notino",
     feedId: "cj:4917850:BIRNODW_KSHA18",
     hairConcerns: ["forfora"],
+    scalpTypes: ["grasso", "sensibile"],
   },
   {
     id: "nt-bioderma-node-a-shampooning",
@@ -2492,6 +2499,7 @@ export const FEED_PRODUCTS: Product[] = [
     merchant: "Notino",
     feedId: "cj:4917850:BIRNOAW_KSHA20",
     hairConcerns: ["mantenimento"],
+    scalpTypes: ["sensibile"],
   },
   {
     id: "nt-bioderma-node-g-shampoo",
@@ -2509,6 +2517,7 @@ export const FEED_PRODUCTS: Product[] = [
     merchant: "Notino",
     feedId: "cj:4917850:BIRNOGW_KSHA20",
     hairConcerns: ["mantenimento"],
+    scalpTypes: ["grasso"],
   },
   {
     id: "nt-ducray-extra-doux",
@@ -2526,6 +2535,7 @@ export const FEED_PRODUCTS: Product[] = [
     merchant: "Notino",
     feedId: "cj:4917850:DUREXDW_KSHA10",
     hairConcerns: ["mantenimento"],
+    scalpTypes: ["normale"],
   },
   {
     id: "nt-ducray-anaphase-anti-hair-loss-anti-thin",
@@ -2628,6 +2638,7 @@ export const FEED_PRODUCTS: Product[] = [
     merchant: "Notino",
     feedId: "cj:4917850:DURSQAW_KTON10",
     hairConcerns: ["forfora"],
+    scalpTypes: ["grasso"],
   },
   {
     id: "nt-ducray-anaphase-fortifying-anti-breakage",

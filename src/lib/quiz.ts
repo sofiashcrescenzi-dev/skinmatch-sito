@@ -15,14 +15,27 @@ import {
   type Concern,
   type HairConcern,
   type BeardConcern,
+  type ScalpType,
   type Tier,
 } from './products';
+
+// Percorso scelto all'inizio del test: solo viso, solo capelli o entrambi.
+export type QuizFocus = 'viso' | 'capelli' | 'completa';
+export const focusIncludesSkin = (f: QuizFocus) => f !== 'capelli';
+export const focusIncludesHair = (f: QuizFocus) => f !== 'viso';
 
 export type SunExposure = 'bassa' | 'media' | 'alta';
 export type OilySubtype = 'idratata' | 'acneica' | 'seborroica-secca';
 export type DandruffSubtype = 'grassa' | 'secca';
+export type ScalpAnswer = Exclude<ScalpType, 'sensibile'>; // la sensibilità è una domanda a parte
+export type WashFrequency = 'quotidiano' | 'settimanale' | 'raro';
+// acuta = caduta diffusa recente (es. dopo stress o parto); progressiva = diradamento lento;
+// chiazze = zone circoscritte senza capelli (da far valutare a un dermatologo).
+export type HairLossPattern = 'acuta' | 'progressiva' | 'chiazze';
 
+// Le risposte del percorso non scelto restano ai valori predefiniti e vengono ignorate.
 export type QuizAnswers = {
+  focus: QuizFocus;
   gender: Extract<Gender, 'donna' | 'uomo'>;
   pregnant: boolean;
   menopause: boolean;
@@ -37,11 +50,17 @@ export type QuizAnswers = {
   environment: string;
   hairConcern: HairConcern;
   dandruffSubtype: DandruffSubtype | null; // solo se hairConcern è forfora
+  hairLossPattern: HairLossPattern | null; // solo se hairConcern è caduta
+  scalpType: ScalpAnswer;
+  scalpSensitive: boolean;
+  scalpConditions: string[];
+  hairTreated: string[]; // colore, calore
+  washFrequency: WashFrequency;
   beardConcern: BeardConcern | null;
   pricePref: Tier | 'nessuna';
 };
 
-export type BiotypeKind = 'pelle' | 'cuoio-capelluto' | 'tratto';
+export type BiotypeKind = 'pelle' | 'cuoio-capelluto' | 'tratto' | 'tratto-capelli';
 export type Biotype = {
   id: string;
   kind: BiotypeKind;
@@ -62,15 +81,21 @@ export type RoutineStep = {
   alternatives: Product[];
 };
 
+// I biotipi sono null quando il percorso scelto non riguarda quell'area.
 export type QuizResult = {
-  skinBiotype: Biotype;
+  focus: QuizFocus;
+  skinBiotype: Biotype | null;
   skinTraits: Biotype[];
-  scalpBiotype: Biotype;
+  scalpBiotype: Biotype | null;
+  scalpTraits: Biotype[];
   routine: RoutineStep[];
   hair: RoutineStep[];
   beard: Product[];
   integratori: Product[];
+  integratoriEsclusiGravidanza: boolean;
   disclaimerCondizioni: boolean;
+  // Caduta che merita una visita: progressiva (consigliata) o a chiazze (necessaria).
+  hairLossWarning: Exclude<HairLossPattern, 'acuta'> | null;
 };
 
 const SKIN_BIOTYPES: Record<string, Biotype> = {
@@ -216,6 +241,65 @@ const SCALP_BIOTYPES: Record<string, Biotype> = {
     avoid: ['Styling che tira il capello (trazione)', 'Aspettare troppo prima di intervenire se la caduta persiste'],
     relatedHairConcern: 'caduta',
   },
+  'caduta-reattiva': {
+    id: 'caduta-reattiva',
+    kind: 'cuoio-capelluto',
+    title: 'Caduta reattiva (temporanea)',
+    description:
+      'Perdi più capelli del solito da qualche settimana, in modo diffuso. Succede spesso 2–3 mesi dopo un evento che ha messo alla prova l’organismo — forte stress, febbre alta, una dieta drastica, il parto o il cambio di stagione (in medicina si parla di telogen effluvium). Di solito è temporanea: i capelli ricrescono quando la causa si risolve. Shampoo e fiale energizzanti possono sostenere la ricrescita; se la caduta dura più di 3–6 mesi, è bene fare una visita.',
+    characteristics: [
+      'Più capelli del solito su cuscino, spazzola o nella doccia',
+      'Caduta diffusa su tutta la testa, non a chiazze',
+      'Inizio piuttosto improvviso, spesso dopo un evento preciso (stress, malattia, parto, dieta)',
+      'Cuoio capelluto di solito nella norma',
+    ],
+    lookFor: [
+      'Shampoo energizzanti delicati',
+      'Lozioni o fiale con caffeina, aminexil, peptidi',
+      'Alimentazione equilibrata, con un buon apporto di ferro e proteine (eventuali carenze vanno verificate con il medico)',
+    ],
+    avoid: ['Diete drastiche', 'Acconciature che tirano e trattamenti chimici aggressivi mentre la caduta è in corso', 'Integratori ad alte dosi presi "a caso", senza aver verificato eventuali carenze'],
+    relatedHairConcern: 'caduta',
+  },
+  'psoriasi-cuoio-capelluto': {
+    id: 'psoriasi-cuoio-capelluto',
+    kind: 'cuoio-capelluto',
+    title: 'Cuoio capelluto con psoriasi',
+    description:
+      'La psoriasi colpisce spesso il cuoio capelluto: placche arrossate e ispessite, coperte da squame argentee spesse e aderenti, che possono oltrepassare l’attaccatura dei capelli (fronte, nuca, dietro le orecchie). È una condizione cronica da seguire con il dermatologo: shampoo specifici che ammorbidiscono e rimuovono le squame alleviano il prurito e accompagnano la terapia, senza sostituirla.',
+    characteristics: [
+      'Placche arrossate e ben delimitate',
+      'Squame spesse, argentee e aderenti — diverse dalla forfora comune',
+      'Lesioni che possono superare l’attaccatura dei capelli',
+      'Prurito, a volte intenso',
+      'Andamento a fasi, con riacutizzazioni',
+    ],
+    lookFor: ['Shampoo specifici che ammorbidiscono le squame (acido salicilico, urea, piroctone olamine)', 'Lasciare agire lo shampoo qualche minuto prima di risciacquare', 'Formule senza profumo'],
+    avoid: ['Grattare o staccare le squame con forza', 'Acqua molto calda e phon troppo caldo', 'Sospendere la terapia prescritta senza parlarne con il dermatologo'],
+    relatedHairConcern: 'forfora',
+  },
+  'cute-grassa': {
+    id: 'cute-grassa',
+    kind: 'cuoio-capelluto',
+    title: 'Cuoio capelluto grasso',
+    description:
+      'Le ghiandole sebacee del cuoio capelluto producono più sebo della media: le radici si appesantiscono e si ungono in 1–2 giorni, ma senza forfora né irritazione. Serve uno shampoo che regoli il sebo senza aggredire — un lavaggio troppo sgrassante spinge il cuoio capelluto a produrne ancora di più.',
+    characteristics: ['Radici grasse e appesantite dopo 1–2 giorni', 'Capelli che perdono volume in fretta', 'Nessuna forfora né prurito rilevante', 'Lunghezze spesso normali o secche'],
+    lookFor: ['Shampoo sebo-regolatori delicati, adatti a lavaggi frequenti', 'Balsamo solo sulle lunghezze'],
+    avoid: ['Shampoo troppo aggressivi (effetto rebound)', 'Acqua molto calda', 'Oli e maschere applicati sulla radice'],
+    relatedHairConcern: 'mantenimento',
+  },
+  'cute-secca': {
+    id: 'cute-secca',
+    kind: 'cuoio-capelluto',
+    title: 'Cuoio capelluto secco',
+    description:
+      'Il cuoio capelluto produce poco sebo: tira dopo il lavaggio, i capelli restano puliti a lungo ma appaiono spesso opachi. Senza le cure giuste possono comparire prurito e una forfora bianca e sottile. Bastano lavaggi delicati e prodotti idratanti, evitando tutto ciò che sgrassa.',
+    characteristics: ['Sensazione di tensione dopo il lavaggio', 'Capelli che restano puliti a lungo', 'Lunghezze opache, a volte crespe', 'Prurito occasionale'],
+    lookFor: ['Shampoo delicati e idratanti, senza solfati aggressivi', 'Balsamo e maschere nutrienti sulle lunghezze'],
+    avoid: ['Shampoo anti-grasso o sgrassanti', 'Acqua molto calda', 'Phon troppo caldo vicino alla cute'],
+    relatedHairConcern: 'mantenimento',
+  },
   seborroico: {
     id: 'seborroico',
     kind: 'cuoio-capelluto',
@@ -321,7 +405,37 @@ const SKIN_TRAITS: Record<string, Biotype> = {
   },
 };
 
-export const ALL_BIOTYPES: Biotype[] = [...Object.values(SKIN_BIOTYPES), ...Object.values(SCALP_BIOTYPES), ...Object.values(SKIN_TRAITS)];
+// Tratti di cuoio capelluto e capelli: si sommano al biotipo del cuoio capelluto.
+const SCALP_TRAITS: Record<string, Biotype> = {
+  'cute-sensibile': {
+    id: 'cute-sensibile',
+    kind: 'tratto-capelli',
+    title: 'Con cuoio capelluto sensibile',
+    description:
+      'Oltre alle caratteristiche del tuo biotipo, il cuoio capelluto è reattivo: prude, brucia o si arrossa facilmente, soprattutto con shampoo nuovi, colorazioni o phon caldo. Conviene scegliere sempre le formule più delicate, non solo per lo shampoo.',
+    characteristics: ['Prurito o bruciore dopo il lavaggio o la piega', 'Arrossamento del cuoio capelluto', 'Reazioni a shampoo nuovi o profumati', 'Fastidio con tinte e trattamenti chimici'],
+    lookFor: ['Shampoo lenitivi, senza profumo e senza solfati aggressivi', 'Pochi prodotti, introdotti uno alla volta'],
+    avoid: ['Profumi e oli essenziali', 'Acqua e phon troppo caldi', 'Colorazioni troppo ravvicinate'],
+  },
+  'capelli-trattati': {
+    id: 'capelli-trattati',
+    kind: 'tratto-capelli',
+    title: 'Con capelli colorati o stressati dal calore',
+    description:
+      'Oltre alle caratteristiche del tuo biotipo, le lunghezze sono messe alla prova da colorazioni, decolorazioni o dall’uso frequente di piastra, ferro e phon caldo: la fibra perde lipidi e proteine, diventa più porosa, fragile e crespa. Vale la pena aggiungere un trattamento riparatore sulle lunghezze.',
+    characteristics: ['Lunghezze porose e fragili', 'Colore che sbiadisce in fretta', 'Doppie punte e rotture', 'Effetto crespo con l’umidità'],
+    lookFor: ['Trattamenti riparatori e proteici sulle lunghezze', 'Termoprotettore prima di piastra e phon', 'Shampoo delicati per capelli colorati'],
+    avoid: ['Calore senza protezione', 'Decolorazioni ravvicinate', 'Shampoo sgrassanti sulle lunghezze'],
+    relatedHairConcern: 'secchi-crespi',
+  },
+};
+
+export const ALL_BIOTYPES: Biotype[] = [
+  ...Object.values(SKIN_BIOTYPES),
+  ...Object.values(SCALP_BIOTYPES),
+  ...Object.values(SKIN_TRAITS),
+  ...Object.values(SCALP_TRAITS),
+];
 
 export function getBiotypeById(id: string): Biotype | undefined {
   return ALL_BIOTYPES.find((b) => b.id === id);
@@ -354,12 +468,28 @@ export function getSkinTraits(a: QuizAnswers): Biotype[] {
 }
 
 export function getScalpBiotype(a: QuizAnswers): Biotype {
-  if (a.hairConcern === 'caduta') return SCALP_BIOTYPES.diradamento;
+  // Le condizioni diagnosticate prevalgono: orientano la scelta dello shampoo più di ogni altra risposta.
+  if (a.scalpConditions.includes('psoriasi')) return SCALP_BIOTYPES['psoriasi-cuoio-capelluto'];
+  if (a.scalpConditions.includes('dermatite-seborroica')) return SCALP_BIOTYPES.seborroico;
+  if (a.hairConcern === 'caduta') {
+    return a.hairLossPattern === 'acuta' ? SCALP_BIOTYPES['caduta-reattiva'] : SCALP_BIOTYPES.diradamento;
+  }
   if (a.hairConcern === 'forfora') {
-    return a.dandruffSubtype === 'secca' ? SCALP_BIOTYPES['secco-desquamante'] : SCALP_BIOTYPES.seborroico;
+    const secca = a.dandruffSubtype ? a.dandruffSubtype === 'secca' : a.scalpType === 'secco';
+    return secca ? SCALP_BIOTYPES['secco-desquamante'] : SCALP_BIOTYPES.seborroico;
   }
   if (a.hairConcern === 'secchi-crespi') return SCALP_BIOTYPES['capelli-secchi'];
+  if (a.scalpType === 'grasso') return SCALP_BIOTYPES['cute-grassa'];
+  if (a.scalpType === 'secco') return SCALP_BIOTYPES['cute-secca'];
   return SCALP_BIOTYPES.equilibrato;
+}
+
+export function getScalpTraits(a: QuizAnswers, scalpBiotype: Biotype): Biotype[] {
+  const traits: Biotype[] = [];
+  if (a.scalpSensitive) traits.push(SCALP_TRAITS['cute-sensibile']);
+  const treated = a.hairTreated.some((t) => t !== 'nessuno');
+  if (treated && scalpBiotype.id !== 'capelli-secchi') traits.push(SCALP_TRAITS['capelli-trattati']);
+  return traits;
 }
 
 function passesHardFilters(p: Product, a: QuizAnswers): boolean {
@@ -418,16 +548,29 @@ function skincareScore(p: Product, a: QuizAnswers, biotype: Biotype): number {
   return score + linkBonus(p);
 }
 
-const normalize = (s: string) => s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
-
 function hairScore(p: Product, a: QuizAnswers): number {
-  let score = p.hairConcerns?.includes(a.hairConcern) ? 3 : 0;
-  const text = normalize(`${p.name} ${p.description}`);
-  // Forfora secca e grassa richiedono shampoo diversi: lo dicono i nomi stessi dei prodotti.
-  if (a.hairConcern === 'forfora' && a.dandruffSubtype) {
-    if (text.includes(a.dandruffSubtype === 'secca' ? 'secc' : 'grass')) score += 1;
+  // Condizioni diagnosticate: lo shampoo specifico prevale su ogni altra risposta.
+  if (a.scalpConditions.includes('psoriasi') && /\bpso/i.test(p.name)) return 10 + linkBonus(p);
+  if (a.scalpConditions.includes('dermatite-seborroica') && /\bDS\b/.test(p.name)) return 10 + linkBonus(p);
+  let score = 0;
+  if (p.hairConcerns?.includes(a.hairConcern)) {
+    score += 3;
+    if (p.hairConcerns[0] === a.hairConcern) score += 1; // obiettivo principale del prodotto
+  } else if (p.hairConcerns && !p.hairConcerns.includes('mantenimento')) {
+    score -= 3; // prodotto specifico per un problema che l'utente non ha (es. antiforfora per capelli secchi)
   }
-  if (a.conditions.includes('psoriasi') && /\bpso/i.test(p.name)) score += 2;
+  // Tipo di cuoio capelluto: piccolo bonus se coincide, penalità se il prodotto è pensato
+  // per il tipo opposto (es. shampoo anti-grasso su cute secca). Senza tag: neutro.
+  if (p.scalpTypes) {
+    const dandruffType = a.hairConcern === 'forfora' && a.dandruffSubtype ? (a.dandruffSubtype === 'secca' ? 'secco' : 'grasso') : null;
+    if (p.scalpTypes.includes(dandruffType ?? a.scalpType)) score += dandruffType ? 2 : 1;
+    else if (p.scalpTypes.some((t) => t !== 'sensibile')) score -= 2;
+    if (a.scalpSensitive && p.scalpTypes.includes('sensibile')) score += 2;
+  }
+  // Capelli colorati o stressati dal calore: preferenza per i trattamenti riparatori.
+  if (a.hairTreated.some((t) => t !== 'nessuno') && p.hairConcerns?.includes('secchi-crespi')) score += 1;
+  // Lavaggi frequenti o capelli secchi: meglio uno shampoo delicato da uso quotidiano.
+  if ((a.washFrequency === 'quotidiano' || a.hairConcern === 'secchi-crespi') && p.hairConcerns?.includes('mantenimento')) score += 1;
   return score + linkBonus(p);
 }
 
@@ -443,16 +586,19 @@ function tieBreak(seed: string, id: string): number {
 
 // Sceglie il prodotto principale di una tappa e fino a 2 alternative in altre fasce di prezzo.
 // Se l'utente ha una fascia preferita, il principale viene da lì quando è quasi altrettanto adatto.
+// minScore: sotto questa soglia la tappa viene saltata (meglio nessun prodotto che uno non pertinente).
 function pickStep(
   pool: Product[],
   score: (p: Product) => number,
   a: QuizAnswers,
-  used: Set<string>
+  used: Set<string>,
+  minScore = -Infinity
 ): { main: Product; alternatives: Product[] } | null {
   const seed = JSON.stringify(a);
   const scored = pool
     .filter((p) => !used.has(p.id))
     .map((p) => ({ p, s: score(p) + tieBreak(seed, p.id) }))
+    .filter((x) => x.s >= minScore)
     .sort((x, y) => y.s - x.s);
   if (scored.length === 0) return null;
   let main = scored[0];
@@ -470,59 +616,91 @@ function pickStep(
 }
 
 export function getRecommendation(a: QuizAnswers): QuizResult {
+  const wantsSkin = focusIncludesSkin(a.focus);
+  const wantsHair = focusIncludesHair(a.focus);
   // Il test consiglia solo prodotti acquistabili: quelli senza link restano nel catalogo.
   const safe = PRODUCTS.filter((p) => p.affiliateUrl !== '#' && passesHardFilters(p, a));
-  const skinBiotype = getSkinBiotype(a);
   const used = new Set<string>();
-  const skin = (p: Product) => skincareScore(p, a, skinBiotype);
-  const isSpf = (p: Product) => !!p.concerns?.includes('protezione-solare');
 
+  // Viso: detergente, siero, crema (+ protezione solare se si sta al sole)
+  const skinBiotype = wantsSkin ? getSkinBiotype(a) : null;
   const routine: RoutineStep[] = [];
-  const steps: { key: string; label: string; pool: Product[] }[] = [
-    { key: 'detergente', label: 'Detergente', pool: safe.filter((p) => p.category === 'detergenti') },
-    { key: 'siero', label: 'Siero', pool: safe.filter((p) => p.category === 'sieri') },
-    { key: 'crema', label: 'Crema', pool: safe.filter((p) => p.category === 'creme' && !isSpf(p)) },
-  ];
-  if (a.sunExposure !== 'bassa') {
-    steps.push({ key: 'spf', label: 'Protezione solare', pool: safe.filter((p) => p.category === 'creme' && isSpf(p)) });
-  }
-  for (const step of steps) {
-    const picked = pickStep(step.pool, skin, a, used);
-    if (picked) routine.push({ key: step.key, label: step.label, ...picked });
+  if (skinBiotype) {
+    const skin = (p: Product) => skincareScore(p, a, skinBiotype);
+    const isSpf = (p: Product) => !!p.concerns?.includes('protezione-solare');
+    const steps: { key: string; label: string; pool: Product[] }[] = [
+      { key: 'detergente', label: 'Detergente', pool: safe.filter((p) => p.category === 'detergenti') },
+      { key: 'siero', label: 'Siero', pool: safe.filter((p) => p.category === 'sieri') },
+      { key: 'crema', label: 'Crema', pool: safe.filter((p) => p.category === 'creme' && !isSpf(p)) },
+    ];
+    if (a.sunExposure !== 'bassa') {
+      steps.push({ key: 'spf', label: 'Protezione solare', pool: safe.filter((p) => p.category === 'creme' && isSpf(p)) });
+    }
+    for (const step of steps) {
+      const picked = pickStep(step.pool, skin, a, used);
+      if (picked) routine.push({ key: step.key, label: step.label, ...picked });
+    }
   }
 
   // Capelli: uno shampoo + un trattamento specifico
+  const scalpBiotype = wantsHair ? getScalpBiotype(a) : null;
   const hair: RoutineStep[] = [];
-  const hairSteps = [
-    { key: 'shampoo', label: 'Shampoo', category: 'shampoo' },
-    { key: 'trattamento-capelli', label: 'Trattamento', category: 'capelli' },
-  ];
-  for (const step of hairSteps) {
-    const picked = pickStep(safe.filter((p) => p.category === step.category), (p) => hairScore(p, a), a, used);
-    if (picked) hair.push({ key: step.key, label: step.label, ...picked });
+  if (scalpBiotype) {
+    // Lo shampoo serve a tutti; il trattamento solo se ce n'è uno davvero pertinente.
+    const hairSteps = [
+      { key: 'shampoo', label: 'Shampoo', category: 'shampoo', minScore: -Infinity },
+      { key: 'trattamento-capelli', label: 'Trattamento', category: 'capelli', minScore: 3 },
+    ];
+    for (const step of hairSteps) {
+      const pool = safe.filter((p) => p.category === step.category);
+      const picked = pickStep(pool, (p) => hairScore(p, a), a, used, step.minScore);
+      if (picked) hair.push({ key: step.key, label: step.label, ...picked });
+    }
   }
 
-  // Barba: solo per il ramo uomo
+  // Barba: solo per il ramo uomo, nel percorso viso
   const beard: Product[] = [];
-  if (a.gender === 'uomo' && a.beardConcern) {
+  if (wantsSkin && a.gender === 'uomo' && a.beardConcern) {
     const beardScore = (p: Product) => (p.beardConcerns?.includes(a.beardConcern!) ? 3 : 0) + linkBonus(p);
     const picked = pickStep(safe.filter((p) => p.category === 'barba'), beardScore, a, used);
     if (picked) beard.push(picked.main);
   }
 
-  // Integratore: uno solo, il più coerente con obiettivo pelle o capelli
-  const integratoriScore = (p: Product) =>
-    (p.concerns?.includes(a.goal) ? 3 : 0) + (p.hairConcerns?.includes(a.hairConcern) ? 3 : 0) + linkBonus(p);
-  const integratore = pickStep(safe.filter((p) => p.category === 'integratori'), integratoriScore, a, used);
+  // Integratore: uno solo e solo se davvero pertinente all'obiettivo del percorso scelto.
+  // In gravidanza/allattamento non ne proponiamo: vanno valutati con il medico.
+  // Le formule "50+" sono pensate per la menopausa: non le proponiamo prima.
+  const integratori: Product[] = [];
+  if (!a.pregnant) {
+    const integratoriScore = (p: Product) =>
+      (wantsSkin && p.concerns?.includes(a.goal) ? 3 : 0) +
+      (wantsHair && p.hairConcerns?.includes(a.hairConcern) ? 3 : 0) +
+      linkBonus(p);
+    const pool = safe.filter(
+      (p) => p.category === 'integratori' && (a.menopause || !/50\+/.test(p.name)) && integratoriScore(p) >= 3
+    );
+    const picked = pickStep(pool, integratoriScore, a, used);
+    if (picked) integratori.push(picked.main);
+  }
+
+  const hairLossWarning =
+    wantsHair && a.hairConcern === 'caduta' && (a.hairLossPattern === 'progressiva' || a.hairLossPattern === 'chiazze')
+      ? a.hairLossPattern
+      : null;
 
   return {
+    focus: a.focus,
     skinBiotype,
-    skinTraits: getSkinTraits(a),
-    scalpBiotype: getScalpBiotype(a),
+    skinTraits: skinBiotype ? getSkinTraits(a) : [],
+    scalpBiotype,
+    scalpTraits: scalpBiotype ? getScalpTraits(a, scalpBiotype) : [],
     routine,
     hair,
     beard,
-    integratori: integratore ? [integratore.main] : [],
-    disclaimerCondizioni: a.conditions.some((c) => c !== 'nessuna'),
+    integratori,
+    integratoriEsclusiGravidanza: a.pregnant,
+    disclaimerCondizioni:
+      (wantsSkin && a.conditions.some((c) => c !== 'nessuna')) ||
+      (wantsHair && a.scalpConditions.some((c) => c !== 'nessuna')),
+    hairLossWarning,
   };
 }

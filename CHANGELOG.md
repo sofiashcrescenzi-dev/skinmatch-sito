@@ -4,6 +4,45 @@ Registro di ogni modifica fatta al repository. Ordine: dal più recente al più 
 
 ---
 
+## 2026-10-10 — Test diviso in tre percorsi: Viso, Capelli, Routine completa
+
+- **Scelta del percorso** (`src/app/test/page.tsx`): la prima domanda è ora
+  "Su cosa vuoi concentrarti?" — *Viso*, *Capelli e cuoio capelluto* o *Routine
+  completa*. Nella schermata iniziale i tre percorsi sono tre schede cliccabili;
+  dalla homepage si entra direttamente con `/test?percorso=viso|capelli|completa`.
+  Ogni percorso mostra solo le sue domande (viso ~11, capelli ~9, completa ~17).
+- **Nuove domande capelli**: come si presenta la caduta (recente e diffusa / lenta
+  e progressiva / a chiazze), tipo di cuoio capelluto (si unge in fretta /
+  equilibrato / secco), cuoio capelluto sensibile, condizioni diagnosticate
+  (dermatite seborroica, psoriasi del cuoio capelluto), capelli colorati o trattati
+  col calore, frequenza dei lavaggi. Ambiente, sole, stile di vita e barba restano
+  nel percorso viso.
+- **Risultati per percorso**: titolo, biotipi e sezioni cambiano in base al
+  percorso. Da un percorso singolo si può "aggiungere" l'altro: il test chiede solo
+  le domande mancanti e mostra la routine completa.
+- **Avvisi**: caduta a chiazze → invito esplicito alla visita dermatologica (i
+  cosmetici non sono un trattamento); diradamento progressivo → visita consigliata;
+  in gravidanza/allattamento nessun integratore proposto, con nota.
+- **Nuovi biotipi del cuoio capelluto** (`src/lib/quiz.ts`, pagine create in
+  automatico in `/biotipi`): caduta reattiva (temporanea), cuoio capelluto con
+  psoriasi, cuoio capelluto grasso, cuoio capelluto secco. **Nuovi tratti capelli**:
+  cuoio capelluto sensibile, capelli colorati o stressati dal calore — nuova
+  sezione nella pagina `/biotipi`.
+- **Motore**: nuovo campo `scalpTypes` sui prodotti per capelli (tipo di cuoio
+  capelluto adatto); punteggio capelli rivisto — lo shampoo specifico per psoriasi o
+  dermatite seborroica prevale su tutto, i prodotti pensati per un altro problema
+  vengono penalizzati, il trattamento compare solo se davvero pertinente;
+  integratore solo se coerente col percorso, le formule "50+" solo in menopausa.
+- **Link Amazon** (tag skinmatch21-21) aggiunti a 4 prodotti che ne erano privi:
+  Bioscalin Nova Genina, ISDIN Psorisdin, Mise en Scène Perfect Serum, King C.
+  Gillette Beard Balm. Descrizione di Bioscalin Nova Genina riscritta senza
+  riferimenti a TikTok.
+- **Homepage**: i tre passaggi generici del quiz sostituiti dalle tre schede dei
+  percorsi.
+- `scripts/quiz/coverage.ts` simula ora i tre percorsi (66.320 combinazioni):
+  tutti i prodotti capelli con link vengono consigliati, tranne Dercos PSOlution
+  (perde lo spareggio con Psorisdin, che ha già il link tracciato).
+
 ## 2026-10-10 — Catalogo da feed CJ (138 nuovi prodotti) collegato al test
 
 - **Catalogo**: da 43 a 181 prodotti. Dai 2.212 prodotti scaricati da Notino.it e

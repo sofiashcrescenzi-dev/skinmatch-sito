@@ -23,8 +23,13 @@ export default async function BiotypePage({ params }: { params: Promise<{ id: st
   const biotype = getBiotypeById(id);
   if (!biotype) notFound();
 
-  const kindLabel =
-    biotype.kind === 'pelle' ? 'Biotipo di pelle' : biotype.kind === 'cuoio-capelluto' ? 'Biotipo di cuoio capelluto' : 'Tratto aggiuntivo';
+  const kindLabel = {
+    pelle: 'Biotipo di pelle',
+    'cuoio-capelluto': 'Biotipo di cuoio capelluto',
+    tratto: 'Tratto aggiuntivo',
+    'tratto-capelli': 'Tratto aggiuntivo — capelli',
+  }[biotype.kind];
+  const testHref = biotype.kind === 'pelle' || biotype.kind === 'tratto' ? '/test?percorso=viso' : '/test?percorso=capelli';
 
   return (
     <main className="max-w-2xl mx-auto px-6 pt-4 pb-24">
@@ -42,6 +47,12 @@ export default async function BiotypePage({ params }: { params: Promise<{ id: st
           <p className="text-sm mt-4 opacity-60">
             Questo non è un biotipo a sé: può aggiungersi a qualsiasi tipo di pelle di base (es. pelle acneica +
             questo tratto).
+          </p>
+        )}
+        {biotype.kind === 'tratto-capelli' && (
+          <p className="text-sm mt-4 opacity-60">
+            Questo non è un biotipo a sé: può aggiungersi a qualsiasi tipo di cuoio capelluto (es. cuoio capelluto
+            grasso + questo tratto).
           </p>
         )}
       </div>
@@ -89,7 +100,7 @@ export default async function BiotypePage({ params }: { params: Promise<{ id: st
         </p>
         <div className="flex flex-wrap gap-4 justify-center">
           <Link
-            href="/test"
+            href={testHref}
             className="px-6 py-3 rounded-full text-white font-medium"
             style={{ background: 'var(--accent)' }}
           >

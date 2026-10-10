@@ -12,6 +12,7 @@ export const metadata: Metadata = {
 const skinBiotypes = ALL_BIOTYPES.filter((b) => b.kind === 'pelle');
 const scalpBiotypes = ALL_BIOTYPES.filter((b) => b.kind === 'cuoio-capelluto');
 const skinTraits = ALL_BIOTYPES.filter((b) => b.kind === 'tratto');
+const scalpTraits = ALL_BIOTYPES.filter((b) => b.kind === 'tratto-capelli');
 
 export default function BiotipiPage() {
   return (
@@ -76,10 +77,35 @@ export default function BiotipiPage() {
         </div>
       </section>
 
-      <section>
+      <section className="mb-14">
         <h2 className="text-sm font-semibold uppercase tracking-wide opacity-50 mb-6">Biotipi di cuoio capelluto</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
           {scalpBiotypes.map((b) => (
+            <Link
+              key={b.id}
+              href={`/biotipi/${b.id}`}
+              className="border rounded-xl p-6 hover:bg-neutral-50 transition-colors"
+              style={{ borderColor: 'var(--border)' }}
+            >
+              <h3 className="text-lg font-semibold mb-2">{b.title}</h3>
+              <p className="text-sm opacity-70 leading-relaxed line-clamp-3">{b.description}</p>
+              <span className="inline-block mt-4 text-sm font-medium underline" style={{ color: 'var(--accent)' }}>
+                Scopri di più →
+              </span>
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      <section>
+        <h2 className="text-sm font-semibold uppercase tracking-wide opacity-50 mb-2">
+          Tratti di cuoio capelluto e capelli
+        </h2>
+        <p className="text-sm opacity-60 mb-6">
+          Come per la pelle, possono aggiungersi a qualsiasi biotipo di cuoio capelluto.
+        </p>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+          {scalpTraits.map((b) => (
             <Link
               key={b.id}
               href={`/biotipi/${b.id}`}

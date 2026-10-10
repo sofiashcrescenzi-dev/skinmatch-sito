@@ -2,6 +2,12 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { CATEGORY_LABELS, type Category } from '@/lib/products';
 
+const QUIZ_PATHS = [
+  { percorso: 'viso', title: 'Viso', description: 'Biotipo cutaneo e routine skincare: detergente, siero, crema e protezione solare.' },
+  { percorso: 'capelli', title: 'Capelli e cuoio capelluto', description: 'Caduta, forfora, capelli secchi: shampoo e trattamento mirati.' },
+  { percorso: 'completa', title: 'Routine completa', description: 'Viso e capelli insieme, con un integratore se pertinente.' },
+];
+
 const FEATURED_CATEGORIES: { key: Category; image: string }[] = [
   { key: 'detergenti', image: '/images/cat-detergenti.jpg' },
   { key: 'creme', image: '/images/cat-creme.jpg' },
@@ -57,34 +63,29 @@ export default function Home() {
             Scopri il tuo biotipo di pelle e cuoio capelluto
           </h2>
           <p className="opacity-70 max-w-xl mx-auto mb-10 leading-relaxed">
-            Un test di 2 minuti che identifica il tuo biotipo — es. pelle seborroica idratata, disidratata e
-            sensibile, acneica — te lo spiega, e ti propone una routine su misura: detergente, siero, crema,
-            capelli, barba e integratore.
+            Scegli da dove partire. Il test identifica il tuo biotipo — es. pelle seborroica idratata, disidratata e
+            sensibile, acneica, o cuoio capelluto secco e desquamante — te lo spiega e ti propone una routine su
+            misura con prodotti reali, in tutte le fasce di prezzo.
           </p>
 
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 mb-10 text-left sm:text-center">
-            <div className="bg-white rounded-xl p-5 border" style={{ borderColor: 'var(--border)' }}>
-              <p className="text-xl font-semibold mb-1" style={{ color: 'var(--accent)' }}>1</p>
-              <p className="text-sm font-medium">Poche domande</p>
-            </div>
-            <div className="bg-white rounded-xl p-5 border" style={{ borderColor: 'var(--border)' }}>
-              <p className="text-xl font-semibold mb-1" style={{ color: 'var(--accent)' }}>2</p>
-              <p className="text-sm font-medium">Scopri il tuo biotipo</p>
-            </div>
-            <div className="bg-white rounded-xl p-5 border" style={{ borderColor: 'var(--border)' }}>
-              <p className="text-xl font-semibold mb-1" style={{ color: 'var(--accent)' }}>3</p>
-              <p className="text-sm font-medium">Routine su misura</p>
-            </div>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 mb-10 text-left">
+            {QUIZ_PATHS.map((path) => (
+              <Link
+                key={path.percorso}
+                href={`/test?percorso=${path.percorso}`}
+                className="bg-white rounded-xl p-6 border flex flex-col gap-2 hover:bg-neutral-50 transition-colors"
+                style={{ borderColor: 'var(--border)' }}
+              >
+                <span className="text-lg font-semibold">{path.title}</span>
+                <span className="text-sm opacity-70 leading-relaxed flex-1">{path.description}</span>
+                <span className="text-sm font-medium mt-2" style={{ color: 'var(--accent)' }}>
+                  Inizia →
+                </span>
+              </Link>
+            ))}
           </div>
 
           <div className="flex flex-wrap gap-4 justify-center">
-            <Link
-              href="/test"
-              className="px-8 py-3.5 rounded-full text-white font-medium text-lg"
-              style={{ background: 'var(--accent)' }}
-            >
-              Fai il test →
-            </Link>
             <Link
               href="/biotipi"
               className="px-8 py-3.5 rounded-full border font-medium text-lg bg-white"

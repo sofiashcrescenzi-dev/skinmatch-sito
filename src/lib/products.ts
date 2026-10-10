@@ -44,6 +44,7 @@ export type Concern =
   | 'protezione-solare';
 export type HairConcern = 'caduta' | 'forfora' | 'secchi-crespi' | 'mantenimento';
 export type BeardConcern = 'irritazione' | 'mantenimento';
+export type ScalpType = 'grasso' | 'secco' | 'normale' | 'sensibile';
 
 export const GENDER_LABELS: Record<Gender, string> = {
   donna: 'Donna',
@@ -89,6 +90,7 @@ export type Product = {
   skinTypes?: SkinType[];
   concerns?: Concern[];
   hairConcerns?: HairConcern[];
+  scalpTypes?: ScalpType[]; // solo prodotti per capelli/cuoio capelluto
   beardConcerns?: BeardConcern[];
   pregnancySafe?: boolean;
   sensitiveSafe?: boolean;
@@ -668,10 +670,10 @@ const MANUAL_PRODUCTS: Product[] = [
     tier: 'base',
     korean: false,
     price: 15,
-    description: 'Shampoo energizzante quotidiano, uno dei prodotti da farmacia più discussi su TikTok per la cura dei capelli deboli.',
-    affiliateUrl: '#',
-    linkPending: true,
-    hairConcerns: ['caduta', 'mantenimento'],
+    description: 'Shampoo rivitalizzante e fortificante con SincroBiogenina, per capelli deboli e con tendenza alla caduta. Delicato, adatto anche all’uso frequente.',
+    affiliateUrl: 'https://www.amazon.it/BIOSCALIN-Shampoo-Rivitalizzante-Fortificante-SincroBiogenina/dp/B01N4WNF5W?tag=skinmatch21-21',
+    hairConcerns: ['caduta'],
+    scalpTypes: ['normale', 'grasso'],
   },
   {
     id: 'sh4',
@@ -681,10 +683,9 @@ const MANUAL_PRODUCTS: Product[] = [
     category: 'shampoo',
     tier: 'base',
     korean: false,
-    price: 14,
+    price: 15.72,
     description: 'Shampoo con acido salicilico e Ichtyol pale per cuoio capelluto desquamante, arrossato o pruriginoso.',
-    affiliateUrl: '#',
-    linkPending: true,
+    affiliateUrl: 'https://www.amazon.it/ISDIN-Psorisdin-antidesquamazione-Psoriasi-Capelluto/dp/B00D3HR76M?tag=skinmatch21-21',
     hairConcerns: ['forfora'],
   },
 
@@ -727,10 +728,9 @@ const MANUAL_PRODUCTS: Product[] = [
     category: 'capelli',
     tier: 'base',
     korean: true,
-    price: 9,
+    price: 22.9,
     description: 'Siero lucidante e districante, uno dei sieri per capelli coreani più venduti.',
-    affiliateUrl: '#',
-    linkPending: true,
+    affiliateUrl: 'https://www.amazon.it/Mise-En-Scene-Perfect-Original/dp/B0BK8BDV4H?tag=skinmatch21-21',
     hairConcerns: ['secchi-crespi', 'mantenimento'],
   },
   {
@@ -746,6 +746,7 @@ const MANUAL_PRODUCTS: Product[] = [
     affiliateUrl: '#',
     linkPending: true,
     hairConcerns: ['caduta'],
+    scalpTypes: ['normale', 'grasso'],
   },
 
   // ────────────────────────────────────────────────────────────
@@ -759,10 +760,9 @@ const MANUAL_PRODUCTS: Product[] = [
     category: 'barba',
     tier: 'base',
     korean: false,
-    price: 13,
+    price: 9,
     description: 'Balsamo per barba al burro di cacao, ammorbidisce e dona definizione senza appesantire.',
-    affiliateUrl: '#',
-    linkPending: true,
+    affiliateUrl: 'https://www.amazon.it/Gillette-King-Balsamo-barba-100/dp/B089R45RL5?tag=skinmatch21-21',
     beardConcerns: ['mantenimento'],
   },
   {
