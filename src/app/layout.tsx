@@ -1,27 +1,22 @@
-import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-import "./globals.css";
-import Header from "@/components/Header";
-
-const inter = Inter({ subsets: ["latin"] });
+import type { Metadata, Viewport } from 'next';
+import './globals.css';
+import { TerminiProvider } from '@/components/Termini';
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://skinmatch.it"),
-  title: "SkinMatch",
-  description: "Trova la skincare giusta per te: test pelle e consigli prodotti per fascia di prezzo.",
-  alternates: { canonical: "/" },
+  metadataBase: new URL('https://skinmatch.it'),
+  title: { default: 'Skinmatch — Il test della pelle, della cute e dell\'integrazione', template: '%s | Skinmatch' },
+  description: 'Un test con domande su quello che vedi allo specchio: riconosce il tuo biotipo e ti consiglia i prodotti giusti, ognuno con un\'alternativa che costa meno.',
+  alternates: { canonical: '/' },
+  openGraph: { type: 'website', locale: 'it_IT', siteName: 'Skinmatch' },
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export const viewport: Viewport = { themeColor: '#fbf8f4' };
+
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="it">
-      <body className={inter.className}>
-        <Header />
-        {children}
+      <body>
+        <TerminiProvider>{children}</TerminiProvider>
       </body>
     </html>
   );

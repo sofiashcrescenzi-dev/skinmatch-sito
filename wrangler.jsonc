@@ -1,13 +1,29 @@
 {
-  // Deploy del sito statico (cartella out/) come Cloudflare Worker "solo asset".
-  // Nessuno script server: sito statico puro generato da `next build` (output: 'export').
+  // Il sito statico (out/, generato da `next build` con output: 'export') più un Worker piccolo
+  // (worker/index.js) che gira solo su /api/* e /admin*: conteggi senza dati personali, admin
+  // protetto da Cloudflare Access. Tutto il resto lo servono gli asset, come prima.
   "name": "skinmatch-sito",
+  "main": "worker/index.js",
   "compatibility_date": "2026-09-01",
+  "account_id": "7fca2fe0c2f889d868a70e712cdcef85",
   "assets": {
     "directory": "./out",
+    "binding": "ASSETS",
     // /pagina -> serve out/pagina.html (URL puliti senza .html)
     "html_handling": "auto-trailing-slash",
     // pagina non trovata -> out/404.html
-    "not_found_handling": "404-page"
-  }
+    "not_found_handling": "404-page",
+    "run_worker_first": ["/api/*", "/admin", "/admin/*"]
+  },
+  "d1_databases": [
+    { "binding": "DB", "database_name": "skinmatch-dati", "database_id": "b261e5c4-e4a2-4961-b573-36d9f8861312" }
+  ],
+  "vars": {
+    // chi può aprire l'admin (oltre a passare da Cloudflare Access)
+    "ADMIN_EMAILS": "hello@agoranomos.cloud,sofiashcrescenzi@gmail.com",
+    // ⚠️ da riempire quando Access è attivo (DEPLOY.md): il nome del team e l'Application Audience tag
+    "ACCESS_TEAM": "",
+    "ACCESS_AUD": ""
+  },
+  "observability": { "enabled": true }
 }

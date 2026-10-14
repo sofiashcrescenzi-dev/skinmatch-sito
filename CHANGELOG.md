@@ -4,6 +4,51 @@ Registro di ogni modifica fatta al repository. Ordine: dal più recente al più 
 
 ---
 
+## 2026-10-15 — Il metodo arriva sul sito: test in quattro percorsi, biotipi, glossario, catalogo, Rivista e admin
+
+Il prototipo del metodo (provato su agoranomos.cloud/skinmatch) trasportato qui, e il sito diventa gestibile da un admin.
+
+- **I dati fuori dal codice** (`src/data/*.json`, letti da `src/lib/dati.ts`): test, biotipi, glossario, catalogo
+  e Rivista. Si modificano dall'admin; `src/lib/quiz.ts` e `scripts/quiz/coverage.ts` non ci sono più.
+- **Il test in quattro percorsi** (`/test`): *Viso*, *Cute e capelli*, *Integrazione*, *Tutto insieme*. Le domande
+  sono su quello che si vede allo specchio (fronte a metà giornata, pelle dopo la detersione, rossori, radici,
+  forfora, caduta…): ogni risposta dà punti su un asse (sebo, disidratazione, reattività, imperfezioni, macchie,
+  segni del tempo; per la cute sebo, secchezza, desquamazione, caduta, sensibilità, lunghezze), fissa una scelta
+  o apre un **limite**: il risultato comincia con il consulto e lascia solo prodotti delicati. Le domande che non
+  riguardano chi risponde si saltano (barba solo agli uomini, menopausa solo alle donne dai 35 anni).
+  I vecchi link `/test?percorso=capelli|completa` funzionano ancora. Le risposte restano sul telefono.
+- **Il motore** (`src/lib/motore.ts`): prima i filtri (in gravidanza solo prodotti segnati sicuri; pelle molto
+  reattiva o limite «solo delicati» → solo prodotti per pelli sensibili), poi la compatibilità 0-100 (alta da 70,
+  media da 50), un consigliato per passaggio e accanto **un'alternativa che costa almeno un quinto in meno**
+  (o la premium, se il consigliato è già il più economico e il budget lo permette), con «Perché questo».
+- **I biotipi** (`/biotipi`, 36 pagine): i 24 di prima con gli stessi indirizzi, più *secca e disidratata*,
+  *normale disidratata*, i tratti *reattiva* e *con imperfezioni*, sette profili di **integrazione** (sostegno
+  per i capelli, idratazione dall'interno, tono ed elasticità, preparare la pelle al sole, unghie fragili,
+  imperfezioni, nessun integratore) e il tratto *alimentazione vegana*. Ognuno ha un motto, i **tag di
+  rappresentazione**, le regole con cui esce dal test, i bisogni con cui si scelgono i prodotti, una foto e i
+  prodotti adatti. *Seborroica-secca* ora si chiama «seborroica disidratata», *idratata-mista* «pelle mista».
+- **Il glossario** (`/glossario`, 48 termini): la piccola «i» si accende da sola dove una parola del glossario
+  compare in un testo del sito, la prima volta per blocco (`src/lib/glossario.ts`); le sigle contano solo in
+  maiuscolo. Video facoltativo per termine.
+- **Il catalogo** (`/catalogo`): categorie (aggiunta *Protezione solare*) e filtri *Premium*, *SkinCeuticals*,
+  *Buona qualità/prezzo*, *K-beauty*, *Da farmacia*, *Per pelli sensibili*, *Anche in gravidanza*, *Per lui*, con
+  una pagina ciascuno (`/catalogo/<categoria o filtro>`). Le correzioni a mano stanno in
+  `src/data/catalogo.json` (modifiche per id) e sopravvivono all'aggiornamento dei feed.
+- **La Rivista** (`/rivista`): gli articoli di Zeno, pubblicati dopo l'approvazione in admin. Finché è vuota
+  non è nel menu né nella sitemap.
+- **L'admin** (`/admin`): Traffico, Test fatti, Domande, Glossario, Catalogo, Biotipi, Rivista, Squadra. Salva
+  versioni su D1 (`skinmatch-dati`), «Pubblica» mette in coda la pubblicazione che il Mac esegue entro un quarto
+  d'ora (`scripts/admin/pubblica.py`). Si apre solo con Cloudflare Access (account di Federico e di Sofia):
+  vedi DEPLOY.md, sezione 6.
+- **Il Worker** (`worker/index.js`): oltre ai file statici, conta test iniziati e finiti, biotipi usciti e clic
+  verso i negozi per giorno, **senza dati personali** (niente risposte, IP o cookie), e protegge l'admin.
+- **I guardiani** (`scripts/guardiani.ts`, prima di ogni build): controllano i dati e le 18 persone tipo
+  (il biotipo atteso deve uscire ancora; mai un prodotto non sicuro in gravidanza o con un limite).
+- **Immagini e marchio**: logo, icone e foto (Pexels, con i crediti in `public/immagini/crediti.json`) preparati
+  da Zeno; gli originali, anche per i social, in `media/`.
+
+---
+
 ## 2026-10-10 — Test diviso in tre percorsi: Viso, Capelli, Routine completa
 
 - **Scelta del percorso** (`src/app/test/page.tsx`): la prima domanda è ora

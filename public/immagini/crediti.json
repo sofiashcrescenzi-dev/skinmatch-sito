@@ -1,0 +1,524 @@
+[
+ {
+  "nome": "home",
+  "alt": "Due volti accostati guancia a guancia: una pelle chiara con lentiggini e una pelle scura",
+  "autore": "Angela Roma",
+  "autore_pagina": "https://www.pexels.com/@angela-roma",
+  "pagina": "https://www.pexels.com/photo/woman-with-freckled-face-near-black-model-7479659/",
+  "pexels_id": 7479659,
+  "licenza": "Licenza Pexels (uso libero, citazione gradita)",
+  "uso": [
+   "home: apertura",
+   "condivisione predefinita",
+   "social"
+  ],
+  "fuoco": "50% 35%",
+  "larghezza": 1600,
+  "altezza": 2400,
+  "originale": "media/foto/home.jpg"
+ },
+ {
+  "nome": "test-viso",
+  "alt": "Una ragazza con i capelli ricci si guarda la pelle del viso allo specchio del bagno",
+  "autore": "Andrea Piacquadio",
+  "autore_pagina": "https://www.pexels.com/@olly",
+  "pagina": "https://www.pexels.com/photo/woman-in-white-tank-top-in-front-of-mirror-3974100/",
+  "pexels_id": 3974100,
+  "licenza": "Licenza Pexels (uso libero, citazione gradita)",
+  "uso": [
+   "home: percorsi del test",
+   "test: percorso viso"
+  ],
+  "fuoco": "68% 45%",
+  "larghezza": 1600,
+  "altezza": 1120,
+  "originale": "media/foto/test-viso.jpg"
+ },
+ {
+  "nome": "test-cute",
+  "alt": "Due mani sollevano i capelli ricci e scuri, vista da dietro",
+  "autore": "PNW Production",
+  "autore_pagina": "https://www.pexels.com/@pnw-prod",
+  "pagina": "https://www.pexels.com/photo/person-wearing-accessories-on-her-wrist-8377213/",
+  "pexels_id": 8377213,
+  "licenza": "Licenza Pexels (uso libero, citazione gradita)",
+  "uso": [
+   "home: percorsi del test",
+   "test: percorso cute"
+  ],
+  "fuoco": "45% 60%",
+  "larghezza": 1600,
+  "altezza": 1064,
+  "originale": "media/foto/test-cute.jpg"
+ },
+ {
+  "nome": "test-integrazione",
+  "alt": "Una mano tiene una capsula, l'altra un bicchiere d'acqua",
+  "autore": "Jonathan Borba",
+  "autore_pagina": "https://www.pexels.com/@jonathanborba",
+  "pagina": "https://www.pexels.com/photo/woman-holding-pill-and-glass-of-water-17891257/",
+  "pexels_id": 17891257,
+  "licenza": "Licenza Pexels (uso libero, citazione gradita)",
+  "uso": [
+   "home: percorsi del test",
+   "test: percorso integrazione"
+  ],
+  "fuoco": "50% 55%",
+  "larghezza": 1600,
+  "altezza": 1067,
+  "originale": "media/foto/test-integrazione.jpg"
+ },
+ {
+  "nome": "test-completo",
+  "alt": "Una coppia in accappatoio, sorridente, in bagno",
+  "autore": "Diva Plavalaguna",
+  "autore_pagina": "https://www.pexels.com/@diva-plavalaguna",
+  "pagina": "https://www.pexels.com/photo/smiling-couple-wearing-bathrobes-5710567/",
+  "pexels_id": 5710567,
+  "licenza": "Licenza Pexels (uso libero, citazione gradita)",
+  "uso": [
+   "home: percorsi del test",
+   "test: percorso completo"
+  ],
+  "fuoco": "40% 40%",
+  "larghezza": 1600,
+  "altezza": 1067,
+  "originale": "media/foto/test-completo.jpg"
+ },
+ {
+  "nome": "pelle-grassa",
+  "alt": "Un uomo con la pelle del viso lucida si tocca la fronte",
+  "autore": "Farhad Irani",
+  "autore_pagina": "https://www.pexels.com/@farhadirani",
+  "pagina": "https://www.pexels.com/photo/close-up-portrait-of-a-confident-man-with-dewy-skin-37711445/",
+  "pexels_id": 37711445,
+  "licenza": "Licenza Pexels (uso libero, citazione gradita)",
+  "uso": [
+   "biotipi: famiglia pelle-grassa"
+  ],
+  "fuoco": "55% 35%",
+  "larghezza": 1600,
+  "altezza": 2399,
+  "originale": "media/foto/pelle-grassa.jpg"
+ },
+ {
+  "nome": "pelle-secca",
+  "alt": "Una donna stende una crema sulla spalla",
+  "autore": "SHVETS production",
+  "autore_pagina": "https://www.pexels.com/@shvets-production",
+  "pagina": "https://www.pexels.com/photo/woman-putting-cream-on-her-arm-9774614/",
+  "pexels_id": 9774614,
+  "licenza": "Licenza Pexels (uso libero, citazione gradita)",
+  "uso": [
+   "biotipi: famiglia pelle-secca"
+  ],
+  "fuoco": "35% 40%",
+  "larghezza": 1600,
+  "altezza": 1067,
+  "originale": "media/foto/pelle-secca.jpg"
+ },
+ {
+  "nome": "pelle-sensibile",
+  "alt": "Primo piano di una pelle chiara con lentiggini e un leggero rossore intorno al naso",
+  "autore": "Tima Miroshnichenko",
+  "autore_pagina": "https://www.pexels.com/@tima-miroshnichenko",
+  "pagina": "https://www.pexels.com/photo/a-close-up-shot-of-a-woman-with-half-face-8727559/",
+  "pexels_id": 8727559,
+  "licenza": "Licenza Pexels (uso libero, citazione gradita)",
+  "uso": [
+   "biotipi: famiglia pelle-sensibile"
+  ],
+  "fuoco": "50% 40%",
+  "larghezza": 1600,
+  "altezza": 2400,
+  "originale": "media/foto/pelle-sensibile.jpg"
+ },
+ {
+  "nome": "pelle-mista",
+  "alt": "Una ragazza passa un dischetto di cotone sulla guancia: fronte e naso sono più lucidi",
+  "autore": "Ron Lach",
+  "autore_pagina": "https://www.pexels.com/@ron-lach",
+  "pagina": "https://www.pexels.com/photo/woman-in-purple-tank-top-applying-facial-tonic-8131567/",
+  "pexels_id": 8131567,
+  "licenza": "Licenza Pexels (uso libero, citazione gradita)",
+  "uso": [
+   "biotipi: famiglia pelle-mista"
+  ],
+  "fuoco": "60% 35%",
+  "larghezza": 1600,
+  "altezza": 2400,
+  "originale": "media/foto/pelle-mista.jpg"
+ },
+ {
+  "nome": "pelle-normale",
+  "alt": "Ritratto di una donna con la pelle uniforme, su fondo grigio",
+  "autore": "Ansey Photography",
+  "autore_pagina": "https://www.pexels.com/@ansey",
+  "pagina": "https://www.pexels.com/photo/portrait-of-a-woman-on-white-background-15716139/",
+  "pexels_id": 15716139,
+  "licenza": "Licenza Pexels (uso libero, citazione gradita)",
+  "uso": [
+   "biotipi: famiglia pelle-normale"
+  ],
+  "fuoco": "45% 40%",
+  "larghezza": 1600,
+  "altezza": 2400,
+  "originale": "media/foto/pelle-normale.jpg"
+ },
+ {
+  "nome": "pelle-matura",
+  "alt": "Una donna con i capelli bianchi sorride, di profilo, con le rughe d'espressione",
+  "autore": "cottonbro studio",
+  "autore_pagina": "https://www.pexels.com/@cottonbro",
+  "pagina": "https://www.pexels.com/photo/smiling-woman-with-long-straight-gray-hair-7450281/",
+  "pexels_id": 7450281,
+  "licenza": "Licenza Pexels (uso libero, citazione gradita)",
+  "uso": [
+   "biotipi: famiglia pelle-matura"
+  ],
+  "fuoco": "35% 40%",
+  "larghezza": 1600,
+  "altezza": 2000,
+  "originale": "media/foto/pelle-matura.jpg"
+ },
+ {
+  "nome": "pelle-macchie",
+  "alt": "Primo piano di un viso sorridente con lentiggini e piccole macchie",
+  "autore": "Büşranur Aydın",
+  "autore_pagina": "https://www.pexels.com/@busranur-aydin-3800407",
+  "pagina": "https://www.pexels.com/photo/woman-s-face-in-close-up-photography-13295348/",
+  "pexels_id": 13295348,
+  "licenza": "Licenza Pexels (uso libero, citazione gradita)",
+  "uso": [
+   "biotipi: famiglia pelle-macchie"
+  ],
+  "fuoco": "55% 45%",
+  "larghezza": 1600,
+  "altezza": 1067,
+  "originale": "media/foto/pelle-macchie.jpg"
+ },
+ {
+  "nome": "cute-grassa",
+  "alt": "Una donna in accappatoio controlla le radici dei capelli davanti a uno specchio",
+  "autore": "Karolina Grabowska (Kaboompics)",
+  "autore_pagina": "https://www.pexels.com/@karola-g",
+  "pagina": "https://www.pexels.com/photo/woman-looking-at-her-grey-hairs-in-mirror-7320794/",
+  "pexels_id": 7320794,
+  "licenza": "Licenza Pexels (uso libero, citazione gradita)",
+  "uso": [
+   "biotipi: famiglia cute-grassa"
+  ],
+  "fuoco": "50% 35%",
+  "larghezza": 1600,
+  "altezza": 2400,
+  "originale": "media/foto/cute-grassa.jpg"
+ },
+ {
+  "nome": "cute-secca",
+  "alt": "Una persona di spalle si porta la mano alla nuca, tra i capelli corti",
+  "autore": "Kristina Polianskaia",
+  "autore_pagina": "https://www.pexels.com/@kristina-polianskaia-2617447",
+  "pagina": "https://www.pexels.com/photo/anonymous-young-person-touching-hair-and-looking-away-4241707/",
+  "pexels_id": 4241707,
+  "licenza": "Licenza Pexels (uso libero, citazione gradita)",
+  "uso": [
+   "biotipi: famiglia cute-secca"
+  ],
+  "fuoco": "55% 35%",
+  "larghezza": 1600,
+  "altezza": 2400,
+  "originale": "media/foto/cute-secca.jpg"
+ },
+ {
+  "nome": "cute-caduta",
+  "alt": "Mani che tolgono dei capelli caduti da una spazzola di legno",
+  "autore": "Towfiqu barbhuiya",
+  "autore_pagina": "https://www.pexels.com/@towfiqu-barbhuiya-3440682",
+  "pagina": "https://www.pexels.com/photo/a-woman-removing-hair-from-a-hair-brush-12941394/",
+  "pexels_id": 12941394,
+  "licenza": "Licenza Pexels (uso libero, citazione gradita)",
+  "uso": [
+   "biotipi: famiglia cute-caduta"
+  ],
+  "fuoco": "60% 50%",
+  "larghezza": 1600,
+  "altezza": 1068,
+  "originale": "media/foto/cute-caduta.jpg"
+ },
+ {
+  "nome": "capelli-secchi",
+  "alt": "Una donna con i capelli rossi, ricci e crespi",
+  "autore": "cottonbro studio",
+  "autore_pagina": "https://www.pexels.com/@cottonbro",
+  "pagina": "https://www.pexels.com/photo/a-woman-in-white-button-up-shirt-7450783/",
+  "pexels_id": 7450783,
+  "licenza": "Licenza Pexels (uso libero, citazione gradita)",
+  "uso": [
+   "biotipi: famiglia capelli-secchi"
+  ],
+  "fuoco": "45% 35%",
+  "larghezza": 1600,
+  "altezza": 2000,
+  "originale": "media/foto/capelli-secchi.jpg"
+ },
+ {
+  "nome": "cute-equilibrata",
+  "alt": "Un ragazzo con i capelli afro e una camicia a quadri",
+  "autore": "cottonbro studio",
+  "autore_pagina": "https://www.pexels.com/@cottonbro",
+  "pagina": "https://www.pexels.com/photo/portrait-of-a-man-7223488/",
+  "pexels_id": 7223488,
+  "licenza": "Licenza Pexels (uso libero, citazione gradita)",
+  "uso": [
+   "biotipi: famiglia cute-equilibrata"
+  ],
+  "fuoco": "50% 30%",
+  "larghezza": 1600,
+  "altezza": 2400,
+  "originale": "media/foto/cute-equilibrata.jpg"
+ },
+ {
+  "nome": "detergenti",
+  "alt": "Un ragazzo si lava il viso con la schiuma del detergente",
+  "autore": "Ron Lach",
+  "autore_pagina": "https://www.pexels.com/@ron-lach",
+  "pagina": "https://www.pexels.com/photo/man-in-blue-crew-neck-shirt-washing-his-face-8159654/",
+  "pexels_id": 8159654,
+  "licenza": "Licenza Pexels (uso libero, citazione gradita)",
+  "uso": [
+   "catalogo: categoria detergenti"
+  ],
+  "fuoco": "50% 35%",
+  "larghezza": 1600,
+  "altezza": 2400,
+  "originale": "media/foto/detergenti.jpg"
+ },
+ {
+  "nome": "creme",
+  "alt": "Una crema bianca stesa sul dorso di una mano",
+  "autore": "ines bahr",
+  "autore_pagina": "https://www.pexels.com/@ines-bahr-478690",
+  "pagina": "https://www.pexels.com/photo/person-applying-hand-cream-7507328/",
+  "pexels_id": 7507328,
+  "licenza": "Licenza Pexels (uso libero, citazione gradita)",
+  "uso": [
+   "catalogo: categoria creme"
+  ],
+  "fuoco": "50% 45%",
+  "larghezza": 1600,
+  "altezza": 2400,
+  "originale": "media/foto/creme.jpg"
+ },
+ {
+  "nome": "sieri",
+  "alt": "Una goccia di siero scende dalla pipetta verso il palmo, su fondo pesca",
+  "autore": "Shiny Diamond",
+  "autore_pagina": "https://www.pexels.com/@shiny-diamond",
+  "pagina": "https://www.pexels.com/photo/person-holding-white-and-gold-dropper-3762879/",
+  "pexels_id": 3762879,
+  "licenza": "Licenza Pexels (uso libero, citazione gradita)",
+  "uso": [
+   "catalogo: categoria sieri"
+  ],
+  "fuoco": "45% 50%",
+  "larghezza": 1600,
+  "altezza": 2397,
+  "originale": "media/foto/sieri.jpg"
+ },
+ {
+  "nome": "attivi",
+  "alt": "Tre flaconi di vetro ambrato con contagocce, senza etichetta",
+  "autore": "Yan Krukau",
+  "autore_pagina": "https://www.pexels.com/@yankrukov",
+  "pagina": "https://www.pexels.com/photo/photo-of-people-s-hands-holding-droppers-7020055/",
+  "pexels_id": 7020055,
+  "licenza": "Licenza Pexels (uso libero, citazione gradita)",
+  "uso": [
+   "catalogo: categoria attivi"
+  ],
+  "fuoco": "50% 55%",
+  "larghezza": 1600,
+  "altezza": 1600,
+  "originale": "media/foto/attivi.jpg"
+ },
+ {
+  "nome": "solari",
+  "alt": "Un uomo al mare si stende la crema solare sul viso",
+  "autore": "Kindel Media",
+  "autore_pagina": "https://www.pexels.com/@kindelmedia",
+  "pagina": "https://www.pexels.com/photo/a-shirtless-man-applying-cream-on-his-face-7425759/",
+  "pexels_id": 7425759,
+  "licenza": "Licenza Pexels (uso libero, citazione gradita)",
+  "uso": [
+   "catalogo: categoria solari"
+  ],
+  "fuoco": "50% 30%",
+  "larghezza": 1600,
+  "altezza": 2840,
+  "originale": "media/foto/solari.jpg"
+ },
+ {
+  "nome": "shampoo",
+  "alt": "Mani che massaggiano lo shampoo sui capelli rossi, vista da dietro",
+  "autore": "Beyzanur K.",
+  "autore_pagina": "https://www.pexels.com/@thefullonmonet",
+  "pagina": "https://www.pexels.com/photo/redhead-washing-hair-with-shampoo-lather-28994647/",
+  "pexels_id": 28994647,
+  "licenza": "Licenza Pexels (uso libero, citazione gradita)",
+  "uso": [
+   "catalogo: categoria shampoo"
+  ],
+  "fuoco": "50% 45%",
+  "larghezza": 1600,
+  "altezza": 1067,
+  "originale": "media/foto/shampoo.jpg"
+ },
+ {
+  "nome": "barba",
+  "alt": "Un uomo con la barba bianca la pettina",
+  "autore": "Alena Darmel",
+  "autore_pagina": "https://www.pexels.com/@a-darmel",
+  "pagina": "https://www.pexels.com/photo/close-up-photo-of-elderly-man-combing-his-beard-7322313/",
+  "pexels_id": 7322313,
+  "licenza": "Licenza Pexels (uso libero, citazione gradita)",
+  "uso": [
+   "catalogo: categoria barba"
+  ],
+  "fuoco": "50% 30%",
+  "larghezza": 1600,
+  "altezza": 2400,
+  "originale": "media/foto/barba.jpg"
+ },
+ {
+  "nome": "capelli",
+  "alt": "Una donna pettina i capelli bagnati con un pettine di legno",
+  "autore": "Ron Lach",
+  "autore_pagina": "https://www.pexels.com/@ron-lach",
+  "pagina": "https://www.pexels.com/photo/woman-combing-hair-10222444/",
+  "pexels_id": 10222444,
+  "licenza": "Licenza Pexels (uso libero, citazione gradita)",
+  "uso": [
+   "catalogo: categoria capelli"
+  ],
+  "fuoco": "60% 40%",
+  "larghezza": 1600,
+  "altezza": 2400,
+  "originale": "media/foto/capelli.jpg"
+ },
+ {
+  "nome": "integratori",
+  "alt": "Un flacone bianco senza etichetta e alcune capsule rosa",
+  "autore": "Supplements On Demand",
+  "autore_pagina": "https://www.pexels.com/@supliful",
+  "pagina": "https://www.pexels.com/photo/pills-lying-next-to-white-bottle-13779115/",
+  "pexels_id": 13779115,
+  "licenza": "Licenza Pexels (uso libero, citazione gradita)",
+  "uso": [
+   "catalogo: categoria integratori"
+  ],
+  "fuoco": "45% 50%",
+  "larghezza": 1600,
+  "altezza": 1600,
+  "originale": "media/foto/integratori.jpg"
+ },
+ {
+  "nome": "kbeauty",
+  "alt": "Una maschera in tessuto tenuta in alto davanti a una tenda",
+  "autore": "Anna Shvets",
+  "autore_pagina": "https://www.pexels.com/@shvetsa",
+  "pagina": "https://www.pexels.com/photo/crop-woman-with-sheet-face-mask-3846109/",
+  "pexels_id": 3846109,
+  "licenza": "Licenza Pexels (uso libero, citazione gradita)",
+  "uso": [
+   "catalogo: tag k-beauty",
+   "home: skincare coreana"
+  ],
+  "fuoco": "55% 30%",
+  "larghezza": 1600,
+  "altezza": 2400,
+  "originale": "media/foto/kbeauty.jpg"
+ },
+ {
+  "nome": "glossario",
+  "alt": "Una noce di crema bianca su fondo albicocca",
+  "autore": "Harriet B.",
+  "autore_pagina": "https://www.pexels.com/@harriet-b-392993362",
+  "pagina": "https://www.pexels.com/photo/white-petal-on-yellow-background-14816260/",
+  "pexels_id": 14816260,
+  "licenza": "Licenza Pexels (uso libero, citazione gradita)",
+  "uso": [
+   "glossario: apertura"
+  ],
+  "fuoco": "50% 50%",
+  "larghezza": 1600,
+  "altezza": 2397,
+  "originale": "media/foto/glossario.jpg"
+ },
+ {
+  "nome": "rivista",
+  "alt": "Una donna con i capelli ricci legge un libro sul divano",
+  "autore": "Andrea Piacquadio",
+  "autore_pagina": "https://www.pexels.com/@olly",
+  "pagina": "https://www.pexels.com/photo/woman-in-white-dress-shirt-holding-book-3967047/",
+  "pexels_id": 3967047,
+  "licenza": "Licenza Pexels (uso libero, citazione gradita)",
+  "uso": [
+   "rivista: apertura"
+  ],
+  "fuoco": "55% 35%",
+  "larghezza": 1600,
+  "altezza": 1067,
+  "originale": "media/foto/rivista.jpg"
+ },
+ {
+  "nome": "rivista-caduta-capelli-autunno",
+  "alt": "Capelli lunghi con due foglie d'autunno impigliate",
+  "autore": "olga Volkovitskaia",
+  "autore_pagina": "https://www.pexels.com/@olga-volkovitskaia-131638009",
+  "pagina": "https://www.pexels.com/photo/autumn-leaves-in-blonde-hair-close-up-33634516/",
+  "pexels_id": 33634516,
+  "licenza": "Licenza Pexels (uso libero, citazione gradita)",
+  "uso": [
+   "rivista: copertina dell'articolo caduta-capelli-autunno",
+   "social"
+  ],
+  "fuoco": "50% 40%",
+  "larghezza": 1600,
+  "altezza": 2400,
+  "originale": "media/foto/rivista-caduta-capelli-autunno.jpg"
+ },
+ {
+  "nome": "rivista-forfora-secca-o-grassa",
+  "alt": "Un uomo si tocca l'attaccatura dei capelli scuri",
+  "autore": "Towfiqu barbhuiya",
+  "autore_pagina": "https://www.pexels.com/@towfiqu-barbhuiya-3440682",
+  "pagina": "https://www.pexels.com/photo/a-close-up-shot-of-a-man-touching-his-head-12474260/",
+  "pexels_id": 12474260,
+  "licenza": "Licenza Pexels (uso libero, citazione gradita)",
+  "uso": [
+   "rivista: copertina dell'articolo forfora-secca-o-grassa",
+   "social"
+  ],
+  "fuoco": "50% 30%",
+  "larghezza": 1600,
+  "altezza": 1067,
+  "originale": "media/foto/rivista-forfora-secca-o-grassa.jpg"
+ },
+ {
+  "nome": "rivista-pelle-grassa-disidratata",
+  "alt": "Una ragazza si tampona la guancia con un asciugamano",
+  "autore": "Ron Lach",
+  "autore_pagina": "https://www.pexels.com/@ron-lach",
+  "pagina": "https://www.pexels.com/photo/woman-using-face-towel-on-her-face-9253759/",
+  "pexels_id": 9253759,
+  "licenza": "Licenza Pexels (uso libero, citazione gradita)",
+  "uso": [
+   "rivista: copertina dell'articolo pelle-grassa-disidratata",
+   "social"
+  ],
+  "fuoco": "60% 40%",
+  "larghezza": 1600,
+  "altezza": 2400,
+  "originale": "media/foto/rivista-pelle-grassa-disidratata.jpg"
+ }
+]

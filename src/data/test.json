@@ -1,0 +1,2138 @@
+{
+ "_nota": "L'architettura del test. Si modifica da skinmatch.it/admin/domande: questo file lo riscrive la pubblicazione dell'admin (scripts/admin/pubblica.py). Le regole del gioco sono in src/lib/motore.ts.",
+ "assi": [
+  {
+   "id": "sebo",
+   "nome": "Sebo",
+   "area": "pelle",
+   "termine": "sebo",
+   "soglie": "basso fino a 2, medio fino a 4, alto da 5"
+  },
+  {
+   "id": "idr",
+   "nome": "Disidratazione",
+   "area": "pelle",
+   "termine": "disidratata",
+   "soglie": "disidratata da 3"
+  },
+  {
+   "id": "re",
+   "nome": "Reattività",
+   "area": "pelle",
+   "termine": "reattiva",
+   "soglie": "un po' reattiva da 2, molto da 3"
+  },
+  {
+   "id": "imp",
+   "nome": "Imperfezioni",
+   "area": "pelle",
+   "termine": "comedoni",
+   "soglie": "tratto da 2, pelle acneica da 3 con sebo medio-alto"
+  },
+  {
+   "id": "mac",
+   "nome": "Macchie",
+   "area": "pelle",
+   "termine": "macchie",
+   "soglie": "tratto da 1"
+  },
+  {
+   "id": "tem",
+   "nome": "Segni del tempo",
+   "area": "pelle",
+   "termine": "antiossidanti",
+   "soglie": "tratto da 3"
+  },
+  {
+   "id": "cs",
+   "nome": "Sebo della cute",
+   "area": "cute",
+   "termine": "sebo",
+   "soglie": "cute grassa da 2"
+  },
+  {
+   "id": "csec",
+   "nome": "Secchezza della cute",
+   "area": "cute",
+   "soglie": "cute secca da 1"
+  },
+  {
+   "id": "desq",
+   "nome": "Desquamazione",
+   "area": "cute",
+   "termine": "forfora",
+   "soglie": "forfora da 2"
+  },
+  {
+   "id": "cad",
+   "nome": "Caduta",
+   "area": "cute",
+   "termine": "caduta",
+   "soglie": "da 2"
+  },
+  {
+   "id": "sens",
+   "nome": "Sensibilità della cute",
+   "area": "cute",
+   "soglie": "cute sensibile da 2"
+  },
+  {
+   "id": "lung",
+   "nome": "Lunghezze provate",
+   "area": "cute",
+   "soglie": "capelli secchi da 2"
+  }
+ ],
+ "scelte": [
+  {
+   "id": "genere",
+   "nome": "Per chi",
+   "valori": [
+    "donna",
+    "uomo",
+    "altro"
+   ]
+  },
+  {
+   "id": "eta",
+   "nome": "Età",
+   "valori": [
+    "meno-25",
+    "25-34",
+    "35-44",
+    "45-54",
+    "55-piu"
+   ]
+  },
+  {
+   "id": "gravidanza",
+   "nome": "Gravidanza o allattamento",
+   "valori": [
+    true
+   ]
+  },
+  {
+   "id": "menopausa",
+   "nome": "Perimenopausa o menopausa",
+   "valori": [
+    true
+   ]
+  },
+  {
+   "id": "obiettivo",
+   "nome": "Obiettivo per la pelle",
+   "valori": [
+    "idratazione",
+    "acne-sebo",
+    "pori-dilatati",
+    "macchie-luminosita",
+    "anti-age",
+    "rossori-sensibilita"
+   ]
+  },
+  {
+   "id": "esperienza",
+   "nome": "Esperienza con gli attivi",
+   "valori": [
+    0,
+    1,
+    2
+   ]
+  },
+  {
+   "id": "passi",
+   "nome": "Passaggi al giorno",
+   "valori": [
+    3,
+    4,
+    5
+   ]
+  },
+  {
+   "id": "zona_t",
+   "nome": "Zona T",
+   "valori": [
+    "opaca",
+    "lucida"
+   ]
+  },
+  {
+   "id": "barba",
+   "nome": "Barba",
+   "valori": [
+    "no",
+    "irritazione",
+    "mantenimento"
+   ]
+  },
+  {
+   "id": "forfora",
+   "nome": "Forfora",
+   "valori": [
+    "no",
+    "secca",
+    "grassa"
+   ]
+  },
+  {
+   "id": "caduta",
+   "nome": "Caduta",
+   "valori": [
+    "no",
+    "acuta",
+    "progressiva",
+    "chiazze"
+   ]
+  },
+  {
+   "id": "trattati",
+   "nome": "Capelli colorati o stressati dal calore",
+   "valori": [
+    true
+   ]
+  },
+  {
+   "id": "integrazione",
+   "nome": "Obiettivo dell'integrazione",
+   "valori": [
+    "capelli",
+    "pelle-secca",
+    "tono",
+    "sole",
+    "unghie",
+    "imperfezioni",
+    "nessuno"
+   ]
+  },
+  {
+   "id": "dieta",
+   "nome": "Alimentazione",
+   "valori": [
+    "onnivora",
+    "vegetariana",
+    "vegana"
+   ]
+  },
+  {
+   "id": "budget",
+   "nome": "Budget per prodotto",
+   "valori": [
+    "base",
+    "top",
+    "premium",
+    "nessuna"
+   ]
+  }
+ ],
+ "percorsi": [
+  {
+   "id": "viso",
+   "nome": "Viso",
+   "titolo": "Il test della pelle",
+   "descrizione": "Domande su quello che vedi allo specchio: lucidità, tensione, rossori, imperfezioni. Ne esce il tuo biotipo e una routine di tre, quattro o cinque passaggi.",
+   "immagine": "test-viso",
+   "aree": [
+    "pelle"
+   ],
+   "minuti": 3,
+   "domande": [
+    "genere",
+    "eta",
+    "tzona",
+    "guance",
+    "pori",
+    "tira",
+    "spella",
+    "crema",
+    "nuovo",
+    "rossore",
+    "brufoli",
+    "macchie",
+    "condizioni",
+    "gravidanza",
+    "menopausa",
+    "obiettivo",
+    "esperienza",
+    "barba",
+    "passi",
+    "budget"
+   ]
+  },
+  {
+   "id": "cute",
+   "nome": "Cute e capelli",
+   "titolo": "Il test del cuoio capelluto",
+   "descrizione": "Quanto in fretta si ungono le radici, la forfora, la caduta, lo stato delle lunghezze. Ne esce il biotipo della tua cute con shampoo e trattamento.",
+   "immagine": "test-cute",
+   "aree": [
+    "cute"
+   ],
+   "minuti": 2,
+   "domande": [
+    "genere",
+    "eta",
+    "cute_unta",
+    "cute_tira",
+    "forfora",
+    "caduta",
+    "lunghezze",
+    "trattamenti",
+    "condizioni_cute",
+    "gravidanza",
+    "budget"
+   ]
+  },
+  {
+   "id": "integrazione",
+   "nome": "Integrazione",
+   "titolo": "Il test dell'integrazione",
+   "descrizione": "Per pelle, capelli e unghie, dall'interno: un solo integratore, scelto sul tuo obiettivo, oppure nessuno se non serve.",
+   "immagine": "test-integrazione",
+   "aree": [
+    "integrazione"
+   ],
+   "minuti": 1,
+   "domande": [
+    "genere",
+    "eta",
+    "int_obiettivo",
+    "dieta",
+    "farmaci",
+    "gravidanza",
+    "menopausa",
+    "budget"
+   ]
+  },
+  {
+   "id": "completo",
+   "nome": "Tutto insieme",
+   "titolo": "Il test completo",
+   "descrizione": "Pelle, cute e integrazione in un solo giro, senza ripetere le domande in comune. La routine intera, con un integratore solo se serve.",
+   "immagine": "test-completo",
+   "aree": [
+    "pelle",
+    "cute",
+    "integrazione"
+   ],
+   "minuti": 6,
+   "domande": [
+    "genere",
+    "eta",
+    "tzona",
+    "guance",
+    "pori",
+    "tira",
+    "spella",
+    "crema",
+    "nuovo",
+    "rossore",
+    "brufoli",
+    "macchie",
+    "condizioni",
+    "obiettivo",
+    "esperienza",
+    "barba",
+    "passi",
+    "cute_unta",
+    "cute_tira",
+    "forfora",
+    "caduta",
+    "lunghezze",
+    "trattamenti",
+    "condizioni_cute",
+    "int_obiettivo",
+    "dieta",
+    "farmaci",
+    "gravidanza",
+    "menopausa",
+    "budget"
+   ]
+  }
+ ],
+ "domande": [
+  {
+   "id": "genere",
+   "area": "comune",
+   "testo": "Per chi è la routine?",
+   "opzioni": [
+    {
+     "id": "donna",
+     "testo": "Per una donna",
+     "scelte": {
+      "genere": "donna"
+     }
+    },
+    {
+     "id": "uomo",
+     "testo": "Per un uomo",
+     "scelte": {
+      "genere": "uomo"
+     }
+    },
+    {
+     "id": "altro",
+     "testo": "Preferisco non dirlo",
+     "scelte": {
+      "genere": "altro"
+     }
+    }
+   ]
+  },
+  {
+   "id": "eta",
+   "area": "comune",
+   "testo": "Quanti anni hai?",
+   "opzioni": [
+    {
+     "id": "meno-25",
+     "testo": "Meno di 25",
+     "punti": {
+      "tem": 0
+     },
+     "scelte": {
+      "eta": "meno-25"
+     }
+    },
+    {
+     "id": "25-34",
+     "testo": "Da 25 a 34",
+     "punti": {
+      "tem": 1
+     },
+     "scelte": {
+      "eta": "25-34"
+     }
+    },
+    {
+     "id": "35-44",
+     "testo": "Da 35 a 44",
+     "punti": {
+      "tem": 2
+     },
+     "scelte": {
+      "eta": "35-44"
+     }
+    },
+    {
+     "id": "45-54",
+     "testo": "Da 45 a 54",
+     "punti": {
+      "tem": 3
+     },
+     "scelte": {
+      "eta": "45-54"
+     }
+    },
+    {
+     "id": "55-piu",
+     "testo": "55 o più",
+     "punti": {
+      "tem": 4
+     },
+     "scelte": {
+      "eta": "55-piu"
+     }
+    }
+   ]
+  },
+  {
+   "id": "tzona",
+   "area": "pelle",
+   "testo": "A metà giornata, come sono fronte e naso?",
+   "aiuto": "Guardali allo specchio, con la luce del giorno, senza trucco.",
+   "opzioni": [
+    {
+     "id": "opachi",
+     "testo": "Opachi come al mattino",
+     "punti": {
+      "sebo": 0
+     },
+     "scelte": {
+      "zona_t": "opaca"
+     }
+    },
+    {
+     "id": "poco-lucidi",
+     "testo": "Un po' lucidi",
+     "punti": {
+      "sebo": 1
+     },
+     "scelte": {
+      "zona_t": "opaca"
+     }
+    },
+    {
+     "id": "lucidi",
+     "testo": "Lucidi",
+     "punti": {
+      "sebo": 2
+     },
+     "scelte": {
+      "zona_t": "lucida"
+     }
+    },
+    {
+     "id": "molto-lucidi",
+     "testo": "Molto lucidi, devo tamponare",
+     "punti": {
+      "sebo": 3
+     },
+     "scelte": {
+      "zona_t": "lucida"
+     }
+    }
+   ]
+  },
+  {
+   "id": "guance",
+   "area": "pelle",
+   "testo": "E le guance?",
+   "opzioni": [
+    {
+     "id": "opache",
+     "testo": "Opache, a volte tirano",
+     "punti": {
+      "sebo": 0
+     }
+    },
+    {
+     "id": "normali",
+     "testo": "Normali",
+     "punti": {
+      "sebo": 1
+     }
+    },
+    {
+     "id": "lucide",
+     "testo": "Lucide anche loro",
+     "punti": {
+      "sebo": 2
+     }
+    }
+   ]
+  },
+  {
+   "id": "pori",
+   "area": "pelle",
+   "testo": "I pori si vedono?",
+   "opzioni": [
+    {
+     "id": "poco",
+     "testo": "Quasi per niente",
+     "punti": {
+      "sebo": 0
+     }
+    },
+    {
+     "id": "naso",
+     "testo": "Sul naso",
+     "punti": {
+      "sebo": 1
+     }
+    },
+    {
+     "id": "guance",
+     "testo": "Anche sulle guance",
+     "punti": {
+      "sebo": 2
+     }
+    }
+   ]
+  },
+  {
+   "id": "tira",
+   "area": "pelle",
+   "testo": "Dopo aver lavato il viso, senza mettere niente, la pelle:",
+   "opzioni": [
+    {
+     "id": "bene",
+     "testo": "Sta bene",
+     "punti": {
+      "idr": 0
+     }
+    },
+    {
+     "id": "poco",
+     "testo": "Tira un po'",
+     "punti": {
+      "idr": 1
+     }
+    },
+    {
+     "id": "molto",
+     "testo": "Tira molto, quasi brucia",
+     "punti": {
+      "idr": 2,
+      "re": 1
+     }
+    }
+   ]
+  },
+  {
+   "id": "spella",
+   "area": "pelle",
+   "testo": "Ti capita che si spelli o che ci siano zone ruvide?",
+   "opzioni": [
+    {
+     "id": "mai",
+     "testo": "Mai",
+     "punti": {
+      "idr": 0
+     }
+    },
+    {
+     "id": "a-volte",
+     "testo": "Ogni tanto",
+     "punti": {
+      "idr": 1
+     }
+    },
+    {
+     "id": "spesso",
+     "testo": "Spesso",
+     "punti": {
+      "idr": 2
+     }
+    }
+   ]
+  },
+  {
+   "id": "crema",
+   "area": "pelle",
+   "testo": "Quando metti una crema, la pelle:",
+   "opzioni": [
+    {
+     "id": "assorbe",
+     "testo": "La assorbe con calma",
+     "punti": {
+      "idr": 0
+     }
+    },
+    {
+     "id": "beve",
+     "testo": "La beve subito e poco dopo tira di nuovo",
+     "punti": {
+      "idr": 2
+     }
+    },
+    {
+     "id": "unta",
+     "testo": "Resta unta",
+     "punti": {
+      "sebo": 1
+     }
+    }
+   ]
+  },
+  {
+   "id": "nuovo",
+   "area": "pelle",
+   "testo": "Con un prodotto nuovo, la pelle:",
+   "opzioni": [
+    {
+     "id": "niente",
+     "testo": "Non reagisce",
+     "punti": {
+      "re": 0
+     }
+    },
+    {
+     "id": "a-volte",
+     "testo": "A volte si arrossa",
+     "punti": {
+      "re": 1
+     }
+    },
+    {
+     "id": "spesso",
+     "testo": "Si arrossa o pizzica spesso",
+     "punti": {
+      "re": 2
+     }
+    },
+    {
+     "id": "sempre",
+     "testo": "Brucia anche con prodotti delicati",
+     "punti": {
+      "re": 3
+     }
+    }
+   ]
+  },
+  {
+   "id": "rossore",
+   "area": "pelle",
+   "testo": "Il rossore, quando arriva:",
+   "opzioni": [
+    {
+     "id": "mai",
+     "testo": "Non mi capita",
+     "punti": {
+      "re": 0
+     }
+    },
+    {
+     "id": "breve",
+     "testo": "Passa in pochi minuti",
+     "punti": {
+      "re": 0
+     }
+    },
+    {
+     "id": "ore",
+     "testo": "Dura ore",
+     "punti": {
+      "re": 1
+     }
+    },
+    {
+     "id": "sempre",
+     "testo": "È quasi sempre lì, con capillari visibili",
+     "punti": {
+      "re": 2
+     },
+     "limite": "rossore"
+    }
+   ]
+  },
+  {
+   "id": "brufoli",
+   "area": "pelle",
+   "testo": "Punti neri e brufoli:",
+   "opzioni": [
+    {
+     "id": "mai",
+     "testo": "Quasi mai",
+     "punti": {
+      "imp": 0
+     }
+    },
+    {
+     "id": "punti-neri",
+     "testo": "Qualche punto nero",
+     "punti": {
+      "imp": 1
+     }
+    },
+    {
+     "id": "a-volte",
+     "testo": "Brufoli ogni tanto",
+     "punti": {
+      "imp": 2
+     }
+    },
+    {
+     "id": "spesso",
+     "testo": "Brufoli spesso",
+     "punti": {
+      "imp": 3
+     }
+    },
+    {
+     "id": "noduli",
+     "testo": "Noduli grossi e dolorosi",
+     "punti": {
+      "imp": 3
+     },
+     "limite": "noduli"
+    }
+   ]
+  },
+  {
+   "id": "macchie",
+   "area": "pelle",
+   "testo": "Macchie scure o segni dei brufoli passati?",
+   "opzioni": [
+    {
+     "id": "no",
+     "testo": "No",
+     "punti": {
+      "mac": 0
+     }
+    },
+    {
+     "id": "qualcuna",
+     "testo": "Qualcuna",
+     "punti": {
+      "mac": 1
+     }
+    },
+    {
+     "id": "molte",
+     "testo": "Molte, o si scuriscono al sole",
+     "punti": {
+      "mac": 2
+     }
+    }
+   ]
+  },
+  {
+   "id": "condizioni",
+   "area": "pelle",
+   "multipla": true,
+   "testo": "Un medico ti ha diagnosticato una di queste?",
+   "aiuto": "Puoi sceglierne più di una.",
+   "opzioni": [
+    {
+     "id": "nessuna",
+     "testo": "Nessuna",
+     "esclusiva": true
+    },
+    {
+     "id": "dermatite",
+     "testo": "Dermatite atopica",
+     "limite": "dermatite"
+    },
+    {
+     "id": "rosacea",
+     "testo": "Rosacea",
+     "limite": "rosacea"
+    },
+    {
+     "id": "psoriasi",
+     "testo": "Psoriasi",
+     "limite": "psoriasi"
+    }
+   ]
+  },
+  {
+   "id": "gravidanza",
+   "area": "comune",
+   "testo": "Sei in gravidanza o allattamento?",
+   "se": [
+    {
+     "scelta": "genere",
+     "valori": [
+      "uomo"
+     ],
+     "no": true
+    }
+   ],
+   "opzioni": [
+    {
+     "id": "no",
+     "testo": "No"
+    },
+    {
+     "id": "si",
+     "testo": "Sì",
+     "scelte": {
+      "gravidanza": true
+     },
+     "limite": "gravidanza-integratori"
+    }
+   ]
+  },
+  {
+   "id": "menopausa",
+   "area": "comune",
+   "testo": "Sei in perimenopausa o in menopausa?",
+   "aiuto": "Cicli irregolari, vampate, o niente ciclo da almeno un anno.",
+   "se": [
+    {
+     "scelta": "genere",
+     "valori": [
+      "donna"
+     ]
+    },
+    {
+     "scelta": "eta",
+     "valori": [
+      "35-44",
+      "45-54",
+      "55-piu"
+     ]
+    }
+   ],
+   "opzioni": [
+    {
+     "id": "no",
+     "testo": "No"
+    },
+    {
+     "id": "si",
+     "testo": "Sì",
+     "scelte": {
+      "menopausa": true
+     },
+     "punti": {
+      "tem": 1
+     }
+    }
+   ]
+  },
+  {
+   "id": "obiettivo",
+   "area": "pelle",
+   "testo": "Su cosa vuoi lavorare per primo?",
+   "opzioni": [
+    {
+     "id": "idratazione",
+     "testo": "Idratazione e comfort",
+     "scelte": {
+      "obiettivo": "idratazione"
+     }
+    },
+    {
+     "id": "imperfezioni",
+     "testo": "Brufoli e punti neri",
+     "scelte": {
+      "obiettivo": "acne-sebo"
+     }
+    },
+    {
+     "id": "pori",
+     "testo": "Pori e grana della pelle",
+     "scelte": {
+      "obiettivo": "pori-dilatati"
+     }
+    },
+    {
+     "id": "macchie",
+     "testo": "Macchie e luminosità",
+     "scelte": {
+      "obiettivo": "macchie-luminosita"
+     }
+    },
+    {
+     "id": "tempo",
+     "testo": "Segni del tempo",
+     "scelte": {
+      "obiettivo": "anti-age"
+     }
+    },
+    {
+     "id": "calmare",
+     "testo": "Calmare rossori e fastidi",
+     "scelte": {
+      "obiettivo": "rossori-sensibilita"
+     }
+    }
+   ]
+  },
+  {
+   "id": "esperienza",
+   "area": "pelle",
+   "testo": "Hai mai usato prodotti con retinolo o acidi esfolianti?",
+   "opzioni": [
+    {
+     "id": "mai",
+     "testo": "Mai",
+     "scelte": {
+      "esperienza": 0
+     }
+    },
+    {
+     "id": "a-volte",
+     "testo": "Qualche volta",
+     "scelte": {
+      "esperienza": 1
+     }
+    },
+    {
+     "id": "spesso",
+     "testo": "Li uso abitualmente",
+     "scelte": {
+      "esperienza": 2
+     }
+    }
+   ]
+  },
+  {
+   "id": "barba",
+   "area": "pelle",
+   "testo": "Porti la barba?",
+   "se": [
+    {
+     "scelta": "genere",
+     "valori": [
+      "uomo"
+     ]
+    }
+   ],
+   "opzioni": [
+    {
+     "id": "no",
+     "testo": "No, mi rado",
+     "scelte": {
+      "barba": "no"
+     }
+    },
+    {
+     "id": "irritata",
+     "testo": "Sì, e la pelle sotto prude o si irrita",
+     "scelte": {
+      "barba": "irritazione"
+     }
+    },
+    {
+     "id": "ok",
+     "testo": "Sì, senza fastidi",
+     "scelte": {
+      "barba": "mantenimento"
+     }
+    }
+   ]
+  },
+  {
+   "id": "passi",
+   "area": "pelle",
+   "testo": "Quanti passaggi vuoi fare ogni giorno?",
+   "opzioni": [
+    {
+     "id": "tre",
+     "testo": "L'essenziale: 3",
+     "scelte": {
+      "passi": 3
+     }
+    },
+    {
+     "id": "quattro",
+     "testo": "Una routine completa: 4",
+     "scelte": {
+      "passi": 4
+     }
+    },
+    {
+     "id": "cinque",
+     "testo": "Quelli che servono: anche 5",
+     "scelte": {
+      "passi": 5
+     }
+    }
+   ]
+  },
+  {
+   "id": "cute_unta",
+   "area": "cute",
+   "testo": "Dopo quanto tempo dallo shampoo le radici sono unte?",
+   "opzioni": [
+    {
+     "id": "un-giorno",
+     "testo": "Già il giorno dopo",
+     "punti": {
+      "cs": 3
+     }
+    },
+    {
+     "id": "due-giorni",
+     "testo": "Dopo due giorni",
+     "punti": {
+      "cs": 2
+     }
+    },
+    {
+     "id": "tre-quattro",
+     "testo": "Dopo tre o quattro giorni",
+     "punti": {
+      "cs": 1
+     }
+    },
+    {
+     "id": "mai",
+     "testo": "Restano pulite a lungo",
+     "punti": {
+      "cs": 0,
+      "csec": 1
+     }
+    }
+   ]
+  },
+  {
+   "id": "cute_tira",
+   "area": "cute",
+   "testo": "Dopo lo shampoo, il cuoio capelluto:",
+   "opzioni": [
+    {
+     "id": "bene",
+     "testo": "Sta bene",
+     "punti": {
+      "sens": 0
+     }
+    },
+    {
+     "id": "tira",
+     "testo": "Tira o prude un po'",
+     "punti": {
+      "csec": 1,
+      "sens": 1
+     }
+    },
+    {
+     "id": "brucia",
+     "testo": "Prude o brucia spesso, anche con shampoo delicati",
+     "punti": {
+      "sens": 2
+     }
+    }
+   ]
+  },
+  {
+   "id": "forfora",
+   "area": "cute",
+   "testo": "Hai forfora?",
+   "opzioni": [
+    {
+     "id": "no",
+     "testo": "No",
+     "punti": {
+      "desq": 0
+     },
+     "scelte": {
+      "forfora": "no"
+     }
+    },
+    {
+     "id": "secca",
+     "testo": "Scagliette bianche e sottili, che cadono sulle spalle",
+     "punti": {
+      "desq": 2,
+      "csec": 1
+     },
+     "scelte": {
+      "forfora": "secca"
+     }
+    },
+    {
+     "id": "grassa",
+     "testo": "Scaglie giallastre e unte, attaccate alla cute",
+     "punti": {
+      "desq": 2,
+      "cs": 1
+     },
+     "scelte": {
+      "forfora": "grassa"
+     }
+    },
+    {
+     "id": "placche",
+     "testo": "Placche spesse e arrossate, anche oltre l'attaccatura",
+     "punti": {
+      "desq": 3
+     },
+     "limite": "placche-cute"
+    }
+   ]
+  },
+  {
+   "id": "caduta",
+   "area": "cute",
+   "testo": "Quanti capelli perdi?",
+   "aiuto": "Ne cadono fino a un centinaio al giorno: è normale.",
+   "opzioni": [
+    {
+     "id": "normale",
+     "testo": "Come sempre",
+     "punti": {
+      "cad": 0
+     },
+     "scelte": {
+      "caduta": "no"
+     }
+    },
+    {
+     "id": "acuta",
+     "testo": "Più del solito da qualche settimana, su tutta la testa",
+     "punti": {
+      "cad": 2
+     },
+     "scelte": {
+      "caduta": "acuta"
+     }
+    },
+    {
+     "id": "progressiva",
+     "testo": "Si stanno diradando piano piano, da mesi",
+     "punti": {
+      "cad": 3
+     },
+     "scelte": {
+      "caduta": "progressiva"
+     },
+     "limite": "diradamento"
+    },
+    {
+     "id": "chiazze",
+     "testo": "Ci sono zone senza capelli, a chiazze",
+     "punti": {
+      "cad": 3
+     },
+     "scelte": {
+      "caduta": "chiazze"
+     },
+     "limite": "chiazze"
+    }
+   ]
+  },
+  {
+   "id": "lunghezze",
+   "area": "cute",
+   "testo": "Le lunghezze come sono?",
+   "opzioni": [
+    {
+     "id": "morbide",
+     "testo": "Morbide e lucide",
+     "punti": {
+      "lung": 0
+     }
+    },
+    {
+     "id": "punte",
+     "testo": "Un po' secche sulle punte",
+     "punti": {
+      "lung": 1
+     }
+    },
+    {
+     "id": "crespe",
+     "testo": "Opache e crespe, si spezzano",
+     "punti": {
+      "lung": 2
+     }
+    }
+   ]
+  },
+  {
+   "id": "trattamenti",
+   "area": "cute",
+   "multipla": true,
+   "testo": "Colori i capelli o usi spesso piastra e phon caldo?",
+   "opzioni": [
+    {
+     "id": "nessuno",
+     "testo": "No",
+     "esclusiva": true
+    },
+    {
+     "id": "colore",
+     "testo": "Colore o decolorazione",
+     "punti": {
+      "lung": 1
+     },
+     "scelte": {
+      "trattati": true
+     }
+    },
+    {
+     "id": "calore",
+     "testo": "Piastra o phon caldo quasi ogni giorno",
+     "punti": {
+      "lung": 1
+     },
+     "scelte": {
+      "trattati": true
+     }
+    }
+   ]
+  },
+  {
+   "id": "condizioni_cute",
+   "area": "cute",
+   "multipla": true,
+   "testo": "Un medico ti ha diagnosticato una di queste?",
+   "opzioni": [
+    {
+     "id": "nessuna",
+     "testo": "Nessuna",
+     "esclusiva": true
+    },
+    {
+     "id": "seborroica",
+     "testo": "Dermatite seborroica",
+     "limite": "dermatite-seborroica"
+    },
+    {
+     "id": "psoriasi",
+     "testo": "Psoriasi del cuoio capelluto",
+     "limite": "psoriasi-cute"
+    }
+   ]
+  },
+  {
+   "id": "int_obiettivo",
+   "area": "integrazione",
+   "testo": "Su cosa vorresti un aiuto dall'interno?",
+   "aiuto": "Scegli la cosa che conta di più per te adesso.",
+   "opzioni": [
+    {
+     "id": "capelli",
+     "testo": "Capelli che cadono o deboli",
+     "scelte": {
+      "integrazione": "capelli"
+     }
+    },
+    {
+     "id": "pelle-secca",
+     "testo": "Pelle secca o spenta",
+     "scelte": {
+      "integrazione": "pelle-secca"
+     }
+    },
+    {
+     "id": "tono",
+     "testo": "Tono ed elasticità della pelle",
+     "scelte": {
+      "integrazione": "tono"
+     }
+    },
+    {
+     "id": "sole",
+     "testo": "Preparare la pelle al sole",
+     "scelte": {
+      "integrazione": "sole"
+     }
+    },
+    {
+     "id": "unghie",
+     "testo": "Unghie fragili",
+     "scelte": {
+      "integrazione": "unghie"
+     }
+    },
+    {
+     "id": "imperfezioni",
+     "testo": "Imperfezioni",
+     "scelte": {
+      "integrazione": "imperfezioni"
+     }
+    },
+    {
+     "id": "nessuno",
+     "testo": "Niente in particolare",
+     "scelte": {
+      "integrazione": "nessuno"
+     }
+    }
+   ]
+  },
+  {
+   "id": "dieta",
+   "area": "integrazione",
+   "testo": "Come mangi?",
+   "opzioni": [
+    {
+     "id": "onnivora",
+     "testo": "Un po' di tutto",
+     "scelte": {
+      "dieta": "onnivora"
+     }
+    },
+    {
+     "id": "vegetariana",
+     "testo": "Vegetariano",
+     "scelte": {
+      "dieta": "vegetariana"
+     }
+    },
+    {
+     "id": "vegana",
+     "testo": "Vegano",
+     "scelte": {
+      "dieta": "vegana"
+     }
+    }
+   ]
+  },
+  {
+   "id": "farmaci",
+   "area": "integrazione",
+   "testo": "Prendi farmaci tutti i giorni?",
+   "aiuto": "Per esempio per la pressione, la tiroide, la coagulazione o la pillola.",
+   "opzioni": [
+    {
+     "id": "no",
+     "testo": "No"
+    },
+    {
+     "id": "si",
+     "testo": "Sì",
+     "limite": "farmaci"
+    }
+   ]
+  },
+  {
+   "id": "budget",
+   "area": "comune",
+   "testo": "Quanto vuoi spendere per ogni prodotto?",
+   "aiuto": "Per ogni consiglio ti mostriamo comunque un'alternativa che costa meno.",
+   "opzioni": [
+    {
+     "id": "base",
+     "testo": "Il meno possibile",
+     "scelte": {
+      "budget": "base"
+     }
+    },
+    {
+     "id": "top",
+     "testo": "Il giusto, per un buon prodotto",
+     "scelte": {
+      "budget": "top"
+     }
+    },
+    {
+     "id": "premium",
+     "testo": "Il meglio, anche se costa",
+     "scelte": {
+      "budget": "premium"
+     }
+    },
+    {
+     "id": "nessuna",
+     "testo": "Non conta",
+     "scelte": {
+      "budget": "nessuna"
+     }
+    }
+   ]
+  }
+ ],
+ "limiti": [
+  {
+   "id": "noduli",
+   "area": "pelle",
+   "titolo": "Noduli dolorosi",
+   "testo": "Noduli grossi e dolorosi possono essere acne da curare con una terapia: un medico la valuta meglio di qualsiasi prodotto.",
+   "solo_delicati": true
+  },
+  {
+   "id": "rossore",
+   "area": "pelle",
+   "titolo": "Rossore costante",
+   "testo": "Un rossore quasi costante, con capillari visibili, può essere rosacea o couperose: va visto dal vivo.",
+   "solo_delicati": true
+  },
+  {
+   "id": "dermatite",
+   "area": "pelle",
+   "titolo": "Dermatite atopica",
+   "testo": "Con una dermatite atopica la routine va concordata con chi ti segue: qui trovi solo prodotti delicati di supporto.",
+   "solo_delicati": true
+  },
+  {
+   "id": "rosacea",
+   "area": "pelle",
+   "titolo": "Rosacea",
+   "testo": "Con la rosacea la routine va concordata con chi ti segue: qui trovi solo prodotti delicati di supporto.",
+   "solo_delicati": true
+  },
+  {
+   "id": "psoriasi",
+   "area": "pelle",
+   "titolo": "Psoriasi",
+   "testo": "Con la psoriasi la routine va concordata con chi ti segue: qui trovi solo prodotti delicati di supporto.",
+   "solo_delicati": true
+  },
+  {
+   "id": "placche-cute",
+   "area": "cute",
+   "titolo": "Placche sul cuoio capelluto",
+   "testo": "Placche spesse e arrossate che superano l'attaccatura non sono forfora comune: possono essere psoriasi o una dermatite da curare. Prima un dermatologo.",
+   "solo_delicati": true
+  },
+  {
+   "id": "dermatite-seborroica",
+   "area": "cute",
+   "titolo": "Dermatite seborroica",
+   "testo": "Con una dermatite seborroica diagnosticata, lo shampoo giusto accompagna la cura che ti è stata data: non la sostituisce.",
+   "solo_delicati": false
+  },
+  {
+   "id": "psoriasi-cute",
+   "area": "cute",
+   "titolo": "Psoriasi del cuoio capelluto",
+   "testo": "Con la psoriasi del cuoio capelluto la routine va concordata con chi ti segue: qui trovi solo prodotti di supporto.",
+   "solo_delicati": true
+  },
+  {
+   "id": "diradamento",
+   "area": "cute",
+   "titolo": "Diradamento da mesi",
+   "testo": "Un diradamento lento e costante ha quasi sempre una causa precisa (ormonale, genetica, carenze): un dermatologo la riconosce e prima si interviene, più si conserva.",
+   "solo_delicati": false
+  },
+  {
+   "id": "chiazze",
+   "area": "cute",
+   "titolo": "Caduta a chiazze",
+   "testo": "Zone senza capelli a chiazze vanno viste da un dermatologo, presto: nessuno shampoo o lozione le risolve.",
+   "solo_delicati": false
+  },
+  {
+   "id": "farmaci",
+   "area": "integrazione",
+   "titolo": "Farmaci tutti i giorni",
+   "testo": "Alcuni integratori interferiscono con i farmaci. Prima di prenderne uno, chiedi al medico o al farmacista: ti mostriamo il consiglio, da verificare con loro.",
+   "solo_delicati": false
+  },
+  {
+   "id": "gravidanza-integratori",
+   "area": "integrazione",
+   "titolo": "Gravidanza o allattamento",
+   "testo": "In gravidanza e in allattamento gli integratori li sceglie il medico o l'ostetrica: per questo qui non te ne consigliamo nessuno.",
+   "solo_delicati": false
+  }
+ ],
+ "passaggi": [
+  {
+   "id": "detergente",
+   "area": "pelle",
+   "nome": "Detersione",
+   "quando": "mattina e sera",
+   "categoria": "detergenti"
+  },
+  {
+   "id": "siero",
+   "area": "pelle",
+   "nome": "Siero",
+   "quando": "la mattina",
+   "categoria": "sieri",
+   "se": [
+    {
+     "scelta": "passi",
+     "valori": [
+      4,
+      5
+     ]
+    }
+   ]
+  },
+  {
+   "id": "crema",
+   "area": "pelle",
+   "nome": "Crema",
+   "quando": "mattina e sera",
+   "categoria": "creme",
+   "senza_bisogno": "protezione-solare"
+  },
+  {
+   "id": "spf",
+   "area": "pelle",
+   "nome": "Protezione solare",
+   "quando": "ogni mattina, anche in città",
+   "categoria": "creme",
+   "con_bisogno": "protezione-solare"
+  },
+  {
+   "id": "sera",
+   "area": "pelle",
+   "nome": "Trattamento della sera",
+   "quando": "la sera, due o tre volte a settimana all'inizio",
+   "categoria": "attivi",
+   "se": [
+    {
+     "scelta": "passi",
+     "valori": [
+      5
+     ]
+    },
+    {
+     "scelta": "esperienza",
+     "valori": [
+      1,
+      2
+     ]
+    },
+    {
+     "scelta": "obiettivo",
+     "valori": [
+      "acne-sebo",
+      "macchie-luminosita",
+      "anti-age"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "barba",
+   "area": "pelle",
+   "nome": "Barba",
+   "quando": "dopo la detersione",
+   "categoria": "barba",
+   "se": [
+    {
+     "scelta": "barba",
+     "valori": [
+      "irritazione",
+      "mantenimento"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "shampoo",
+   "area": "cute",
+   "nome": "Shampoo",
+   "quando": "a ogni lavaggio",
+   "categoria": "shampoo"
+  },
+  {
+   "id": "trattamento",
+   "area": "cute",
+   "nome": "Trattamento",
+   "quando": "come indicato sulla confezione",
+   "categoria": "capelli",
+   "minimo": 45
+  },
+  {
+   "id": "integratore",
+   "area": "integrazione",
+   "nome": "Integratore",
+   "quando": "per un ciclo di due o tre mesi, poi una pausa",
+   "categoria": "integratori",
+   "se": [
+    {
+     "scelta": "gravidanza",
+     "valori": [
+      true
+     ],
+     "no": true
+    },
+    {
+     "scelta": "integrazione",
+     "valori": [
+      "nessuno"
+     ],
+     "no": true
+    }
+   ]
+  }
+ ],
+ "persone": [
+  {
+   "nome": "Giulia, 23 anni",
+   "nota": "Lucida, brufoli spesso, non ha mai usato acidi",
+   "percorso": "viso",
+   "risposte": {
+    "genere": "donna",
+    "eta": "meno-25",
+    "tzona": "molto-lucidi",
+    "guance": "normali",
+    "pori": "guance",
+    "tira": "bene",
+    "spella": "mai",
+    "crema": "unta",
+    "nuovo": "niente",
+    "rossore": "mai",
+    "brufoli": "spesso",
+    "macchie": "qualcuna",
+    "condizioni": [
+     "nessuna"
+    ],
+    "gravidanza": "no",
+    "obiettivo": "imperfezioni",
+    "esperienza": "mai",
+    "passi": "cinque",
+    "budget": "base"
+   },
+   "atteso": {
+    "pelle": "acneica"
+   }
+  },
+  {
+   "nome": "Marta, 31 anni",
+   "nota": "Lucida ma tira dopo la detersione",
+   "percorso": "viso",
+   "risposte": {
+    "genere": "donna",
+    "eta": "25-34",
+    "tzona": "molto-lucidi",
+    "guance": "normali",
+    "pori": "naso",
+    "tira": "molto",
+    "spella": "a-volte",
+    "crema": "beve",
+    "nuovo": "a-volte",
+    "rossore": "breve",
+    "brufoli": "a-volte",
+    "macchie": "qualcuna",
+    "condizioni": [
+     "nessuna"
+    ],
+    "gravidanza": "no",
+    "obiettivo": "idratazione",
+    "esperienza": "a-volte",
+    "passi": "quattro",
+    "budget": "top"
+   },
+   "atteso": {
+    "pelle": "seborroica-secca"
+   }
+  },
+  {
+   "nome": "Anna, 52 anni",
+   "nota": "Secca, segni del tempo, usa già il retinolo",
+   "percorso": "viso",
+   "risposte": {
+    "genere": "donna",
+    "eta": "45-54",
+    "tzona": "opachi",
+    "guance": "opache",
+    "pori": "poco",
+    "tira": "poco",
+    "spella": "a-volte",
+    "crema": "assorbe",
+    "nuovo": "niente",
+    "rossore": "breve",
+    "brufoli": "mai",
+    "macchie": "molte",
+    "condizioni": [
+     "nessuna"
+    ],
+    "gravidanza": "no",
+    "menopausa": "no",
+    "obiettivo": "tempo",
+    "esperienza": "spesso",
+    "passi": "cinque",
+    "budget": "premium"
+   },
+   "atteso": {
+    "pelle": "secca",
+    "tratti": [
+     "matura",
+     "macchie"
+    ]
+   }
+  },
+  {
+   "nome": "Sara, 29 anni",
+   "nota": "In gravidanza, macchie",
+   "percorso": "viso",
+   "risposte": {
+    "genere": "donna",
+    "eta": "25-34",
+    "tzona": "poco-lucidi",
+    "guance": "normali",
+    "pori": "naso",
+    "tira": "bene",
+    "spella": "mai",
+    "crema": "assorbe",
+    "nuovo": "niente",
+    "rossore": "mai",
+    "brufoli": "punti-neri",
+    "macchie": "molte",
+    "condizioni": [
+     "nessuna"
+    ],
+    "gravidanza": "si",
+    "obiettivo": "macchie",
+    "esperienza": "a-volte",
+    "passi": "cinque",
+    "budget": "nessuna"
+   },
+   "atteso": {
+    "pelle": "normale",
+    "tratti": [
+     "macchie"
+    ]
+   }
+  },
+  {
+   "nome": "Luca, 35 anni",
+   "nota": "Rossore quasi costante, capillari",
+   "percorso": "viso",
+   "risposte": {
+    "genere": "uomo",
+    "eta": "35-44",
+    "tzona": "poco-lucidi",
+    "guance": "normali",
+    "pori": "naso",
+    "tira": "poco",
+    "spella": "a-volte",
+    "crema": "assorbe",
+    "nuovo": "spesso",
+    "rossore": "sempre",
+    "brufoli": "mai",
+    "macchie": "no",
+    "condizioni": [
+     "nessuna"
+    ],
+    "obiettivo": "calmare",
+    "esperienza": "mai",
+    "barba": "irritata",
+    "passi": "tre",
+    "budget": "nessuna"
+   },
+   "atteso": {
+    "pelle": "normale",
+    "tratti": [
+     "reattiva",
+     "rosacea"
+    ],
+    "consulto": true
+   }
+  },
+  {
+   "nome": "Chiara, 27 anni",
+   "nota": "Reattiva, secca, tira molto",
+   "percorso": "viso",
+   "risposte": {
+    "genere": "donna",
+    "eta": "25-34",
+    "tzona": "opachi",
+    "guance": "opache",
+    "pori": "poco",
+    "tira": "molto",
+    "spella": "spesso",
+    "crema": "beve",
+    "nuovo": "sempre",
+    "rossore": "ore",
+    "brufoli": "mai",
+    "macchie": "no",
+    "condizioni": [
+     "nessuna"
+    ],
+    "gravidanza": "no",
+    "obiettivo": "calmare",
+    "esperienza": "mai",
+    "passi": "tre",
+    "budget": "base"
+   },
+   "atteso": {
+    "pelle": "disidratata-sensibile",
+    "tratti": [
+     "reattiva"
+    ]
+   }
+  },
+  {
+   "nome": "Paolo, 19 anni",
+   "nota": "Noduli dolorosi",
+   "percorso": "viso",
+   "risposte": {
+    "genere": "uomo",
+    "eta": "meno-25",
+    "tzona": "molto-lucidi",
+    "guance": "lucide",
+    "pori": "guance",
+    "tira": "bene",
+    "spella": "mai",
+    "crema": "unta",
+    "nuovo": "niente",
+    "rossore": "mai",
+    "brufoli": "noduli",
+    "macchie": "qualcuna",
+    "condizioni": [
+     "nessuna"
+    ],
+    "obiettivo": "imperfezioni",
+    "esperienza": "mai",
+    "barba": "no",
+    "passi": "tre",
+    "budget": "base"
+   },
+   "atteso": {
+    "pelle": "acneica",
+    "consulto": true
+   }
+  },
+  {
+   "nome": "Elena, 44 anni",
+   "nota": "Normale, vuole prevenire",
+   "percorso": "viso",
+   "risposte": {
+    "genere": "donna",
+    "eta": "35-44",
+    "tzona": "poco-lucidi",
+    "guance": "normali",
+    "pori": "naso",
+    "tira": "bene",
+    "spella": "mai",
+    "crema": "assorbe",
+    "nuovo": "niente",
+    "rossore": "breve",
+    "brufoli": "mai",
+    "macchie": "qualcuna",
+    "condizioni": [
+     "nessuna"
+    ],
+    "gravidanza": "no",
+    "menopausa": "no",
+    "obiettivo": "tempo",
+    "esperienza": "a-volte",
+    "passi": "cinque",
+    "budget": "top"
+   },
+   "atteso": {
+    "pelle": "normale",
+    "tratti": [
+     "macchie",
+     "matura"
+    ]
+   }
+  },
+  {
+   "nome": "Francesca, 38 anni",
+   "nota": "Dermatite atopica diagnosticata",
+   "percorso": "viso",
+   "risposte": {
+    "genere": "donna",
+    "eta": "35-44",
+    "tzona": "opachi",
+    "guance": "opache",
+    "pori": "poco",
+    "tira": "molto",
+    "spella": "spesso",
+    "crema": "beve",
+    "nuovo": "spesso",
+    "rossore": "ore",
+    "brufoli": "mai",
+    "macchie": "no",
+    "condizioni": [
+     "dermatite"
+    ],
+    "gravidanza": "no",
+    "menopausa": "no",
+    "obiettivo": "calmare",
+    "esperienza": "mai",
+    "passi": "quattro",
+    "budget": "nessuna"
+   },
+   "atteso": {
+    "pelle": "atopica",
+    "consulto": true
+   }
+  },
+  {
+   "nome": "Davide, 26 anni",
+   "nota": "Seborroico, usa già acidi, macchie post-acne",
+   "percorso": "viso",
+   "risposte": {
+    "genere": "uomo",
+    "eta": "25-34",
+    "tzona": "molto-lucidi",
+    "guance": "lucide",
+    "pori": "guance",
+    "tira": "bene",
+    "spella": "mai",
+    "crema": "unta",
+    "nuovo": "niente",
+    "rossore": "mai",
+    "brufoli": "a-volte",
+    "macchie": "molte",
+    "condizioni": [
+     "nessuna"
+    ],
+    "obiettivo": "macchie",
+    "esperienza": "spesso",
+    "barba": "ok",
+    "passi": "cinque",
+    "budget": "nessuna"
+   },
+   "atteso": {
+    "pelle": "seborroica-idratata",
+    "tratti": [
+     "imperfezioni",
+     "macchie"
+    ]
+   }
+  },
+  {
+   "nome": "Roberta, 58 anni",
+   "nota": "Secca e disidratata, in menopausa",
+   "percorso": "viso",
+   "risposte": {
+    "genere": "donna",
+    "eta": "55-piu",
+    "tzona": "opachi",
+    "guance": "opache",
+    "pori": "poco",
+    "tira": "molto",
+    "spella": "spesso",
+    "crema": "beve",
+    "nuovo": "a-volte",
+    "rossore": "breve",
+    "brufoli": "mai",
+    "macchie": "qualcuna",
+    "condizioni": [
+     "nessuna"
+    ],
+    "gravidanza": "no",
+    "menopausa": "si",
+    "obiettivo": "tempo",
+    "esperienza": "a-volte",
+    "passi": "quattro",
+    "budget": "top"
+   },
+   "atteso": {
+    "pelle": "secca-disidratata",
+    "tratti": [
+     "matura",
+     "menopausa",
+     "macchie"
+    ]
+   }
+  },
+  {
+   "nome": "Irene, 33 anni",
+   "nota": "Zona T lucida, guance normali: la mista; vuole tre passaggi",
+   "percorso": "viso",
+   "risposte": {
+    "genere": "donna",
+    "eta": "25-34",
+    "tzona": "lucidi",
+    "guance": "normali",
+    "pori": "naso",
+    "tira": "poco",
+    "spella": "mai",
+    "crema": "assorbe",
+    "nuovo": "niente",
+    "rossore": "breve",
+    "brufoli": "punti-neri",
+    "macchie": "no",
+    "condizioni": [
+     "nessuna"
+    ],
+    "gravidanza": "no",
+    "obiettivo": "idratazione",
+    "esperienza": "mai",
+    "passi": "tre",
+    "budget": "base"
+   },
+   "atteso": {
+    "pelle": "idratata-mista"
+   }
+  },
+  {
+   "nome": "Marco, 41 anni",
+   "nota": "Radici unte in un giorno, forfora giallastra",
+   "percorso": "cute",
+   "risposte": {
+    "genere": "uomo",
+    "eta": "35-44",
+    "cute_unta": "un-giorno",
+    "cute_tira": "tira",
+    "forfora": "grassa",
+    "caduta": "normale",
+    "lunghezze": "morbide",
+    "trattamenti": [
+     "nessuno"
+    ],
+    "condizioni_cute": [
+     "nessuna"
+    ],
+    "budget": "top"
+   },
+   "atteso": {
+    "cute": "seborroico"
+   }
+  },
+  {
+   "nome": "Alessia, 34 anni",
+   "nota": "Perde capelli da due mesi, dopo il parto",
+   "percorso": "cute",
+   "risposte": {
+    "genere": "donna",
+    "eta": "25-34",
+    "cute_unta": "tre-quattro",
+    "cute_tira": "bene",
+    "forfora": "no",
+    "caduta": "acuta",
+    "lunghezze": "punte",
+    "trattamenti": [
+     "colore"
+    ],
+    "condizioni_cute": [
+     "nessuna"
+    ],
+    "gravidanza": "si",
+    "budget": "nessuna"
+   },
+   "atteso": {
+    "cute": "caduta-reattiva",
+    "tratti": [
+     "capelli-trattati"
+    ]
+   }
+  },
+  {
+   "nome": "Giorgio, 47 anni",
+   "nota": "Diradamento lento da mesi",
+   "percorso": "cute",
+   "risposte": {
+    "genere": "uomo",
+    "eta": "45-54",
+    "cute_unta": "due-giorni",
+    "cute_tira": "bene",
+    "forfora": "no",
+    "caduta": "progressiva",
+    "lunghezze": "morbide",
+    "trattamenti": [
+     "nessuno"
+    ],
+    "condizioni_cute": [
+     "nessuna"
+    ],
+    "budget": "premium"
+   },
+   "atteso": {
+    "cute": "diradamento",
+    "consulto": true
+   }
+  },
+  {
+   "nome": "Bianca, 26 anni",
+   "nota": "Decolorata, piastra ogni giorno, punte che si spezzano",
+   "percorso": "cute",
+   "risposte": {
+    "genere": "donna",
+    "eta": "25-34",
+    "cute_unta": "tre-quattro",
+    "cute_tira": "bene",
+    "forfora": "no",
+    "caduta": "normale",
+    "lunghezze": "crespe",
+    "trattamenti": [
+     "colore",
+     "calore"
+    ],
+    "condizioni_cute": [
+     "nessuna"
+    ],
+    "gravidanza": "no",
+    "budget": "top"
+   },
+   "atteso": {
+    "cute": "capelli-secchi"
+   }
+  },
+  {
+   "nome": "Nadia, 49 anni",
+   "nota": "Vuole sostenere i capelli, prende la pillola per la tiroide",
+   "percorso": "integrazione",
+   "risposte": {
+    "genere": "donna",
+    "eta": "45-54",
+    "int_obiettivo": "capelli",
+    "dieta": "onnivora",
+    "farmaci": "si",
+    "gravidanza": "no",
+    "menopausa": "si",
+    "budget": "nessuna"
+   },
+   "atteso": {
+    "integrazione": "sostegno-capelli",
+    "consulto": true
+   }
+  },
+  {
+   "nome": "Tommaso, 30 anni",
+   "nota": "Niente in particolare",
+   "percorso": "integrazione",
+   "risposte": {
+    "genere": "uomo",
+    "eta": "25-34",
+    "int_obiettivo": "nessuno",
+    "dieta": "vegana",
+    "farmaci": "no",
+    "budget": "base"
+   },
+   "atteso": {
+    "integrazione": "equilibrio",
+    "tratti": [
+     "vegana"
+    ]
+   }
+  }
+ ]
+}

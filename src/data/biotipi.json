@@ -1,0 +1,1776 @@
+{
+ "_nota": "I biotipi e i tratti. Si modificano da skinmatch.it/admin/biotipi. regole: gruppi in alternativa (basta che uno sia vero), ogni gruppo vale se tutte le sue condizioni sono vere; un gruppo vuoto vale sempre. Il biotipo di un'area e il primo per priorita che vale; i tratti sono tutti quelli che valgono.",
+ "tag": [
+  {
+   "id": "sebo-basso",
+   "nome": "Poco sebo",
+   "area": "pelle"
+  },
+  {
+   "id": "sebo-medio",
+   "nome": "Sebo nella media",
+   "area": "pelle"
+  },
+  {
+   "id": "sebo-alto",
+   "nome": "Tanto sebo",
+   "area": "pelle"
+  },
+  {
+   "id": "zona-t",
+   "nome": "Zona T lucida",
+   "area": "pelle"
+  },
+  {
+   "id": "disidratata",
+   "nome": "Disidratata",
+   "area": "pelle"
+  },
+  {
+   "id": "reattiva",
+   "nome": "Reattiva",
+   "area": "pelle"
+  },
+  {
+   "id": "imperfezioni",
+   "nome": "Imperfezioni",
+   "area": "pelle"
+  },
+  {
+   "id": "macchie",
+   "nome": "Macchie",
+   "area": "pelle"
+  },
+  {
+   "id": "segni-del-tempo",
+   "nome": "Segni del tempo",
+   "area": "pelle"
+  },
+  {
+   "id": "barriera",
+   "nome": "Barriera da riparare",
+   "area": "pelle"
+  },
+  {
+   "id": "cute-grassa",
+   "nome": "Cute grassa",
+   "area": "cute"
+  },
+  {
+   "id": "cute-secca",
+   "nome": "Cute secca",
+   "area": "cute"
+  },
+  {
+   "id": "forfora",
+   "nome": "Forfora",
+   "area": "cute"
+  },
+  {
+   "id": "caduta",
+   "nome": "Caduta",
+   "area": "cute"
+  },
+  {
+   "id": "lunghezze",
+   "nome": "Lunghezze provate",
+   "area": "cute"
+  },
+  {
+   "id": "cute-sensibile",
+   "nome": "Cute sensibile",
+   "area": "cute"
+  },
+  {
+   "id": "ormoni",
+   "nome": "Cambiamenti ormonali",
+   "area": "tutti"
+  },
+  {
+   "id": "da-medico",
+   "nome": "Da seguire con il medico",
+   "area": "tutti"
+  },
+  {
+   "id": "dall-interno",
+   "nome": "Dall'interno",
+   "area": "integrazione"
+  },
+  {
+   "id": "stagione",
+   "nome": "Legato alla stagione",
+   "area": "tutti"
+  }
+ ],
+ "biotipi": [
+  {
+   "id": "atopica",
+   "area": "pelle",
+   "tipo": "biotipo",
+   "titolo": "Pelle atopica",
+   "motto": "Una barriera da proteggere, ogni giorno.",
+   "famiglia": "pelle-secca",
+   "tag": [
+    "sebo-basso",
+    "barriera",
+    "reattiva",
+    "da-medico"
+   ],
+   "priorita": 10,
+   "descrizione": "La tua pelle ha una barriera cutanea costituzionalmente più fragile, che fatica a trattenere acqua e a proteggersi dagli irritanti esterni. Tende a secchezza persistente, prurito e arrossamenti (dermatite atopica). Ha bisogno di prodotti molto delicati, senza profumo, pensati per rinforzare il film idrolipidico.",
+   "caratteristiche": [
+    "Secchezza persistente, anche cronica",
+    "Prurito frequente, soprattutto nelle pieghe (gomiti, ginocchia, collo)",
+    "Arrossamenti e chiazze ruvide",
+    "Barriera cutanea più permeabile su base costituzionale",
+    "Riacutizzazioni con freddo, stress o alcuni tessuti"
+   ],
+   "cerca": [
+    "Ceramidi e lipidi (colesterolo, acidi grassi)",
+    "Formule senza profumo",
+    "Emollienti ricchi (burri, oli vegetali)",
+    "Detergenti extra-delicati, senza tensioattivi aggressivi"
+   ],
+   "evita": [
+    "Profumi e oli essenziali",
+    "Alcol denaturato ad alte concentrazioni",
+    "Esfolianti fisici o chimici aggressivi",
+    "Detergenti schiumogeni con SLS"
+   ],
+   "regole": [
+    [
+     {
+      "limite": "dermatite"
+     }
+    ]
+   ],
+   "bisogni": {
+    "pelle": [
+     "secca",
+     "sensibile"
+    ],
+    "concerns": [
+     "barriera-cutanea",
+     "idratazione"
+    ]
+   }
+  },
+  {
+   "id": "psoriasica",
+   "area": "pelle",
+   "tipo": "biotipo",
+   "titolo": "Pelle con psoriasi",
+   "motto": "La skincare accompagna, la terapia guida.",
+   "famiglia": "pelle-sensibile",
+   "tag": [
+    "barriera",
+    "da-medico"
+   ],
+   "priorita": 20,
+   "descrizione": "Condizione infiammatoria cronica su base autoimmune, con un ricambio cellulare accelerato che forma placche ispessite, arrossate e ricoperte da squame argentee. È diagnosticabile e va gestita con un dermatologo: la skincare può accompagnare la terapia, non sostituirla.",
+   "caratteristiche": [
+    "Placche ispessite, arrossate, ben delimitate",
+    "Squame argentee o biancastre in superficie",
+    "Prurito, a volte bruciore o dolore",
+    "Zone tipiche: gomiti, ginocchia, cuoio capelluto, ma anche viso",
+    "Andamento a fasi, con remissioni e riacutizzazioni"
+   ],
+   "cerca": [
+    "Emollienti ricchi, ceramidi",
+    "Formule senza profumo",
+    "Detergenti extra-delicati"
+   ],
+   "evita": [
+    "Esfolianti fisici o chimici sulle placche attive",
+    "Profumo e alcol",
+    "Interrompere la terapia dermatologica senza parlarne con lo specialista"
+   ],
+   "regole": [
+    [
+     {
+      "limite": "psoriasi"
+     }
+    ]
+   ],
+   "bisogni": {
+    "pelle": [
+     "secca",
+     "sensibile"
+    ],
+    "concerns": [
+     "barriera-cutanea",
+     "idratazione"
+    ]
+   }
+  },
+  {
+   "id": "acneica",
+   "area": "pelle",
+   "tipo": "biotipo",
+   "titolo": "Pelle acneica",
+   "motto": "Tanto sebo e pori che si chiudono: serve costanza, non forza.",
+   "famiglia": "pelle-grassa",
+   "tag": [
+    "sebo-alto",
+    "imperfezioni"
+   ],
+   "priorita": 30,
+   "descrizione": "Produzione di sebo elevata associata a un'alterata cheratinizzazione dei follicoli: i pori si ostruiscono più facilmente, favorendo comedoni, punti neri e brufoli. Va trattata con delicatezza — detergenti troppo sgrassanti peggiorano la produzione di sebo per compenso.",
+   "caratteristiche": [
+    "Punti neri e punti bianchi (comedoni)",
+    "Papule e pustole infiammate",
+    "Pelle spesso lucida/untuosa nella zona T",
+    "Pori dilatati",
+    "Possibili esiti post-infiammatori (macchie o cicatrici)"
+   ],
+   "cerca": [
+    "Niacinamide",
+    "Acido salicilico (BHA) a basse percentuali",
+    "Formule oil-free, non comedogene"
+   ],
+   "evita": [
+    "Oli comedogeni pesanti",
+    "Detersione troppo aggressiva o frequente",
+    "Prodotti alcolici astringenti in eccesso"
+   ],
+   "regole": [
+    [
+     {
+      "asse": "imp",
+      "min": 3
+     },
+     {
+      "asse": "sebo",
+      "min": 3
+     }
+    ]
+   ],
+   "bisogni": {
+    "pelle": [
+     "grassa",
+     "mista"
+    ],
+    "concerns": [
+     "acne-sebo",
+     "pori-dilatati"
+    ]
+   }
+  },
+  {
+   "id": "seborroica-secca",
+   "area": "pelle",
+   "tipo": "biotipo",
+   "titolo": "Pelle seborroica disidratata",
+   "motto": "Lucida e assetata insieme.",
+   "famiglia": "pelle-grassa",
+   "tag": [
+    "sebo-alto",
+    "disidratata",
+    "zona-t"
+   ],
+   "priorita": 40,
+   "descrizione": "Una combinazione che confonde: le ghiandole sebacee sono iperattive in alcune zone (fronte, naso, mento) ma la superficie appare secca o desquamata, spesso per un’alterazione della barriera o una lieve dermatite seborroica del viso. Serve equilibrio: detergere senza seccare, idratare senza appesantire.",
+   "caratteristiche": [
+    "Zona T lucida/grassa ma guance che tirano o desquamano",
+    "Possibile prurito o arrossamento tra sopracciglia e lati del naso",
+    "Texture irregolare, a chiazze",
+    "Sensibilità ai detergenti sgrassanti"
+   ],
+   "cerca": [
+    "Detergenti delicati non schiumogeni",
+    "Idratanti leggeri ma non occlusivi",
+    "Niacinamide, zinco PCA"
+   ],
+   "evita": [
+    "Detergenti troppo sgrassanti",
+    "Creme molto ricche e occlusive su tutto il viso"
+   ],
+   "regole": [
+    [
+     {
+      "asse": "sebo",
+      "min": 5
+     },
+     {
+      "asse": "idr",
+      "min": 3
+     }
+    ]
+   ],
+   "bisogni": {
+    "pelle": [
+     "grassa",
+     "mista",
+     "sensibile"
+    ],
+    "concerns": [
+     "barriera-cutanea",
+     "idratazione",
+     "acne-sebo"
+    ]
+   }
+  },
+  {
+   "id": "seborroica-idratata",
+   "area": "pelle",
+   "tipo": "biotipo",
+   "titolo": "Pelle seborroica",
+   "motto": "Luminosa per natura, da tenere in equilibrio.",
+   "famiglia": "pelle-grassa",
+   "tag": [
+    "sebo-alto",
+    "zona-t"
+   ],
+   "priorita": 50,
+   "descrizione": "Sebo abbondante ma barriera cutanea integra e buona idratazione: la pelle è lucida, soprattutto nella zona T, con pori più visibili, ma raramente tira o si irrita. È il tipo di pelle grassa più semplice da gestire.",
+   "caratteristiche": [
+    "Pelle lucida, soprattutto nella zona T",
+    "Pori dilatati ma texture uniforme",
+    "Nessuna reale secchezza o tensione",
+    "Rara sensibilità o irritazione"
+   ],
+   "cerca": [
+    "Formule leggere, gel-crema",
+    "Niacinamide per opacizzare senza seccare",
+    "Acidi esfolianti leggeri (PHA, mandelico) per la texture"
+   ],
+   "evita": [
+    "Creme troppo ricche o occlusive",
+    "Oli pesanti non necessari"
+   ],
+   "regole": [
+    [
+     {
+      "asse": "sebo",
+      "min": 5
+     }
+    ]
+   ],
+   "bisogni": {
+    "pelle": [
+     "grassa",
+     "mista"
+    ],
+    "concerns": [
+     "pori-dilatati",
+     "acne-sebo"
+    ]
+   }
+  },
+  {
+   "id": "disidratata-sensibile",
+   "area": "pelle",
+   "tipo": "biotipo",
+   "titolo": "Pelle disidratata e sensibile, con barriera danneggiata",
+   "motto": "Una pelle che chiede riparo.",
+   "famiglia": "pelle-sensibile",
+   "tag": [
+    "disidratata",
+    "reattiva",
+    "barriera"
+   ],
+   "priorita": 60,
+   "descrizione": "Manca di acqua — non necessariamente di sebo — e la barriera che dovrebbe proteggerla è indebolita: capita con detergenti aggressivi, stress, freddo o esfolianti troppo frequenti. Si arrossa facilmente, tira, a volte brucia con prodotti nuovi. La priorità è riparare la barriera prima di tutto il resto.",
+   "caratteristiche": [
+    "Sensazione di tirare, soprattutto dopo la detersione",
+    "Arrossamenti reattivi a prodotti nuovi",
+    "Bruciore o pizzicore occasionale",
+    "Barriera cutanea indebolita (spesso da over-esfoliazione)",
+    "Texture opaca, a volte desquamata a chiazze"
+   ],
+   "cerca": [
+    "Ceramidi, niacinamide, pantenolo",
+    "Formule minimaliste, poche referenze attive alla volta",
+    "Texture in crema/balsamo, non gel astringenti"
+   ],
+   "evita": [
+    "Acidi esfolianti ad alta concentrazione",
+    "Detersione con acqua troppo calda",
+    "Profumo e alcol"
+   ],
+   "regole": [
+    [
+     {
+      "asse": "idr",
+      "min": 3
+     },
+     {
+      "asse": "re",
+      "min": 3
+     },
+     {
+      "asse": "sebo",
+      "max": 4
+     }
+    ]
+   ],
+   "bisogni": {
+    "pelle": [
+     "sensibile",
+     "secca"
+    ],
+    "concerns": [
+     "barriera-cutanea",
+     "rossori-sensibilita",
+     "idratazione"
+    ]
+   }
+  },
+  {
+   "id": "secca-disidratata",
+   "area": "pelle",
+   "tipo": "biotipo",
+   "titolo": "Pelle secca e disidratata",
+   "motto": "Poco sebo e poca acqua: prima di tutto, riparare.",
+   "famiglia": "pelle-secca",
+   "tag": [
+    "sebo-basso",
+    "disidratata",
+    "barriera"
+   ],
+   "priorita": 70,
+   "descrizione": "Produce poco sebo e trattiene poca acqua: tira dopo la detersione, si spella a chiazze, beve le creme e dopo poco tira di nuovo. La barriera cutanea è affaticata, per questo la priorità è ricostruirla, prima di qualsiasi trattamento.",
+   "caratteristiche": [
+    "Tensione forte dopo la detersione",
+    "Zone che si spellano o ruvide al tatto",
+    "Creme assorbite in pochi minuti",
+    "Opaca, a volte con piccole linee da secchezza",
+    "Peggiora con freddo, vento e aria condizionata"
+   ],
+   "cerca": [
+    "Ceramidi, colesterolo e acidi grassi per la barriera",
+    "Glicerina e acido ialuronico per trattenere l'acqua",
+    "Detergenti in crema o latte, senza schiuma",
+    "Una crema ricca la sera"
+   ],
+   "evita": [
+    "Detergenti schiumogeni e acqua molto calda",
+    "Esfolianti frequenti",
+    "Alcol nelle formule e profumi"
+   ],
+   "regole": [
+    [
+     {
+      "asse": "sebo",
+      "max": 2
+     },
+     {
+      "asse": "idr",
+      "min": 3
+     }
+    ]
+   ],
+   "bisogni": {
+    "pelle": [
+     "secca",
+     "sensibile"
+    ],
+    "concerns": [
+     "barriera-cutanea",
+     "idratazione"
+    ]
+   }
+  },
+  {
+   "id": "secca",
+   "area": "pelle",
+   "tipo": "biotipo",
+   "titolo": "Pelle secca",
+   "motto": "Poca luce, tanta morbidezza da conquistare.",
+   "famiglia": "pelle-secca",
+   "tag": [
+    "sebo-basso"
+   ],
+   "priorita": 80,
+   "descrizione": "Produzione di sebo ridotta: la pelle tende a tirare, può apparire opaca o con una texture ruvida, soprattutto in inverno o con aria secca. Ha bisogno di lipidi e umettanti per restare confortevole tutto il giorno.",
+   "caratteristiche": [
+    "Sensazione di tensione, soprattutto dopo la detersione",
+    "Texture opaca o ruvida",
+    "Possibile desquamazione visibile",
+    "Pori poco visibili",
+    "Peggiora con freddo e aria secca"
+   ],
+   "cerca": [
+    "Acido ialuronico e glicerina (umettanti)",
+    "Burri e oli (emollienti)",
+    "Ceramidi per rinforzare la barriera"
+   ],
+   "evita": [
+    "Detergenti schiumogeni aggressivi",
+    "Alcol denaturato",
+    "Esfoliazione troppo frequente"
+   ],
+   "regole": [
+    [
+     {
+      "asse": "sebo",
+      "max": 2
+     }
+    ]
+   ],
+   "bisogni": {
+    "pelle": [
+     "secca"
+    ],
+    "concerns": [
+     "idratazione",
+     "barriera-cutanea"
+    ]
+   }
+  },
+  {
+   "id": "normale-disidratata",
+   "area": "pelle",
+   "tipo": "biotipo",
+   "titolo": "Pelle normale disidratata",
+   "motto": "Sembra a posto, ma a fine giornata tira.",
+   "famiglia": "pelle-normale",
+   "tag": [
+    "sebo-medio",
+    "disidratata"
+   ],
+   "priorita": 90,
+   "descrizione": "Il sebo è nella norma, ma la pelle trattiene poca acqua: è il biotipo che più spesso si scambia per secco. Succede con detergenti troppo forti, aria condizionata, poco sonno. Bastano un'idratazione leggera e una detersione delicata.",
+   "caratteristiche": [
+    "Tira dopo la detersione, ma non è unta né ruvida",
+    "Piccole linee che spariscono con la crema",
+    "Incarnato un po' spento a fine giornata",
+    "Sopporta bene i prodotti nuovi"
+   ],
+   "cerca": [
+    "Acido ialuronico e glicerina",
+    "Texture leggere, in gel-crema",
+    "Detergenti delicati"
+   ],
+   "evita": [
+    "Detergenti troppo sgrassanti",
+    "Esfolianti tutti i giorni"
+   ],
+   "regole": [
+    [
+     {
+      "asse": "idr",
+      "min": 3
+     }
+    ]
+   ],
+   "bisogni": {
+    "pelle": [
+     "normale",
+     "mista",
+     "secca"
+    ],
+    "concerns": [
+     "idratazione"
+    ]
+   }
+  },
+  {
+   "id": "idratata-mista",
+   "area": "pelle",
+   "tipo": "biotipo",
+   "titolo": "Pelle mista",
+   "motto": "Due zone, una routine che le mette d'accordo.",
+   "famiglia": "pelle-mista",
+   "tag": [
+    "sebo-medio",
+    "zona-t"
+   ],
+   "priorita": 100,
+   "descrizione": "Zona T (fronte, naso, mento) più grassa, guance normali o quasi secche, ma senza reale disidratazione né irritazione. È il tipo di pelle più comune: la routine deve bilanciare le due zone senza esagerare in nessuna direzione.",
+   "caratteristiche": [
+    "Zona T (fronte, naso, mento) più grassa",
+    "Guance normali o leggermente secche",
+    "Texture generalmente uniforme",
+    "Poche imperfezioni"
+   ],
+   "cerca": [
+    "Formule bilanciate, non troppo ricche né troppo leggere",
+    "Routine differenziata per zone, se necessario"
+   ],
+   "evita": [
+    "Prodotti pensati solo per pelli grasse (possono seccare le guance)",
+    "Prodotti molto ricchi pensati solo per pelli secche (appesantiscono la zona T)"
+   ],
+   "regole": [
+    [
+     {
+      "asse": "sebo",
+      "min": 3,
+      "max": 4
+     },
+     {
+      "scelta": "zona_t",
+      "valori": [
+       "lucida"
+      ]
+     }
+    ]
+   ],
+   "bisogni": {
+    "pelle": [
+     "mista"
+    ],
+    "concerns": [
+     "idratazione",
+     "pori-dilatati"
+    ]
+   }
+  },
+  {
+   "id": "normale",
+   "area": "pelle",
+   "tipo": "biotipo",
+   "titolo": "Pelle normale-equilibrata",
+   "motto": "In equilibrio: da mantenere, non da correggere.",
+   "famiglia": "pelle-normale",
+   "tag": [
+    "sebo-medio"
+   ],
+   "priorita": 999,
+   "descrizione": "Produzione di sebo e livello di idratazione ben bilanciati, poche imperfezioni. La routine serve soprattutto a mantenere questo equilibrio nel tempo, non a correggere un problema specifico.",
+   "caratteristiche": [
+    "Sebo e idratazione bilanciati",
+    "Texture uniforme",
+    "Poche imperfezioni",
+    "Buona tolleranza a nuovi prodotti"
+   ],
+   "cerca": [
+    "Routine semplice di mantenimento: detergente delicato, siero antiossidante, crema idratante, protezione solare"
+   ],
+   "evita": [
+    "Routine eccessivamente complesse, non necessarie"
+   ],
+   "regole": [
+    []
+   ],
+   "bisogni": {
+    "pelle": [
+     "normale",
+     "mista"
+    ],
+    "concerns": [
+     "idratazione"
+    ]
+   }
+  },
+  {
+   "id": "macchie",
+   "area": "pelle",
+   "tipo": "tratto",
+   "titolo": "Con tendenza a macchie e discromie",
+   "motto": "Il sole lascia il segno: la protezione lo ferma.",
+   "famiglia": "pelle-macchie",
+   "tag": [
+    "macchie"
+   ],
+   "priorita": 0,
+   "descrizione": "Oltre alle caratteristiche del tuo biotipo, la tua pelle tende a sviluppare macchie scure, segni post-infiammatori o discromie — comuni dopo acne, esposizione solare non protetta o semplicemente con il tempo.",
+   "caratteristiche": [
+    "Macchie scure localizzate (macchie solari, post-acne)",
+    "Incarnato disomogeneo",
+    "Le macchie si accentuano con l’esposizione solare"
+   ],
+   "cerca": [
+    "Vitamina C, niacinamide, acido azelaico",
+    "Protezione solare quotidiana — senza, le macchie non schiariscono",
+    "Esfolianti delicati per uniformare la texture"
+   ],
+   "evita": [
+    "Esposizione solare senza protezione",
+    "Manipolare o schiacciare le imperfezioni (peggiora le macchie post-infiammatorie)"
+   ],
+   "regole": [
+    [
+     {
+      "asse": "mac",
+      "min": 1
+     }
+    ],
+    [
+     {
+      "scelta": "obiettivo",
+      "valori": [
+       "macchie-luminosita"
+      ]
+     }
+    ]
+   ],
+   "bisogni": {
+    "concerns": [
+     "macchie-luminosita",
+     "protezione-solare"
+    ]
+   }
+  },
+  {
+   "id": "rosacea",
+   "area": "pelle",
+   "tipo": "tratto",
+   "titolo": "Con tendenza a rosacea/couperose",
+   "motto": "Rossori da calmare, mai da sfidare.",
+   "famiglia": "pelle-sensibile",
+   "tag": [
+    "reattiva",
+    "da-medico"
+   ],
+   "priorita": 0,
+   "descrizione": "Oltre alle caratteristiche del tuo biotipo, la tua pelle mostra arrossamenti persistenti, vampate o capillari visibili, tipici della rosacea. È una condizione diagnosticabile: se non l’hai già fatto, vale la pena parlarne con un dermatologo.",
+   "caratteristiche": [
+    "Arrossamento persistente, soprattutto su guance e naso",
+    "Vampate improvvise (calore, alcol, cibi piccanti, sole)",
+    "Capillari visibili",
+    "Pelle spesso reattiva a nuovi prodotti"
+   ],
+   "cerca": [
+    "Formule lenitive (centella, niacinamide, azelaico)",
+    "Protezione solare rigorosa — il sole è un trigger frequente",
+    "Prodotti senza profumo, poche referenze attive alla volta"
+   ],
+   "evita": [
+    "Sbalzi di temperatura, alcol, cibi molto speziati (trigger comuni)",
+    "Esfolianti fisici o chimici aggressivi",
+    "Alcol denaturato e oli essenziali"
+   ],
+   "regole": [
+    [
+     {
+      "limite": "rosacea"
+     }
+    ],
+    [
+     {
+      "limite": "rossore"
+     }
+    ]
+   ],
+   "bisogni": {
+    "pelle": [
+     "sensibile"
+    ],
+    "concerns": [
+     "rossori-sensibilita"
+    ]
+   }
+  },
+  {
+   "id": "matura",
+   "area": "pelle",
+   "tipo": "tratto",
+   "titolo": "Con segni di invecchiamento cutaneo",
+   "motto": "Il tempo si vede: gli attivi giusti lo rallentano.",
+   "famiglia": "pelle-matura",
+   "tag": [
+    "segni-del-tempo"
+   ],
+   "priorita": 0,
+   "descrizione": "Oltre alle caratteristiche del tuo biotipo, la tua pelle mostra una minore elasticità, rughe o perdita di volume — normale con il tempo, e gestibile con gli attivi giusti.",
+   "caratteristiche": [
+    "Minore elasticità e tono",
+    "Rughe sottili o più marcate",
+    "Perdita di volume nelle guance/contorno viso"
+   ],
+   "cerca": [
+    "Retinoidi (se non in gravidanza/allattamento)",
+    "Peptidi, vitamina C, acido ialuronico ad alto peso molecolare",
+    "Protezione solare quotidiana — il fotoinvecchiamento è la causa più prevenibile"
+   ],
+   "evita": [
+    "Aspettarsi risultati immediati (gli attivi anti-age richiedono settimane/mesi)",
+    "Saltare la protezione solare"
+   ],
+   "regole": [
+    [
+     {
+      "asse": "tem",
+      "min": 3
+     }
+    ],
+    [
+     {
+      "scelta": "obiettivo",
+      "valori": [
+       "anti-age"
+      ]
+     }
+    ]
+   ],
+   "bisogni": {
+    "concerns": [
+     "anti-age"
+    ]
+   }
+  },
+  {
+   "id": "menopausa",
+   "area": "pelle",
+   "tipo": "tratto",
+   "titolo": "In perimenopausa o menopausa",
+   "motto": "Una pelle che cambia regole.",
+   "famiglia": "pelle-matura",
+   "tag": [
+    "ormoni",
+    "segni-del-tempo",
+    "barriera"
+   ],
+   "priorita": 0,
+   "descrizione": "Il calo di estrogeni tipico di questa fase riduce la produzione di collagene ed elastina, assottiglia la pelle e ne cambia l’equilibrio idro-lipidico: anche una pelle che è sempre stata grassa può diventare più secca e reattiva. Non è raro comparire acne ormonale proprio in questa fase, insieme a rughe più marcate.",
+   "caratteristiche": [
+    "Pelle più sottile, meno elastica e tonica",
+    "Produzione di sebo ridotta — anche chi ha sempre avuto pelle grassa può notare più secchezza",
+    "Barriera cutanea più fragile, maggiore sensibilità e reattività",
+    "Possibile acne ormonale, soprattutto su mento e mandibola",
+    "Vampate che possono dare arrossamento transitorio"
+   ],
+   "cerca": [
+    "Attivi che stimolano il collagene (peptidi, retinoidi a bassa concentrazione)",
+    "Ceramidi e acido ialuronico per rinforzare la barriera",
+    "Texture più ricche di quelle usate in passato, anche su pelli storicamente miste o grasse"
+   ],
+   "evita": [
+    "Continuare la stessa routine \"da pelle grassa\" di prima senza adattarla",
+    "Esfolianti aggressivi — la pelle è più sottile e reattiva",
+    "Saltare la protezione solare (il fotoinvecchiamento si somma al calo ormonale)"
+   ],
+   "regole": [
+    [
+     {
+      "scelta": "menopausa",
+      "valori": [
+       true
+      ]
+     }
+    ]
+   ],
+   "bisogni": {
+    "pelle": [
+     "secca",
+     "sensibile"
+    ],
+    "concerns": [
+     "barriera-cutanea",
+     "anti-age",
+     "idratazione"
+    ]
+   }
+  },
+  {
+   "id": "reattiva",
+   "area": "pelle",
+   "tipo": "tratto",
+   "titolo": "Con pelle reattiva",
+   "motto": "Formule semplici, una novità alla volta.",
+   "famiglia": "pelle-sensibile",
+   "tag": [
+    "reattiva"
+   ],
+   "priorita": 0,
+   "descrizione": "Oltre alle caratteristiche del tuo biotipo, la pelle si arrossa, pizzica o brucia facilmente, anche con prodotti nuovi o delicati. Non è una malattia, ma chiede formule corte, senza profumo, introdotte una alla volta.",
+   "caratteristiche": [
+    "Rossore o pizzicore con prodotti nuovi",
+    "Bruciore anche con formule delicate",
+    "Rossore che dura ore"
+   ],
+   "cerca": [
+    "Formule senza profumo e con pochi ingredienti",
+    "Pantenolo, centella, niacinamide a bassa percentuale",
+    "Provare un prodotto nuovo per qualche giorno su una piccola zona"
+   ],
+   "evita": [
+    "Profumi e oli essenziali",
+    "Acidi esfolianti forti e scrub",
+    "Cambiare molti prodotti insieme"
+   ],
+   "regole": [
+    [
+     {
+      "asse": "re",
+      "min": 3
+     }
+    ]
+   ],
+   "bisogni": {
+    "pelle": [
+     "sensibile"
+    ],
+    "concerns": [
+     "rossori-sensibilita",
+     "barriera-cutanea"
+    ]
+   }
+  },
+  {
+   "id": "imperfezioni",
+   "area": "pelle",
+   "tipo": "tratto",
+   "titolo": "Con imperfezioni",
+   "motto": "Punti neri e brufoli: si lavora sui pori, non contro la pelle.",
+   "famiglia": "pelle-grassa",
+   "tag": [
+    "imperfezioni"
+   ],
+   "priorita": 0,
+   "descrizione": "Oltre alle caratteristiche del tuo biotipo, compaiono brufoli ogni tanto o punti neri. Si gestiscono con attivi che liberano i pori e con una detersione che non sgrassa troppo, non schiacciandoli.",
+   "caratteristiche": [
+    "Brufoli ogni tanto, spesso prima del ciclo o con lo stress",
+    "Punti neri su naso e mento",
+    "Segni che restano dopo i brufoli"
+   ],
+   "cerca": [
+    "Acido salicilico a bassa percentuale",
+    "Niacinamide e zinco",
+    "Formule non comedogeniche"
+   ],
+   "evita": [
+    "Schiacciare i brufoli",
+    "Detergenti troppo aggressivi",
+    "Oli pesanti sulla zona T"
+   ],
+   "regole": [
+    [
+     {
+      "asse": "imp",
+      "min": 2
+     },
+     {
+      "biotipo": [
+       "acneica"
+      ],
+      "no": true
+     }
+    ]
+   ],
+   "bisogni": {
+    "concerns": [
+     "acne-sebo",
+     "pori-dilatati"
+    ]
+   }
+  },
+  {
+   "id": "psoriasi-cuoio-capelluto",
+   "area": "cute",
+   "tipo": "biotipo",
+   "titolo": "Cuoio capelluto con psoriasi",
+   "motto": "Squame da ammorbidire, senza grattare.",
+   "famiglia": "cute-secca",
+   "tag": [
+    "forfora",
+    "da-medico"
+   ],
+   "priorita": 10,
+   "descrizione": "La psoriasi colpisce spesso il cuoio capelluto: placche arrossate e ispessite, coperte da squame argentee spesse e aderenti, che possono oltrepassare l’attaccatura dei capelli (fronte, nuca, dietro le orecchie). È una condizione cronica da seguire con il dermatologo: shampoo specifici che ammorbidiscono e rimuovono le squame alleviano il prurito e accompagnano la terapia, senza sostituirla.",
+   "caratteristiche": [
+    "Placche arrossate e ben delimitate",
+    "Squame spesse, argentee e aderenti — diverse dalla forfora comune",
+    "Lesioni che possono superare l’attaccatura dei capelli",
+    "Prurito, a volte intenso",
+    "Andamento a fasi, con riacutizzazioni"
+   ],
+   "cerca": [
+    "Shampoo specifici che ammorbidiscono le squame (acido salicilico, urea, piroctone olamine)",
+    "Lasciare agire lo shampoo qualche minuto prima di risciacquare",
+    "Formule senza profumo"
+   ],
+   "evita": [
+    "Grattare o staccare le squame con forza",
+    "Acqua molto calda e phon troppo caldo",
+    "Sospendere la terapia prescritta senza parlarne con il dermatologo"
+   ],
+   "regole": [
+    [
+     {
+      "limite": "psoriasi-cute"
+     }
+    ],
+    [
+     {
+      "limite": "placche-cute"
+     }
+    ]
+   ],
+   "bisogni": {
+    "capelli": [
+     "forfora"
+    ],
+    "cute": [
+     "secco",
+     "sensibile"
+    ]
+   }
+  },
+  {
+   "id": "seborroico",
+   "area": "cute",
+   "tipo": "biotipo",
+   "titolo": "Cuoio capelluto seborroico",
+   "motto": "Sebo in eccesso e scaglie untuose: la cute va riequilibrata.",
+   "famiglia": "cute-grassa",
+   "tag": [
+    "cute-grassa",
+    "forfora"
+   ],
+   "priorita": 20,
+   "descrizione": "Le ghiandole sebacee del cuoio capelluto sono iperattive: i capelli si ungono in fretta e può comparire una forfora giallastra e untuosa (dermatite seborroica del cuoio capelluto). Serve un lavaggio più frequente, con prodotti che regolano il sebo senza irritare.",
+   "caratteristiche": [
+    "Capelli che si ungono in fretta (1-2 giorni dal lavaggio)",
+    "Forfora giallastra, a scaglie untuose",
+    "Possibile prurito lieve",
+    "Cuoio capelluto lucido"
+   ],
+   "cerca": [
+    "Shampoo sebo-regolatori",
+    "Zinco piritione, acido salicilico",
+    "Lavaggi più frequenti con prodotti delicati"
+   ],
+   "evita": [
+    "Balsami o maschere applicati direttamente sul cuoio capelluto",
+    "Diradare troppo i lavaggi \"per abituare\" il cuoio capelluto"
+   ],
+   "regole": [
+    [
+     {
+      "limite": "dermatite-seborroica"
+     }
+    ],
+    [
+     {
+      "scelta": "forfora",
+      "valori": [
+       "grassa"
+      ]
+     }
+    ]
+   ],
+   "bisogni": {
+    "capelli": [
+     "forfora"
+    ],
+    "cute": [
+     "grasso"
+    ]
+   }
+  },
+  {
+   "id": "diradamento",
+   "area": "cute",
+   "tipo": "biotipo",
+   "titolo": "Cute con tendenza al diradamento",
+   "motto": "Prima si guarda, più si conserva.",
+   "famiglia": "cute-caduta",
+   "tag": [
+    "caduta",
+    "da-medico"
+   ],
+   "priorita": 30,
+   "descrizione": "Il cuoio capelluto può essere nella norma, ma la densità dei capelli si sta riducendo: può dipendere da fattori ormonali, stress, carenze nutrizionali o predisposizione genetica. Prodotti energizzanti aiutano, ma se il fenomeno persiste vale la pena farlo valutare da uno specialista.",
+   "caratteristiche": [
+    "Capelli visibilmente più radi o sottili nel tempo",
+    "Maggiore evidenza del cuoio capelluto (vertice, attaccatura)",
+    "Possibile aumento della caduta quotidiana",
+    "Cuoio capelluto spesso nella norma"
+   ],
+   "cerca": [
+    "Aminexil, caffeina",
+    "Integratori con zinco/BioEquolo",
+    "Shampoo energizzanti, fiale anticaduta senza risciacquo"
+   ],
+   "evita": [
+    "Styling che tira il capello (trazione)",
+    "Aspettare troppo prima di intervenire se la caduta persiste"
+   ],
+   "regole": [
+    [
+     {
+      "scelta": "caduta",
+      "valori": [
+       "progressiva"
+      ]
+     }
+    ],
+    [
+     {
+      "scelta": "caduta",
+      "valori": [
+       "chiazze"
+      ]
+     }
+    ]
+   ],
+   "bisogni": {
+    "capelli": [
+     "caduta"
+    ],
+    "cute": [
+     "normale"
+    ]
+   }
+  },
+  {
+   "id": "caduta-reattiva",
+   "area": "cute",
+   "tipo": "biotipo",
+   "titolo": "Caduta reattiva (temporanea)",
+   "motto": "Una caduta che ha una data d'inizio, e di solito una fine.",
+   "famiglia": "cute-caduta",
+   "tag": [
+    "caduta",
+    "stagione",
+    "ormoni"
+   ],
+   "priorita": 40,
+   "descrizione": "Perdi più capelli del solito da qualche settimana, in modo diffuso. Succede spesso 2–3 mesi dopo un evento che ha messo alla prova l’organismo — forte stress, febbre alta, una dieta drastica, il parto o il cambio di stagione (in medicina si parla di telogen effluvium). Di solito è temporanea: i capelli ricrescono quando la causa si risolve. Shampoo e fiale energizzanti possono sostenere la ricrescita; se la caduta dura più di 3–6 mesi, è bene fare una visita.",
+   "caratteristiche": [
+    "Più capelli del solito su cuscino, spazzola o nella doccia",
+    "Caduta diffusa su tutta la testa, non a chiazze",
+    "Inizio piuttosto improvviso, spesso dopo un evento preciso (stress, malattia, parto, dieta)",
+    "Cuoio capelluto di solito nella norma"
+   ],
+   "cerca": [
+    "Shampoo energizzanti delicati",
+    "Lozioni o fiale con caffeina, aminexil, peptidi",
+    "Alimentazione equilibrata, con un buon apporto di ferro e proteine (eventuali carenze vanno verificate con il medico)"
+   ],
+   "evita": [
+    "Diete drastiche",
+    "Acconciature che tirano e trattamenti chimici aggressivi mentre la caduta è in corso",
+    "Integratori ad alte dosi presi \"a caso\", senza aver verificato eventuali carenze"
+   ],
+   "regole": [
+    [
+     {
+      "scelta": "caduta",
+      "valori": [
+       "acuta"
+      ]
+     }
+    ]
+   ],
+   "bisogni": {
+    "capelli": [
+     "caduta"
+    ],
+    "cute": [
+     "normale"
+    ]
+   }
+  },
+  {
+   "id": "secco-desquamante",
+   "area": "cute",
+   "tipo": "biotipo",
+   "titolo": "Cuoio capelluto secco e desquamante",
+   "motto": "Scagliette bianche e prurito: serve delicatezza.",
+   "famiglia": "cute-secca",
+   "tag": [
+    "cute-secca",
+    "forfora"
+   ],
+   "priorita": 50,
+   "descrizione": "Il cuoio capelluto produce poco sebo e tende a seccarsi, con prurito e una forfora bianca e sottile che si stacca facilmente. Ha bisogno di lavaggi delicati e nutrienti, mai troppo sgrassanti.",
+   "caratteristiche": [
+    "Forfora bianca, sottile, a scagliette",
+    "Prurito frequente",
+    "Cuoio capelluto che tira o è sensibile",
+    "Capelli spesso opachi"
+   ],
+   "cerca": [
+    "Shampoo delicati, senza solfati aggressivi",
+    "Piroctone olamine, oli leggeri lenitivi"
+   ],
+   "evita": [
+    "Shampoo sgrassanti/anti-grasso",
+    "Acqua molto calda durante il lavaggio"
+   ],
+   "regole": [
+    [
+     {
+      "scelta": "forfora",
+      "valori": [
+       "secca"
+      ]
+     }
+    ]
+   ],
+   "bisogni": {
+    "capelli": [
+     "forfora"
+    ],
+    "cute": [
+     "secco"
+    ]
+   }
+  },
+  {
+   "id": "capelli-secchi",
+   "area": "cute",
+   "tipo": "biotipo",
+   "titolo": "Capelli secchi e disidratati",
+   "motto": "La cute sta bene, sono le lunghezze ad avere sete.",
+   "famiglia": "capelli-secchi",
+   "tag": [
+    "lunghezze"
+   ],
+   "priorita": 60,
+   "descrizione": "Il cuoio capelluto è spesso nella norma, ma la fibra capillare in lunghezza è disidratata, opaca o crespa (calore, colorazioni, agenti atmosferici). Serve un trattamento nutriente sulle lunghezze, non necessariamente sulla cute.",
+   "caratteristiche": [
+    "Lunghezze opache, ruvide al tatto",
+    "Doppie punte, effetto crespo",
+    "Cuoio capelluto spesso normale",
+    "Capelli che si spezzano facilmente"
+   ],
+   "cerca": [
+    "Sieri e maschere nutrienti sulle lunghezze",
+    "Trattamenti proteici occasionali",
+    "Protezione dal calore"
+   ],
+   "evita": [
+    "Calore eccessivo senza protezione",
+    "Acqua molto calda",
+    "Spazzolatura aggressiva da bagnati"
+   ],
+   "regole": [
+    [
+     {
+      "asse": "lung",
+      "min": 2
+     }
+    ]
+   ],
+   "bisogni": {
+    "capelli": [
+     "secchi-crespi"
+    ],
+    "cute": [
+     "normale"
+    ]
+   }
+  },
+  {
+   "id": "cute-grassa",
+   "area": "cute",
+   "tipo": "biotipo",
+   "titolo": "Cuoio capelluto grasso",
+   "motto": "Radici che si appesantiscono in fretta.",
+   "famiglia": "cute-grassa",
+   "tag": [
+    "cute-grassa"
+   ],
+   "priorita": 70,
+   "descrizione": "Le ghiandole sebacee del cuoio capelluto producono più sebo della media: le radici si appesantiscono e si ungono in 1–2 giorni, ma senza forfora né irritazione. Serve uno shampoo che regoli il sebo senza aggredire — un lavaggio troppo sgrassante spinge il cuoio capelluto a produrne ancora di più.",
+   "caratteristiche": [
+    "Radici grasse e appesantite dopo 1–2 giorni",
+    "Capelli che perdono volume in fretta",
+    "Nessuna forfora né prurito rilevante",
+    "Lunghezze spesso normali o secche"
+   ],
+   "cerca": [
+    "Shampoo sebo-regolatori delicati, adatti a lavaggi frequenti",
+    "Balsamo solo sulle lunghezze"
+   ],
+   "evita": [
+    "Shampoo troppo aggressivi (effetto rebound)",
+    "Acqua molto calda",
+    "Oli e maschere applicati sulla radice"
+   ],
+   "regole": [
+    [
+     {
+      "asse": "cs",
+      "min": 2
+     }
+    ]
+   ],
+   "bisogni": {
+    "capelli": [
+     "mantenimento"
+    ],
+    "cute": [
+     "grasso"
+    ]
+   }
+  },
+  {
+   "id": "cute-secca",
+   "area": "cute",
+   "tipo": "biotipo",
+   "titolo": "Cuoio capelluto secco",
+   "motto": "Pulita a lungo, ma tira.",
+   "famiglia": "cute-secca",
+   "tag": [
+    "cute-secca"
+   ],
+   "priorita": 80,
+   "descrizione": "Il cuoio capelluto produce poco sebo: tira dopo il lavaggio, i capelli restano puliti a lungo ma appaiono spesso opachi. Senza le cure giuste possono comparire prurito e una forfora bianca e sottile. Bastano lavaggi delicati e prodotti idratanti, evitando tutto ciò che sgrassa.",
+   "caratteristiche": [
+    "Sensazione di tensione dopo il lavaggio",
+    "Capelli che restano puliti a lungo",
+    "Lunghezze opache, a volte crespe",
+    "Prurito occasionale"
+   ],
+   "cerca": [
+    "Shampoo delicati e idratanti, senza solfati aggressivi",
+    "Balsamo e maschere nutrienti sulle lunghezze"
+   ],
+   "evita": [
+    "Shampoo anti-grasso o sgrassanti",
+    "Acqua molto calda",
+    "Phon troppo caldo vicino alla cute"
+   ],
+   "regole": [
+    [
+     {
+      "asse": "csec",
+      "min": 1
+     },
+     {
+      "asse": "cs",
+      "max": 1
+     }
+    ]
+   ],
+   "bisogni": {
+    "capelli": [
+     "mantenimento"
+    ],
+    "cute": [
+     "secco"
+    ]
+   }
+  },
+  {
+   "id": "equilibrato",
+   "area": "cute",
+   "tipo": "biotipo",
+   "titolo": "Cuoio capelluto equilibrato",
+   "motto": "Niente da correggere: solo da mantenere.",
+   "famiglia": "cute-equilibrata",
+   "tag": [],
+   "priorita": 999,
+   "descrizione": "Nessuna problematica particolare: l’obiettivo è mantenere questo equilibrio con una routine di manutenzione leggera.",
+   "caratteristiche": [
+    "Nessuna problematica evidente",
+    "Capelli che mantengono volume e lucentezza tra un lavaggio e l’altro",
+    "Cuoio capelluto confortevole, senza prurito o untuosità eccessiva"
+   ],
+   "cerca": [
+    "Routine di mantenimento leggera",
+    "Shampoo delicato, trattamenti mirati solo all’occorrenza"
+   ],
+   "evita": [
+    "Cambiare prodotto troppo spesso senza un vero motivo"
+   ],
+   "regole": [
+    []
+   ],
+   "bisogni": {
+    "capelli": [
+     "mantenimento"
+    ],
+    "cute": [
+     "normale"
+    ]
+   }
+  },
+  {
+   "id": "cute-sensibile",
+   "area": "cute",
+   "tipo": "tratto",
+   "titolo": "Con cuoio capelluto sensibile",
+   "motto": "Prude, brucia, reagisce: meno prodotti, più delicati.",
+   "famiglia": "cute-equilibrata",
+   "tag": [
+    "cute-sensibile"
+   ],
+   "priorita": 0,
+   "descrizione": "Oltre alle caratteristiche del tuo biotipo, il cuoio capelluto è reattivo: prude, brucia o si arrossa facilmente, soprattutto con shampoo nuovi, colorazioni o phon caldo. Conviene scegliere sempre le formule più delicate, non solo per lo shampoo.",
+   "caratteristiche": [
+    "Prurito o bruciore dopo il lavaggio o la piega",
+    "Arrossamento del cuoio capelluto",
+    "Reazioni a shampoo nuovi o profumati",
+    "Fastidio con tinte e trattamenti chimici"
+   ],
+   "cerca": [
+    "Shampoo lenitivi, senza profumo e senza solfati aggressivi",
+    "Pochi prodotti, introdotti uno alla volta"
+   ],
+   "evita": [
+    "Profumi e oli essenziali",
+    "Acqua e phon troppo caldi",
+    "Colorazioni troppo ravvicinate"
+   ],
+   "regole": [
+    [
+     {
+      "asse": "sens",
+      "min": 2
+     }
+    ]
+   ],
+   "bisogni": {
+    "cute": [
+     "sensibile"
+    ]
+   }
+  },
+  {
+   "id": "capelli-trattati",
+   "area": "cute",
+   "tipo": "tratto",
+   "titolo": "Con capelli colorati o stressati dal calore",
+   "motto": "Colore e calore: le lunghezze vanno ricostruite.",
+   "famiglia": "capelli-secchi",
+   "tag": [
+    "lunghezze"
+   ],
+   "priorita": 0,
+   "descrizione": "Oltre alle caratteristiche del tuo biotipo, le lunghezze sono messe alla prova da colorazioni, decolorazioni o dall’uso frequente di piastra, ferro e phon caldo: la fibra perde lipidi e proteine, diventa più porosa, fragile e crespa. Vale la pena aggiungere un trattamento riparatore sulle lunghezze.",
+   "caratteristiche": [
+    "Lunghezze porose e fragili",
+    "Colore che sbiadisce in fretta",
+    "Doppie punte e rotture",
+    "Effetto crespo con l’umidità"
+   ],
+   "cerca": [
+    "Trattamenti riparatori e proteici sulle lunghezze",
+    "Termoprotettore prima di piastra e phon",
+    "Shampoo delicati per capelli colorati"
+   ],
+   "evita": [
+    "Calore senza protezione",
+    "Decolorazioni ravvicinate",
+    "Shampoo sgrassanti sulle lunghezze"
+   ],
+   "regole": [
+    [
+     {
+      "scelta": "trattati",
+      "valori": [
+       true
+      ]
+     },
+     {
+      "biotipo": [
+       "capelli-secchi"
+      ],
+      "no": true
+     }
+    ]
+   ],
+   "bisogni": {
+    "capelli": [
+     "secchi-crespi"
+    ]
+   }
+  },
+  {
+   "id": "sostegno-capelli",
+   "area": "integrazione",
+   "tipo": "biotipo",
+   "titolo": "Sostegno per i capelli",
+   "motto": "Dall'interno, per capelli che cadono o si indeboliscono.",
+   "famiglia": "cute-caduta",
+   "tag": [
+    "dall-interno",
+    "caduta"
+   ],
+   "priorita": 10,
+   "descrizione": "Vuoi sostenere i capelli dall'interno. Un integratore con le sostanze che servono alla crescita del capello (come zinco, biotina, aminoacidi solforati) può aiutare in un periodo di caduta, soprattutto se l'alimentazione non è stata varia. Non sostituisce la visita se la caduta dura da mesi.",
+   "caratteristiche": [
+    "Capelli che cadono più del solito o si sono indeboliti",
+    "Periodi di stress, cambi di stagione, dopo il parto",
+    "Unghie spesso fragili insieme ai capelli"
+   ],
+   "cerca": [
+    "Cicli di due o tre mesi, poi una pausa",
+    "Formule con zinco, biotina, cistina o metionina",
+    "Un'alimentazione con abbastanza proteine e ferro"
+   ],
+   "evita": [
+    "Prendere più integratori insieme con le stesse sostanze",
+    "Dosi alte di biotina prima degli esami del sangue: falsano alcuni risultati"
+   ],
+   "regole": [
+    [
+     {
+      "scelta": "integrazione",
+      "valori": [
+       "capelli"
+      ]
+     }
+    ]
+   ],
+   "bisogni": {
+    "capelli": [
+     "caduta"
+    ]
+   }
+  },
+  {
+   "id": "pelle-idratazione",
+   "area": "integrazione",
+   "tipo": "biotipo",
+   "titolo": "Idratazione dall'interno",
+   "motto": "Per una pelle secca o spenta.",
+   "famiglia": "pelle-secca",
+   "tag": [
+    "dall-interno",
+    "disidratata"
+   ],
+   "priorita": 20,
+   "descrizione": "Vuoi lavorare sulla secchezza anche dall'interno. Gli acidi grassi omega-3 e alcune formule con acido ialuronico o ceramidi per bocca possono sostenere la pelle; la base resta bere a sufficienza e una crema adatta al tuo biotipo.",
+   "caratteristiche": [
+    "Pelle che tira per gran parte del giorno",
+    "Incarnato spento",
+    "Peggiora in inverno"
+   ],
+   "cerca": [
+    "Omega-3 da pesce o da alghe",
+    "Formule con acido ialuronico o ceramidi",
+    "Acqua durante la giornata"
+   ],
+   "evita": [
+    "Aspettarsi un effetto in pochi giorni: servono settimane"
+   ],
+   "regole": [
+    [
+     {
+      "scelta": "integrazione",
+      "valori": [
+       "pelle-secca"
+      ]
+     }
+    ]
+   ],
+   "bisogni": {
+    "concerns": [
+     "idratazione",
+     "barriera-cutanea"
+    ]
+   }
+  },
+  {
+   "id": "tono-collagene",
+   "area": "integrazione",
+   "tipo": "biotipo",
+   "titolo": "Tono ed elasticità",
+   "motto": "Per sostenere la pelle che perde tono.",
+   "famiglia": "pelle-matura",
+   "tag": [
+    "dall-interno",
+    "segni-del-tempo"
+   ],
+   "priorita": 30,
+   "descrizione": "Vuoi sostenere tono ed elasticità. I peptidi di collagene, insieme alla vitamina C che serve a produrlo, sono gli integratori più studiati per la pelle che cambia con l'età. Funzionano insieme alla protezione solare, non al suo posto.",
+   "caratteristiche": [
+    "Pelle meno tonica e meno elastica",
+    "Rughe sottili più evidenti",
+    "Spesso dopo i 40 anni o in menopausa"
+   ],
+   "cerca": [
+    "Peptidi di collagene con vitamina C",
+    "Cicli di almeno tre mesi",
+    "Protezione solare ogni giorno"
+   ],
+   "evita": [
+    "Aspettarsi l'effetto di un trattamento medico"
+   ],
+   "regole": [
+    [
+     {
+      "scelta": "integrazione",
+      "valori": [
+       "tono"
+      ]
+     }
+    ]
+   ],
+   "bisogni": {
+    "concerns": [
+     "anti-age"
+    ]
+   }
+  },
+  {
+   "id": "preparazione-sole",
+   "area": "integrazione",
+   "tipo": "biotipo",
+   "titolo": "Preparare la pelle al sole",
+   "motto": "Antiossidanti prima e durante l'estate.",
+   "famiglia": "pelle-macchie",
+   "tag": [
+    "dall-interno",
+    "macchie",
+    "stagione"
+   ],
+   "priorita": 40,
+   "descrizione": "Vuoi preparare la pelle al sole. Gli integratori con antiossidanti (carotenoidi, vitamina E, estratti come il Polypodium) possono aiutare la pelle a difendersi, ma non proteggono come una crema solare: quella resta obbligatoria.",
+   "caratteristiche": [
+    "Pelle che si arrossa facilmente al sole",
+    "Macchie che si scuriscono d'estate"
+   ],
+   "cerca": [
+    "Iniziare qualche settimana prima dell'esposizione",
+    "Antiossidanti come carotenoidi e vitamina E"
+   ],
+   "evita": [
+    "Pensare che sostituisca la protezione solare"
+   ],
+   "regole": [
+    [
+     {
+      "scelta": "integrazione",
+      "valori": [
+       "sole"
+      ]
+     }
+    ]
+   ],
+   "bisogni": {
+    "concerns": [
+     "protezione-solare",
+     "macchie-luminosita"
+    ]
+   }
+  },
+  {
+   "id": "unghie-fragili",
+   "area": "integrazione",
+   "tipo": "biotipo",
+   "titolo": "Unghie fragili",
+   "motto": "Per unghie che si sfaldano o si spezzano.",
+   "famiglia": "cute-caduta",
+   "tag": [
+    "dall-interno"
+   ],
+   "priorita": 50,
+   "descrizione": "Vuoi rinforzare le unghie. Le stesse sostanze che servono ai capelli (biotina, zinco, aminoacidi solforati) servono anche alle unghie, che crescono piano: i risultati si vedono dopo due o tre mesi.",
+   "caratteristiche": [
+    "Unghie che si sfaldano a strati",
+    "Si spezzano facilmente"
+   ],
+   "cerca": [
+    "Formule con biotina e zinco",
+    "Guanti per i lavori di casa con l'acqua"
+   ],
+   "evita": [
+    "Smalti e solventi aggressivi tutti i giorni"
+   ],
+   "regole": [
+    [
+     {
+      "scelta": "integrazione",
+      "valori": [
+       "unghie"
+      ]
+     }
+    ]
+   ],
+   "bisogni": {
+    "capelli": [
+     "caduta",
+     "mantenimento"
+    ]
+   }
+  },
+  {
+   "id": "imperfezioni-interno",
+   "area": "integrazione",
+   "tipo": "biotipo",
+   "titolo": "Imperfezioni dall'interno",
+   "motto": "Per una pelle con brufoli che vanno e vengono.",
+   "famiglia": "pelle-grassa",
+   "tag": [
+    "dall-interno",
+    "imperfezioni"
+   ],
+   "priorita": 60,
+   "descrizione": "Vuoi aiutare la pelle con imperfezioni anche dall'interno. Zinco e alcuni probiotici sono le sostanze più usate; contano però soprattutto una detersione giusta e, se i brufoli sono tanti o dolorosi, un medico.",
+   "caratteristiche": [
+    "Brufoli che vanno e vengono",
+    "Peggiorano con stress e alimentazione disordinata"
+   ],
+   "cerca": [
+    "Zinco",
+    "Una routine viso costante"
+   ],
+   "evita": [
+    "Sperare che un integratore basti da solo"
+   ],
+   "regole": [
+    [
+     {
+      "scelta": "integrazione",
+      "valori": [
+       "imperfezioni"
+      ]
+     }
+    ]
+   ],
+   "bisogni": {
+    "concerns": [
+     "acne-sebo"
+    ]
+   }
+  },
+  {
+   "id": "equilibrio",
+   "area": "integrazione",
+   "tipo": "biotipo",
+   "titolo": "Nessun integratore, per ora",
+   "motto": "Una dieta varia basta.",
+   "famiglia": "integratori",
+   "tag": [],
+   "priorita": 999,
+   "descrizione": "Dalle tue risposte non c'è un motivo per prendere un integratore adesso. Un'alimentazione varia, con frutta, verdura, proteine e grassi buoni, dà alla pelle e ai capelli quello che serve.",
+   "caratteristiche": [
+    "Nessuna esigenza particolare"
+   ],
+   "cerca": [
+    "Frutta e verdura di colori diversi",
+    "Proteine a ogni pasto"
+   ],
+   "evita": [
+    "Integratori presi «per sicurezza»"
+   ],
+   "regole": [
+    []
+   ],
+   "bisogni": {}
+  },
+  {
+   "id": "vegana",
+   "area": "integrazione",
+   "tipo": "tratto",
+   "titolo": "Con alimentazione vegana",
+   "motto": "Vitamina B12: la prima da controllare.",
+   "famiglia": "integratori",
+   "tag": [
+    "dall-interno"
+   ],
+   "priorita": 0,
+   "descrizione": "Con un'alimentazione vegana la vitamina B12 va integrata sempre, e ferro, omega-3 e vitamina D vanno controllati con il medico. Prima di un integratore per la pelle viene questo.",
+   "caratteristiche": [
+    "Alimentazione senza prodotti animali"
+   ],
+   "cerca": [
+    "Vitamina B12, come indica il medico",
+    "Omega-3 da alghe"
+   ],
+   "evita": [
+    "Integratori con collagene o gelatina di origine animale"
+   ],
+   "regole": [
+    [
+     {
+      "scelta": "dieta",
+      "valori": [
+       "vegana"
+      ]
+     }
+    ]
+   ],
+   "bisogni": {}
+  }
+ ]
+}

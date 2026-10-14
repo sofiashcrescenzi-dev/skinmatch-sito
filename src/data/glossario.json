@@ -1,0 +1,503 @@
+{
+ "_nota": "Il glossario. Si modifica da skinmatch.it/admin/glossario. Le parole accendono la «i» da sole dove compaiono in un testo del sito (la prima volta per blocco).",
+ "termini": [
+  {
+   "id": "azelaico",
+   "nome": "Acido azelaico",
+   "categoria": "ingredienti",
+   "testo": "Un attivo che aiuta su imperfezioni, macchie e rossori. Spesso tollerato anche dalle pelli sensibili.",
+   "parole": [
+    "acido azelaico",
+    "azelaico"
+   ]
+  },
+  {
+   "id": "ferulico",
+   "nome": "Acido ferulico",
+   "categoria": "ingredienti",
+   "testo": "Un antiossidante di origine vegetale. Insieme alle vitamine C ed E rende la formula più stabile e ne rafforza l'effetto protettivo.",
+   "parole": [
+    "acido ferulico",
+    "ferulico"
+   ]
+  },
+  {
+   "id": "ialuronico",
+   "nome": "Acido ialuronico",
+   "categoria": "ingredienti",
+   "testo": "Una molecola che attira e trattiene l'acqua negli strati superficiali della pelle. Idrata senza ungere.",
+   "parole": [
+    "acido ialuronico",
+    "ialuronico"
+   ]
+  },
+  {
+   "id": "salicilico",
+   "nome": "Acido salicilico",
+   "categoria": "ingredienti",
+   "testo": "Un esfoliante (BHA) che entra nei pori e li libera dal sebo: utile per punti neri e brufoli. Può seccare e sensibilizzare al sole.",
+   "parole": [
+    "acido salicilico",
+    "BHA"
+   ]
+  },
+  {
+   "id": "micellare",
+   "nome": "Acqua micellare",
+   "categoria": "prodotti",
+   "testo": "Un detergente delicato fatto di micelle, piccole sfere che catturano trucco e sebo. Si usa senza risciacquo o con poca acqua.",
+   "parole": [
+    "acqua micellare",
+    "micellare",
+    "micelle"
+   ]
+  },
+  {
+   "id": "termale",
+   "nome": "Acqua termale",
+   "categoria": "prodotti",
+   "testo": "Acqua di sorgente ricca di minerali, usata in molti prodotti per le sue proprietà lenitive.",
+   "parole": [
+    "acqua termale"
+   ]
+  },
+  {
+   "id": "aha-pha",
+   "nome": "AHA e PHA",
+   "categoria": "ingredienti",
+   "testo": "Acidi esfolianti che lavorano in superficie: glicolico, lattico e mandelico (AHA), gluconolattone (PHA). I PHA e il mandelico sono i più delicati.",
+   "parole": [
+    "AHA",
+    "PHA",
+    "acido glicolico",
+    "acido lattico",
+    "acido mandelico",
+    "mandelico"
+   ]
+  },
+  {
+   "id": "antiossidanti",
+   "nome": "Antiossidanti",
+   "categoria": "ingredienti",
+   "testo": "Sostanze che proteggono la pelle dai radicali liberi prodotti da sole e inquinamento, una delle cause dell'invecchiamento. Vitamina C, vitamina E e acido ferulico sono i più noti.",
+   "parole": [
+    "antiossidanti",
+    "antiossidante"
+   ]
+  },
+  {
+   "id": "barriera",
+   "nome": "Barriera cutanea",
+   "categoria": "pelle",
+   "testo": "Lo strato più esterno della pelle, fatto di cellule e lipidi come i mattoni e la malta di un muro. Trattiene l'acqua e tiene fuori ciò che irrita: quando è indebolita la pelle tira, si arrossa e reagisce di più.",
+   "parole": [
+    "barriera cutanea",
+    "barriera"
+   ]
+  },
+  {
+   "id": "biotina",
+   "nome": "Biotina",
+   "categoria": "integrazione",
+   "testo": "Una vitamina del gruppo B (B7 o H) che serve a capelli e unghie. Ad alte dosi può falsare alcuni esami del sangue: va detto al medico prima di farli.",
+   "parole": [
+    "biotina",
+    "vitamina H"
+   ]
+  },
+  {
+   "id": "biotipo",
+   "nome": "Biotipo",
+   "categoria": "pelle",
+   "testo": "Il tipo di pelle (o di cuoio capelluto) descritto da poche caratteristiche: quanto sebo produce, quanta acqua trattiene, quanto reagisce. Non è una diagnosi: è il punto di partenza per scegliere i prodotti.",
+   "parole": [
+    "biotipo",
+    "biotipi"
+   ]
+  },
+  {
+   "id": "caduta",
+   "nome": "Caduta dei capelli",
+   "categoria": "capelli",
+   "testo": "Perdere fino a un centinaio di capelli al giorno è normale. Una caduta che aumenta all'improvviso spesso segue di due o tre mesi uno stress o un parto e passa; un diradamento lento va visto da un dermatologo.",
+   "parole": [
+    "caduta dei capelli",
+    "caduta"
+   ]
+  },
+  {
+   "id": "centella",
+   "nome": "Centella asiatica",
+   "categoria": "ingredienti",
+   "testo": "Una pianta usata da secoli per calmare la pelle; nei cosmetici (spesso come madecassoside) lenisce e sostiene la riparazione. Molto usata nella K-beauty.",
+   "parole": [
+    "centella asiatica",
+    "centella",
+    "madecassoside",
+    "cica"
+   ]
+  },
+  {
+   "id": "ceramidi",
+   "nome": "Ceramidi",
+   "categoria": "ingredienti",
+   "testo": "Lipidi che fanno parte naturalmente della barriera cutanea. Nei prodotti aiutano a ripararla e a trattenere l'acqua.",
+   "parole": [
+    "ceramidi",
+    "ceramide"
+   ]
+  },
+  {
+   "id": "collagene",
+   "nome": "Collagene",
+   "categoria": "integrazione",
+   "testo": "La proteina che dà struttura e tono alla pelle; con l'età se ne produce meno. Negli integratori si usa come peptidi di collagene, insieme alla vitamina C.",
+   "parole": [
+    "peptidi di collagene",
+    "collagene"
+   ]
+  },
+  {
+   "id": "comedogenico",
+   "nome": "Comedogenico",
+   "categoria": "prodotti",
+   "testo": "Si dice di un ingrediente che tende a chiudere i pori e a favorire punti neri e brufoli. Chi ha la pelle seborroica preferisce formule non comedogeniche.",
+   "parole": [
+    "non comedogenico",
+    "non comedogeniche",
+    "comedogenico",
+    "comedogenici",
+    "comedogeniche",
+    "oli comedogenici"
+   ]
+  },
+  {
+   "id": "couperose",
+   "nome": "Couperose",
+   "categoria": "condizioni",
+   "testo": "Capillari dilatati e visibili, soprattutto su guance e naso. Può accompagnare la rosacea; si valuta dal vivo.",
+   "parole": [
+    "couperose",
+    "capillari visibili"
+   ]
+  },
+  {
+   "id": "cuoio-capelluto",
+   "nome": "Cuoio capelluto",
+   "categoria": "capelli",
+   "testo": "La pelle della testa: ha più ghiandole sebacee del viso, e per questo va trattata come pelle, con lo shampoo giusto per lei, non solo per i capelli.",
+   "parole": [
+    "cuoio capelluto",
+    "cute"
+   ]
+  },
+  {
+   "id": "dermatite",
+   "nome": "Dermatite atopica",
+   "categoria": "condizioni",
+   "testo": "Un'infiammazione cronica della pelle con secchezza e prurito, che va e viene. La cura la decide il medico; i cosmetici possono solo sostenere la barriera.",
+   "parole": [
+    "dermatite atopica"
+   ]
+  },
+  {
+   "id": "dermatite-seborroica",
+   "nome": "Dermatite seborroica",
+   "categoria": "condizioni",
+   "testo": "Un'infiammazione delle zone ricche di sebo (cuoio capelluto, lati del naso, sopracciglia) con rossore e scaglie untuose. Va e viene; shampoo e detergenti specifici accompagnano la cura.",
+   "parole": [
+    "dermatite seborroica"
+   ]
+  },
+  {
+   "id": "esfolianti",
+   "nome": "Esfolianti",
+   "categoria": "ingredienti",
+   "testo": "Prodotti che staccano le cellule morte in superficie. Quelli chimici, come gli acidi, lavorano senza sfregare; usati troppo spesso indeboliscono la barriera.",
+   "parole": [
+    "acidi esfolianti",
+    "esfolianti",
+    "esfoliante",
+    "esfoliazione"
+   ]
+  },
+  {
+   "id": "forfora",
+   "nome": "Forfora",
+   "categoria": "capelli",
+   "testo": "Scaglie di pelle che si staccano dal cuoio capelluto. Bianche e sottili su una cute secca, giallastre e untuose su una cute grassa: due tipi diversi, da trattare in modo diverso.",
+   "parole": [
+    "forfora"
+   ]
+  },
+  {
+   "id": "fotosensibilizzante",
+   "nome": "Fotosensibilizzante",
+   "categoria": "ingredienti",
+   "testo": "Un prodotto che rende la pelle più sensibile al sole. Con questi la protezione solare il giorno dopo è obbligatoria.",
+   "parole": [
+    "fotosensibilizzante",
+    "fotosensibilizzanti"
+   ]
+  },
+  {
+   "id": "inci",
+   "nome": "INCI",
+   "categoria": "prodotti",
+   "testo": "L'elenco degli ingredienti di un cosmetico, con nomi internazionali, dal più al meno presente. È il modo più sicuro per sapere cosa c'è davvero dentro una formula.",
+   "parole": [
+    "INCI"
+   ]
+  },
+  {
+   "id": "k-beauty",
+   "nome": "K-beauty",
+   "categoria": "prodotti",
+   "testo": "La cosmetica coreana: routine a più passaggi, texture leggere, molta attenzione a idratazione e protezione solare, ingredienti come centella, riso e mucina di lumaca.",
+   "parole": [
+    "K-beauty",
+    "skincare coreana",
+    "cosmetica coreana"
+   ]
+  },
+  {
+   "id": "macchie",
+   "nome": "Macchie",
+   "categoria": "pelle",
+   "testo": "Zone più scure della pelle: dal sole, dai brufoli passati (macchie post-infiammatorie) o dagli ormoni. Senza protezione solare ogni giorno non schiariscono.",
+   "parole": [
+    "macchie scure",
+    "discromie",
+    "iperpigmentazione"
+   ]
+  },
+  {
+   "id": "niacinamide",
+   "nome": "Niacinamide",
+   "categoria": "ingredienti",
+   "testo": "Una forma di vitamina B3. Aiuta a regolare il sebo, a uniformare l'incarnato e a rinforzare la barriera. Di solito ben tollerata.",
+   "parole": [
+    "niacinamide",
+    "vitamina B3"
+   ]
+  },
+  {
+   "id": "omega3",
+   "nome": "Omega-3",
+   "categoria": "integrazione",
+   "testo": "Grassi buoni (EPA e DHA) che il corpo non produce da sé: si trovano nel pesce azzurro e nelle alghe e sostengono una pelle meno secca.",
+   "parole": [
+    "omega-3",
+    "omega 3"
+   ]
+  },
+  {
+   "id": "pantenolo",
+   "nome": "Pantenolo",
+   "categoria": "ingredienti",
+   "testo": "La provitamina B5. Trattiene l'acqua e aiuta la pelle irritata a calmarsi e a ripararsi; ben tollerato anche dalle pelli reattive.",
+   "parole": [
+    "pantenolo",
+    "provitamina B5"
+   ]
+  },
+  {
+   "id": "disidratata",
+   "nome": "Pelle disidratata",
+   "categoria": "pelle",
+   "testo": "Una pelle a cui manca acqua, non grasso: può essere disidratata anche una pelle grassa. Si riconosce perché tira dopo la detersione e beve le creme in fretta.",
+   "parole": [
+    "pelle disidratata",
+    "disidratata",
+    "disidratazione"
+   ]
+  },
+  {
+   "id": "reattiva",
+   "nome": "Pelle reattiva",
+   "categoria": "pelle",
+   "testo": "Una pelle che si arrossa, pizzica o brucia facilmente, anche con prodotti nuovi o delicati. Non è una malattia, ma chiede formule semplici, senza profumo e introdotte una alla volta.",
+   "parole": [
+    "pelle reattiva",
+    "pelli reattive",
+    "reattività",
+    "pelle sensibile",
+    "pelli sensibili"
+   ]
+  },
+  {
+   "id": "peptidi",
+   "nome": "Peptidi",
+   "categoria": "ingredienti",
+   "testo": "Piccole catene di aminoacidi che fanno da segnale alla pelle. Nei cosmetici si usano per sostenere tono ed elasticità; l'effetto è graduale.",
+   "parole": [
+    "peptidi",
+    "peptide"
+   ]
+  },
+  {
+   "id": "piroctone",
+   "nome": "Piroctone olamina",
+   "categoria": "capelli",
+   "testo": "Un attivo antiforfora che riduce il fungo della cute (Malassezia) coinvolto nella forfora; spesso tollerato meglio di altri.",
+   "parole": [
+    "piroctone olamina",
+    "piroctone olamine",
+    "piroctone"
+   ]
+  },
+  {
+   "id": "pori",
+   "nome": "Pori",
+   "categoria": "pelle",
+   "testo": "Le aperture da cui esce il sebo. Si vedono di più dove la pelle ne produce tanto, come su naso e fronte; non si chiudono, ma si possono tenere puliti e meno evidenti.",
+   "parole": [
+    "pori dilatati",
+    "pori"
+   ]
+  },
+  {
+   "id": "spf",
+   "nome": "Protezione solare (SPF)",
+   "categoria": "prodotti",
+   "testo": "Il numero dice quanto protegge dai raggi UVB; per le macchie e l'invecchiamento contano anche gli UVA. Ogni giorno, anche in città: è il passaggio che vale di più.",
+   "parole": [
+    "protezione solare",
+    "SPF",
+    "filtri solari",
+    "crema solare"
+   ]
+  },
+  {
+   "id": "psoriasi",
+   "nome": "Psoriasi",
+   "categoria": "condizioni",
+   "testo": "Una malattia infiammatoria che dà chiazze arrossate e squamose, anche sul cuoio capelluto. Va seguita da un medico; i cosmetici restano di supporto.",
+   "parole": [
+    "psoriasi"
+   ]
+  },
+  {
+   "id": "comedoni",
+   "nome": "Punti neri",
+   "categoria": "pelle",
+   "testo": "Pori chiusi da sebo e cellule morte: aperti e scuri sono i punti neri, chiusi e chiari i punti bianchi. Si trattano con esfolianti che entrano nel poro, non spremendoli.",
+   "parole": [
+    "punti neri",
+    "punto nero",
+    "comedoni",
+    "comedone",
+    "punti bianchi"
+   ]
+  },
+  {
+   "id": "uva",
+   "nome": "Raggi UVA",
+   "categoria": "pelle",
+   "testo": "La parte della luce del sole che arriva più in profondità: fa comparire macchie e segni del tempo, anche attraverso i vetri. Una protezione solare completa li filtra insieme agli UVB.",
+   "parole": [
+    "UVA",
+    "raggi UVA"
+   ]
+  },
+  {
+   "id": "retinoidi",
+   "nome": "Retinoidi",
+   "categoria": "ingredienti",
+   "testo": "Derivati della vitamina A (retinolo, retinaldeide). Lavorano su segni del tempo, imperfezioni e macchie. Si introducono piano, la sera, con la protezione solare il giorno dopo; da evitare in gravidanza.",
+   "parole": [
+    "retinoidi",
+    "retinoide",
+    "retinolo",
+    "retinaldeide"
+   ]
+  },
+  {
+   "id": "rosacea",
+   "nome": "Rosacea",
+   "categoria": "condizioni",
+   "testo": "Una condizione della pelle del viso con rossore persistente, capillari visibili e a volte brufoletti. Va diagnosticata e seguita da un medico.",
+   "parole": [
+    "rosacea"
+   ]
+  },
+  {
+   "id": "sebo",
+   "nome": "Sebo",
+   "categoria": "pelle",
+   "testo": "Il grasso naturale che la pelle produce per proteggersi. Troppo rende la pelle lucida e favorisce i brufoli, troppo poco la rende secca. Regolarlo vuol dire riportarlo in equilibrio, non eliminarlo.",
+   "parole": [
+    "sebo"
+   ]
+  },
+  {
+   "id": "solfati",
+   "nome": "Solfati",
+   "categoria": "capelli",
+   "testo": "Tensioattivi molto schiumogeni (come lo SLS) che lavano a fondo ma possono seccare cute e lunghezze. Gli shampoo «senza solfati» usano tensioattivi più delicati.",
+   "parole": [
+    "solfati",
+    "SLS",
+    "senza solfati"
+   ]
+  },
+  {
+   "id": "termoprotettore",
+   "nome": "Termoprotettore",
+   "categoria": "capelli",
+   "testo": "Un prodotto da mettere sui capelli prima di phon e piastra: forma un velo che riduce i danni del calore sulle lunghezze.",
+   "parole": [
+    "termoprotettore",
+    "termoprotettori"
+   ]
+  },
+  {
+   "id": "urea",
+   "nome": "Urea",
+   "categoria": "ingredienti",
+   "testo": "Una sostanza che la pelle produce da sé: a basse percentuali idrata, ad alte ammorbidisce ispessimenti e squame (per esempio sul cuoio capelluto).",
+   "parole": [
+    "urea"
+   ]
+  },
+  {
+   "id": "b12",
+   "nome": "Vitamina B12",
+   "categoria": "integrazione",
+   "testo": "Una vitamina che si trova solo nei cibi di origine animale: chi mangia vegano la deve integrare sempre, come indica il medico.",
+   "parole": [
+    "vitamina B12",
+    "B12"
+   ]
+  },
+  {
+   "id": "vitc",
+   "nome": "Vitamina C",
+   "categoria": "ingredienti",
+   "testo": "Un antiossidante che protegge dai danni del sole e dell'inquinamento e aiuta a uniformare l'incarnato. Si usa al mattino, sotto la protezione solare.",
+   "parole": [
+    "vitamina C"
+   ],
+   "video": "https://www.instagram.com/p/DePcQAso1yB/"
+  },
+  {
+   "id": "zinco",
+   "nome": "Zinco",
+   "categoria": "ingredienti",
+   "testo": "Un minerale che aiuta a regolare il sebo e a calmare la pelle con imperfezioni. Nei cosmetici si trova spesso come zinco PCA; negli integratori sostiene pelle, capelli e unghie.",
+   "parole": [
+    "zinco PCA",
+    "zinco"
+   ]
+  },
+  {
+   "id": "zona-t",
+   "nome": "Zona T",
+   "categoria": "pelle",
+   "testo": "Fronte, naso e mento: la parte del viso con più ghiandole sebacee. Se è lucida mentre le guance no, la pelle è mista.",
+   "parole": [
+    "zona T"
+   ]
+  }
+ ]
+}

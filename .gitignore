@@ -40,3 +40,8 @@ next-env.d.ts
 
 # Candidati scaricati dai feed di affiliazione (strumento locale)
 feeds-out/
+.pubblica.lock
+.dev.vars
+
+# wrangler in locale (D1 di prova, cache)
+.wrangler/
