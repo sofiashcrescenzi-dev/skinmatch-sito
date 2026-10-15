@@ -98,6 +98,12 @@ export type Product = {
   sensitiveSafe?: boolean;
   // la scheda (scripts/catalogo/schede.py): passaggio, forza 1-3, attivi con la percentuale, prezzo ogni 10 ml
   scheda?: Scheda;
+  // la categoria del catalogo scelta a mano in admin (src/data/catalogo.json → modifiche): vince sulla regola
+  categoriaSito?: string;
+  // il segmento della marca (Dermocosmesi da farmacia, Medicale premium, K-beauty…): scripts/catalogo/decisioni_marche.json
+  segment?: string;
+  // l'oggetto dell'indirizzo della sua pagina, /catalogo/<categoria>/<slug>: tipo + modello, mai la marca, stabile
+  slug?: string;
 };
 
 export type Scheda = {
@@ -110,9 +116,11 @@ export type Scheda = {
   spf?: number | null;
   al_10?: number | null;
   ruolo?: string | null;
+  misura?: { valore: number; unita: string } | null;
   attivi: { nome: string; perc: number | null }[];
   inci: boolean;
   completezza: number;
+  valore?: number; // quanto è ricca la scheda: attivi riconosciuti, percentuali dichiarate, INCI (al_sito.py)
 };
 
 const MANUAL_PRODUCTS: Product[] = [
@@ -883,7 +891,8 @@ const MANUAL_PRODUCTS: Product[] = [
 import SELEZIONE from '@/data/prodotti.json';
 export const PRODUCTS: Product[] = [
   ...((SELEZIONE as unknown as { prodotti: Product[] }).prodotti),
-  ...[...MANUAL_PRODUCTS, ...FEED_PRODUCTS].filter((p) => p.merchant !== 'Notino' && !p.affiliateUrl.includes('amazon.')),
+  // della vecchia lista restano solo i prodotti con link di affiliazione: fuori Notino, Amazon e Marionnaud (link diretti, senza foto)
+  ...[...MANUAL_PRODUCTS, ...FEED_PRODUCTS].filter((p) => !['Notino', 'Marionnaud'].includes(p.merchant || '') && !p.affiliateUrl.includes('amazon.')),
 ];
 
 export function filterProducts(filters: {

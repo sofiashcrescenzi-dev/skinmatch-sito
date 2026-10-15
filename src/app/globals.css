@@ -266,7 +266,140 @@ details.carta > summary::-webkit-details-marker { display: none; }
   .segno-fine .meta-b { animation: chiude linear both; animation-timeline: view(); animation-range: entry 0% cover 50%; }
   @keyframes chiude { from { transform: translate(18px, 22px); } }
 }
+/* ============================================================
+   GLI INVITI (scelti da Federico e Sofia, 15/10/2026: i1, i3, i4, i5 dell'artifact «Inviti di Skinmatch»)
+   Solo transform; al passaggio, col Tab e al tocco. components/Inviti.tsx e components/Campione.tsx.
+   ============================================================ */
+:root { --curva: cubic-bezier(.2, .7, .2, 1); }
+/* i1 · il segno che si chiude: «Fai il test» */
+.invito { display: inline-flex; align-items: center; gap: 12px; min-height: 52px; padding: 0 24px 0 18px; border-radius: 999px; background: var(--cacao); color: var(--latte); font-weight: 700; font-size: 16.5px; text-decoration: none; white-space: nowrap; transition: background .2s var(--curva), transform .2s var(--curva); }
+.invito .s { position: relative; width: 24px; height: 24px; flex: none; transition: transform .2s var(--curva); }
+.invito .s i { position: absolute; top: 0; width: 12px; height: 24px; transition: transform .26s var(--curva); }
+.invito .s i:first-child { left: 0; border-radius: 12px 0 0 12px; background: var(--f2); transform: translate(-3px, -2px); }
+.invito .s i:last-child { right: 0; border-radius: 0 12px 12px 0; background: var(--f4); transform: translate(3px, 3px); }
+.invito.scuro { background: var(--f2); color: var(--cacao); }
+.invito.scuro .s i:first-child { background: var(--f5); }
+@media (hover: hover) { .invito:hover .s i { transform: none; } }
+.invito:focus-visible .s i { transform: none; }
+.invito:active { transform: translateY(1px); background: var(--f6); }
+.invito.scuro:active { background: var(--f3); }
+.invito:active .s { transform: scale(.84); }
+.invito:active .s i { transform: none; }
+/* i3 · la scala che si stende: i link che portano avanti */
+.stendi { display: inline-grid; gap: 5px; justify-items: start; font-weight: 700; color: var(--terra); text-decoration: none; padding: 6px 0; }
+.stendi .barra { display: grid; grid-template-columns: repeat(6, 1fr); width: 100%; height: 4px; border-radius: 2px; overflow: hidden; transform: scaleX(.22); transform-origin: left; transition: transform .32s var(--curva); }
+.stendi .barra i:nth-child(1) { background: var(--f1); } .stendi .barra i:nth-child(2) { background: var(--f2); } .stendi .barra i:nth-child(3) { background: var(--f3); }
+.stendi .barra i:nth-child(4) { background: var(--f4); } .stendi .barra i:nth-child(5) { background: var(--f5); } .stendi .barra i:nth-child(6) { background: var(--f6); }
+@media (hover: hover) { .stendi:hover .barra, .carta-foto:hover .stendi .barra { transform: scaleX(1); } }
+.stendi:focus-visible .barra { transform: scaleX(1); }
+.stendi:active { color: var(--cacao); }
+.stendi:active .barra { transform: scaleX(1) scaleY(1.75); }
+/* i4 · il campione: prezzo e «Compra qui», due tasselli che si incontrano */
+.campione { display: inline-flex; align-items: stretch; min-height: 48px; font-size: 15.5px; font-weight: 700; white-space: nowrap; text-decoration: none; transition: transform .15s var(--curva); }
+.campione > span { display: inline-flex; align-items: center; padding: 0 clamp(12px, 3.2vw, 18px); transition: transform .22s var(--curva), background .2s; }
+.campione .cp { background: var(--velo); color: var(--cacao); border-radius: 999px 0 0 999px; transform: translateX(-4px); font-family: var(--font-titolo); font-size: 17px; font-variant-numeric: tabular-nums; }
+.campione .cp small { font-family: var(--font-testo); font-size: 13px; font-weight: 600; }
+.campione .cn { background: var(--cacao); color: var(--latte); border-radius: 0 999px 999px 0; transform: translate(4px, 3px); }
+@media (hover: hover) { .campione:hover > span { transform: none; } }
+.campione:focus-visible > span { transform: none; }
+.campione:active > span { transform: none; }
+.campione:active .cn { background: var(--f6); }
+.campione:active { transform: scale(.98); }
+/* i5 · la luna che si riempie: il tempo di un percorso */
+.tempo { display: inline-flex; align-items: center; gap: 9px; font-size: 15px; font-weight: 700; color: var(--terra); }
+.luna { position: relative; width: 18px; height: 18px; flex: none; border-radius: 50%; box-shadow: inset 0 0 0 1.5px var(--f4); }
+.luna i { position: absolute; top: 0; width: 9px; height: 18px; background: var(--f4); }
+.luna i:last-child { right: 0; border-radius: 0 9px 9px 0; }
+.luna i:first-child { left: 0; border-radius: 9px 0 0 9px; transform: scaleX(0); transform-origin: right; transition: transform .3s var(--curva); }
+@media (hover: hover) { .con-luna:hover .luna i:first-child { transform: scaleX(1); } }
+.con-luna:focus-visible .luna i:first-child, .con-luna:active .luna i:first-child { transform: scaleX(1); }
+.riga-inviti { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 24px; }
+
+/* ============================================================
+   LE CARTE PRODOTTO E LA PAGINA PRODOTTO
+   ============================================================ */
+/* la carta: colonna, i tag in fondo all'altezza loro (Federico, 15/10: mai chip stirati dalla carta accanto) */
+.carta-prodotto { display: flex; flex-direction: column; gap: 12px; }
+.carta-prodotto .prodotto .img { text-decoration: none; }
+.carta-prodotto .nome { color: var(--testo); text-decoration: none; }
+.carta-prodotto a.nome:hover { text-decoration: underline; text-underline-offset: 3px; }
+.riga-compra { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px; }
+.riga-chip { align-items: center; }
+.riga-chip.in-fondo { margin-top: auto; padding-top: 4px; }
+/* la riga in alto della carta: etichetta e compatibilità mai spezzate; se non ci stanno, il bollino va sotto intero */
+.testa-carta { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; }
+.testa-carta > * { white-space: nowrap; }
+.livello { white-space: nowrap; }
+/* la pagina */
+.briciole { display: flex; flex-wrap: wrap; gap: 4px 8px; }
+.briciole a { color: var(--grigio); }
+.p-testa { display: grid; gap: clamp(20px, 4vw, 48px); grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr)); align-items: start; }
+.p-foto { aspect-ratio: 1; width: 100%; max-width: 520px; background: #fff; border: 1px solid var(--riga); border-radius: var(--raggio); display: grid; place-items: center; overflow: hidden; }
+.p-foto img { width: 86%; height: 86%; object-fit: contain; }
+.p-prezzo { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 14px; margin: 0; color: var(--grigio); font-size: 15px; font-variant-numeric: tabular-nums; }
+.p-prezzo b { font-family: var(--font-titolo); font-size: clamp(26px, 3.4vw, 32px); color: var(--testo); }
+.voci { margin: 0; border-top: 1px solid var(--riga); max-width: 860px; }
+.voci > div { display: flex; flex-wrap: wrap; gap: 2px 20px; padding: 12px 0; border-bottom: 1px solid var(--riga); }
+.voci dt { flex: 1 1 11rem; color: var(--grigio); font-size: 14.5px; }
+.voci dd { flex: 999 1 18rem; margin: 0; font-size: 15.5px; line-height: 1.5; min-width: 0; }
+.voci dd > .piccolo { display: block; margin-top: 2px; }
+.voci.stretta > div { padding: 8px 0; }
+.voci.stretta dt { flex-basis: 5.5rem; font-size: 13.5px; }
+.voci.stretta dd { flex-basis: 9rem; font-size: 14.5px; }
+.pallini { display: inline-flex; gap: 4px; margin-right: 8px; vertical-align: 1px; }
+.pallini i { width: 10px; height: 10px; border-radius: 50%; box-shadow: inset 0 0 0 1.5px var(--f4); }
+.pallini i.on { background: var(--f4); }
+.misure { display: grid; max-width: 860px; border-top: 1px solid var(--riga); }
+.misure > div { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 16px; padding: 10px 0; border-bottom: 1px solid var(--riga); }
+.confronto { display: grid; gap: clamp(12px, 2vw, 20px); grid-template-columns: repeat(auto-fit, minmax(min(270px, 100%), 1fr)); align-items: start; }
+.confronto .questo { background: var(--velo); border-color: transparent; }
+.confronto .nome { color: var(--testo); }
+.apri summary { cursor: pointer; font-weight: 600; min-height: 44px; display: flex; align-items: center; }
+.inci { font-size: 14px; line-height: 1.7; color: var(--grigio); overflow-wrap: anywhere; max-width: 860px; }
+.p-fine { background: var(--velo); border-color: transparent; }
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; }
   .lettura { display: none !important; }
+  .invito .s i, .campione > span { transform: none !important; }
+  .stendi .barra { transform: none !important; }
 }
+.p-sez { --gap: 14px; }
+
+/* i filtri del catalogo: si dispongono da soli, dal telefono al grande schermo */
+.filtri { display: grid; gap: 10px 12px; grid-template-columns: repeat(auto-fill, minmax(min(100%, 9.5rem), 1fr)); }
+.filtri .cerca-filtro { grid-column: 1 / -1; max-width: 520px; }
+.campo-filtro { display: grid; gap: 4px; min-width: 0; }
+.campo-filtro > span { font-size: 12px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--grigio); }
+.campo-filtro input, .campo-filtro select { font: inherit; font-size: 16px; width: 100%; min-height: 46px; padding: 10px 14px; border-radius: var(--raggio-piccolo); border: 1px solid var(--riga); background: var(--foglio); color: var(--testo); min-width: 0; }
+.campo-filtro select { appearance: none; padding-right: 36px; background-image: linear-gradient(45deg, transparent 50%, var(--grigio) 50%), linear-gradient(135deg, var(--grigio) 50%, transparent 50%); background-position: calc(100% - 19px) 50%, calc(100% - 14px) 50%; background-size: 5px 5px; background-repeat: no-repeat; }
+.attivo-nota { background: var(--velo); border-radius: var(--raggio-piccolo); padding: 12px 14px; max-width: 72ch; }
+.link-btn { border: 0; background: none; padding: 6px 0; font: inherit; font-size: 14px; font-weight: 700; color: var(--terra); text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
+/* la home che informa: famiglie, routine, attivi */
+.testo-carta { margin: 0; font-size: 15.5px; line-height: 1.6; }
+.routine { list-style: none; padding: 0; margin: 0; }
+.routine > li { display: grid; }
+.famiglia, .attivo-carta { display: flex; flex-direction: column; gap: var(--gap); }
+.famiglia > *, .attivo-carta > * { margin: 0; }
+.famiglia .stendi, .attivo-carta .stendi { margin-top: auto; align-self: flex-start; }
+
+/* admin, catalogo: categorie, filtri e marche come carte affiancate (Federico, 15/10) */
+.adm-scatole { display: grid; gap: 12px; grid-template-columns: repeat(auto-fill, minmax(min(100%, 230px), 1fr)); align-items: start; }
+.adm-scatola { display: flex; flex-direction: column; gap: 6px; padding: 14px 16px; min-width: 0; text-align: left; font: inherit; color: var(--testo); }
+.adm-scatola.aperta { grid-column: 1 / -1; }
+.adm-scatola.nuova { border-style: dashed; background: transparent; }
+.adm-scatola-testa { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
+.adm-scatola-testa b { font-size: 16px; }
+.adm-regola { overflow-wrap: anywhere; }
+.adm-scatola-azioni { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px; }
+.adm-scatola-azioni .chip { padding: 5px 10px; }
+.adm-scatola-azioni .chip:disabled { opacity: .35; cursor: default; }
+.adm-marca { cursor: pointer; }
+.adm-marca:hover { border-color: var(--riga-forte); }
+.adm-insieme { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; padding: 10px 14px; position: sticky; top: 8px; z-index: 5; }
+.adm-riga-prodotto { display: flex; flex-wrap: wrap; gap: 8px 12px; align-items: center; padding: 10px 14px; }
+.adm-riga-prodotto img, .adm-senza-foto { width: 48px; height: 48px; flex: none; object-fit: contain; border-radius: 8px; background: #fff; border: 1px solid var(--riga); }
+.adm-riga-nome { display: grid; gap: 2px; min-width: 0; flex: 1 1 240px; }
+.adm-riga-cat { flex: 0 1 260px; width: auto; }
+.adm-riga-azioni { display: flex; flex-wrap: wrap; gap: 8px 14px; align-items: center; }
+.adm-riga-dettagli { flex-basis: 100%; }

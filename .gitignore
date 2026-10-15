@@ -45,3 +45,6 @@ feeds-out/
 
 # wrangler in locale (D1 di prova, cache)
 .wrangler/
+
+# file compilati di Python
+__pycache__/

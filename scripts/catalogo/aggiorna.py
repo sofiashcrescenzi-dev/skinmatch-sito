@@ -5,7 +5,8 @@
    nuovi), se no usa l'ultima copia in feeds-out/liki24.csv;
 2. le schede con l'arricchimento (Open Beauty Facts, stesso prodotto in altro formato, INCI approvati in admin);
 3. la selezione per il sito (src/data/prodotti.json) e la lista di lavoro per Zeno;
-4. se la selezione è cambiata, mette in coda la pubblicazione (la esegue scripts/admin/pubblica.py).
+4. i clic degli ultimi 90 giorni per prodotto (l'ordine «Più scelti» del catalogo);
+5. se qualcosa è cambiato, mette in coda la pubblicazione (la esegue scripts/admin/pubblica.py).
 """
 import hashlib, subprocess, sys, urllib.request
 from pathlib import Path
@@ -22,12 +23,15 @@ if url:
         print('feed Liki24 aggiornato')
     except Exception as e:
         print('feed Liki24 non scaricato, uso la copia:', type(e).__name__)
-prima = hashlib.md5((R / 'src/data/prodotti.json').read_bytes()).hexdigest()
+FILE = [R / 'src/data' / n for n in ('prodotti.json', 'schede.json', 'clic.json')]
+impronta = lambda: hashlib.md5(b''.join(f.read_bytes() for f in FILE if f.exists())).hexdigest()
+prima = impronta()
+subprocess.run([sys.executable, str(Path(__file__).parent / 'clic.py')], cwd=R)
 for cmd in (['schede.py', 'liki24', '--file', str(feed), '--arricchisci'], ['al_sito.py', 'liki24'], ['al_sito.py', 'liki24', '--lista']):
     r = subprocess.run([sys.executable, str(Path(__file__).parent / cmd[0]), *cmd[1:]], capture_output=True, text=True, cwd=R)
     if r.returncode:
         sys.exit(f'{cmd[0]}: {r.stderr[-800:]}')
-dopo = hashlib.md5((R / 'src/data/prodotti.json').read_bytes()).hexdigest()
+dopo = impronta()
 if prima != dopo:
     sys.path.insert(0, str(R / 'scripts' / 'admin'))
     from d1 import sql

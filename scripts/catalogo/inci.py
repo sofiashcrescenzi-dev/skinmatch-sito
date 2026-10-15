@@ -24,16 +24,29 @@ def trova(testo):
     return None
 
 
+# dove finisce l'elenco nelle descrizioni dei negozi: dopo vengono modo d'uso, avvertenze, formato, codici
+_FINE = re.compile(r"\b(?:modo d['’]uso|modalit[àa] d['’]uso|precauzioni|presentazione|avvertenz[ae]|conservazione|come si usa|istruzioni|indicazioni|non contiene|paese di origine|uk eu rp|acl\s*:|code f\.?\s?i\.?\s?l)\b", re.I)
+# «AGENTE DI CARICA: CELLULOSA» negli integratori: la funzione si toglie, resta l'ingrediente
+_FUNZIONE = re.compile(r'^(?:INGREDIENT[SI]|INCI|(?:AGENT[EI]|CAPSULA|INVOLUCRO|REGOLATOR[EI]|ADDENSANT[EI]|EMULSIONANT[EI]|CONSERVANT[EI]|ANTIAGGLOMERANT[EI]|EDULCORANT[EI]|COLORANT[EI]|STABILIZZANT[EI]|UMIDIFICANT[EI]|GELIFICANT[EI]|ANTIOSSIDANT[EI])\b[^:]{0,40}):\s*')
+# frasi del negozio finite tra gli ingredienti
+_FRASE = re.compile(r"\b(?:TESTAT[OA]|SENZA|IDEALE|FORMULAT[OA]|UTILIZZANDO|MASSAGG|APPLICA|PELLE|CON L[\"'’]AIUTO|ML|ESTERE EMOLLIENTE)\b")
+
+
 def leggi(s):
     """Da una stringa INCI alla lista degli ingredienti, in maiuscolo e puliti."""
     if not s:
         return []
     s = re.sub(r'\[[^\]]*\]', ' ', s)
+    m = _FINE.search(s)
+    if m:
+        s = s[:m.start()]
     parti = re.split(r',|;|•|\s·\s', s)
     out = []
     for p in parti:
-        p = re.sub(r'\s+', ' ', p).strip(' .*-–:').upper()
-        if 2 <= len(p) <= 90 and not re.search(r'\b(PUÒ CONTENERE|MAY CONTAIN|\+/-)\b', p):
+        p = _FUNZIONE.sub('', re.sub(r'\s+', ' ', p).strip(' .*-–:').upper()).strip(' .*-–:')
+        # «757-AO - INGREDIENTI: AQUA», «2 COMPRESSE CONTENGONO: MSM»: conta quello che viene dopo i due punti (non «5:1»)
+        p = re.split(r'(?<!\d):(?!\d)', p)[-1].strip(' .*-–(')
+        if 2 <= len(p) <= 90 and not re.search(r'\b(PUÒ CONTENERE|MAY CONTAIN|\+/-)\b', p) and not _FRASE.search(p):
             out.append(p)
     return out
 

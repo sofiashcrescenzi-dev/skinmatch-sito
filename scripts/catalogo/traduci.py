@@ -21,12 +21,14 @@ def _c(t):
 
 # ── il passaggio della routine ────────────────────────────────────────────────
 PASSAGGI = [
-    ('integratore', r'^(?!.*\b(shampo\w*|lozione|crema|siero|balsamo|maschera|gel|spray|fiale)\b).*(\b(compresse|capsule|bustine|softgel|perle|tavolette|gomme|cps|cpr|caps)\b|\bintegratore\b)'),
+    ('integratore', r'^(?!.*\b(shampo\w*|lozione|crema|siero|serum|sérum|balsamo|maschera|gel|spray|fiale|cerott\w*|patch\w*)\b).*(\b(compresse|capsule|bustine|softgel|perle|tavolette|gomme|cps|cpr|caps)\b|\bintegratore\b)'),
     ('spf', r'\bspf ?\d+|protezione solare|solare viso|sunscreen|sun stick|fotoprotett|anthelios|photoderm|fusion water|heliocare 360|uv defense|uv mune'),
     ('shampoo', r'\bshampo+\w*'),
-    ('trattamento cute', r'\b(lozione|fiale|siero|spray|tonico)\b.*\b(anticaduta|caduta|cuoio capelluto|cute|capelli)\b|\banticaduta\b|\bcuoio capelluto\b'),
+    ('trattamento cute', r'\b(lozione|fiale|siero|spray|tonico)\b.*\b(anticaduta|caduta|diradamento|cuoio capelluto|cute|capelli)\b|\b(caduta|diradamento)\b.*\b(lozione|fiale|siero|spray|trattamento)\b|\banticaduta\b|\bcuoio capelluto\b'),
     ('balsamo e maschera capelli', r'\b(balsamo|maschera|conditioner|olio|siero|crema)\b.*\bcapell\w*|\bcapelli\b'),
     ('barba', r'\bbarba\b|dopobarba|after ?shave|rasatura'),
+    # gli struccanti per gli occhi non sono la detersione del viso (il test consigliava Palpebral di SVR, 15/10)
+    ('struccante occhi', r'(struccant\w*|d[ée]maquillant|make-?up remover|bifasico).{0,40}\b(occhi|yeux|eyes?|labbra)\b|\b(occhi|yeux|eyes?)\b.{0,25}(struccant|d[ée]maquillant)|palpebral'),
     ('detergente', r'detergente|struccante|micellare|latte detergente|olio detergente|mousse detergente|gel detergente|schiuma|cleanser|cleansing|syndet|pane dermatologico|balsamo detergente|saponetta'),
     ('tonico', r'\btonico\b|\btoner\b|\bessence toner\b|lozione tonica'),
     ('esfoliante', r'peeling|esfoliant|scrub|gommage|\baha\b|\bbha\b|acido glicolico|acido salicilico|acido mandelico'),
@@ -131,6 +133,11 @@ def scheda(r, extra_inci=None, segmento=None):
     testo = tit + ' . ' + desc
     pas = passaggio(tit) or passaggio(desc[:200])
     fonti['passaggio'] = 'titolo' if passaggio(tit) else 'descrizione'
+    # le marche dell'integrazione: «Booster di collagene, 10 fiale», «Colpo di collagene» sono da bere, non sieri viso
+    if segmento == 'Integrazione' and pas in ('siero', 'trattamento cute') and re.search(r'\b(fiale|flaconcin\w*|colpo|shot|drink|da bere|bevibil\w*)\b', _c(tit)) \
+            and not re.search(r'\b(viso|pelle|cute|capelli|cuoio|applicare|siero)\b', _c(tit)):
+        pas = 'integratore'
+        fonti['passaggio'] = 'regola: marca di integrazione, da bere'
     # le marche dei capelli: un siero o una crema loro è per la cute o per le lunghezze, non per il viso
     if segmento == 'Capelli' and pas not in CAPELLI + ('integratore',):
         pas = 'balsamo e maschera capelli' if re.search(r'lunghezz|punte|balsamo|maschera|conditioner|olio|crespo', _c(tit)) else 'trattamento cute'
@@ -141,7 +148,7 @@ def scheda(r, extra_inci=None, segmento=None):
     fonti['attivi'] = 'inci' if lista else 'titolo e descrizione'
     seg = I.segnali(lista)
     s = {'id': f"lk-{r['id']}", 'negozio': r['negozio'], 'id_negozio': r['id'], 'marca': r['marca'], 'titolo': tit,
-         'nome': _corregge(nome_pulito(tit, r['marca']), pas), 'gtin': r.get('gtin'), 'immagine': r.get('immagine'), 'link': r.get('link'),
+         'nome': _corregge(nome_pulito(tit, r['marca']), pas, r['marca']), 'gtin': r.get('gtin'), 'immagine': r.get('immagine'), 'link': r.get('link'),
          'prezzo': r.get('prezzo'), 'prezzo_pieno': r.get('prezzo_pieno'), 'passaggio': pas, 'categoria_test': PASSAGGIO_TEST.get(pas),
          'attivi': att, 'inci': lista or None}
     # misura e prezzo ogni 10 ml (o 10 g)
@@ -229,7 +236,7 @@ def scheda(r, extra_inci=None, segmento=None):
 
 # i nomi con cui il negozio scrive marche e produttori dentro i titoli (anche tradotti per sbaglio)
 ALIAS = [r"bellezza di joseon", r"beauty of joseon", r"pierre fabre( it\.?( s\.?p\.?a\.?)?)?", r"l'or[ée]al( italia)?( s\.?p\.?a\.?)?", r"cantabria( labs)?",
-         r"\blabo\b", r"galderma", r"beiersdorf", r"\bpierre\b", r"laboratoires?", r"esthederm institute", r"institut esthederm"]
+         r"\blabo\b", r"galderma", r"beiersdorf", r"\bpierre\b", r"laboratoires?", r"esthederm institute", r"institut esthederm", r"istituto esthederm", r"\besthederm\b", r"\bhada(?: labo)?(?: tokyo)?\b", r"\balcuni da mi\b"]
 
 
 def _senza_accenti(t):
@@ -237,32 +244,47 @@ def _senza_accenti(t):
     return unicodedata.normalize('NFD', t).encode('ascii', 'ignore').decode()
 
 
-def _corregge(nome, pas):
-    """Le traduzioni sbagliate del negozio che direbbero una cosa falsa: i cerotti per brufoli tradotti
-    «per eczema» (dal polacco «wyprysk», che vuol dire anche brufolo)."""
-    if pas == 'cerotti':
+def _corregge(nome, pas, marca=''):
+    """Le traduzioni sbagliate del negozio che direbbero una cosa falsa: i cerotti per brufoli e i prodotti
+    di Acnemy («zit», brufolo) tradotti «eczema» (dal polacco «wyprysk», che vuol dire anche brufolo)."""
+    if pas == 'cerotti' or marca == 'Acnemy':
         nome = re.sub(r'\bper (l\')?eczema\b', 'per brufoli', nome, flags=re.I)
+        nome = re.sub(r"\b(dopo |contro )?l['’]eczema\b", lambda m: (m.group(1) or '') + 'i brufoli', nome, flags=re.I)
+        nome = re.sub(r'\beczema\b', 'brufoli', nome, flags=re.I)
     return nome
 
 
 def nome_pulito(titolo, marca):
     """Il nome senza la marca, la misura e il maiuscolo urlato (regola dei titoli di tutti i siti)."""
     t = titolo
+    # la marca anche tradotta dal negozio («Grazie Farmer», «Mary e May»)
+    for m_ in {marca, marca.replace(' and ', ' e '), marca.replace(' & ', ' e '), re.sub(r'(?i)^thank you', 'Grazie', marca)} if marca else ():
+        t = re.sub(re.escape(m_), ' ', t, flags=re.I)
     if marca:
-        t = re.sub(re.escape(marca), ' ', t, flags=re.I)
         t2 = _senza_accenti(t)
         if len(t2) == len(t):  # la marca scritta con gli accenti («Avène»): si toglie sulla versione senza
             for m in re.finditer(re.escape(_senza_accenti(marca)), t2, flags=re.I):
                 t = t[:m.start()] + ' ' * (m.end() - m.start()) + t[m.end():]
     for a in ALIAS:
         t = re.sub(a, ' ', t, flags=re.I)
-    t = re.sub(r',?\s*\d+(?:[.,]\d+)?\s*(ml|g|pz|pezzi|capsule|compresse|fiale|bustine)\b', ' ', t, flags=re.I)
+    t = re.sub(r',?\s*\d+(?:[.,]\d+)?\s*(ml|g|gr|grammi)\b', ' ', t, flags=re.I)
+    # i pezzi solo dopo la virgola o la «x»: «Heliocare 360 Capsule, 30 capsule» resta «360 Capsule»
+    t = re.sub(r'(?:,|\bx)\s*\d+\s*(pz|pezzi|capsule|compresse|fiale|bustine|cps|cpr)\b', ' ', t, flags=re.I)
     t = re.sub(r'\s*[|,]\s*', ', ', t)
     t = re.sub(r'(,\s*)+', ', ', t).strip(' ,.-|')
     t = re.sub(r'\s+', ' ', t)
+    # lo stesso pezzo ripetuto dopo la virgola, e le parole rimaste appese in fondo («… da», «… x»)
+    pezzi = []
+    for x in t.split(', '):
+        if x.strip() and x.strip().lower() not in [y.lower() for y in pezzi]:
+            pezzi.append(x.strip())
+    t = ', '.join(pezzi)
+    t = re.sub(r'(?:[\s,]+(?:da|x|di|con|per|e|a|in|al|alla|del|della))+\s*$', '', t, flags=re.I).strip(' ,.-')
     # le parole urlate in maiuscolo diventano normali; le sigle restano («SPF», «AHA», «B5», «NCEF»)
     SIGLE = {'SPF', 'AHA', 'BHA', 'PHA', 'LHA', 'UV', 'UVA', 'UVB', 'PDRN', 'NCEF', 'HFSC', 'RGN', 'CE', 'HA', 'DS', 'AC', 'AP', 'AR', 'XL', 'PM', 'AM', 'SA', 'BB', 'CC', 'II', 'III', 'IV', 'H2O', 'MD', 'DNA', 'ATP', 'KR'}
     t = re.sub(r"\b[A-ZÀ-Ý][A-ZÀ-Ý'’]{2,}\b", lambda m: m.group(0) if m.group(0) in SIGLE else m.group(0).capitalize(), t)
+    if not t.strip(' ,.-'):  # tutto il titolo era marca e misura: resta il titolo senza la marca
+        t = re.sub(re.escape(marca or ''), ' ', titolo, flags=re.I).strip(' ,.-') or titolo
     return t[:1].upper() + t[1:]
 
 

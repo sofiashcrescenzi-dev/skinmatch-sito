@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import Foto from '@/components/Foto';
 import { LEGALE } from '@/lib/legale';
+import { Invito } from '@/components/Inviti';
 
 // CHI SIAMO (15/10/2026). ⚠️ Il medico che ha costruito il metodo non è nominato e non compare in
 // foto: il codice deontologico chiede che l'immagine di un medico non promuova prodotti commerciali
@@ -77,7 +78,7 @@ export default function ChiSiamo() {
           <span className="titolo-3">Il modo migliore per conoscerci</span>
           <span className="piccolo">Tre minuti di domande, un biotipo, una routine.</span>
         </div>
-        <Link href="/test" className="bottone">Fai il test</Link>
+        <Invito href="/test">Fai il test</Invito>
       </section>
     </main>
   );

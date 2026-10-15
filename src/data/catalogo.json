@@ -106,6 +106,26 @@
    "descrizione": "Le formule di fascia alta: marchi di ricerca e di lusso, quando valgono il prezzo."
   },
   {
+   "id": "medicale",
+   "nome": "Dermocosmesi medicale",
+   "regola": {
+    "segmento": [
+     "Medicale premium"
+    ]
+   },
+   "descrizione": "Marchi di ricerca che lavorano con attivi dichiarati in percentuale (vitamina C, retinoidi, acidi), spesso usati negli studi di dermatologia e medicina estetica."
+  },
+  {
+   "id": "alta-cosmesi",
+   "nome": "Alta cosmesi",
+   "regola": {
+    "segmento": [
+     "Premium e lusso"
+    ]
+   },
+   "descrizione": "Marchi di profumeria e alta cosmesi: texture curate, profumo, esperienza d’uso. Nella scheda trovi cosa contengono davvero."
+  },
+  {
    "id": "skinceuticals",
    "nome": "SkinCeuticals",
    "regola": {
@@ -123,20 +143,23 @@
      "base"
     ],
     "marca": [
-     "CeraVe",
-     "La Roche-Posay",
-     "Bioderma",
-     "Avène",
-     "SVR",
-     "Vichy",
-     "Ducray",
-     "ISDIN",
-     "COSRX",
-     "Beauty of Joseon",
      "Anua",
-     "SKIN1004",
+     "Avène",
+     "Beauty of Joseon",
+     "Bioderma",
+     "COSRX",
+     "CeraVe",
+     "Ducray",
+     "Geek&Gorgeous",
+     "ISDIN",
+     "La Roche-Posay",
      "Round Lab",
-     "Torriden"
+     "SKIN1004",
+     "SVR",
+     "Skincyclopedia",
+     "The Ordinary",
+     "Torriden",
+     "Vichy"
     ]
    },
    "descrizione": "Prodotti che costano poco e funzionano: dermocosmesi da farmacia e K-beauty essenziale."
@@ -153,22 +176,11 @@
    "id": "farmacia",
    "nome": "Da farmacia",
    "regola": {
-    "marca": [
-     "CeraVe",
-     "La Roche-Posay",
-     "Bioderma",
-     "Avène",
-     "SVR",
-     "Vichy",
-     "Ducray",
-     "ISDIN",
-     "Bioscalin",
-     "Uriage",
-     "Eucerin",
-     "Rilastil"
+    "segmento": [
+     "Dermocosmesi da farmacia"
     ]
    },
-   "descrizione": "Dermocosmesi: marchi pensati con i dermatologi, spesso testati su pelli sensibili."
+   "descrizione": "Dermocosmesi: marchi nati con i dermatologi e venduti in farmacia, con formule essenziali testate anche su pelli sensibili, con acne o rossori."
   },
   {
    "id": "pelli-sensibili",

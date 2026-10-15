@@ -9,7 +9,7 @@
 // Uso: npx tsx scripts/guardiani.ts  (gira da solo prima di `next build`, vedi package.json)
 
 import { TEST, BIOTIPI, TAG_BIOTIPI, TERMINI, CATALOGO, ARTICOLI, type Condizione } from '../src/lib/dati';
-import { PRODOTTI, prodottoPerId } from '../src/lib/catalogo';
+import { PRODOTTI, prodottoPerId, indirizzo } from '../src/lib/catalogo';
 import { consiglia, profiloDi } from '../src/lib/motore';
 import { PRODUCTS } from '../src/lib/products';
 
@@ -60,6 +60,9 @@ regola('categorie e filtri con lo stesso indirizzo', doppi(slug), 'BLOCCA');
 regola('correzioni su prodotti che non ci sono più', Object.keys(CATALOGO.modifiche).filter((id) => !PRODUCTS.some((p) => p.id === id)), 'AVVISA');
 regola('categorie vuote', CATALOGO.categorie.filter((c) => !PRODOTTI.some((p) => p.category === c.regola.categoria)).map((c) => c.id), 'AVVISA');
 regola('prodotti senza immagine', PRODOTTI.filter((p) => !p.image).map((p) => p.id), 'AVVISA');
+// le pagine prodotto: ognuno ha il suo indirizzo, e due prodotti non hanno mai lo stesso
+regola('prodotti senza pagina (manca l\'indirizzo o la categoria)', PRODOTTI.filter((p) => !indirizzo(p)).map((p) => p.id), 'BLOCCA');
+regola('due prodotti con lo stesso indirizzo', Object.entries(PRODOTTI.reduce((m, p) => { const u = indirizzo(p); if (u) m[u] = (m[u] || 0) + 1; return m; }, {} as Record<string, number>)).filter(([, n]) => n > 1).map(([u]) => u), 'BLOCCA');
 
 console.log('La rivista');
 regola('articoli con indirizzi doppi', doppi(ARTICOLI.map((a) => a.slug)), 'BLOCCA');

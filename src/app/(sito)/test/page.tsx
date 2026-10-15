@@ -7,6 +7,7 @@ import { ConTermini } from '@/components/Termini';
 import Risultato from '@/components/Risultato';
 import Foto from '@/components/Foto';
 import { segna } from '@/lib/eventi';
+import { Luna } from '@/components/Inviti';
 
 // IL TEST (quattro percorsi: viso, cute e capelli, integrazione, tutto insieme).
 // ⚠️ Le risposte restano su questo telefono (localStorage): al sito arriva solo il conteggio
@@ -55,13 +56,13 @@ export default function TestPage() {
         </header>
         <div className="griglia" style={{ ['--min' as string]: '250px' }}>
           {TEST.percorsi.map((p) => (
-            <button key={p.id} type="button" className="carta-foto" style={{ textAlign: 'left', font: 'inherit', cursor: 'pointer', padding: 0 }}
+            <button key={p.id} type="button" className="carta-foto con-luna" style={{ textAlign: 'left', font: 'inherit', cursor: 'pointer', padding: 0 }}
               onClick={() => setS({ ...VUOTO, percorso: p.id })}>
               <Foto nome={p.immagine} sizes="(max-width: 760px) 100vw, 25vw" />
               <span className="corpo">
                 <span className="titolo-3">{p.nome}</span>
                 <span className="piccolo">{p.descrizione}</span>
-                <span className="piccolo" style={{ color: 'var(--terra)', fontWeight: 700 }}>{p.domande.length} domande · circa {p.minuti} minuti</span>
+                <Luna>{p.domande.length} domande · circa {p.minuti} minuti</Luna>
               </span>
             </button>
           ))}

@@ -6,6 +6,7 @@ import { prodottiPer } from '@/lib/catalogo';
 import { ConTermini } from '@/components/Termini';
 import SchedaProdotto from '@/components/SchedaProdotto';
 import Foto from '@/components/Foto';
+import { Invito } from '@/components/Inviti';
 
 export function generateStaticParams() {
   return BIOTIPI.map((b) => ({ id: b.id }));
@@ -78,7 +79,7 @@ export default async function BiotipoPage({ params }: { params: Promise<{ id: st
           <span className="titolo-3">È davvero il tuo?</span>
           <span className="piccolo">Il test lo riconosce con domande su quello che vedi allo specchio.</span>
         </div>
-        <Link href={`/test?percorso=${TEST_DI[b.area]}`} className="bottone">Fai il test</Link>
+        <Invito href={`/test?percorso=${TEST_DI[b.area]}`}>Fai il test</Invito>
       </section>
 
       {vicini.length > 0 && (

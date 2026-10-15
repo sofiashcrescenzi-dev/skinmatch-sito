@@ -5,6 +5,7 @@ import { TEST, NOMI_AREA, type Area, fotoDi } from '@/lib/dati';
 import { massimoAsse, type Risultato as R } from '@/lib/motore';
 import { ConTermini } from '@/components/Termini';
 import SchedaProdotto from '@/components/SchedaProdotto';
+import { Stendi } from '@/components/Inviti';
 import Foto from '@/components/Foto';
 
 const SOPRA: Record<Area, string> = { pelle: 'Il tuo biotipo', cute: 'Il biotipo della tua cute', integrazione: 'Il tuo profilo' };
@@ -60,7 +61,7 @@ export default function Risultato({ r, rifai, cambia }: { r: R; rifai: () => voi
                       <div className="riga-chip">{a.tratti.map((t) => <Link key={t.id} href={`/biotipi/${t.id}`} className="chip">{t.titolo}</Link>)}</div>
                     </div>
                   )}
-                  <Link href={`/biotipi/${a.biotipo.id}`} className="link">Tutto su questo biotipo</Link>
+                  <Stendi href={`/biotipi/${a.biotipo.id}`}>Tutto su questo biotipo</Stendi>
                 </div>
               </article>
             )}
@@ -78,11 +79,11 @@ export default function Risultato({ r, rifai, cambia }: { r: R; rifai: () => voi
                       </div>
                       <div className="griglia" style={{ ['--min' as string]: '300px' }}>
                         <SchedaProdotto p={s.consigliato.prodotto} da={`test-${r.percorso.id}`} conTag={false}
-                          sopra={<div style={{ display: 'flex', gap: 8, alignItems: 'center' }}><span className="etichetta">Consigliato</span><span className={`livello ${s.consigliato.livello}`}>compatibilità {s.consigliato.livello}</span></div>}
+                          sopra={<div className="testa-carta"><span className="etichetta">Consigliato</span><span className={`livello ${s.consigliato.livello}`}>compatibilità {s.consigliato.livello}</span></div>}
                           sotto={s.consigliato.perche.length > 0 && <p className="piccolo"><strong>Perché questo:</strong> {s.consigliato.perche.join(' · ')}</p>} />
                         {s.alternativa && (
                           <SchedaProdotto p={s.alternativa.prodotto} da={`test-${r.percorso.id}-alternativa`} conTag={false}
-                            sopra={<div style={{ display: 'flex', gap: 8, alignItems: 'center' }}><span className="etichetta" style={{ color: 'var(--clinico)' }}>{s.alternativa.come === 'costa meno' ? 'Se vuoi spendere meno' : 'Se vuoi il top'}</span><span className={`livello ${s.alternativa.livello}`}>compatibilità {s.alternativa.livello}</span></div>}
+                            sopra={<div className="testa-carta"><span className="etichetta" style={{ color: 'var(--clinico)' }}>{s.alternativa.come === 'costa meno' ? 'Se vuoi spendere meno' : 'Se vuoi il top'}</span><span className={`livello ${s.alternativa.livello}`}>compatibilità {s.alternativa.livello}</span></div>}
                             sotto={s.alternativa.perche.length > 0 && <p className="piccolo">{s.alternativa.perche.join(' · ')}</p>} />
                         )}
                       </div>

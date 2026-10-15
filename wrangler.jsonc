@@ -11,8 +11,9 @@
     "binding": "ASSETS",
     // /pagina -> serve out/pagina.html (URL puliti senza .html)
     "html_handling": "auto-trailing-slash",
-    // pagina non trovata -> out/404.html
-    "not_found_handling": "404-page",
+    // pagina non trovata -> il Worker: un prodotto uscito dal catalogo rinvia (301) alla sua categoria,
+    // il resto riceve out/404.html con lo stato 404 (worker/index.js, «pagine sparite mai 404»)
+    "not_found_handling": "none",
     "run_worker_first": ["/api/*", "/admin", "/admin/*"]
   },
   "d1_databases": [

@@ -47,7 +47,7 @@ Le risposte che dai al test (compresi i dati sulla salute, come una condizione d
 
 ## Quando vai su un negozio
 
-I link verso i prodotti portano al sito del negozio o di una rete di affiliazione (per esempio Amazon, Awin, CJ, Adtraction). Da quel momento i tuoi dati li tratta il negozio, con la sua informativa e i suoi cookie, compresi quelli che servono a riconoscere che sei arrivato da Skinmatch. Leggi le informative di quei siti prima di comprare.
+I link verso i prodotti portano al sito del negozio o di una rete di affiliazione (oggi Adtraction, per Liki24). Da quel momento i tuoi dati li tratta il negozio, con la sua informativa e i suoi cookie, compresi quelli che servono a riconoscere che sei arrivato da Skinmatch. Leggi le informative di quei siti prima di comprare.
 
 ## Per quanto tempo
 
@@ -102,7 +102,7 @@ Le informazioni sui prodotti vengono dalle schede dei produttori e dai negozi. P
 
 ## I link di affiliazione
 
-Alcuni link verso i negozi sono di affiliazione: se compri, Skinmatch riceve una piccola commissione dal negozio, **a te il prezzo non cambia**. Le commissioni non decidono quali prodotti consigliamo: il test li sceglie sul biotipo, e per ognuno mostriamo anche un'alternativa che costa meno. In qualità di Affiliato Amazon, Skinmatch riceve un guadagno dagli acquisti idonei.
+Alcuni link verso i negozi sono di affiliazione: se compri, Skinmatch riceve una piccola commissione dal negozio, **a te il prezzo non cambia**. Le commissioni non decidono quali prodotti consigliamo: il test li sceglie sul biotipo, e per ognuno mostriamo anche un'alternativa che costa meno.
 
 ## Contenuti, marchi e immagini
 

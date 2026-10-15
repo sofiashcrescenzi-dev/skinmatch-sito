@@ -10,7 +10,7 @@ export default function Piede({ rivista }: { rivista: boolean }) {
           <div className="pila" style={{ ['--gap' as string]: '8px' }}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src="/brand/logo.svg" alt="Skinmatch" width={154} height={22} style={{ height: 22, width: 'auto' }} />
-            <span className="piccolo">Il test che riconosce il tuo biotipo e ti consiglia i prodotti giusti, ognuno con un&apos;alternativa che costa meno.</span>
+            <span className="piccolo">Skincare spiegata: le schede dei prodotti, gli attivi e un test che parte dalla tua pelle.</span>
           </div>
           <nav className="pila piccolo" style={{ ['--gap' as string]: '6px' }} aria-label="Il test">
             <Link href="/test?percorso=viso">Test della pelle</Link>
@@ -34,7 +34,7 @@ export default function Piede({ rivista }: { rivista: boolean }) {
         </div>
         <div className="pila piccolo" style={{ ['--gap' as string]: '6px', maxWidth: '78ch' }}>
           <p>Skinmatch non fa diagnosi: il test aiuta a scegliere i cosmetici, non sostituisce il parere di un medico. Se qualcosa ti preoccupa, parlane con un dermatologo.</p>
-          <p>Alcuni link verso i negozi sono di affiliazione: se compri, Skinmatch riceve una piccola commissione, a te non costa nulla in più. In qualità di Affiliato Amazon, Skinmatch riceve un guadagno dagli acquisti idonei.</p>
+          <p>Alcuni link verso i negozi sono di affiliazione: se compri, Skinmatch riceve una piccola commissione, a te non costa nulla in più.</p>
         </div>
       </div>
     </footer>

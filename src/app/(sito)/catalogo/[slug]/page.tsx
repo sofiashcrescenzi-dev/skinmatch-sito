@@ -5,6 +5,7 @@ import { CATALOGO } from '@/lib/dati';
 import { nelGruppo } from '@/lib/catalogo';
 import Catalogo from '@/components/Catalogo';
 import Foto from '@/components/Foto';
+import { Stendi } from '@/components/Inviti';
 
 // Una categoria (/catalogo/sieri) o un filtro (/catalogo/k-beauty): lo stesso indirizzo corto,
 // i guardiani controllano che una categoria e un filtro non abbiano lo stesso nome.
@@ -39,7 +40,7 @@ export default async function GruppoPage({ params }: { params: Promise<{ slug: s
           <span className="etichetta">{g.tipo === 'categoria' ? 'Categoria' : 'Selezione'}</span>
           <h1 className="sopratitolo" style={{ fontSize: 'clamp(32px, 5.4vw, 54px)' }}>{g.nome}</h1>
           <p className="intro">{g.descrizione}</p>
-          <Link href="/test" className="link">Quali vanno bene per te? Fai il test</Link>
+          <Stendi href="/test">Quali vanno bene per te? Fai il test</Stendi>
         </div>
         {g.immagine && <Foto nome={g.immagine} riserva={g.tipo === 'categoria' ? `/images/cat-${g.id}.jpg` : g.id === 'k-beauty' ? '/images/kbeauty-mask.jpg' : undefined} priorita style={{ aspectRatio: '3 / 2' }} sizes="(max-width: 760px) 100vw, 45vw" />}
       </header>

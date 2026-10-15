@@ -6,6 +6,7 @@ import { prodottoPerId } from '@/lib/catalogo';
 import Markdown from '@/components/Markdown';
 import SchedaProdotto from '@/components/SchedaProdotto';
 import Foto from '@/components/Foto';
+import { Invito } from '@/components/Inviti';
 
 export function generateStaticParams() {
   // con la Rivista vuota serve comunque un indirizzo, o l'export statico si ferma
@@ -50,7 +51,7 @@ export default async function ArticoloPage({ params }: { params: Promise<{ slug:
           <span className="titolo-3">Quali vanno bene per te?</span>
           {biotipi.length > 0 && <div className="riga-chip">{biotipi.map((b) => <Link key={b.id} href={`/biotipi/${b.id}`} className="chip">{b.titolo}</Link>)}</div>}
         </div>
-        <Link href="/test" className="bottone">Fai il test</Link>
+        <Invito href="/test">Fai il test</Invito>
       </section>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
         '@context': 'https://schema.org', '@type': 'Article', headline: a.titolo, description: a.sommario, datePublished: a.pubblicato_il, dateModified: a.aggiornato_il || a.pubblicato_il,

@@ -5,6 +5,7 @@
 //    (Federico e Sofia). Il Worker ricontrolla il gettone di Access da sé: se Access non c'è
 //    ancora, o il gettone non torna, l'admin non si apre (meglio chiuso che aperto).
 // 3. tutto il resto: i file statici, come prima.
+// 4. le pagine che non ci sono: i prodotti usciti rinviano alla categoria, il resto ha il 404.
 //
 // ⚠️ ACCESS: si attiva nella dashboard di Cloudflare (Zero Trust → Access → Applications), sul
 // percorso skinmatch.it/admin*; poi ACCESS_TEAM (il nome del team) e ACCESS_AUD (l'«Application
@@ -46,9 +47,30 @@ export default {
       const h = new Headers(r.headers); h.set('x-robots-tag', 'noindex'); h.set('cache-control', 'no-store');
       return new Response(r.body, { status: r.status, headers: h });
     }
-    return env.ASSETS.fetch(req);
+    const r = await env.ASSETS.fetch(req);
+    if (r.status !== 404) return r;
+    return nonTrovata(req, env, url);
   },
 };
+
+// ── 4. le pagine che non ci sono ─────────────────────────────────────────────
+// Un prodotto spostato di categoria rinvia alla sua pagina nuova (public: /indirizzi.json); uno uscito dal
+// catalogo rinvia per sempre alla sua categoria, o al catalogo se la categoria non c'è più: mai un 404.
+// Il resto riceve la pagina 404 del sito, con lo stato giusto.
+async function nonTrovata(req, env, url) {
+  const m = url.pathname.match(/^\/catalogo\/([a-z0-9-]+)\/([^/]+?)\/?$/);
+  if (m) {
+    // il prodotto c'è ancora ma è cambiata la categoria (admin): alla sua pagina di oggi
+    try {
+      const ora = (await (await env.ASSETS.fetch(new Request(new URL('/indirizzi.json', url)))).json())[m[2]];
+      if (ora && ora !== url.pathname) return new Response(null, { status: 301, headers: { location: ora, 'cache-control': 'public, max-age=3600' } });
+    } catch { /* senza l'elenco si va alla categoria */ }
+    const cat = await env.ASSETS.fetch(new Request(new URL(`/catalogo/${m[1]}`, url)));
+    return new Response(null, { status: 301, headers: { location: cat.ok ? `/catalogo/${m[1]}` : '/catalogo', 'cache-control': 'public, max-age=3600' } });
+  }
+  const p = await env.ASSETS.fetch(new Request(new URL('/404', url)));
+  return new Response(req.method === 'HEAD' ? null : p.body, { status: 404, headers: { 'content-type': 'text/html; charset=utf-8', 'cache-control': 'public, max-age=300' } });
+}
 
 // ── 1. i conteggi ────────────────────────────────────────────────────────────
 async function evento(req, env) {

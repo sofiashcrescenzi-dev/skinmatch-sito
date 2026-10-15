@@ -30,6 +30,8 @@ REDIRECTS = REPO / 'public' / '_redirects'
 LOCK = REPO / '.pubblica.lock'
 FIRMA = '\n\nCo-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>'
 TIPI = ['test', 'biotipi', 'glossario', 'catalogo']
+# scritti da scripts/catalogo/aggiorna.py: la selezione, le schede delle pagine prodotto, i clic
+CATALOGO_GENERATO = ['src/data/prodotti.json', 'src/data/schede.json', 'src/data/clic.json']
 
 
 def run(*cmd, ok=True, **kw):
@@ -42,7 +44,7 @@ def run(*cmd, ok=True, **kw):
 def pulito():
     sporchi = [r[3:] for r in run('git', 'status', '--porcelain').stdout.splitlines()]
     # si pubblicano anche le foto nuove di Zeno e la selezione del catalogo (scripts/catalogo/aggiorna.py)
-    return [f for f in sporchi if not (f.startswith('public/immagini/') or f.startswith('media/') or f.startswith('"media/') or f == 'src/data/prodotti.json')]
+    return [f for f in sporchi if not (f.startswith('public/immagini/') or f.startswith('media/') or f.startswith('"media/') or f in CATALOGO_GENERATO)]
 
 
 def scrivi(nome, dati, nota):
@@ -100,7 +102,7 @@ def pubblica(coda, ids):
     try:
         # il catalogo rigenerato (scripts/catalogo/aggiorna.py) e le foto nuove si registrano prima del pull:
         # con modifiche non registrate il pull si ferma
-        run('git', 'add', '--', 'src/data/prodotti.json', 'public/immagini', 'media', ok=False)
+        run('git', 'add', '--', *[f for f in CATALOGO_GENERATO if (REPO / f).exists()], 'public/immagini', 'media', ok=False)
         catalogo = bool(run('git', 'diff', '--cached', '--quiet', ok=False).returncode)
         if catalogo:
             run('git', 'commit', '-q', '-m', f"Catalogo e foto aggiornati\n\nRedazione Skinmatch{FIRMA}")

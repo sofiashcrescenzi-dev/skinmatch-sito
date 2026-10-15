@@ -10,6 +10,7 @@ import biotipi from '@/data/biotipi.json';
 import glossario from '@/data/glossario.json';
 import catalogo from '@/data/catalogo.json';
 import rivista from '@/data/rivista.json';
+import attivi from '@/data/attivi.json';
 
 export type Area = 'pelle' | 'cute' | 'integrazione';
 export type AreaDomanda = Area | 'comune';
@@ -116,6 +117,7 @@ export type RegolaProdotti = {
   sensibili?: boolean;
   gravidanza?: boolean;
   genere?: string[];
+  segmento?: string[]; // il segmento della marca deciso nell'artifact «Le marche di Skinmatch»
 };
 export type CategoriaCatalogo = { id: string; nome: string; regola: RegolaProdotti; immagine: string; descrizione: string };
 export type TagCatalogo = { id: string; nome: string; regola: RegolaProdotti; descrizione: string };
@@ -133,6 +135,7 @@ export type Modifica = {
   scalpTypes?: string[];
   pregnancySafe?: boolean;
   sensitiveSafe?: boolean;
+  categoria?: string; // la categoria del catalogo scelta a mano in admin: vince sulla regola
   nota?: string;
 };
 export type Catalogo = { categorie: CategoriaCatalogo[]; tag: TagCatalogo[]; modifiche: Record<string, Modifica> };
@@ -159,6 +162,11 @@ export const CATALOGO = catalogo as unknown as Catalogo;
 export const ARTICOLI = ((rivista as unknown as { articoli: Articolo[] }).articoli || [])
   .slice()
   .sort((a, b) => b.pubblicato_il.localeCompare(a.pubblicato_il));
+
+// Gli attivi spiegati (src/data/attivi.json): la home li racconta, il catalogo li usa come filtro.
+export type Attivo = { id: string; nome: string; nomi: string[]; termine: string; cosa: string; per_chi: string; attenzione: string };
+export const ATTIVI = (attivi as unknown as { attivi: Attivo[] }).attivi;
+export const conAttivo = (p: { scheda?: { attivi: { nome: string }[] } }, a: Attivo) => !!p.scheda?.attivi.some((x) => a.nomi.includes(x.nome));
 
 export const NOMI_AREA: Record<Area, string> = { pelle: 'Pelle', cute: 'Cute e capelli', integrazione: 'Integrazione' };
 

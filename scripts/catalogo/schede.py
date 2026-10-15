@@ -66,6 +66,9 @@ def scegli(r, dec):
         return False, 'non è un passaggio della routine', None
     if pas == 'integratore' and not re.search(r'capelli|unghie|pelle|cute|collagen|ialuronic|biotin|cheratin|cistin|astaxant|carotene|polypodium|fernblock|abbronzatura|sole|solare|hair|skin|nails|beauty|bellezza', (r['titolo'] + ' ' + (r['descrizione'] or '')[:400]).lower()):
         return False, 'integratore non per pelle, capelli o unghie', None
+    # i multivitaminici e quelli per altro (energia, difese, memoria) non sono per Skinmatch anche se la descrizione cita la pelle
+    if pas == 'integratore' and re.search(r'multivitamin|energia|immunitar|neuro|memoria|sonno|stanchezza|articolaz|digest|intestin|cardio|colesterol', r['titolo'].lower()):
+        return False, 'integratore non per pelle, capelli o unghie', None
     nota = (x.get('nota') or '').lower()
     ruolo = 'alternativa' if 'alternativa' in nota else ('premium' if x['segmento'] in ('Medicale premium', 'Premium e lusso') else None)
     if x['decisione'] == 'selezione' and x['linee'] and 'solo alternativa' not in nota:
