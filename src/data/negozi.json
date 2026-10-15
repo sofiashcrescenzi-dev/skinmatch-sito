@@ -1,5 +1,5 @@
 {
- "_nota": "I negozi: commissione, spedizione e codici sconto. Si modificano da skinmatch.it/admin/negozi. La commissione decide quale link usare quando lo stesso prodotto è in più negozi a prezzo simile (scripts/catalogo/offerte.py); spedizione e codici si vedono nelle schede prodotto, vicino a «Compra qui».",
+ "_nota": "I negozi: commissione, spedizione e codici sconto. Si modificano da skinmatch.it/admin/negozi. Liki24 è il negozio del catalogo; gli altri attivi lo completano soltanto, con i prodotti che su Liki24 non ci sono (scripts/catalogo/al_sito.py, unisci()). Spedizione e codici si vedono nelle schede prodotto, vicino a «Compra qui».",
  "negozi": [
   {
    "id": "liki24",
@@ -7,19 +7,29 @@
    "rete": "Adtraction",
    "commissione": 6.15,
    "attivo": true,
-   "spedizione": { "costo": 5.99, "gratis_da": null, "tempi": "", "nota": "" },
+   "spedizione": {
+    "costo": 5.99,
+    "gratis_da": null,
+    "tempi": "",
+    "nota": ""
+   },
    "codici": [],
    "nota": "Commissione dall'API Adtraction (15/10/2026). Spedizione: 5,99 € dal feed del negozio; la soglia per la spedizione gratis non è confermata (i siti di coupon dicono 49 €): va verificata al carrello."
   },
   {
-   "id": "clubfarma",
-   "nome": "Clubfarma",
-   "rete": "Awin",
-   "commissione": null,
-   "attivo": false,
-   "spedizione": { "costo": 5.99, "gratis_da": 59.9, "tempi": "2-5 giorni lavorativi", "nota": "Ritiro in farmacia gratis; Locker InPost 3,99 €." },
+   "id": "farmaself",
+   "nome": "Farmaself",
+   "rete": "Adtraction",
+   "commissione": 4.5,
+   "attivo": true,
+   "spedizione": {
+    "costo": 5.9,
+    "gratis_da": 45,
+    "tempi": "24/48 ore",
+    "nota": "Corriere BRT."
+   },
    "codici": [],
-   "nota": "Spedizione dalla pagina ufficiale (15/10/2026). Non attivo: il feed Awin è fermo al 5/6/2026 e i link portano l'identificativo di un altro publisher; si attiva quando Clubfarma approva Skinmatch su Awin e la commissione è inserita."
+   "nota": "Commissione dall'API Adtraction (16/10/2026); spedizione dalla pagina ufficiale. Completa Liki24: entrano solo i prodotti che su Liki24 non ci sono (Federico, 16/10)."
   }
  ]
 }

@@ -409,8 +409,9 @@ def nome_pulito(titolo, marca):
     """Il nome senza la marca, la misura e il maiuscolo urlato (regola dei titoli di tutti i siti)."""
     t = titolo
     # la marca anche tradotta dal negozio («Grazie Farmer», «Mary e May»)
-    for m_ in {marca, marca.replace(' and ', ' e '), marca.replace(' & ', ' e '), re.sub(r'(?i)^thank you', 'Grazie', marca)} if marca else ():
-        t = re.sub(re.escape(m_), ' ', t, flags=re.I)
+    for m_ in {marca, marca.replace(' and ', ' e '), marca.replace(' & ', ' e '), marca.replace('-', ' '), re.sub(r'(?i)^thank you', 'Grazie', marca)} if marca else ():
+        # parola intera: «A Derma» non deve prendersi la «a» di «A-Derma Dermalibour», né «Isdin» mezza «Isdinceutics»
+        t = re.sub(r'(?<!\w)' + re.escape(m_) + r'(?!\w)', ' ', t, flags=re.I)
     if marca:
         t2 = _senza_accenti(t)
         if len(t2) == len(t):  # la marca scritta con gli accenti («Avène»): si toglie sulla versione senza

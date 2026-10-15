@@ -26,11 +26,11 @@ OUT = R / 'feeds-out'
 ESCLUSI = [
     ('trucco', r'fondotinta|mascara|rossetto|matita|ombretto|correttore|cipria|blush|bronzer|primer|cushion|\bbb cream\b|\bcc cream\b|skintint|tinted'),
     ('tinta e decolorazione', r'\btint[ae]\b|colorazione|colorante|decolorant|nutricolor|nutri color|color touch|\bhenné|henna|ritocco radici'),
-    ('corpo', r'\bcorpo\b|\bbody\b|mani\b|piedi|gambe|seno|smagliature|cellulite|intim|bagnoschiuma|doccia|deodorant|crema mani|labbra|lip\b|stick labbra'),
+    ('corpo', r'\bcorpo\b|\bbody\b|mani\b|piedi|gambe|seno|smagliature|cellulite|intim|bagnoschiuma|doccia|deodorant|crema mani|labbra|lip\b|stick labbra|doposole|after ?sun'),
     ('prima infanzia', r'bambin|neonat|baby|b[eéè]b[eéè]|pediatric|lattant|\bkids?\b|pannolin'),
-    ('accessori e cofanetti', r'cofanett|cofre|coffret|confezione|set regalo|\bset\b|\bkit\b|\bduo\b|pochette|trousse|spugn|pennell|dischetti|pad\b|applicator|campione|sample|omaggio|in regalo'),
+    ('accessori e cofanetti', r'cofanett|cofre|coffret|confezione|set regalo|\bset\b|\bkit\b|\bduo\b|pochette|trousse|spugn|pennell|dischetti|pad\b|applicator|campione|sample|omaggio|in regalo|bi-?pack|\b2\s?x\s?\d|\b2x\b(?!\s*effect)|\b\d+\s?\+\s?\d+\s?(?:compresse|capsule|cpr|cps|bustine)'),
     ('profumo', r'eau de|profumo\b|fragranza\b|acqua profumata'),
-    ('altro', r'autoabbronzant|depilat|rasoio|smalto|dentifric|collutor|tisana|lenti a contatto|collirio'),
+    ('altro', r'autoabbronzant|depilat|rasoio|smalto|dentifric|collutor|tisana|lenti a contatto|collirio|styling|fissante|\blacca\b|cera per capelli'),
 ]
 
 
@@ -81,7 +81,7 @@ def scegli(r, dec):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument('negozio', choices=['liki24', 'clubfarma'])
+    ap.add_argument('negozio', choices=['liki24', 'farmaself'])
     ap.add_argument('--file')
     ap.add_argument('--arricchisci', action='store_true')
     a = ap.parse_args()

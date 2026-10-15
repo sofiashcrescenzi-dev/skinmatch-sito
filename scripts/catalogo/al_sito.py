@@ -273,34 +273,48 @@ def lavoro(s):
 ATTIVI = json.loads((R / 'src' / 'data' / 'attivi.json').read_text())['attivi']
 # i negozi (admin › Negozi): un negozio entra nel sito solo se «attivo» e con la commissione inserita
 NEGOZI = json.loads((R / 'src' / 'data' / 'negozi.json').read_text())['negozi']
-SIMILE = 1.05  # «prezzo similare»: al massimo il 5% in più del link di adesso
+# Liki24 è il negozio del catalogo; gli altri (oggi Farmaself) lo completano e basta: niente confronti tra
+# negozi, niente link cambiati (Federico, 16/10: «non ci interessa la comparazione tra prodotti»).
+VUOTE_NOME = set('con il lo la le i gli di da del della per e a al alla in su x ml g pz'.split())
 
 
 def per_nome(negozio):
     return next((n for n in NEGOZI if n['nome'].lower() == (negozio or '').lower()), None)
 
 
-def scegli_offerta(offerte):
-    """La regola di Federico (15/10): tra i negozi a prezzo simile vince la commissione più alta.
-    Simile = al massimo il 5% in più dell'offerta più economica; a pari commissione, il prezzo più basso."""
-    base = min(o['prezzo'] for o in offerte)
-    pari = [o for o in offerte if o['prezzo'] <= base * SIMILE]
-    return max(pari, key=lambda o: (o['commissione'] or 0, -o['prezzo']))
+def _parole_nome(s):
+    return {w for w in re.split(r'[^a-z0-9]+', _ascii(s['nome']).lower()) if w and w not in VUOTE_NOME and not re.fullmatch(r'\d+(?:ml|g)?', w)} | \
+           {w for w in re.findall(r'\b\d+[a-z]*\b', _ascii(s['nome']).lower()) if not re.fullmatch(r'\d+(?:ml|g)', w)}
+
+
+def presente(s, gia):
+    """Il prodotto c'è già su Liki24? Stesso EAN, oppure stessa marca e nome quasi uguale (in qualsiasi formato:
+    un'altra misura dello stesso prodotto non serve). Nel dubbio si considera presente: meglio un prodotto in meno
+    che un doppione."""
+    g = (s.get('gtin') or '').lstrip('0')
+    if g and g in gia['gtin']:
+        return True
+    a = _parole_nome(s)
+    for b in gia['marca'].get(k(s['marca']), []):
+        comuni = a & b
+        if len(comuni) >= 2 and len(comuni) / max(1, min(len(a), len(b))) >= 0.75:
+            return True
+    return False
 
 
 def unisci(schede, altri):
-    """Le schede degli altri negozi: lo stesso prodotto (stesso EAN) diventa un'offerta in più del prodotto che
-    c'è già; un prodotto che non c'è entra nella selezione come gli altri. Ritorna (schede, offerte per id)."""
-    per_gtin = {s['gtin'].lstrip('0'): s for s in schede if s.get('gtin')}
-    offerte, nuovi = defaultdict(list), []
+    """Le schede degli altri negozi entrano solo se il prodotto su Liki24 non c'è. Ritorna (schede, quanti tenuti fuori)."""
+    gia = {'gtin': {s['gtin'].lstrip('0') for s in schede if s.get('gtin')}, 'marca': defaultdict(list)}
+    for s in schede:
+        gia['marca'][k(s['marca'])].append(_parole_nome(s))
+    nuovi, fuori = [], 0
     for ss in altri:
         for s in ss:
-            g = (s.get('gtin') or '').lstrip('0')
-            if g and g in per_gtin:
-                offerte[per_gtin[g]['id']].append(s)
+            if presente(s, gia):
+                fuori += 1
             else:
                 nuovi.append(s)
-    return schede + nuovi, offerte
+    return schede + nuovi, fuori
 
 
 
@@ -414,17 +428,15 @@ def confronti(scelti):
     return out
 
 
-def main(prova=None):
+def main():
     neg = sys.argv[1] if len(sys.argv) > 1 else 'liki24'
     schede = json.loads((R / 'feeds-out' / f'schede-{neg}.json').read_text())
-    # gli altri negozi attivi in admin con la commissione; --prova clubfarma:8 simula senza scrivere niente
-    attivi = {n['id']: n for n in NEGOZI if n['id'] != neg and n['attivo'] and n.get('commissione') is not None}
-    if prova:
-        pid, pc = prova.split(':')
-        attivi[pid] = {**next(n for n in NEGOZI if n['id'] == pid), 'commissione': float(pc)}
-    comm = {n['nome'].lower(): n.get('commissione') for n in NEGOZI} | {n['nome'].lower(): n['commissione'] for n in attivi.values()}
+    # gli altri negozi attivi in admin (Farmaself): solo i prodotti che su Liki24 non ci sono
+    attivi = {n['id']: n for n in NEGOZI if n['id'] != neg and n['attivo']}
     altri = [json.loads(f.read_text()) for f in (R / 'feeds-out' / f'schede-{i}.json' for i in attivi) if f.exists()]
-    schede, offerte = unisci(schede, altri)
+    schede, fuori = unisci(schede, altri)
+    if altri:
+        print(f'altri negozi: {sum(len(x) for x in altri)} schede, {fuori} già su Liki24, {sum(len(x) for x in altri) - fuori} candidate a completare')
     for s in schede:  # le schede degli altri negozi, se sono state fatte prima di zona, forma e pezzi (traduci.py)
         if 'zona' not in s:
             s['zona'], s['forma'], s['pezzi'] = traduci.zona(s['titolo'], s['passaggio']), traduci.forma(s['titolo'], s['passaggio']), traduci.pezzi(s['titolo'])
@@ -462,25 +474,8 @@ def main(prova=None):
             formati[s['id']] = tutti[n]
         x = dec[marca]
         quota = QUANTI['alternativa'] if 'alternativa' in (x.get('nota') or '').lower() else QUANTI[x['decisione']]
-        scelti += sorted(per_nome.values(), key=valore, reverse=True)[:quota]
-    # lo stesso prodotto in più negozi: il link lo decide la commissione, a prezzo simile
-    cambi = 0
-    for s in scelti:
-        if not offerte.get(s['id']):
-            continue
-        tutte = [{'negozio': q['negozio'], 'prezzo': q['prezzo'], 'link': q['link'], 'id_negozio': q['id_negozio'], 'commissione': comm.get(q['negozio'].lower())}
-                 for q in [s] + offerte[s['id']] if q.get('prezzo') and q.get('link')]
-        s['offerte'] = [{k_: o[k_] for k_ in ('negozio', 'prezzo', 'commissione')} for o in tutte]
-        o = scegli_offerta(tutte)
-        if o['negozio'] != s['negozio']:
-            cambi += 1
-            s.update({'negozio': o['negozio'], 'prezzo': o['prezzo'], 'link': o['link'], 'id_negozio': o['id_negozio']})
-    if prova:
-        da = Counter(s['negozio'] for s in scelti)
-        print(f'PROVA {prova}: prodotti nel sito {len(scelti)} · per negozio {dict(da)} · passati di negozio per la commissione {cambi} · con più offerte {sum(1 for s in scelti if s.get("offerte"))}')
-        nuove = [s for s in scelti if not s['id'].startswith('lk-')]
-        print('nuovi prodotti dal negozio in prova:', len(nuove), Counter(NOME_MARCA.get(s['marca'], s['marca']) for s in nuove).most_common(15))
-        return
+        # Liki24 prima, sempre: un altro negozio prende solo i posti che Liki24 lascia liberi (Federico, 16/10)
+        scelti += sorted(per_nome.values(), key=lambda s: (s['negozio'] == 'Liki24', valore(s)), reverse=True)[:quota]
     vecchio = R / 'src' / 'data' / 'prodotti.json'
     vecchi = {p['id']: p['slug'] for p in json.loads(vecchio.read_text())['prodotti'] if p.get('slug')} if vecchio.exists() else {}
     slug = indirizzi(scelti, vecchi)
@@ -497,7 +492,7 @@ def main(prova=None):
             'titolo': s['titolo'], 'pelle': s.get('pelle'), 'bisogni': s['bisogni'], 'capelli': s.get('capelli'), 'integrazione': s.get('integrazione'),
             'gravidanza': s['gravidanza'], 'alcol': s.get('alcol'), 'oli_essenziali': s.get('oli_essenziali'), 'inci': s['inci'] or None,
             'fonti': {c: v for c, v in s['fonti'].items() if v}, 'mancano': s['mancano'], 'prezzo_pieno': s.get('prezzo_pieno'),
-            'formati': list(misure.values()) if len(misure) > 1 else [], 'confronto': conf.get(s['id'], {}), 'offerte': s.get('offerte', []),
+            'formati': list(misure.values()) if len(misure) > 1 else [], 'confronto': conf.get(s['id'], {}),
         }
     prodotti.sort(key=lambda p: (p['category'], p['brand'], p['name']))
     (R / 'src' / 'data' / 'prodotti.json').write_text(json.dumps({'_nota': f'La selezione dalle schede di {neg} (scripts/catalogo/al_sito.py). Non si modifica a mano: si rigenera.', 'prodotti': prodotti}, ensure_ascii=False, separators=(',', ':')))
@@ -508,7 +503,7 @@ def main(prova=None):
 
 
 if __name__ == '__main__' and '--lista' not in sys.argv:
-    main(next((x.split('=', 1)[1] for x in sys.argv if x.startswith('--prova=')), None))
+    main()
 
 
 def da_arricchire(neg='liki24', quanti=400):

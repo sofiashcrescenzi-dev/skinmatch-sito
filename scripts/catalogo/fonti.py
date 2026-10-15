@@ -15,7 +15,7 @@ from pathlib import Path
 csv.field_size_limit(10 ** 8)
 CANALE_ADTRACTION = '2119692688'
 # il prefisso degli id dei prodotti per negozio (lk-188565, cf-…): gli id non si toccano più, sono le pagine
-PREFISSO = {'Liki24': 'lk', 'Clubfarma': 'cf'}
+PREFISSO = {'Liki24': 'lk', 'Farmaself': 'fs'}
 CACHE = Path(__file__).resolve().parents[2] / 'feeds-out' / 'cache'
 UA = 'Mozilla/5.0 (SkinmatchBot; +https://skinmatch.it)'
 
@@ -73,43 +73,71 @@ def liki24(file=None):
         }
 
 
-def _awin(fid, file=None):
-    """Un feed Awin per id: l'indirizzo si chiede ogni volta all'elenco dei feed con la chiave in ~/.awin-feed-key
-    (mai stampata né salvata nel repository)."""
-    if file:
-        return _testo(file)
-    k = (Path.home() / '.awin-feed-key').read_text().strip().split('=')[-1].strip().strip('"\'')
-    lista = _testo(f'https://productdata.awin.com/datafeed/list/apikey/{k}')
-    riga = next((x for x in csv.DictReader(io.StringIO(lista)) if x['Feed ID'] == str(fid)), None)
-    if not riga:
-        raise SystemExit(f'feed Awin {fid} non trovato tra quelli disponibili')
-    return _testo(riga['URL'])
+# ── Farmaself (Adtraction, XML): completa Liki24 con i prodotti che lì non ci sono (Federico, 16/10) ──
+# Nel feed la «marca» è l'azienda («LA ROCHE POSAY-PHAS (L'Oreal)», «IST.GANASSINI SpA»): la marca vera
+# si ricava dal nome, poi dalle linee, poi dall'azienda. Niente EAN. I nomi in sigla da gestionale
+# («SEBIACLEAR EAU MIC 400ML») restano fuori: non possono fare da titolo sul sito.
+LINEE_MARCA = [
+    (r'effaclar|toleriane|lipikar|cicaplast|anthelios|hyalu b5|rosaliac|kerium|mela b3|retinol b3', 'La Roche-Posay'),
+    (r'mineral 89|liftactiv|normaderm|dercos|capital soleil|neovadiol', 'Vichy'),
+    (r'sensibio|sebium|atoderm|hydrabio|cicabio|pigmentbio|photoderm|\bnode\b', 'Bioderma'),
+    (r'sebiaclear|topialyse|sensifine|xerial|densitium|hydraliane', 'SVR'),
+    (r'xemose|bariederm|hyseac|roseliane|depiderm|age lift', 'Uriage'),
+    (r'kelual|anaphase|squanorm|keracnyl|melascreen|sensinol|elution|neoptide', 'Ducray'),
+    (r'dermalibour|exomega|epitheliale|cytelium|\bbiology\b', 'A-Derma'),
+    (r'cleanance|tolerance|cicalfate|xeracalm|hydrance|antirougeurs|hyaluron activ', 'Avene'),
+    (r'xerolact|acnestil|progression|d-clar|rilastil', 'Rilastil'),
+    (r'\bdefence\b|triderm|proxera|bionike', 'BioNike'),
+    (r'vinoperfect|vinopure|resveratrol|vinergetic', 'Caudalie'),
+    (r'heliocare', 'Heliocare'), (r'endocare|biretix|neoretin', 'Cantabria Labs'),
+    (r'crescina', 'Crescina'), (r'bioscalin', 'Bioscalin'), (r'eucerin', 'Eucerin'), (r'cetaphil', 'Cetaphil'),
+]
+AZIENDA_MARCA = [
+    (r'la roche posay', 'La Roche-Posay'), (r'^vichy', 'Vichy'), (r'skinceuticals', 'SkinCeuticals'), (r'^cerave', 'CeraVe'),
+    (r'^avene', 'Avene'), (r'^ducray', 'Ducray'), (r'^aderma', 'A-Derma'), (r'^klorane', 'Klorane'), (r'^bioderma', 'Bioderma'),
+    (r'laboratoires svr', 'SVR'), (r'^uriage', 'Uriage'), (r'bionike', 'BioNike'), (r'^caudalie', 'Caudalie'), (r'^isdin', 'Isdin'),
+    (r'^neostrata', 'Neostrata'), (r'^lierac', 'Lierac'), (r'^filorga', 'Filorga'), (r'^sesderma', 'Sesderma'), (r'^martiderm', 'MartiDerm'),
+]
 
 
-def canale_awin(link):
-    """Il link Awin con l'identificativo publisher di Skinmatch (AWIN_PUBLISHER_ID): vale solo se il negozio
-    ha approvato Skinmatch, per questo il negozio resta «non attivo» in admin finché non succede."""
-    pub = segreto('AWIN_PUBLISHER_ID')
-    return re.sub(r'(awinaffid=)\d+', r'\g<1>' + pub, link) if link and pub else link
+def _marca_farmaself(nome, azienda, marche):
+    n = ' ' + re.sub(r'[^a-z0-9]+', ' ', nome.lower()) + ' '
+    for m in marche:  # il nome comincia o contiene la marca («Skinceuticals C E Ferulic…», «La Roche Posay Lipikar…»)
+        mk = ' ' + re.sub(r'[^a-z0-9]+', ' ', m.lower()).strip() + ' '
+        if len(mk) > 4 and mk in n:
+            return m
+    for rx, m in LINEE_MARCA:
+        if re.search(rx, nome, re.I):
+            return m
+    for rx, m in AZIENDA_MARCA:
+        if re.search(rx, azienda, re.I):
+            return m
+    return azienda
 
 
-def clubfarma(file=None):
-    """Il catalogo di Clubfarma IT (Awin, feed 100756). ⚠️ Il 15/10/2026 il feed era fermo al 5/6/2026."""
-    for x in csv.DictReader(io.StringIO(_awin(100756, file))):
-        if x.get('in_stock') != '1' or x.get('is_for_sale') == '0':
+def farmaself(file=None):
+    """Il catalogo di Farmaself (Adtraction, XML)."""
+    import xml.etree.ElementTree as ET
+    sorgente = file or segreto('FEED_FARMASELF')
+    if not sorgente:
+        raise SystemExit('Manca il feed di Farmaself: FEED_FARMASELF in ~/.skinmatch-segreti.env, oppure --file')
+    root = ET.fromstring(_testo(sorgente))
+    dec = json.loads((Path(__file__).parent / 'decisioni_marche.json').read_text())['marche']
+    marche = sorted({x['marca'] for x in dec} | {'La Roche Posay', 'Avène'}, key=len, reverse=True)
+    alias = {'La Roche Posay': 'La Roche-Posay', 'Avène': 'Avene'}
+    for p in root.findall('product'):
+        nome = pulito(p.findtext('Name'))
+        if (p.findtext('Instock') or '').lower() not in ('yes', 'true', '1', 'in stock'):
             continue
-        titolo = pulito(x.get('product_name'))
-        prezzo = _prezzo(x.get('search_price'))
-        pieno = _prezzo(x.get('rrp_price')) or _prezzo(x.get('product_price_old'))
+        if '*' in nome or not re.search(r'[a-zà-ù]', nome):  # sigle da gestionale e farmaci
+            continue
+        prezzo, pieno = _prezzo(p.findtext('Price')), _prezzo(p.findtext('OriginalPrice'))
+        marca = _marca_farmaself(nome, p.findtext('Brand') or '', marche)
         yield {
-            'negozio': 'Clubfarma', 'id': x.get('aw_product_id') or x.get('merchant_product_id'), 'titolo': titolo,
-            'marca': (x.get('brand_name') or '').strip() if (x.get('brand_name') or '').strip().lower() != 'false' else '',
-            'descrizione': pulito(x.get('description') or x.get('product_short_description')),
-            'prezzo': prezzo, 'prezzo_pieno': pieno if pieno and prezzo and pieno > prezzo else None,
-            'gtin': (x.get('ean') or x.get('product_GTIN') or '').strip() or None,
-            'immagine': x.get('large_image') or x.get('merchant_image_url') or x.get('aw_image_url'),
-            'link': canale_awin(x.get('aw_deep_link')), 'misura_feed': x.get('base_price_text') or None, 'prefisso': 'cf',
-            'categoria_negozio': (x.get('merchant_category') or '').strip(),
+            'negozio': 'Farmaself', 'id': p.findtext('SKU'), 'titolo': nome, 'marca': alias.get(marca, marca),
+            'descrizione': pulito(p.findtext('Description')), 'prezzo': prezzo, 'prezzo_pieno': pieno if pieno and prezzo and pieno > prezzo else None,
+            'gtin': (p.findtext('Ean') or '').strip() or None, 'immagine': p.findtext('ImageUrl'), 'link': canale_skinmatch(p.findtext('TrackingUrl')),
+            'misura_feed': None, 'prefisso': 'fs', 'categoria_negozio': (p.findtext('Category') or '').strip(),
         }
 
 

@@ -1,12 +1,13 @@
 #!/usr/bin/env python3
 """LE MARCHE DI UN NEGOZIO NUOVO, per decidere quali entrano (come fatto per Liki24 il 15/10).
+⚠️ Clubfarma (Awin) è stato analizzato il 16/10 e tolto del tutto dal PO: niente confronti tra negozi.
 
 Per ogni marca: i prodotti utili al test (stessi passaggi ed esclusioni delle schede), le categorie,
 i prezzi, gli attivi riconosciuti, qualche esempio, e il confronto con Liki24 sugli stessi EAN.
 Le marche già decise in decisioni_marche.json valgono anche qui e stanno in un elenco a parte.
 Scrive feeds-out/marche-<negozio>.json, la base della pagina di revisione per il PO.
 
-Uso: python3 scripts/catalogo/marche_negozio.py clubfarma --file feeds-out/clubfarma.csv
+Uso: python3 scripts/catalogo/marche_negozio.py farmaself
 """
 import argparse, json, re, statistics, sys
 from collections import Counter, defaultdict
@@ -25,24 +26,8 @@ CHIAVE = {'retinale', 'retinolo', 'retinoide estere', 'bakuchiol', 'niacinamide'
           'zinco', 'acido ferulico', 'biotina', 'collagene', 'caffeina'}
 
 
-# le categorie del negozio che contano per Skinmatch (Clubfarma, 15/10); «Salute e bellezza» è un contenitore misto:
-# lì passa solo un titolo che parla davvero di viso, capelli o sole
-CATEGORIE_SI = {'Eucerin', 'Trattamenti speciali', 'Cosmetica', 'Shampoo', 'Prodotti Solari', 'Idratazione e nutrimento', 'Detersione', 'Detergenti',
-                'Shampoo e detergenti', 'Uomo', 'Capelli', 'Balsami e maschere', 'Integratori anticaduta', 'Skincare Viso e  Labbra', 'Cura dei Capelli',
-                'Solari', 'Viso', 'Maschere e sieri', 'Fiale anticaduta', 'Pelle Secca o Danneggiata', 'Creme e Lozioni', 'Detersione Viso', 'Haircare',
-                'Integratori', 'Antiossidanti', 'Integratori e curativi', 'Lovren', 'Affezioni Dermatologiche'}
-MISTA = 'Salute e bellezza'
-SKINCARE = (r'\bviso\b|\bvolto\b|face|siero|serum|contorno occhi|antirughe|anti-?et[àa]|anti-?age|idratant|nutrient|detergente viso|micellar|tonico|'
-            r'esfoliant|peeling|\bspf\b|solare|protezione|shampoo|balsamo (?:per )?capelli|maschera capelli|anticaduta|caduta|forfora|cuoio capellut|'
-            r'acne|imperfezion|brufol|macchi|rossor|couperose|lenitiv|riparat|ialuronic|retino|niacinamid|vitamina c|ceramid|peptid|acido')
-NO_MISTA = r'pappa|latte in polvere|omogeneizz|biscott|lubrific|preservativ|ginocchier|cavigliera|calz|salviett|pannolin|ciucci|biberon|dolor|artic|muscol|emorroid|vaginal|intim|collutor|dentifric|termometr'
-
-
 def utile(r):
     t = r['titolo'].lower()
-    cat = r.get('categoria_negozio')
-    if cat is not None and cat not in CATEGORIE_SI and not (cat == MISTA and re.search(SKINCARE, t) and not re.search(NO_MISTA, t)):
-        return None
     for motivo, rx in ESCLUSI:
         if re.search(rx, t):
             return None
@@ -69,7 +54,7 @@ def nome_marca(varianti):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument('negozio', choices=['clubfarma'])
+    ap.add_argument('negozio', choices=['farmaself'])
     ap.add_argument('--file')
     a = ap.parse_args()
     dec = decisioni()
