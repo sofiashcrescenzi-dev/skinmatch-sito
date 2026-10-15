@@ -13,7 +13,7 @@ const gruppo = (slug: string) => {
   const c = CATALOGO.categorie.find((x) => x.id === slug);
   if (c) return { tipo: 'categoria' as const, ...c };
   const t = CATALOGO.tag.find((x) => x.id === slug);
-  return t ? { tipo: 'tag' as const, immagine: t.id === 'k-beauty' ? 'kbeauty' : '', ...t } : null;
+  return t ? { tipo: 'tag' as const, ...t, immagine: t.immagine || (t.id === 'k-beauty' ? 'kbeauty' : '') } : null;
 };
 
 export function generateStaticParams() {

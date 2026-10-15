@@ -23,6 +23,8 @@ def _c(t):
 PASSAGGI = [
     ('integratore', r'^(?!.*\b(shampo\w*|lozione|crema|siero|serum|sérum|balsamo|maschera|gel|spray|fiale|cerott\w*|patch\w*)\b).*(\b(compresse|capsule|bustine|softgel|perle|tavolette|gomme|cps|cpr|caps)\b|\bintegratore\b)'),
     ('spf', r'\bspf ?\d+|protezione solare|solare viso|sunscreen|sun stick|fotoprotett|anthelios|photoderm|fusion water|heliocare 360|uv defense|uv mune'),
+    # ciglia e sopracciglia non sono la cute né i capelli (il test proponeva un siero per sopracciglia al posto di un tonico per la cute, 15/10)
+    ('ciglia e sopracciglia', r'sopraccigli\w*|\bciglia\b|\bciglie\b|\blash\w*|\bbrow\w*|mascara'),
     ('shampoo', r'\bshampo+\w*'),
     ('trattamento cute', r'\b(lozione|fiale|siero|spray|tonico)\b.*\b(anticaduta|caduta|diradamento|cuoio capelluto|cute|capelli)\b|\b(caduta|diradamento)\b.*\b(lozione|fiale|siero|spray|trattamento)\b|\banticaduta\b|\bcuoio capelluto\b'),
     ('balsamo e maschera capelli', r'\b(balsamo|maschera|conditioner|olio|siero|crema)\b.*\bcapell\w*|\bcapelli\b'),
@@ -77,8 +79,8 @@ PELLE = {
 }
 BISOGNI = {
     'imperfezioni': (r'imperfezion|acne|brufol|punti neri|comedon|sebo|opacizzant|purificant|anti-?imperfezioni', {'acido salicilico', 'LHA', 'acido azelaico', 'zinco'}),
-    'macchie': (r'macchie|iperpigment|discromi|uniformant|luminosit|illuminant|schiarent|incarnato', {'vitamina C', 'acido tranexamico', 'arbutina', 'thiamidol', 'acido azelaico'}),
-    'tempo': (r'rughe|antirughe|anti-?età|antietà|anti-?age|rassodant|lifting|elasticit|tonicit|ringiovanent|anti-?ossidant', {'retinolo', 'retinale', 'retinoide estere', 'peptidi', 'bakuchiol'}),
+    'macchie': (r'macchie|iperpigment|discromi|uniformant|luminosit|illuminant|schiarent|incarnato|depigment|sbiancant|brighten|dark spot', {'vitamina C', 'acido tranexamico', 'arbutina', 'thiamidol', 'acido azelaico'}),
+    'tempo': (r'rughe|antirughe|anti-?età|antietà|anti-?age|rassodant|lifting|\blift\b|liftant|ridensific|rivitaliz|revitaliz|renewal|elasticit|tonicit|ringiovanent|anti-?ossidant', {'retinolo', 'retinale', 'retinoide estere', 'peptidi', 'bakuchiol'}),
     'idratazione': (r'idratan|idratazion|disidratat|hydra|hydrat', {'acido ialuronico', 'urea'}),
     'calmare': (r'lenitiv|calmant|rossori|arrossament|irritazion|sensibil|cica\b|riparatric', {'centella', 'pantenolo', 'bisabololo', 'allantoina'}),
     'barriera': (r'barriera|riparatric|ristrutturant|secchezza|atopic|xerosi|ceramid', {'ceramidi'}),
@@ -115,6 +117,10 @@ def forza(attivi, pas):
 
 
 CAPELLI = ('shampoo', 'trattamento cute', 'balsamo e maschera capelli')
+BISOGNI_CAPELLI = {'caduta': r'caduta|anticaduta|diradament|rinforz|fortific|densit|crescita|stimolant|energizz', 'forfora': r'forfora|antiforfora|desquam|squam',
+                   'secchi-crespi': r'secch|crespi|danneggiat|sfibrat|ristruttur|nutrient|riparat', 'mantenimento': r'uso frequente|delicat|quotidian|tutti i tipi'}
+INTEGRAZIONE = {'capelli': r'capelli|caduta|hair', 'unghie': r'unghie|nails', 'pelle-secca': r'idrataz|secchezza|omega', 'tono': r'collagen|rughe|elasticit|anti-?age|tonicit',
+                'sole': r'sole|solare|abbronzatura|carotene|polypodium|fernblock', 'imperfezioni': r'acne|imperfezion|brufol'}
 
 
 def scheda(r, extra_inci=None, segmento=None):
@@ -130,16 +136,28 @@ def scheda(r, extra_inci=None, segmento=None):
         fonti['inci'] = inci_fonte
     else:
         mancano.append('inci')
-    testo = tit + ' . ' + desc
+    # le frasi che parlano d'altro non dicono cosa c'è nel prodotto: «da usare con altri prodotti: con vitamina C…»,
+    # «simile a un prodotto con lo 0,5% di retinolo» (Zeno, 15/10)
+    desc_attivi = ' '.join(f for f in re.split(r'(?<=[.;!?])\s+|<li>|</li>|\n', desc)
+                           if not re.search(r'altri prodotti|abbina|in combinazione|combinar|insieme (?:a|con)|simile a un|rispetto a|al posto d|invece d', f, re.I))
+    testo = tit + ' . ' + desc_attivi
     pas = passaggio(tit) or passaggio(desc[:200])
+    # «Dercos Technique Anti-Forfora Capelli Secchi»: il titolo dice solo «capelli», la descrizione dice che è
+    # uno shampoo (Zeno, 15/10). Se il titolo non nomina il tipo, decide l'inizio della descrizione.
+    if pas == 'balsamo e maschera capelli' and not re.search(r'balsamo|maschera|conditioner|olio|siero|crema|spray|lozione', _c(tit)):
+        pas = passaggio(desc[:300]) or pas
     fonti['passaggio'] = 'titolo' if passaggio(tit) else 'descrizione'
     # le marche dell'integrazione: «Booster di collagene, 10 fiale», «Colpo di collagene» sono da bere, non sieri viso
+    # (anche «Oligo Selenio, capelli e unghie, 30 fiale» di Granions: una marca solo di integratori, 15/10)
     if segmento == 'Integrazione' and pas in ('siero', 'trattamento cute') and re.search(r'\b(fiale|flaconcin\w*|colpo|shot|drink|da bere|bevibil\w*)\b', _c(tit)) \
-            and not re.search(r'\b(viso|pelle|cute|capelli|cuoio|applicare|siero)\b', _c(tit)):
+            and not re.search(r'\b(viso|cuoio|applicare|lozione|massagg\w*|siero)\b', _c(tit)):
         pas = 'integratore'
         fonti['passaggio'] = 'regola: marca di integrazione, da bere'
     # le marche dei capelli: un siero o una crema loro è per la cute o per le lunghezze, non per il viso
-    if segmento == 'Capelli' and pas not in CAPELLI + ('integratore',):
+    # ma non per un prodotto chiaramente per il viso, il corpo o i bimbi (Klorane fa anche creme viso e linea Bébé, Friday 15/10)
+    if segmento == 'Capelli' and pas not in CAPELLI + ('integratore', 'ciglia e sopracciglia') \
+            and not re.search(r'\bviso\b|\bface\b|visage|\bcorpo\b|\bbody\b|pannolin|\bb[ée]b[ée]\b|\bbaby\b|neonat|bambin', _c(tit)) \
+            and not (re.search(NON_CAPELLI, _c(tit)) and not re.search(r'capell|cuoio|\bcute\b|scalp|caduta', _c(tit))):
         pas = 'balsamo e maschera capelli' if re.search(r'lunghezz|punte|balsamo|maschera|conditioner|olio|crespo', _c(tit)) else 'trattamento cute'
         fonti['passaggio'] = 'regola: marca per capelli'
     att = I.attivi(testo, lista)
@@ -147,7 +165,7 @@ def scheda(r, extra_inci=None, segmento=None):
         mancano.append('attivi')
     fonti['attivi'] = 'inci' if lista else 'titolo e descrizione'
     seg = I.segnali(lista)
-    s = {'id': f"lk-{r['id']}", 'negozio': r['negozio'], 'id_negozio': r['id'], 'marca': r['marca'], 'titolo': tit,
+    s = {'id': f"{r.get('prefisso', 'lk')}-{r['id']}", 'negozio': r['negozio'], 'id_negozio': r['id'], 'marca': r['marca'], 'titolo': tit,
          'nome': _corregge(nome_pulito(tit, r['marca']), pas, r['marca']), 'gtin': r.get('gtin'), 'immagine': r.get('immagine'), 'link': r.get('link'),
          'prezzo': r.get('prezzo'), 'prezzo_pieno': r.get('prezzo_pieno'), 'passaggio': pas, 'categoria_test': PASSAGGIO_TEST.get(pas),
          'attivi': att, 'inci': lista or None}
@@ -223,15 +241,148 @@ def scheda(r, extra_inci=None, segmento=None):
         t = _c(testo)
         s['capelli'] = {
             'cute': [c for c, rx in {'grasso': r'grass|seborr|sebo', 'secco': r'secc|disidrat', 'sensibile': r'sensibil|lenitiv|prurit|irritat', 'normale': r'normal|uso frequente|tutti i tipi'}.items() if re.search(rx, t)] or ['normale'],
-            'bisogni': [c for c, rx in {'caduta': r'caduta|anticaduta|diradament|rinforz|fortific|densit', 'forfora': r'forfora|antiforfora|desquam|squam', 'secchi-crespi': r'secch|crespi|danneggiat|sfibrat|ristruttur|nutrient|riparat', 'mantenimento': r'uso frequente|delicat|quotidian|tutti i tipi'}.items() if re.search(rx, t)] or ['mantenimento'],
+            'bisogni': [c for c, rx in BISOGNI_CAPELLI.items() if re.search(rx, t)] or ['mantenimento'],
         }
     # integratori
     if pas == 'integratore':
         t = _c(testo)
-        s['integrazione'] = [c for c, rx in {'capelli': r'capelli|caduta|hair', 'unghie': r'unghie|nails', 'pelle-secca': r'idrataz|secchezza|omega', 'tono': r'collagen|rughe|elasticit|anti-?age|tonicit', 'sole': r'sole|solare|abbronzatura|carotene|polypodium|fernblock', 'imperfezioni': r'acne|imperfezion|brufol'}.items() if re.search(rx, t)]
+        s['integrazione'] = [c for c, rx in INTEGRAZIONE.items() if re.search(rx, t)]
+    # che cosa è davvero, per i confronti (al_sito.py simili() e src/lib/simili.ts): dove si mette, in che forma, quanti pezzi
+    s['zona'], s['forma'], s['pezzi'] = zona(tit, pas), forma(tit, pas), pezzi(tit)
     s['fonti'] = fonti
     s['mancano'] = mancano
     return s
+
+
+# ── per i confronti: la zona, la forma e i pezzi ───────────────────────────────
+# ⚠️ PERCHÉ (Federico, 15/10: «da un tonico per cuoio capelluto mi hai consigliato come top un siero per
+# sopracciglia… questo prodotto che consiglio in alternativa è davvero simile?»). Il passaggio da solo non basta:
+# nella stessa «crema» ci sono creme viso, contorni occhi e creme per il pannolino; nello stesso «detergente»
+# acque micellari e gel schiumogeni; nello stesso «trattamento cute» fiale anticaduta e creme per le lunghezze.
+# Due prodotti si confrontano solo con la stessa zona e la stessa forma (Friday, 15/10).
+NON_CAPELLI = r'\bviso\b|visage|\bpelle\b|\bocchi\b|b[ée]b[ée]|pannolin|\bcorpo\b|solare|\bspf\b|micellar|struccant|labbra|crema-gel|gel crema|purezza|crema leggera|latte detergente|rimpolpante'
+
+
+def zona(titolo, pas):
+    """Dove si mette: viso, occhi, labbra, ciglia, unghie, corpo, bimbi, cute, capelli, barba (integratori: bocca)."""
+    t = _c(titolo)
+    if pas == 'integratore':
+        return 'bocca'
+    if pas == 'ciglia e sopracciglia' or re.search(r'sopraccigl|\bciglia\b|\bciglie\b|\blash\w*|\bbrow\w*|mascara', t):
+        return 'ciglia'
+    if re.search(r'labbr|\blips?\b|l[èe]vres|lip ?balm|burrocacao', t):
+        return 'labbra'
+    if pas == 'struccante occhi' or re.search(r'contorno (?:degli )?occhi|\bocchi\b|\beyes?\b|\byeux\b|palpebr|occhiaie|\bborse\b', t):
+        return 'occhi'
+    if re.search(r'\bunghie\b|ongles|\bnails?\b', t):
+        return 'unghie'
+    if re.search(r'pannolin|\bb[ée]b[ée]\b|\bbaby\b|neonat|bambin', t):
+        return 'bimbi'
+    if re.search(r'\bcorpo\b|\bbody\b|\bmani\b|\bmano\b|\bpiedi\b|\bgambe\b|smagliatur|\bintim\w*|deodor|ascell|\bseno\b|cellulit', t) \
+            and not re.search(r'\bviso\b|\bface\b|visage', t):
+        return 'corpo'
+    if pas in CAPELLI:
+        if pas != 'shampoo' and re.search(NON_CAPELLI, t) and not re.search(r'capell|cuoio|\bcute\b|scalp|caduta', t):
+            return 'viso'  # una crema o un'acqua micellare di una marca per capelli (Klorane): non è per la testa
+        if pas == 'shampoo' or re.search(r'cuoio capellut|\bcute\b|scalp|caduta|diradament|dermocapill|forfora|crescita|density|\bfial\w*|ampoll', t):
+            return 'cute'
+        if pas == 'trattamento cute' and not re.search(r'lunghezz|\bpunte\b|ricci|biond|districant|fibra|senza risciacquo|leave|bond', t):
+            return 'cute'
+        return 'capelli'
+    if pas == 'barba':
+        return 'barba'
+    # una crema o un solare da 250 ml in su è un formato viso e corpo, non si confronta con una crema viso da 50 ml
+    m = re.search(r'(\d+(?:[.,]\d+)?)\s*(?:ml|g)\b', t)
+    if pas in ('crema', 'spf') and m and float(m.group(1).replace(',', '.')) >= 250:
+        return 'viso e corpo'
+    return 'viso'
+
+
+def forma(titolo, pas):
+    """In che forma: dentro lo stesso passaggio, le cose che non si scambiano (acqua micellare e gel, scrub e
+    siero esfoliante, fiale anticaduta e balsamo, solare colorato e no)."""
+    t = _c(titolo)
+    if pas == 'shampoo':
+        if re.search(r'\bsecco\b.*shampo|shampo\w* secco|dry shampoo', t):
+            return 'shampoo secco'
+        if re.search(r'dopo[- ]?shampo|\bbalsamo\b|conditioner', t):
+            return 'balsamo'  # un balsamo finito tra gli shampoo non è uno shampoo
+        if re.search(r'\bviola\b|silver|argent|biond|antigiallo|no yellow|purple', t):
+            return 'shampoo per il colore'
+        return 'shampoo'
+    if pas in ('trattamento cute', 'balsamo e maschera capelli'):
+        if re.search(r'scrub|esfolian|peeling|gommage', t):
+            return 'esfoliante'
+        if re.search(r'\bbalsamo\b|maschera|conditioner|\bmask\b|impacco|\bbaume\b', t) and not re.search(r'senza risciacquo|leave', t):
+            return 'balsamo o maschera'
+        if re.search(r'styling|defini\w* (?:dei )?ricci|lacca|\bcera\b|\bpasta\b', t):
+            return 'styling'
+        return 'lozione o siero' if pas == 'trattamento cute' else 'da lasciare sulle lunghezze'
+    if pas == 'detergente':
+        if re.search(r'scrub|gommage|esfoliant\w* .*granul', t):
+            return 'scrub'
+        if re.search(r'\bpolvere\b|powder', t):
+            return 'polvere'
+        if re.search(r'\bolio\b|\boil\b|\bbalsamo\b|\bbalm\b|\bbaume\b|\bburro\b', t):
+            return 'olio o balsamo'
+        if re.search(r'micellar|struccante|tonico|lozione|lotion', t) and not re.search(r'\bgel\b|schiuma|mousse|foam', t):
+            return 'acqua micellare o lozione'
+        if re.search(r'\bpane\b|saponetta|\bsapone\b|barretta|\bbar\b|solido', t):
+            return 'pane'
+        if re.search(r'\blatte\b|\bmilk\b|\bcrema\b|\bcream\b', t):
+            return 'latte o crema'
+        return 'gel o mousse'
+    if pas == 'esfoliante':
+        if re.search(r'scrub|gommage|granul|microgran|polvere', t):
+            return 'scrub'
+        if re.search(r'dischett|\bpads?\b|salviett', t):
+            return 'dischetti'
+        if re.search(r'maschera|\bmask\b', t):
+            return 'maschera'
+        if re.search(r'deterg|cleans|lavante|\bmousse\b|schiuma|\bwash\b', t):
+            return 'detergente'
+        return 'da lasciare'
+    if pas == 'siero':
+        return 'fiale' if re.search(r'\bfial|ampoul', t) else 'olio' if re.search(r'\bolio\b|\boil\b', t) else 'siero'
+    if pas == 'crema':
+        if re.search(r'schiumogen|moussant|lavant|detergent|cleanser', t):
+            return 'detergente'  # un gel detergente finito tra le creme
+        if re.search(r'maschera|\bmask\b', t):
+            return 'maschera'
+        if re.search(r'\bstick\b', t):
+            return 'stick'
+        return 'olio' if re.search(r'\bolio\b|\boil\b', t) and not re.search(r'\bcrema\b', t) else 'crema'
+    if pas == 'spf':
+        if re.search(r'\bstick\b', t):
+            return 'stick'
+        if re.search(r'\bspray\b|nebbia|\bmist\b|brume', t):
+            return 'spray'
+        if re.search(r'colorat|tinted|teint|\btinta\b|\bcolor\b|fondotinta|bb cream|cc cream|compatt|cipria|polvere', t):
+            return 'colorata'
+        return 'crema o fluido'
+    if pas == 'integratore':
+        if re.search(r'\bfial|flaconcin|\bshot\b|drink|bevib|\bml\b', t):
+            return 'da bere'
+        if re.search(r'bustin|polvere|\bstick\b', t):
+            return 'bustine'
+        if re.search(r'gommos|gummies|caramell|masticab', t):
+            return 'gommose'
+        return 'capsule o compresse'
+    if pas == 'barba':
+        return 'detergente' if re.search(r'shampo|deterg|sapone|wash', t) else 'olio' if re.search(r'\bolio\b|\boil\b', t) else 'balsamo o crema'
+    return pas
+
+
+def pezzi(titolo):
+    """Quanti pezzi nella confezione (capsule, fiale, cerotti...): l'ultimo numero scritto, «10 + 10» e «2x60» moltiplicati.
+    Serve a confrontare il formato di integratori, fiale e cerotti, che non hanno i ml."""
+    t = _c(titolo)
+    m = list(re.finditer(r'(\d+)(?:\s*\+\s*(\d+))?(?:\s*x\s*(\d+))?\s*(?:capsule|compresse|cpr|cps|caps|perle|softgel|bustine|stick|fial\w*|flaconcini|cerotti|patch|pezzi|pz|unit[àa]|coppie|gommose|tavolette|pastiglie)\b', t))
+    if not m:
+        return None
+    a, piu, per = m[-1].groups()
+    n = int(a) + (int(piu) if piu else 0)
+    return n * int(per) if per else n
 
 
 # i nomi con cui il negozio scrive marche e produttori dentro i titoli (anche tradotti per sbaglio)
@@ -281,7 +432,7 @@ def nome_pulito(titolo, marca):
     t = ', '.join(pezzi)
     t = re.sub(r'(?:[\s,]+(?:da|x|di|con|per|e|a|in|al|alla|del|della))+\s*$', '', t, flags=re.I).strip(' ,.-')
     # le parole urlate in maiuscolo diventano normali; le sigle restano («SPF», «AHA», «B5», «NCEF»)
-    SIGLE = {'SPF', 'AHA', 'BHA', 'PHA', 'LHA', 'UV', 'UVA', 'UVB', 'PDRN', 'NCEF', 'HFSC', 'RGN', 'CE', 'HA', 'DS', 'AC', 'AP', 'AR', 'XL', 'PM', 'AM', 'SA', 'BB', 'CC', 'II', 'III', 'IV', 'H2O', 'MD', 'DNA', 'ATP', 'KR'}
+    SIGLE = {'SPF', 'AHA', 'BHA', 'PHA', 'LHA', 'UV', 'UVA', 'UVB', 'PDRN', 'NCEF', 'HFSC', 'RGN', 'CE', 'HA', 'DS', 'AC', 'AP', 'AR', 'XL', 'PM', 'AM', 'SA', 'BB', 'CC', 'II', 'III', 'IV', 'H2O', 'MD', 'DNA', 'ATP', 'KR', 'TXA', 'HA', 'PDRN', 'EGF', 'NAD', 'CBD', 'UVB', 'PH'}
     t = re.sub(r"\b[A-ZÀ-Ý][A-ZÀ-Ý'’]{2,}\b", lambda m: m.group(0) if m.group(0) in SIGLE else m.group(0).capitalize(), t)
     if not t.strip(' ,.-'):  # tutto il titolo era marca e misura: resta il titolo senza la marca
         t = re.sub(re.escape(marca or ''), ' ', titolo, flags=re.I).strip(' ,.-') or titolo

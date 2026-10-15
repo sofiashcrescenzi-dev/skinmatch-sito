@@ -10,7 +10,7 @@ import CLIC from '@/data/clic.json';
 // ordina per prezzo, consigliati in base ai clic e agli attivi»). Filtri: categoria, selezioni (i tag
 // di src/data/catalogo.json), attivo (src/data/attivi.json), tipo di pelle, problema, marca, ricerca.
 // Ordini: consigliati (attivi + clic), più scelti (clic degli ultimi 90 giorni, scripts/catalogo/clic.py),
-// più ricchi di attivi, prezzo, prezzo ogni 10 ml. Tutto sta nell'indirizzo, così una ricerca si condivide.
+// più ricchi di attivi, prezzo. Tutto sta nell'indirizzo, così una ricerca si condivide.
 const PASSO = 24;
 const clic = (CLIC as { clic: Record<string, number> }).clic;
 const valore = (p: Prodotto) => p.scheda?.valore ?? p.scheda?.completezza ?? 0;
@@ -20,7 +20,6 @@ const ORDINI: [string, string, (a: Prodotto, b: Prodotto) => number][] = [
   ['attivi', 'Più ricchi di attivi', (a, b) => valore(b) - valore(a)],
   ['prezzo', 'Prezzo: dal più basso', (a, b) => a.price - b.price],
   ['prezzo-alto', 'Prezzo: dal più alto', (a, b) => b.price - a.price],
-  ['al-10', 'Prezzo ogni 10 ml', (a, b) => (a.scheda?.al_10 ?? 1e9) - (b.scheda?.al_10 ?? 1e9)],
 ];
 const PELLI: [string, string][] = [['secca', 'Secca'], ['normale', 'Normale'], ['mista', 'Mista'], ['grassa', 'Grassa'], ['sensibile', 'Sensibile']];
 const PROBLEMI: [string, string, (p: Prodotto) => boolean][] = [

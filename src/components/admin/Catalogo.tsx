@@ -1,7 +1,7 @@
 'use client';
 
 import { useMemo, useState } from 'react';
-import { CATALOGO, type Catalogo as Doc, type Modifica, type RegolaProdotti, type CategoriaCatalogo, type TagCatalogo } from '@/lib/dati';
+import { CATALOGO, CREDITI, FASCE, type Catalogo as Doc, type Modifica, type RegolaProdotti, type CategoriaCatalogo, type TagCatalogo } from '@/lib/dati';
 import { PRODUCTS, type Product } from '@/lib/products';
 import { rispetta, categoriaDi, applica, euro } from '@/lib/catalogo';
 import { useDocumento, useApi, invia, BarraSalva, Campo, Testo, Scegli, Titolo, Vuoto, quando, nuovoId } from './base';
@@ -37,7 +37,8 @@ function regolaInParole(r: RegolaProdotti) {
   if (r.con_bisogno) p.push(`con «${r.con_bisogno}»`);
   if (r.senza_bisogno) p.push(`senza «${r.senza_bisogno}»`);
   if (r.segmento?.length) p.push(r.segmento.join(', '));
-  if (r.fascia?.length) p.push(`fascia ${r.fascia.join(', ')}`);
+  if (r.categorie?.length) p.push(r.categorie.join(', '));
+  if (r.fascia?.length) p.push(`fascia ${r.fascia.map((x) => FASCE[x] || x).join(', ')}`);
   if (r.marca?.length) p.push(`${r.marca.length} marche`);
   if (r.coreano !== undefined) p.push(r.coreano ? 'coreani' : 'non coreani');
   if (r.sensibili) p.push('adatti alle pelli sensibili');
@@ -46,44 +47,46 @@ function regolaInParole(r: RegolaProdotti) {
   return p.join(' · ') || 'nessuna regola: solo i prodotti messi a mano';
 }
 
-function EditorRegola({ r, cambia, categoria, marche, segmenti }: { r: RegolaProdotti; cambia: (r: RegolaProdotti) => void; categoria: boolean; marche: string[]; segmenti: string[] }) {
+function EditorRegola({ r, cambia, categoria, categorie, marchePer, segmenti }: { r: RegolaProdotti; cambia: (r: RegolaProdotti) => void; categoria: boolean; categorie: CategoriaCatalogo[]; marchePer: (r: RegolaProdotti) => string[]; segmenti: string[] }) {
   const v = <K extends keyof RegolaProdotti>(k: K, x: RegolaProdotti[K]) => {
     const n = { ...r, [k]: x };
     if (x === undefined || (Array.isArray(x) && !x.length) || x === '') delete n[k];
     cambia(n);
   };
+  if (categoria) return (
+    <div className="adm-due">
+      <Campo etichetta="Tipo di prodotto (dal feed)" aiuto="Chi ha questo tipo entra da solo; gli altri li associ a mano dalla marca."><select className="adm-input" value={r.categoria || ''} onChange={(e) => v('categoria', e.target.value || undefined)}><option value="">nessuno</option>{TIPI_FEED.map((x) => <option key={x}>{x}</option>)}</select></Campo>
+      <Campo etichetta="Solo con / senza il bisogno"><div className="adm-due">
+        <select className="adm-input" value={r.con_bisogno || ''} onChange={(e) => v('con_bisogno', e.target.value || undefined)}><option value="">con: qualsiasi</option>{BISOGNI.map((x) => <option key={x}>{x}</option>)}</select>
+        <select className="adm-input" value={r.senza_bisogno || ''} onChange={(e) => v('senza_bisogno', e.target.value || undefined)}><option value="">senza: nessuno</option>{BISOGNI.map((x) => <option key={x}>{x}</option>)}</select>
+      </div></Campo>
+    </div>
+  );
+  // le marche: solo quelle con prodotti che passano gli altri criteri, più quelle già scelte
+  const adatte = marchePer({ ...r, marca: undefined });
+  const marche = [...new Set([...(r.marca || []), ...adatte])].sort((a, b) => a.localeCompare(b, 'it'));
+  const genere = r.genere?.length === 1 ? r.genere[0] : '';
   return (
-    <div className="pila" style={{ ['--gap' as string]: '10px' }}>
-      {categoria && (
-        <div className="adm-due">
-          <Campo etichetta="Tipo di prodotto (dal feed)" aiuto="Chi ha questo tipo entra da solo; gli altri li associ a mano dalla marca."><select className="adm-input" value={r.categoria || ''} onChange={(e) => v('categoria', e.target.value || undefined)}><option value="">nessuno</option>{TIPI_FEED.map((x) => <option key={x}>{x}</option>)}</select></Campo>
-          <Campo etichetta="Solo con / senza il bisogno"><div className="adm-due">
-            <select className="adm-input" value={r.con_bisogno || ''} onChange={(e) => v('con_bisogno', e.target.value || undefined)}><option value="">con: qualsiasi</option>{BISOGNI.map((x) => <option key={x}>{x}</option>)}</select>
-            <select className="adm-input" value={r.senza_bisogno || ''} onChange={(e) => v('senza_bisogno', e.target.value || undefined)}><option value="">senza: nessuno</option>{BISOGNI.map((x) => <option key={x}>{x}</option>)}</select>
-          </div></Campo>
-        </div>
-      )}
-      {!categoria && (<>
-        <Campo etichetta="Famiglia della marca"><Scegli valori={segmenti} scelti={r.segmento} cambia={(x) => v('segmento', x)} /></Campo>
-        <Campo etichetta="Fascia di prezzo"><Scegli valori={['base', 'top', 'premium']} scelti={r.fascia} cambia={(x) => v('fascia', x)} /></Campo>
-        <div className="adm-due">
-          <Campo etichetta="Coreani"><select className="adm-input" value={r.coreano === undefined ? '' : r.coreano ? 'si' : 'no'} onChange={(e) => v('coreano', e.target.value ? e.target.value === 'si' : undefined)}><option value="">indifferente</option><option value="si">solo coreani</option><option value="no">solo non coreani</option></select></Campo>
-          <Campo etichetta="Per chi"><Scegli valori={['uomo', 'donna', 'unisex']} scelti={r.genere} cambia={(x) => v('genere', x)} /></Campo>
-        </div>
-        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px 18px' }}>
+    <div className="pila" style={{ ['--gap' as string]: '12px' }}>
+      <Campo etichetta="Tipologia di prodotto" aiuto="Nessuna scelta = tutte."><Scegli valori={categorie.map((c) => c.id)} nomi={Object.fromEntries(categorie.map((c) => [c.id, c.nome]))} scelti={r.categorie} cambia={(x) => v('categorie', x)} /></Campo>
+      <Campo etichetta="Famiglia della marca" aiuto="Come deciso nelle «Marche di Skinmatch». Nessuna scelta = tutte."><Scegli valori={segmenti} scelti={r.segmento} cambia={(x) => v('segmento', x)} /></Campo>
+      <Campo etichetta="Fascia di prezzo" aiuto="Rispetto agli altri prodotti dello stesso tipo: economica è il terzo che costa meno, alta il 20% che costa di più, media il resto."><Scegli valori={['base', 'top', 'premium']} nomi={FASCE} scelti={r.fascia} cambia={(x) => v('fascia', x)} /></Campo>
+      <div className="adm-due">
+        <Campo etichetta="Per chi"><select className="adm-input" value={genere} onChange={(e) => v('genere', e.target.value ? [e.target.value] : undefined)}><option value="">tutti (anche unisex)</option><option value="uomo">solo per uomo</option><option value="donna">solo per donna</option></select></Campo>
+        <Campo etichetta="Sicurezza"><div className="pila" style={{ ['--gap' as string]: '4px' }}>
           <label className="piccolo" style={{ display: 'inline-flex', gap: 6, alignItems: 'center' }}><input type="checkbox" checked={!!r.sensibili} onChange={(e) => v('sensibili', e.target.checked || undefined)} />solo adatti alle pelli sensibili</label>
           <label className="piccolo" style={{ display: 'inline-flex', gap: 6, alignItems: 'center' }}><input type="checkbox" checked={!!r.gravidanza} onChange={(e) => v('gravidanza', e.target.checked || undefined)} />solo sicuri in gravidanza</label>
-        </div>
-        <details><summary className="piccolo" style={{ cursor: 'pointer' }}>Marche ({r.marca?.length || 0} scelte; vuoto = tutte)</summary>
-          <div style={{ marginTop: 8 }}><Scegli valori={marche} scelti={r.marca} cambia={(x) => v('marca', x)} /></div>
-        </details>
-      </>)}
+        </div></Campo>
+      </div>
+      <Campo etichetta={`Marche (${adatte.length} con questi criteri)`} aiuto="Nessuna scelta = tutte quelle qui sotto.">
+        {marche.length ? <Scegli valori={marche} scelti={r.marca} cambia={(x) => v('marca', x)} /> : <span className="piccolo">Nessuna marca con questi criteri.</span>}
+      </Campo>
     </div>
   );
 }
 
 type Gruppo = CategoriaCatalogo | TagCatalogo;
-function Gruppi({ d, set, tipo, conta, marche, segmenti }: { d: Doc; set: (d: Doc) => void; tipo: 'categorie' | 'tag'; conta: (g: Gruppo) => number; marche: string[]; segmenti: string[] }) {
+function Gruppi({ d, set, tipo, conta, marchePer, segmenti }: { d: Doc; set: (d: Doc) => void; tipo: 'categorie' | 'tag'; conta: (g: Gruppo) => number; marchePer: (r: RegolaProdotti) => string[]; segmenti: string[] }) {
   const [aperto, setAperto] = useState('');
   const [nuovo, setNuovo] = useState('');
   const lista = d[tipo] as Gruppo[];
@@ -118,7 +121,7 @@ function Gruppi({ d, set, tipo, conta, marche, segmenti }: { d: Doc; set: (d: Do
               <b>{g.nome}</b>
               <span className="piccolo">{conta(g)} prodotti</span>
             </div>
-            <span className="piccolo">/catalogo/{g.id}{online.has(g.id) ? '' : ' · nuova, non ancora online'}</span>
+            <span className="piccolo">/catalogo/{g.id}{online.has(g.id) ? '' : ' · nuova, non ancora online'}{(g as TagCatalogo).home ? ' · in homepage' : ''}</span>
             {!su && <span className="piccolo adm-regola">{regolaInParole(g.regola)}</span>}
             {su && (
               <div className="pila" style={{ ['--gap' as string]: '10px', marginTop: 6 }}>
@@ -129,8 +132,13 @@ function Gruppi({ d, set, tipo, conta, marche, segmenti }: { d: Doc; set: (d: Do
                   </Campo>
                 </div>
                 <Campo etichetta="Descrizione (anche nella pagina)"><Testo lungo valore={g.descrizione} cambia={(x) => cambia(i, { ...g, descrizione: x })} /></Campo>
-                {tipo === 'categorie' && <Campo etichetta="Foto" aiuto="Il nome di una foto di public/immagini (es. sieri, biotipo-acneica)"><Testo valore={(g as CategoriaCatalogo).immagine} cambia={(x) => cambia(i, { ...(g as CategoriaCatalogo), immagine: x })} /></Campo>}
-                <Campo etichetta="Chi entra da solo"><EditorRegola r={g.regola} cambia={(r) => cambia(i, { ...g, regola: r })} categoria={tipo === 'categorie'} marche={marche} segmenti={segmenti} /></Campo>
+                <div className="adm-due">
+                  <Campo etichetta="Foto" aiuto={tipo === 'tag' ? 'Nella homepage e in cima alla pagina del filtro.' : 'In cima alla pagina della categoria.'}>
+                    <select className="adm-input" value={g.immagine || ''} onChange={(e) => cambia(i, { ...g, immagine: e.target.value } as Gruppo)}><option value="">nessuna</option>{CREDITI.map((c) => c.nome).sort().map((n) => <option key={n}>{n}</option>)}</select>
+                  </Campo>
+                  {tipo === 'tag' && <Campo etichetta="Homepage" aiuto="Le famiglie «Per orientarsi» della home sono i filtri spuntati qui, nell'ordine delle carte."><label className="piccolo" style={{ display: 'inline-flex', gap: 6, alignItems: 'center', minHeight: 40 }}><input type="checkbox" checked={!!(g as TagCatalogo).home} onChange={(e) => cambia(i, { ...(g as TagCatalogo), home: e.target.checked || undefined })} />mostra in homepage</label></Campo>}
+                </div>
+                <Campo etichetta={tipo === 'tag' ? 'Quali prodotti ha' : 'Chi entra da solo'}><EditorRegola r={g.regola} cambia={(r) => cambia(i, { ...g, regola: r })} categoria={tipo === 'categorie'} categorie={d.categorie} marchePer={marchePer} segmenti={segmenti} /></Campo>
               </div>
             )}
             <div className="adm-scatola-azioni">
@@ -158,7 +166,7 @@ function EditorProdotto({ p, m, cambia }: { p: Product; m: Modifica; cambia: (m:
     <div className="pila" style={{ ['--gap' as string]: '10px', marginTop: 10 }}>
       <div className="adm-due">
         <Campo etichetta="Nome sul sito" aiuto={`Dal feed: ${p.name}`}><Testo valore={m.name} placeholder={p.name} cambia={(x) => v('name', x || undefined)} /></Campo>
-        <Campo etichetta="Fascia"><select className="adm-input" value={m.tier || ''} onChange={(e) => v('tier', (e.target.value || undefined) as Modifica['tier'])}><option value="">dal feed ({p.tier})</option><option value="base">base</option><option value="top">top</option><option value="premium">premium</option></select></Campo>
+        <Campo etichetta="Fascia"><select className="adm-input" value={m.tier || ''} onChange={(e) => v('tier', (e.target.value || undefined) as Modifica['tier'])}><option value="">dalla scheda ({FASCE[p.tier]})</option><option value="base">economica</option><option value="top">media</option><option value="premium">alta</option></select></Campo>
       </div>
       <Campo etichetta="Descrizione" aiuto={`Dal feed: ${p.description}`}><Testo lungo valore={m.description} placeholder={p.description} cambia={(x) => v('description', x || undefined)} /></Campo>
       {['detergenti', 'sieri', 'creme', 'attivi', 'barba', 'integratori', 'cerotti'].includes(p.category) && (<>
@@ -218,7 +226,8 @@ export default function Catalogo() {
   visibili.forEach((x) => { (perMarca[x.p.brand] ||= []).push(x); });
   const marche = [...new Set(tutti.map((p) => p.brand))].sort((a, b) => a.localeCompare(b, 'it'));
   const segmenti = [...new Set(tutti.map((p) => p.segment).filter(Boolean) as string[])].sort();
-  const contaGruppo = (g: Gruppo) => ('immagine' in g ? vivi.filter((x) => x.cat?.id === g.id && !x.m.nascosto).length : vivi.filter((x) => !x.m.nascosto && ((rispetta(x.q, g.regola) && Object.keys(g.regola).length > 0) || x.m.tag_piu?.includes(g.id)) && !x.m.tag_meno?.includes(g.id)).length);
+  const marchePer = (r: RegolaProdotti) => [...new Set(vivi.filter((x) => !x.m.nascosto && rispetta(x.q, r, d.categorie)).map((x) => x.p.brand))];
+  const contaGruppo = (g: Gruppo) => ('immagine' in g ? vivi.filter((x) => x.cat?.id === g.id && !x.m.nascosto).length : vivi.filter((x) => !x.m.nascosto && ((rispetta(x.q, g.regola, d.categorie) && Object.keys(g.regola).length > 0) || x.m.tag_piu?.includes(g.id)) && !x.m.tag_meno?.includes(g.id)).length);
   const proposte = (arr.dati?.arricchimenti || []).filter((a) => a.stato === 'proposto');
   const approva = async (a: Arr, si: boolean) => {
     await invia('/api/admin/arricchimenti', { id: a.id, stato: si ? 'approvato' : 'scartato' });
@@ -246,13 +255,13 @@ export default function Catalogo() {
       <section className="pila" style={{ ['--gap' as string]: '12px' }}>
         <h2 className="titolo-3">Le categorie</h2>
         <p className="piccolo">Una per tipo di prodotto: ognuna è una pagina (/catalogo/sieri) e ogni prodotto sta in una sola. Chi entra da solo lo decide la regola; gli altri li associ dalla marca.</p>
-        <Gruppi d={d} set={doc.setDati} tipo="categorie" conta={contaGruppo} marche={marche} segmenti={segmenti} />
+        <Gruppi d={d} set={doc.setDati} tipo="categorie" conta={contaGruppo} marchePer={marchePer} segmenti={segmenti} />
       </section>
 
       <section className="pila" style={{ ['--gap' as string]: '12px' }}>
         <h2 className="titolo-3">I filtri</h2>
         <p className="piccolo">Le selezioni che attraversano le categorie (K-beauty, Da farmacia, Anche in gravidanza…): ognuno è una pagina e un bottone del catalogo. Un prodotto può averne tanti.</p>
-        <Gruppi d={d} set={doc.setDati} tipo="tag" conta={contaGruppo} marche={marche} segmenti={segmenti} />
+        <Gruppi d={d} set={doc.setDati} tipo="tag" conta={contaGruppo} marchePer={marchePer} segmenti={segmenti} />
       </section>
 
       <section className="pila" style={{ ['--gap' as string]: '12px' }}>

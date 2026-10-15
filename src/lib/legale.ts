@@ -102,7 +102,7 @@ Le informazioni sui prodotti vengono dalle schede dei produttori e dai negozi. P
 
 ## I link di affiliazione
 
-Alcuni link verso i negozi sono di affiliazione: se compri, Skinmatch riceve una piccola commissione dal negozio, **a te il prezzo non cambia**. Le commissioni non decidono quali prodotti consigliamo: il test li sceglie sul biotipo, e per ognuno mostriamo anche un'alternativa che costa meno.
+Alcuni link verso i negozi sono di affiliazione: se compri, Skinmatch riceve una piccola commissione dal negozio, **a te il prezzo non cambia**. Le commissioni non decidono quali prodotti consigliamo: il test li sceglie sul biotipo, e per ognuno mostriamo anche un'alternativa simile, di solito più economica.
 
 ## Contenuti, marchi e immagini
 

@@ -69,7 +69,7 @@ export default async function BiotipoPage({ params }: { params: Promise<{ id: st
       {prodotti.length > 0 && (
         <section className="pila" style={{ ['--gap' as string]: '16px' }}>
           <h2 className="titolo-2">Prodotti adatti</h2>
-          <p className="piccolo">Scelti sui bisogni di questo biotipo. Il test li sceglie anche sulle tue risposte, con un&apos;alternativa che costa meno.</p>
+          <p className="piccolo">Scelti sui bisogni di questo biotipo. Il test li sceglie anche sulle tue risposte, con un&apos;alternativa simile, di solito più economica.</p>
           <div className="griglia" style={{ ['--min' as string]: '300px' }}>{prodotti.map((p) => <SchedaProdotto key={p.id} p={p} da={`biotipo-${b.id}`} />)}</div>
         </section>
       )}

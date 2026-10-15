@@ -18,7 +18,7 @@ const TIPI_EVENTO = new Set(['test_inizio', 'test_fine', 'clic']);
 // solo percorsi e biotipi che esistono: nessuno scrive righe a caso nel Traffico (Friday, 15/10)
 const PERCORSI = new Set(test.percorsi.map((p) => p.id));
 const BIOTIPI = new Set(biotipi.biotipi.map((b) => b.id));
-const DOCUMENTI = new Set(['test', 'biotipi', 'glossario', 'catalogo']);
+const DOCUMENTI = new Set(['test', 'biotipi', 'glossario', 'catalogo', 'negozi']);
 const STATI_ARTICOLO = new Set(['in_approvazione', 'da_correggere', 'approvato', 'online', 'scartato']);
 const breve = (s, n = 80) => String(s ?? '').replace(/[^\p{L}\p{N}_.\- ]/gu, '').slice(0, n);
 const json = (dati, stato = 200) => new Response(JSON.stringify(dati), { status: stato, headers: { 'content-type': 'application/json; charset=utf-8', 'cache-control': 'no-store' } });

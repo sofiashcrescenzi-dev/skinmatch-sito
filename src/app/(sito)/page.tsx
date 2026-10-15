@@ -8,17 +8,7 @@ import { ConTermini } from '@/components/Termini';
 const PASSI = [
   ['Rispondi guardandoti allo specchio', 'La fronte a metà giornata, la pelle dopo la detersione, i rossori: domande su quello che vedi, non su come pensi di essere.'],
   ['Scopri il tuo biotipo', 'Dai punteggi su sebo, idratazione e reattività esce il tuo biotipo, con i tratti che si aggiungono e cosa evitare.'],
-  ['Ricevi la routine', 'Un prodotto per ogni passaggio, scelto sul biotipo, e accanto un\'alternativa che costa meno. Se serve un medico, te lo diciamo prima.'],
-];
-
-// Le famiglie della skincare (Federico e Sofia, 15/10: la home deve anche informare, non solo portare al test).
-// Le marche di ogni famiglia si contano dal catalogo, non si scrivono a mano.
-const FAMIGLIE: [string, string, string][] = [
-  ['medicale', 'Dermocosmesi medicale', 'Marchi di ricerca che dichiarano attivi e percentuali: vitamina C stabilizzata, retinoidi, acidi, peptidi. Spesso usati negli studi di dermatologia e di medicina estetica. Costano di più: valgono quando serve un attivo preciso, a una concentrazione precisa.'],
-  ['farmacia', 'Da farmacia', 'Dermocosmesi nata con i dermatologi: formule essenziali, spesso senza profumo, testate su pelli sensibili, con acne, dermatite o rossori. Il punto di partenza più sicuro quando la pelle reagisce.'],
-  ['k-beauty', 'K-beauty', 'La cosmetica coreana: texture leggere, idratazione a strati, centella, niacinamide, riso e mucina di lumaca, protezioni solari piacevoli da mettere ogni giorno. Spesso molto conveniente ogni 10 ml.'],
-  ['alta-cosmesi', 'Alta cosmesi', 'I marchi di profumeria: texture curate, profumo, un’esperienza d’uso. Nella scheda trovi cosa contengono davvero, per capire quanto paghi la formula e quanto il marchio.'],
-  ['qualita-prezzo', 'Buona qualità/prezzo', 'Attivi riconosciuti a prezzi bassi, per una routine completa senza spendere molto. Il confronto giusto è il prezzo ogni 10 ml.'],
+  ['Ricevi la routine', 'Un prodotto per ogni passaggio, scelto sul biotipo, e accanto un\'alternativa simile, di solito più economica. Se serve un medico, te lo diciamo prima.'],
 ];
 
 // La routine in ordine: a cosa serve ogni passaggio e quando si usa, con i suoi prodotti.
@@ -43,7 +33,7 @@ export default function Home() {
             <span className="etichetta">Skincare spiegata, scelta su di te</span>
             <h1 className="sopratitolo">Cosa metti sulla pelle, e perché</h1>
             <div className="scala-fototipi" role="img" aria-label="I sei fototipi della pelle"><i /><i /><i /><i /><i /><i /></div>
-            <p className="intro">Ogni prodotto con la sua scheda: gli attivi e le percentuali, per quale pelle, quanto è forte, se va bene in gravidanza, quanto costa ogni 10 ml. Puoi informarti da solo, o fare il test: parte dalla tua pelle e ti propone una routine.</p>
+            <p className="intro">Ogni prodotto con la sua scheda: gli attivi e le percentuali, per quale pelle, quanto è forte, se va bene in gravidanza, quanto costa. Puoi informarti da solo, o fare il test: parte dalla tua pelle e ti propone una routine.</p>
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: 10 }}>
               <Invito href="/test" scuro>Fai il test</Invito>
               <Link href="/catalogo" className="bottone secondario">Esplora i prodotti</Link>
@@ -65,22 +55,26 @@ export default function Home() {
         <div className="pila" style={{ ['--gap' as string]: '8px' }}>
           <span className="etichetta">Per orientarsi</span>
           <h2 className="titolo-2">Le famiglie della skincare</h2>
-          <p className="intro">Medicale, da farmacia, coreana, di profumeria: cosa le distingue e quando sceglierle.</p>
+          <p className="intro">Cosa distingue le grandi famiglie della skincare, e i prodotti di ognuna.</p>
         </div>
-        <div className="griglia" style={{ ['--min' as string]: '270px' }}>
-          {FAMIGLIE.map(([id, nome, testo]) => {
-            const g = nelGruppo(id);
+        {/* le famiglie sono i filtri segnati «in homepage» nell'admin (Federico, 15/10), nel loro ordine */}
+        <div className="griglia" style={{ ['--min' as string]: '260px' }}>
+          {CATALOGO.tag.filter((x) => x.home).map((x) => {
+            const g = nelGruppo(x.id);
             if (!g.length) return null;
             const conta: Record<string, number> = {};
             g.forEach((p) => { conta[p.brand] = (conta[p.brand] || 0) + 1; });
             const marche = Object.entries(conta).sort((a, b) => b[1] - a[1]).slice(0, 4).map(([m]) => m);
             return (
-              <article key={id} className="carta pila famiglia" style={{ ['--gap' as string]: '10px' }}>
-                <h3 className="titolo-3">{nome}</h3>
-                <p className="testo-carta"><ConTermini testo={testo} /></p>
-                <p className="piccolo">Per esempio {marche.join(', ')}.</p>
-                <Stendi href={`/catalogo/${id}`}>I {g.length} prodotti</Stendi>
-              </article>
+              <Link key={x.id} href={`/catalogo/${x.id}`} className="carta-foto famiglia-foto" style={{ ['--rapporto' as string]: '3 / 2' }}>
+                <Foto nome={x.immagine || 'glossario'} sizes="(max-width: 760px) 100vw, 25vw" />
+                <span className="corpo">
+                  <span className="titolo-3">{x.nome}</span>
+                  <span className="testo-carta">{x.descrizione}</span>
+                  <span className="piccolo">Per esempio {marche.join(', ')}.</span>
+                  <span className="stendi">I {g.length} prodotti<span className="barra" aria-hidden="true"><i /><i /><i /><i /><i /><i /></span></span>
+                </span>
+              </Link>
             );
           })}
         </div>

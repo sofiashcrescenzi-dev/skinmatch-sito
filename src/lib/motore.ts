@@ -17,6 +17,12 @@
 
 import { TEST, BIOTIPI, type Area, type Biotipo, type Condizione, type Domanda, type Limite, type Passaggio, type Percorso, type Test, type Valore } from './dati';
 import { PRODOTTI, rispetta, type Prodotto } from './catalogo';
+import { simili, menoCaro, zonaDi, formaDi } from './simili';
+
+// dove si mette un prodotto, per area del test (la zona la legge scripts/catalogo/traduci.py zona()): la crema per il
+// pannolino finita tra i trattamenti per capelli, il contorno occhi con SPF tra i solari, il gel per le unghie tra le
+// creme non vanno nella routine (Friday, 15/10). «viso e corpo» (i formati da 250 ml in su) resta nella pelle.
+const ZONE: Partial<Record<Area, string[]>> = { pelle: ['viso', 'viso e corpo', 'barba'], cute: ['cute', 'capelli'] };
 
 // I dati su cui gira il motore: quelli pubblicati, oppure (nell'admin) la bozza da provare.
 let T: Test = TEST;
@@ -185,6 +191,9 @@ function scegli(area: Area, ps: Passaggio, p: Profilo, b: Bisogni, biotipo: Biot
   const genere = p.scelte.genere;
   const re = p.punti.re || 0;
   const pool = PRODOTTI.filter((x) => !usati.has(x.id) && rispetta(x, { categoria: ps.categoria, con_bisogno: ps.con_bisogno, senza_bisogno: ps.senza_bisogno }))
+    .filter((x) => !zonaDi(x) || !ZONE[area] || ZONE[area]!.includes(zonaDi(x)!))
+    // un detergente finito tra le creme o i trattamenti della sera non è una crema
+    .filter((x) => !['creme', 'attivi'].includes(ps.categoria) || formaDi(x) !== 'detergente')
     .filter((x) => x.gender === 'unisex' || genere === 'altro' || genere === undefined || x.gender === genere)
     .filter((x) => p.scelte.gravidanza !== true || x.pregnancySafe === true)
     .filter((x) => !(delicati || (area === 'pelle' && re >= 3)) || x.sensitiveSafe === true)
@@ -217,8 +226,10 @@ function scegli(area: Area, ps: Passaggio, p: Profilo, b: Bisogni, biotipo: Biot
   // quelli per cui il consigliato è stato scelto, e la stessa natura di prodotto (solare con solare).
   const lavoro = (x: Prodotto) => [...(x.concerns || []), ...(x.hairConcerns || [])].filter((k) => b.concerns.has(k) || b.capelli.has(k));
   const lavoroTop = lavoro(top.x);
-  const stesso = (x: Prodotto) => !lavoroTop.length || lavoro(x).some((k) => lavoroTop.includes(k));
-  const meno = voti.find((v) => v !== top && stesso(v.x) && v.x.price <= top.x.price * 0.8 && v.c >= Math.max(50, top.c - 15));
+  // e (Federico, 15/10) stessa zona, stessa forma, stesso attivo principale, formato vicino: lib/simili.ts.
+  // Senza scheda non si sa se è simile: nessuna alternativa (meglio nessuna che una a caso).
+  const stesso = (x: Prodotto) => (!lavoroTop.length || lavoro(x).some((k) => lavoroTop.includes(k))) && simili(top.x, x);
+  const meno = voti.find((v) => v !== top && stesso(v.x) && menoCaro(v.x, top.x) && v.c >= Math.max(50, top.c - 15));
   const premium = !meno && budget !== 'base' ? voti.find((v) => v !== top && stesso(v.x) && v.x.tier === 'premium' && top.x.tier !== 'premium' && v.c >= Math.max(50, top.c - 10)) : undefined;
   const alt = meno || premium;
   usati.add(top.x.id);

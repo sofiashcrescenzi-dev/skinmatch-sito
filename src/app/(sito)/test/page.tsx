@@ -4,7 +4,8 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { TEST, percorsoPerId } from '@/lib/dati';
 import { consiglia, domandeDi, type Risposte } from '@/lib/motore';
 import { ConTermini } from '@/components/Termini';
-import Risultato from '@/components/Risultato';
+import { useRouter } from 'next/navigation';
+import { codifica } from '@/lib/condividi';
 import Foto from '@/components/Foto';
 import { segna } from '@/lib/eventi';
 import { Luna } from '@/components/Inviti';
@@ -20,6 +21,8 @@ const VUOTO: Stato = { percorso: null, risposte: {}, passo: 0, fine: false };
 export default function TestPage() {
   const [s, setS] = useState<Stato>(VUOTO);
   const [pronto, setPronto] = useState(false);
+  const [ultimo, setUltimo] = useState<string | null>(null);
+  const router = useRouter();
   const iniziato = useRef<string | null>(null);
   const testa = useRef<HTMLDivElement>(null);
   const inCorsa = useRef(false);
@@ -27,9 +30,14 @@ export default function TestPage() {
   useEffect(() => {
     let st = VUOTO;
     try { const x = JSON.parse(localStorage.getItem(CHIAVE) || 'null'); if (x && typeof x === 'object') st = { ...VUOTO, ...x }; } catch { /* niente */ }
-    const q = new URLSearchParams(window.location.search).get('percorso');
+    const u = new URLSearchParams(window.location.search);
+    const q = u.get('percorso');
     const id = q ? VECCHI[q] || q : null;
-    if (id && percorsoPerId(id) && id !== st.percorso) st = { ...VUOTO, percorso: id };
+    // «Rifai il test» e «Prova un altro test» arrivano con ?nuovo=1: si riparte da capo
+    if (u.get('nuovo')) st = { ...VUOTO, percorso: id && percorsoPerId(id) ? id : null };
+    else if (id && percorsoPerId(id) && (id !== st.percorso || st.fine)) st = { ...VUOTO, percorso: id };
+    // un test già finito: si sceglie di nuovo, con il link all'ultimo risultato
+    if (st.fine && !id) { setUltimo(st.percorso ? codifica(st.percorso, st.risposte) : null); st = { ...st, percorso: null }; }
     setS(st);
     setPronto(true);
   }, []);
@@ -40,7 +48,11 @@ export default function TestPage() {
   const domande = useMemo(() => (percorso ? domandeDi(percorso, s.risposte) : []), [percorso, s.risposte]);
   const risultato = useMemo(() => (percorso && s.fine ? consiglia(percorso, s.risposte) : null), [percorso, s.fine, s.risposte]);
   useEffect(() => {
-    if (risultato) segna({ e: 'test_fine', p: risultato.percorso.id, b: risultato.aree.map((a) => a.biotipo?.id || '').filter(Boolean) });
+    if (!risultato) return;
+    segna({ e: 'test_fine', p: risultato.percorso.id, b: risultato.aree.map((a) => a.biotipo?.id || '').filter(Boolean) });
+    // il risultato ha la sua pagina, con un link da condividere (lib/condividi.ts)
+    router.push(`/risultato#${codifica(risultato.percorso.id, s.risposte)}`);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [risultato]);
 
   if (!pronto) return <main className="contenitore sezione" style={{ minHeight: '60vh' }} />;
@@ -52,7 +64,8 @@ export default function TestPage() {
         <header className="pila" style={{ ['--gap' as string]: '12px' }}>
           <span className="etichetta">Il test</span>
           <h1 className="sopratitolo">Da dove partiamo?</h1>
-          <p className="intro">Domande su quello che vedi allo specchio, non su come pensi di essere. Ne escono il tuo biotipo e i prodotti giusti, ognuno con un&apos;alternativa che costa meno. Non è una diagnosi.</p>
+          {ultimo && <a href={`/risultato#${ultimo}`} className="link">Rivedi il tuo ultimo risultato</a>}
+          <p className="intro">Domande su quello che vedi allo specchio, non su come pensi di essere. Ne escono il tuo biotipo e i prodotti giusti, ognuno con un&apos;alternativa simile, di solito più economica. Non è una diagnosi.</p>
         </header>
         <div className="griglia" style={{ ['--min' as string]: '250px' }}>
           {TEST.percorsi.map((p) => (
@@ -71,13 +84,7 @@ export default function TestPage() {
     );
   }
 
-  if (risultato) {
-    return (
-      <main className="contenitore sezione" ref={testa} style={{ scrollMarginTop: 90 }}>
-        <Risultato r={risultato} rifai={() => setS({ ...VUOTO, percorso: percorso.id })} cambia={() => setS(VUOTO)} />
-      </main>
-    );
-  }
+  if (risultato) return <main className="contenitore sezione" style={{ minHeight: '60vh' }} />;
 
   const passo = Math.min(s.passo, domande.length - 1);
   const d = domande[passo];

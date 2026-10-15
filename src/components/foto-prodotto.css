@@ -1,0 +1,151 @@
+/* Foto prodotto di Skinmatch (Zeno, 15/10/2026). Solo CSS: niente immagini o font in più.
+
+   Carta e confronto: il packshot dei negozi ha il fondo bianco; lo appoggiamo su una carnagione
+   tenue (il tono del prodotto) e con mix-blend-mode: multiply il bianco sparisce nel colore:
+   resta il prodotto, con un'ombra d'appoggio sotto.
+   Pagina: il prodotto sta su una lastra bianca; dietro, il segno di Skinmatch (due mezzelune
+   sfalsate, la destra più bassa) spunta ai lati. Al passaggio la lastra si alza e la metà destra
+   sale a incontrare la sinistra: il «match». Il segno non passa mai sopra il prodotto.
+
+   Il tono si sceglie con fp-t1 … fp-t6 (le sei carnagioni); di base il fototipo II. */
+
+.fp {
+  --fp-fondo: #f6ebe4;
+  --fp-luna-a: #efd9cb;
+  --fp-luna-b: #e3bfa6;
+  --fp-curva: cubic-bezier(.2, .7, .2, 1);
+  position: relative;
+  isolation: isolate;               /* il multiply resta dentro la cornice */
+  display: block;
+  width: 100%;
+  aspect-ratio: 1;
+  overflow: hidden;
+  border-radius: 14px;
+  background: var(--fp-fondo);
+}
+
+/* le sei carnagioni, schiarite perché il prodotto resti il protagonista;
+   i toni scuri si mescolano col fototipo I invece che col latte, così restano caldi */
+.fp-t1 { --fp-fondo: #fbefe7; --fp-luna-a: #f8e4d6; --fp-luna-b: #f2d2bc; }
+.fp-t2 { --fp-fondo: #f6ebe4; --fp-luna-a: #efd9cb; --fp-luna-b: #e7c6af; }
+.fp-t3 { --fp-fondo: #f2e3d8; --fp-luna-a: #e8cdb9; --fp-luna-b: #ddb393; }
+.fp-t4 { --fp-fondo: #efdfd3; --fp-luna-a: #e0c3ae; --fp-luna-b: #c99c7e; }
+.fp-t5 { --fp-fondo: #eedcd0; --fp-luna-a: #dcbfab; --fp-luna-b: #b38b72; }
+.fp-t6 { --fp-fondo: #ecdacd; --fp-luna-a: #d7baa6; --fp-luna-b: #a07f6c; }
+
+/* --- il prodotto sul fondo (carta e mini) --- */
+
+.fp-img {
+  position: absolute;
+  z-index: 2;
+  display: block;
+  max-width: none;
+  object-fit: contain;
+  mix-blend-mode: multiply;         /* il bianco del packshot prende il colore del fondo */
+  transform-origin: 50% 100%;
+  transition: transform 480ms var(--fp-curva);
+}
+
+.fp-ombra {
+  position: absolute;
+  z-index: 1;
+  left: 50%;
+  bottom: 7%;
+  width: 58%;
+  height: 8%;
+  translate: -50% 0;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(46, 28, 21, .18), rgba(46, 28, 21, .06) 62%, rgba(46, 28, 21, 0));
+  transition: transform 480ms var(--fp-curva), opacity 480ms var(--fp-curva);
+  pointer-events: none;
+}
+
+/* carta: compatta, il prodotto appoggiato in basso */
+.fp-carta .fp-img { left: 6%; top: 5%; width: 88%; height: 86%; object-position: 50% 100%; }
+
+/* mini: il confronto, niente ombra, il prodotto più grande possibile */
+.fp-mini { border-radius: 12px; }
+.fp-mini .fp-img { left: 5%; top: 5%; width: 90%; height: 90%; object-position: 50% 50%; }
+
+/* --- pagina: la lastra e il segno --- */
+
+.fp-pagina {
+  max-width: 560px;
+  border-radius: clamp(14px, 3.4vw, 22px);
+}
+
+.fp-segno {
+  position: absolute;
+  z-index: 0;
+  left: 50%;
+  top: 50%;
+  width: 94%;
+  aspect-ratio: 1;
+  translate: -50% -52%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2.4%;
+  pointer-events: none;
+}
+.fp-segno > span { display: block; height: 100%; }
+.fp-segno > span:first-child {
+  background: var(--fp-luna-a);
+  border-radius: 100% 0 0 100% / 50% 0 0 50%;
+}
+.fp-segno > span:last-child {
+  background: var(--fp-luna-b);
+  border-radius: 0 100% 100% 0 / 0 50% 50% 0;
+  transform: translateY(7%);
+  transition: transform 560ms var(--fp-curva);
+}
+
+.fp-lastra {
+  position: absolute;
+  z-index: 1;
+  inset: 12.5%;
+  display: block;
+  overflow: hidden;
+  background: #fff;
+  border-radius: clamp(10px, 2.4vw, 16px);
+  box-shadow: 0 1px 0 rgba(46, 28, 21, .06), 0 14px 28px -18px rgba(46, 28, 21, .45);
+  transition: transform 480ms var(--fp-curva);
+}
+.fp-lastra .fp-img {
+  left: 5%;
+  top: 5%;
+  width: 90%;
+  height: 90%;
+  object-position: 50% 50%;
+  mix-blend-mode: normal;
+}
+
+/* --- al passaggio (sulla carta, sul link o sulla foto) e al tocco --- */
+
+:where(a:hover, a:focus-visible) .fp-carta .fp-img,
+.fp-carta:hover .fp-img,
+.fp-carta:active .fp-img { transform: translateY(-3%) scale(1.03); }
+:where(a:hover, a:focus-visible) .fp-carta .fp-ombra,
+.fp-carta:hover .fp-ombra,
+.fp-carta:active .fp-ombra { transform: scaleX(.84); opacity: .7; }
+
+:where(a:hover, a:focus-visible) .fp-mini .fp-img,
+.fp-mini:hover .fp-img,
+.fp-mini:active .fp-img { transform: scale(1.04); }
+
+.fp-pagina:hover .fp-lastra,
+.fp-pagina:active .fp-lastra { transform: translateY(-1.2%); }
+.fp-pagina:hover .fp-segno > span:last-child,
+.fp-pagina:active .fp-segno > span:last-child { transform: translateY(0); }
+
+/* --- senza foto: il segno vero (V a sinistra, IV a destra, come su chiaro) --- */
+
+.fp-vuota .fp-segno { width: 40%; translate: -50% -54%; gap: 4%; }
+.fp-vuota .fp-segno > span:first-child { background: #7b4b33; }
+.fp-vuota .fp-segno > span:last-child { background: #a8714e; transform: translateY(8%); }
+
+@media (prefers-reduced-motion: reduce) {
+  .fp-img, .fp-ombra, .fp-lastra, .fp-segno > span { transition: none !important; }
+  .fp *, .fp-pagina:hover .fp-segno > span:last-child { transform: none !important; }
+  .fp-segno > span:last-child { transform: translateY(7%) !important; }
+  .fp-vuota .fp-segno > span:last-child { transform: translateY(8%) !important; }
+}

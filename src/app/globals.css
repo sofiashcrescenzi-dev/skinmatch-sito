@@ -62,17 +62,29 @@ img { max-width: 100%; }
    NAV — pillola fluttuante (stesso schema di sofiacrescenzi.it)
    ============================================================ */
 .sm-nav { position: fixed; top: 14px; left: 50%; transform: translateX(-50%); z-index: 1000; width: calc(100% - 2 * clamp(12px, 3vw, 24px)); max-width: 820px; }
-.sm-nav-pill { background: var(--cacao); color: var(--latte); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-radius: 999px; box-shadow: 0 4px 24px var(--ombra); padding: 8px 10px 8px 16px; display: flex; align-items: center; gap: 4px; }
+/* il menu a pillola in vetro (Federico, 15/10: «più liquid glass, dove si può e quando va sopra le cose»):
+   cacao traslucido, sfocatura e saturazione di quello che passa sotto, un filo di luce in alto. In cima alla
+   pagina è quasi pieno; quando scorre sopra i contenuti (.sopra) si fa più trasparente. Senza backdrop-filter, pieno. */
+.sm-nav-pill { position: relative; isolation: isolate; color: var(--latte); border-radius: 999px; padding: 8px 10px 8px 16px; display: flex; align-items: center; gap: 4px;
+  background: rgba(46, 28, 21, 0.9); border: 1px solid rgba(250, 246, 244, 0.12);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.16), inset 0 -1px 0 rgba(0, 0, 0, 0.25), 0 6px 28px rgba(46, 28, 21, 0.22);
+  -webkit-backdrop-filter: blur(16px) saturate(170%); backdrop-filter: blur(16px) saturate(170%);
+  transition: background-color .3s ease, box-shadow .3s ease; }
+.sm-nav-pill::before { content: ''; position: absolute; inset: 0; z-index: -1; border-radius: inherit; pointer-events: none;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.14), rgba(255, 255, 255, 0) 55%), radial-gradient(120% 140% at 12% -30%, rgba(235, 195, 166, 0.22), transparent 60%); }
+.sm-nav.sopra .sm-nav-pill { background: rgba(46, 28, 21, 0.62); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), inset 0 -1px 0 rgba(0, 0, 0, 0.25), 0 10px 34px rgba(46, 28, 21, 0.28); }
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) { .sm-nav-pill, .sm-nav.sopra .sm-nav-pill { background: var(--cacao); } }
 .sm-nav-logo { display: inline-flex; align-items: center; gap: 8px; text-decoration: none; color: var(--testo); flex-shrink: 0; margin-right: 6px; }
 .sm-nav-logo img { display: block; height: 22px; width: auto; }
 .sm-nav-logo span { font-family: var(--font-titolo); font-size: 17px; white-space: nowrap; }
 .sm-nav-links { display: flex; align-items: center; gap: 2px; flex: 1; justify-content: center; }
 .sm-nav-link { font-size: 14px; font-weight: 500; color: var(--latte); text-decoration: none; padding: 7px 12px; border-radius: 999px; transition: background 0.2s ease; white-space: nowrap; }
-.sm-nav-link:hover, .sm-nav-link[aria-current='page'] { background: #4a332a; }
+.sm-nav-link:hover, .sm-nav-link[aria-current='page'] { background: rgba(250, 246, 244, 0.12); }
 .sm-nav-cta { display: inline-flex; align-items: center; font-size: 13.5px; font-weight: 700; color: var(--cacao); background: var(--f2); border-radius: 999px; padding: 9px 16px; text-decoration: none; white-space: nowrap; margin-left: auto; }
 .sm-nav-burger { display: none; background: none; border: none; cursor: pointer; flex-direction: column; gap: 5px; padding: 10px 8px; margin-left: 4px; }
 .sm-nav-burger span { display: block; width: 18px; height: 1.5px; background: var(--latte); transition: transform 0.3s ease; }
-.sm-nav-menu { margin-top: 8px; background: color-mix(in srgb, var(--foglio) 97%, transparent); backdrop-filter: blur(12px); border-radius: 20px; box-shadow: 0 8px 32px var(--ombra); padding: 8px; display: flex; flex-direction: column; }
+.sm-nav-menu { margin-top: 8px; background: rgba(250, 246, 244, 0.74); -webkit-backdrop-filter: blur(20px) saturate(170%); backdrop-filter: blur(20px) saturate(170%); border: 1px solid rgba(255, 255, 255, 0.6); border-radius: 22px; box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7), 0 12px 36px rgba(46, 28, 21, 0.2); padding: 8px; display: flex; flex-direction: column; }
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) { .sm-nav-menu { background: var(--foglio); } }
 .sm-nav-menu a { font-size: 19px; font-weight: 500; color: var(--testo); text-decoration: none; padding: 12px 18px; border-radius: 14px; }
 .sm-nav-spazio { height: 84px; }
 @media (max-width: 760px) {
@@ -325,7 +337,8 @@ details.carta > summary::-webkit-details-marker { display: none; }
 .carta-prodotto a.nome:hover { text-decoration: underline; text-underline-offset: 3px; }
 .riga-compra { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px; }
 .riga-chip { align-items: center; }
-.riga-chip.in-fondo { margin-top: auto; padding-top: 4px; }
+.carta-fondo { margin-top: auto; display: grid; gap: 12px; padding-top: 4px; }
+.link-scheda { color: var(--terra); font-weight: 700; text-decoration: underline; text-underline-offset: 3px; justify-self: start; }
 /* la riga in alto della carta: etichetta e compatibilità mai spezzate; se non ci stanno, il bollino va sotto intero */
 .testa-carta { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; }
 .testa-carta > * { white-space: nowrap; }
@@ -334,8 +347,10 @@ details.carta > summary::-webkit-details-marker { display: none; }
 .briciole { display: flex; flex-wrap: wrap; gap: 4px 8px; }
 .briciole a { color: var(--grigio); }
 .p-testa { display: grid; gap: clamp(20px, 4vw, 48px); grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr)); align-items: start; }
-.p-foto { aspect-ratio: 1; width: 100%; max-width: 520px; background: #fff; border: 1px solid var(--riga); border-radius: var(--raggio); display: grid; place-items: center; overflow: hidden; }
-.p-foto img { width: 86%; height: 86%; object-fit: contain; }
+.p-foto { width: 100%; max-width: 560px; }
+/* la foto nella carta e nel confronto (components/FotoProdotto.tsx, di Zeno): la colonna cresce col telefono */
+.prodotto:has(> .foto-carta) { grid-template-columns: clamp(84px, 24vw, 104px) minmax(0, 1fr); }
+.foto-carta { display: block; text-decoration: none; }
 .p-prezzo { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 14px; margin: 0; color: var(--grigio); font-size: 15px; font-variant-numeric: tabular-nums; }
 .p-prezzo b { font-family: var(--font-titolo); font-size: clamp(26px, 3.4vw, 32px); color: var(--testo); }
 .voci { margin: 0; border-top: 1px solid var(--riga); max-width: 860px; }
@@ -357,6 +372,17 @@ details.carta > summary::-webkit-details-marker { display: none; }
 .apri summary { cursor: pointer; font-weight: 600; min-height: 44px; display: flex; align-items: center; }
 .inci { font-size: 14px; line-height: 1.7; color: var(--grigio); overflow-wrap: anywhere; max-width: 860px; }
 .p-fine { background: var(--velo); border-color: transparent; }
+
+/* la pagina che non c'è: lo zero sono le due mezze lune del segno, che si cercano senza chiudersi */
+.p404-corpo { display: grid; gap: clamp(20px, 5vw, 64px); grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr)); align-items: center; padding-block: clamp(32px, 6vw, 80px) clamp(44px, 7vw, 96px); }
+.p404-numero { margin: 0; display: flex; align-items: center; justify-content: center; gap: .06em; font-family: var(--font-titolo); font-weight: 700; font-size: clamp(110px, 24vw, 240px); line-height: 1; color: var(--latte); letter-spacing: -0.04em; }
+.p404-zero { position: relative; display: inline-block; width: .62em; height: .78em; }
+.p404-zero i { position: absolute; top: 0; width: 50%; height: 100%; }
+.p404-zero i:first-child { left: 0; background: var(--f2); border-radius: 100% 0 0 100% / 50% 0 0 50%; transform: translateX(-16%); animation: cerca-a 3.2s var(--curva) infinite alternate; }
+.p404-zero i:last-child { right: 0; background: var(--f4); border-radius: 0 100% 100% 0 / 0 50% 50% 0; transform: translate(16%, 10%); animation: cerca-b 3.2s var(--curva) infinite alternate; }
+@keyframes cerca-a { from { transform: translateX(-22%); } to { transform: translateX(-9%); } }
+@keyframes cerca-b { from { transform: translate(22%, 14%); } to { transform: translate(9%, 6%); } }
+.p404-strade { display: grid; gap: clamp(24px, 4vw, 40px); grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr)); align-items: start; }
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; }
@@ -403,3 +429,25 @@ details.carta > summary::-webkit-details-marker { display: none; }
 .adm-riga-cat { flex: 0 1 260px; width: auto; }
 .adm-riga-azioni { display: flex; flex-wrap: wrap; gap: 8px 14px; align-items: center; }
 .adm-riga-dettagli { flex-basis: 100%; }
+.adm-codice { display: grid; gap: 6px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 140px), 1fr)); align-items: center; }
+/* spedizione e codici sconto del negozio, vicino a «Compra qui» */
+.info-negozio { display: grid; gap: 8px; font-size: 14px; line-height: 1.45; color: var(--grigio); }
+.info-negozio p { margin: 0; }
+.info-negozio b { color: var(--testo); font-weight: 700; }
+.info-negozio.breve { font-size: 13px; display: flex; flex-wrap: wrap; gap: 4px 12px; }
+.info-negozio .icona { color: var(--terra); }
+.codice-sconto { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; }
+.codice-sconto button { font: inherit; font-weight: 700; letter-spacing: .08em; padding: 6px 12px; min-height: 36px; border-radius: 8px; border: 1.5px dashed var(--f4); background: var(--accento-tenue); color: var(--cacao); cursor: pointer; }
+/* le icone (components/Icona.tsx) */
+.icona { display: inline-block; flex: none; vertical-align: -0.2em; }
+.adm-icone { display: grid; gap: 10px; grid-template-columns: repeat(auto-fill, minmax(min(100%, 150px), 1fr)); }
+.adm-icona { display: grid; gap: 8px; justify-items: center; padding: 14px 10px; }
+.adm-icona-tre { display: inline-flex; align-items: center; gap: 14px; color: var(--cacao); }
+.adm-icona code { font-size: 12.5px; color: var(--grigio); }
+/* il risultato del test: azioni in alto, carte dei prodotti due per riga larghe come i riquadri sopra */
+.azioni-risultato { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+.azioni-risultato .bottone { gap: 8px; }
+.griglia-due { display: grid; gap: clamp(12px, 2vw, 20px); grid-template-columns: repeat(auto-fill, minmax(min(100%, max(320px, calc((100% - 20px) / 2))), 1fr)); }
+.famiglia-foto .corpo { display: flex; flex-direction: column; gap: 8px; }
+.famiglia-foto .corpo .stendi { margin-top: auto; align-self: flex-start; }
+.adm-scatola-testa .piccolo { white-space: nowrap; }

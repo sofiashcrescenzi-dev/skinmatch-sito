@@ -10,14 +10,15 @@ import Foto from '@/components/Foto';
 
 const SOPRA: Record<Area, string> = { pelle: 'Il tuo biotipo', cute: 'Il biotipo della tua cute', integrazione: 'Il tuo profilo' };
 
-export default function Risultato({ r, rifai, cambia }: { r: R; rifai: () => void; cambia: () => void }) {
+export default function Risultato({ r, azioni, condiviso }: { r: R; azioni: React.ReactNode; condiviso?: boolean }) {
   const gravidanza = r.profilo.scelte.gravidanza === true;
   let n = 0;
   return (
     <div className="pila" style={{ ['--gap' as string]: 'clamp(28px, 5vw, 48px)' }}>
-      <header className="pila" style={{ ['--gap' as string]: '10px' }}>
-        <span className="etichetta">Il tuo risultato · {r.percorso.titolo.toLowerCase()}</span>
-        <p className="piccolo">Non è una diagnosi: è il punto di partenza per scegliere i prodotti. Le tue risposte restano su questo telefono.</p>
+      <header className="pila" style={{ ['--gap' as string]: '12px' }}>
+        <span className="etichetta">{condiviso ? 'Un risultato condiviso' : 'Il tuo risultato'} · {r.percorso.titolo.toLowerCase()}</span>
+        <p className="piccolo">{condiviso ? 'Qualcuno ha condiviso con te il suo risultato del test. Il tuo potrebbe essere diverso: le domande sono su quello che vedi allo specchio.' : 'Non è una diagnosi: è il punto di partenza per scegliere i prodotti. Le risposte stanno solo nel link di questa pagina: condividilo se vuoi.'}</p>
+        {azioni}
       </header>
 
       {r.limiti.length > 0 && (
@@ -77,13 +78,16 @@ export default function Risultato({ r, rifai, cambia }: { r: R; rifai: () => voi
                         <span className="titolo-3" style={{ fontSize: 17 }}>{n} · {s.passaggio.nome}</span>
                         <span className="piccolo">{s.passaggio.quando}</span>
                       </div>
-                      <div className="griglia" style={{ ['--min' as string]: '300px' }}>
+                      <div className="griglia-due">
                         <SchedaProdotto p={s.consigliato.prodotto} da={`test-${r.percorso.id}`} conTag={false}
                           sopra={<div className="testa-carta"><span className="etichetta">Consigliato</span><span className={`livello ${s.consigliato.livello}`}>compatibilità {s.consigliato.livello}</span></div>}
                           sotto={s.consigliato.perche.length > 0 && <p className="piccolo"><strong>Perché questo:</strong> {s.consigliato.perche.join(' · ')}</p>} />
                         {s.alternativa && (
                           <SchedaProdotto p={s.alternativa.prodotto} da={`test-${r.percorso.id}-alternativa`} conTag={false}
-                            sopra={<div className="testa-carta"><span className="etichetta" style={{ color: 'var(--clinico)' }}>{s.alternativa.come === 'costa meno' ? 'Se vuoi spendere meno' : 'Se vuoi il top'}</span><span className={`livello ${s.alternativa.livello}`}>compatibilità {s.alternativa.livello}</span></div>}
+                            sopra={<div className="pila" style={{ ['--gap' as string]: '4px' }}>
+                              <div className="testa-carta"><span className="etichetta" style={{ color: 'var(--clinico)' }}>Alternativa</span><span className={`livello ${s.alternativa.livello}`}>compatibilità {s.alternativa.livello}</span></div>
+                              <span className="piccolo">{s.alternativa.come === 'costa meno' ? 'Solitamente un prodotto meno costoso, ma anche con una % di attivi minore.' : 'Solitamente un prodotto più ricco di attivi, e più costoso.'}</span>
+                            </div>}
                             sotto={s.alternativa.perche.length > 0 && <p className="piccolo">{s.alternativa.perche.join(' · ')}</p>} />
                         )}
                       </div>
@@ -100,11 +104,7 @@ export default function Risultato({ r, rifai, cambia }: { r: R; rifai: () => voi
         );
       })}
 
-      <div style={{ display: 'flex', flexWrap: 'wrap', gap: 10 }}>
-        <button type="button" className="bottone secondario" onClick={rifai}>Rifai il test</button>
-        <button type="button" className="bottone secondario" onClick={cambia}>Prova un altro test</button>
-        <Link href="/catalogo" className="bottone secondario">Sfoglia il catalogo</Link>
-      </div>
+      {azioni}
       <p className="piccolo">Alcuni link sono di affiliazione: se compri, Skinmatch riceve una piccola commissione, a te non costa nulla in più.</p>
     </div>
   );

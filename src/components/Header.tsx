@@ -11,6 +11,14 @@ export default function Header({ rivista }: { rivista: boolean }) {
   const [aperto, setAperto] = useState(false);
   const qui = usePathname();
   useEffect(() => setAperto(false), [qui]);
+  // sopra i contenuti il vetro si fa più trasparente: la classe cambia solo quando si passa la soglia
+  const [sopra, setSopra] = useState(false);
+  useEffect(() => {
+    const guarda = () => setSopra(window.scrollY > 12);
+    guarda();
+    window.addEventListener('scroll', guarda, { passive: true });
+    return () => window.removeEventListener('scroll', guarda);
+  }, []);
   const voci = [
     { nome: 'Biotipi', href: '/biotipi' },
     { nome: 'Catalogo', href: '/catalogo' },
@@ -20,7 +28,7 @@ export default function Header({ rivista }: { rivista: boolean }) {
   const attivo = (h: string) => (qui === h || qui?.startsWith(h + '/') ? 'page' : undefined);
   return (
     <>
-      <div className="sm-nav">
+      <div className={`sm-nav${sopra || aperto ? ' sopra' : ''}`}>
         <nav aria-label="Navigazione principale" className="sm-nav-pill">
           <Link href="/" className="sm-nav-logo" aria-label="Skinmatch, la home">
             <Logo />

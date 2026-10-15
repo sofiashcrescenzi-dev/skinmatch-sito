@@ -17,7 +17,7 @@ export const metadata: Metadata = {
 const REGOLE: [string, string][] = [
   ['Non facciamo diagnosi', 'Il test aiuta a scegliere i cosmetici. Quando una risposta fa pensare a qualcosa da far vedere a un medico, il risultato lo dice per primo e lascia solo prodotti delicati.'],
   ['Domande su quello che vedi', 'Non ti chiediamo «che pelle hai?»: ti chiediamo com\'è la fronte a metà giornata, se la pelle tira dopo la detersione, quanto dura un rossore. Così il risultato non dipende da come pensi di essere.'],
-  ['Sempre un\'alternativa che costa meno', 'Per ogni prodotto consigliato ce n\'è uno che fa lo stesso lavoro e costa almeno un quinto in meno. Una buona routine non deve essere la più cara.'],
+  ['Un\'alternativa simile', 'Accanto al prodotto consigliato, quando c\'è, uno simile: stesso passaggio, stesso attivo principale, formato vicino. Di solito costa meno, con una percentuale di attivi più bassa. Una buona routine non deve essere la più cara.'],
   ['Le tue risposte restano tue', 'Il test gira sul tuo telefono: le risposte, anche quelle sulla salute, non arrivano ai nostri server. Contiamo solo quanti test vengono fatti.'],
   ['Diciamo come guadagniamo', 'Alcuni link ai negozi sono di affiliazione: se compri, il negozio ci riconosce una piccola commissione e a te il prezzo non cambia. Nessun marchio paga per comparire.'],
 ];

@@ -66,9 +66,9 @@ export const CATEGORY_LABELS: Record<Category, string> = {
 };
 
 export const TIER_LABELS: Record<Tier, string> = {
-  base: 'Base',
-  top: 'Top',
-  premium: 'Premium',
+  base: 'Economica',
+  top: 'Media',
+  premium: 'Alta',
 };
 
 export type Product = {
@@ -121,6 +121,13 @@ export type Scheda = {
   inci: boolean;
   completezza: number;
   valore?: number; // quanto è ricca la scheda: attivi riconosciuti, percentuali dichiarate, INCI (al_sito.py)
+  // per confrontare solo prodotti simili (Friday, 15/10; scripts/catalogo/traduci.py e al_sito.py, src/lib/simili.ts)
+  zona?: string | null; // viso, occhi, labbra, ciglia, cute, capelli, corpo, bimbi…
+  forma?: string | null; // acqua micellare, gel, da lasciare…
+  pezzi?: number | null; // capsule, fiale, cerotti
+  per?: 'uomo' | 'donna' | null;
+  lavoro?: string[];
+  principale?: { id: string; perc: number | null } | null;
 };
 
 const MANUAL_PRODUCTS: Product[] = [

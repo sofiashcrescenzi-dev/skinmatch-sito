@@ -14,11 +14,12 @@ più ricco e uno meno ricco ma più economico, quando ci sono.
 Uso: python3 scripts/catalogo/al_sito.py liki24
 """
 import json, re, sys, unicodedata
-from collections import defaultdict
+from collections import Counter, defaultdict
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
 from schede import decisioni, k
+import traduci
 
 R = Path(__file__).resolve().parents[2]
 QUANTI = {'si': 5, 'selezione': 4, 'alternativa': 3}
@@ -31,6 +32,19 @@ BISOGNO = {'idratazione': 'idratazione', 'imperfezioni': 'acne-sebo', 'macchie':
 NOME_MARCA = {'Avene': 'Avène', 'Beauty Of Joseon': 'Beauty of Joseon', 'Dr. Jart': 'Dr.Jart+', 'Geek&Gorgeous': 'Geek & Gorgeous', 'Isdin': 'ISDIN',
               'Kerastase': 'Kérastase', 'La Roche Posay': 'La Roche-Posay', 'Neostrata': 'NeoStrata', 'Rene Furterer': 'René Furterer', 'Roc': 'RoC',
               'Skinceuticals': 'SkinCeuticals', 'Iunik': 'iUNIK', 'Estee Lauder': 'Estée Lauder'}
+MARCHE_DECISE = {}
+
+
+def marca_bella(m):
+    """Il nome della marca come la scrive la marca: dalla tabella, o com'è nelle decisioni (BIONIKE → BioNike)."""
+    if m in NOME_MARCA:
+        return NOME_MARCA[m]
+    if not MARCHE_DECISE:
+        MARCHE_DECISE.update({k(x['marca']): x['marca'] for x in json.loads((Path(__file__).parent / 'decisioni_marche.json').read_text())['marche']})
+    d = MARCHE_DECISE.get(k(m), m)
+    return NOME_MARCA.get(d, d)
+
+
 CHIAVE = {'retinale', 'retinolo', 'retinoide estere', 'bakuchiol', 'niacinamide', 'vitamina C', 'acido salicilico', 'acido glicolico', 'acido lattico', 'acido mandelico',
           'PHA', 'LHA', 'acido azelaico', 'acido tranexamico', 'thiamidol', 'arbutina', 'ceramidi', 'peptidi', 'acido ialuronico', 'centella', 'pantenolo', 'urea', 'zinco', 'acido ferulico'}
 
@@ -56,10 +70,11 @@ def prodotto(s):
         concerns = [c for c, ok in {'anti-age': 'tono' in integ, 'idratazione': 'pelle-secca' in integ, 'protezione-solare': 'sole' in integ, 'acne-sebo': 'imperfezioni' in integ}.items() if ok]
     uomo = bool(re.search(r'\b(uomo|men|homme|man)\b', s['titolo'], re.I))
     out = {
-        'id': s['id'], 'name': s['nome'], 'brand': NOME_MARCA.get(s['marca'], s['marca']), 'gender': 'uomo' if uomo else 'unisex', 'category': CATEGORIA[s['passaggio']],
+        'id': s['id'], 'name': s['nome'], 'brand': marca_bella(s['marca']), 'gender': 'uomo' if uomo else 'unisex', 'category': CATEGORIA[s['passaggio']],
         'tier': s['fascia'], 'korean': s['segmento'] == 'K-beauty', 'price': s['prezzo'],
-        'description': descrizione(s), 'affiliateUrl': s['link'], 'image': s['immagine'], 'merchant': s['negozio'], 'feedId': f"adtraction:liki24:{s['id_negozio']}",
-        'scheda': {k_: s.get(k_) for k_ in ('passaggio', 'momento', 'forza', 'fotosensibilizzante', 'texture', 'profumo', 'spf', 'al_10', 'misura', 'ruolo')}
+        'description': descrizione(s), 'affiliateUrl': s['link'], 'image': s['immagine'], 'merchant': s['negozio'], 'feedId': f"{(per_nome(s['negozio']) or {}).get('rete', '').lower()}:{s['negozio'].lower()}:{s['id_negozio']}",
+        'scheda': {k_: s.get(k_) for k_ in ('passaggio', 'momento', 'forza', 'fotosensibilizzante', 'texture', 'profumo', 'spf', 'al_10', 'misura', 'ruolo', 'zona', 'forma', 'pezzi')}
+                  | {'per': per_chi(s), 'lavoro': sorted(lavoro(s)), 'principale': dict(zip(('id', 'perc'), principale(s))) if principale(s)[0] else None}
                   | {'attivi': s['attivi'], 'inci': bool(s['inci']), 'completezza': s['completezza'], 'valore': valore(s)},
         'segment': s['segmento'],
     }
@@ -228,48 +243,197 @@ def misura_testo(m):
 
 
 def lavoro(s):
-    """Il lavoro che fa un prodotto: due prodotti si confrontano solo se ne hanno uno in comune."""
+    """Il lavoro che fa un prodotto: due prodotti si confrontano solo se ne hanno uno in comune.
+    Prima quello che dice il titolo («crema antirughe», «shampoo antiforfora»): i bisogni letti anche nella descrizione
+    sono larghi (quasi ogni crema «idrata»), e una crema antirughe e una per i pori si trovavano un lavoro in comune
+    (Friday, 15/10). Se il titolo non ne dice nessuno, valgono tutti quelli della scheda."""
+    t = s['titolo'].lower()
     if s['passaggio'] in ('shampoo', 'trattamento cute', 'balsamo e maschera capelli'):
-        return set((s.get('capelli') or {}).get('bisogni') or [])
+        b = set((s.get('capelli') or {}).get('bisogni') or [])
+        nel_titolo = {c for c, rx in traduci.BISOGNI_CAPELLI.items() if c in b and re.search(rx, t)}
+        # «mantenimento» (delicato, per tutti) non è un lavoro in comune con un antiforfora o un anticaduta
+        b = nel_titolo or b
+        return (b - {'mantenimento'}) or b or {'mantenimento'}
     if s['passaggio'] == 'integratore':
-        return set(s.get('integrazione') or [])
+        # un integratore fa un lavoro solo se fa le stesse cose: «capelli e unghie» non è «sole» né «capelli» e basta
+        b = set(s.get('integrazione') or [])
+        b = {c for c, rx in traduci.INTEGRAZIONE.items() if c in b and re.search(rx, t)} or b
+        return {'+'.join(sorted(b))} if b else set()
     if s['passaggio'] in ('cerotti', 'barba'):
         return {s['passaggio']}
-    return set(s['bisogni']) or {'base'}
+    b = set(s['bisogni'])
+    t = re.sub(r'\banti[\s-]+', 'anti', t)  # «anti età», «anti-età», «antietà»
+    nel_titolo = {c for c, (rx, _) in traduci.BISOGNI.items() if c in b and re.search(rx, t)}
+    # se il titolo non lo dice, il lavoro del suo attivo principale (vitamina C → macchie, retinolo → tempo)
+    pr = next((g for g in ATTIVI if g['id'] == principale(s)[0]), None)
+    dell_attivo = {c for c, (_, att) in traduci.BISOGNI.items() if c in b and pr and att & set(pr['nomi'])}
+    return nel_titolo or dell_attivo or b or {'base'}
+
+
+ATTIVI = json.loads((R / 'src' / 'data' / 'attivi.json').read_text())['attivi']
+# i negozi (admin › Negozi): un negozio entra nel sito solo se «attivo» e con la commissione inserita
+NEGOZI = json.loads((R / 'src' / 'data' / 'negozi.json').read_text())['negozi']
+SIMILE = 1.05  # «prezzo similare»: al massimo il 5% in più del link di adesso
+
+
+def per_nome(negozio):
+    return next((n for n in NEGOZI if n['nome'].lower() == (negozio or '').lower()), None)
+
+
+def scegli_offerta(offerte):
+    """La regola di Federico (15/10): tra i negozi a prezzo simile vince la commissione più alta.
+    Simile = al massimo il 5% in più dell'offerta più economica; a pari commissione, il prezzo più basso."""
+    base = min(o['prezzo'] for o in offerte)
+    pari = [o for o in offerte if o['prezzo'] <= base * SIMILE]
+    return max(pari, key=lambda o: (o['commissione'] or 0, -o['prezzo']))
+
+
+def unisci(schede, altri):
+    """Le schede degli altri negozi: lo stesso prodotto (stesso EAN) diventa un'offerta in più del prodotto che
+    c'è già; un prodotto che non c'è entra nella selezione come gli altri. Ritorna (schede, offerte per id)."""
+    per_gtin = {s['gtin'].lstrip('0'): s for s in schede if s.get('gtin')}
+    offerte, nuovi = defaultdict(list), []
+    for ss in altri:
+        for s in ss:
+            g = (s.get('gtin') or '').lstrip('0')
+            if g and g in per_gtin:
+                offerte[per_gtin[g]['id']].append(s)
+            else:
+                nuovi.append(s)
+    return schede + nuovi, offerte
+
+
+
+
+# come il titolo nomina gli attivi (src/data/attivi.json, per id): l'attivo che il prodotto mette nel nome è il suo
+NEL_TITOLO = {'retinoidi': r'retin|\bvit(?:amina|amin|a)? a\b', 'vitamina-c': r'vitamin[ae]? ?c\b|\bvit\.? ?c\b|ascorb|flavo-c|\bc e ferulic|vita c',
+              'niacinamide': r'niacinamid|niacina|\bb3\b', 'aha-pha': r'\baha\b|\bpha\b|glicolic|glycolic|lattic|lactic|mandelic|glico',
+              'salicilico': r'salicil|salicyl|\bbha\b|\blha\b', 'azelaico': r'azela', 'ialuronico': r'ialuron|hyalur|\bhyalu?\d*\b|\bha\b',
+              'ceramidi': r'ceramid', 'centella': r'centella|\bcica|cicaplast|cicapair', 'peptidi': r'peptid|matrixyl',
+              'antimacchia': r'tranexam|\btxa\b|thiamidol|arbutin', 'pantenolo': r'pantenol|panthenol|\bb5\b', 'urea': r'\burea\b',
+              'bakuchiol': r'bakuchiol', 'zinco': r'\bzinc'}
+
+
+def principale(s):
+    """L'attivo principale, con la percentuale più alta dichiarata (None se non c'è): tra gli attivi della scheda, quello
+    che il titolo nomina; se il titolo ne nomina più d'uno o nessuno, il più pesante (src/data/attivi.json, «peso»).
+    ⚠️ Prima vinceva sempre il più pesante: un siero all'acido ialuronico con una traccia di retinale nell'INCI
+    (Hidraderm Hyal) finiva confrontato con i sieri al retinolo (Friday, 15/10)."""
+    gruppi = {g['id']: g for a in s['attivi'] for g in ATTIVI if a['nome'] in g['nomi']}
+    t = s['titolo'].lower()
+    nominati = [g for i, g in gruppi.items() if re.search(NEL_TITOLO.get(i, r'$^'), t)]
+    meglio = max(nominati or gruppi.values(), key=lambda g: g['peso'], default=None)
+    if not meglio:
+        return None, None
+    pc = [a['perc'] for a in s['attivi'] if a['nome'] in meglio['nomi'] and a.get('perc')]
+    return meglio['id'], max(pc) if pc else None
+
+
+def vicini(x, y):
+    return max(x, y) / min(x, y) <= 1.33
+
+
+def formato_vicino(a, b):
+    """Il formato al massimo un terzo più grande (Federico, 15/10), in ml o g; e se ci sono, anche i pezzi (capsule,
+    fiale, cerotti). Senza una misura da confrontare non si confronta: meglio nessun confronto che uno a caso."""
+    ma, mb, na, nb = a.get('misura'), b.get('misura'), a.get('pezzi'), b.get('pezzi')
+    if bool(ma) != bool(mb) or bool(na) != bool(nb) or not (ma or na):
+        return False
+    u = lambda m: 'ml' if m['unita'] == 'g' else m['unita']
+    if ma and (u(ma) != u(mb) or not vicini(ma['valore'], mb['valore'])):
+        return False
+    return not na or vicini(na, nb)
+
+
+def per_chi(s):
+    """Per chi è, se il titolo lo dice: un anticaduta per donna non è l'alternativa di uno per uomo."""
+    t = s['titolo']
+    return 'uomo' if re.search(r'\b(uomo|uomini|men|homme|man)\b', t, re.I) else 'donna' if re.search(r'\b(donna|donne|woman|women|femme)\b', t, re.I) else None
+
+
+def fascia_spf(s):
+    """La protezione solare in tre fasce: bassa (sotto 30), media (30-49), alta (50 e 50+). None se non c'è."""
+    v = s.get('spf')
+    return None if not v else 'alta' if v >= 50 else 'media' if v >= 30 else 'bassa'
+
+
+def stesso_prodotto(a, b):
+    """Lo stesso prodotto con due titoli nel catalogo («Balsamo nutriente al mango» e «balsamo al mango», Klorane):
+    stessa marca, metà delle parole del nome in comune, gli stessi numeri. Non è un'alternativa a sé stesso."""
+    if k(a['marca']) != k(b['marca']):
+        return False
+    def parole(n):
+        n = unicodedata.normalize('NFD', n.lower()).encode('ascii', 'ignore').decode()
+        return set(re.findall(r'[a-z]{3,}', n)), set(re.findall(r'\d+', n))
+    (wa, da), (wb, db) = parole(a['nome']), parole(b['nome'])
+    return da == db and len(wa & wb) >= 0.5 * max(1, len(wa | wb))
+
+
+def simili(a, b):
+    """QUANDO DUE PRODOTTI SI CONFRONTANO: la stessa regola di src/lib/simili.ts (alternativa del test).
+    Stesso passaggio, stessa zona (viso, occhi, cute, capelli...), stessa forma (acqua micellare con acqua micellare,
+    fiale con fiale), stessa forza, stessa fascia di protezione solare, stesso genere se il titolo lo dice, non lo
+    stesso prodotto con un altro titolo,
+    stesso attivo principale con la percentuale al massimo doppia se le due la dichiarano, un lavoro in comune,
+    formato vicino."""
+    za, zb = a.get('zona') or traduci.zona(a['titolo'], a['passaggio']), b.get('zona') or traduci.zona(b['titolo'], b['passaggio'])
+    fa, fb = a.get('forma') or traduci.forma(a['titolo'], a['passaggio']), b.get('forma') or traduci.forma(b['titolo'], b['passaggio'])
+    if a['passaggio'] != b['passaggio'] or za != zb or fa != fb or a.get('forza') != b.get('forza') or fascia_spf(a) != fascia_spf(b) \
+            or per_chi(a) != per_chi(b):
+        return False
+    if stesso_prodotto(a, b):
+        return False
+    (pa, xa), (pb, xb) = principale(a), principale(b)
+    if pa != pb or (xa and xb and max(xa, xb) / min(xa, xb) > 2):
+        return False
+    return bool(lavoro(a) & lavoro(b)) and formato_vicino(a, b)
+
+
+def meno_caro(q, s):
+    """Costa meno davvero: almeno un quinto in meno e, se si sa, non di più ogni 10 ml (Friday, 15/10)."""
+    return q['prezzo'] <= s['prezzo'] * 0.8 and not (q.get('al_10') and s.get('al_10') and q['al_10'] >= s['al_10'])
 
 
 def confronti(scelti):
-    """Per ogni prodotto, se ci sono, nello stesso passaggio e con un lavoro in comune: il più ricco
-    (attivi, percentuali, INCI: almeno 12 punti di valore in più) e il meno ricco ma più economico
-    (almeno un quarto in meno ogni 10 ml). Solo dove il prezzo ogni 10 ml si può calcolare."""
-    unita = lambda s: {'g': 'ml'}.get(s['misura']['unita'], s['misura']['unita']) if s.get('misura') else None
+    """Per ogni prodotto, se ci sono: il più ricco (attivi, percentuali, INCI: almeno 12 punti di valore in più)
+    e il meno ricco ma più economico (almeno un quinto in meno sul prezzo). Solo tra prodotti simili, la stessa
+    regola dell'alternativa del test (src/lib/simili.ts): simili() qui sopra."""
     out = {}
     for s in scelti:
-        if not s.get('al_10'):
-            continue
         v, l = valore(s), lavoro(s)
-        pari = [q for q in scelti if q['id'] != s['id'] and q['passaggio'] == s['passaggio'] and q.get('al_10') and unita(q) == unita(s) and lavoro(q) & l and q['nome'] != s['nome']]
+        pari = [q for q in scelti if q['id'] != s['id'] and q['nome'] != s['nome'] and q.get('prezzo') and simili(s, q)]
         ricchi = [q for q in pari if valore(q) >= v + 12]
-        economici = [q for q in pari if valore(q) <= v and q['al_10'] <= s['al_10'] * 0.75]
+        economici = [q for q in pari if valore(q) <= v and meno_caro(q, s)]
         c = {}
         if ricchi:
-            c['ricco'] = max(ricchi, key=lambda q: (valore(q), len(lavoro(q) & l), -q['al_10']))['id']
+            c['ricco'] = max(ricchi, key=lambda q: (valore(q), len(lavoro(q) & l), -q['prezzo']))['id']
         if economici:
-            c['economico'] = max(economici, key=lambda q: (valore(q), len(lavoro(q) & l), -q['al_10']))['id']
+            c['economico'] = max(economici, key=lambda q: (valore(q), len(lavoro(q) & l), -q['prezzo']))['id']
         if c:
             out[s['id']] = c
     return out
 
 
-def main():
+def main(prova=None):
     neg = sys.argv[1] if len(sys.argv) > 1 else 'liki24'
     schede = json.loads((R / 'feeds-out' / f'schede-{neg}.json').read_text())
+    # gli altri negozi attivi in admin con la commissione; --prova clubfarma:8 simula senza scrivere niente
+    attivi = {n['id']: n for n in NEGOZI if n['id'] != neg and n['attivo'] and n.get('commissione') is not None}
+    if prova:
+        pid, pc = prova.split(':')
+        attivi[pid] = {**next(n for n in NEGOZI if n['id'] == pid), 'commissione': float(pc)}
+    comm = {n['nome'].lower(): n.get('commissione') for n in NEGOZI} | {n['nome'].lower(): n['commissione'] for n in attivi.values()}
+    altri = [json.loads(f.read_text()) for f in (R / 'feeds-out' / f'schede-{i}.json' for i in attivi) if f.exists()]
+    schede, offerte = unisci(schede, altri)
+    for s in schede:  # le schede degli altri negozi, se sono state fatte prima di zona, forma e pezzi (traduci.py)
+        if 'zona' not in s:
+            s['zona'], s['forma'], s['pezzi'] = traduci.zona(s['titolo'], s['passaggio']), traduci.forma(s['titolo'], s['passaggio']), traduci.pezzi(s['titolo'])
     dec = decisioni()
     gruppi, formati = defaultdict(list), {}
     for s in schede:
         if s['passaggio'] not in CATEGORIA or not s.get('immagine') or not s.get('prezzo') or not s.get('link'):
             continue
-        gruppi[(s['marca'], s['passaggio'])].append(s)
+        gruppi[(k(s['marca']), s['passaggio'])].append(s)
     scelti = []
     for (marca, pas), ss in gruppi.items():
         # un solo formato per prodotto: il più conveniente ogni 10 ml
@@ -296,9 +460,27 @@ def main():
                 per_modello[mod] = n
         for n, s in per_nome.items():
             formati[s['id']] = tutti[n]
-        x = dec[k(marca)]
+        x = dec[marca]
         quota = QUANTI['alternativa'] if 'alternativa' in (x.get('nota') or '').lower() else QUANTI[x['decisione']]
         scelti += sorted(per_nome.values(), key=valore, reverse=True)[:quota]
+    # lo stesso prodotto in più negozi: il link lo decide la commissione, a prezzo simile
+    cambi = 0
+    for s in scelti:
+        if not offerte.get(s['id']):
+            continue
+        tutte = [{'negozio': q['negozio'], 'prezzo': q['prezzo'], 'link': q['link'], 'id_negozio': q['id_negozio'], 'commissione': comm.get(q['negozio'].lower())}
+                 for q in [s] + offerte[s['id']] if q.get('prezzo') and q.get('link')]
+        s['offerte'] = [{k_: o[k_] for k_ in ('negozio', 'prezzo', 'commissione')} for o in tutte]
+        o = scegli_offerta(tutte)
+        if o['negozio'] != s['negozio']:
+            cambi += 1
+            s.update({'negozio': o['negozio'], 'prezzo': o['prezzo'], 'link': o['link'], 'id_negozio': o['id_negozio']})
+    if prova:
+        da = Counter(s['negozio'] for s in scelti)
+        print(f'PROVA {prova}: prodotti nel sito {len(scelti)} · per negozio {dict(da)} · passati di negozio per la commissione {cambi} · con più offerte {sum(1 for s in scelti if s.get("offerte"))}')
+        nuove = [s for s in scelti if not s['id'].startswith('lk-')]
+        print('nuovi prodotti dal negozio in prova:', len(nuove), Counter(NOME_MARCA.get(s['marca'], s['marca']) for s in nuove).most_common(15))
+        return
     vecchio = R / 'src' / 'data' / 'prodotti.json'
     vecchi = {p['id']: p['slug'] for p in json.loads(vecchio.read_text())['prodotti'] if p.get('slug')} if vecchio.exists() else {}
     slug = indirizzi(scelti, vecchi)
@@ -315,19 +497,18 @@ def main():
             'titolo': s['titolo'], 'pelle': s.get('pelle'), 'bisogni': s['bisogni'], 'capelli': s.get('capelli'), 'integrazione': s.get('integrazione'),
             'gravidanza': s['gravidanza'], 'alcol': s.get('alcol'), 'oli_essenziali': s.get('oli_essenziali'), 'inci': s['inci'] or None,
             'fonti': {c: v for c, v in s['fonti'].items() if v}, 'mancano': s['mancano'], 'prezzo_pieno': s.get('prezzo_pieno'),
-            'formati': list(misure.values()) if len(misure) > 1 else [], 'confronto': conf.get(s['id'], {}),
+            'formati': list(misure.values()) if len(misure) > 1 else [], 'confronto': conf.get(s['id'], {}), 'offerte': s.get('offerte', []),
         }
     prodotti.sort(key=lambda p: (p['category'], p['brand'], p['name']))
     (R / 'src' / 'data' / 'prodotti.json').write_text(json.dumps({'_nota': f'La selezione dalle schede di {neg} (scripts/catalogo/al_sito.py). Non si modifica a mano: si rigenera.', 'prodotti': prodotti}, ensure_ascii=False, separators=(',', ':')))
     (R / 'src' / 'data' / 'schede.json').write_text(json.dumps({'_nota': 'Le schede per esteso delle pagine prodotto (scripts/catalogo/al_sito.py), lette solo nella build. Non si modifica a mano.', 'schede': pagine}, ensure_ascii=False, separators=(',', ':')))
-    from collections import Counter
     print('confronti: più ricco', sum(1 for c in conf.values() if 'ricco' in c), '· più economico', sum(1 for c in conf.values() if 'economico' in c), '· misure unite', sum(1 for p in pagine.values() if p['formati']))
     print(len(prodotti), 'prodotti nel sito;', dict(Counter(p['category'] for p in prodotti)))
     print('con INCI:', sum(1 for p in prodotti if p['scheda']['inci']), '· gravidanza sì/no:', sum(1 for p in prodotti if p.get('pregnancySafe') is True), sum(1 for p in prodotti if p.get('pregnancySafe') is False))
 
 
 if __name__ == '__main__' and '--lista' not in sys.argv:
-    main()
+    main(next((x.split('=', 1)[1] for x in sys.argv if x.startswith('--prova=')), None))
 
 
 def da_arricchire(neg='liki24', quanti=400):

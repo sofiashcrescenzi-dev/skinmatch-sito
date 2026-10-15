@@ -14,6 +14,8 @@ from pathlib import Path
 
 csv.field_size_limit(10 ** 8)
 CANALE_ADTRACTION = '2119692688'
+# il prefisso degli id dei prodotti per negozio (lk-188565, cf-…): gli id non si toccano più, sono le pagine
+PREFISSO = {'Liki24': 'lk', 'Clubfarma': 'cf'}
 CACHE = Path(__file__).resolve().parents[2] / 'feeds-out' / 'cache'
 UA = 'Mozilla/5.0 (SkinmatchBot; +https://skinmatch.it)'
 
@@ -67,7 +69,46 @@ def liki24(file=None):
             'prezzo': _prezzo(x.get('sale_price')) or _prezzo(x.get('price')),
             'prezzo_pieno': _prezzo(x.get('price')) if x.get('sale_price') else None,
             'gtin': (x.get('gtin') or '').strip() or None, 'immagine': x.get('image_link'), 'link': canale_skinmatch(x.get('link')),
-            'misura_feed': x.get('unit_pricing_measure') or None,
+            'misura_feed': x.get('unit_pricing_measure') or None, 'prefisso': 'lk',
+        }
+
+
+def _awin(fid, file=None):
+    """Un feed Awin per id: l'indirizzo si chiede ogni volta all'elenco dei feed con la chiave in ~/.awin-feed-key
+    (mai stampata né salvata nel repository)."""
+    if file:
+        return _testo(file)
+    k = (Path.home() / '.awin-feed-key').read_text().strip().split('=')[-1].strip().strip('"\'')
+    lista = _testo(f'https://productdata.awin.com/datafeed/list/apikey/{k}')
+    riga = next((x for x in csv.DictReader(io.StringIO(lista)) if x['Feed ID'] == str(fid)), None)
+    if not riga:
+        raise SystemExit(f'feed Awin {fid} non trovato tra quelli disponibili')
+    return _testo(riga['URL'])
+
+
+def canale_awin(link):
+    """Il link Awin con l'identificativo publisher di Skinmatch (AWIN_PUBLISHER_ID): vale solo se il negozio
+    ha approvato Skinmatch, per questo il negozio resta «non attivo» in admin finché non succede."""
+    pub = segreto('AWIN_PUBLISHER_ID')
+    return re.sub(r'(awinaffid=)\d+', r'\g<1>' + pub, link) if link and pub else link
+
+
+def clubfarma(file=None):
+    """Il catalogo di Clubfarma IT (Awin, feed 100756). ⚠️ Il 15/10/2026 il feed era fermo al 5/6/2026."""
+    for x in csv.DictReader(io.StringIO(_awin(100756, file))):
+        if x.get('in_stock') != '1' or x.get('is_for_sale') == '0':
+            continue
+        titolo = pulito(x.get('product_name'))
+        prezzo = _prezzo(x.get('search_price'))
+        pieno = _prezzo(x.get('rrp_price')) or _prezzo(x.get('product_price_old'))
+        yield {
+            'negozio': 'Clubfarma', 'id': x.get('aw_product_id') or x.get('merchant_product_id'), 'titolo': titolo,
+            'marca': (x.get('brand_name') or '').strip() if (x.get('brand_name') or '').strip().lower() != 'false' else '',
+            'descrizione': pulito(x.get('description') or x.get('product_short_description')),
+            'prezzo': prezzo, 'prezzo_pieno': pieno if pieno and prezzo and pieno > prezzo else None,
+            'gtin': (x.get('ean') or x.get('product_GTIN') or '').strip() or None,
+            'immagine': x.get('large_image') or x.get('merchant_image_url') or x.get('aw_image_url'),
+            'link': canale_awin(x.get('aw_deep_link')), 'misura_feed': x.get('base_price_text') or None, 'prefisso': 'cf',
         }
 
 

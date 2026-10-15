@@ -11,6 +11,7 @@ import glossario from '@/data/glossario.json';
 import catalogo from '@/data/catalogo.json';
 import rivista from '@/data/rivista.json';
 import attivi from '@/data/attivi.json';
+import negozi from '@/data/negozi.json';
 
 export type Area = 'pelle' | 'cute' | 'integrazione';
 export type AreaDomanda = Area | 'comune';
@@ -118,9 +119,14 @@ export type RegolaProdotti = {
   gravidanza?: boolean;
   genere?: string[];
   segmento?: string[]; // il segmento della marca deciso nell'artifact «Le marche di Skinmatch»
+  categorie?: string[]; // le categorie del catalogo (sieri, creme…): un filtro può valere solo per alcune
 };
+// la fascia di prezzo, rispetto agli altri prodotti dello stesso passaggio (scripts/catalogo/schede.py):
+// il terzo più economico, la parte centrale, il 20% più caro
+export const FASCE: Record<string, string> = { base: 'economica', top: 'media', premium: 'alta' };
 export type CategoriaCatalogo = { id: string; nome: string; regola: RegolaProdotti; immagine: string; descrizione: string };
-export type TagCatalogo = { id: string; nome: string; regola: RegolaProdotti; descrizione: string };
+// un filtro: «home» lo mette tra le famiglie della homepage (in quest'ordine), «immagine» è la sua foto lì
+export type TagCatalogo = { id: string; nome: string; regola: RegolaProdotti; descrizione: string; home?: boolean; immagine?: string };
 // Le correzioni a mano su un prodotto, per id (dall'admin, scheda «Catalogo»).
 export type Modifica = {
   nascosto?: boolean;
@@ -164,9 +170,16 @@ export const ARTICOLI = ((rivista as unknown as { articoli: Articolo[] }).artico
   .sort((a, b) => b.pubblicato_il.localeCompare(a.pubblicato_il));
 
 // Gli attivi spiegati (src/data/attivi.json): la home li racconta, il catalogo li usa come filtro.
-export type Attivo = { id: string; nome: string; nomi: string[]; termine: string; cosa: string; per_chi: string; attenzione: string };
+export type Attivo = { id: string; nome: string; nomi: string[]; termine: string; cosa: string; per_chi: string; attenzione: string; peso: number };
 export const ATTIVI = (attivi as unknown as { attivi: Attivo[] }).attivi;
 export const conAttivo = (p: { scheda?: { attivi: { nome: string }[] } }, a: Attivo) => !!p.scheda?.attivi.some((x) => a.nomi.includes(x.nome));
+
+// I negozi (src/data/negozi.json, admin › Negozi): commissione, spedizione, codici sconto.
+export type Codice = { codice: string; descrizione: string; scade?: string };
+export type Negozio = { id: string; nome: string; rete: string; commissione: number | null; attivo: boolean; spedizione: { costo: number | null; gratis_da: number | null; tempi: string; nota: string }; codici: Codice[]; nota?: string };
+export type Negozi = { negozi: Negozio[] };
+export const NEGOZI = negozi as unknown as Negozi;
+export const negozioPerNome = (nome?: string | null) => NEGOZI.negozi.find((n) => n.nome.toLowerCase() === (nome || '').toLowerCase());
 
 export const NOMI_AREA: Record<Area, string> = { pelle: 'Pelle', cute: 'Cute e capelli', integrazione: 'Integrazione' };
 

@@ -113,7 +113,9 @@
      "Medicale premium"
     ]
    },
-   "descrizione": "Marchi di ricerca che lavorano con attivi dichiarati in percentuale (vitamina C, retinoidi, acidi), spesso usati negli studi di dermatologia e medicina estetica."
+   "descrizione": "Marchi di ricerca che lavorano con attivi dichiarati in percentuale (vitamina C, retinoidi, acidi), spesso usati negli studi di dermatologia e medicina estetica.",
+   "home": true,
+   "immagine": "pelle-matura"
   },
   {
    "id": "alta-cosmesi",
@@ -123,7 +125,9 @@
      "Premium e lusso"
     ]
    },
-   "descrizione": "Marchi di profumeria e alta cosmesi: texture curate, profumo, esperienza d’uso. Nella scheda trovi cosa contengono davvero."
+   "descrizione": "Marchi di profumeria e alta cosmesi: texture curate, profumo, esperienza d’uso. Nella scheda trovi cosa contengono davvero.",
+   "home": true,
+   "immagine": "sieri"
   },
   {
    "id": "skinceuticals",
@@ -162,15 +166,21 @@
      "Vichy"
     ]
    },
-   "descrizione": "Prodotti che costano poco e funzionano: dermocosmesi da farmacia e K-beauty essenziale."
+   "descrizione": "Prodotti che costano poco e funzionano: dermocosmesi da farmacia e K-beauty essenziale.",
+   "home": false,
+   "immagine": "detergenti"
   },
   {
    "id": "k-beauty",
    "nome": "K-beauty",
    "regola": {
-    "coreano": true
+    "segmento": [
+     "K-beauty"
+    ]
    },
-   "descrizione": "La cosmetica coreana: texture leggere, idratazione a strati, protezioni solari piacevoli da mettere."
+   "descrizione": "La cosmetica coreana: texture leggere, idratazione a strati, protezioni solari piacevoli da mettere.",
+   "home": true,
+   "immagine": "kbeauty"
   },
   {
    "id": "farmacia",
@@ -180,7 +190,9 @@
      "Dermocosmesi da farmacia"
     ]
    },
-   "descrizione": "Dermocosmesi: marchi nati con i dermatologi e venduti in farmacia, con formule essenziali testate anche su pelli sensibili, con acne o rossori."
+   "descrizione": "Dermocosmesi: marchi nati con i dermatologi e venduti in farmacia, con formule essenziali testate anche su pelli sensibili, con acne o rossori.",
+   "home": true,
+   "immagine": "pelle-sensibile"
   },
   {
    "id": "pelli-sensibili",

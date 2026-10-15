@@ -1004,18 +1004,18 @@
  },
  {
   "nome": "biotipo-secca",
-  "alt": "Ritratto all'aperto di un uomo anziano con la barba bianca che sorride",
-  "autore": "Iqbal farooz",
-  "autore_pagina": "https://www.pexels.com/@wanderinglenses",
-  "pagina": "https://www.pexels.com/photo/portrait-of-elderly-man-26842301/",
-  "pexels_id": 26842301,
+  "alt": "Primo piano di un viso coperto da una polvere bianca che si crepa sulle labbra e sul mento, come una pelle secca che tira",
+  "autore": "Ricardo Garcia",
+  "autore_pagina": "https://www.pexels.com/@ricardo-garcia-211844",
+  "pagina": "https://www.pexels.com/photo/person-s-face-covered-with-white-powder-682501/",
+  "pexels_id": 682501,
   "licenza": "Licenza Pexels (uso libero, citazione gradita)",
   "uso": [
    "biotipo:secca"
   ],
-  "fuoco": "50% 35%",
-  "larghezza": 1600,
-  "altezza": 2400,
+  "fuoco": "50% 22%",
+  "larghezza": 1333,
+  "altezza": 2000,
   "originale": "media/foto/biotipo-secca.jpg"
  },
  {
@@ -1113,5 +1113,22 @@
   "larghezza": 1600,
   "altezza": 2400,
   "originale": "media/foto/biotipo-vegana.jpg"
+ },
+ {
+  "nome": "rivista-spicole-pdrn",
+  "alt": "Una ragazza con i capelli ricci raccolti si picchietta la guancia con la punta delle dita",
+  "autore": "Alena Darmel",
+  "autore_pagina": "https://www.pexels.com/@a-darmel",
+  "pagina": "https://www.pexels.com/photo/woman-doing-skin-care-8990301/",
+  "pexels_id": 8990301,
+  "licenza": "Licenza Pexels (uso libero, citazione gradita)",
+  "uso": [
+   "rivista: copertina dell'articolo spicole-pdrn",
+   "social"
+  ],
+  "fuoco": "50% 35%",
+  "larghezza": 1600,
+  "altezza": 2400,
+  "originale": "media/foto/rivista-spicole-pdrn.jpg"
  }
 ]

@@ -6,6 +6,8 @@ import { PRODOTTI, prodottoPerId, biotipiPer, categoriaDi, indirizzo, euro, nego
 import { estesa, type SchedaEstesa } from '@/lib/schede';
 import { ConTermini } from '@/components/Termini';
 import Campione from '@/components/Campione';
+import FotoProdotto, { tonoProdotto } from '@/components/FotoProdotto';
+import InfoNegozio from '@/components/InfoNegozio';
 import { Invito, Stendi } from '@/components/Inviti';
 
 // LA PAGINA DI UN PRODOTTO, /catalogo/<categoria>/<oggetto>: la scheda per esteso, come nel prototipo
@@ -44,11 +46,10 @@ const LAVORO: Record<string, string> = {
 const CUTE: Record<string, string> = { normale: 'normale', grasso: 'grassa', secco: 'secca', sensibile: 'sensibile' };
 const FORZA = ['', 'delicato', 'medio', 'forte'];
 const FORZA_NOTA = ['', 'va bene anche se non hai mai usato prodotti con attivi', 'meglio se la pelle è già abituata a qualche attivo', 'da introdurre piano, solo se usi già attivi'];
-const FASCIA: Record<string, string> = { base: 'fascia base', top: 'fascia alta', premium: 'premium' };
+const FASCIA: Record<string, string> = { base: 'fascia di prezzo economica', top: 'fascia di prezzo media', premium: 'fascia di prezzo alta' };
 
 const perc = (n: number | null) => (n ? ` ${String(n).replace('.', ',')}%` : '');
 const attiviTesto = (p: Prodotto) => (p.scheda?.attivi || []).map((a) => a.nome + perc(a.perc)).join(', ');
-const unita = (p: Prodotto) => (p.scheda?.misura?.unita === 'g' ? 'g' : 'ml');
 const misura = (p: Prodotto) => (p.scheda?.misura ? `${String(p.scheda.misura.valore).replace('.', ',')} ${p.scheda.misura.unita}` : null);
 
 function pelleTesto(pe: NonNullable<SchedaEstesa['pelle']>) {
@@ -90,7 +91,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const x = estesa(p.id);
   const pas = PASSAGGIO[p.scheda?.passaggio || '']?.[0] || categoriaDi(p)?.nome || '';
   const att = (p.scheda?.attivi || []).slice(0, 3).map((a) => a.nome + perc(a.perc)).join(', ');
-  const descr = [`${pas} di ${p.brand}${att ? ` con ${att}` : ''}.`, x?.pelle ? pelleTesto(x.pelle) + '.' : '', p.scheda?.al_10 ? `${euro(p.scheda.al_10)} ogni 10 ${unita(p)}.` : '', 'Attivi, forza, gravidanza e INCI nella scheda di Skinmatch.'].filter(Boolean).join(' ');
+  const descr = [`${pas} di ${p.brand}${att ? ` con ${att}` : ''}.`, x?.pelle ? pelleTesto(x.pelle) + '.' : '', `${euro(p.price)}.`, 'Attivi, forza, gravidanza e INCI nella scheda di Skinmatch.'].filter(Boolean).join(' ');
   return {
     title: `${p.name}, ${p.brand}: attivi e per quale pelle`,
     description: descr.slice(0, 158),
@@ -123,12 +124,7 @@ export default async function ProdottoPage({ params }: { params: Promise<{ slug:
       </nav>
 
       <header className="p-testa">
-        <div className="p-foto">
-          {p.image
-            // eslint-disable-next-line @next/next/no-img-element
-            ? <img src={p.image} alt={`${p.brand} ${p.name}`} width={600} height={600} fetchPriority="high" decoding="async" />
-            : <span className="piccolo">{p.brand}</span>}
-        </div>
+        <div className="p-foto"><FotoProdotto src={p.image} alt={`${p.brand} ${p.name}`} variante="pagina" tono={tonoProdotto(cat.id)} priorita /></div>
         <div className="pila" style={{ ['--gap' as string]: '14px' }}>
           <span className="etichetta">{p.brand}{pas ? ` · ${pas[0]}` : ''}</span>
           <h1 className="titolo-2" style={{ fontSize: 'clamp(28px, 4.4vw, 44px)' }}>{p.name}</h1>
@@ -136,8 +132,8 @@ export default async function ProdottoPage({ params }: { params: Promise<{ slug:
             <div className="riga-chip">{s.attivi.slice(0, 6).map((a) => <span key={a.nome} className="chip tenue">{a.nome}{a.perc ? <b>{perc(a.perc)}</b> : null}</span>)}</div>
           ) : null}
           <div><Campione href={p.affiliateUrl} prezzo={minimo} da_prezzo={!!x?.formati.length} dove={dove} id={p.id} da={`prodotto-${p.slug}`} /></div>
+          <InfoNegozio negozio={dove} prezzo={minimo} />
           <p className="p-prezzo">
-            {s?.al_10 ? <span>{euro(s.al_10)} ogni 10 {unita(p)}</span> : null}
             {misura(p) ? <span>{x?.formati.length ? `${x.formati.length} misure` : misura(p)}</span> : null}
             <span>{FASCIA[p.tier]}</span>
           </p>
@@ -173,7 +169,7 @@ export default async function ProdottoPage({ params }: { params: Promise<{ slug:
               {[s.texture ? s.texture[0].toUpperCase() + s.texture.slice(1) : null, s.profumo === true ? 'con profumo' : s.profumo === false ? 'senza profumo' : 'profumo non dichiarato', x?.inci && x.alcol ? 'con alcol' : null, x?.inci && x.oli_essenziali ? 'con oli essenziali' : null].filter(Boolean).join(' · ')}
             </dd></div>
           )}
-          <div><dt>Prezzo</dt><dd>{euro(p.price)}{misura(p) ? ` per ${misura(p)}` : ''}{s?.al_10 ? ` · ${euro(s.al_10)} ogni 10 ${unita(p)}` : ''}<span className="piccolo">{FASCIA[p.tier][0].toUpperCase() + FASCIA[p.tier].slice(1)}, rispetto agli altri prodotti dello stesso passaggio. Prezzo del negozio all’ultimo aggiornamento.</span></dd></div>
+          <div><dt>Prezzo</dt><dd>{euro(p.price)}{misura(p) ? ` per ${misura(p)}` : ''}<span className="piccolo">{FASCIA[p.tier][0].toUpperCase() + FASCIA[p.tier].slice(1)}, rispetto agli altri prodotti dello stesso passaggio. Prezzo del negozio all’ultimo aggiornamento.</span></dd></div>
         </dl>
       </section>
 
@@ -183,7 +179,7 @@ export default async function ProdottoPage({ params }: { params: Promise<{ slug:
           <div className="misure">
             {x.formati.map((f) => (
               <div key={f.misura}>
-                <span><b>{f.misura}</b>{f.al_10 ? <span className="piccolo"> · {euro(f.al_10)} ogni 10 {unita(p)}</span> : null}</span>
+                <span><b>{f.misura}</b></span>
                 <Campione href={f.link} prezzo={f.prezzo} dove={dove} id={p.id} da={`prodotto-${p.slug}-misura`} />
               </div>
             ))}
@@ -196,7 +192,7 @@ export default async function ProdottoPage({ params }: { params: Promise<{ slug:
         <section className="pila p-sez" aria-labelledby="confronto">
           <div className="pila" style={{ ['--gap' as string]: '8px' }}>
             <h2 id="confronto" className="titolo-3">A confronto</h2>
-            <p className="piccolo" style={{ maxWidth: '62ch' }}>Nello stesso passaggio, per lo stesso lavoro: {ricco && economico ? 'uno più ricco di attivi e uno meno ricco che costa meno' : ricco ? 'uno più ricco di attivi' : 'uno meno ricco che costa meno'}, ogni 10 {unita(p)}.</p>
+            <p className="piccolo" style={{ maxWidth: '62ch' }}>Prodotti simili: stesso passaggio, stesso attivo principale, formato vicino. {ricco && economico ? 'Uno più ricco di attivi e uno meno ricco che costa meno.' : ricco ? 'Uno più ricco di attivi.' : 'Uno meno ricco che costa meno.'}</p>
           </div>
           <div className="confronto">
             <Confronto p={p} etichetta="Questo" questo />
@@ -257,40 +253,36 @@ export default async function ProdottoPage({ params }: { params: Promise<{ slug:
   );
 }
 
-// Una colonna del confronto: cosa ha in più o in meno e quanto costa ogni 10 ml rispetto a questo.
+// Una colonna del confronto: cosa ha in più o in meno e quanto costa rispetto a questo (formati vicini: lib/simili.ts).
 function Confronto({ p, etichetta, questo, rispetto }: { p: Prodotto; etichetta: string; questo?: boolean; rispetto?: Prodotto }) {
   const s = p.scheda!;
   const href = indirizzo(p);
   const nomi = (q?: Prodotto) => new Set((q?.scheda?.attivi || []).map((a) => a.nome));
   const inPiu = rispetto ? [...nomi(p)].filter((n) => !nomi(rispetto).has(n)) : [];
   const inMeno = rispetto ? [...nomi(rispetto)].filter((n) => !nomi(p).has(n)) : [];
-  const diff = rispetto?.scheda?.al_10 && s.al_10 ? Math.round((1 - s.al_10 / rispetto.scheda.al_10) * 100) : 0;
+  const diff = rispetto ? Math.round((1 - p.price / rispetto.price) * 100) : 0;
   return (
     <div className={`carta pila${questo ? ' questo' : ''}`} style={{ ['--gap' as string]: '10px' }}>
       <span className="etichetta">{etichetta}</span>
       <div className="prodotto">
-        <div className="img">
-          {p.image
-            // eslint-disable-next-line @next/next/no-img-element
-            ? <img src={p.image} alt="" loading="lazy" decoding="async" width={96} height={96} />
-            : null}
-        </div>
+        <div className="foto-carta"><FotoProdotto src={p.image} alt="" variante="mini" tono={tonoProdotto(categoriaDi(p)?.id)} /></div>
         <div className="pila" style={{ ['--gap' as string]: '4px', minWidth: 0 }}>
           <span className="marca">{p.brand}</span>
           {questo || !href ? <span className="nome">{p.name}</span> : <Link className="nome" href={href}>{p.name}</Link>}
+          {!questo && href && <Link className="piccolo link-scheda" href={href}>Vai alla scheda</Link>}
         </div>
       </div>
       <dl className="voci stretta">
         <div><dt>Attivi</dt><dd>{s.attivi.length ? s.attivi.slice(0, 5).map((a) => a.nome + perc(a.perc)).join(', ') : 'non riconosciuti'}</dd></div>
         <div><dt>Forza</dt><dd><span className="pallini" aria-hidden="true">{[1, 2, 3].map((i) => <i key={i} className={i <= s.forza ? 'on' : ''} />)}</span>{FORZA[s.forza]}</dd></div>
         <div><dt>INCI</dt><dd>{s.inci ? 'completo' : 'non ancora'}</dd></div>
-        <div><dt>Ogni 10 {unita(p)}</dt><dd><b>{s.al_10 ? euro(s.al_10) : '—'}</b></dd></div>
+        <div><dt>Prezzo</dt><dd><b>{euro(p.price)}</b>{misura(p) ? ` · ${misura(p)}` : ''}</dd></div>
       </dl>
       {rispetto && (
         <p className="piccolo">
           {etichetta === 'Più ricco'
-            ? <>{inPiu.length ? `In più: ${inPiu.slice(0, 4).join(', ')}. ` : 'Più attivi con la percentuale dichiarata. '}{diff > 0 ? `E costa il ${diff}% in meno ogni 10 ${unita(rispetto)}.` : diff < 0 ? `Costa il ${-diff}% in più ogni 10 ${unita(rispetto)}.` : ''}</>
-            : <>{`Costa il ${diff}% in meno ogni 10 ${unita(rispetto)}.`}{inMeno.length ? ` In meno: ${inMeno.slice(0, 4).join(', ')}.` : ''}</>}
+            ? <>{inPiu.length ? `In più: ${inPiu.slice(0, 4).join(', ')}. ` : 'Più attivi con la percentuale dichiarata. '}{diff > 0 ? `E costa il ${diff}% in meno.` : diff < 0 ? `Costa il ${-diff}% in più.` : ''}</>
+            : <>{`Costa il ${diff}% in meno.`}{inMeno.length ? ` In meno: ${inMeno.slice(0, 4).join(', ')}.` : ''}</>}
         </p>
       )}
     </div>

@@ -5,7 +5,7 @@
 import { CATALOGO, type RegolaProdotti } from './dati';
 import type { Product } from './products';
 
-export function rispetta(p: Product, r: RegolaProdotti): boolean {
+export function rispetta(p: Product, r: RegolaProdotti, categorie = CATALOGO.categorie): boolean {
   if (r.categoria && p.category !== r.categoria) return false;
   if (r.con_bisogno && !p.concerns?.includes(r.con_bisogno as never)) return false;
   if (r.senza_bisogno && p.concerns?.includes(r.senza_bisogno as never)) return false;
@@ -15,7 +15,8 @@ export function rispetta(p: Product, r: RegolaProdotti): boolean {
   if (r.sensibili && p.sensitiveSafe !== true) return false;
   if (r.gravidanza && p.pregnancySafe !== true) return false;
   if (r.genere && !r.genere.includes(p.gender)) return false;
-  if (r.segmento && !r.segmento.includes(p.segment || '')) return false;
+  if (r.segmento?.length && !r.segmento.includes(p.segment || '')) return false;
+  if (r.categorie?.length && !r.categorie.includes(categoriaDi(p, categorie)?.id || '')) return false;
   return true;
 }
 

@@ -7,7 +7,7 @@ import { useApi } from './base';
 // Le schede dell'admin, nell'ordine chiesto dal PO il 15/10/2026.
 const SCHEDE = [
   ['/admin', 'Traffico'], ['/admin/test', 'Test fatti'], ['/admin/domande', 'Domande'], ['/admin/glossario', 'Glossario'],
-  ['/admin/catalogo', 'Catalogo'], ['/admin/biotipi', 'Biotipi'], ['/admin/rivista', 'Rivista'], ['/admin/squadra', 'Squadra'],
+  ['/admin/catalogo', 'Catalogo'], ['/admin/negozi', 'Negozi'], ['/admin/biotipi', 'Biotipi'], ['/admin/rivista', 'Rivista'], ['/admin/squadra', 'Squadra'], ['/admin/icone', 'Icone'],
 ];
 
 export default function Guscio({ children }: { children: React.ReactNode }) {

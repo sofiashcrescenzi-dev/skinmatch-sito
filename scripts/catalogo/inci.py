@@ -62,12 +62,12 @@ ATTIVI = [
     ('acido ialuronico', r'HYALURON|ialuronic'),
     ('acido salicilico', r'SALICYLIC ACID|salicilic|\bBHA\b'),
     ('LHA', r'CAPRYLOYL SALICYLIC ACID|\bLHA\b'),
-    ('acido glicolico', r'GLYCOLIC ACID|glicolic'),
+    ('acido glicolico', r'(?<!POLY)GLYCOLIC ACID|(?<!poli)glicolic'),  # non l'acido poliglicolico (Mineral 89)
     ('acido lattico', r'LACTIC ACID|acido lattico'),
     ('acido mandelico', r'MANDELIC ACID|mandelic'),
     ('PHA', r'GLUCONOLACTONE|LACTOBIONIC ACID|\bPHA\b'),
     ('acido azelaico', r'AZELAIC ACID|AZELOYL|azelaic'),
-    ('acido tranexamico', r'TRANEXAMIC|tranexamic'),
+    ('acido tranexamico', r'TRANEXAMIC|tranexamic|\bTXA\b'),
     ('thiamidol', r'ISOBUTYLAMIDO THIAZOLYL RESORCINOL|thiamidol|tiamidolo'),
     ('arbutina', r'ARBUTIN|arbutin'),
     ('acido ferulico', r'FERULIC ACID|ferulic'),
@@ -96,33 +96,42 @@ SOLO_DA_INCI = {'collagene', 'filtri solari', 'vitamina E', 'allantoina', 'bisab
 
 # concentrazioni scritte nei testi: «niacinamide 10%», «10% di niacinamide», «retinolo 0,3%». Ogni
 # percentuale va all'attivo più vicino, prima dopo e poi prima, entro poche parole.
-_PERC = re.compile(r'(\d{1,2}(?:[.,]\d{1,2})?)\s*%')
+# «0,005%» è 0,005, non 5 (A-Game 5, Zeno 15/10): i decimali si leggono tutti, e il numero non è la coda di un altro
+_PERC = re.compile(r'(?<![\d.,])(\d{1,2}(?:[.,]\d{1,4})?)\s*%')
 
 
 def _concentrazioni(testo):
+    """La percentuale va all'attivo che le sta attaccato: «retinolo 1%», «1% di retinolo», «niacinamide al 10%»,
+    «retinale (0,05%)». Mai a un attivo lontano: «Crema 20% complesso rassodante, con retinolo» non è retinolo
+    al 20% (Zeno, 15/10)."""
     out = {}
     for m in _PERC.finditer(testo or ''):
         v = float(m.group(1).replace(',', '.'))
         if v > 40:
             continue
-        dopo = testo[m.end():m.end() + 28]
-        prima = testo[max(0, m.start() - 28):m.start()]
+        dopo = re.sub(r"^\s*(?:\)\s*)?(?:di |d['’]|of |de )?", '', testo[m.end():m.end() + 40])
+        prima = re.sub(r"(?:\s+|\(|:|-|\b(?:al|all['’]|at|a|con|il|lo)\b)*$", '', testo[max(0, m.start() - 40):m.start()])
         migliore = None
         for nome, rx in _RX:
             if nome in SOLO_DA_INCI:
                 continue
-            d = rx.search(dopo)
-            if d and (migliore is None or d.start() < migliore[0]):
-                migliore = (d.start(), nome)
+            # subito dopo, al massimo una parola in mezzo («2% di acido salicilico», «6 % Acido Mandelico»)
+            d = rx.search(dopo[:40])
+            if d and d.start() <= 8 and not re.search(r'[,.;:+\d%()]', dopo[:d.start()]):
+                migliore = nome
+                break
         if migliore is None:
             for nome, rx in _RX:
                 if nome in SOLO_DA_INCI:
                     continue
-                ultimi = list(rx.finditer(prima))
-                if ultimi and (migliore is None or len(prima) - ultimi[-1].end() < migliore[0]):
-                    migliore = (len(prima) - ultimi[-1].end(), nome)
+                # tra l'attivo e la percentuale al massimo qualche parola senza numeri né punteggiatura:
+                # «mucina di lumaca 3%», «vitamina C pura al 15%»
+                ultimi = [u for u in rx.finditer(prima) if len(prima) - u.end() <= 22 and not re.search(r'[,.;:+\d%()]', prima[u.end():])]
+                if ultimi:
+                    migliore = nome
+                    break
         if migliore:
-            out.setdefault(migliore[1], v)
+            out.setdefault(migliore, v)
     return out
 
 

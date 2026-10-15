@@ -29,7 +29,7 @@ DATI = REPO / 'src' / 'data'
 REDIRECTS = REPO / 'public' / '_redirects'
 LOCK = REPO / '.pubblica.lock'
 FIRMA = '\n\nCo-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>'
-TIPI = ['test', 'biotipi', 'glossario', 'catalogo']
+TIPI = ['test', 'biotipi', 'glossario', 'catalogo', 'negozi']
 # scritti da scripts/catalogo/aggiorna.py: la selezione, le schede delle pagine prodotto, i clic
 CATALOGO_GENERATO = ['src/data/prodotti.json', 'src/data/schede.json', 'src/data/clic.json']
 
@@ -162,7 +162,7 @@ def pubblica(coda, ids):
         print(esito)
         return 0
     except Exception as e:
-        run('git', 'checkout', '--', *[f for f in ('src/data/test.json', 'src/data/biotipi.json', 'src/data/glossario.json', 'src/data/catalogo.json', 'src/data/rivista.json')], ok=False)
+        run('git', 'checkout', '--', *[f for f in ('src/data/test.json', 'src/data/biotipi.json', 'src/data/glossario.json', 'src/data/catalogo.json', 'src/data/negozi.json', 'src/data/rivista.json')], ok=False)
         if REDIRECTS.exists():
             run('git', 'checkout', '--', 'public/_redirects', ok=False)
         sql(f"UPDATE pubblicazioni SET stato = 'fallita', esito = {L(str(e)[:1500])}, fatta_il = datetime('now') WHERE id IN ({ids})")
