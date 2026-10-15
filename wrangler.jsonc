@@ -21,6 +21,8 @@
   "vars": {
     // chi può aprire l'admin (oltre a passare da Cloudflare Access)
     "ADMIN_EMAILS": "hello@agoranomos.cloud,sofiashcrescenzi@gmail.com",
+    // ⚠️ TEMPORANEO (il PO, 15/10): admin aperto senza blocco finché Access non è attivo. Poi "no".
+    "ADMIN_APERTO": "si",
     // ⚠️ da riempire quando Access è attivo (DEPLOY.md): il nome del team e l'Application Audience tag
     "ACCESS_TEAM": "",
     "ACCESS_AUD": ""

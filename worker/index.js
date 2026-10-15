@@ -73,6 +73,11 @@ async function evento(req, env) {
 let CERTI = null, CERTI_IL = 0;
 const b64u = (s) => Uint8Array.from(atob(s.replace(/-/g, '+').replace(/_/g, '/') + '==='.slice((s.length + 3) % 4)), (c) => c.charCodeAt(0));
 async function accesso(req, env) {
+  // ⚠️ ADMIN APERTO (il PO, 15/10/2026: «disattivare temporaneamente il blocco alla sezione admin,
+  // poi metteremo il block con Cloudflare una volta gestito dall'account di Sofia»). Con
+  // ADMIN_APERTO = "si" in wrangler.jsonc chiunque conosca l'indirizzo vede e modifica l'admin:
+  // resta fuori dai motori (robots e noindex). Si chiude rimettendo "no" quando Access è attivo.
+  if (env.ADMIN_APERTO === 'si') return { ok: true, email: 'admin aperto' };
   // solo in prova sul Mac (wrangler dev, .dev.vars): mai online, dove l'indirizzo non è localhost
   if (env.ADMIN_SVILUPPO === 'si' && new URL(req.url).hostname === 'localhost') return { ok: true, email: 'prova@localhost' };
   // ⚠️ LA CHIAVE TEMPORANEA (il PO, 15/10/2026: «aprimi l'admin prima di mettere l'access»): finché
