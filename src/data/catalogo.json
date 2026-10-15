@@ -1,25 +1,201 @@
 {
-  "_nota": "Categorie, filtri e correzioni del catalogo. Si modificano da skinmatch.it/admin/catalogo. I prodotti arrivano da src/lib/products.ts e products-feed.ts (feed dei merchant); qui sopra si correggono a mano, per id, senza toccare quei file.",
-  "categorie": [
-    { "id": "detergenti", "nome": "Detergenti", "regola": { "categoria": "detergenti" }, "immagine": "detergenti", "descrizione": "Il primo passaggio, mattina e sera: latte, gel, oli e acque micellari scelti per non sgrassare più del necessario." },
-    { "id": "sieri", "nome": "Sieri", "regola": { "categoria": "sieri" }, "immagine": "sieri", "descrizione": "Formule leggere e concentrate, per lavorare su un obiettivo: idratazione, macchie, imperfezioni, segni del tempo." },
-    { "id": "creme", "nome": "Creme", "regola": { "categoria": "creme", "senza_bisogno": "protezione-solare" }, "immagine": "creme", "descrizione": "Idratanti e nutrienti, dalle texture in gel per le pelli grasse ai balsami per le pelli secche." },
-    { "id": "solari", "nome": "Protezione solare", "regola": { "categoria": "creme", "con_bisogno": "protezione-solare" }, "immagine": "solari", "descrizione": "Ogni mattina, tutto l'anno: è il passaggio che previene di più macchie e segni del tempo." },
-    { "id": "attivi", "nome": "Trattamenti mirati", "regola": { "categoria": "attivi" }, "immagine": "attivi", "descrizione": "Retinoidi, acidi e trattamenti della sera, da introdurre piano." },
-    { "id": "shampoo", "nome": "Shampoo", "regola": { "categoria": "shampoo" }, "immagine": "shampoo", "descrizione": "Scelti sulla cute, non sui capelli: grassa, secca, con forfora o sensibile." },
-    { "id": "capelli", "nome": "Trattamenti per i capelli", "regola": { "categoria": "capelli" }, "immagine": "capelli", "descrizione": "Lozioni anticaduta, maschere e sieri per le lunghezze." },
-    { "id": "barba", "nome": "Barba", "regola": { "categoria": "barba" }, "immagine": "barba", "descrizione": "Per la barba e la pelle sotto: detersione, oli e balsami contro prurito e irritazione." },
-    { "id": "integratori", "nome": "Integratori", "regola": { "categoria": "integratori" }, "immagine": "integratori", "descrizione": "Per pelle, capelli e unghie, dall'interno. Non sostituiscono una dieta varia né il parere del medico." }
-  ],
-  "tag": [
-    { "id": "premium", "nome": "Premium", "regola": { "fascia": ["premium"] }, "descrizione": "Le formule di fascia alta: marchi di ricerca e di lusso, quando valgono il prezzo." },
-    { "id": "skinceuticals", "nome": "SkinCeuticals", "regola": { "marca": ["SkinCeuticals"] }, "descrizione": "La linea di ricerca sugli antiossidanti, usata anche negli studi di medicina estetica." },
-    { "id": "qualita-prezzo", "nome": "Buona qualità/prezzo", "regola": { "fascia": ["base"], "marca": ["CeraVe", "La Roche-Posay", "Bioderma", "Avène", "SVR", "Vichy", "Ducray", "ISDIN", "COSRX", "Beauty of Joseon", "Anua", "SKIN1004", "Round Lab", "Torriden"] }, "descrizione": "Prodotti che costano poco e funzionano: dermocosmesi da farmacia e K-beauty essenziale." },
-    { "id": "k-beauty", "nome": "K-beauty", "regola": { "coreano": true }, "descrizione": "La cosmetica coreana: texture leggere, idratazione a strati, protezioni solari piacevoli da mettere." },
-    { "id": "farmacia", "nome": "Da farmacia", "regola": { "marca": ["CeraVe", "La Roche-Posay", "Bioderma", "Avène", "SVR", "Vichy", "Ducray", "ISDIN", "Bioscalin", "Uriage", "Eucerin", "Rilastil"] }, "descrizione": "Dermocosmesi: marchi pensati con i dermatologi, spesso testati su pelli sensibili." },
-    { "id": "pelli-sensibili", "nome": "Per pelli sensibili", "regola": { "sensibili": true }, "descrizione": "Formule che vanno bene anche quando la pelle reagisce." },
-    { "id": "gravidanza", "nome": "Anche in gravidanza", "regola": { "gravidanza": true }, "descrizione": "Senza gli ingredienti da evitare in gravidanza e allattamento. Chiedi comunque al tuo medico." },
-    { "id": "uomo", "nome": "Per lui", "regola": { "genere": ["uomo"] }, "descrizione": "Pensati per la pelle maschile e per la barba." }
-  ],
-  "modifiche": {}
+ "_nota": "Categorie, filtri e correzioni del catalogo. Si modificano da skinmatch.it/admin/catalogo. I prodotti arrivano da src/lib/products.ts e products-feed.ts (feed dei merchant); qui sopra si correggono a mano, per id, senza toccare quei file.",
+ "categorie": [
+  {
+   "id": "detergenti",
+   "nome": "Detergenti",
+   "regola": {
+    "categoria": "detergenti"
+   },
+   "immagine": "detergenti",
+   "descrizione": "Il primo passaggio, mattina e sera: latte, gel, oli e acque micellari scelti per non sgrassare più del necessario."
+  },
+  {
+   "id": "sieri",
+   "nome": "Sieri",
+   "regola": {
+    "categoria": "sieri"
+   },
+   "immagine": "sieri",
+   "descrizione": "Formule leggere e concentrate, per lavorare su un obiettivo: idratazione, macchie, imperfezioni, segni del tempo."
+  },
+  {
+   "id": "creme",
+   "nome": "Creme",
+   "regola": {
+    "categoria": "creme",
+    "senza_bisogno": "protezione-solare"
+   },
+   "immagine": "creme",
+   "descrizione": "Idratanti e nutrienti, dalle texture in gel per le pelli grasse ai balsami per le pelli secche."
+  },
+  {
+   "id": "solari",
+   "nome": "Protezione solare",
+   "regola": {
+    "categoria": "creme",
+    "con_bisogno": "protezione-solare"
+   },
+   "immagine": "solari",
+   "descrizione": "Ogni mattina, tutto l'anno: è il passaggio che previene di più macchie e segni del tempo."
+  },
+  {
+   "id": "attivi",
+   "nome": "Trattamenti mirati",
+   "regola": {
+    "categoria": "attivi"
+   },
+   "immagine": "attivi",
+   "descrizione": "Retinoidi, acidi e trattamenti della sera, da introdurre piano."
+  },
+  {
+   "id": "cerotti",
+   "nome": "Cerotti per brufoli",
+   "regola": {
+    "categoria": "cerotti"
+   },
+   "immagine": "biotipo-acneica",
+   "descrizione": "Cerotti idrocolloidali da mettere sul brufolo: assorbono, proteggono dalle mani e aiutano a non schiacciarlo. Si usano la notte o di giorno, anche sotto il trucco."
+  },
+  {
+   "id": "shampoo",
+   "nome": "Shampoo",
+   "regola": {
+    "categoria": "shampoo"
+   },
+   "immagine": "shampoo",
+   "descrizione": "Scelti sulla cute, non sui capelli: grassa, secca, con forfora o sensibile."
+  },
+  {
+   "id": "capelli",
+   "nome": "Trattamenti per i capelli",
+   "regola": {
+    "categoria": "capelli"
+   },
+   "immagine": "capelli",
+   "descrizione": "Lozioni anticaduta, maschere e sieri per le lunghezze."
+  },
+  {
+   "id": "barba",
+   "nome": "Barba",
+   "regola": {
+    "categoria": "barba"
+   },
+   "immagine": "barba",
+   "descrizione": "Per la barba e la pelle sotto: detersione, oli e balsami contro prurito e irritazione."
+  },
+  {
+   "id": "integratori",
+   "nome": "Integratori",
+   "regola": {
+    "categoria": "integratori"
+   },
+   "immagine": "integratori",
+   "descrizione": "Per pelle, capelli e unghie, dall'interno. Non sostituiscono una dieta varia né il parere del medico."
+  }
+ ],
+ "tag": [
+  {
+   "id": "premium",
+   "nome": "Premium",
+   "regola": {
+    "fascia": [
+     "premium"
+    ]
+   },
+   "descrizione": "Le formule di fascia alta: marchi di ricerca e di lusso, quando valgono il prezzo."
+  },
+  {
+   "id": "skinceuticals",
+   "nome": "SkinCeuticals",
+   "regola": {
+    "marca": [
+     "SkinCeuticals"
+    ]
+   },
+   "descrizione": "La linea di ricerca sugli antiossidanti, usata anche negli studi di medicina estetica."
+  },
+  {
+   "id": "qualita-prezzo",
+   "nome": "Buona qualità/prezzo",
+   "regola": {
+    "fascia": [
+     "base"
+    ],
+    "marca": [
+     "CeraVe",
+     "La Roche-Posay",
+     "Bioderma",
+     "Avène",
+     "SVR",
+     "Vichy",
+     "Ducray",
+     "ISDIN",
+     "COSRX",
+     "Beauty of Joseon",
+     "Anua",
+     "SKIN1004",
+     "Round Lab",
+     "Torriden"
+    ]
+   },
+   "descrizione": "Prodotti che costano poco e funzionano: dermocosmesi da farmacia e K-beauty essenziale."
+  },
+  {
+   "id": "k-beauty",
+   "nome": "K-beauty",
+   "regola": {
+    "coreano": true
+   },
+   "descrizione": "La cosmetica coreana: texture leggere, idratazione a strati, protezioni solari piacevoli da mettere."
+  },
+  {
+   "id": "farmacia",
+   "nome": "Da farmacia",
+   "regola": {
+    "marca": [
+     "CeraVe",
+     "La Roche-Posay",
+     "Bioderma",
+     "Avène",
+     "SVR",
+     "Vichy",
+     "Ducray",
+     "ISDIN",
+     "Bioscalin",
+     "Uriage",
+     "Eucerin",
+     "Rilastil"
+    ]
+   },
+   "descrizione": "Dermocosmesi: marchi pensati con i dermatologi, spesso testati su pelli sensibili."
+  },
+  {
+   "id": "pelli-sensibili",
+   "nome": "Per pelli sensibili",
+   "regola": {
+    "sensibili": true
+   },
+   "descrizione": "Formule che vanno bene anche quando la pelle reagisce."
+  },
+  {
+   "id": "gravidanza",
+   "nome": "Anche in gravidanza",
+   "regola": {
+    "gravidanza": true
+   },
+   "descrizione": "Senza gli ingredienti da evitare in gravidanza e allattamento. Chiedi comunque al tuo medico."
+  },
+  {
+   "id": "uomo",
+   "nome": "Per lui",
+   "regola": {
+    "genere": [
+     "uomo"
+    ]
+   },
+   "descrizione": "Pensati per la pelle maschile e per la barba."
+  }
+ ],
+ "modifiche": {}
 }

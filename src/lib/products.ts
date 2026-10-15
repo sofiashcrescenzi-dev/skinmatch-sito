@@ -29,7 +29,8 @@ export type Category =
   | 'shampoo'
   | 'barba'
   | 'capelli'
-  | 'integratori';
+  | 'integratori'
+  | 'cerotti';
 export type Tier = 'base' | 'top' | 'premium';
 
 export type SkinType = 'secca' | 'grassa' | 'mista' | 'normale' | 'sensibile';
@@ -61,6 +62,7 @@ export const CATEGORY_LABELS: Record<Category, string> = {
   barba: 'Prodotti Barba',
   capelli: 'Prodotti Capelli',
   integratori: 'Integratori',
+  cerotti: 'Cerotti per brufoli',
 };
 
 export const TIER_LABELS: Record<Tier, string> = {

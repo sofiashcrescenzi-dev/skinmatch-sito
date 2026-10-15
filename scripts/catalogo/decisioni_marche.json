@@ -1211,6 +1211,50 @@
    "decisione": "no",
    "nota": "",
    "linee": []
+  },
+  {
+   "marca": "Hero",
+   "segmento": "Trattamenti mirati",
+   "proposta": "si",
+   "decisione": "si",
+   "nota": "cerotti idrocolloidali per brufoli (Federico, 15/10)",
+   "linee": [
+    "Mighty Patch"
+   ]
+  },
+  {
+   "marca": "Acnemy",
+   "segmento": "Trattamenti mirati",
+   "proposta": "si",
+   "decisione": "si",
+   "nota": "cerotti idrocolloidali per brufoli (Federico, 15/10)",
+   "linee": [
+    "Zitproof"
+   ]
+  },
+  {
+   "marca": "Petitfee",
+   "segmento": "K-beauty",
+   "proposta": "selezione",
+   "decisione": "selezione",
+   "nota": "solo i cerotti per brufoli (Federico, 15/10)",
+   "linee": [
+    "Spot",
+    "Clearing",
+    "idrocolloid"
+   ]
+  },
+  {
+   "marca": "Purederm",
+   "segmento": "K-beauty",
+   "proposta": "selezione",
+   "decisione": "selezione",
+   "nota": "solo i cerotti per brufoli (Federico, 15/10)",
+   "linee": [
+    "anti-acne",
+    "idrocolloid",
+    "brufol"
+   ]
   }
  ]
 }

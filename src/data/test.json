@@ -1544,6 +1544,19 @@
    ]
   },
   {
+   "id": "cerotti",
+   "area": "pelle",
+   "nome": "Al bisogno: cerotti per i brufoli",
+   "quando": "sul brufolo, la notte o di giorno sotto il trucco",
+   "categoria": "cerotti",
+   "se": [
+    {
+     "asse": "imp",
+     "min": 2
+    }
+   ]
+  },
+  {
    "id": "barba",
    "area": "pelle",
    "nome": "Barba",

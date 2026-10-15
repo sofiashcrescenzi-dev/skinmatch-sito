@@ -19,7 +19,7 @@ R = Path(__file__).resolve().parents[2]
 QUANTI = {'si': 5, 'selezione': 4, 'alternativa': 3}
 # i passaggi delle schede che il sito usa, con la categoria del catalogo (src/data/catalogo.json)
 CATEGORIA = {'detergente': 'detergenti', 'siero': 'sieri', 'esfoliante': 'attivi', 'crema': 'creme', 'spf': 'creme',
-             'shampoo': 'shampoo', 'trattamento cute': 'capelli', 'balsamo e maschera capelli': 'capelli', 'barba': 'barba', 'integratore': 'integratori'}
+             'shampoo': 'shampoo', 'trattamento cute': 'capelli', 'balsamo e maschera capelli': 'capelli', 'barba': 'barba', 'integratore': 'integratori', 'cerotti': 'cerotti'}
 BISOGNO = {'idratazione': 'idratazione', 'imperfezioni': 'acne-sebo', 'macchie': 'macchie-luminosita', 'tempo': 'anti-age',
            'calmare': 'rossori-sensibilita', 'barriera': 'barriera-cutanea', 'pori': 'pori-dilatati'}
 CHIAVE = {'retinale', 'retinolo', 'retinoide estere', 'bakuchiol', 'niacinamide', 'vitamina C', 'acido salicilico', 'acido glicolico', 'acido lattico', 'acido mandelico',

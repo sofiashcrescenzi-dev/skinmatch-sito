@@ -31,6 +31,9 @@ PASSAGGI = [
     ('tonico', r'\btonico\b|\btoner\b|\bessence toner\b|lozione tonica'),
     ('esfoliante', r'peeling|esfoliant|scrub|gommage|\baha\b|\bbha\b|acido glicolico|acido salicilico|acido mandelico'),
     ('contorno occhi', r'contorno occhi|occhi|eye\b|palpebr'),
+    # i cerotti idrocolloidali per i brufoli (Federico, 15/10: «Hero e cose del genere avrebbe senso inserirle»);
+    # gli altri cerotti (vesciche, calli, herpes, medicazioni) non sono per il test
+    ('cerotti', r'(cerott|patch).{0,45}(brufol|acne|imperfezion|spot|pimple|zit)|(brufol|acne|imperfezion|antibrufol).{0,45}(cerott|patch)|mighty patch|master patch|clear ?spot|zitproof'),
     ('maschera', r'maschera|mask\b|patch'),
     ('siero', r'siero|serum|sérum|essenza|essence|ampoule|fiala|fiale|concentrato|booster|olio viso'),
     ('crema', r'crema|cream|gel-crema|emulsione|fluido|balsamo|baume|lozione|latte|gel\b'),
@@ -38,7 +41,7 @@ PASSAGGI = [
 # i passaggi che il test usa oggi (src/data/test.json): il resto va nel catalogo ma non nella routine
 PASSAGGIO_TEST = {'detergente': 'detergenti', 'tonico': 'sieri', 'siero': 'sieri', 'esfoliante': 'attivi', 'crema': 'creme', 'contorno occhi': 'creme',
                   'maschera': 'creme', 'spf': 'creme', 'shampoo': 'shampoo', 'trattamento cute': 'capelli', 'balsamo e maschera capelli': 'capelli',
-                  'barba': 'barba', 'integratore': 'integratori'}
+                  'barba': 'barba', 'integratore': 'integratori', 'cerotti': 'cerotti'}
 
 
 def passaggio(titolo):
@@ -86,7 +89,7 @@ ACIDI = {'acido glicolico', 'acido lattico', 'acido mandelico', 'acido salicilic
 def forza(attivi, pas):
     """1 delicato · 2 medio · 3 forte (dagli attivi e dalle percentuali)."""
     a = {x['nome']: x['perc'] for x in attivi}
-    if pas in ('detergente', 'shampoo', 'integratore'):
+    if pas in ('detergente', 'shampoo', 'integratore', 'cerotti'):
         return 2 if (a.keys() & ACIDI) and pas == 'detergente' else 1
     f = 1
     for r in RETINOIDI & a.keys():
@@ -138,7 +141,7 @@ def scheda(r, extra_inci=None, segmento=None):
     fonti['attivi'] = 'inci' if lista else 'titolo e descrizione'
     seg = I.segnali(lista)
     s = {'id': f"lk-{r['id']}", 'negozio': r['negozio'], 'id_negozio': r['id'], 'marca': r['marca'], 'titolo': tit,
-         'nome': nome_pulito(tit, r['marca']), 'gtin': r.get('gtin'), 'immagine': r.get('immagine'), 'link': r.get('link'),
+         'nome': _corregge(nome_pulito(tit, r['marca']), pas), 'gtin': r.get('gtin'), 'immagine': r.get('immagine'), 'link': r.get('link'),
          'prezzo': r.get('prezzo'), 'prezzo_pieno': r.get('prezzo_pieno'), 'passaggio': pas, 'categoria_test': PASSAGGIO_TEST.get(pas),
          'attivi': att, 'inci': lista or None}
     # misura e prezzo ogni 10 ml (o 10 g)
@@ -232,6 +235,14 @@ ALIAS = [r"bellezza di joseon", r"beauty of joseon", r"pierre fabre( it\.?( s\.?
 def _senza_accenti(t):
     import unicodedata
     return unicodedata.normalize('NFD', t).encode('ascii', 'ignore').decode()
+
+
+def _corregge(nome, pas):
+    """Le traduzioni sbagliate del negozio che direbbero una cosa falsa: i cerotti per brufoli tradotti
+    «per eczema» (dal polacco «wyprysk», che vuol dire anche brufolo)."""
+    if pas == 'cerotti':
+        nome = re.sub(r'\bper (l\')?eczema\b', 'per brufoli', nome, flags=re.I)
+    return nome
 
 
 def nome_pulito(titolo, marca):

@@ -4,6 +4,16 @@ Registro di ogni modifica fatta al repository. Ordine: dal più recente al più 
 
 ---
 
+## 2026-10-15 (sera) — Cerotti per brufoli e feed Liki24 del canale Skinmatch
+
+- **Il feed di Liki24 del canale Skinmatch** (indirizzo nei segreti del Mac, `FEED_LIKI24`): si riscarica ogni
+  mattina, così prezzi, disponibilità e la firma dei link (che scade dopo pochi giorni) restano aggiornati.
+- **Cerotti per brufoli** (Federico): categoria nuova nel catalogo e passaggio «Al bisogno» nel test per chi ha
+  brufoli ogni tanto o spesso. Marche: Hero (Mighty Patch) e Acnemy; Petitfee e Purederm solo per i cerotti; più
+  quelli di COSRX, Isntree, Anua e CeraVe. Corretta la traduzione sbagliata del negozio «cerotti per eczema».
+
+---
+
 ## 2026-10-15 (pomeriggio) — Il catalogo da Liki24, con le schede prodotto
 
 - **Via Notino e Amazon** (Federico): il catalogo è ora la selezione da **Liki24** (Adtraction, canale
