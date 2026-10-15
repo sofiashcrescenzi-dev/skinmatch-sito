@@ -74,7 +74,7 @@ export default function Catalogo({ categoria: c0 = '', tag: t0 = '' }: { categor
     pelle: (p) => !f.pelle || !!p.skinTypes?.includes(f.pelle as never),
     problema: (p) => !pro || pro[2](p),
     marca: (p) => !f.marca || p.brand === f.marca,
-    q: (p) => parole.every((w) => `${p.brand} ${p.name} ${p.description} ${(p.scheda?.attivi || []).map((a) => a.nome).join(' ')}`.toLowerCase().includes(w)),
+    q: (p) => parole.every((w) => `${p.brand} ${p.name} ${p.subtitle || ''} ${p.description} ${(p.scheda?.attivi || []).map((a) => a.nome).join(' ')}`.toLowerCase().includes(w)),
   };
   const tranne = (k: string) => PRODOTTI.filter((p) => Object.entries(regole).every(([r, fn]) => r === k || fn(p)));
   const lista = useMemo(() => {

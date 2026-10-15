@@ -17,6 +17,7 @@ export function applica(p: Product, m?: Modifica): Product {
   if (!m) return p;
   const q = { ...p } as Product;
   if (m.name) q.name = m.name;
+  if (m.sottotitolo) q.subtitle = m.sottotitolo;
   if (m.description) q.description = m.description;
   if (m.tier) q.tier = m.tier;
   if (m.skinTypes) q.skinTypes = m.skinTypes as Product['skinTypes'];

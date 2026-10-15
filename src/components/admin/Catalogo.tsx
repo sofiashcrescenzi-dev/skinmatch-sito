@@ -165,9 +165,10 @@ function EditorProdotto({ p, m, cambia }: { p: Product; m: Modifica; cambia: (m:
   return (
     <div className="pila" style={{ ['--gap' as string]: '10px', marginTop: 10 }}>
       <div className="adm-due">
-        <Campo etichetta="Nome sul sito" aiuto={`Dal feed: ${p.name}`}><Testo valore={m.name} placeholder={p.name} cambia={(x) => v('name', x || undefined)} /></Campo>
+        <Campo etichetta="Titolo (la linea o il modello)" aiuto={`Automatico: ${p.name}`}><Testo valore={m.name} placeholder={p.name} cambia={(x) => v('name', x || undefined)} /></Campo>
         <Campo etichetta="Fascia"><select className="adm-input" value={m.tier || ''} onChange={(e) => v('tier', (e.target.value || undefined) as Modifica['tier'])}><option value="">dalla scheda ({FASCE[p.tier]})</option><option value="base">economica</option><option value="top">media</option><option value="premium">alta</option></select></Campo>
       </div>
+      <Campo etichetta="Sottotitolo (che cos'è e cosa fa)" aiuto={`Automatico: ${p.subtitle || '—'}`}><Testo valore={m.sottotitolo} placeholder={p.subtitle} cambia={(x) => v('sottotitolo', x || undefined)} /></Campo>
       <Campo etichetta="Descrizione" aiuto={`Dal feed: ${p.description}`}><Testo lungo valore={m.description} placeholder={p.description} cambia={(x) => v('description', x || undefined)} /></Campo>
       {['detergenti', 'sieri', 'creme', 'attivi', 'barba', 'integratori', 'cerotti'].includes(p.category) && (<>
         <Campo etichetta={`Tipi di pelle${m.skinTypes ? '' : ' (dal feed)'}`}><Scegli valori={PELLE} scelti={m.skinTypes || p.skinTypes} cambia={(x) => v('skinTypes', x)} /></Campo>
@@ -312,7 +313,7 @@ export default function Catalogo() {
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   {p.image ? <img src={p.image} alt="" width={48} height={48} loading="lazy" /> : <span className="adm-senza-foto" />}
                   <span className="adm-riga-nome">
-                    <b>{x.name}</b>
+                    <b>{x.name}</b>{x.subtitle && <span className="piccolo">{x.subtitle}</span>}
                     <span className="piccolo">{p.scheda?.passaggio || p.category} · {euro(p.price)}{p.scheda?.attivi.length ? ` · ${p.scheda.attivi.slice(0, 3).map((a) => a.nome).join(', ')}` : ''}{m.nascosto ? ' · nascosto' : ''}</span>
                   </span>
                   <select className="adm-input adm-riga-cat" value={m.categoria || ''} onChange={(e) => associa([p.id], e.target.value)} aria-label="Categoria">

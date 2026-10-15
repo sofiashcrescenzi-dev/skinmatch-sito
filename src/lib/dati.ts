@@ -142,6 +142,7 @@ export type Modifica = {
   pregnancySafe?: boolean;
   sensitiveSafe?: boolean;
   categoria?: string; // la categoria del catalogo scelta a mano in admin: vince sulla regola
+  sottotitolo?: string;
   nota?: string;
 };
 export type Catalogo = { categorie: CategoriaCatalogo[]; tag: TagCatalogo[]; modifiche: Record<string, Modifica> };

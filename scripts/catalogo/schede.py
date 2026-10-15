@@ -30,7 +30,7 @@ ESCLUSI = [
     ('prima infanzia', r'bambin|neonat|baby|b[eéè]b[eéè]|pediatric|lattant|\bkids?\b|pannolin'),
     ('accessori e cofanetti', r'cofanett|cofre|coffret|confezione|set regalo|\bset\b|\bkit\b|\bduo\b|pochette|trousse|spugn|pennell|dischetti|pad\b|applicator|campione|sample|omaggio|in regalo|bi-?pack|\b2\s?x\s?\d|\b2x\b(?!\s*effect)|\b\d+\s?\+\s?\d+\s?(?:compresse|capsule|cpr|cps|bustine)'),
     ('profumo', r'eau de|profumo\b|fragranza\b|acqua profumata'),
-    ('altro', r'autoabbronzant|depilat|rasoio|smalto|dentifric|collutor|tisana|lenti a contatto|collirio|styling|fissante|\blacca\b|cera per capelli'),
+    ('altro', r'autoabbronzant|depilat|rasoio|smalto|dentifric|collutor|tisana|lenti a contatto|collirio|styling|fissante|\blacca\b|cera per capelli|vetri|pavimenti|superfici|stoviglie|bucato|lavatrice'),
 ]
 
 

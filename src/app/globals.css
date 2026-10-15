@@ -451,3 +451,7 @@ details.carta > summary::-webkit-details-marker { display: none; }
 .famiglia-foto .corpo { display: flex; flex-direction: column; gap: 8px; }
 .famiglia-foto .corpo .stendi { margin-top: auto; align-self: flex-start; }
 .adm-scatola-testa .piccolo { white-space: nowrap; }
+
+/* il sottotitolo del prodotto: che cos'è e cosa fa (il titolo è la linea o il modello) */
+.sottotitolo { font-size: 14px; line-height: 1.4; color: var(--grigio); }
+.p-sottotitolo { margin: -6px 0 0; font-size: clamp(16px, 1.8vw, 19px); line-height: 1.45; color: var(--grigio); max-width: 46ch; }

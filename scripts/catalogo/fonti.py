@@ -138,6 +138,7 @@ def farmaself(file=None):
             'descrizione': pulito(p.findtext('Description')), 'prezzo': prezzo, 'prezzo_pieno': pieno if pieno and prezzo and pieno > prezzo else None,
             'gtin': (p.findtext('Ean') or '').strip() or None, 'immagine': p.findtext('ImageUrl'), 'link': canale_skinmatch(p.findtext('TrackingUrl')),
             'misura_feed': None, 'prefisso': 'fs', 'categoria_negozio': (p.findtext('Category') or '').strip(),
+            'url_negozio': p.findtext('ProductUrl'),  # la pagina del negozio, per la revisione del PO (mai il link tracciato)
         }
 
 

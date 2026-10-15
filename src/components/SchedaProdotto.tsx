@@ -26,6 +26,7 @@ export default function SchedaProdotto({ p, da, sopra, sotto, conTag = true }: {
         <div className="pila" style={{ ['--gap' as string]: '4px', minWidth: 0 }}>
           <span className="marca">{p.brand}</span>
           {href ? <Link href={href} className="nome">{p.name}</Link> : <span className="nome">{p.name}</span>}
+          {p.subtitle && <span className="sottotitolo">{p.subtitle}</span>}
           {/* la descrizione ripete attivi e formato, già scritti sotto: resta solo per chi non ha la scheda */}
           {p.description && !p.scheda && <span className="piccolo">{p.description}</span>}
           {(p.scheda?.attivi || []).length > 0 && (

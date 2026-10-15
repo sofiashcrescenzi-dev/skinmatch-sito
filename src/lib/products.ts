@@ -102,6 +102,8 @@ export type Product = {
   categoriaSito?: string;
   // il segmento della marca (Dermocosmesi da farmacia, Medicale premium, K-beauty…): scripts/catalogo/decisioni_marche.json
   segment?: string;
+  // il sottotitolo: che cos'è e cosa fa (il titolo è la linea o il modello; scripts/catalogo/titoli.py)
+  subtitle?: string;
   // l'oggetto dell'indirizzo della sua pagina, /catalogo/<categoria>/<slug>: tipo + modello, mai la marca, stabile
   slug?: string;
 };

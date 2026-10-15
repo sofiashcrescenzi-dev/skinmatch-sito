@@ -120,7 +120,7 @@ CAPELLI = ('shampoo', 'trattamento cute', 'balsamo e maschera capelli')
 BISOGNI_CAPELLI = {'caduta': r'caduta|anticaduta|diradament|rinforz|fortific|densit|crescita|stimolant|energizz', 'forfora': r'forfora|antiforfora|desquam|squam',
                    'secchi-crespi': r'secch|crespi|danneggiat|sfibrat|ristruttur|nutrient|riparat', 'mantenimento': r'uso frequente|delicat|quotidian|tutti i tipi'}
 INTEGRAZIONE = {'capelli': r'capelli|caduta|hair', 'unghie': r'unghie|nails', 'pelle-secca': r'idrataz|secchezza|omega', 'tono': r'collagen|rughe|elasticit|anti-?age|tonicit',
-                'sole': r'sole|solare|abbronzatura|carotene|polypodium|fernblock', 'imperfezioni': r'acne|imperfezion|brufol'}
+                'sole': r'\bsole\b|solar|abbronzatur|carotene|polypodium|fernblock', 'imperfezioni': r'acne|imperfezion|brufol'}
 
 
 def scheda(r, extra_inci=None, segmento=None):
@@ -166,7 +166,7 @@ def scheda(r, extra_inci=None, segmento=None):
     fonti['attivi'] = 'inci' if lista else 'titolo e descrizione'
     seg = I.segnali(lista)
     s = {'id': f"{r.get('prefisso', 'lk')}-{r['id']}", 'negozio': r['negozio'], 'id_negozio': r['id'], 'marca': r['marca'], 'titolo': tit,
-         'nome': _corregge(nome_pulito(tit, r['marca']), pas, r['marca']), 'gtin': r.get('gtin'), 'immagine': r.get('immagine'), 'link': r.get('link'),
+         'nome': _corregge(nome_pulito(tit, r['marca']), pas, r['marca']), 'gtin': r.get('gtin'), 'immagine': r.get('immagine'), 'link': r.get('link'), 'url_negozio': r.get('url_negozio'),
          'prezzo': r.get('prezzo'), 'prezzo_pieno': r.get('prezzo_pieno'), 'passaggio': pas, 'categoria_test': PASSAGGIO_TEST.get(pas),
          'attivi': att, 'inci': lista or None}
     # misura e prezzo ogni 10 ml (o 10 g)

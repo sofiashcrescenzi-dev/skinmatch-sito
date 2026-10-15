@@ -93,7 +93,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const att = (p.scheda?.attivi || []).slice(0, 3).map((a) => a.nome + perc(a.perc)).join(', ');
   const descr = [`${pas} di ${p.brand}${att ? ` con ${att}` : ''}.`, x?.pelle ? pelleTesto(x.pelle) + '.' : '', `${euro(p.price)}.`, 'Attivi, forza, gravidanza e INCI nella scheda di Skinmatch.'].filter(Boolean).join(' ');
   return {
-    title: `${p.name}, ${p.brand}: attivi e per quale pelle`,
+    title: `${p.brand} ${p.name}${p.subtitle ? `: ${p.subtitle}` : ': attivi e per quale pelle'}`.slice(0, 90),
     description: descr.slice(0, 158),
     alternates: { canonical: `/catalogo/${slug}/${prodotto}` },
     openGraph: { images: p.image ? [p.image] : undefined },
@@ -128,6 +128,7 @@ export default async function ProdottoPage({ params }: { params: Promise<{ slug:
         <div className="pila" style={{ ['--gap' as string]: '14px' }}>
           <span className="etichetta">{p.brand}{pas ? ` · ${pas[0]}` : ''}</span>
           <h1 className="titolo-2" style={{ fontSize: 'clamp(28px, 4.4vw, 44px)' }}>{p.name}</h1>
+          {p.subtitle && <p className="p-sottotitolo">{p.subtitle}</p>}
           {s?.attivi.length ? (
             <div className="riga-chip">{s.attivi.slice(0, 6).map((a) => <span key={a.nome} className="chip tenue">{a.nome}{a.perc ? <b>{perc(a.perc)}</b> : null}</span>)}</div>
           ) : null}
@@ -269,6 +270,7 @@ function Confronto({ p, etichetta, questo, rispetto }: { p: Prodotto; etichetta:
         <div className="pila" style={{ ['--gap' as string]: '4px', minWidth: 0 }}>
           <span className="marca">{p.brand}</span>
           {questo || !href ? <span className="nome">{p.name}</span> : <Link className="nome" href={href}>{p.name}</Link>}
+          {p.subtitle && <span className="sottotitolo">{p.subtitle}</span>}
           {!questo && href && <Link className="piccolo link-scheda" href={href}>Vai alla scheda</Link>}
         </div>
       </div>
