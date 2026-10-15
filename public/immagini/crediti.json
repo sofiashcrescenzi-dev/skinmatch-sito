@@ -520,5 +520,22 @@
   "larghezza": 1600,
   "altezza": 2400,
   "originale": "media/foto/rivista-pelle-grassa-disidratata.jpg"
+ },
+ {
+  "nome": "rivista-retinolo-come-iniziare",
+  "alt": "Una ragazza con le lentiggini e l'accappatoio si mette un siero col contagocce sulla fronte",
+  "autore": "KoolShooters",
+  "autore_pagina": "https://www.pexels.com/@koolshooters",
+  "pagina": "https://www.pexels.com/photo/woman-putting-moisturizer-on-her-face-8945838/",
+  "pexels_id": 8945838,
+  "licenza": "Licenza Pexels (uso libero, citazione gradita)",
+  "uso": [
+   "rivista: copertina dell'articolo retinolo-come-iniziare",
+   "social"
+  ],
+  "fuoco": "55% 35%",
+  "larghezza": 1600,
+  "altezza": 2400,
+  "originale": "media/foto/rivista-retinolo-come-iniziare.jpg"
  }
 ]
