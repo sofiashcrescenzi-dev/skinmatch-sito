@@ -101,12 +101,13 @@ def pubblica(coda, ids):
         # il catalogo rigenerato (scripts/catalogo/aggiorna.py) e le foto nuove si registrano prima del pull:
         # con modifiche non registrate il pull si ferma
         run('git', 'add', '--', 'src/data/prodotti.json', 'public/immagini', 'media', ok=False)
-        if run('git', 'diff', '--cached', '--quiet', ok=False).returncode:
+        catalogo = bool(run('git', 'diff', '--cached', '--quiet', ok=False).returncode)
+        if catalogo:
             run('git', 'commit', '-q', '-m', f"Catalogo e foto aggiornati\n\nRedazione Skinmatch{FIRMA}")
         run('git', 'pull', '--rebase', '--quiet')
         if run('git', 'diff', '--name-only', prima, 'HEAD').stdout.count('package'):
             run('npm', 'install', '--no-audit', '--no-fund')
-        fatto, docs = [], {}
+        fatto, docs = (['catalogo e foto'] if catalogo else []), {}
         for tipo in TIPI:
             r = sql(f"SELECT id, dati, pubblicato_il FROM documenti WHERE tipo = {L(tipo)} ORDER BY id DESC LIMIT 1")
             if r and not r[0]['pubblicato_il']:
