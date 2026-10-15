@@ -9,7 +9,7 @@ export default function Piede({ rivista }: { rivista: boolean }) {
         <div className="griglia" style={{ ['--min' as string]: '180px' }}>
           <div className="pila" style={{ ['--gap' as string]: '8px' }}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/brand/logo.svg" alt="Skinmatch" width={146} height={22} style={{ height: 22, width: 'auto' }} />
+            <img src="/brand/logo.svg" alt="Skinmatch" width={154} height={22} style={{ height: 22, width: 'auto' }} />
             <span className="piccolo">Il test che riconosce il tuo biotipo e ti consiglia i prodotti giusti, ognuno con un&apos;alternativa che costa meno.</span>
           </div>
           <nav className="pila piccolo" style={{ ['--gap' as string]: '6px' }} aria-label="Il test">

@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from 'next';
-import { DM_Serif_Display, IBM_Plex_Sans } from 'next/font/google';
+import { Familjen_Grotesk, Inclusive_Sans } from 'next/font/google';
 import './globals.css';
 import { TerminiProvider } from '@/components/Termini';
 
@@ -11,16 +11,16 @@ export const metadata: Metadata = {
   openGraph: { type: 'website', locale: 'it_IT', siteName: 'Skinmatch' },
 };
 
-// I caratteri del marchio (identità di Zeno, media/brand): un serif da titolo ad alto contrasto e un
-// grottesco leggibile per il testo. Scaricati e serviti dal sito stesso al momento della build.
-const serif = DM_Serif_Display({ subsets: ['latin'], weight: '400', style: ['normal', 'italic'], variable: '--font-serif', display: 'swap' });
-const sans = IBM_Plex_Sans({ subsets: ['latin'], weight: ['400', '500', '600', '700'], variable: '--font-sans', display: 'swap' });
+// I caratteri di Fototipi: Familjen Grotesk per i titoli (un grottesco caldo, dalle curve morbide) e
+// Inclusive Sans per il testo (disegnato per essere letto da più persone possibile). Serviti dal sito.
+const titoli = Familjen_Grotesk({ subsets: ['latin'], weight: ['500', '700'], variable: '--font-titoli', display: 'swap' });
+const sans = Inclusive_Sans({ subsets: ['latin'], weight: ['400', '700'], style: ['normal', 'italic'], variable: '--font-sans', display: 'swap' });
 
-export const viewport: Viewport = { themeColor: '#faf7f3' };
+export const viewport: Viewport = { themeColor: '#2e1c15' };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="it" className={`${serif.variable} ${sans.variable}`}>
+    <html lang="it" className={`${titoli.variable} ${sans.variable}`}>
       <body>
         <TerminiProvider>{children}</TerminiProvider>
       </body>

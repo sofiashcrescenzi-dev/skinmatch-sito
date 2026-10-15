@@ -28,6 +28,7 @@ export default async function ArticoloPage({ params }: { params: Promise<{ slug:
   const biotipi = (a.biotipi || []).map(biotipoPerId).filter((b): b is NonNullable<typeof b> => !!b);
   return (
     <main className="contenitore sezione pila" style={{ ['--gap' as string]: 'clamp(28px, 5vw, 48px)' }}>
+      <div className="lettura" aria-hidden="true" />
       <Link href="/rivista" className="piccolo">← La Rivista</Link>
       <header className="pila stretto" style={{ ['--gap' as string]: '14px' }}>
         <span className="etichetta">{a.tipo}</span>
@@ -37,6 +38,7 @@ export default async function ArticoloPage({ params }: { params: Promise<{ slug:
       </header>
       {a.immagine?.file && <Foto nome={a.immagine.file} priorita style={{ aspectRatio: '16 / 9' }} sizes="(max-width: 1180px) 100vw, 1180px" credito />}
       <div className="stretto"><Markdown testo={a.testo} /></div>
+      <svg className="segno-fine" viewBox="0 -74.79 84 81" aria-hidden="true"><path d="M37.23,-74.79A37.23,37.23 0 0 0 37.23,-0.34Z" fill="var(--f5)" /><path className="meta-b" d="M41.54,-68.91A37.23,37.23 0 0 1 41.54,5.54Z" fill="var(--f4)" /></svg>
       {prodotti.length > 0 && (
         <section className="pila" style={{ ['--gap' as string]: '14px' }}>
           <h2 className="titolo-2">I prodotti dell&apos;articolo</h2>

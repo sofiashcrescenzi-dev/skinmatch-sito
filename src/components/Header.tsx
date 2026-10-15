@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import Logo from '@/components/Logo';
 
 // Il menu a pillola (lo stesso schema di sofiacrescenzi.it). La Rivista compare quando ha
 // almeno un articolo: una sezione vuota nel menu sarebbe una promessa non mantenuta.
@@ -22,8 +23,7 @@ export default function Header({ rivista }: { rivista: boolean }) {
       <div className="sm-nav">
         <nav aria-label="Navigazione principale" className="sm-nav-pill">
           <Link href="/" className="sm-nav-logo" aria-label="Skinmatch, la home">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/brand/logo.svg" alt="Skinmatch" width={146} height={22} />
+            <Logo />
           </Link>
           <div className="sm-nav-links">
             {voci.map((v) => <Link key={v.href} href={v.href} className="sm-nav-link" aria-current={attivo(v.href)}>{v.nome}</Link>)}

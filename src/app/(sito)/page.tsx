@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { TEST, BIOTIPI, CATALOGO, ARTICOLI, TERMINI, fotoDi } from '@/lib/dati';
+import { TEST, BIOTIPI, CATALOGO, ARTICOLI, TERMINI, fotoDi, immagine } from '@/lib/dati';
 import { nelGruppo } from '@/lib/catalogo';
 import Foto from '@/components/Foto';
 
@@ -13,18 +13,29 @@ export default function Home() {
   const pelle = BIOTIPI.filter((b) => b.area === 'pelle' && b.tipo === 'biotipo').slice(0, 6);
   return (
     <main>
-      <section className="contenitore" style={{ display: 'grid', gap: 'clamp(24px, 5vw, 64px)', gridTemplateColumns: 'repeat(auto-fit, minmax(min(340px, 100%), 1fr))', alignItems: 'center', paddingBlock: 'clamp(12px, 3vw, 40px) clamp(40px, 7vw, 88px)' }}>
-        <div className="pila" style={{ ['--gap' as string]: '18px' }}>
-          <span className="etichetta">Skincare su misura</span>
-          <h1 className="sopratitolo">La pelle giusta parte dalle domande giuste</h1>
-          <p className="intro">Un test con domande su quello che vedi allo specchio riconosce il tuo biotipo e ti consiglia i prodotti giusti per viso, cute e integrazione, ognuno con un&apos;alternativa che costa meno.</p>
-          <div style={{ display: 'flex', flexWrap: 'wrap', gap: 10 }}>
-            <Link href="/test" className="bottone">Fai il test</Link>
-            <Link href="/biotipi" className="bottone secondario">Scopri i biotipi</Link>
+      {/* L'apertura di Fototipi: fondo cacao, la foto tagliata nelle due mezzelune del segno, la scala dei fototipi */}
+      <section className="apertura-scura" style={{ marginTop: -84, paddingTop: 84 }}>
+        <div className="contenitore" style={{ display: 'grid', gap: 'clamp(28px, 5vw, 64px)', gridTemplateColumns: 'repeat(auto-fit, minmax(min(340px, 100%), 1fr))', alignItems: 'center', paddingBlock: 'clamp(28px, 5vw, 64px) clamp(40px, 6vw, 80px)' }}>
+          <div className="pila" style={{ ['--gap' as string]: '18px' }}>
+            <span className="etichetta">Skincare su misura</span>
+            <h1 className="sopratitolo">La pelle giusta parte dalle domande giuste</h1>
+            <div className="scala-fototipi" role="img" aria-label="I sei fototipi della pelle"><i /><i /><i /><i /><i /><i /></div>
+            <p className="intro">Un test con domande su quello che vedi allo specchio riconosce il tuo biotipo e ti consiglia i prodotti giusti per viso, cute e integrazione, ognuno con un&apos;alternativa che costa meno.</p>
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: 10 }}>
+              <Link href="/test" className="bottone">Fai il test</Link>
+              <Link href="/biotipi" className="bottone secondario">Scopri i biotipi</Link>
+            </div>
+            <span className="piccolo">Gratis, senza registrazione. Le risposte restano sul tuo telefono.</span>
           </div>
-          <span className="piccolo">Gratis, senza registrazione. Le risposte restano sul tuo telefono.</span>
+          <div className="mezze" role="img" aria-label="Pelle vera, luce naturale, nelle due mezzelune del segno di Skinmatch">
+            {/* una vera immagine, ad alta priorità: il browser la scopre subito (è il contenuto principale) */}
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <span><img src="/immagini/home-800.webp" srcSet="/immagini/home-800.webp 800w, /immagini/home-1600.webp 1600w" sizes="(max-width: 760px) 90vw, 520px" alt="" fetchPriority="high" decoding="async" /></span>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <span><img src="/immagini/home-800.webp" srcSet="/immagini/home-800.webp 800w, /immagini/home-1600.webp 1600w" sizes="(max-width: 760px) 90vw, 520px" alt="" fetchPriority="high" decoding="async" /></span>
+            {immagine('home')?.autore && <small className="credito" style={{ gridColumn: "1 / -1", textAlign: "right", marginTop: "18%" }}>Foto di {immagine("home")!.autore} su Pexels</small>}
+          </div>
         </div>
-        <Foto nome="home" riserva="/images/hero-viso.jpg" alt="Pelle vera, luce naturale" priorita style={{ aspectRatio: '4 / 5', maxHeight: 640 }} sizes="(max-width: 760px) 100vw, 50vw" credito />
       </section>
 
       <section style={{ background: 'var(--velo)' }}>

@@ -21,6 +21,7 @@ export default function TestPage() {
   const [pronto, setPronto] = useState(false);
   const iniziato = useRef<string | null>(null);
   const testa = useRef<HTMLDivElement>(null);
+  const inCorsa = useRef(false);
 
   useEffect(() => {
     let st = VUOTO;
@@ -87,7 +88,15 @@ export default function TestPage() {
     setS({ ...s, risposte, passo: prossimo, fine: prossimo >= nuove.length });
   };
   const tocca = (id: string) => {
-    if (!d.multipla) return avanti({ ...s.risposte, [d.id]: id });
+    if (!d.multipla) {
+      // la mezzaluna si chiude (220 ms), poi la domanda dopo (animazione 2 di Zeno)
+      if (inCorsa.current) return;
+      inCorsa.current = true;
+      const risposte = { ...s.risposte, [d.id]: id };
+      setS({ ...s, risposte });
+      setTimeout(() => { inCorsa.current = false; avanti(risposte); }, 260);
+      return;
+    }
     const o = d.opzioni.find((x) => x.id === id)!;
     let nuove = scelte.includes(id) ? scelte.filter((x) => x !== id) : [...scelte, id];
     nuove = o.esclusiva ? (scelte.includes(id) ? [] : [id]) : nuove.filter((x) => !d.opzioni.find((y) => y.id === x)?.esclusiva);
@@ -101,13 +110,13 @@ export default function TestPage() {
           <span className="etichetta">{percorso.titolo}</span>
           <span className="piccolo">{passo + 1} di {domande.length}</span>
         </div>
-        <div className="barra" role="progressbar" aria-valuemin={0} aria-valuemax={domande.length} aria-valuenow={passo + 1}><i style={{ width: `${((passo + 1) / domande.length) * 100}%` }} /></div>
+        <div className="barra" role="progressbar" aria-valuemin={0} aria-valuemax={domande.length} aria-valuenow={passo + 1}><i style={{ transform: `scaleX(${1 - (passo + 1) / domande.length})` }} /></div>
       </div>
-      <div className="pila" style={{ ['--gap' as string]: '8px' }}>
+      <div key={d.id} className="pila entra" style={{ ['--gap' as string]: '8px' }}>
         <h1 className="titolo-2"><ConTermini testo={d.testo} /></h1>
         {d.aiuto && <p className="piccolo">{d.aiuto}</p>}
       </div>
-      <div className="pila" style={{ ['--gap' as string]: '10px' }} role="group" aria-label={d.testo}>
+      <div key={`${d.id}-r`} className="pila entra" style={{ ['--gap' as string]: '10px' }} role="group" aria-label={d.testo}>
         {d.opzioni.map((o) => (
           <button key={o.id} type="button" className={`opzione${d.multipla ? ' multipla' : ''}`} aria-pressed={scelte.includes(o.id)} onClick={() => tocca(o.id)}>
             <span className="segno" aria-hidden="true" />

@@ -8,30 +8,35 @@
    continuo dal telefono allo schermo grande, senza salti a larghezze fisse.
    ============================================================ */
 :root {
-  /* l'identità di Zeno (media/brand): blu notte e pesca, le due metà del segno */
-  --notte: #1f2e47;
-  --pesca: #ee9e7c;
-  --pesca-tenue: #fce9e0;
-  --fondo: #faf7f3;
+  /* FOTOTIPI (scelta di Federico e Sofia, 15/10/2026): la scala di Fitzpatrick dei sei fototipi.
+     La palette sono carnagioni vere; il segno unisce due fototipi diversi. Vedi media/brand/IDENTITA.md. */
+  --cacao: #2e1c15;          /* fototipo VI: testo, bottoni, fondo dell'apertura */
+  --latte: #faf6f4;          /* fondo della pagina */
+  --f1: #f6ddcc; --f2: #ebc3a6; --f3: #d29e78; --f4: #a8714e; --f5: #7b4b33; --f6: #4a2c1f;
+  --fondo: var(--latte);
   --foglio: #ffffff;
-  --velo: #f3ece6;
-  --riga: rgba(31, 46, 71, 0.13);
-  --testo: #1f2e47;
-  --grigio: #5c6475;
-  --accento: #1f2e47;        /* azioni: bottoni pieni */
-  --accento-tenue: #fce9e0;  /* scelta fatta, sfondi caldi */
-  --terra: #a84e2c;          /* testo caldo: etichette, link, motti (AA su fondo e velo) */
-  --sul-accento: #ffffff;
-  --clinico: #2f5d7c;
-  --clinico-tenue: #e3edf3;
-  --bene: #2e6b4f;
-  --bene-tenue: #e0efe6;
+  --velo: #f1e9e4;
+  --riga: rgba(46, 28, 21, 0.12);
+  --riga-forte: rgba(46, 28, 21, 0.28);
+  --testo: var(--cacao);
+  --grigio: #66574f;         /* 6,4 su latte */
+  --accento: var(--cacao);   /* azioni */
+  --accento-tenue: #f5e3d7;  /* scelta tenue */
+  --terra: var(--f5);        /* etichette, link, motti: 6,8 su latte */
+  --sul-accento: var(--latte);
+  --pesca: var(--f2);
+  --pesca-tenue: #f5e3d7;
+  --notte: var(--cacao);
+  --clinico: var(--cacao);
+  --clinico-tenue: var(--velo);
+  --bene: #3e5f3a;
+  --bene-tenue: #e6eee2;
   --attenzione: #8a5a12;
   --attenzione-tenue: #f6ecd9;
-  --ombra: rgba(31, 46, 71, 0.16);
-  --raggio: 16px;
-  --raggio-piccolo: 10px;
-  --font-titolo: var(--font-serif), Georgia, serif;
+  --ombra: rgba(46, 28, 21, 0.16);
+  --raggio: 18px;
+  --raggio-piccolo: 12px;
+  --font-titolo: var(--font-titoli), system-ui, sans-serif;
   --font-testo: var(--font-sans), system-ui, sans-serif;
   --gutter: clamp(16px, 4vw, 40px);
   --larghezza: 1180px;
@@ -49,7 +54,7 @@ body {
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
-h1, h2, h3, .titolo, .sopratitolo, .titolo-2, .titolo-3 { font-family: var(--font-titolo); font-weight: 400 !important; text-wrap: balance; letter-spacing: -0.005em; }
+h1, h2, h3, .titolo, .sopratitolo, .titolo-2, .titolo-3 { font-family: var(--font-titolo); font-weight: 700; text-wrap: balance; letter-spacing: -0.015em; }
 :focus-visible { outline: 2px solid var(--clinico); outline-offset: 2px; }
 img { max-width: 100%; }
 
@@ -57,16 +62,16 @@ img { max-width: 100%; }
    NAV — pillola fluttuante (stesso schema di sofiacrescenzi.it)
    ============================================================ */
 .sm-nav { position: fixed; top: 14px; left: 50%; transform: translateX(-50%); z-index: 1000; width: calc(100% - 2 * clamp(12px, 3vw, 24px)); max-width: 820px; }
-.sm-nav-pill { background: color-mix(in srgb, var(--foglio) 94%, transparent); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-radius: 999px; box-shadow: 0 4px 24px var(--ombra); padding: 8px 10px 8px 16px; display: flex; align-items: center; gap: 4px; }
+.sm-nav-pill { background: var(--cacao); color: var(--latte); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-radius: 999px; box-shadow: 0 4px 24px var(--ombra); padding: 8px 10px 8px 16px; display: flex; align-items: center; gap: 4px; }
 .sm-nav-logo { display: inline-flex; align-items: center; gap: 8px; text-decoration: none; color: var(--testo); flex-shrink: 0; margin-right: 6px; }
 .sm-nav-logo img { display: block; height: 22px; width: auto; }
 .sm-nav-logo span { font-family: var(--font-titolo); font-size: 17px; white-space: nowrap; }
 .sm-nav-links { display: flex; align-items: center; gap: 2px; flex: 1; justify-content: center; }
-.sm-nav-link { font-size: 13.5px; font-weight: 500; color: var(--testo); text-decoration: none; padding: 7px 12px; border-radius: 999px; transition: background 0.2s ease; white-space: nowrap; }
-.sm-nav-link:hover, .sm-nav-link[aria-current='page'] { background: var(--velo); }
-.sm-nav-cta { display: inline-flex; align-items: center; font-size: 13px; font-weight: 600; color: var(--sul-accento); background: var(--accento); border-radius: 999px; padding: 9px 16px; text-decoration: none; white-space: nowrap; margin-left: auto; }
+.sm-nav-link { font-size: 14px; font-weight: 500; color: var(--latte); text-decoration: none; padding: 7px 12px; border-radius: 999px; transition: background 0.2s ease; white-space: nowrap; }
+.sm-nav-link:hover, .sm-nav-link[aria-current='page'] { background: #4a332a; }
+.sm-nav-cta { display: inline-flex; align-items: center; font-size: 13.5px; font-weight: 700; color: var(--cacao); background: var(--f2); border-radius: 999px; padding: 9px 16px; text-decoration: none; white-space: nowrap; margin-left: auto; }
 .sm-nav-burger { display: none; background: none; border: none; cursor: pointer; flex-direction: column; gap: 5px; padding: 10px 8px; margin-left: 4px; }
-.sm-nav-burger span { display: block; width: 18px; height: 1.5px; background: var(--testo); transition: transform 0.3s ease; }
+.sm-nav-burger span { display: block; width: 18px; height: 1.5px; background: var(--latte); transition: transform 0.3s ease; }
 .sm-nav-menu { margin-top: 8px; background: color-mix(in srgb, var(--foglio) 97%, transparent); backdrop-filter: blur(12px); border-radius: 20px; box-shadow: 0 8px 32px var(--ombra); padding: 8px; display: flex; flex-direction: column; }
 .sm-nav-menu a { font-size: 19px; font-weight: 500; color: var(--testo); text-decoration: none; padding: 12px 18px; border-radius: 14px; }
 .sm-nav-spazio { height: 84px; }
@@ -133,21 +138,19 @@ img { max-width: 100%; }
 .livello.media { background: var(--clinico-tenue); color: var(--clinico); }
 
 /* il test */
-.barra { height: 4px; border-radius: 4px; background: var(--velo); overflow: hidden; }
-.barra i { display: block; height: 100%; background: var(--pesca); transition: width 0.3s ease; }
+.barra { height: 6px; border-radius: 4px; background: linear-gradient(90deg, var(--f1), var(--f2), var(--f3), var(--f4), var(--f5), var(--f6)); overflow: hidden; }
+.barra i { display: block; height: 100%; width: 100%; background: var(--velo); transform-origin: right; transition: transform 320ms cubic-bezier(.2,.7,.2,1); }
 .opzione { display: flex; align-items: center; gap: 12px; width: 100%; text-align: left; font: inherit; font-size: 16.5px; padding: 15px 18px; border-radius: 14px; border: 1px solid var(--riga); background: var(--foglio); color: var(--testo); cursor: pointer; min-height: 56px; transition: border-color 0.15s ease, background 0.15s ease; }
 .opzione:hover { border-color: var(--notte); }
-.opzione[aria-pressed='true'] { border-color: var(--accento); background: var(--accento-tenue); font-weight: 600; }
+.opzione[aria-pressed='true'] { border-color: var(--cacao); background: var(--cacao); color: var(--latte); font-weight: 600; }
 .opzione .segno { width: 20px; height: 20px; border-radius: 50%; border: 1.5px solid var(--riga); flex-shrink: 0; display: grid; place-items: center; }
-.opzione[aria-pressed='true'] .segno { border-color: var(--accento); background: var(--accento); }
-.opzione[aria-pressed='true'] .segno::after { content: ''; width: 8px; height: 8px; border-radius: 50%; background: var(--sul-accento); }
 .opzione.multipla .segno { border-radius: 5px; }
 .asse { display: grid; grid-template-columns: minmax(96px, 0.36fr) minmax(0, 1fr); gap: 10px; align-items: center; font-size: 13.5px; }
-.asse .traccia { height: 8px; border-radius: 4px; background: var(--velo); overflow: hidden; }
-.asse .traccia i { display: block; height: 100%; background: var(--clinico); }
+.asse .traccia { height: 10px; border-radius: 4px; background: var(--velo); overflow: hidden; }
+.asse .traccia i { display: block; height: 100%; background: linear-gradient(90deg, var(--f2), var(--f4) 60%, var(--f5)); border-radius: 4px; }
 .consulto { background: var(--attenzione-tenue); border-radius: var(--raggio); padding: clamp(16px, 2.4vw, 22px); display: grid; gap: 8px; }
 .consulto b { color: var(--attenzione); }
-.motto { font-family: var(--font-titolo); font-style: italic; font-size: clamp(18px, 2.2vw, 21px); color: var(--terra); }
+.motto { font-family: var(--font-testo); font-style: italic; font-size: clamp(18px, 2.2vw, 21px); color: var(--terra); }
 .avviso { background: var(--velo); border-radius: var(--raggio-piccolo); padding: 12px 14px; font-size: 14px; line-height: 1.5; }
 
 /* la rivista */
@@ -166,7 +169,6 @@ img { max-width: 100%; }
 .piede a { color: var(--testo); text-decoration: none; }
 .piede a:hover { text-decoration: underline; }
 
-@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
 
 /* ============================================================
    L'ADMIN
@@ -197,3 +199,74 @@ textarea.adm-input { resize: vertical; line-height: 1.5; }
 details.carta > summary { cursor: pointer; list-style: none; }
 details.carta > summary::-webkit-details-marker { display: none; }
 .adm-due { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr)); }
+
+/* ============================================================
+   FOTOTIPI: i pezzi della direzione
+   ============================================================ */
+.apertura-scura { background: var(--cacao); color: var(--latte); overflow-x: clip; }
+.apertura-scura .etichetta { color: var(--f2); }
+.apertura-scura .intro, .apertura-scura .piccolo { color: #d9c8be; }
+.apertura-scura .bottone { background: var(--f2); color: var(--cacao); border-color: var(--f2); }
+.apertura-scura .bottone.secondario { background: transparent; color: var(--latte); border-color: var(--latte); }
+.apertura-scura .credito { color: #bfa99c !important; text-shadow: none !important; }
+/* la foto nelle due mezzelune del segno */
+.mezze { display: grid; grid-template-columns: 1fr 1fr; gap: 4.4%; width: min(100%, 520px); justify-self: center; padding-bottom: 8%; }
+.mezze > span { aspect-ratio: 1 / 2; position: relative; overflow: hidden; }
+.mezze > span img { position: absolute; top: 0; height: 100%; width: 200%; max-width: none; object-fit: cover; }
+.mezze > span:nth-child(1) img { left: 0; } .mezze > span:nth-child(2) img { right: 0; }
+.mezze > span:nth-child(1) { border-radius: 100% 0 0 100% / 50% 0 0 50%; }
+.mezze > span:nth-child(2) { border-radius: 0 100% 100% 0 / 0 50% 50% 0; transform: translateY(16%); }
+/* la scala dei sei fototipi */
+.scala-fototipi { display: grid; grid-template-columns: repeat(6, 1fr); height: 10px; width: 100%; max-width: 260px; border-radius: 5px; overflow: hidden; }
+.scala-fototipi i:nth-child(1) { background: var(--f1); } .scala-fototipi i:nth-child(2) { background: var(--f2); }
+.scala-fototipi i:nth-child(3) { background: var(--f3); } .scala-fototipi i:nth-child(4) { background: var(--f4); }
+.scala-fototipi i:nth-child(5) { background: var(--f5); } .scala-fototipi i:nth-child(6) { background: var(--f6); box-shadow: inset 0 0 0 1px #6b4a3c; }
+.foto-scheda, .carta-foto .foto { border-radius: 0; }
+
+/* ============================================================
+   LE ANIMAZIONI (proposte di Zeno, 15/10/2026: lavoro/zeno/skinmatch/animazioni.md)
+   ⚠️ Solo transform e opacity, niente librerie, niente contenuto nascosto all'apertura, niente
+   spostamenti del layout; tutto fermo con «riduci movimento» (in fondo).
+   ============================================================ */
+/* 1. home: le due mezzelune della foto si incontrano, una volta sola; la foto è piena da subito */
+@keyframes incontro-a { from { transform: translateX(-16%); } }
+@keyframes incontro-b { from { transform: translate(16%, 16%); } to { transform: translate(0, 16%); } }
+.mezze > span:nth-child(1) { animation: incontro-a 900ms cubic-bezier(.2,.7,.2,1) both; }
+.mezze > span:nth-child(2) { animation: incontro-b 900ms cubic-bezier(.2,.7,.2,1) both; }
+/* 6. home: la scala si stende dal fototipo I al VI, a metà corsa delle mezzelune */
+@keyframes stende { from { transform: scaleX(0); } }
+.apertura-scura .scala-fototipi { transform-origin: left; animation: stende 600ms 350ms cubic-bezier(.2,.7,.2,1) both; }
+/* 2. test: la mezzaluna V riceve la metà IV e il cerchio si chiude */
+.opzione .segno { position: relative; overflow: hidden; border-color: var(--riga-forte); }
+.opzione .segno::before { content: ''; position: absolute; inset: 0 50% 0 0; background: var(--f5); }
+.opzione .segno::after { content: ''; position: absolute; inset: 0 0 0 50%; background: var(--f4); transform: translateX(105%); transition: transform 220ms cubic-bezier(.2,.7,.2,1); }
+.opzione[aria-pressed='true'] .segno { border-color: transparent; }
+.opzione[aria-pressed='true'] .segno::before { background: var(--f2); }
+.opzione[aria-pressed='true'] .segno::after { transform: none; }
+/* la domanda dopo arriva da destra */
+@keyframes entra { from { opacity: 0; transform: translateX(14px); } }
+.entra { animation: entra 260ms ease-out both; }
+/* 4. risultato: le barre si riempiono una dopo l'altra */
+@keyframes riempi { from { transform: scaleX(0); } }
+.asse .traccia i { transform-origin: left; animation: riempi 600ms calc(var(--n, 0) * 90ms + 150ms) cubic-bezier(.2,.7,.2,1) both; }
+/* 7. menu: al passaggio o col Tab le due metà del segno si allineano (niente sul telefono) */
+.logo-segno { display: block; height: 22px; width: auto; }
+.logo-segno .meta-b { transition: transform 200ms ease; }
+@media (hover: hover) { .sm-nav-logo:hover .meta-b { transform: translate(-3px, -5.88px); } }
+.sm-nav-logo:focus-visible .meta-b { transform: translate(-3px, -5.88px); }
+/* 5. rivista: la striscia dei fototipi segue la lettura, dove il browser lo sa fare */
+.lettura { display: none; }
+@supports (animation-timeline: scroll()) {
+  .lettura { display: block; position: fixed; z-index: 1100; top: env(safe-area-inset-top, 0px); left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--f1), var(--f2), var(--f3), var(--f4), var(--f5), var(--f6)); transform-origin: left; animation: leggi linear both; animation-timeline: scroll(root); }
+  @keyframes leggi { from { transform: scaleX(0); } }
+}
+/* 8. rivista, fine articolo: il segno si chiude quando arriva a metà schermo */
+.segno-fine { display: block; width: 14px; height: 14px; margin: 8px auto 0; }
+@supports (animation-timeline: view()) {
+  .segno-fine .meta-b { animation: chiude linear both; animation-timeline: view(); animation-range: entry 0% cover 50%; }
+  @keyframes chiude { from { transform: translate(18px, 22px); } }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+  .lettura { display: none !important; }
+}

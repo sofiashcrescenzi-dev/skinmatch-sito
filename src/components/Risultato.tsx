@@ -41,12 +41,12 @@ export default function Risultato({ r, rifai, cambia }: { r: R; rifai: () => voi
                   <p className="testo" style={{ fontSize: 15.5 }}><ConTermini testo={a.biotipo.descrizione} /></p>
                   {assi.length > 0 && a.area !== 'integrazione' && (
                     <div className="pila" style={{ ['--gap' as string]: '6px' }} aria-label="I tuoi punteggi">
-                      {assi.map((x) => {
+                      {assi.map((x, i) => {
                         const mx = massimoAsse(x.id, r.domande);
                         if (!mx) return null;
                         const v = Math.min(mx, r.profilo.punti[x.id] || 0);
                         return (
-                          <div key={x.id} className="asse">
+                          <div key={x.id} className="asse" style={{ ['--n' as string]: i }}>
                             <span>{x.nome}</span>
                             <span className="traccia" role="img" aria-label={`${x.nome}: ${v} su ${mx}`}><i style={{ width: `${Math.max(4, (v / mx) * 100)}%` }} /></span>
                           </div>
