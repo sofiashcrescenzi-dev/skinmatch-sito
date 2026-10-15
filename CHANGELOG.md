@@ -26,7 +26,7 @@ Il prototipo del metodo (provato su agoranomos.cloud/skinmatch) trasportato qui,
   per i capelli, idratazione dall'interno, tono ed elasticità, preparare la pelle al sole, unghie fragili,
   imperfezioni, nessun integratore) e il tratto *alimentazione vegana*. Ognuno ha un motto, i **tag di
   rappresentazione**, le regole con cui esce dal test, i bisogni con cui si scelgono i prodotti, una foto e i
-  prodotti adatti. *Seborroica-secca* ora si chiama «seborroica disidratata», *idratata-mista* «pelle mista».
+  prodotti adatti. *Seborroica-secca* ora è «seborroica disidratata» (/biotipi/seborroica-disidratata) e *idratata-mista* «pelle mista» (/biotipi/pelle-mista), con rinvio 301 dai vecchi indirizzi.
 - **Il glossario** (`/glossario`, 48 termini): la piccola «i» si accende da sola dove una parola del glossario
   compare in un testo del sito, la prima volta per blocco (`src/lib/glossario.ts`); le sigle contano solo in
   maiuscolo. Video facoltativo per termine.

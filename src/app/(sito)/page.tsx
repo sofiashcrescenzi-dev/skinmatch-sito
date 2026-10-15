@@ -40,7 +40,7 @@ export default function Home() {
                 <span className="corpo">
                   <span className="titolo-3">{p.nome}</span>
                   <span className="piccolo">{p.descrizione}</span>
-                  <span className="piccolo" style={{ color: 'var(--accento)', fontWeight: 700 }}>Circa {p.minuti} minuti →</span>
+                  <span className="piccolo" style={{ color: 'var(--terra)', fontWeight: 700 }}>Circa {p.minuti} minuti →</span>
                 </span>
               </Link>
             ))}
@@ -53,7 +53,7 @@ export default function Home() {
         <ol className="griglia" style={{ ['--min' as string]: '240px', listStyle: 'none', padding: 0, margin: 0 }}>
           {PASSI.map(([t, d], i) => (
             <li key={t} className="pila" style={{ ['--gap' as string]: '8px' }}>
-              <span className="titolo" style={{ fontSize: 44, lineHeight: 1, color: 'var(--accento)' }}>{i + 1}</span>
+              <span className="titolo" style={{ fontSize: 44, lineHeight: 1, color: 'var(--terra)' }}>{i + 1}</span>
               <span className="titolo-3">{t}</span>
               <span className="piccolo" style={{ fontSize: 15 }}>{d}</span>
             </li>

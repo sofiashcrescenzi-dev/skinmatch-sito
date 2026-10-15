@@ -257,7 +257,7 @@
    }
   },
   {
-   "id": "seborroica-secca",
+   "id": "seborroica-disidratata",
    "area": "pelle",
    "tipo": "biotipo",
    "titolo": "Pelle seborroica disidratata",
@@ -566,7 +566,7 @@
    }
   },
   {
-   "id": "idratata-mista",
+   "id": "pelle-mista",
    "area": "pelle",
    "tipo": "biotipo",
    "titolo": "Pelle mista",

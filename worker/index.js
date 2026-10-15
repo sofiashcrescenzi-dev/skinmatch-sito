@@ -10,7 +10,13 @@
 // percorso skinmatch.it/admin*; poi ACCESS_TEAM (il nome del team) e ACCESS_AUD (l'«Application
 // Audience tag») vanno in wrangler.jsonc, vars. Istruzioni in DEPLOY.md.
 
+import test from '../src/data/test.json';
+import biotipi from '../src/data/biotipi.json';
+
 const TIPI_EVENTO = new Set(['test_inizio', 'test_fine', 'clic']);
+// solo percorsi e biotipi che esistono: nessuno scrive righe a caso nel Traffico (Friday, 15/10)
+const PERCORSI = new Set(test.percorsi.map((p) => p.id));
+const BIOTIPI = new Set(biotipi.biotipi.map((b) => b.id));
 const DOCUMENTI = new Set(['test', 'biotipi', 'glossario', 'catalogo']);
 const STATI_ARTICOLO = new Set(['in_approvazione', 'da_correggere', 'approvato', 'online', 'scartato']);
 const breve = (s, n = 80) => String(s ?? '').replace(/[^\p{L}\p{N}_.\- ]/gu, '').slice(0, n);
@@ -46,12 +52,13 @@ async function evento(req, env) {
   try { e = JSON.parse((await req.text()).slice(0, 2000)); } catch { return new Response(null, { status: 400 }); }
   if (!e || !TIPI_EVENTO.has(e.e)) return new Response(null, { status: 400 });
   const g = oggi(), righe = [];
-  if (e.e === 'test_inizio') righe.push(['test_inizio', breve(e.p, 20)]);
-  if (e.e === 'test_fine') {
-    righe.push(['test_fine', breve(e.p, 20)]);
-    for (const b of (Array.isArray(e.b) ? e.b : []).slice(0, 3)) righe.push(['biotipo', breve(b, 40)]);
+  if (e.e === 'test_inizio' && PERCORSI.has(e.p)) righe.push(['test_inizio', e.p]);
+  if (e.e === 'test_fine' && PERCORSI.has(e.p)) {
+    righe.push(['test_fine', e.p]);
+    for (const b of (Array.isArray(e.b) ? e.b : []).slice(0, 3)) if (BIOTIPI.has(b)) righe.push(['biotipo', b]);
   }
-  if (e.e === 'clic') righe.push(['clic', breve(e.id)], ['clic_negozio', breve(e.m, 40)], ['clic_da', breve(e.da)]);
+  if (e.e === 'clic' && /^[a-z0-9-]{2,80}$/.test(String(e.id))) righe.push(['clic', e.id], ['clic_negozio', breve(e.m, 40)], ['clic_da', breve(e.da)]);
+  if (!righe.length) return new Response(null, { status: 400 });
   const st = env.DB.prepare('INSERT INTO eventi_giorno (giorno, tipo, chiave, n) VALUES (?1, ?2, ?3, 1) ON CONFLICT (giorno, tipo, chiave) DO UPDATE SET n = n + 1');
   await env.DB.batch(righe.filter(([, k]) => k).map(([t, k]) => st.bind(g, t, k)));
   return new Response(null, { status: 204 });

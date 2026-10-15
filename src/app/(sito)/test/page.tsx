@@ -60,7 +60,7 @@ export default function TestPage() {
               <span className="corpo">
                 <span className="titolo-3">{p.nome}</span>
                 <span className="piccolo">{p.descrizione}</span>
-                <span className="piccolo" style={{ color: 'var(--accento)', fontWeight: 700 }}>{p.domande.length} domande · circa {p.minuti} minuti</span>
+                <span className="piccolo" style={{ color: 'var(--terra)', fontWeight: 700 }}>{p.domande.length} domande · circa {p.minuti} minuti</span>
               </span>
             </button>
           ))}

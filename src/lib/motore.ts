@@ -170,9 +170,12 @@ function scegli(area: Area, ps: Passaggio, p: Profilo, b: Bisogni, biotipo: Biot
     .filter((x) => !(delicati || (area === 'pelle' && re >= 3)) || x.sensitiveSafe === true)
     .filter((x) => !(area === 'pelle' && re >= 2) || x.sensitiveSafe !== false);
   const minimo = ps.minimo ?? 40;
+  // l'ordine: la compatibilità, ma una scheda senza foto cede il posto a una quasi uguale che ce l'ha
+  // (Friday, 15/10: tre riquadri vuoti su sei nel risultato)
+  const ordine = (v: { x: Prodotto; c: number }) => v.c - (v.x.image ? 0 : 8);
   const voti = pool.map((x) => ({ x, c: compatibilita(x, area, ps, b, p, biotipo) }))
     .filter((v) => v.c >= minimo)
-    .sort((u, v) => v.c - u.c || linkPronto(v.x) - linkPronto(u.x) || u.x.price - v.x.price);
+    .sort((u, v) => ordine(v) - ordine(u) || linkPronto(v.x) - linkPronto(u.x) || u.x.price - v.x.price);
   if (!voti.length) return null;
   let top = voti[0];
   const budget = p.scelte.budget;
@@ -184,8 +187,14 @@ function scegli(area: Area, ps: Passaggio, p: Profilo, b: Bisogni, biotipo: Biot
   const scelto = (v: { x: Prodotto; c: number }): Scelto => ({ prodotto: v.x, compat: v.c, livello: livello(v.c), perche: percheDi(v.x, area, b, p, biotipo) });
   // l'alternativa: la più compatibile che costa almeno un quinto in meno; se il consigliato
   // è già il più economico, quella premium più compatibile
-  const meno = voti.find((v) => v !== top && v.x.price <= top.x.price * 0.8 && v.c >= Math.max(50, top.c - 15));
-  const premium = !meno && budget !== 'base' ? voti.find((v) => v !== top && v.x.tier === 'premium' && top.x.tier !== 'premium' && v.c >= Math.max(50, top.c - 10)) : undefined;
+  // ⚠️ L'ALTERNATIVA FA LO STESSO LAVORO (Friday, 15/10: una crema per i brufoli proposta come
+  // alternativa a una crema lenitiva su pelle secca): deve avere almeno un bisogno in comune con
+  // quelli per cui il consigliato è stato scelto, e la stessa natura di prodotto (solare con solare).
+  const lavoro = (x: Prodotto) => [...(x.concerns || []), ...(x.hairConcerns || [])].filter((k) => b.concerns.has(k) || b.capelli.has(k));
+  const lavoroTop = lavoro(top.x);
+  const stesso = (x: Prodotto) => !lavoroTop.length || lavoro(x).some((k) => lavoroTop.includes(k));
+  const meno = voti.find((v) => v !== top && stesso(v.x) && v.x.price <= top.x.price * 0.8 && v.c >= Math.max(50, top.c - 15));
+  const premium = !meno && budget !== 'base' ? voti.find((v) => v !== top && stesso(v.x) && v.x.tier === 'premium' && top.x.tier !== 'premium' && v.c >= Math.max(50, top.c - 10)) : undefined;
   const alt = meno || premium;
   usati.add(top.x.id);
   if (alt) usati.add(alt.x.id);

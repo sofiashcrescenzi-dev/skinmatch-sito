@@ -17,7 +17,7 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
   const b = biotipoPerId(id);
   if (!b) return {};
   return {
-    title: `${b.titolo}: come si riconosce e cosa usare`,
+    title: b.area === 'integrazione' ? `${b.titolo}: ${b.motto.replace(/\.$/, '').toLowerCase()}` : `${b.titolo}: come si riconosce e cosa usare`,
     description: `${b.motto} ${b.descrizione}`.slice(0, 158),
     alternates: { canonical: `/biotipi/${b.id}` },
   };

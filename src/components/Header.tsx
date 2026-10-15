@@ -22,7 +22,8 @@ export default function Header({ rivista }: { rivista: boolean }) {
       <div className="sm-nav">
         <nav aria-label="Navigazione principale" className="sm-nav-pill">
           <Link href="/" className="sm-nav-logo" aria-label="Skinmatch, la home">
-            <span>Skinmatch</span>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/brand/logo.svg" alt="Skinmatch" width={146} height={22} />
           </Link>
           <div className="sm-nav-links">
             {voci.map((v) => <Link key={v.href} href={v.href} className="sm-nav-link" aria-current={attivo(v.href)}>{v.nome}</Link>)}
