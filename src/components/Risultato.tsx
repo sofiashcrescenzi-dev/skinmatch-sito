@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { TEST, NOMI_AREA, type Area } from '@/lib/dati';
+import { TEST, NOMI_AREA, type Area, fotoDi } from '@/lib/dati';
 import { massimoAsse, type Risultato as R } from '@/lib/motore';
 import { ConTermini } from '@/components/Termini';
 import SchedaProdotto from '@/components/SchedaProdotto';
@@ -33,7 +33,7 @@ export default function Risultato({ r, rifai, cambia }: { r: R; rifai: () => voi
           <section key={a.area} className="pila" style={{ ['--gap' as string]: '20px' }} aria-label={NOMI_AREA[a.area]}>
             {a.biotipo && (
               <article className="carta" style={{ display: 'grid', gap: 18, gridTemplateColumns: 'repeat(auto-fit, minmax(min(280px, 100%), 1fr))', alignItems: 'start' }}>
-                <Foto nome={a.biotipo.famiglia} style={{ aspectRatio: '4 / 3' }} sizes="(max-width: 760px) 100vw, 40vw" />
+                <Foto nome={fotoDi(a.biotipo)} style={{ aspectRatio: '4 / 3' }} sizes="(max-width: 760px) 100vw, 40vw" />
                 <div className="pila" style={{ ['--gap' as string]: '10px' }}>
                   <span className="etichetta">{SOPRA[a.area]}</span>
                   <h2 className="titolo-2">{a.biotipo.titolo}</h2>

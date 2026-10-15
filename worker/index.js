@@ -30,6 +30,11 @@ export default {
     if (p === '/api/evento') return evento(req, env);
     if (p.startsWith('/api/admin/') || p === '/admin' || p.startsWith('/admin/')) {
       const chi = await accesso(req, env);
+      // la chiave temporanea arriva nel link una volta sola: diventa un cookie e sparisce dall'indirizzo
+      if (chi.ok && chi.daLink && !p.startsWith('/api/')) {
+        url.searchParams.delete('chiave');
+        return new Response(null, { status: 302, headers: { location: url.pathname + url.search, 'set-cookie': `sm_chiave=${env.ADMIN_CHIAVE}; Path=/; Max-Age=1209600; HttpOnly; Secure; SameSite=Strict`, 'cache-control': 'no-store' } });
+      }
       if (!chi.ok) {
         if (p.startsWith('/api/')) return json({ errore: chi.motivo }, 401);
         return new Response(PAGINA_CHIUSA(chi.motivo), { status: 403, headers: { 'content-type': 'text/html; charset=utf-8', 'cache-control': 'no-store', 'x-robots-tag': 'noindex' } });
@@ -70,9 +75,18 @@ const b64u = (s) => Uint8Array.from(atob(s.replace(/-/g, '+').replace(/_/g, '/')
 async function accesso(req, env) {
   // solo in prova sul Mac (wrangler dev, .dev.vars): mai online, dove l'indirizzo non è localhost
   if (env.ADMIN_SVILUPPO === 'si' && new URL(req.url).hostname === 'localhost') return { ok: true, email: 'prova@localhost' };
+  // ⚠️ LA CHIAVE TEMPORANEA (il PO, 15/10/2026: «aprimi l'admin prima di mettere l'access»): finché
+  // Access non c'è, l'admin si apre con il link skinmatch.it/admin?chiave=… (segreto ADMIN_CHIAVE,
+  // `wrangler secret put`). Quando Access è attivo si toglie il segreto e resta solo Access.
+  if (env.ADMIN_CHIAVE) {
+    const daLink = new URL(req.url).searchParams.get('chiave');
+    const biscotto = (req.headers.get('cookie') || '').match(/(?:^|;\s*)sm_chiave=([^;]+)/);
+    if (uguali(daLink, env.ADMIN_CHIAVE)) return { ok: true, email: 'chiave temporanea', daLink: true };
+    if (biscotto && uguali(biscotto[1], env.ADMIN_CHIAVE)) return { ok: true, email: 'chiave temporanea' };
+  }
   const team = env.ACCESS_TEAM, aud = env.ACCESS_AUD;
   const ammessi = String(env.ADMIN_EMAILS || '').toLowerCase().split(',').map((x) => x.trim()).filter(Boolean);
-  if (!team || !aud) return { ok: false, motivo: 'Cloudflare Access non è ancora attivo per l\'admin di Skinmatch.' };
+  if (!team || !aud) return { ok: false, motivo: 'Cloudflare Access non è ancora attivo per l\'admin di Skinmatch: per ora si entra solo con il link con la chiave.' };
   const cookie = (req.headers.get('cookie') || '').match(/(?:^|;\s*)CF_Authorization=([^;]+)/);
   const tok = req.headers.get('cf-access-jwt-assertion') || (cookie && cookie[1]);
   if (!tok) return { ok: false, motivo: 'Serve l\'accesso con Cloudflare Access.' };
@@ -97,6 +111,14 @@ async function accesso(req, env) {
   } catch {
     return { ok: false, motivo: 'Gettone di accesso illeggibile.' };
   }
+}
+
+// confronto a tempo costante, per non far indovinare la chiave un carattere alla volta
+function uguali(a, b) {
+  if (typeof a !== 'string' || typeof b !== 'string' || a.length !== b.length) return false;
+  let d = 0;
+  for (let i = 0; i < a.length; i++) d |= a.charCodeAt(i) ^ b.charCodeAt(i);
+  return d === 0;
 }
 
 // ── 3. le API dell'admin ──────────────────────────────────────────────────────

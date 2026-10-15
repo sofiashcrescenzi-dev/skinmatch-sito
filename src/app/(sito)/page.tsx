@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { TEST, BIOTIPI, CATALOGO, ARTICOLI, TERMINI } from '@/lib/dati';
+import { TEST, BIOTIPI, CATALOGO, ARTICOLI, TERMINI, fotoDi } from '@/lib/dati';
 import { nelGruppo } from '@/lib/catalogo';
 import Foto from '@/components/Foto';
 
@@ -73,7 +73,7 @@ export default function Home() {
         <div className="griglia" style={{ ['--min' as string]: '220px' }}>
           {pelle.map((b) => (
             <Link key={b.id} href={`/biotipi/${b.id}`} className="carta-foto" style={{ ['--rapporto' as string]: '3 / 2' }}>
-              <Foto nome={b.famiglia} sizes="(max-width: 760px) 100vw, 25vw" />
+              <Foto nome={fotoDi(b)} sizes="(max-width: 760px) 100vw, 25vw" />
               <span className="corpo"><span className="titolo-3">{b.titolo}</span><span className="piccolo">{b.motto}</span></span>
             </Link>
           ))}

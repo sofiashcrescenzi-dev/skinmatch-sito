@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { BIOTIPI, NOMI_AREA, type Area } from '@/lib/dati';
+import { BIOTIPI, NOMI_AREA, type Area, fotoDi } from '@/lib/dati';
 import Foto from '@/components/Foto';
 
 export const metadata: Metadata = {
@@ -35,7 +35,7 @@ export default function BiotipiPage() {
             <div className="griglia" style={{ ['--min' as string]: '230px' }}>
               {base.map((b) => (
                 <Link key={b.id} href={`/biotipi/${b.id}`} className="carta-foto" style={{ ['--rapporto' as string]: '3 / 2' }}>
-                  <Foto nome={b.famiglia} sizes="(max-width: 760px) 100vw, 25vw" />
+                  <Foto nome={fotoDi(b)} sizes="(max-width: 760px) 100vw, 25vw" />
                   <span className="corpo"><span className="titolo-3">{b.titolo}</span><span className="piccolo">{b.motto}</span></span>
                 </Link>
               ))}

@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { BIOTIPI, TAG_BIOTIPI, biotipoPerId, NOMI_AREA } from '@/lib/dati';
+import { BIOTIPI, TAG_BIOTIPI, biotipoPerId, NOMI_AREA, fotoDi } from '@/lib/dati';
 import { prodottiPer } from '@/lib/catalogo';
 import { ConTermini } from '@/components/Termini';
 import SchedaProdotto from '@/components/SchedaProdotto';
@@ -43,7 +43,7 @@ export default async function BiotipoPage({ params }: { params: Promise<{ id: st
           <p className="testo"><ConTermini testo={b.descrizione} /></p>
           {tag.length > 0 && <div className="riga-chip">{tag.map((t) => <span key={t!.id} className="chip tenue">{t!.nome}</span>)}</div>}
         </div>
-        <Foto nome={b.famiglia} priorita style={{ aspectRatio: '4 / 5', maxHeight: 560 }} sizes="(max-width: 760px) 100vw, 45vw" credito />
+        <Foto nome={fotoDi(b)} priorita style={{ aspectRatio: '4 / 5', maxHeight: 560 }} sizes="(max-width: 760px) 100vw, 45vw" credito />
       </header>
 
       <section className="griglia" style={{ ['--min' as string]: '260px' }}>

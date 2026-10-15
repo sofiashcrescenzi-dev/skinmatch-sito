@@ -25,6 +25,12 @@ export default function Piede({ rivista }: { rivista: boolean }) {
             <Link href="/glossario">Il glossario</Link>
             {rivista && <Link href="/rivista">La Rivista</Link>}
           </nav>
+          <nav className="pila piccolo" style={{ ['--gap' as string]: '6px' }} aria-label="Skinmatch">
+            <Link href="/chi-siamo">Chi siamo</Link>
+            <Link href="/privacy">Privacy</Link>
+            <Link href="/cookie">Cookie</Link>
+            <Link href="/note-legali">Note legali</Link>
+          </nav>
         </div>
         <div className="pila piccolo" style={{ ['--gap' as string]: '6px', maxWidth: '78ch' }}>
           <p>Skinmatch non fa diagnosi: il test aiuta a scegliere i cosmetici, non sostituisce il parere di un medico. Se qualcosa ti preoccupa, parlane con un dermatologo.</p>

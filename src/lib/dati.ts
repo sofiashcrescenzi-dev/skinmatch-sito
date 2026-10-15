@@ -177,3 +177,7 @@ export function immagine(nome: string): { src: string; piccola: string; alt: str
   if (!c) return null;
   return { src: `/immagini/${nome}-1600.webp`, piccola: `/immagini/${nome}-800.webp`, alt: c.alt || '', autore: c.autore, pagina: c.pagina };
 }
+
+// La foto di un biotipo: la sua (biotipo-<id>, una per biotipo, così le pagine non ripetono la
+// stessa immagine — il PO, 15/10/2026), altrimenti quella della sua famiglia.
+export const fotoDi = (b: { id: string; famiglia: string }) => (CREDITI.some((c) => c.nome === `biotipo-${b.id}`) ? `biotipo-${b.id}` : b.famiglia);
