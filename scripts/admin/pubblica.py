@@ -98,6 +98,11 @@ def pubblica(coda, ids):
     sql(f"UPDATE pubblicazioni SET stato = 'in_corso', esito = NULL WHERE id IN ({ids})")
     prima = run('git', 'rev-parse', 'HEAD').stdout.strip()
     try:
+        # il catalogo rigenerato (scripts/catalogo/aggiorna.py) e le foto nuove si registrano prima del pull:
+        # con modifiche non registrate il pull si ferma
+        run('git', 'add', '--', 'src/data/prodotti.json', 'public/immagini', 'media', ok=False)
+        if run('git', 'diff', '--cached', '--quiet', ok=False).returncode:
+            run('git', 'commit', '-q', '-m', f"Catalogo e foto aggiornati\n\nRedazione Skinmatch{FIRMA}")
         run('git', 'pull', '--rebase', '--quiet')
         if run('git', 'diff', '--name-only', prima, 'HEAD').stdout.count('package'):
             run('npm', 'install', '--no-audit', '--no-fund')
@@ -139,6 +144,7 @@ def pubblica(coda, ids):
         if run('git', 'diff', '--cached', '--quiet', ok=False).returncode:
             chi = ', '.join(sorted({c['chi'] or '' for c in coda}))
             run('git', 'commit', '-q', '-m', f"Pubblicazione dall'admin: {', '.join(fatto) or 'foto'}\n\nChiesta da {chi} su skinmatch.it/admin.\n\nRedazione Skinmatch{FIRMA}")
+        if run('git', 'rev-list', '--count', '@{u}..HEAD', ok=False).stdout.strip() not in ('', '0'):
             run('git', 'pull', '--rebase', '--quiet')
             run('git', 'push', '--quiet')
         run('npx', 'wrangler', 'deploy')
@@ -153,7 +159,7 @@ def pubblica(coda, ids):
         print(esito)
         return 0
     except Exception as e:
-        run('git', 'checkout', '--', 'src/data', ok=False)
+        run('git', 'checkout', '--', *[f for f in ('src/data/test.json', 'src/data/biotipi.json', 'src/data/glossario.json', 'src/data/catalogo.json', 'src/data/rivista.json')], ok=False)
         if REDIRECTS.exists():
             run('git', 'checkout', '--', 'public/_redirects', ok=False)
         sql(f"UPDATE pubblicazioni SET stato = 'fallita', esito = {L(str(e)[:1500])}, fatta_il = datetime('now') WHERE id IN ({ids})")
