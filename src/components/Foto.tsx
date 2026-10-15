@@ -2,6 +2,7 @@ import { immagine } from '@/lib/dati';
 
 // Una foto del marchio per nome (public/immagini/<nome>-1600.webp e -800.webp, preparate da
 // Zeno con i crediti in public/immagini/crediti.json). Se il nome non c'è ancora, `riserva`.
+// Il «fuoco» di ogni foto (crediti.json) tiene il soggetto dentro il ritaglio, dal telefono al grande.
 export default function Foto({ nome, riserva, alt, sizes = '(max-width: 760px) 100vw, 50vw', className = '', priorita = false, credito = false, style }: {
   nome: string; riserva?: string; alt?: string; sizes?: string; className?: string; priorita?: boolean; credito?: boolean; style?: React.CSSProperties;
 }) {
@@ -18,6 +19,7 @@ export default function Foto({ nome, riserva, alt, sizes = '(max-width: 760px) 1
         loading={priorita ? 'eager' : 'lazy'}
         fetchPriority={priorita ? 'high' : undefined}
         decoding="async"
+        style={im?.fuoco ? { objectPosition: im.fuoco } : undefined}
       />
       {credito && im?.autore && (
         <figcaption className="credito" style={{ position: 'absolute', right: 8, bottom: 6, margin: 0, color: '#fff', textShadow: '0 1px 2px rgba(0,0,0,.6)' }}>

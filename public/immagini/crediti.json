@@ -537,5 +537,581 @@
   "larghezza": 1600,
   "altezza": 2400,
   "originale": "media/foto/rivista-retinolo-come-iniziare.jpg"
+ },
+ {
+  "nome": "biotipo-acneica",
+  "alt": "Un ragazzo sorride con dei cerotti colorati per brufoli sul viso",
+  "autore": "cottonbro studio",
+  "autore_pagina": "https://www.pexels.com/@cottonbro",
+  "pagina": "https://www.pexels.com/photo/smiling-man-with-stickers-on-his-face-10535618/",
+  "pexels_id": 10535618,
+  "licenza": "Licenza Pexels (uso libero, citazione gradita)",
+  "uso": [
+   "biotipo:acneica"
+  ],
+  "fuoco": "50% 35%",
+  "larghezza": 1600,
+  "altezza": 2400,
+  "originale": "media/foto/biotipo-acneica.jpg"
+ },
+ {
+  "nome": "biotipo-atopica",
+  "alt": "Una ragazza stende la crema sull'avambraccio, seduta, con il vasetto accanto",
+  "autore": "https://kaboompics.com/",
+  "autore_pagina": "https://www.pexels.com/@karola-g",
+  "pagina": "https://www.pexels.com/photo/a-person-putting-hand-cream-7281625/",
+  "pexels_id": 7281625,
+  "licenza": "Licenza Pexels (uso libero, citazione gradita)",
+  "uso": [
+   "biotipo:atopica"
+  ],
+  "fuoco": "45% 50%",
+  "larghezza": 1600,
+  "altezza": 2400,
+  "originale": "media/foto/biotipo-atopica.jpg"
+ },
+ {
+  "nome": "biotipo-caduta-reattiva",
+  "alt": "Una mano tiene un ciuffo di capelli caduti accanto al pettine",
+  "autore": "Towfiqu barbhuiya",
+  "autore_pagina": "https://www.pexels.com/@towfiqu-barbhuiya-3440682",
+  "pagina": "https://www.pexels.com/photo/close-up-photo-of-a-person-holding-hair-9755382/",
+  "pexels_id": 9755382,
+  "licenza": "Licenza Pexels (uso libero, citazione gradita)",
+  "uso": [
+   "biotipo:caduta-reattiva"
+  ],
+  "fuoco": "70% 50%",
+  "larghezza": 1600,
+  "altezza": 1068,
+  "originale": "media/foto/biotipo-caduta-reattiva.jpg"
+ },
+ {
+  "nome": "biotipo-capelli-secchi",
+  "alt": "Una ragazza con i capelli ricci e crespi guarda in camera imbronciata",
+  "autore": "Andrea Piacquadio",
+  "autore_pagina": "https://www.pexels.com/@olly",
+  "pagina": "https://www.pexels.com/photo/portrait-photo-of-angry-woman-3769703/",
+  "pexels_id": 3769703,
+  "licenza": "Licenza Pexels (uso libero, citazione gradita)",
+  "uso": [
+   "biotipo:capelli-secchi"
+  ],
+  "fuoco": "50% 35%",
+  "larghezza": 1600,
+  "altezza": 1441,
+  "originale": "media/foto/biotipo-capelli-secchi.jpg"
+ },
+ {
+  "nome": "biotipo-capelli-trattati",
+  "alt": "Primo piano delle punte di capelli tinti di rame, secche e sfibrate",
+  "autore": "Diana ✨",
+  "autore_pagina": "https://www.pexels.com/@didsss",
+  "pagina": "https://www.pexels.com/photo/blonde-hair-in-close-up-photography-7482357/",
+  "pexels_id": 7482357,
+  "licenza": "Licenza Pexels (uso libero, citazione gradita)",
+  "uso": [
+   "biotipo:capelli-trattati"
+  ],
+  "fuoco": "45% 50%",
+  "larghezza": 1600,
+  "altezza": 1067,
+  "originale": "media/foto/biotipo-capelli-trattati.jpg"
+ },
+ {
+  "nome": "biotipo-cute-grassa",
+  "alt": "Un uomo con la barba si fa sciacquare i capelli al lavatesta del barbiere",
+  "autore": "Gustavo Fring",
+  "autore_pagina": "https://www.pexels.com/@gustavo-fring",
+  "pagina": "https://www.pexels.com/photo/washing-man-hair-7447134/",
+  "pexels_id": 7447134,
+  "licenza": "Licenza Pexels (uso libero, citazione gradita)",
+  "uso": [
+   "biotipo:cute-grassa"
+  ],
+  "fuoco": "70% 55%",
+  "larghezza": 1600,
+  "altezza": 1067,
+  "originale": "media/foto/biotipo-cute-grassa.jpg"
+ },
+ {
+  "nome": "biotipo-cute-secca",
+  "alt": "Una donna con le treccine versa qualche goccia d'olio da un contagocce sul palmo",
+  "autore": "Tima Miroshnichenko",
+  "autore_pagina": "https://www.pexels.com/@tima-miroshnichenko",
+  "pagina": "https://www.pexels.com/photo/a-woman-applying-oil-on-her-wrist-7608363/",
+  "pexels_id": 7608363,
+  "licenza": "Licenza Pexels (uso libero, citazione gradita)",
+  "uso": [
+   "biotipo:cute-secca"
+  ],
+  "fuoco": "35% 35%",
+  "larghezza": 1600,
+  "altezza": 1067,
+  "originale": "media/foto/biotipo-cute-secca.jpg"
+ },
+ {
+  "nome": "biotipo-cute-sensibile",
+  "alt": "Una donna con i capelli grigi si fa lavare i capelli al lavatesta, a occhi chiusi",
+  "autore": "Kampus Production",
+  "autore_pagina": "https://www.pexels.com/@kampus",
+  "pagina": "https://www.pexels.com/photo/person-in-black-long-sleeves-washing-the-hair-of-the-customer-8834060/",
+  "pexels_id": 8834060,
+  "licenza": "Licenza Pexels (uso libero, citazione gradita)",
+  "uso": [
+   "biotipo:cute-sensibile"
+  ],
+  "fuoco": "45% 35%",
+  "larghezza": 1600,
+  "altezza": 1068,
+  "originale": "media/foto/biotipo-cute-sensibile.jpg"
+ },
+ {
+  "nome": "biotipo-diradamento",
+  "alt": "Un uomo con gli occhiali si solleva il ciuffo per guardarsi l'attaccatura dei capelli",
+  "autore": "MART  PRODUCTION",
+  "autore_pagina": "https://www.pexels.com/@mart-production",
+  "pagina": "https://www.pexels.com/photo/a-man-in-white-shirt-wearing-eyeglasses-7162940/",
+  "pexels_id": 7162940,
+  "licenza": "Licenza Pexels (uso libero, citazione gradita)",
+  "uso": [
+   "biotipo:diradamento"
+  ],
+  "fuoco": "50% 35%",
+  "larghezza": 1600,
+  "altezza": 2400,
+  "originale": "media/foto/biotipo-diradamento.jpg"
+ },
+ {
+  "nome": "biotipo-disidratata-sensibile",
+  "alt": "Una donna si sciacqua il viso con l'acqua del lavandino",
+  "autore": "PNW Production",
+  "autore_pagina": "https://www.pexels.com/@pnw-prod",
+  "pagina": "https://www.pexels.com/photo/a-woman-brushing-her-teeth-8091055/",
+  "pexels_id": 8091055,
+  "licenza": "Licenza Pexels (uso libero, citazione gradita)",
+  "uso": [
+   "biotipo:disidratata-sensibile"
+  ],
+  "fuoco": "50% 35%",
+  "larghezza": 1600,
+  "altezza": 2405,
+  "originale": "media/foto/biotipo-disidratata-sensibile.jpg"
+ },
+ {
+  "nome": "biotipo-equilibrato",
+  "alt": "Una donna si spazzola i capelli lunghi e scuri con una spazzola di legno",
+  "autore": "Greta Hoffman",
+  "autore_pagina": "https://www.pexels.com/@greta-hoffman",
+  "pagina": "https://www.pexels.com/photo/a-woman-brushing-her-long-hair-9475321/",
+  "pexels_id": 9475321,
+  "licenza": "Licenza Pexels (uso libero, citazione gradita)",
+  "uso": [
+   "biotipo:equilibrato"
+  ],
+  "fuoco": "50% 35%",
+  "larghezza": 1600,
+  "altezza": 2400,
+  "originale": "media/foto/biotipo-equilibrato.jpg"
+ },
+ {
+  "nome": "biotipo-equilibrio",
+  "alt": "Mazzi di carote e ravanelli colorati sul banco del mercato",
+  "autore": "Natalia S",
+  "autore_pagina": "https://www.pexels.com/@planka",
+  "pagina": "https://www.pexels.com/photo/fresh-colorful-vegetables-at-farmer-s-market-32800698/",
+  "pexels_id": 32800698,
+  "licenza": "Licenza Pexels (uso libero, citazione gradita)",
+  "uso": [
+   "biotipo:equilibrio"
+  ],
+  "fuoco": "50% 55%",
+  "larghezza": 1600,
+  "altezza": 2133,
+  "originale": "media/foto/biotipo-equilibrio.jpg"
+ },
+ {
+  "nome": "biotipo-imperfezioni",
+  "alt": "Un ragazzo con la frangia guarda in basso, la pelle del viso al naturale",
+  "autore": "Anna Shvets",
+  "autore_pagina": "https://www.pexels.com/@shvetsa",
+  "pagina": "https://www.pexels.com/photo/young-man-s-face-in-close-up-photography-4611686/",
+  "pexels_id": 4611686,
+  "licenza": "Licenza Pexels (uso libero, citazione gradita)",
+  "uso": [
+   "biotipo:imperfezioni"
+  ],
+  "fuoco": "50% 40%",
+  "larghezza": 1600,
+  "altezza": 1067,
+  "originale": "media/foto/biotipo-imperfezioni.jpg"
+ },
+ {
+  "nome": "biotipo-imperfezioni-interno",
+  "alt": "Due mani prendono una ciotola di yogurt con fragole e mirtilli su un tavolo di legno",
+  "autore": "Antoni Shkraba",
+  "autore_pagina": "https://www.pexels.com/@shkrabaanthony",
+  "pagina": "https://www.pexels.com/photo/preparing-fruit-salad-with-yogurt-and-crushed-peanuts-4397245/",
+  "pexels_id": 4397245,
+  "licenza": "Licenza Pexels (uso libero, citazione gradita)",
+  "uso": [
+   "biotipo:imperfezioni-interno"
+  ],
+  "fuoco": "60% 35%",
+  "larghezza": 1600,
+  "altezza": 1067,
+  "originale": "media/foto/biotipo-imperfezioni-interno.jpg"
+ },
+ {
+  "nome": "biotipo-macchie",
+  "alt": "Primo piano di profilo di una donna con lentiggini e piccole macchie sulla pelle",
+  "autore": "Angela Roma",
+  "autore_pagina": "https://www.pexels.com/@angela-roma",
+  "pagina": "https://www.pexels.com/photo/woman-with-freckles-on-blue-eyes-7479645/",
+  "pexels_id": 7479645,
+  "licenza": "Licenza Pexels (uso libero, citazione gradita)",
+  "uso": [
+   "biotipo:macchie"
+  ],
+  "fuoco": "60% 40%",
+  "larghezza": 1600,
+  "altezza": 2400,
+  "originale": "media/foto/biotipo-macchie.jpg"
+ },
+ {
+  "nome": "biotipo-matura",
+  "alt": "Ritratto all'aperto di una donna anziana che sorride, la pelle segnata dagli anni",
+  "autore": "Daneswara Eka",
+  "autore_pagina": "https://www.pexels.com/@daneswara-eka-2157956675",
+  "pagina": "https://www.pexels.com/photo/smiling-elderly-woman-portrait-in-natural-light-36495983/",
+  "pexels_id": 36495983,
+  "licenza": "Licenza Pexels (uso libero, citazione gradita)",
+  "uso": [
+   "biotipo:matura"
+  ],
+  "fuoco": "50% 35%",
+  "larghezza": 1600,
+  "altezza": 2400,
+  "originale": "media/foto/biotipo-matura.jpg"
+ },
+ {
+  "nome": "biotipo-menopausa",
+  "alt": "Ritratto all'aperto di una donna di mezza età con la mano sulla guancia, senza trucco",
+  "autore": "Plus Minus",
+  "autore_pagina": "https://www.pexels.com/@plus-minus-1775307559",
+  "pagina": "https://www.pexels.com/photo/close-up-portrait-of-a-woman-in-natural-setting-34030539/",
+  "pexels_id": 34030539,
+  "licenza": "Licenza Pexels (uso libero, citazione gradita)",
+  "uso": [
+   "biotipo:menopausa"
+  ],
+  "fuoco": "50% 35%",
+  "larghezza": 1600,
+  "altezza": 2400,
+  "originale": "media/foto/biotipo-menopausa.jpg"
+ },
+ {
+  "nome": "biotipo-normale",
+  "alt": "Una ragazza con i capelli ricci sorride a occhi chiusi nella luce del sole",
+  "autore": "Darina Belonogova",
+  "autore_pagina": "https://www.pexels.com/@darina-belonogova",
+  "pagina": "https://www.pexels.com/photo/face-of-smiling-woman-with-curly-hair-9166750/",
+  "pexels_id": 9166750,
+  "licenza": "Licenza Pexels (uso libero, citazione gradita)",
+  "uso": [
+   "biotipo:normale"
+  ],
+  "fuoco": "50% 35%",
+  "larghezza": 1600,
+  "altezza": 2400,
+  "originale": "media/foto/biotipo-normale.jpg"
+ },
+ {
+  "nome": "biotipo-normale-disidratata",
+  "alt": "Una donna con i capelli ricci beve un bicchiere d'acqua nella luce del pomeriggio",
+  "autore": "cottonbro studio",
+  "autore_pagina": "https://www.pexels.com/@cottonbro",
+  "pagina": "https://www.pexels.com/photo/a-woman-drinking-a-glass-of-water-6603396/",
+  "pexels_id": 6603396,
+  "licenza": "Licenza Pexels (uso libero, citazione gradita)",
+  "uso": [
+   "biotipo:normale-disidratata"
+  ],
+  "fuoco": "45% 35%",
+  "larghezza": 1600,
+  "altezza": 1067,
+  "originale": "media/foto/biotipo-normale-disidratata.jpg"
+ },
+ {
+  "nome": "biotipo-pelle-idratazione",
+  "alt": "Una fetta di pane con avocado e semi di lino su un piatto",
+  "autore": "Elen Zemskova",
+  "autore_pagina": "https://www.pexels.com/@elen-zemskova-80608203",
+  "pagina": "https://www.pexels.com/photo/avocado-toast-in-ceramic-plate-8756908/",
+  "pexels_id": 8756908,
+  "licenza": "Licenza Pexels (uso libero, citazione gradita)",
+  "uso": [
+   "biotipo:pelle-idratazione"
+  ],
+  "fuoco": "50% 50%",
+  "larghezza": 1600,
+  "altezza": 1067,
+  "originale": "media/foto/biotipo-pelle-idratazione.jpg"
+ },
+ {
+  "nome": "biotipo-pelle-mista",
+  "alt": "Primo piano di occhi e naso: la pelle vera, più lucida sul naso",
+  "autore": "Wallace Chuck",
+  "autore_pagina": "https://www.pexels.com/@chuck",
+  "pagina": "https://www.pexels.com/photo/woman-with-brown-eyes-19434068/",
+  "pexels_id": 19434068,
+  "licenza": "Licenza Pexels (uso libero, citazione gradita)",
+  "uso": [
+   "biotipo:pelle-mista"
+  ],
+  "fuoco": "50% 45%",
+  "larghezza": 1600,
+  "altezza": 788,
+  "originale": "media/foto/biotipo-pelle-mista.jpg"
+ },
+ {
+  "nome": "biotipo-preparazione-sole",
+  "alt": "Una ragazza con le lentiggini sotto un cappello di paglia, nella luce del sole",
+  "autore": "RDNE Stock project",
+  "autore_pagina": "https://www.pexels.com/@rdne",
+  "pagina": "https://www.pexels.com/photo/close-up-shot-of-woman-wearing-a-brown-sun-hat-8760679/",
+  "pexels_id": 8760679,
+  "licenza": "Licenza Pexels (uso libero, citazione gradita)",
+  "uso": [
+   "biotipo:preparazione-sole"
+  ],
+  "fuoco": "50% 35%",
+  "larghezza": 1600,
+  "altezza": 1067,
+  "originale": "media/foto/biotipo-preparazione-sole.jpg"
+ },
+ {
+  "nome": "biotipo-psoriasi-cuoio-capelluto",
+  "alt": "Una mano lascia cadere qualche goccia di lozione sulla riga dei capelli rossi",
+  "autore": "Beyzanur K.",
+  "autore_pagina": "https://www.pexels.com/@thefullonmonet",
+  "pagina": "https://www.pexels.com/photo/applying-hair-serum-with-dropper-on-red-hair-28994388/",
+  "pexels_id": 28994388,
+  "licenza": "Licenza Pexels (uso libero, citazione gradita)",
+  "uso": [
+   "biotipo:psoriasi-cuoio-capelluto"
+  ],
+  "fuoco": "55% 60%",
+  "larghezza": 1600,
+  "altezza": 1067,
+  "originale": "media/foto/biotipo-psoriasi-cuoio-capelluto.jpg"
+ },
+ {
+  "nome": "biotipo-psoriasica",
+  "alt": "Una donna si massaggia la crema sul braccio, con il vasetto in mano",
+  "autore": "SHVETS production",
+  "autore_pagina": "https://www.pexels.com/@shvets-production",
+  "pagina": "https://www.pexels.com/photo/woman-putting-cosmetic-product-on-her-skin-9774615/",
+  "pexels_id": 9774615,
+  "licenza": "Licenza Pexels (uso libero, citazione gradita)",
+  "uso": [
+   "biotipo:psoriasica"
+  ],
+  "fuoco": "50% 40%",
+  "larghezza": 1600,
+  "altezza": 1067,
+  "originale": "media/foto/biotipo-psoriasica.jpg"
+ },
+ {
+  "nome": "biotipo-reattiva",
+  "alt": "Una donna con i capelli rosa e le lentiggini tiene gli occhi chiusi e la mano sulla guancia",
+  "autore": "Mizuno K",
+  "autore_pagina": "https://www.pexels.com/@mizunokozuki",
+  "pagina": "https://www.pexels.com/photo/man-hand-touching-woman-face-13771164/",
+  "pexels_id": 13771164,
+  "licenza": "Licenza Pexels (uso libero, citazione gradita)",
+  "uso": [
+   "biotipo:reattiva"
+  ],
+  "fuoco": "35% 40%",
+  "larghezza": 1600,
+  "altezza": 2400,
+  "originale": "media/foto/biotipo-reattiva.jpg"
+ },
+ {
+  "nome": "biotipo-rosacea",
+  "alt": "Primo piano di una ragazza che si ripara il viso dal freddo con un guanto di lana",
+  "autore": "Ron Lach",
+  "autore_pagina": "https://www.pexels.com/@ron-lach",
+  "pagina": "https://www.pexels.com/photo/close-up-on-woman-blue-eye-10453027/",
+  "pexels_id": 10453027,
+  "licenza": "Licenza Pexels (uso libero, citazione gradita)",
+  "uso": [
+   "biotipo:rosacea"
+  ],
+  "fuoco": "50% 40%",
+  "larghezza": 1600,
+  "altezza": 2400,
+  "originale": "media/foto/biotipo-rosacea.jpg"
+ },
+ {
+  "nome": "biotipo-seborroica-disidratata",
+  "alt": "Primo piano di un ragazzo con la barba corta e la pelle vera, in luce calda",
+  "autore": "Ömer Işıkakdoğan",
+  "autore_pagina": "https://www.pexels.com/@omer-isikakdogan-2147897978",
+  "pagina": "https://www.pexels.com/photo/close-up-portrait-of-a-young-adult-30221909/",
+  "pexels_id": 30221909,
+  "licenza": "Licenza Pexels (uso libero, citazione gradita)",
+  "uso": [
+   "biotipo:seborroica-disidratata"
+  ],
+  "fuoco": "65% 40%",
+  "larghezza": 1600,
+  "altezza": 2032,
+  "originale": "media/foto/biotipo-seborroica-disidratata.jpg"
+ },
+ {
+  "nome": "biotipo-seborroica-idratata",
+  "alt": "Una donna di profilo con la pelle luminosa, il mento appoggiato alla mano",
+  "autore": "Jacquelin Perez",
+  "autore_pagina": "https://www.pexels.com/@jacquelin-perez-15364603",
+  "pagina": "https://www.pexels.com/photo/face-of-woman-6343595/",
+  "pexels_id": 6343595,
+  "licenza": "Licenza Pexels (uso libero, citazione gradita)",
+  "uso": [
+   "biotipo:seborroica-idratata"
+  ],
+  "fuoco": "40% 40%",
+  "larghezza": 1600,
+  "altezza": 2844,
+  "originale": "media/foto/biotipo-seborroica-idratata.jpg"
+ },
+ {
+  "nome": "biotipo-seborroico",
+  "alt": "Un uomo in canottiera si asciuga i capelli con un asciugamano bianco",
+  "autore": "Kampus Production",
+  "autore_pagina": "https://www.pexels.com/@kampus",
+  "pagina": "https://www.pexels.com/photo/man-in-blue-tank-top-holding-white-towel-8173478/",
+  "pexels_id": 8173478,
+  "licenza": "Licenza Pexels (uso libero, citazione gradita)",
+  "uso": [
+   "biotipo:seborroico"
+  ],
+  "fuoco": "45% 30%",
+  "larghezza": 1600,
+  "altezza": 1068,
+  "originale": "media/foto/biotipo-seborroico.jpg"
+ },
+ {
+  "nome": "biotipo-secca",
+  "alt": "Ritratto all'aperto di un uomo anziano con la barba bianca che sorride",
+  "autore": "Iqbal farooz",
+  "autore_pagina": "https://www.pexels.com/@wanderinglenses",
+  "pagina": "https://www.pexels.com/photo/portrait-of-elderly-man-26842301/",
+  "pexels_id": 26842301,
+  "licenza": "Licenza Pexels (uso libero, citazione gradita)",
+  "uso": [
+   "biotipo:secca"
+  ],
+  "fuoco": "50% 35%",
+  "larghezza": 1600,
+  "altezza": 2400,
+  "originale": "media/foto/biotipo-secca.jpg"
+ },
+ {
+  "nome": "biotipo-secca-disidratata",
+  "alt": "Una donna con l'asciugamano in testa si stende la crema sul viso, all'aperto davanti al bosco",
+  "autore": "cottonbro studio",
+  "autore_pagina": "https://www.pexels.com/@cottonbro",
+  "pagina": "https://www.pexels.com/photo/woman-in-white-robe-applying-beauty-product-on-her-face-6635917/",
+  "pexels_id": 6635917,
+  "licenza": "Licenza Pexels (uso libero, citazione gradita)",
+  "uso": [
+   "biotipo:secca-disidratata"
+  ],
+  "fuoco": "50% 35%",
+  "larghezza": 1600,
+  "altezza": 2400,
+  "originale": "media/foto/biotipo-secca-disidratata.jpg"
+ },
+ {
+  "nome": "biotipo-secco-desquamante",
+  "alt": "Una donna di mezza età si massaggia la cute con la punta delle dita",
+  "autore": "RDNE Stock project",
+  "autore_pagina": "https://www.pexels.com/@rdne",
+  "pagina": "https://www.pexels.com/photo/woman-doing-face-massage-6724487/",
+  "pexels_id": 6724487,
+  "licenza": "Licenza Pexels (uso libero, citazione gradita)",
+  "uso": [
+   "biotipo:secco-desquamante"
+  ],
+  "fuoco": "75% 35%",
+  "larghezza": 1600,
+  "altezza": 1067,
+  "originale": "media/foto/biotipo-secco-desquamante.jpg"
+ },
+ {
+  "nome": "biotipo-sostegno-capelli",
+  "alt": "Una colazione vista dall'alto: uova, noci, formaggio e mirtilli",
+  "autore": "Nataliya Vaitkevich",
+  "autore_pagina": "https://www.pexels.com/@n-voitkevich",
+  "pagina": "https://www.pexels.com/photo/stainless-steel-spoon-beside-bread-on-white-ceramic-plate-5605628/",
+  "pexels_id": 5605628,
+  "licenza": "Licenza Pexels (uso libero, citazione gradita)",
+  "uso": [
+   "biotipo:sostegno-capelli"
+  ],
+  "fuoco": "50% 40%",
+  "larghezza": 1600,
+  "altezza": 2400,
+  "originale": "media/foto/biotipo-sostegno-capelli.jpg"
+ },
+ {
+  "nome": "biotipo-tono-collagene",
+  "alt": "Una mano tiene mezzo limone sopra un tavolo pieno di frutta fresca",
+  "autore": "Viktoria  Slowikowska",
+  "autore_pagina": "https://www.pexels.com/@viktoria-slowikowska",
+  "pagina": "https://www.pexels.com/photo/person-holding-sliced-lemon-5677923/",
+  "pexels_id": 5677923,
+  "licenza": "Licenza Pexels (uso libero, citazione gradita)",
+  "uso": [
+   "biotipo:tono-collagene"
+  ],
+  "fuoco": "50% 55%",
+  "larghezza": 1600,
+  "altezza": 1067,
+  "originale": "media/foto/biotipo-tono-collagene.jpg"
+ },
+ {
+  "nome": "biotipo-unghie-fragili",
+  "alt": "Una mano con le unghie naturali e corte, appoggiata su un fondo grigio",
+  "autore": "Kindel Media",
+  "autore_pagina": "https://www.pexels.com/@kindelmedia",
+  "pagina": "https://www.pexels.com/photo/a-close-up-shot-of-a-hand-of-a-person-7298896/",
+  "pexels_id": 7298896,
+  "licenza": "Licenza Pexels (uso libero, citazione gradita)",
+  "uso": [
+   "biotipo:unghie-fragili"
+  ],
+  "fuoco": "55% 50%",
+  "larghezza": 1600,
+  "altezza": 901,
+  "originale": "media/foto/biotipo-unghie-fragili.jpg"
+ },
+ {
+  "nome": "biotipo-vegana",
+  "alt": "Ciotole di lenticchie rosse, ceci, fagioli mung e semi su un fondo rosa, viste dall'alto",
+  "autore": "Antoni Shkraba",
+  "autore_pagina": "https://www.pexels.com/@shkrabaanthony",
+  "pagina": "https://www.pexels.com/photo/colorful-cooking-ingredients-in-small-jars-6187585/",
+  "pexels_id": 6187585,
+  "licenza": "Licenza Pexels (uso libero, citazione gradita)",
+  "uso": [
+   "biotipo:vegana"
+  ],
+  "fuoco": "50% 55%",
+  "larghezza": 1600,
+  "altezza": 2400,
+  "originale": "media/foto/biotipo-vegana.jpg"
  }
 ]

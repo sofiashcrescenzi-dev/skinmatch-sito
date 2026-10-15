@@ -170,12 +170,12 @@ export const terminePerId = (id: string) => TERMINI.find((t) => t.id === id);
 // L'immagine di una famiglia o di un percorso: i file li prepara Zeno in public/immagini
 // (versioni da 1600 e 800 px); se un nome manca, si torna alle immagini di prima.
 import crediti from '../../public/immagini/crediti.json';
-export type Credito = { nome: string; autore?: string; pagina?: string; pexels_id?: number | string; alt?: string; uso?: string[] | string };
+export type Credito = { nome: string; autore?: string; pagina?: string; pexels_id?: number | string; alt?: string; uso?: string[] | string; fuoco?: string };
 export const CREDITI = (Array.isArray(crediti) ? crediti : []) as Credito[];
-export function immagine(nome: string): { src: string; piccola: string; alt: string; autore?: string; pagina?: string } | null {
+export function immagine(nome: string): { src: string; piccola: string; alt: string; autore?: string; pagina?: string; fuoco?: string } | null {
   const c = CREDITI.find((x) => x.nome === nome);
   if (!c) return null;
-  return { src: `/immagini/${nome}-1600.webp`, piccola: `/immagini/${nome}-800.webp`, alt: c.alt || '', autore: c.autore, pagina: c.pagina };
+  return { src: `/immagini/${nome}-1600.webp`, piccola: `/immagini/${nome}-800.webp`, alt: c.alt || '', autore: c.autore, pagina: c.pagina, fuoco: c.fuoco };
 }
 
 // La foto di un biotipo: la sua (biotipo-<id>, una per biotipo, così le pagine non ripetono la
