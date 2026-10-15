@@ -96,6 +96,18 @@ const AIUTA: Record<string, string> = {
   caduta: 'sostenere i capelli che cadono', forfora: 'togliere la forfora', 'secchi-crespi': 'nutrire le lunghezze', mantenimento: 'lavare senza stressare la cute',
 };
 
+const ATTIVI_CHIAVE = new Set(['retinale', 'retinolo', 'niacinamide', 'vitamina C', 'acido salicilico', 'acido glicolico', 'acido lattico', 'acido mandelico', 'acido azelaico', 'acido tranexamico', 'thiamidol', 'ceramidi', 'peptidi', 'acido ialuronico', 'centella', 'pantenolo', 'urea', 'zinco', 'PHA', 'LHA', 'arbutina', 'bakuchiol']);
+
+const ATTIVI_PER: Record<string, string[]> = {
+  'acne-sebo': ['niacinamide', 'acido salicilico', 'LHA', 'acido azelaico', 'zinco', 'retinale', 'retinolo'],
+  'macchie-luminosita': ['vitamina C', 'acido tranexamico', 'arbutina', 'thiamidol', 'acido azelaico', 'niacinamide', 'acido glicolico'],
+  'anti-age': ['retinolo', 'retinale', 'peptidi', 'vitamina C', 'bakuchiol'],
+  idratazione: ['acido ialuronico', 'urea', 'ceramidi', 'pantenolo'],
+  'rossori-sensibilita': ['centella', 'pantenolo', 'acido azelaico', 'niacinamide'],
+  'barriera-cutanea': ['ceramidi', 'pantenolo', 'urea'],
+  'pori-dilatati': ['niacinamide', 'acido salicilico'],
+};
+
 export type Scelto = { prodotto: Prodotto; compat: number; livello: 'alta' | 'media'; perche: string[] };
 export type PassaggioScelto = { passaggio: Passaggio; consigliato: Scelto; alternativa: (Scelto & { come: 'costa meno' | 'premium' }) | null };
 export type RisultatoArea = { area: Area; biotipo: Biotipo | null; tratti: Biotipo[]; passaggi: PassaggioScelto[]; vuoti: Passaggio[] };
@@ -129,6 +141,10 @@ function compatibilita(x: Prodotto, area: Area, ps: Passaggio, b: Bisogni, p: Pr
     if (ob && c.includes(ob as never)) s += 25 + (c[0] === ob ? 5 : 0);
     s += Math.min(16, c.filter((k) => k !== ob && b.concerns.has(k)).length * 8);
     if (['detergente', 'crema', 'spf'].includes(ps.id)) s += 10;
+    // gli attivi giusti per l'obiettivo valgono più delle parole della descrizione
+    const att = new Set((x.scheda?.attivi || []).map((a) => a.nome));
+    if (ob && ATTIVI_PER[ob]) s += Math.min(16, ATTIVI_PER[ob].filter((a) => att.has(a)).length * 8);
+    s += Math.min(8, [...b.concerns].filter((k) => k !== ob && ATTIVI_PER[k]?.some((a) => att.has(a))).length * 4);
     if (re >= 2 && x.sensitiveSafe) s += 6 + (tipi.includes('sensibile') ? 4 : 0);
     if (p.scelte.genere === 'uomo' && x.gender === 'uomo') s += 3;
   } else if (area === 'cute') {
@@ -156,7 +172,11 @@ function percheDi(x: Prodotto, area: Area, b: Bisogni, p: Profilo, biotipo: Biot
   if (biotipo && area !== 'integrazione') r.push('adatto a: ' + biotipo.titolo.toLowerCase());
   const aiuti = [...(x.concerns || []), ...(x.hairConcerns || [])].filter((k) => b.concerns.has(k) || b.capelli.has(k)).slice(0, 2);
   if (aiuti.length) r.push('aiuta a ' + aiuti.map((k) => AIUTA[k] || k).join(' e '));
+  const att = (x.scheda?.attivi || []).filter((a) => ATTIVI_CHIAVE.has(a.nome)).slice(0, 2);
+  if (att.length) r.push('con ' + att.map((a) => a.nome + (a.perc ? ` ${String(a.perc).replace('.', ',')}%` : '')).join(' e '));
   if ((p.punti.re || 0) >= 2 && x.sensitiveSafe) r.push('va bene anche per le pelli sensibili');
+  if ((p.punti.re || 0) >= 2 && x.scheda?.profumo === false) r.push('senza profumo');
+  if (x.scheda?.fotosensibilizzante) r.push('la mattina dopo, protezione solare');
   if (p.scelte.gravidanza === true && x.pregnancySafe) r.push('indicato anche in gravidanza e allattamento');
   return r;
 }
@@ -168,7 +188,12 @@ function scegli(area: Area, ps: Passaggio, p: Profilo, b: Bisogni, biotipo: Biot
     .filter((x) => x.gender === 'unisex' || genere === 'altro' || genere === undefined || x.gender === genere)
     .filter((x) => p.scelte.gravidanza !== true || x.pregnancySafe === true)
     .filter((x) => !(delicati || (area === 'pelle' && re >= 3)) || x.sensitiveSafe === true)
-    .filter((x) => !(area === 'pelle' && re >= 2) || x.sensitiveSafe !== false);
+    .filter((x) => !(area === 'pelle' && re >= 2) || x.sensitiveSafe !== false)
+    // dalla scheda, come nel prototipo: i prodotti forti solo a chi usa già gli attivi; con un limite medico
+    // solo i delicati; con la pelle molto reattiva niente profumo
+    .filter((x) => !x.scheda || x.scheda.forza < 3 || Number(p.scelte.esperienza ?? 0) >= 2)
+    .filter((x) => !x.scheda || !delicati || x.scheda.forza <= 1)
+    .filter((x) => !x.scheda || !(area === 'pelle' && re >= 3) || x.scheda.profumo !== true);
   const minimo = ps.minimo ?? 40;
   // l'ordine: la compatibilità, ma una scheda senza foto cede il posto a una quasi uguale che ce l'ha
   // (Friday, 15/10: tre riquadri vuoti su sei nel risultato)

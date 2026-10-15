@@ -94,6 +94,23 @@ export type Product = {
   beardConcerns?: BeardConcern[];
   pregnancySafe?: boolean;
   sensitiveSafe?: boolean;
+  // la scheda (scripts/catalogo/schede.py): passaggio, forza 1-3, attivi con la percentuale, prezzo ogni 10 ml
+  scheda?: Scheda;
+};
+
+export type Scheda = {
+  passaggio: string;
+  momento?: string;
+  forza: number;
+  fotosensibilizzante?: boolean;
+  texture?: string | null;
+  profumo?: boolean | null;
+  spf?: number | null;
+  al_10?: number | null;
+  ruolo?: string | null;
+  attivi: { nome: string; perc: number | null }[];
+  inci: boolean;
+  completezza: number;
 };
 
 const MANUAL_PRODUCTS: Product[] = [
@@ -858,7 +875,14 @@ const MANUAL_PRODUCTS: Product[] = [
   },
 ];
 
-export const PRODUCTS: Product[] = [...MANUAL_PRODUCTS, ...FEED_PRODUCTS];
+// ⚠️ IL CATALOGO DAL 15/10/2026 (il PO: «togliamo tutti i prodotti Notino e Amazon»): la selezione
+// dalle schede Liki24 (src/data/prodotti.json, generata da scripts/catalogo/al_sito.py) più quello che
+// resta dei prodotti di prima che non sono né Notino né Amazon.
+import SELEZIONE from '@/data/prodotti.json';
+export const PRODUCTS: Product[] = [
+  ...((SELEZIONE as unknown as { prodotti: Product[] }).prodotti),
+  ...[...MANUAL_PRODUCTS, ...FEED_PRODUCTS].filter((p) => p.merchant !== 'Notino' && !p.affiliateUrl.includes('amazon.')),
+];
 
 export function filterProducts(filters: {
   gender?: Gender | 'tutti';

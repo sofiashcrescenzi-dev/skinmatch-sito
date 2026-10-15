@@ -4,6 +4,30 @@ Registro di ogni modifica fatta al repository. Ordine: dal più recente al più 
 
 ---
 
+## 2026-10-15 (pomeriggio) — Il catalogo da Liki24, con le schede prodotto
+
+- **Via Notino e Amazon** (Federico): il catalogo è ora la selezione da **Liki24** (Adtraction, canale
+  «SKINMATCH - Content IT»), più i 7 prodotti Marionnaud rimasti.
+- **Le marche**: decise da Federico e Sofia marca per marca (pagina «Le marche di Skinmatch»), salvate in
+  `scripts/catalogo/decisioni_marche.json`. La dermocosmesi da farmacia entra solo come alternativa economica e
+  con attivi; via tinte, decolorazioni, corpo, prima infanzia, trucco e cofanetti, con il registro di quello che
+  si toglie (`feeds-out/esclusi-liki24.json`).
+- **Le schede** (il formato del prototipo): passaggio e momento, per quale pelle (sebo, idratazione, fino a che
+  reattività), bisogni, forza 1-3, gravidanza (sì / no / da verificare), fotosensibilizzante, attivi con la
+  percentuale, texture, profumo, fascia, prezzo ogni 10 ml, e da dove viene ogni dato. La pipeline:
+  `scripts/catalogo/` — `fonti.py` (un adattatore per negozio), `inci.py` (lettura dell'INCI), `traduci.py`
+  (dalle informazioni del negozio alla scheda), `schede.py`, `al_sito.py` (la selezione per il sito,
+  `src/data/prodotti.json`), `aggiorna.py` (ogni mattina).
+- **L'arricchimento**: l'INCI dalle descrizioni, da Open Beauty Facts (archivio pubblico) e dallo stesso
+  prodotto in altro formato; il resto lo cerca Zeno (lunedì, mercoledì e venerdì) con la fonte, e si approva in
+  admin → Catalogo.
+- **Il motore** usa la scheda: i prodotti forti solo a chi usa già gli attivi, con un limite medico solo i
+  delicati, con la pelle molto reattiva niente profumo; premia gli attivi giusti per l'obiettivo; il «Perché
+  questo» cita gli attivi e ricorda la protezione solare dopo retinoidi e acidi. La carta prodotto mostra gli
+  attivi con la percentuale e il prezzo ogni 10 ml.
+
+---
+
 ## 2026-10-15 — Il metodo arriva sul sito: test in quattro percorsi, biotipi, glossario, catalogo, Rivista e admin
 
 Il prototipo del metodo (provato su agoranomos.cloud/skinmatch) trasportato qui, e il sito diventa gestibile da un admin.

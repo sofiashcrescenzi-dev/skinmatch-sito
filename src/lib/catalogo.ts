@@ -57,13 +57,7 @@ export const nelGruppo = (slug: string) => {
   return PRODOTTI.filter((p) => p.tag.includes(slug));
 };
 
-export function negozio(p: Product): string | null {
-  if (p.merchant) return p.merchant;
-  if (p.affiliateUrl.includes('amazon.')) return 'Amazon';
-  return null;
-}
-
-export const euro = (n: number) => n.toLocaleString('it-IT', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' €';
+export { euro, negozio } from './formato';
 
 // I prodotti da mostrare nella pagina di un biotipo: quelli che rispondono ai suoi bisogni,
 // al massimo due per categoria, così la pagina mostra una routine e non sei creme uguali.

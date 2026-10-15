@@ -41,7 +41,8 @@ def run(*cmd, ok=True, **kw):
 
 def pulito():
     sporchi = [r[3:] for r in run('git', 'status', '--porcelain').stdout.splitlines()]
-    return [f for f in sporchi if not (f.startswith('public/immagini/') or f.startswith('media/') or f.startswith('"media/'))]
+    # si pubblicano anche le foto nuove di Zeno e la selezione del catalogo (scripts/catalogo/aggiorna.py)
+    return [f for f in sporchi if not (f.startswith('public/immagini/') or f.startswith('media/') or f.startswith('"media/') or f == 'src/data/prodotti.json')]
 
 
 def scrivi(nome, dati, nota):

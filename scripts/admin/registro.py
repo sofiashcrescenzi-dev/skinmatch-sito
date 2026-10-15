@@ -5,6 +5,7 @@
   rapporto --agente --tipo --titolo --sintesi [--corpo file.md] [--esito ok|attenzione|problema]
   arricchimento --prodotto ID --campo C --valore V --fonte URL [--chi zeno]
   elenco articoli [--stato da_correggere]  per leggere il feedback di Federico e Sofia
+  elenco arricchimenti                     i prodotti per cui un'informazione è già proposta o decisa
 
 Il file dell'articolo: titolo, slug, sommario, tipo (guida|novita|confronto|approfondimento),
 testo (markdown), immagine {file, autore, pagina, alt}, prodotti [id], biotipi [id], termini [id].
@@ -18,7 +19,10 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent))
 from d1 import L, sql  # noqa: E402
 
-CAMPI = {'skinTypes', 'concerns', 'hairConcerns', 'scalpTypes', 'pregnancySafe', 'sensitiveSafe', 'description', 'name', 'tier'}
+# campi delle correzioni del catalogo, e campi delle schede (INCI, profumo, texture, misura): questi
+# ultimi li usa la pipeline delle schede (scripts/catalogo/schede.py --arricchisci) dopo l'approvazione
+CAMPI = {'skinTypes', 'concerns', 'hairConcerns', 'scalpTypes', 'pregnancySafe', 'sensitiveSafe', 'description', 'name', 'tier',
+         'inci', 'profumo', 'texture', 'misura', 'attivi'}
 
 
 def articolo(a):
@@ -58,7 +62,10 @@ def arricchimento(a):
 
 
 def elenco(a):
-    righe = sql(f"SELECT id, slug, titolo, stato, feedback, creato_il FROM articoli {('WHERE stato = ' + L(a.stato)) if a.stato else ''} ORDER BY id DESC LIMIT 50")
+    if a.cosa == 'arricchimenti':
+        righe = sql(f"SELECT prodotto, campo, stato FROM arricchimenti {('WHERE stato = ' + L(a.stato)) if a.stato else ''} ORDER BY id DESC LIMIT 5000")
+    else:
+        righe = sql(f"SELECT id, slug, titolo, stato, feedback, creato_il FROM articoli {('WHERE stato = ' + L(a.stato)) if a.stato else ''} ORDER BY id DESC LIMIT 50")
     print(json.dumps(righe, ensure_ascii=False, indent=1))
 
 
@@ -73,6 +80,6 @@ x = sub.add_parser('arricchimento')
 for k in ('prodotto', 'campo', 'valore', 'fonte'):
     x.add_argument(f'--{k}', required=True)
 x.add_argument('--chi', default='zeno')
-x = sub.add_parser('elenco'); x.add_argument('cosa', choices=['articoli']); x.add_argument('--stato')
+x = sub.add_parser('elenco'); x.add_argument('cosa', choices=['articoli', 'arricchimenti']); x.add_argument('--stato')
 a = ap.parse_args()
 {'articolo': articolo, 'rapporto': rapporto, 'arricchimento': arricchimento, 'elenco': elenco}[a.cmd](a)

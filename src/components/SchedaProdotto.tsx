@@ -1,6 +1,7 @@
 'use client';
 
-import { euro, negozio, type Prodotto } from '@/lib/catalogo';
+import { euro, negozio } from '@/lib/formato';
+import type { Prodotto } from '@/lib/catalogo';
 import { CATALOGO } from '@/lib/dati';
 import { segna } from '@/lib/eventi';
 
@@ -25,8 +26,14 @@ export default function SchedaProdotto({ p, da, sopra, sotto, conTag = true }: {
           <span className="marca">{p.brand}</span>
           <span className="nome">{p.name}</span>
           {p.description && <span className="piccolo">{p.description}</span>}
+          {(p.scheda?.attivi || []).length > 0 && (
+            <span className="piccolo" style={{ color: 'var(--terra)', fontWeight: 700 }}>
+              {p.scheda!.attivi.slice(0, 3).map((a) => a.nome + (a.perc ? ` ${String(a.perc).replace('.', ',')}%` : '')).join(' · ')}
+            </span>
+          )}
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px 14px', alignItems: 'baseline', marginTop: 2 }}>
             <span className="prezzo">{euro(p.price)}</span>
+            {p.scheda?.al_10 ? <span className="piccolo">{euro(p.scheda.al_10)} ogni 10 ml</span> : null}
             <a className="compra" href={p.affiliateUrl} target="_blank" rel="sponsored nofollow noopener" onClick={() => segna({ e: 'clic', id: p.id, m: dove || 'negozio', da })}>
               {dove ? `Vedi su ${dove}` : 'Vedi il prodotto'}
             </a>

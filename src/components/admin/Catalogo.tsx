@@ -17,6 +17,8 @@ const PELLE = ['secca', 'grassa', 'mista', 'normale', 'sensibile'];
 const BISOGNI = ['idratazione', 'anti-age', 'acne-sebo', 'macchie-luminosita', 'rossori-sensibilita', 'barriera-cutanea', 'pori-dilatati', 'protezione-solare'];
 const CAPELLI = ['caduta', 'forfora', 'secchi-crespi', 'mantenimento'];
 const CUTE = ['grasso', 'secco', 'normale', 'sensibile'];
+// i campi che diventano correzioni del catalogo; gli altri (inci, profumo, texture, misura) li usa la
+// pipeline delle schede al giro successivo (scripts/catalogo/schede.py --arricchisci)
 const CAMPI_ARRICCHIBILI = ['skinTypes', 'concerns', 'hairConcerns', 'scalpTypes', 'pregnancySafe', 'sensitiveSafe', 'description', 'name', 'tier'];
 type Arr = { id: number; prodotto: string; campo: string; valore: string; fonte: string; stato: string; chi: string; creato_il: string };
 

@@ -1,0 +1,1216 @@
+{
+ "_nota": "Le decisioni di Federico e Sofia sulle marche (pagina «Le marche di Skinmatch», salvate il 2026-10-15). decisione: si / selezione / no. La nota vale come regola: «solo alternativa economica e con attivi», «togli tinta e decolorazione», ecc.",
+ "marche": [
+  {
+   "marca": "Skinceuticals",
+   "segmento": "Medicale premium",
+   "proposta": "si",
+   "decisione": "si",
+   "nota": "",
+   "linee": [
+    "C E Ferulic",
+    "Phloretin CF",
+    "Retinol",
+    "Blemish + Age",
+    "Discoloration Defense",
+    "Hydrating B5",
+    "Phyto Corrective",
+    "RGN-6",
+    "Age Interrupter",
+    "UV Defense SPF50",
+    "Gentle Cleanser"
+   ]
+  },
+  {
+   "marca": "Medik8",
+   "segmento": "Medicale premium",
+   "proposta": "si",
+   "decisione": "si",
+   "nota": "",
+   "linee": [
+    "Crystal Retinal",
+    "Calmwise",
+    "Total Moisture",
+    "Pro-Collagen"
+   ]
+  },
+  {
+   "marca": "Isdin",
+   "segmento": "Medicale premium",
+   "proposta": "si",
+   "decisione": "si",
+   "nota": "",
+   "linee": [
+    "Fusion Water",
+    "Melaclear",
+    "Flavo-C",
+    "Retinal",
+    "Isdinceutics",
+    "Acniben",
+    "Ureadin",
+    "Lambdapil"
+   ]
+  },
+  {
+   "marca": "Heliocare",
+   "segmento": "Medicale premium",
+   "proposta": "si",
+   "decisione": "si",
+   "nota": "",
+   "linee": [
+    "360",
+    "Water Gel",
+    "Mineral",
+    "Ultra",
+    "Advanced",
+    "capsule"
+   ]
+  },
+  {
+   "marca": "Cantabria Labs",
+   "segmento": "Medicale premium",
+   "proposta": "selezione",
+   "decisione": "selezione",
+   "nota": "",
+   "linee": [
+    "Endocare",
+    "Biretix",
+    "Neoretin"
+   ]
+  },
+  {
+   "marca": "Neostrata",
+   "segmento": "Medicale premium",
+   "proposta": "selezione",
+   "decisione": "selezione",
+   "nota": "",
+   "linee": [
+    "Resurface",
+    "Skin Active",
+    "Restore",
+    "Enlighten",
+    "Clarify"
+   ]
+  },
+  {
+   "marca": "Sesderma",
+   "segmento": "Medicale premium",
+   "proposta": "selezione",
+   "decisione": "si",
+   "nota": "",
+   "linee": [
+    "Azelac",
+    "C-Vit",
+    "Reti Age",
+    "Hidraderm",
+    "Repaskin",
+    "Mandelac"
+   ]
+  },
+  {
+   "marca": "MartiDerm",
+   "segmento": "Medicale premium",
+   "proposta": "selezione",
+   "decisione": "selezione",
+   "nota": "",
+   "linee": [
+    "Platinum",
+    "Proteos",
+    "Hair System 3GF"
+   ]
+  },
+  {
+   "marca": "Filorga",
+   "segmento": "Medicale premium",
+   "proposta": "selezione",
+   "decisione": "si",
+   "nota": "",
+   "linee": [
+    "Time-Filler",
+    "NCEF",
+    "Hydra-Hyal",
+    "Global-Repair",
+    "Age-Purify"
+   ]
+  },
+  {
+   "marca": "Institut Esthederm",
+   "segmento": "Medicale premium",
+   "proposta": "selezione",
+   "decisione": "si",
+   "nota": "",
+   "linee": [
+    "Photo Reverse",
+    "Intensive",
+    "Adaptasun"
+   ]
+  },
+  {
+   "marca": "Murad",
+   "segmento": "Medicale premium",
+   "proposta": "no",
+   "decisione": "si",
+   "nota": "poi magari integriamo da altri ",
+   "linee": []
+  },
+  {
+   "marca": "La Roche-Posay",
+   "segmento": "Dermocosmesi da farmacia",
+   "proposta": "si",
+   "decisione": "selezione",
+   "nota": "solo alternativa economica e con attivi",
+   "linee": [
+    "Effaclar",
+    "Cicaplast",
+    "Toleriane",
+    "Lipikar",
+    "Anthelios",
+    "Hyalu B5",
+    "Retinol B3",
+    "Mela B3",
+    "Vitamin C",
+    "Rosaliac",
+    "Kerium"
+   ]
+  },
+  {
+   "marca": "Avene",
+   "segmento": "Dermocosmesi da farmacia",
+   "proposta": "si",
+   "decisione": "selezione",
+   "nota": "solo alternativa economica e con attivi",
+   "linee": [
+    "Cleanance",
+    "Tolerance",
+    "Antirougeurs",
+    "Cicalfate",
+    "XeraCalm",
+    "Hyaluron Activ",
+    "RetrinAL",
+    "A-Oxitive",
+    "Hydrance"
+   ]
+  },
+  {
+   "marca": "Bioderma",
+   "segmento": "Dermocosmesi da farmacia",
+   "proposta": "si",
+   "decisione": "selezione",
+   "nota": "solo alternativa economica e con attivi",
+   "linee": [
+    "Sensibio",
+    "Sebium",
+    "Atoderm",
+    "Hydrabio",
+    "Cicabio",
+    "Pigmentbio",
+    "Photoderm",
+    "Node"
+   ]
+  },
+  {
+   "marca": "CeraVe",
+   "segmento": "Dermocosmesi da farmacia",
+   "proposta": "si",
+   "decisione": "selezione",
+   "nota": "solo alternativa economica e con attivi",
+   "linee": [
+    "Hydrating",
+    "Foaming",
+    "Moisturising",
+    "Blemish",
+    "SA ",
+    "Retinol",
+    "Skin Renewing",
+    "Eye"
+   ]
+  },
+  {
+   "marca": "Ducray",
+   "segmento": "Dermocosmesi da farmacia",
+   "proposta": "si",
+   "decisione": "selezione",
+   "nota": "solo alternativa economica e con attivi",
+   "linee": [
+    "Anaphase",
+    "Neoptide",
+    "Kelual",
+    "Squanorm",
+    "Sensinol",
+    "Elution",
+    "Keracnyl",
+    "Melascreen",
+    "Dexyane",
+    "Creastim"
+   ]
+  },
+  {
+   "marca": "Cetaphil",
+   "segmento": "Dermocosmesi da farmacia",
+   "proposta": "si",
+   "decisione": "selezione",
+   "nota": "solo alternativa economica e con attivi",
+   "linee": [
+    "Gentle",
+    "Moistur",
+    "Restoraderm",
+    "Pro "
+   ]
+  },
+  {
+   "marca": "Eucerin",
+   "segmento": "Dermocosmesi da farmacia",
+   "proposta": "selezione",
+   "decisione": "selezione",
+   "nota": "",
+   "linee": [
+    "Anti-Pigment",
+    "Hyaluron-Filler",
+    "DermoPure",
+    "AtopiControl",
+    "UreaRepair",
+    "Aquaphor",
+    "Sun"
+   ]
+  },
+  {
+   "marca": "Vichy",
+   "segmento": "Dermocosmesi da farmacia",
+   "proposta": "selezione",
+   "decisione": "selezione",
+   "nota": "",
+   "linee": [
+    "Liftactiv",
+    "Mineral 89",
+    "Normaderm",
+    "Capital Soleil",
+    "Dercos",
+    "Neovadiol"
+   ]
+  },
+  {
+   "marca": "Uriage",
+   "segmento": "Dermocosmesi da farmacia",
+   "proposta": "selezione",
+   "decisione": "selezione",
+   "nota": "",
+   "linee": [
+    "Xemose",
+    "Bariederm",
+    "Hyseac",
+    "Roseliane",
+    "Depiderm",
+    "Age Lift"
+   ]
+  },
+  {
+   "marca": "SVR",
+   "segmento": "Dermocosmesi da farmacia",
+   "proposta": "selezione",
+   "decisione": "selezione",
+   "nota": "",
+   "linee": [
+    "Sebiaclear",
+    "Ampoule",
+    "Densitium",
+    "Topialyse",
+    "Sensifine",
+    "Xerial",
+    "Hydraliane",
+    "Sun Secure"
+   ]
+  },
+  {
+   "marca": "A-Derma",
+   "segmento": "Dermocosmesi da farmacia",
+   "proposta": "selezione",
+   "decisione": "selezione",
+   "nota": "",
+   "linee": [
+    "Exomega",
+    "Dermalibour",
+    "Epitheliale",
+    "Biology"
+   ]
+  },
+  {
+   "marca": "Rilastil",
+   "segmento": "Dermocosmesi da farmacia",
+   "proposta": "selezione",
+   "decisione": "si",
+   "nota": "",
+   "linee": [
+    "Xerolact",
+    "Aqua",
+    "Acnestil",
+    "Progression",
+    "Sun System",
+    "D-Clar"
+   ]
+  },
+  {
+   "marca": "Noreva",
+   "segmento": "Dermocosmesi da farmacia",
+   "proposta": "selezione",
+   "decisione": "selezione",
+   "nota": "",
+   "linee": [
+    "Exfoliac",
+    "Sebodiane",
+    "Xerodiane",
+    "Sensidiane"
+   ]
+  },
+  {
+   "marca": "BioNike",
+   "segmento": "Dermocosmesi da farmacia",
+   "proposta": "selezione",
+   "decisione": "selezione",
+   "nota": "solo alternativa economica e con attivi",
+   "linee": [
+    "Defence",
+    "Triderm",
+    "Proxera"
+   ]
+  },
+  {
+   "marca": "Topicrem",
+   "segmento": "Dermocosmesi da farmacia",
+   "proposta": "selezione",
+   "decisione": "selezione",
+   "nota": "",
+   "linee": [
+    "Ultra-Hydratant",
+    "UR-10",
+    " AC ",
+    "Calm"
+   ]
+  },
+  {
+   "marca": "Sebamed",
+   "segmento": "Dermocosmesi da farmacia",
+   "proposta": "selezione",
+   "decisione": "selezione",
+   "nota": "",
+   "linee": [
+    "Anti-Forfora",
+    "Clear Face",
+    "Anti-Dry",
+    "pH 5.5"
+   ]
+  },
+  {
+   "marca": "Caudalie",
+   "segmento": "Dermocosmesi da farmacia",
+   "proposta": "selezione",
+   "decisione": "selezione",
+   "nota": "",
+   "linee": [
+    "Vinoperfect",
+    "Vinopure",
+    "Resveratrol",
+    "Vinergetic"
+   ]
+  },
+  {
+   "marca": "Lierac",
+   "segmento": "Dermocosmesi da farmacia",
+   "proposta": "selezione",
+   "decisione": "selezione",
+   "nota": "",
+   "linee": [
+    "Hydragenist",
+    "Lift Integral",
+    "Sebologie",
+    "Cica-Filler"
+   ]
+  },
+  {
+   "marca": "Roc",
+   "segmento": "Dermocosmesi da farmacia",
+   "proposta": "selezione",
+   "decisione": "selezione",
+   "nota": "solo alternativa economica e con attivi",
+   "linee": [
+    "Retinol Correxion",
+    "Multi Correxion"
+   ]
+  },
+  {
+   "marca": "Acm",
+   "segmento": "Dermocosmesi da farmacia",
+   "proposta": "selezione",
+   "decisione": "no",
+   "nota": "",
+   "linee": [
+    "Sebionex",
+    "Depiwhite",
+    "Novophane"
+   ]
+  },
+  {
+   "marca": "Galderma",
+   "segmento": "Dermocosmesi da farmacia",
+   "proposta": "no",
+   "decisione": "no",
+   "nota": "",
+   "linee": []
+  },
+  {
+   "marca": "Nuxe",
+   "segmento": "Dermocosmesi da farmacia",
+   "proposta": "no",
+   "decisione": "no",
+   "nota": "",
+   "linee": []
+  },
+  {
+   "marca": "Isis Pharma",
+   "segmento": "Dermocosmesi da farmacia",
+   "proposta": "no",
+   "decisione": "no",
+   "nota": "",
+   "linee": []
+  },
+  {
+   "marca": "Pharmaceris",
+   "segmento": "Dermocosmesi da farmacia",
+   "proposta": "no",
+   "decisione": "no",
+   "nota": "",
+   "linee": []
+  },
+  {
+   "marca": "Dermedic",
+   "segmento": "Dermocosmesi da farmacia",
+   "proposta": "no",
+   "decisione": "no",
+   "nota": "",
+   "linee": []
+  },
+  {
+   "marca": "Frezyderm",
+   "segmento": "Dermocosmesi da farmacia",
+   "proposta": "no",
+   "decisione": "no",
+   "nota": "",
+   "linee": []
+  },
+  {
+   "marca": "Neutrogena",
+   "segmento": "Dermocosmesi da farmacia",
+   "proposta": "no",
+   "decisione": "no",
+   "nota": "",
+   "linee": []
+  },
+  {
+   "marca": "Mustela",
+   "segmento": "Dermocosmesi da farmacia",
+   "proposta": "no",
+   "decisione": "no",
+   "nota": "",
+   "linee": []
+  },
+  {
+   "marca": "Apivita",
+   "segmento": "Dermocosmesi da farmacia",
+   "proposta": "no",
+   "decisione": "no",
+   "nota": "",
+   "linee": []
+  },
+  {
+   "marca": "Korres",
+   "segmento": "Dermocosmesi da farmacia",
+   "proposta": "no",
+   "decisione": "no",
+   "nota": "",
+   "linee": []
+  },
+  {
+   "marca": "Weleda",
+   "segmento": "Dermocosmesi da farmacia",
+   "proposta": "no",
+   "decisione": "no",
+   "nota": "",
+   "linee": []
+  },
+  {
+   "marca": "Dr. Hauschka",
+   "segmento": "Dermocosmesi da farmacia",
+   "proposta": "no",
+   "decisione": "no",
+   "nota": "",
+   "linee": []
+  },
+  {
+   "marca": "Garancia",
+   "segmento": "Dermocosmesi da farmacia",
+   "proposta": "no",
+   "decisione": "no",
+   "nota": "",
+   "linee": []
+  },
+  {
+   "marca": "COSRX",
+   "segmento": "K-beauty",
+   "proposta": "si",
+   "decisione": "si",
+   "nota": "studiamo poi quali sono i più validi e il rapporto tra uno e l'altro in termini di attivi",
+   "linee": [
+    "Snail",
+    "BHA",
+    "AHA",
+    "Low pH",
+    "Retinol",
+    "Niacinamide",
+    "Centella",
+    "Propolis",
+    "Peptide",
+    "Ceramide"
+   ]
+  },
+  {
+   "marca": "Beauty Of Joseon",
+   "segmento": "K-beauty",
+   "proposta": "si",
+   "decisione": "si",
+   "nota": "studiamo poi quali sono i più validi e il rapporto tra uno e l'altro in termini di attivi",
+   "linee": [
+    "Relief Sun",
+    "Glow Deep",
+    "Revive",
+    "Dynasty",
+    "Prugna verde",
+    "Sun Stick"
+   ]
+  },
+  {
+   "marca": "Anua",
+   "segmento": "K-beauty",
+   "proposta": "si",
+   "decisione": "si",
+   "nota": "studiamo poi quali sono i più validi e il rapporto tra uno e l'altro in termini di attivi",
+   "linee": [
+    "Heartleaf",
+    "Niacinamide",
+    "Peach",
+    "Rice"
+   ]
+  },
+  {
+   "marca": "Round Lab",
+   "segmento": "K-beauty",
+   "proposta": "si",
+   "decisione": "si",
+   "nota": "studiamo poi quali sono i più validi e il rapporto tra uno e l'altro in termini di attivi",
+   "linee": [
+    "Dokdo",
+    "Birch",
+    "Soybean",
+    "Mugwort"
+   ]
+  },
+  {
+   "marca": "Isntree",
+   "segmento": "K-beauty",
+   "proposta": "si",
+   "decisione": "si",
+   "nota": "studiamo poi quali sono i più validi e il rapporto tra uno e l'altro in termini di attivi",
+   "linee": [
+    "Acido ialuronico",
+    "Retinolo 1%",
+    "Niacinamide 20%",
+    "Aloe"
+   ]
+  },
+  {
+   "marca": "Haruharu Wonder",
+   "segmento": "K-beauty",
+   "proposta": "si",
+   "decisione": "si",
+   "nota": "studiamo poi quali sono i più validi e il rapporto tra uno e l'altro in termini di attivi",
+   "linee": [
+    "Black Rice"
+   ]
+  },
+  {
+   "marca": "Axis-Y",
+   "segmento": "K-beauty",
+   "proposta": "si",
+   "decisione": "si",
+   "nota": "studiamo poi quali sono i più validi e il rapporto tra uno e l'altro in termini di attivi",
+   "linee": [
+    "Dark Spot",
+    "Mugwort",
+    "Biome",
+    "Collagen"
+   ]
+  },
+  {
+   "marca": "Pyunkang Yul",
+   "segmento": "K-beauty",
+   "proposta": "si",
+   "decisione": "si",
+   "nota": "studiamo poi quali sono i più validi e il rapporto tra uno e l'altro in termini di attivi",
+   "linee": [
+    "Essence Toner",
+    "Calming",
+    "Cleansing"
+   ]
+  },
+  {
+   "marca": "Hada Labo Tokyo",
+   "segmento": "K-beauty",
+   "proposta": "si",
+   "decisione": "si",
+   "nota": "studiamo poi quali sono i più validi e il rapporto tra uno e l'altro in termini di attivi",
+   "linee": [
+    "Hyaluronic",
+    "Gokujyun",
+    "Shirojyun",
+    "Retinol"
+   ]
+  },
+  {
+   "marca": "Medicube",
+   "segmento": "K-beauty",
+   "proposta": "selezione",
+   "decisione": "selezione",
+   "nota": "studiamo poi quali sono i più validi e il rapporto tra uno e l'altro in termini di attivi",
+   "linee": [
+    "Zero Pore",
+    "PDRN",
+    "Collagen",
+    "Deep Vita",
+    "Red"
+   ]
+  },
+  {
+   "marca": "Some By Mi",
+   "segmento": "K-beauty",
+   "proposta": "selezione",
+   "decisione": "selezione",
+   "nota": "studiamo poi quali sono i più validi e il rapporto tra uno e l'altro in termini di attivi",
+   "linee": [
+    "AHA",
+    "Retinol",
+    "Galactomyces",
+    "Truecica",
+    "Yuja"
+   ]
+  },
+  {
+   "marca": "Dr. Jart",
+   "segmento": "K-beauty",
+   "proposta": "selezione",
+   "decisione": "selezione",
+   "nota": "studiamo poi quali sono i più validi e il rapporto tra uno e l'altro in termini di attivi",
+   "linee": [
+    "Cicapair",
+    "Ceramidin",
+    "Vital Hydra"
+   ]
+  },
+  {
+   "marca": "Missha",
+   "segmento": "K-beauty",
+   "proposta": "selezione",
+   "decisione": "selezione",
+   "nota": "studiamo poi quali sono i più validi e il rapporto tra uno e l'altro in termini di attivi",
+   "linee": [
+    "Time Revolution",
+    "All Around Safe",
+    "Super Aqua"
+   ]
+  },
+  {
+   "marca": "Althea Life Science",
+   "segmento": "K-beauty",
+   "proposta": "selezione",
+   "decisione": "selezione",
+   "nota": "studiamo poi quali sono i più validi e il rapporto tra uno e l'altro in termini di attivi",
+   "linee": [
+    "345",
+    "Relief"
+   ]
+  },
+  {
+   "marca": "Numbuzin",
+   "segmento": "K-beauty",
+   "proposta": "selezione",
+   "decisione": "selezione",
+   "nota": "studiamo poi quali sono i più validi e il rapporto tra uno e l'altro in termini di attivi",
+   "linee": [
+    "No.3",
+    "No.5",
+    "No.9",
+    "No.1"
+   ]
+  },
+  {
+   "marca": "Manyo",
+   "segmento": "K-beauty",
+   "proposta": "selezione",
+   "decisione": "selezione",
+   "nota": "studiamo poi quali sono i più validi e il rapporto tra uno e l'altro in termini di attivi",
+   "linee": [
+    "Cleansing Oil",
+    "Bifida"
+   ]
+  },
+  {
+   "marca": "Thank You Farmer",
+   "segmento": "K-beauty",
+   "proposta": "selezione",
+   "decisione": "selezione",
+   "nota": "studiamo poi quali sono i più validi e il rapporto tra uno e l'altro in termini di attivi",
+   "linee": [
+    "Sun Project"
+   ]
+  },
+  {
+   "marca": "Purito",
+   "segmento": "K-beauty",
+   "proposta": "selezione",
+   "decisione": "selezione",
+   "nota": "studiamo poi quali sono i più validi e il rapporto tra uno e l'altro in termini di attivi",
+   "linee": [
+    "Centella",
+    "Daily"
+   ]
+  },
+  {
+   "marca": "Iunik",
+   "segmento": "K-beauty",
+   "proposta": "selezione",
+   "decisione": "selezione",
+   "nota": "studiamo poi quali sono i più validi e il rapporto tra uno e l'altro in termini di attivi",
+   "linee": [
+    "Propolis",
+    "Vitamin",
+    "Tea Tree"
+   ]
+  },
+  {
+   "marca": "Banila Co",
+   "segmento": "K-beauty",
+   "proposta": "selezione",
+   "decisione": "selezione",
+   "nota": "studiamo poi quali sono i più validi e il rapporto tra uno e l'altro in termini di attivi",
+   "linee": [
+    "Clean It Zero"
+   ]
+  },
+  {
+   "marca": "Mixsoon",
+   "segmento": "K-beauty",
+   "proposta": "selezione",
+   "decisione": "selezione",
+   "nota": "studiamo poi quali sono i più validi e il rapporto tra uno e l'altro in termini di attivi",
+   "linee": [
+    "Bean"
+   ]
+  },
+  {
+   "marca": "Biodance",
+   "segmento": "K-beauty",
+   "proposta": "no",
+   "decisione": "no",
+   "nota": "",
+   "linee": []
+  },
+  {
+   "marca": "Mary and May",
+   "segmento": "K-beauty",
+   "proposta": "no",
+   "decisione": "selezione",
+   "nota": "però valutiamo anche se costoso poi nel caso vediamo.",
+   "linee": []
+  },
+  {
+   "marca": "Holika Holika",
+   "segmento": "K-beauty",
+   "proposta": "no",
+   "decisione": "no",
+   "nota": "",
+   "linee": []
+  },
+  {
+   "marca": "TirTir",
+   "segmento": "K-beauty",
+   "proposta": "no",
+   "decisione": "no",
+   "nota": "",
+   "linee": []
+  },
+  {
+   "marca": "Erborian",
+   "segmento": "K-beauty",
+   "proposta": "no",
+   "decisione": "no",
+   "nota": "",
+   "linee": []
+  },
+  {
+   "marca": "Clinique",
+   "segmento": "Premium e lusso",
+   "proposta": "selezione",
+   "decisione": "selezione",
+   "nota": "ok poi segna da qualche parte cosa togliamo",
+   "linee": [
+    "Moisture Surge",
+    "Even Better",
+    "Anti-Blemish",
+    "Superdefense",
+    "for Men"
+   ]
+  },
+  {
+   "marca": "Estee Lauder",
+   "segmento": "Premium e lusso",
+   "proposta": "selezione",
+   "decisione": "selezione",
+   "nota": "ok poi segna da qualche parte cosa togliamo",
+   "linee": [
+    "Siero riparatore notturno (Advanced Night Repair)"
+   ]
+  },
+  {
+   "marca": "Clarins",
+   "segmento": "Premium e lusso",
+   "proposta": "selezione",
+   "decisione": "selezione",
+   "nota": "ok poi segna da qualche parte cosa togliamo, profumato non vuol dire male attenzione",
+   "linee": [
+    "Double Serum"
+   ]
+  },
+  {
+   "marca": "Biotherm",
+   "segmento": "Premium e lusso",
+   "proposta": "selezione",
+   "decisione": "selezione",
+   "nota": "ok poi segna da qualche parte cosa togliamo",
+   "linee": [
+    "Life Plankton",
+    "Homme"
+   ]
+  },
+  {
+   "marca": "Shiseido",
+   "segmento": "Premium e lusso",
+   "proposta": "no",
+   "decisione": "selezione",
+   "nota": "ok poi segna da qualche parte cosa togliamo e valutiamolo come brand premium",
+   "linee": []
+  },
+  {
+   "marca": "Darphin",
+   "segmento": "Premium e lusso",
+   "proposta": "no",
+   "decisione": "selezione",
+   "nota": "teniamola come alternativa, segnamo cosa togliamo",
+   "linee": []
+  },
+  {
+   "marca": "Geek&Gorgeous",
+   "segmento": "Attivi a buon prezzo",
+   "proposta": "si",
+   "decisione": "si",
+   "nota": "mi piace, teniamolo come alternativa valida low cost",
+   "linee": [
+    "Retinal",
+    "A-Game",
+    "Liquid Glow",
+    "Calm Down",
+    "Jelly Joy",
+    "C-Glow"
+   ]
+  },
+  {
+   "marca": "Skincyclopedia",
+   "segmento": "Attivi a buon prezzo",
+   "proposta": "no",
+   "decisione": "selezione",
+   "nota": "teniamolo come alternativa valida low cost lo stesso",
+   "linee": []
+  },
+  {
+   "marca": "BasicLab",
+   "segmento": "Attivi a buon prezzo",
+   "proposta": "no",
+   "decisione": "no",
+   "nota": "",
+   "linee": []
+  },
+  {
+   "marca": "Transparent Lab",
+   "segmento": "Attivi a buon prezzo",
+   "proposta": "no",
+   "decisione": "no",
+   "nota": "",
+   "linee": []
+  },
+  {
+   "marca": "Klorane",
+   "segmento": "Capelli",
+   "proposta": "si",
+   "decisione": "si",
+   "nota": "",
+   "linee": [
+    "Chinina",
+    "Quinine",
+    "Mango",
+    "Ortica",
+    "Peonia",
+    "Avena",
+    "Lino",
+    "Cedro"
+   ]
+  },
+  {
+   "marca": "Rene Furterer",
+   "segmento": "Capelli",
+   "proposta": "si",
+   "decisione": "si",
+   "nota": "",
+   "linee": [
+    "Triphasic",
+    "Forticea",
+    "Melaleuca",
+    "Karite",
+    "Neopur",
+    "Astera"
+   ]
+  },
+  {
+   "marca": "Bioscalin",
+   "segmento": "Capelli",
+   "proposta": "si",
+   "decisione": "si",
+   "nota": "",
+   "linee": [
+    "Physiogenina",
+    "Energy",
+    "iSFRP-1",
+    "Pro Density",
+    "Menopausa"
+   ]
+  },
+  {
+   "marca": "Crescina",
+   "segmento": "Capelli",
+   "proposta": "si",
+   "decisione": "si",
+   "nota": "",
+   "linee": [
+    "HFSC",
+    "Ri-Crescita",
+    "Transdermic",
+    "Isole Follicolari"
+   ]
+  },
+  {
+   "marca": "Olaplex",
+   "segmento": "Capelli",
+   "proposta": "si",
+   "decisione": "si",
+   "nota": "",
+   "linee": [
+    "No. 4",
+    "No. 5",
+    "No. 6",
+    "No. 7",
+    "Rich Hydration"
+   ]
+  },
+  {
+   "marca": "Phyto",
+   "segmento": "Capelli",
+   "proposta": "selezione",
+   "decisione": "selezione",
+   "nota": "valutiamo magari c'è qualcosa che ha senso tenere, togli tutto che riguarda tinta e decolorazione",
+   "linee": [
+    "Phytocyane",
+    "Phytophanere",
+    "Phytoapaisant",
+    "Phytosquam"
+   ]
+  },
+  {
+   "marca": "Nioxin",
+   "segmento": "Capelli",
+   "proposta": "selezione",
+   "decisione": "selezione",
+   "nota": "valutiamo magari c'è qualcosa che ha senso tenere, togli tutto che riguarda tinta e decolorazione",
+   "linee": [
+    "System",
+    "Ultimate Power"
+   ]
+  },
+  {
+   "marca": "Lazartigue",
+   "segmento": "Capelli",
+   "proposta": "selezione",
+   "decisione": "selezione",
+   "nota": "valutiamo magari c'è qualcosa che ha senso tenere, togli tutto che riguarda tinta e decolorazione",
+   "linee": [
+    "Fortify",
+    "Soothe",
+    "Clear"
+   ]
+  },
+  {
+   "marca": "Moroccanoil",
+   "segmento": "Capelli",
+   "proposta": "selezione",
+   "decisione": "selezione",
+   "nota": "valutiamo magari c'è qualcosa che ha senso tenere, togli tutto che riguarda tinta e decolorazione",
+   "linee": [
+    "Treatment",
+    "Hydrating"
+   ]
+  },
+  {
+   "marca": "Biokap",
+   "segmento": "Capelli",
+   "proposta": "no",
+   "decisione": "selezione",
+   "nota": "valutiamo magari c'è qualcosa che ha senso tenere, togli tutto che riguarda tinta e decolorazione",
+   "linee": []
+  },
+  {
+   "marca": "Kerastase",
+   "segmento": "Capelli",
+   "proposta": "no",
+   "decisione": "selezione",
+   "nota": "valutiamo magari c'è qualcosa che ha senso tenere, togli tutto che riguarda tinta e decolorazione",
+   "linee": []
+  },
+  {
+   "marca": "Solgar",
+   "segmento": "Integrazione",
+   "proposta": "si",
+   "decisione": "si",
+   "nota": "",
+   "linee": [
+    "Pelle Unghie e Capelli",
+    "Biotina",
+    "Collagene e acido ialuronico",
+    "Astaxantina"
+   ]
+  },
+  {
+   "marca": "Oenobiol",
+   "segmento": "Integrazione",
+   "proposta": "si",
+   "decisione": "si",
+   "nota": "",
+   "linee": [
+    "Hair Expert",
+    "Sun Expert",
+    "Derma Expert"
+   ]
+  },
+  {
+   "marca": "Biocyte",
+   "segmento": "Integrazione",
+   "proposta": "selezione",
+   "decisione": "selezione",
+   "nota": "",
+   "linee": [
+    "Collagen",
+    "Hyaluronic",
+    "Longcils",
+    "Keratine"
+   ]
+  },
+  {
+   "marca": "Pure Encapsulations",
+   "segmento": "Integrazione",
+   "proposta": "selezione",
+   "decisione": "selezione",
+   "nota": "",
+   "linee": [
+    "Capelli Pelle Unghie",
+    "Acido ialuronico",
+    "Collagene"
+   ]
+  },
+  {
+   "marca": "Arkopharma",
+   "segmento": "Integrazione",
+   "proposta": "selezione",
+   "decisione": "selezione",
+   "nota": "",
+   "linee": [
+    "Capelli",
+    "Unghie",
+    "Forcapil"
+   ]
+  },
+  {
+   "marca": "Granions",
+   "segmento": "Integrazione",
+   "proposta": "selezione",
+   "decisione": "selezione",
+   "nota": "",
+   "linee": [
+    "Capelli",
+    "Collagene",
+    "Bellezza"
+   ]
+  },
+  {
+   "marca": "Now Foods",
+   "segmento": "Integrazione",
+   "proposta": "selezione",
+   "decisione": "selezione",
+   "nota": "",
+   "linee": [
+    "Biotin",
+    "Collagen",
+    "Hyaluronic"
+   ]
+  },
+  {
+   "marca": "New Nordic",
+   "segmento": "Integrazione",
+   "proposta": "selezione",
+   "decisione": "selezione",
+   "nota": "",
+   "linee": [
+    "Hair Volume",
+    "Skin"
+   ]
+  },
+  {
+   "marca": "Vitabiotics",
+   "segmento": "Integrazione",
+   "proposta": "selezione",
+   "decisione": "selezione",
+   "nota": "",
+   "linee": [
+    "Perfectil"
+   ]
+  },
+  {
+   "marca": "Doppelherz",
+   "segmento": "Integrazione",
+   "proposta": "no",
+   "decisione": "no",
+   "nota": "",
+   "linee": []
+  },
+  {
+   "marca": "Ostrovit",
+   "segmento": "Integrazione",
+   "proposta": "no",
+   "decisione": "no",
+   "nota": "",
+   "linee": []
+  }
+ ]
+}
