@@ -109,6 +109,7 @@ def clubfarma(file=None):
             'gtin': (x.get('ean') or x.get('product_GTIN') or '').strip() or None,
             'immagine': x.get('large_image') or x.get('merchant_image_url') or x.get('aw_image_url'),
             'link': canale_awin(x.get('aw_deep_link')), 'misura_feed': x.get('base_price_text') or None, 'prefisso': 'cf',
+            'categoria_negozio': (x.get('merchant_category') or '').strip(),
         }
 
 
