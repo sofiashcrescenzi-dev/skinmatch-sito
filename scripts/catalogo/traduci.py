@@ -183,17 +183,20 @@ def scheda(r, extra_inci=None, segmento=None):
     s['texture'] = texture(tit) or texture(desc[:300])
     if not s['texture'] and pas not in ('integratore',):
         mancano.append('texture')
-    # profumo e alcol: solo dall'INCI, o da una dichiarazione esplicita
-    if lista:
-        s['profumo'] = seg['profumo']; s['alcol'] = seg['alcol']; s['oli_essenziali'] = seg['oli_essenziali']
-    else:
-        senza = re.search(r'senza profum|privo di profum|fragrance[- ]free|non profumat|senza fragranz', _c(testo))
-        s['profumo'] = False if senza else None
-        s['alcol'] = False if re.search(r'senza alcol|alcohol[- ]free', _c(testo)) else None
-        s['oli_essenziali'] = None
-        fonti['profumo'] = 'descrizione' if senza else None
-        if s['profumo'] is None and pas not in ('integratore',):
-            mancano.append('profumo')
+    # profumo, alcol, oli essenziali: dall'INCI, o da una dichiarazione esplicita del produttore. Che un
+    # ingrediente c'è lo dice anche un elenco troncato; che manca («senza profumo») solo un elenco intero (16/10)
+    s['inci_completo'] = I.completo(lista, pas)
+    dichiarato = {'profumo': re.search(r'senza profum|privo di profum|fragrance[- ]free|non profumat|senza fragranz|parfum[- ]free|perfume[- ]free', _c(testo)),
+                  'alcol': re.search(r'senza alcol|alcohol[- ]free|privo di alcol', _c(testo)),
+                  'oli_essenziali': re.search(r'senza oli essenziali|essential[- ]oil[- ]free|privo di oli essenziali', _c(testo))}
+    for k in ('profumo', 'alcol', 'oli_essenziali'):
+        s[k] = True if seg.get(k) else False if (s['inci_completo'] or dichiarato[k]) else None
+    fonti['profumo'] = 'inci' if (s['profumo'] or s['inci_completo']) else 'descrizione' if dichiarato['profumo'] else None
+    # la completezza (e quindi la selezione) resta quella di prima; l'elenco troncato va nella lista di lavoro a parte
+    if s['profumo'] is None and not lista and pas not in ('integratore',):
+        mancano.append('profumo')
+    if lista and not s['inci_completo'] and pas not in ('integratore',):
+        mancano.append('inci intero')
     # momento della giornata
     nomi = {a['nome'] for a in att}
     s['momento'] = 'mattina' if pas == 'spf' or ('vitamina C' in nomi and not nomi & RETINOIDI) else 'sera' if nomi & RETINOIDI or (nomi & ACIDI and pas in ('esfoliante', 'siero')) or re.search(r'\bnotte\b|night', _c(tit)) else 'mattina e sera'

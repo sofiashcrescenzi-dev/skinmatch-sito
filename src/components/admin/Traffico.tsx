@@ -55,9 +55,14 @@ export default function Traffico({ vista }: { vista: 'traffico' | 'test' }) {
   );
   if (vista === 'test') {
     const iniziati = perChiave(r, 'test_inizio'), finiti = Object.fromEntries(perChiave(r, 'test_fine'));
+    // il tempo medio misurato (la mediana, a mezzi minuti): il «circa N minuti» della scelta si corregge in admin › Domande
+    const tempo = (id: string) => {
+      const v = r.filter((x) => x.tipo === 'durata' && x.chiave.startsWith(id + ':')).flatMap((x) => Array(x.n).fill(+x.chiave.split(':')[1]) as number[]).sort((u, w) => u - w);
+      return v.length ? `${(v[Math.floor(v.length / 2)] / 60).toLocaleString('it-IT', { maximumFractionDigits: 1 })} min (${v.length})` : '—';
+    };
     return (
       <div className="pila" style={{ ['--gap' as string]: '24px' }}>
-        <Titolo sotto="Quanti test partono e quanti arrivano al risultato, per percorso, e quali biotipi escono. Le risposte non lasciano il telefono di chi fa il test: qui ci sono solo i conteggi.">Test fatti</Titolo>
+        <Titolo sotto="Quanti test partono e quanti arrivano al risultato, per percorso, quanto durano e quali biotipi escono. Se il tempo medio si allontana dal «circa» del sito, si corregge in Domande › Percorsi › Minuti. Le risposte non lasciano il telefono di chi fa il test: qui ci sono solo i conteggi.">Test fatti</Titolo>
         {scelta}
         {api.errore && <Vuoto>Non riesco a leggere i numeri: {api.errore}</Vuoto>}
         <div className="adm-numeri">
@@ -66,8 +71,8 @@ export default function Traffico({ vista }: { vista: 'traffico' | 'test' }) {
           <div><span className="piccolo">Completati</span><b>{somma(r, 'test_inizio') ? Math.round((somma(r, 'test_fine') / somma(r, 'test_inizio')) * 100) : 0}%</b></div>
         </div>
         <div className="carta pila"><h2 className="titolo-3">Risultati per giorno</h2><Colonne righe={r} tipo="test_fine" giorni={giorni} da={api.dati?.da || new Date().toISOString().slice(0, 10)} /></div>
-        <div className="adm-tabella"><table><thead><tr><th>Percorso</th><th className="num">Iniziati</th><th className="num">Finiti</th><th className="num">Completati</th></tr></thead>
-          <tbody>{TEST.percorsi.map((p) => { const i = iniziati.find(([k]) => k === p.id)?.[1] || 0, f = finiti[p.id] || 0; return <tr key={p.id}><td>{p.nome}</td><td className="num">{i}</td><td className="num">{f}</td><td className="num">{i ? Math.round((f / i) * 100) : 0}%</td></tr>; })}</tbody></table></div>
+        <div className="adm-tabella"><table><thead><tr><th>Percorso</th><th className="num">Iniziati</th><th className="num">Finiti</th><th className="num">Completati</th><th className="num">Tempo medio</th><th className="num">Sul sito</th></tr></thead>
+          <tbody>{TEST.percorsi.map((p) => { const i = iniziati.find(([k]) => k === p.id)?.[1] || 0, f = finiti[p.id] || 0; return <tr key={p.id}><td>{p.nome}</td><td className="num">{i}</td><td className="num">{f}</td><td className="num">{i ? Math.round((f / i) * 100) : 0}%</td><td className="num">{tempo(p.id)}</td><td className="num">circa {p.minuti} min</td></tr>; })}</tbody></table></div>
         <Tabella titolo="Biotipi usciti" righe={perChiave(r, 'biotipo')} nome={(k) => BIOTIPI.find((b) => b.id === k)?.titolo || k} colonna="Volte" />
       </div>
     );

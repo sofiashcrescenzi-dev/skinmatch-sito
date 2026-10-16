@@ -15,8 +15,8 @@ import { Luna } from '@/components/Inviti';
 // di test iniziati e finiti, senza le risposte (tappa 9 delle «Tappe di Skinmatch»).
 const CHIAVE = 'skinmatch-test-2';
 const VECCHI: Record<string, string> = { capelli: 'cute', completa: 'completo' };
-type Stato = { percorso: string | null; risposte: Risposte; passo: number; fine: boolean };
-const VUOTO: Stato = { percorso: null, risposte: {}, passo: 0, fine: false };
+type Stato = { percorso: string | null; risposte: Risposte; passo: number; fine: boolean; inizio?: number | null };
+const VUOTO: Stato = { percorso: null, risposte: {}, passo: 0, fine: false, inizio: null };
 
 export default function TestPage() {
   const [s, setS] = useState<Stato>(VUOTO);
@@ -34,8 +34,8 @@ export default function TestPage() {
     const q = u.get('percorso');
     const id = q ? VECCHI[q] || q : null;
     // «Rifai il test» e «Prova un altro test» arrivano con ?nuovo=1: si riparte da capo
-    if (u.get('nuovo')) st = { ...VUOTO, percorso: id && percorsoPerId(id) ? id : null };
-    else if (id && percorsoPerId(id) && (id !== st.percorso || st.fine)) st = { ...VUOTO, percorso: id };
+    if (u.get('nuovo')) st = { ...VUOTO, percorso: id && percorsoPerId(id) ? id : null, inizio: Date.now() };
+    else if (id && percorsoPerId(id) && (id !== st.percorso || st.fine)) st = { ...VUOTO, percorso: id, inizio: Date.now() };
     // un test già finito: si sceglie di nuovo, con il link all'ultimo risultato
     if (st.fine && !id) { setUltimo(st.percorso ? codifica(st.percorso, st.risposte) : null); st = { ...st, percorso: null }; }
     setS(st);
@@ -49,7 +49,9 @@ export default function TestPage() {
   const risultato = useMemo(() => (percorso && s.fine ? consiglia(percorso, s.risposte) : null), [percorso, s.fine, s.risposte]);
   useEffect(() => {
     if (!risultato) return;
-    segna({ e: 'test_fine', p: risultato.percorso.id, b: risultato.aree.map((a) => a.biotipo?.id || '').filter(Boolean) });
+    // quanto è durato, per il «circa N minuti» della scelta (solo i secondi, niente risposte)
+    const secondi = s.inizio ? Math.round((Date.now() - s.inizio) / 1000) : 0;
+    segna({ e: 'test_fine', p: risultato.percorso.id, b: risultato.aree.map((a) => a.biotipo?.id || '').filter(Boolean), ...(secondi >= 15 && secondi <= 1800 ? { s: secondi } : {}) });
     // il risultato ha la sua pagina, con un link da condividere (lib/condividi.ts)
     router.push(`/risultato#${codifica(risultato.percorso.id, s.risposte)}`);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -70,12 +72,12 @@ export default function TestPage() {
         <div className="griglia" style={{ ['--min' as string]: '250px' }}>
           {TEST.percorsi.map((p) => (
             <button key={p.id} type="button" className="carta-foto con-luna" style={{ textAlign: 'left', font: 'inherit', cursor: 'pointer', padding: 0 }}
-              onClick={() => setS({ ...VUOTO, percorso: p.id })}>
+              onClick={() => setS({ ...VUOTO, percorso: p.id, inizio: Date.now() })}>
               <Foto nome={p.immagine} sizes="(max-width: 760px) 100vw, 25vw" />
               <span className="corpo">
                 <span className="titolo-3">{p.nome}</span>
                 <span className="piccolo">{p.descrizione}</span>
-                <Luna>{p.domande.length} domande · circa {p.minuti} minuti</Luna>
+                <Luna>Circa {p.minuti} {p.minuti === 1 ? 'minuto' : 'minuti'}</Luna>
               </span>
             </button>
           ))}
@@ -90,10 +92,11 @@ export default function TestPage() {
   const d = domande[passo];
   const scelte = ([] as string[]).concat(s.risposte[d.id] ?? []);
   const avanti = (risposte: Risposte) => {
-    if (iniziato.current !== percorso.id) { iniziato.current = percorso.id; segna({ e: 'test_inizio', p: percorso.id }); }
+    const primo = iniziato.current !== percorso.id;
+    if (primo) { iniziato.current = percorso.id; segna({ e: 'test_inizio', p: percorso.id }); }
     const nuove = domandeDi(percorso, risposte);
     const prossimo = passo + 1;
-    setS({ ...s, risposte, passo: prossimo, fine: prossimo >= nuove.length });
+    setS({ ...s, risposte, passo: prossimo, fine: prossimo >= nuove.length, inizio: s.inizio ?? Date.now() });
   };
   const tocca = (id: string) => {
     if (!d.multipla) {
@@ -116,9 +119,9 @@ export default function TestPage() {
       <div className="pila" style={{ ['--gap' as string]: '8px' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', gap: 12 }}>
           <span className="etichetta">{percorso.titolo}</span>
-          <span className="piccolo">{passo + 1} di {domande.length}</span>
         </div>
-        <div className="barra" role="progressbar" aria-valuemin={0} aria-valuemax={domande.length} aria-valuenow={passo + 1}><i style={{ transform: `scaleX(${1 - (passo + 1) / domande.length})` }} /></div>
+        {/* niente «3 di 20» (Federico, 16/10): solo la barra */}
+        <div className="barra" role="progressbar" aria-label="Avanzamento del test" aria-valuemin={0} aria-valuemax={100} aria-valuenow={Math.round(((passo + 1) / domande.length) * 100)}><i style={{ transform: `scaleX(${1 - (passo + 1) / domande.length})` }} /></div>
       </div>
       <div key={d.id} className="pila entra" style={{ ['--gap' as string]: '8px' }}>
         <h1 className="titolo-2"><ConTermini testo={d.testo} /></h1>
@@ -136,7 +139,10 @@ export default function TestPage() {
         <button type="button" className="bottone secondario" onClick={() => (passo === 0 ? setS(VUOTO) : setS({ ...s, passo: passo - 1 }))}>
           {passo === 0 ? 'Cambia test' : 'Indietro'}
         </button>
-        {d.multipla && <button type="button" className="bottone" disabled={!scelte.length} onClick={() => avanti(s.risposte)}>Avanti</button>}
+        <span style={{ display: 'flex', flexWrap: 'wrap', gap: 10, marginLeft: 'auto' }}>
+          {d.saltabile && <button type="button" className="bottone secondario" onClick={() => { const r = { ...s.risposte }; delete r[d.id]; avanti(r); }}>Salta</button>}
+          {d.multipla && <button type="button" className="bottone" disabled={!scelte.length} onClick={() => avanti(s.risposte)}>Avanti</button>}
+        </span>
       </div>
     </main>
   );

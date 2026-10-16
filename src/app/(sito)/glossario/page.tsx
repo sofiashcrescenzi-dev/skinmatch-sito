@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { TERMINI } from '@/lib/dati';
+import { TERMINI, articoliDelTermine } from '@/lib/dati';
 import { ConTermini } from '@/components/Termini';
 import Foto from '@/components/Foto';
 import Cerca from './Cerca';
@@ -40,6 +40,7 @@ export default function GlossarioPage() {
                   <h3 className="titolo-3">{t.nome}</h3>
                   <p className="testo" style={{ fontSize: 15.5 }}><ConTermini testo={t.testo} salta={t.id} /></p>
                   {t.video && <a className="link piccolo" href={t.video} target="_blank" rel="noopener">Guarda la spiegazione in video</a>}
+                  {articoliDelTermine(t.id).slice(0, 2).map((x) => <Link key={x.slug} className="link piccolo" href={`/rivista/${x.slug}`}>Approfondisci: {x.titolo}</Link>)}
                 </article>
               ))}
             </div>

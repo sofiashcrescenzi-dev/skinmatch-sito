@@ -20,6 +20,7 @@ const PERCORSI = new Set(test.percorsi.map((p) => p.id));
 const BIOTIPI = new Set(biotipi.biotipi.map((b) => b.id));
 const DOCUMENTI = new Set(['test', 'biotipi', 'glossario', 'catalogo', 'negozi']);
 const STATI_ARTICOLO = new Set(['in_approvazione', 'da_correggere', 'approvato', 'online', 'scartato']);
+const STATI_SEGNALAZIONE = new Set(['aperta', 'in_lavoro', 'dopo', 'fatta', 'scartata']);
 const breve = (s, n = 80) => String(s ?? '').replace(/[^\p{L}\p{N}_.\- ]/gu, '').slice(0, n);
 const json = (dati, stato = 200) => new Response(JSON.stringify(dati), { status: stato, headers: { 'content-type': 'application/json; charset=utf-8', 'cache-control': 'no-store' } });
 const oggi = () => new Date().toISOString().slice(0, 10);
@@ -83,6 +84,9 @@ async function evento(req, env) {
   if (e.e === 'test_fine' && PERCORSI.has(e.p)) {
     righe.push(['test_fine', e.p]);
     for (const b of (Array.isArray(e.b) ? e.b : []).slice(0, 3)) if (BIOTIPI.has(b)) righe.push(['biotipo', b]);
+    // la durata, a mezzi minuti: l'admin ne ricava il tempo medio di ogni percorso (16/10)
+    const sec = Math.round(Number(e.s));
+    if (sec >= 15 && sec <= 1800) righe.push(['durata', `${e.p}:${Math.round(sec / 30) * 30}`]);
   }
   if (e.e === 'clic' && /^[a-z0-9-]{2,80}$/.test(String(e.id))) righe.push(['clic', e.id], ['clic_negozio', breve(e.m, 40)], ['clic_da', breve(e.da)]);
   if (!righe.length) return new Response(null, { status: 400 });
@@ -198,8 +202,10 @@ async function admin(req, env, url, email) {
     if (!a) return json({ errore: 'articolo non trovato' }, 404);
     if (stato && !STATI_ARTICOLO.has(stato)) return json({ errore: 'stato sconosciuto' }, 400);
     if (stato === 'online') return json({ errore: 'online lo segna la pubblicazione' }, 400);
-    const ok = ['titolo', 'sommario', 'testo'];
-    const set = Object.entries(campi || {}).filter(([k, v]) => ok.includes(k) && typeof v === 'string');
+    const ok = ['titolo', 'sommario', 'testo', 'approfondisce'];
+    // approfondisce: i termini del glossario che l'articolo spiega, come JSON (al massimo tre)
+    const valido = (k, v) => k !== 'approfondisce' || (() => { try { const x = JSON.parse(v); return Array.isArray(x) && x.length <= 3 && x.every((t) => /^[a-z0-9-]{1,40}$/.test(t)); } catch { return false; } })();
+    const set = Object.entries(campi || {}).filter(([k, v]) => ok.includes(k) && typeof v === 'string' && valido(k, v));
     await DB.prepare(`UPDATE articoli SET ${[stato ? 'stato = ?2' : null, 'feedback = ?3', "aggiornato_il = datetime('now')", ...set.map(([k], i) => `${k} = ?${i + 4}`)].filter(Boolean).join(', ')} WHERE id = ?1`)
       .bind(id, stato || null, feedback ?? null, ...set.map(([, v]) => v)).run();
     return json({ ok: true });
@@ -214,9 +220,19 @@ async function admin(req, env, url, email) {
   }
 
   if (via === 'squadra') {
+    if (req.method === 'POST') {
+      // la decisione su una segnalazione: sì (in_lavoro), dopo, no (scartata), con una nota
+      const { id, stato, nota } = corpo || {};
+      if (!STATI_SEGNALAZIONE.has(stato) || stato === 'fatta') return json({ errore: 'stato sconosciuto' }, 400);
+      const r = await DB.prepare("UPDATE segnalazioni SET stato = ?2, nota_po = ?3, chi = ?4, aggiornato_il = datetime('now') WHERE id = ?1")
+        .bind(id, stato, typeof nota === 'string' && nota.trim() ? nota.trim().slice(0, 2000) : null, email).run();
+      if (!r.meta?.changes) return json({ errore: 'segnalazione non trovata' }, 404);
+      return json({ ok: true });
+    }
     return json({
       rapporti: await tutti('SELECT id, agente, tipo, titolo, sintesi, corpo, esito, creato_il FROM squadra ORDER BY id DESC LIMIT 30'),
       pubblicazioni: await tutti('SELECT * FROM pubblicazioni ORDER BY id DESC LIMIT 10'),
+      segnalazioni: await tutti("SELECT * FROM segnalazioni WHERE stato != 'fatta' OR aggiornato_il >= datetime('now', '-30 days') ORDER BY id DESC LIMIT 150"),
     });
   }
 

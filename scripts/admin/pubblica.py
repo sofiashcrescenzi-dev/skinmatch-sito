@@ -133,7 +133,7 @@ def pubblica(coda, ids):
                 per_slug[x['slug']] = {
                     'slug': x['slug'], 'titolo': x['titolo'], 'sommario': x['sommario'] or '', 'tipo': x['tipo'] or 'guida', 'testo': x['testo'],
                     'immagine': json.loads(x['immagine'] or '{}') or None, 'prodotti': json.loads(x['prodotti'] or '[]'),
-                    'biotipi': json.loads(x['biotipi'] or '[]'), 'termini': json.loads(x['termini'] or '[]'),
+                    'biotipi': json.loads(x['biotipi'] or '[]'), 'termini': json.loads(x['termini'] or '[]'), 'approfondisce': json.loads(x.get('approfondisce') or '[]'),
                     'pubblicato_il': per_slug.get(x['slug'], {}).get('pubblicato_il', oggi), **({'aggiornato_il': oggi} if x['slug'] in per_slug else {}),
                 }
             riv['articoli'] = sorted(per_slug.values(), key=lambda y: y['pubblicato_il'], reverse=True)

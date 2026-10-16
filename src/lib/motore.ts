@@ -143,6 +143,11 @@ function bisogniDi(biotipo: Biotipo | null, tratti: Biotipo[], p: Profilo): Biso
 
 const linkPronto = (x: Prodotto) => (x.linkPending ? 0 : 4);
 
+// «C'è qualcosa che preferisci evitare?» (16/10): fuori i prodotti che lo contengono, avanti quelli che di sicuro
+// non lo contengono; di quelli che non conosciamo non si dice niente
+const SENSIBILI = [['profumo', 'profumo'], ['alcol', 'alcol'], ['oli_essenziali', 'oli essenziali']] as const;
+const evitaDi = (p: Profilo) => SENSIBILI.filter(([k]) => p.scelte[`evita_${k}`] === true).map(([k]) => k);
+
 function compatibilita(x: Prodotto, area: Area, ps: Passaggio, b: Bisogni, p: Profilo, biotipo: Biotipo | null): number {
   let s = 0;
   const ob = typeof p.scelte.obiettivo === 'string' ? p.scelte.obiettivo : null;
@@ -164,6 +169,7 @@ function compatibilita(x: Prodotto, area: Area, ps: Passaggio, b: Bisogni, p: Pr
     s += Math.min(8, [...b.concerns].filter((k) => k !== ob && ATTIVI_PER[k]?.some((a) => att.has(a))).length * 4);
     if (re >= 2 && x.sensitiveSafe) s += 6 + (tipi.includes('sensibile') ? 4 : 0);
     if (p.scelte.genere === 'uomo' && x.gender === 'uomo') s += 3;
+    s += Math.min(20, evitaDi(p).filter((k) => x.scheda?.senza?.includes(k)).length * 10);
   } else if (area === 'cute') {
     const h = x.hairConcerns || [];
     if (h.some((k) => b.capelli.has(k))) s += 40 + (h[0] && b.capelli.has(h[0]) ? 5 : 0);
@@ -174,6 +180,7 @@ function compatibilita(x: Prodotto, area: Area, ps: Passaggio, b: Bisogni, p: Pr
     else if (t.some((k) => k !== 'sensibile')) s -= 10;
     if ((p.punti.sens || 0) >= 2 && t.includes('sensibile')) s += 10;
     if (ps.id === 'shampoo') s += 15;
+    s += Math.min(20, evitaDi(p).filter((k) => x.scheda?.senza?.includes(k)).length * 10);
   } else {
     const c = x.concerns || [], h = x.hairConcerns || [];
     if (c.some((k) => b.concerns.has(k))) s += 45;
@@ -195,7 +202,8 @@ function percheDi(x: Prodotto, area: Area, b: Bisogni, p: Profilo, biotipo: Biot
   const att = (x.scheda?.attivi || []).filter((a) => ATTIVI_CHIAVE.has(a.nome)).slice(0, 2);
   if (att.length) r.push('con ' + att.map((a) => a.nome + (a.perc ? ` ${String(a.perc).replace('.', ',')}%` : '')).join(' e '));
   if ((p.punti.re || 0) >= 2 && x.sensitiveSafe) r.push('va bene anche per le pelli sensibili');
-  if ((p.punti.re || 0) >= 2 && x.scheda?.profumo === false) r.push('senza profumo');
+  const senza = SENSIBILI.filter(([k]) => x.scheda?.senza?.includes(k) && (evitaDi(p).includes(k) || (k === 'profumo' && (p.punti.re || 0) >= 2))).map(([, n]) => n);
+  if (senza.length) r.push('senza ' + (senza.length > 1 ? `${senza.slice(0, -1).join(', ')} e ${senza[senza.length - 1]}` : senza[0]));
   if (x.scheda?.fotosensibilizzante) r.push('la mattina dopo, protezione solare');
   if (p.scelte.gravidanza === true && x.pregnancySafe) r.push('indicato anche in gravidanza e allattamento');
   return r;
@@ -216,7 +224,8 @@ function scegli(area: Area, ps: Passaggio, p: Profilo, b: Bisogni, biotipo: Biot
     // solo i delicati; con la pelle molto reattiva niente profumo
     .filter((x) => !x.scheda || x.scheda.forza < 3 || Number(p.scelte.esperienza ?? 0) >= 2)
     .filter((x) => !x.scheda || !delicati || x.scheda.forza <= 1)
-    .filter((x) => !x.scheda || !(area === 'pelle' && re >= 3) || x.scheda.profumo !== true);
+    .filter((x) => !x.scheda || !(area === 'pelle' && re >= 3) || x.scheda.profumo !== true)
+    .filter((x) => area === 'integrazione' || !evitaDi(p).some((k) => x.scheda?.con?.includes(k) || (k === 'profumo' && x.scheda?.profumo === true)));
   const minimo = ps.minimo ?? 40;
   // l'ordine: la compatibilità, ma una scheda senza foto cede il posto a una quasi uguale che ce l'ha
   // (Friday, 15/10: tre riquadri vuoti su sei nel risultato)

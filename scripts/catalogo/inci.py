@@ -147,13 +147,47 @@ def attivi(testo, inci=None):
     return [{'nome': n, 'perc': p} for n, p in trovati.items()]
 
 
+# Profumo, alcol e oli essenziali, voce per voce: gli INCI dei negozi sono in inglese o tradotti in italiano
+# («ALCOL DENATURATO», «LINALOLO», «OLIO DI MENTA PIPERITA»). L'alcol è quello che secca (etanolo, denaturato,
+# isopropilico), non gli alcoli grassi (cetilico, cetearilico…) né il benzilico dei conservanti (16/10/2026).
+_PROFUMO = re.compile(r'PARFUM|FRAGRAN|PROFUM|PERFUME|^AROMA\b')
+_ALCOL = re.compile(r'ALCOHOL DENAT|DENAT\w*\.? ALCOHOL|ALCOO?L(?:E)? DENAT|^(?:SD )?ALCOHOL(?: [\w-]*\d[\w-]*)?(?: \(.*)?$|^ALCOO?L(?: \(.*)?$'
+                    r'|^ETHANOL|^ETANOLO|ISOPROPYL ALCOHOL|ALCOO?L ISOPROPILICO|^ISOPROPANOL|ALCOO?L T-BUTILICO|T-BUTYL ALCOHOL')
+_ALLERGENI_OLI = re.compile(r'LIMONENE|LINALOO?L|LINALOLO|CITRALE?\b|GERANIOL|EUGENOL|CITRONELL?OL|FARNESOL')
+_OLIO = re.compile(r'\bOIL\b|\bOLI[OI]\b|\bHUILE\b')
+# le parti della pianta da cui si distillano gli oli essenziali (i semi, i noccioli e la frutta danno oli grassi)
+_PARTE = re.compile(r'\b(?:LEAF|LEAVES|FOGLI[AE]|PEEL|SCORZA|BUCCIA|FLOWER|FIOR[EI]|BARK|CORTECCIA|RESIN|RESINA|ROOT|RADICE|RHIZOME|TWIG|RAMOSCELL\w*|HERB|ERBA|WOOD|LEGNO|NEEDLE|AGHI|BUD|GEMM\w*)\b')
+_PIANTE = re.compile(r'\b(?:MENTHA|MENTA|PEPPERMINT|SPEARMINT|MELALEUCA|TEA TREE|LAVANDULA|LAVANDA|LAVENDER|CITRUS|LIMONE|LEMON|ARANCI[AO]|ORANGE|BERGAM\w*|MANDARIN\w*'
+                    r'|EUCALYPTUS|ROSMARIN\w*|ROSEMARY|SALVIA|PELARGONIUM|GERANIUM|CYMBOPOGON|CANANGA|YLANG|JASMINUM|GELSOMINO|CEDRUS|JUNIPERUS|ORIGANUM'
+                    r'|THYMUS|TIMO|CINNAMOMUM|CANNELLA|EUGENIA|SYZYGIUM|BOSWELLIA|POGOSTEMON|PATCHOULI|VETIVER\w*|SANTALUM|SANDAL\w*|CUPRESSUS|PINUS|ABIES'
+                    r'|OCIMUM|BASILIC\w*|MYRTUS|LAURUS|ANIBA|CISTUS|ANTHEMIS|CHAMOMILLA|CAMOMILLA|MATRICARIA|ZINGIBER|ZENZERO|FOENICULUM|FINOCCHIO|CORIANDRUM'
+                    r'|ILLICIUM|CARUM|PIMPINELLA|LITSEA|LEPTOSPERMUM|AMYRIS|ANGELICA|FERULA|GALBAN\w*|ROSA DAMASCENA|ROSA CENTIFOLIA|TAGETES|COMMIPHORA'
+                    r'|STYRAX|ELETTARIA|LIPPIA|VERBENA|MELISSA|NEROLI|PETITGRAIN|HELICHRYSUM|ELICRISO|RAVENSARA|COPAIFERA)\b')
+
+# gli agrumi danno l'olio essenziale anche dal frutto intero; coriandolo, cumino, finocchio, anice, cardamomo dai semi
+_OLI_DI_FRUTTO = re.compile(r'\b(?:CITRUS|BERGAM\w*|LIMON\w*|LEMON|ARANCI\w*|ORANGE|MANDARIN\w*|LIME|CORIANDRUM|CARUM|FOENICULUM|PIMPINELLA|ELETTARIA|ILLICIUM)\b')
+
+
 def segnali(inci):
-    """Quello che va segnalato leggendo l'INCI: profumo, alcol, oli essenziali."""
-    s = ' , '.join(inci or [])
-    if not s:
+    """Quello che va segnalato leggendo l'INCI: profumo, alcol, oli essenziali (True o False)."""
+    voci = [re.sub(r'\s+', ' ', v.upper()).strip(' .') for v in (inci or [])]
+    if not voci:
         return {}
+    oli = lambda v: bool(_ALLERGENI_OLI.search(v) or re.search(r'ESSENTIAL OIL|ESSENZIAL', v)
+                         or (_OLIO.search(v) and (_PIANTE.search(v) or _PARTE.search(v)) and not (re.search(r'\bSEED\b|\bSEMI\b|KERNEL|NOCCIOLO|FRUIT|FRUTT', v) and not _OLI_DI_FRUTTO.search(v))))
     return {
-        'profumo': bool(re.search(r'\bPARFUM\b|\bFRAGRANCE\b|\bAROMA\b|PROFUMO', s)),
-        'alcol': bool(re.search(r'ALCOHOL DENAT|\bALCOOL\b|SD ALCOHOL', s)),
-        'oli_essenziali': bool(re.search(r'LIMONENE|LINALOOL|CITRAL|GERANIOL|EUGENOL|CITRONELLOL|LAVANDULA .*OIL|\bOIL\b.*(PEEL|LEAF|FLOWER)', s)),
+        'profumo': any(_PROFUMO.search(v) for v in voci),
+        'alcol': any(_ALCOL.search(v) for v in voci),
+        'oli_essenziali': any(oli(v) for v in voci),
     }
+
+
+def completo(inci, passaggio=None):
+    """Se l'elenco sembra intero: solo allora la mancanza di un ingrediente si può dire («senza profumo»).
+    Un elenco troncato o sporco (indirizzi, frasi) non basta: si dice solo quello che c'è."""
+    voci = inci or []
+    minimo = 5 if passaggio == 'cerotti' else 12
+    if len(voci) < minimo:
+        return False
+    sporche = sum(1 for v in voci if re.search(r'\.COM\b|WWW\.|\b\d{5}\b|\bRUE\b|\bSTREET\b|ELENCO|POTREBBE|INGREDIENTI\b|\bL[\'’]', v.upper()))
+    return sporche == 0 and len(voci[-1].strip()) >= 4

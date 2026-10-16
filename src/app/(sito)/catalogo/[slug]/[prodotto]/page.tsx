@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { BIOTIPI, CATALOGO } from '@/lib/dati';
+import { BIOTIPI, CATALOGO, articoliPerProdotto } from '@/lib/dati';
 import { PRODOTTI, prodottoPerId, biotipiPer, categoriaDi, indirizzo, euro, negozio, type Prodotto } from '@/lib/catalogo';
 import { estesa, type SchedaEstesa } from '@/lib/schede';
 import { ConTermini } from '@/components/Termini';
@@ -9,6 +9,7 @@ import Campione from '@/components/Campione';
 import FotoProdotto, { tonoProdotto } from '@/components/FotoProdotto';
 import InfoNegozio from '@/components/InfoNegozio';
 import { Invito, Stendi } from '@/components/Inviti';
+import { LAVORO, percheSimile } from '@/lib/simili';
 
 // LA PAGINA DI UN PRODOTTO, /catalogo/<categoria>/<oggetto>: la scheda per esteso, come nel prototipo
 // di Skinmatch (passaggio, pelle, attivi, forza, gravidanza, sole, texture, prezzo), con le misure,
@@ -37,12 +38,6 @@ const PASSAGGIO: Record<string, [string, string]> = {
   cerotti: ['Cerotto per brufoli', 'sul brufolo pulito e asciutto, la notte o di giorno sotto il trucco'],
 };
 const SU_PELLE = new Set(['detergente', 'siero', 'crema', 'spf', 'esfoliante', 'barba', 'cerotti']);
-const LAVORO: Record<string, string> = {
-  idratazione: 'idratazione', imperfezioni: 'imperfezioni e brufoli', macchie: 'macchie e luminosità', tempo: 'segni del tempo',
-  calmare: 'rossori e pelle che reagisce', barriera: 'barriera della pelle', pori: 'pori dilatati',
-  caduta: 'caduta e diradamento', forfora: 'forfora', 'secchi-crespi': 'capelli secchi e crespi', mantenimento: 'uso frequente',
-  capelli: 'capelli', unghie: 'unghie', tono: 'tono della pelle', sole: 'preparazione al sole', 'pelle-secca': 'pelle secca', 'imperfezioni-int': 'imperfezioni',
-};
 const CUTE: Record<string, string> = { normale: 'normale', grasso: 'grassa', secco: 'secca', sensibile: 'sensibile' };
 const FORZA = ['', 'delicato', 'medio', 'forte'];
 const FORZA_NOTA = ['', 'va bene anche se non hai mai usato prodotti con attivi', 'meglio se la pelle è già abituata a qualche attivo', 'da introdurre piano, solo se usi già attivi'];
@@ -100,6 +95,8 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   };
 }
 
+const elenca = (v: string[]) => { const t = v.length > 1 ? `${v.slice(0, -1).join(', ')} e ${v[v.length - 1]}` : v[0] || ''; return t[0]?.toUpperCase() + t.slice(1); };
+
 export default async function ProdottoPage({ params }: { params: Promise<{ slug: string; prodotto: string }> }) {
   const { slug, prodotto } = await params;
   const p = trova(slug, prodotto);
@@ -115,7 +112,12 @@ export default async function ProdottoPage({ params }: { params: Promise<{ slug:
   const economico = x?.confronto.economico ? prodottoPerId(x.confronto.economico) : undefined;
   const lavori = [...(x?.bisogni || []), ...(x?.capelli?.bisogni || []), ...(x?.integrazione || [])].map((b) => LAVORO[b] || b);
   const [gSi, gNota] = gravidanza(x?.gravidanza ?? null, x?.fonti.gravidanza);
+  // profumo, alcol, oli essenziali: «con» se l'INCI lo nomina, «senza» solo se lo sappiamo; il resto non si dice (16/10)
+  const sensibili = s && s.passaggio !== 'integratore' ? (['profumo', 'alcol', 'oli_essenziali'] as const)
+    .map((k) => [k === 'profumo' ? s.profumo === true : x?.[k] === true, k.replace('_', ' '), !!s.senza?.includes(k)] as const)
+    .filter(([con, , senza]) => con || senza).map(([con, n]) => [con, n] as const) : [];
   const url = `https://skinmatch.it/catalogo/${slug}/${prodotto}`;
+  const letture = articoliPerProdotto(p);
 
   return (
     <main className="contenitore sezione pila" style={{ ['--gap' as string]: 'clamp(36px, 6vw, 64px)' }}>
@@ -165,10 +167,9 @@ export default async function ProdottoPage({ params }: { params: Promise<{ slug:
             <div><dt><ConTermini testo="Fotosensibilizzante" /></dt><dd>{s.fotosensibilizzante ? 'Sì: il giorno dopo serve la protezione solare' : 'No'}</dd></div>
           )}
           {s?.spf ? <div><dt>Protezione</dt><dd>SPF {s.spf}</dd></div> : null}
-          {s && s.passaggio !== 'integratore' && (
-            <div><dt>Texture e profumo</dt><dd>
-              {[s.texture ? s.texture[0].toUpperCase() + s.texture.slice(1) : null, s.profumo === true ? 'con profumo' : s.profumo === false ? 'senza profumo' : 'profumo non dichiarato', x?.inci && x.alcol ? 'con alcol' : null, x?.inci && x.oli_essenziali ? 'con oli essenziali' : null].filter(Boolean).join(' · ')}
-            </dd></div>
+          {s?.texture && s.passaggio !== 'integratore' && <div><dt>Texture</dt><dd>{s.texture[0].toUpperCase() + s.texture.slice(1)}</dd></div>}
+          {sensibili.length > 0 && (
+            <div><dt>{elenca(sensibili.map(([, n]) => n))}</dt><dd>{sensibili.map(([c, n], i) => `${i ? (c ? 'con' : 'senza') : c ? 'Con' : 'Senza'} ${n}`).join(' · ')}</dd></div>
           )}
           <div><dt>Prezzo</dt><dd>{euro(p.price)}{misura(p) ? ` per ${misura(p)}` : ''}<span className="piccolo">{FASCIA[p.tier][0].toUpperCase() + FASCIA[p.tier].slice(1)}, rispetto agli altri prodotti dello stesso passaggio. Prezzo del negozio all’ultimo aggiornamento.</span></dd></div>
         </dl>
@@ -203,6 +204,19 @@ export default async function ProdottoPage({ params }: { params: Promise<{ slug:
         </section>
       )}
 
+      {letture.length > 0 && (
+        <section className="pila p-sez" aria-labelledby="letture">
+          <h2 id="letture" className="titolo-3">Da leggere</h2>
+          <div className="griglia" style={{ ['--min' as string]: '260px' }}>
+            {letture.map((a) => (
+              <Link key={a.slug} href={`/rivista/${a.slug}`} className="carta pila" style={{ ['--gap' as string]: '6px' }}>
+                <span className="etichetta">La Rivista</span><span className="titolo-3">{a.titolo}</span><span className="piccolo">{a.sommario}</span>
+              </Link>
+            ))}
+          </div>
+        </section>
+      )}
+
       <section className="pila p-sez" aria-labelledby="inci">
         <h2 id="inci" className="titolo-3">Gli ingredienti</h2>
         {x?.inci ? (
@@ -212,7 +226,7 @@ export default async function ProdottoPage({ params }: { params: Promise<{ slug:
             <p className="piccolo">{fonteInci(x.fonti.inci)} Dal più abbondante al meno abbondante; sotto l’1% l’ordine è libero.</p>
           </details>
         ) : (
-          <p className="piccolo" style={{ maxWidth: '62ch' }}>L’elenco degli ingredienti non è ancora nella scheda: lo cerchiamo dalle fonti ufficiali del produttore. Finché manca, gravidanza e profumo restano da verificare.</p>
+          <p className="piccolo" style={{ maxWidth: '62ch' }}>L’elenco degli ingredienti non è ancora nella scheda: lo cerchiamo dalle fonti ufficiali del produttore. Finché manca, la gravidanza resta da verificare.</p>
         )}
       </section>
 
@@ -277,9 +291,10 @@ function Confronto({ p, etichetta, questo, rispetto }: { p: Prodotto; etichetta:
       <dl className="voci stretta">
         <div><dt>Attivi</dt><dd>{s.attivi.length ? s.attivi.slice(0, 5).map((a) => a.nome + perc(a.perc)).join(', ') : 'non riconosciuti'}</dd></div>
         <div><dt>Forza</dt><dd><span className="pallini" aria-hidden="true">{[1, 2, 3].map((i) => <i key={i} className={i <= s.forza ? 'on' : ''} />)}</span>{FORZA[s.forza]}</dd></div>
-        <div><dt>INCI</dt><dd>{s.inci ? 'completo' : 'non ancora'}</dd></div>
+        <div><dt>INCI</dt><dd>{s.inci ? 'nella scheda' : 'non ancora'}</dd></div>
         <div><dt>Prezzo</dt><dd><b>{euro(p.price)}</b>{misura(p) ? ` · ${misura(p)}` : ''}</dd></div>
       </dl>
+      {rispetto && percheSimile(rispetto, p) && <p className="piccolo perche-simile"><strong>Perché è simile:</strong> {percheSimile(rispetto, p)}</p>}
       {rispetto && (
         <p className="piccolo">
           {etichetta === 'Più ricco'

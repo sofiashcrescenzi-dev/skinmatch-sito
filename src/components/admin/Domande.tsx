@@ -68,7 +68,7 @@ function EditorDomanda({ d, cambia, togli, test }: { d: Domanda; cambia: (d: Dom
   return (
     <details className="carta">
       <summary style={{ display: 'flex', gap: 10, justifyContent: 'space-between', flexWrap: 'wrap' }}>
-        <span><b>{d.testo}</b> <span className="piccolo">· {d.area} · {d.opzioni.length} risposte{d.multipla ? ' · più scelte' : ''}</span></span>
+        <span><b>{d.testo}</b> <span className="piccolo">· {d.area} · {d.opzioni.length} risposte{d.multipla ? ' · più scelte' : ''}{d.saltabile ? ' · saltabile' : ''}</span></span>
         <span className="piccolo">{usata.length ? usata.join(', ') : 'in nessun percorso'}</span>
       </summary>
       <div className="pila" style={{ ['--gap' as string]: '12px', marginTop: 12 }}>
@@ -81,6 +81,7 @@ function EditorDomanda({ d, cambia, togli, test }: { d: Domanda; cambia: (d: Dom
             <select className="adm-input" style={{ width: 'auto' }} value={d.area} onChange={(e) => cambia({ ...d, area: e.target.value as Domanda['area'] })}>{AREE.map((a) => <option key={a}>{a}</option>)}</select>
           </label>
           <label className="piccolo" style={{ display: 'inline-flex', gap: 4, alignItems: 'center' }}><input type="checkbox" checked={!!d.multipla} onChange={(e) => cambia({ ...d, multipla: e.target.checked || undefined })} />più risposte insieme</label>
+          <label className="piccolo" style={{ display: 'inline-flex', gap: 4, alignItems: 'center' }} title="Solo dove la domanda non serve davvero: non decide il biotipo né la sicurezza. Senza risposta vale il default."><input type="checkbox" checked={!!d.saltabile} onChange={(e) => cambia({ ...d, saltabile: e.target.checked || undefined })} />si può saltare</label>
           <span className="piccolo">id: {d.id}</span>
         </div>
         <Campo etichetta="Si fa solo se" aiuto="Vuoto = sempre. Es. la barba solo se «Per chi» è uomo.">

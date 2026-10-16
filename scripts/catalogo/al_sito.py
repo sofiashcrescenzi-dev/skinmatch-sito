@@ -78,7 +78,10 @@ def prodotto(s):
         'description': descrizione(s), 'affiliateUrl': s['link'], 'image': s['immagine'], 'merchant': s['negozio'], 'feedId': f"{(per_nome(s['negozio']) or {}).get('rete', '').lower()}:{s['negozio'].lower()}:{s['id_negozio']}",
         'scheda': {k_: s.get(k_) for k_ in ('passaggio', 'momento', 'forza', 'fotosensibilizzante', 'texture', 'profumo', 'spf', 'al_10', 'misura', 'ruolo', 'zona', 'forma', 'pezzi')}
                   | {'per': per_chi(s), 'lavoro': sorted(lavoro(s)), 'principale': dict(zip(('id', 'perc'), principale(s))) if principale(s)[0] else None}
-                  | {'attivi': s['attivi'], 'inci': bool(s['inci']), 'completezza': s['completezza'], 'valore': valore(s)},
+                  | {'attivi': s['attivi'], 'inci': bool(s['inci']), 'completezza': s['completezza'], 'valore': valore(s)}
+                  # «Senza…» solo dove si sa: INCI intero o dichiarazione del produttore (Federico, 16/10); gli integratori no
+                  | ({'senza': [k_ for k_ in ('profumo', 'alcol', 'oli_essenziali') if s.get(k_) is False],
+                      'con': [k_ for k_ in ('profumo', 'alcol', 'oli_essenziali') if s.get(k_) is True]} if s['passaggio'] != 'integratore' else {}),
         'segment': s['segmento'],
     }
     if s['passaggio'] in ('shampoo', 'trattamento cute', 'balsamo e maschera capelli'):

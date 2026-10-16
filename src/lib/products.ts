@@ -130,7 +130,12 @@ export type Scheda = {
   per?: 'uomo' | 'donna' | null;
   lavoro?: string[];
   principale?: { id: string; perc: number | null } | null;
+  // quello che di sicuro non c'è: INCI intero o dichiarazione del produttore (Federico, 16/10: dove non si sa, non si dice)
+  senza?: Senza[];
+  con?: Senza[]; // quello che l'INCI nomina
 };
+export type Senza = 'profumo' | 'alcol' | 'oli_essenziali';
+export const SENZA: [Senza, string][] = [['profumo', 'Senza profumo'], ['alcol', 'Senza alcol'], ['oli_essenziali', 'Senza oli essenziali']];
 
 const MANUAL_PRODUCTS: Product[] = [
   // ────────────────────────────────────────────────────────────

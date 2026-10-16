@@ -74,3 +74,41 @@ export function menoCaro(q: Product, s: Product): boolean {
   const qa = q.scheda?.al_10, sa = s.scheda?.al_10;
   return q.price <= s.price * 0.8 && !(qa && sa && qa >= sa);
 }
+
+// PERCHÉ È SIMILE (Zeno, idea 6; Federico, 16/10: «ci aiuta anche a capire perché è stato associato»): la regola
+// qui sopra detta in una riga, con i valori dei due prodotti. Il lavoro con le parole delle pagine prodotto.
+export const LAVORO: Record<string, string> = {
+  idratazione: 'idratazione', imperfezioni: 'imperfezioni e brufoli', macchie: 'macchie e luminosità', tempo: 'segni del tempo',
+  calmare: 'rossori e pelle che reagisce', barriera: 'barriera della pelle', pori: 'pori dilatati',
+  caduta: 'caduta e diradamento', forfora: 'forfora', 'secchi-crespi': 'capelli secchi e crespi', mantenimento: 'uso frequente',
+  capelli: 'capelli', unghie: 'unghie', tono: 'tono della pelle', sole: 'preparazione al sole', 'pelle-secca': 'pelle secca', 'imperfezioni-int': 'imperfezioni',
+};
+const PASSAGGIO_BREVE: Record<string, string> = {
+  detergente: 'detergente', siero: 'siero', crema: 'crema', spf: 'protezione solare', esfoliante: 'esfoliante', shampoo: 'shampoo',
+  'trattamento cute': 'trattamento per la cute', 'balsamo e maschera capelli': 'balsamo o maschera', integratore: 'integratore', cerotti: 'cerotti', barba: 'barba',
+};
+const pc = (n: number | null | undefined) => (n ? `${String(n).replace('.', ',')}%` : null);
+const misuraDi = (p: Product) => {
+  const m = p.scheda?.misura, n = sc(p)?.pezzi;
+  return m ? `${String(m.valore).replace('.0', '').replace('.', ',')} ${m.unita}` : n ? `${n} pezzi` : null;
+};
+const elenco = (v: string[]) => (v.length > 1 ? `${v.slice(0, -1).join(', ')} e ${v[v.length - 1]}` : v[0] || '');
+
+export function percheSimile(a: Product, b: Product): string | null {
+  const sa = sc(a), sb = sc(b);
+  if (!sa || !sb) return null;
+  const parti: string[] = [];
+  const pa = principale(a), pb = principale(b);
+  const tipo = PASSAGGIO_BREVE[sa.passaggio] || sa.passaggio;
+  const nome = (n: string) => { const t = n.replace(/\s*\(.*\)$/, ''); return t[0].toLowerCase() + t.slice(1); };
+  if (pa) {
+    const perc = pc(pa.perc) && pc(pb?.perc) ? (pa.perc === pb?.perc ? `, ${pc(pa.perc)} in tutti e due` : `, ${pc(pb?.perc)} contro ${pc(pa.perc)}`) : '';
+    parti.push(`stesso passaggio (${tipo}) e stesso attivo principale (${nome(pa.attivo.nome)}${perc})`);
+  } else parti.push(`stesso passaggio (${tipo}) e stessa forza`);
+  const comuni = (sb.lavoro || []).filter((k) => (sa.lavoro || []).includes(k)).map((k) => LAVORO[k] || k);
+  if (comuni.length) parti.push(`in comune: ${elenco(comuni.slice(0, 3))}`);
+  const ma = misuraDi(a), mb = misuraDi(b);
+  if (ma && mb) parti.push(ma === mb ? `stesso formato (${ma})` : `formato vicino (${mb} contro ${ma})`);
+  const t = parti.join('; ');
+  return t[0].toUpperCase() + t.slice(1) + '.';
+}

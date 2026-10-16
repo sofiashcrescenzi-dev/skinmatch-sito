@@ -4,7 +4,7 @@
 // (worker/index.ts → tabella eventi_giorno) e l'admin li mostra nelle schede Traffico e Test.
 export type Evento =
   | { e: 'test_inizio'; p: string }
-  | { e: 'test_fine'; p: string; b: string[] }
+  | { e: 'test_fine'; p: string; b: string[]; s?: number } // s: i secondi dalla prima risposta al risultato
   | { e: 'clic'; id: string; m: string; da: string };
 
 export function segna(ev: Evento) {

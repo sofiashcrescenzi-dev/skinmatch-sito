@@ -45,6 +45,8 @@ export type Domanda = {
   testo: string;
   aiuto?: string;
   multipla?: boolean;
+  // «Salta»: solo dove la domanda non serve davvero (non decide il biotipo né la sicurezza); senza risposta vale il default del motore (Federico, 16/10)
+  saltabile?: boolean;
   se?: Condizione[];
   opzioni: Opzione[];
 };
@@ -157,6 +159,7 @@ export type Articolo = {
   prodotti?: string[];
   biotipi?: string[];
   termini?: string[];
+  approfondisce?: string[]; // i termini del glossario che spiega: lo mostrano sotto il termine e nei prodotti
   pubblicato_il: string;
   aggiornato_il?: string;
 };
@@ -174,6 +177,19 @@ export const ARTICOLI = ((rivista as unknown as { articoli: Articolo[] }).artico
 export type Attivo = { id: string; nome: string; nomi: string[]; termine: string; cosa: string; per_chi: string; attenzione: string; peso: number };
 export const ATTIVI = (attivi as unknown as { attivi: Attivo[] }).attivi;
 export const conAttivo = (p: { scheda?: { attivi: { nome: string }[] } }, a: Attivo) => !!p.scheda?.attivi.some((x) => a.nomi.includes(x.nome));
+
+// LA RIVISTA COLLEGATA AL GLOSSARIO (Federico, 16/10: «un articolo della rivista collegato al glossario, che comparirà
+// sotto i prodotti che lo hanno»). L'articolo dice quale termine spiega (`approfondisce`, scelto in admin › Rivista):
+// si legge sotto quel termine e nelle pagine dei prodotti con l'attivo di quel termine (attivi.json → termine) o con
+// quel lavoro (caduta, forfora, macchie, pori, barriera), e in quelle dei prodotti che l'articolo cita.
+export const articoliDelTermine = (id: string) => ARTICOLI.filter((a) => a.approfondisce?.includes(id));
+export function articoliPerProdotto(p: { id: string; scheda?: { attivi: { nome: string }[]; principale?: { id: string } | null; lavoro?: string[] } }, quanti = 3): Articolo[] {
+  const att = ATTIVI.filter((a) => conAttivo(p, a) && a.termine);
+  const primo = att.find((a) => a.id === p.scheda?.principale?.id)?.termine;
+  const termini = new Set([...att.map((a) => a.termine), ...(p.scheda?.lavoro || [])]);
+  const peso = (x: Articolo) => (primo && x.approfondisce?.includes(primo) ? 2 : 0) + (x.approfondisce?.some((t) => termini.has(t)) ? 1 : 0);
+  return ARTICOLI.filter((x) => x.prodotti?.includes(p.id) || x.approfondisce?.some((t) => termini.has(t))).sort((u, v) => peso(v) - peso(u)).slice(0, quanti);
+}
 
 // I negozi (src/data/negozi.json, admin › Negozi): commissione, spedizione, codici sconto.
 export type Codice = { codice: string; descrizione: string; scade?: string };

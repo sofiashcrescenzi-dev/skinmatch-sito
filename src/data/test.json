@@ -222,6 +222,27 @@
     "premium",
     "nessuna"
    ]
+  },
+  {
+   "id": "evita_profumo",
+   "nome": "Evita il profumo",
+   "valori": [
+    true
+   ]
+  },
+  {
+   "id": "evita_alcol",
+   "nome": "Evita l'alcol",
+   "valori": [
+    true
+   ]
+  },
+  {
+   "id": "evita_oli_essenziali",
+   "nome": "Evita gli oli essenziali",
+   "valori": [
+    true
+   ]
   }
  ],
  "percorsi": [
@@ -255,6 +276,7 @@
     "esperienza",
     "barba",
     "passi",
+    "evitare",
     "budget"
    ]
   },
@@ -279,6 +301,7 @@
     "trattamenti",
     "condizioni_cute",
     "gravidanza",
+    "evitare",
     "budget"
    ]
   },
@@ -345,6 +368,7 @@
     "farmaci",
     "gravidanza",
     "menopausa",
+    "evitare",
     "budget"
    ]
   }
@@ -936,7 +960,8 @@
       "esperienza": 2
      }
     }
-   ]
+   ],
+   "saltabile": true
   },
   {
    "id": "barba",
@@ -972,7 +997,8 @@
       "barba": "mantenimento"
      }
     }
-   ]
+   ],
+   "saltabile": true
   },
   {
    "id": "passi",
@@ -1000,7 +1026,8 @@
       "passi": 5
      }
     }
-   ]
+   ],
+   "saltabile": true
   },
   {
    "id": "cute_unta",
@@ -1351,6 +1378,42 @@
    ]
   },
   {
+   "id": "evitare",
+   "area": "comune",
+   "multipla": true,
+   "saltabile": true,
+   "testo": "C'è qualcosa che preferisci evitare?",
+   "aiuto": "Puoi sceglierne più di uno.",
+   "opzioni": [
+    {
+     "id": "profumo",
+     "testo": "Il profumo",
+     "scelte": {
+      "evita_profumo": true
+     }
+    },
+    {
+     "id": "alcol",
+     "testo": "L'alcol",
+     "scelte": {
+      "evita_alcol": true
+     }
+    },
+    {
+     "id": "oli",
+     "testo": "Gli oli essenziali",
+     "scelte": {
+      "evita_oli_essenziali": true
+     }
+    },
+    {
+     "id": "niente",
+     "testo": "Niente in particolare",
+     "esclusiva": true
+    }
+   ]
+  },
+  {
    "id": "budget",
    "area": "comune",
    "testo": "Quanto vuoi spendere per ogni prodotto?",
@@ -1384,7 +1447,8 @@
       "budget": "nessuna"
      }
     }
-   ]
+   ],
+   "saltabile": true
   }
  ],
  "limiti": [

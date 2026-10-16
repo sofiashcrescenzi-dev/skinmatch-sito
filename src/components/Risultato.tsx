@@ -7,6 +7,7 @@ import { ConTermini } from '@/components/Termini';
 import SchedaProdotto from '@/components/SchedaProdotto';
 import { Stendi } from '@/components/Inviti';
 import Foto from '@/components/Foto';
+import { percheSimile } from '@/lib/simili';
 
 const SOPRA: Record<Area, string> = { pelle: 'Il tuo biotipo', cute: 'Il biotipo della tua cute', integrazione: 'Il tuo profilo' };
 
@@ -93,7 +94,10 @@ export default function Risultato({ r, azioni, condiviso }: { r: R; azioni: Reac
                               <div className="testa-carta"><span className="etichetta" style={{ color: 'var(--clinico)' }}>Alternativa</span><span className={`livello ${s.alternativa.livello}`}>compatibilità {s.alternativa.livello}</span></div>
                               <span className="piccolo">{s.alternativa.come === 'costa meno' ? 'Solitamente un prodotto meno costoso, ma anche con una % di attivi minore.' : 'Solitamente un prodotto più ricco di attivi, e più costoso.'}</span>
                             </div>}
-                            sotto={s.alternativa.perche.length > 0 && <p className="piccolo">{s.alternativa.perche.join(' · ')}</p>} />
+                            sotto={<>
+                              {percheSimile(s.consigliato.prodotto, s.alternativa.prodotto) && <p className="piccolo perche-simile"><strong>Perché è simile:</strong> {percheSimile(s.consigliato.prodotto, s.alternativa.prodotto)}</p>}
+                              {s.alternativa.perche.length > 0 && <p className="piccolo">{s.alternativa.perche.join(' · ')}</p>}
+                            </>} />
                         )}
                       </div>
                     </div>

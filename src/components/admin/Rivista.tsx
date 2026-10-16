@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { PRODOTTI } from '@/lib/catalogo';
+import { TERMINI } from '@/lib/dati';
 import Markdown from '@/components/Markdown';
 import { useApi, invia, Titolo, Vuoto, quando } from './base';
 
@@ -9,7 +10,7 @@ import { useApi, invia, Titolo, Vuoto, quando } from './base';
 // sbizzarrire: un lavoro ogni due giorni, e scoprire delle novità almeno una volta a
 // settimana». Approvato = esce con la prossima pubblicazione (Jarvis la lancia alle 8:40 e alle
 // 14:40, oppure il bottone «Pubblica» di qualsiasi scheda).
-type A = { id: number; slug: string; titolo: string; sommario: string; tipo: string; testo: string; immagine: string; prodotti: string; biotipi: string; parole: number; stato: string; feedback: string; autore: string; creato_il: string; pubblicato_il: string };
+type A = { id: number; slug: string; titolo: string; sommario: string; tipo: string; testo: string; immagine: string; prodotti: string; biotipi: string; approfondisce: string | null; parole: number; stato: string; feedback: string; autore: string; creato_il: string; pubblicato_il: string };
 const SCHEDE: [string, string][] = [['in_approvazione', 'Da approvare'], ['da_correggere', 'Da correggere'], ['approvato', 'Approvati, in uscita'], ['online', 'Online'], ['scartato', 'Scartati']];
 const leggiJ = (s: string) => { try { return JSON.parse(s || 'null'); } catch { return null; } };
 
@@ -19,6 +20,9 @@ function Articolo({ a, poi }: { a: A; poi: () => void }) {
   const [err, setErr] = useState('');
   const prodotti = (leggiJ(a.prodotti) || []) as string[];
   const im = leggiJ(a.immagine) as { file?: string } | null;
+  const appr = ((leggiJ(a.approfondisce || '') || []) as string[])[0] || '';
+  // il termine del glossario che l'articolo spiega: lo mette sotto il termine e nelle pagine dei prodotti con quell'attivo
+  const collega = async (t: string) => { setErr(''); try { await invia('/api/admin/articoli', { id: a.id, feedback: nota, campi: { approfondisce: JSON.stringify(t ? [t] : []) } }); poi(); } catch (e) { setErr((e as Error).message); } };
   const decidi = async (stato: string) => { setErr(''); try { await invia('/api/admin/articoli', { id: a.id, stato, feedback: nota }); poi(); } catch (e) { setErr((e as Error).message); } };
   return (
     <article className="carta pila" style={{ ['--gap' as string]: '10px' }}>
@@ -30,6 +34,13 @@ function Articolo({ a, poi }: { a: A; poi: () => void }) {
       <h2 className="titolo-3">{a.titolo}</h2>
       <p className="piccolo" style={{ fontSize: 15 }}>{a.sommario}</p>
       {a.stato === 'online' && <a className="link" href={`/rivista/${a.slug}`} target="_blank" rel="noopener">skinmatch.it/rivista/{a.slug}</a>}
+      <label className="adm-campo" style={{ maxWidth: 420 }}><span className="adm-etichetta">Approfondisce (glossario)</span>
+        <select className="adm-input" value={appr} onChange={(e) => collega(e.target.value)}>
+          <option value="">Nessun termine: solo nella Rivista e sotto i prodotti citati</option>
+          {TERMINI.slice().sort((x, y) => x.nome.localeCompare(y.nome, 'it')).map((t) => <option key={t.id} value={t.id}>{t.nome}</option>)}
+        </select>
+        <span className="piccolo">Compare sotto il termine nel glossario e nelle pagine dei prodotti con quell&apos;attivo.</span>
+      </label>
       <button type="button" className="chip" style={{ justifySelf: 'start' }} onClick={() => setApri(!apri)}>{apri ? 'Chiudi' : 'Leggi tutto'}</button>
       {apri && (
         <div className="pila" style={{ ['--gap' as string]: '12px', borderTop: '1px solid var(--riga)', paddingTop: 12 }}>

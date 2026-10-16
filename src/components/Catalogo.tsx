@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { CATALOGO, ATTIVI, conAttivo } from '@/lib/dati';
 import { PRODOTTI, inCategoria, type Prodotto } from '@/lib/catalogo';
+import { SENZA, type Senza } from '@/lib/products';
 import SchedaProdotto from '@/components/SchedaProdotto';
 import CLIC from '@/data/clic.json';
 
@@ -35,8 +36,8 @@ const PROBLEMI: [string, string, (p: Prodotto) => boolean][] = [
   ['forfora', 'Forfora', (p) => !!p.hairConcerns?.includes('forfora')],
   ['crespi', 'Capelli secchi e crespi', (p) => !!p.hairConcerns?.includes('secchi-crespi')],
 ];
-type Filtri = { categoria: string; tag: string[]; attivo: string; pelle: string; problema: string; marca: string; q: string; ordina: string };
-const VUOTI: Filtri = { categoria: '', tag: [], attivo: '', pelle: '', problema: '', marca: '', q: '', ordina: 'consigliati' };
+type Filtri = { categoria: string; tag: string[]; senza: string[]; attivo: string; pelle: string; problema: string; marca: string; q: string; ordina: string };
+const VUOTI: Filtri = { categoria: '', tag: [], senza: [], attivo: '', pelle: '', problema: '', marca: '', q: '', ordina: 'consigliati' };
 
 export default function Catalogo({ categoria: c0 = '', tag: t0 = '' }: { categoria?: string; tag?: string }) {
   const [f, setF] = useState<Filtri>({ ...VUOTI, categoria: c0, tag: t0 ? [t0] : [] });
@@ -48,7 +49,7 @@ export default function Catalogo({ categoria: c0 = '', tag: t0 = '' }: { categor
     const t = u.getAll('tag');
     if (u.get('kbeauty') === '1') t.push('k-beauty');
     setF((v) => ({
-      ...v, categoria: c0 || u.get('categoria') || '', tag: [...new Set([...(t0 ? [t0] : []), ...t])],
+      ...v, categoria: c0 || u.get('categoria') || '', tag: [...new Set([...(t0 ? [t0] : []), ...t])], senza: u.getAll('senza').filter((x) => SENZA.some(([k]) => k === x)),
       attivo: u.get('attivo') || '', pelle: u.get('pelle') || '', problema: u.get('problema') || '', marca: u.get('marca') || '', q: u.get('q') || '',
       ordina: ORDINI.some((o) => o[0] === u.get('ordina')) ? u.get('ordina')! : 'consigliati',
     }));
@@ -57,6 +58,7 @@ export default function Catalogo({ categoria: c0 = '', tag: t0 = '' }: { categor
     const u = new URLSearchParams();
     if (f.categoria && !c0) u.set('categoria', f.categoria);
     f.tag.filter((t) => t !== t0).forEach((t) => u.append('tag', t));
+    f.senza.forEach((x) => u.append('senza', x));
     (['attivo', 'pelle', 'problema', 'marca', 'q'] as const).forEach((k) => f[k] && u.set(k, f[k]));
     if (f.ordina !== 'consigliati') u.set('ordina', f.ordina);
     history.replaceState(null, '', u.toString() ? `?${u}` : location.pathname);
@@ -70,6 +72,8 @@ export default function Catalogo({ categoria: c0 = '', tag: t0 = '' }: { categor
   const regole: Record<string, (p: Prodotto) => boolean> = {
     categoria: (p) => !cat || inCategoria(p, cat),
     tag: (p) => f.tag.every((t) => p.tag.includes(t)),
+    // «Senza…»: solo i prodotti di cui lo sappiamo (Federico, 16/10)
+    senza: (p) => f.senza.every((x) => !!p.scheda?.senza?.includes(x as Senza)),
     attivo: (p) => !att || conAttivo(p, att),
     pelle: (p) => !f.pelle || !!p.skinTypes?.includes(f.pelle as never),
     problema: (p) => !pro || pro[2](p),
@@ -84,7 +88,7 @@ export default function Catalogo({ categoria: c0 = '', tag: t0 = '' }: { categor
   }, [f]);
   const conta = (k: string, fn: (p: Prodotto) => boolean) => tranne(k).filter(fn).length;
   const marche = [...new Set(tranne('marca').map((p) => p.brand))].sort((a, b) => a.localeCompare(b, 'it'));
-  const attivi = f.tag.length + [f.attivo, f.pelle, f.problema, f.marca, f.q].filter(Boolean).length - (t0 ? 1 : 0) + (f.categoria && !c0 ? 1 : 0);
+  const attivi = f.tag.length + f.senza.length + [f.attivo, f.pelle, f.problema, f.marca, f.q].filter(Boolean).length - (t0 ? 1 : 0) + (f.categoria && !c0 ? 1 : 0);
 
   return (
     <div className="pila" style={{ ['--gap' as string]: '18px' }}>
@@ -101,6 +105,12 @@ export default function Catalogo({ categoria: c0 = '', tag: t0 = '' }: { categor
           {CATALOGO.tag.filter((x) => x.id !== t0 && (f.tag.includes(x.id) || conta('tag', (p) => p.tag.includes(x.id)))).map((x) => (
             <button key={x.id} type="button" className="chip" aria-pressed={f.tag.includes(x.id)} title={x.descrizione}
               onClick={() => cambia({ tag: f.tag.includes(x.id) ? f.tag.filter((y) => y !== x.id) : [...f.tag, x.id] })}>{x.nome}</button>
+          ))}
+        </div>
+        <div className="riga-chip" role="group" aria-label="Senza">
+          {SENZA.filter(([k]) => f.senza.includes(k) || conta('senza', (p) => !!p.scheda?.senza?.includes(k))).map(([k, nome]) => (
+            <button key={k} type="button" className="chip" aria-pressed={f.senza.includes(k)}
+              onClick={() => cambia({ senza: f.senza.includes(k) ? f.senza.filter((y) => y !== k) : [...f.senza, k] })}>{nome}</button>
           ))}
         </div>
         <div className="filtri">

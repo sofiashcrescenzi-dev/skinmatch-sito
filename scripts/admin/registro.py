@@ -3,12 +3,21 @@
 
   articolo --file proposta.json            un articolo per la Rivista (Zeno), «da approvare»
   rapporto --agente --tipo --titolo --sintesi [--corpo file.md] [--esito ok|attenzione|problema]
+  segnalazione --agente --titolo [--dettaglio testo|file.md] [--proposta] [--gravita] [--rapporto ID]
+                                           un'idea o un problema da scegliere (Sì / Dopo / No in admin › Squadra)
+  stato --id N --stato in_lavoro|dopo|fatta|scartata [--nota]   Jarvis chiude le segnalazioni fatte
   arricchimento --prodotto ID --campo C --valore V --fonte URL [--chi zeno]
   elenco articoli [--stato da_correggere]  per leggere il feedback di Federico e Sofia
   elenco arricchimenti                     i prodotti per cui un'informazione è già proposta o decisa
+  elenco segnalazioni [--stato in_lavoro]  le scelte di Federico e Sofia, con le note
+
+Ogni proposta per Skinmatch (idee di mercato, problemi trovati, migliorie) si scrive come segnalazione:
+una per scelta, con la proposta concreta. Il rapporto racconta; la segnalazione chiede una decisione.
 
 Il file dell'articolo: titolo, slug, sommario, tipo (guida|novita|confronto|approfondimento),
-testo (markdown), immagine {file, autore, pagina, alt}, prodotti [id], biotipi [id], termini [id].
+testo (markdown), immagine {file, autore, pagina, alt}, prodotti [id], biotipi [id], termini [id],
+approfondisce [id]: i termini del glossario che l'articolo spiega davvero (di solito uno). L'articolo compare sotto quel
+termine nel glossario e nelle pagine dei prodotti con quell'attivo o quel lavoro (src/lib/dati.ts articoliPerProdotto).
 """
 import argparse
 import json
@@ -37,7 +46,7 @@ def articolo(a):
         sys.exit(f"l'indirizzo {slug} è già usato da un articolo {gia[0]['stato']}: scegline un altro")
     valori = dict(slug=slug, titolo=p['titolo'], sommario=p['sommario'], tipo=p.get('tipo', 'guida'), testo=p['testo'],
                   immagine=json.dumps(p.get('immagine') or {}, ensure_ascii=False), prodotti=json.dumps(p.get('prodotti') or []),
-                  biotipi=json.dumps(p.get('biotipi') or []), termini=json.dumps(p.get('termini') or []), parole=parole,
+                  biotipi=json.dumps(p.get('biotipi') or []), termini=json.dumps(p.get('termini') or []), approfondisce=json.dumps(p.get('approfondisce') or []), parole=parole,
                   autore=p.get('autore', 'zeno'))
     if gia:
         sets = ', '.join(f'{k} = {L(v)}' for k, v in valori.items())
@@ -54,6 +63,20 @@ def rapporto(a):
     print(f"rapporto {r[0]['id']}")
 
 
+def segnalazione(a):
+    d = a.dettaglio
+    if d and Path(d).is_file():
+        d = Path(d).read_text(encoding='utf-8')
+    r = sql(f"INSERT INTO segnalazioni (rapporto_id, agente, gravita, titolo, dettaglio, proposta) VALUES ({L(a.rapporto)}, {L(a.agente)}, {L(a.gravita)}, {L(a.titolo)}, {L(d)}, {L(a.proposta)}) RETURNING id")
+    print(f"segnalazione {r[0]['id']}: da decidere in skinmatch.it/admin/squadra")
+
+
+def stato(a):
+    nota = f", nota_po = {L(a.nota)}" if a.nota is not None else ''
+    sql(f"UPDATE segnalazioni SET stato = {L(a.stato)}{nota}, aggiornato_il = datetime('now') WHERE id = {int(a.id)}")
+    print(f'segnalazione {a.id}: {a.stato}')
+
+
 def arricchimento(a):
     if a.campo not in CAMPI:
         sys.exit(f'campo sconosciuto: {a.campo} (vanno bene: {", ".join(sorted(CAMPI))})')
@@ -62,7 +85,9 @@ def arricchimento(a):
 
 
 def elenco(a):
-    if a.cosa == 'arricchimenti':
+    if a.cosa == 'segnalazioni':
+        righe = sql(f"SELECT id, agente, titolo, proposta, stato, nota_po, aggiornato_il FROM segnalazioni {('WHERE stato = ' + L(a.stato)) if a.stato else ''} ORDER BY id DESC LIMIT 200")
+    elif a.cosa == 'arricchimenti':
         righe = sql(f"SELECT prodotto, campo, stato FROM arricchimenti {('WHERE stato = ' + L(a.stato)) if a.stato else ''} ORDER BY id DESC LIMIT 5000")
     else:
         righe = sql(f"SELECT id, slug, titolo, stato, feedback, creato_il FROM articoli {('WHERE stato = ' + L(a.stato)) if a.stato else ''} ORDER BY id DESC LIMIT 50")
@@ -76,10 +101,16 @@ x = sub.add_parser('rapporto')
 for k in ('agente', 'tipo', 'titolo', 'sintesi'):
     x.add_argument(f'--{k}', required=True)
 x.add_argument('--corpo'); x.add_argument('--esito', default='ok', choices=['ok', 'attenzione', 'problema'])
+x = sub.add_parser('segnalazione')
+x.add_argument('--agente', required=True); x.add_argument('--titolo', required=True)
+x.add_argument('--dettaglio'); x.add_argument('--proposta'); x.add_argument('--gravita'); x.add_argument('--rapporto', type=int)
+x = sub.add_parser('stato')
+x.add_argument('--id', required=True, type=int); x.add_argument('--stato', required=True, choices=['aperta', 'in_lavoro', 'dopo', 'fatta', 'scartata'])
+x.add_argument('--nota')
 x = sub.add_parser('arricchimento')
 for k in ('prodotto', 'campo', 'valore', 'fonte'):
     x.add_argument(f'--{k}', required=True)
 x.add_argument('--chi', default='zeno')
-x = sub.add_parser('elenco'); x.add_argument('cosa', choices=['articoli', 'arricchimenti']); x.add_argument('--stato')
+x = sub.add_parser('elenco'); x.add_argument('cosa', choices=['articoli', 'arricchimenti', 'segnalazioni']); x.add_argument('--stato')
 a = ap.parse_args()
-{'articolo': articolo, 'rapporto': rapporto, 'arricchimento': arricchimento, 'elenco': elenco}[a.cmd](a)
+{'articolo': articolo, 'rapporto': rapporto, 'segnalazione': segnalazione, 'stato': stato, 'arricchimento': arricchimento, 'elenco': elenco}[a.cmd](a)

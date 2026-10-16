@@ -21,6 +21,8 @@ CREATE INDEX IF NOT EXISTS documenti_tipo ON documenti (tipo, id);
 CREATE TABLE IF NOT EXISTS articoli (
   id INTEGER PRIMARY KEY AUTOINCREMENT, slug TEXT NOT NULL UNIQUE, titolo TEXT NOT NULL, sommario TEXT, tipo TEXT,
   testo TEXT NOT NULL, immagine TEXT, prodotti TEXT, biotipi TEXT, termini TEXT, parole INTEGER,
+  -- i termini del glossario che l'articolo spiega (16/10, ALTER TABLE): lo mostrano sotto il termine e nei prodotti
+  approfondisce TEXT,
   stato TEXT NOT NULL DEFAULT 'in_approvazione', feedback TEXT, autore TEXT NOT NULL DEFAULT 'zeno',
   creato_il TEXT NOT NULL DEFAULT (datetime('now')), aggiornato_il TEXT, pubblicato_il TEXT
 );
@@ -36,6 +38,15 @@ CREATE TABLE IF NOT EXISTS squadra (
   id INTEGER PRIMARY KEY AUTOINCREMENT, agente TEXT NOT NULL, tipo TEXT NOT NULL, titolo TEXT NOT NULL, sintesi TEXT,
   corpo TEXT, esito TEXT, creato_il TEXT NOT NULL DEFAULT (datetime('now'))
 );
+
+-- Le segnalazioni della squadra: idee e problemi su cui Federico e Sofia decidono (16/10/2026, come su
+-- Agoranomos). «Sì» = in_lavoro (a Jarvis), «Dopo» = dopo, «No» = scartata; Jarvis le chiude (fatta).
+CREATE TABLE IF NOT EXISTS segnalazioni (
+  id INTEGER PRIMARY KEY AUTOINCREMENT, rapporto_id INTEGER, agente TEXT NOT NULL, gravita TEXT, titolo TEXT NOT NULL,
+  dettaglio TEXT, proposta TEXT, stato TEXT NOT NULL DEFAULT 'aperta', nota_po TEXT, chi TEXT,
+  creato_il TEXT NOT NULL DEFAULT (datetime('now')), aggiornato_il TEXT
+);
+CREATE INDEX IF NOT EXISTS idx_segnalazioni_stato ON segnalazioni (stato, creato_il);
 
 -- Le vendite dalle reti di affiliazione (le scarica il Mac ogni mattina: scripts/admin/vendite.py).
 CREATE TABLE IF NOT EXISTS vendite (
