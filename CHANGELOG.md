@@ -4,6 +4,16 @@ Registro di ogni modifica fatta al repository. Ordine: dal più recente al più 
 
 ---
 
+## 2026-10-16 — Admin di nuovo chiuso al pubblico
+
+- **L'admin era aperto a chiunque** conoscesse l'indirizzo (`ADMIN_APERTO = "si"` dal 15/10): pagine e API di
+  modifica (`/api/admin/*`) rispondevano senza alcun controllo, anche su workers.dev. Su richiesta di Sofia
+  `ADMIN_APERTO` torna a `"no"` in `wrangler.jsonc`: finché Cloudflare Access non è attivo si entra solo con il
+  link con la chiave (segreto `ADMIN_CHIAVE`, già impostato); quando Access è attivo restano solo Access e
+  `ADMIN_EMAILS`.
+- Cloudflare Access: l'accesso OAuth di Wrangler non ha i permessi per crearlo (`auth.forbidden`); serve un token
+  API con i permessi Access, oppure i passaggi in DEPLOY.md dalla dashboard.
+
 ## 2026-10-15 (sera) — Cerotti per brufoli e feed Liki24 del canale Skinmatch
 
 - **Il feed di Liki24 del canale Skinmatch** (indirizzo nei segreti del Mac, `FEED_LIKI24`): si riscarica ogni
