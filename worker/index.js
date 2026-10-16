@@ -21,6 +21,7 @@ const BIOTIPI = new Set(biotipi.biotipi.map((b) => b.id));
 const DOCUMENTI = new Set(['test', 'biotipi', 'glossario', 'catalogo', 'negozi']);
 const STATI_ARTICOLO = new Set(['in_approvazione', 'da_correggere', 'approvato', 'online', 'scartato']);
 const STATI_SEGNALAZIONE = new Set(['aperta', 'in_lavoro', 'dopo', 'fatta', 'scartata']);
+const STATI_MARCA = new Set(['da_studiare', 'da_contattare', 'contattata', 'risposto', 'decisa']);
 const breve = (s, n = 80) => String(s ?? '').replace(/[^\p{L}\p{N}_.\- ]/gu, '').slice(0, n);
 const json = (dati, stato = 200) => new Response(JSON.stringify(dati), { status: stato, headers: { 'content-type': 'application/json; charset=utf-8', 'cache-control': 'no-store' } });
 const oggi = () => new Date().toISOString().slice(0, 10);
@@ -217,6 +218,39 @@ async function admin(req, env, url, email) {
     if (!['approvato', 'scartato', 'proposto'].includes(stato)) return json({ errore: 'stato sconosciuto' }, 400);
     await DB.prepare('UPDATE arricchimenti SET stato = ?2, chi = ?3 WHERE id = ?1').bind(id, stato, email).run();
     return json({ ok: true });
+  }
+
+  if (via === 'riscritture') {
+    // le riscritture dei testi del test proposte da Zeno (16/10): «Usa questa» le mette nella bozza (lo fa la pagina),
+    // qui si segna la scelta
+    if (req.method === 'GET') return json({ riscritture: await tutti("SELECT * FROM riscritture WHERE stato = 'proposta' OR aggiornato_il >= datetime('now', '-30 days') ORDER BY stato = 'proposta' DESC, id DESC LIMIT 300") });
+    const { id, stato, nota } = corpo || {};
+    if (!['proposta', 'approvata', 'scartata'].includes(stato)) return json({ errore: 'stato sconosciuto' }, 400);
+    await DB.prepare("UPDATE riscritture SET stato = ?2, nota = ?3, chi = ?4, aggiornato_il = datetime('now') WHERE id = ?1")
+      .bind(id, stato, typeof nota === 'string' && nota.trim() ? nota.trim().slice(0, 2000) : null, email).run();
+    return json({ ok: true });
+  }
+
+  if (via === 'marche') {
+    // le marche da conoscere meglio (16/10): si leggono tutte; si aggiungono, si cambiano, si tolgono
+    if (req.method === 'GET') return json({ marche: await tutti('SELECT * FROM marche_studio ORDER BY gruppo, marca') });
+    const { id, togli, campi } = corpo || {};
+    if (togli && id) { await DB.prepare('DELETE FROM marche_studio WHERE id = ?1').bind(id).run(); return json({ ok: true }); }
+    const ok = ['marca', 'gruppo', 'perche', 'origine', 'sito', 'email', 'email_fonte', 'contatto_nota', 'stato', 'note'];
+    const set = Object.entries(campi || {}).filter(([k, v]) => ok.includes(k) && (typeof v === 'string' || v === null)).map(([k, v]) => [k, v === null ? null : String(v).slice(0, 3000)]);
+    if (!set.length) return json({ errore: 'niente da salvare' }, 400);
+    if (set.some(([k, v]) => k === 'stato' && !STATI_MARCA.has(v))) return json({ errore: 'stato sconosciuto' }, 400);
+    if (id) {
+      await DB.prepare(`UPDATE marche_studio SET ${set.map(([k], i) => `${k} = ?${i + 3}`).join(', ')}, chi = ?2, aggiornato_il = datetime('now') WHERE id = ?1`)
+        .bind(id, email, ...set.map(([, v]) => v)).run();
+      return json({ ok: true });
+    }
+    const c = Object.fromEntries(set);
+    if (!c.marca || !c.gruppo) return json({ errore: 'servono la marca e il gruppo' }, 400);
+    const r = await DB.prepare(`INSERT INTO marche_studio (${set.map(([k]) => k).join(', ')}, chi) VALUES (${set.map((_, i) => `?${i + 1}`).join(', ')}, ?${set.length + 1}) RETURNING id`)
+      .bind(...set.map(([, v]) => v), email).first().catch((e) => ({ errore: String(e.message || e) }));
+    if (!r || r.errore) return json({ errore: /UNIQUE/.test(r?.errore || '') ? 'questa marca c\'è già' : 'non salvata' }, 400);
+    return json({ ok: true, id: r.id });
   }
 
   if (via === 'squadra') {

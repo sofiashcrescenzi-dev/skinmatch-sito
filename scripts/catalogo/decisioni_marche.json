@@ -872,9 +872,11 @@
    "segmento": "Premium e lusso",
    "proposta": "selezione",
    "decisione": "selezione",
-   "nota": "ok poi segna da qualche parte cosa togliamo",
+   "nota": "ok poi segna da qualche parte cosa togliamo · 16/10: la linea era scritta in un modo che non corrispondeva ai titoli di Liki24 («Siero viso riparatore notturno avanzato»), entravano 0 prodotti",
    "linee": [
-    "Siero riparatore notturno (Advanced Night Repair)"
+    "Advanced Night Repair",
+    "riparatore notturno",
+    "Night Repair"
    ]
   },
   {
@@ -1297,7 +1299,7 @@
    "segmento": "Premium e lusso",
    "proposta": "selezione",
    "decisione": "selezione",
-   "nota": "Beautycos, 16/10: solo le linee con attivi",
+   "nota": "Beautycos, 16/10: le linee indicate (retinolo, acidi, idratanti e solare)",
    "linee": [
     "Retinol Skin-Renewing",
     "Clearly Corrective",

@@ -48,6 +48,22 @@ CREATE TABLE IF NOT EXISTS segnalazioni (
 );
 CREATE INDEX IF NOT EXISTS idx_segnalazioni_stato ON segnalazioni (stato, creato_il);
 
+-- Le marche da conoscere meglio (16/10/2026, Federico): da studiare, da confrontare, da trovare in un negozio;
+-- con il contatto per scrivergli (email e pagina dove l'abbiamo trovata). Si gestiscono in admin › Marche.
+CREATE TABLE IF NOT EXISTS marche_studio (
+  id INTEGER PRIMARY KEY AUTOINCREMENT, marca TEXT NOT NULL UNIQUE, gruppo TEXT NOT NULL, perche TEXT, origine TEXT,
+  sito TEXT, email TEXT, email_fonte TEXT, contatto_nota TEXT, stato TEXT NOT NULL DEFAULT 'da_studiare', note TEXT,
+  chi TEXT, creato_il TEXT NOT NULL DEFAULT (datetime('now')), aggiornato_il TEXT
+);
+
+-- Le riscritture dei testi del test proposte da Zeno (16/10/2026, Federico: «più autorevole e meno da IA»): una per
+-- campo, «prima» e «dopo»; in admin › Domande «Usa questa» la mette nella bozza del test, che poi si salva e si pubblica.
+CREATE TABLE IF NOT EXISTS riscritture (
+  id INTEGER PRIMARY KEY AUTOINCREMENT, agente TEXT NOT NULL, documento TEXT NOT NULL DEFAULT 'test', percorso TEXT NOT NULL,
+  prima TEXT, dopo TEXT NOT NULL, motivo TEXT, stato TEXT NOT NULL DEFAULT 'proposta', nota TEXT, chi TEXT,
+  creato_il TEXT NOT NULL DEFAULT (datetime('now')), aggiornato_il TEXT
+);
+
 -- Le vendite dalle reti di affiliazione (le scarica il Mac ogni mattina: scripts/admin/vendite.py).
 CREATE TABLE IF NOT EXISTS vendite (
   id TEXT PRIMARY KEY, rete TEXT NOT NULL, negozio TEXT, data TEXT, importo REAL, commissione REAL, stato TEXT, subid TEXT,

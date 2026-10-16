@@ -6,7 +6,15 @@
   segnalazione --agente --titolo [--dettaglio testo|file.md] [--proposta] [--gravita] [--rapporto ID]
                                            un'idea o un problema da scegliere (Sì / Dopo / No in admin › Squadra)
   stato --id N --stato in_lavoro|dopo|fatta|scartata [--nota]   Jarvis chiude le segnalazioni fatte
+  riscrittura --percorso P --dopo TESTO --motivo M [--agente zeno]
+                                           un testo del test riscritto (domande/<id>/testo, domande/<id>/aiuto,
+                                           domande/<id>/opzioni/<id>/testo, percorsi/<id>/descrizione, limiti/<id>/testo…)
+  elenco riscritture [--stato proposta]    le riscritture e le scelte di Federico e Sofia
+  marca --nome M --gruppo G [--perche] [--origine] [--sito] [--email] [--email-fonte URL] [--contatto-nota]
+                                           una marca da conoscere (admin › Marche); se c'è già, aggiorna i campi dati
   arricchimento --prodotto ID --campo C --valore V --fonte URL [--chi zeno]
+      --campo inci: l'elenco intero, come sulla confezione; --campo attivi: quelli con la percentuale dichiarata dal
+      produttore, separati da «;» («niacinamide 10%; acido salicilico 2%»). Li usa la pipeline dopo l'approvazione.
   elenco articoli [--stato da_correggere]  per leggere il feedback di Federico e Sofia
   elenco arricchimenti                     i prodotti per cui un'informazione è già proposta o decisa
   elenco segnalazioni [--stato in_lavoro]  le scelte di Federico e Sofia, con le note
@@ -78,6 +86,48 @@ def stato(a):
     print(f'segnalazione {a.id}: {a.stato}')
 
 
+def _testo_test(percorso):
+    """Il testo attuale del test a quel percorso («domande/tzona/opzioni/opachi/testo»), dal file pubblicato."""
+    t = json.loads((Path(__file__).resolve().parents[2] / 'src' / 'data' / 'test.json').read_text())
+    pezzi, x = percorso.strip('/').split('/'), t
+    while pezzi:
+        p = pezzi.pop(0)
+        if isinstance(x, list):
+            x = next((y for y in x if y.get('id') == p), None)
+        elif isinstance(x, dict):
+            x = x.get(p)
+        if x is None:
+            sys.exit(f'nel test non c\'è «{percorso}»')
+    if not isinstance(x, str):
+        sys.exit(f'«{percorso}» non è un testo')
+    return x
+
+
+def riscrittura(a):
+    prima = _testo_test(a.percorso)
+    if prima.strip() == a.dopo.strip():
+        sys.exit('il testo nuovo è uguale a quello di adesso')
+    gia = sql(f"SELECT id FROM riscritture WHERE percorso = {L(a.percorso)} AND stato = 'proposta'")
+    if gia:
+        sql(f"UPDATE riscritture SET dopo = {L(a.dopo)}, motivo = {L(a.motivo)}, prima = {L(prima)}, aggiornato_il = datetime('now') WHERE id = {gia[0]['id']}")
+        print(f"riscrittura {gia[0]['id']} aggiornata")
+    else:
+        r = sql(f"INSERT INTO riscritture (agente, percorso, prima, dopo, motivo) VALUES ({L(a.agente)}, {L(a.percorso)}, {L(prima)}, {L(a.dopo)}, {L(a.motivo)}) RETURNING id")
+        print(f"riscrittura {r[0]['id']}: da scegliere in skinmatch.it/admin/domande")
+
+
+def marca(a):
+    campi = {'gruppo': a.gruppo, 'perche': a.perche, 'origine': a.origine, 'sito': a.sito, 'email': a.email, 'email_fonte': a.email_fonte, 'contatto_nota': a.contatto_nota}
+    campi = {k_: v for k_, v in campi.items() if v is not None}
+    gia = sql(f"SELECT id FROM marche_studio WHERE lower(marca) = lower({L(a.nome)})")
+    if gia:
+        sql(f"UPDATE marche_studio SET {', '.join(f'{k_} = {L(v)}' for k_, v in campi.items())}, aggiornato_il = datetime('now') WHERE id = {gia[0]['id']}")
+        print(f"marca {a.nome} aggiornata")
+    else:
+        sql(f"INSERT INTO marche_studio (marca, {', '.join(campi)}, chi) VALUES ({L(a.nome)}, {', '.join(L(v) for v in campi.values())}, 'claude')")
+        print(f"marca {a.nome} aggiunta: skinmatch.it/admin/marche")
+
+
 def arricchimento(a):
     if a.campo not in CAMPI:
         sys.exit(f'campo sconosciuto: {a.campo} (vanno bene: {", ".join(sorted(CAMPI))})')
@@ -86,7 +136,9 @@ def arricchimento(a):
 
 
 def elenco(a):
-    if a.cosa == 'segnalazioni':
+    if a.cosa == 'riscritture':
+        righe = sql(f"SELECT id, percorso, prima, dopo, stato, nota FROM riscritture {('WHERE stato = ' + L(a.stato)) if a.stato else ''} ORDER BY id DESC LIMIT 300")
+    elif a.cosa == 'segnalazioni':
         righe = sql(f"SELECT id, agente, titolo, proposta, stato, nota_po, aggiornato_il FROM segnalazioni {('WHERE stato = ' + L(a.stato)) if a.stato else ''} ORDER BY id DESC LIMIT 200")
     elif a.cosa == 'arricchimenti':
         righe = sql(f"SELECT prodotto, campo, stato FROM arricchimenti {('WHERE stato = ' + L(a.stato)) if a.stato else ''} ORDER BY id DESC LIMIT 5000")
@@ -108,10 +160,16 @@ x.add_argument('--dettaglio'); x.add_argument('--proposta'); x.add_argument('--g
 x = sub.add_parser('stato')
 x.add_argument('--id', required=True, type=int); x.add_argument('--stato', required=True, choices=['aperta', 'in_lavoro', 'dopo', 'fatta', 'scartata'])
 x.add_argument('--nota')
+x = sub.add_parser('riscrittura')
+x.add_argument('--percorso', required=True); x.add_argument('--dopo', required=True); x.add_argument('--motivo', required=True); x.add_argument('--agente', default='zeno')
+x = sub.add_parser('marca')
+x.add_argument('--nome', required=True); x.add_argument('--gruppo', required=True)
+for c in ('perche', 'origine', 'sito', 'email', 'email-fonte', 'contatto-nota'):
+    x.add_argument(f'--{c}')
 x = sub.add_parser('arricchimento')
 for k in ('prodotto', 'campo', 'valore', 'fonte'):
     x.add_argument(f'--{k}', required=True)
 x.add_argument('--chi', default='zeno')
-x = sub.add_parser('elenco'); x.add_argument('cosa', choices=['articoli', 'arricchimenti', 'segnalazioni']); x.add_argument('--stato')
+x = sub.add_parser('elenco'); x.add_argument('cosa', choices=['articoli', 'arricchimenti', 'segnalazioni', 'riscritture']); x.add_argument('--stato')
 a = ap.parse_args()
-{'articolo': articolo, 'rapporto': rapporto, 'segnalazione': segnalazione, 'stato': stato, 'arricchimento': arricchimento, 'elenco': elenco}[a.cmd](a)
+{'articolo': articolo, 'rapporto': rapporto, 'segnalazione': segnalazione, 'stato': stato, 'marca': marca, 'riscrittura': riscrittura, 'arricchimento': arricchimento, 'elenco': elenco}[a.cmd](a)

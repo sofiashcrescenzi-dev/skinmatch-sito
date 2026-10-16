@@ -24,7 +24,7 @@ R = Path(__file__).resolve().parents[2]
 OUT = R / 'feeds-out'
 
 ESCLUSI = [
-    ('trucco', r'fondotinta|mascara|rossetto|matita|ombretto|correttore|cipria|blush|bronzer|primer|cushion|\bbb cream\b|\bcc cream\b|skintint|tinted'),
+    ('trucco', r'fondotinta|foundation|\bmake-?up\b(?!\s*remover)|mascara|rossetto|matita|ombretto|correttore|cipria|blush|bronzer|primer|cushion|\bbb cream\b|\bcc cream\b|skintint|tinted'),  # «Cream Makeup SPF 15 510N» (Beautycos, 16/10)
     ('tinta e decolorazione', r'\btint[ae]\b|colorazione|colorante|decolorant|nutricolor|nutri color|color touch|\bhenné|henna|ritocco radici'),
     ('corpo', r'\bcorpo\b|\bbody\b|mani\b|piedi|gambe|seno|smagliature|cellulite|intim|bagnoschiuma|doccia|deodorant|crema mani|labbra|lip\b|stick labbra|doposole|after ?sun'),
     ('prima infanzia', r'bambin|neonat|baby|b[eéè]b[eéè]|pediatric|lattant|\bkids?\b|pannolin'),
@@ -96,16 +96,19 @@ def main():
             continue
         seg = dec[k(r['marca'])]['segmento']
         grezzi[f"{r.get('prefisso', 'lk')}-{r['id']}"] = r
-        s = traduci.scheda(r, segmento=seg)
-        if a.arricchisci and 'inci' in s['mancano']:
+        # gli attivi dichiarati dal produttore, approvati in admin (Zeno, 16/10)
+        dich = (approvati.get(f"{r.get('prefisso', 'lk')}-{r['id']}", {}).get('attivi') or {}).get('valore') if a.arricchisci else None
+        s = traduci.scheda(r, segmento=seg, dichiarati=dich)
+        # l'INCI approvato vale anche quando quello del negozio è troncato (serve intero per dire «senza profumo»)
+        if a.arricchisci and ('inci' in s['mancano'] or 'inci intero' in s['mancano']):
             extra = None
             ap_ = approvati.get(s['id'], {}).get('inci')
             if ap_:
                 extra = {'inci': ap_['valore'], 'fonte': ap_['fonte'] or 'admin'}
-            else:
+            elif 'inci' in s['mancano']:
                 extra = fonti.open_beauty_facts(r.get('gtin'))
             if extra:
-                s = traduci.scheda(r, extra, segmento=seg)
+                s = traduci.scheda(r, extra, segmento=seg, dichiarati=dich)
         s['ruolo'] = ruolo
         s['segmento'] = dec[k(r['marca'])]['segmento']
         s['completezza'] = traduci.completezza(s)

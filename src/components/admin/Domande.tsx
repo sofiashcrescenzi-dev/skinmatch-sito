@@ -3,7 +3,7 @@
 import { useMemo, useState } from 'react';
 import { TEST, BIOTIPI, CREDITI, type Test, type Domanda, type Opzione, type Percorso } from '@/lib/dati';
 import { consiglia, usaDati } from '@/lib/motore';
-import { useDocumento, BarraSalva, Campo, Testo, Titolo, Vuoto, nuovoId } from './base';
+import { useDocumento, useApi, invia, BarraSalva, Campo, Testo, Titolo, Vuoto, nuovoId, quando } from './base';
 import Condizioni from './Condizioni';
 
 // L'ARCHITETTURA DEL TEST (15/10/2026): percorsi, domande e risposte con i loro effetti,
@@ -163,6 +163,90 @@ function Persone({ test }: { test: Test }) {
   );
 }
 
+// LE RISCRITTURE DI ZENO (16/10/2026, Federico: «più autorevole e meno da IA»). Una per campo, «prima» e «dopo»;
+// «Usa questa» mette il testo nella bozza qui sotto (poi Salva e Pubblica), «No» la scarta con una nota per Zeno.
+// Il percorso: domande/<id>/testo, domande/<id>/aiuto, domande/<id>/opzioni/<id>/testo, percorsi/<id>/<campo>…
+type Riscrittura = { id: number; agente: string; percorso: string; prima: string | null; dopo: string; motivo: string | null; stato: string; nota: string | null; chi: string | null; creato_il: string };
+type Nodo = { id?: string } & Record<string, unknown>;
+function leggiPercorso(t: Test, percorso: string): string | undefined {
+  let x: unknown = t;
+  for (const p of percorso.split('/')) {
+    x = Array.isArray(x) ? (x as Nodo[]).find((y) => y.id === p) : x && typeof x === 'object' ? (x as Nodo)[p] : undefined;
+    if (x === undefined) return undefined;
+  }
+  return typeof x === 'string' ? x : undefined;
+}
+function scriviPercorso<T>(x: T, pezzi: string[], valore: string): T {
+  if (!pezzi.length) return valore as unknown as T;
+  const [p, ...resto] = pezzi;
+  if (Array.isArray(x)) return x.map((y: Nodo) => (y.id === p ? scriviPercorso(y, resto, valore) : y)) as unknown as T;
+  const o = x as unknown as Nodo;
+  return { ...o, [p]: scriviPercorso(o[p], resto, valore) } as unknown as T;
+}
+function contesto(t: Test, percorso: string): string {
+  const [tipo, id, , opz] = percorso.split('/');
+  if (tipo === 'domande') {
+    const d = t.domande.find((x) => x.id === id);
+    const o = opz ? d?.opzioni.find((x) => x.id === opz) : undefined;
+    return d ? `Domanda «${d.testo}»${o ? ` · risposta «${o.testo}»` : percorso.endsWith('/aiuto') ? ' · testo di aiuto' : ''}` : percorso;
+  }
+  if (tipo === 'percorsi') return `Percorso ${t.percorsi.find((x) => x.id === id)?.nome || id} · ${percorso.split('/').pop()}`;
+  return percorso;
+}
+
+function Riscritture({ t, metti }: { t: Test; metti: (x: Test) => void }) {
+  const api = useApi<{ riscritture: Riscrittura[] }>('/api/admin/riscritture');
+  const [note, setNote] = useState<Record<number, string>>({});
+  const [msg, setMsg] = useState('');
+  const tutte = api.dati?.riscritture || [];
+  const aperte = tutte.filter((r) => r.stato === 'proposta');
+  const decidi = async (r: Riscrittura, stato: string) => {
+    try {
+      if (stato === 'approvata') {
+        if (leggiPercorso(t, r.percorso) === undefined) { setMsg(`Nel test non c'è più «${r.percorso}»: la segno come scartata.`); stato = 'scartata'; }
+        else metti(scriviPercorso(t, r.percorso.split('/'), r.dopo));
+      }
+      await invia('/api/admin/riscritture', { id: r.id, stato, nota: note[r.id] || '' });
+      setMsg(stato === 'approvata' ? 'Messa nella bozza: ricordati di salvare e pubblicare.' : 'Segnata.'); api.ricarica();
+    } catch (e) { setMsg((e as Error).message); }
+  };
+  if (!tutte.length) return null;
+  return (
+    <section className="pila" style={{ ['--gap' as string]: '10px' }}>
+      <h2 className="titolo-3">Le riscritture proposte{aperte.length ? ` · ${aperte.length}` : ''}</h2>
+      <p className="piccolo">Zeno riscrive i testi del test perché suonino più autorevoli e meno da IA, senza cambiare cosa vuol dire ogni risposta. «Usa questa» la mette nella bozza; poi Salva e Pubblica.</p>
+      {msg && <span className="piccolo" role="status">{msg}</span>}
+      <div className="adm-due">
+        {aperte.map((r) => {
+          const ora = leggiPercorso(t, r.percorso);
+          return (
+            <div key={r.id} className="carta pila" style={{ ['--gap' as string]: '8px' }}>
+              <span className="piccolo">{contesto(t, r.percorso)}</span>
+              <div className="pila" style={{ ['--gap' as string]: '2px' }}><span className="adm-etichetta">Adesso</span><span style={{ color: 'var(--grigio)' }}>{ora ?? r.prima}</span></div>
+              <div className="pila" style={{ ['--gap' as string]: '2px' }}><span className="adm-etichetta">Proposta</span><b style={{ fontWeight: 600 }}>{r.dopo}</b></div>
+              {r.motivo && <span className="piccolo">Perché: {r.motivo}</span>}
+              {ora !== undefined && r.prima !== null && ora !== r.prima && <span className="piccolo" style={{ color: 'var(--attenzione)' }}>Il testo è cambiato da quando Zeno l&apos;ha proposto.</span>}
+              <input className="adm-input" id={`nota-r-${r.id}`} value={note[r.id] || ''} onChange={(e) => setNote({ ...note, [r.id]: e.target.value })} placeholder="Una nota per Zeno, se serve" />
+              <div className="adm-scatola-azioni">
+                <button type="button" className="chip" onClick={() => decidi(r, 'approvata')}>Usa questa</button>
+                <button type="button" className="chip" onClick={() => decidi(r, 'scartata')}>No</button>
+                <span className="piccolo">{r.agente} · {quando(r.creato_il)}</span>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+      {tutte.length > aperte.length && (
+        <details><summary className="piccolo" style={{ cursor: 'pointer' }}>Già decise · {tutte.length - aperte.length}</summary>
+          <ul className="pila" style={{ ['--gap' as string]: '6px', marginTop: 8, paddingLeft: 18 }}>
+            {tutte.filter((r) => r.stato !== 'proposta').map((r) => <li key={r.id} className="piccolo">{r.stato === 'approvata' ? 'Sì' : 'No'} · {contesto(t, r.percorso)} → «{r.dopo}»{r.nota ? ` · ${r.nota}` : ''}</li>)}
+          </ul>
+        </details>
+      )}
+    </section>
+  );
+}
+
 export default function Domande() {
   const doc = useDocumento<Test>('test', TEST);
   const [area, setArea] = useState('tutte');
@@ -173,6 +257,7 @@ export default function Domande() {
   return (
     <div className="pila" style={{ ['--gap' as string]: '28px' }}>
       <Titolo sotto="I quattro percorsi, le domande e cosa fa ogni risposta: punti su un asse, una scelta, oppure il consulto. Le persone tipo in fondo girano su questa bozza: se una diventa «diversa», la modifica ha cambiato un risultato. Salva, poi Pubblica.">Le domande del test</Titolo>
+      <Riscritture t={t} metti={(x) => doc.setDati(x)} />
       <section className="pila" style={{ ['--gap' as string]: '10px' }}>
         <h2 className="titolo-3">I percorsi</h2>
         {t.percorsi.map((p, i) => <EditorPercorso key={p.id} p={p} test={t} cambia={(x) => metti({ percorsi: t.percorsi.map((y, j) => (j === i ? x : y)) })} />)}

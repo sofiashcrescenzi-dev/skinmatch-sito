@@ -123,13 +123,14 @@ INTEGRAZIONE = {'capelli': r'capelli|caduta|hair', 'unghie': r'unghie|nails', 'p
                 'sole': r'\bsole\b|solar|abbronzatur|carotene|polypodium|fernblock', 'imperfezioni': r'acne|imperfezion|brufol'}
 
 
-def scheda(r, extra_inci=None, segmento=None):
+def scheda(r, extra_inci=None, segmento=None, dichiarati=None):
     """Il record di un negozio → la scheda, con le fonti di ogni campo e quello che manca."""
     tit, desc = r['titolo'], r['descrizione'] or ''
     fonti, mancano = {}, []
     # l'INCI: dalla descrizione o da una fonte esterna
     inci_testo, inci_fonte = I.trova(desc), 'descrizione'
-    if not inci_testo and extra_inci:
+    # una fonte esterna si passa solo quando serve (INCI assente, o troncato e c'è quello approvato): allora vince lei
+    if extra_inci:
         inci_testo, inci_fonte = extra_inci['inci'], extra_inci['fonte']
     lista = I.leggi(inci_testo)
     if lista:
@@ -162,6 +163,22 @@ def scheda(r, extra_inci=None, segmento=None):
         pas = 'balsamo e maschera capelli' if re.search(r'lunghezz|punte|balsamo|maschera|conditioner|olio|crespo|\bmask|masque|\boil\b|leave[- ]in|frizz|discipline|split ends', _c(tit)) else 'trattamento cute'
         fonti['passaggio'] = 'regola: marca per capelli'
     att = I.attivi(testo, lista)
+    # gli attivi con la percentuale dichiarata dal produttore, trovati da Zeno e approvati in admin («niacinamide 10%;
+    # acido salicilico 2%»): la percentuale vale più di quella letta nel testo del negozio (16/10)
+    if dichiarati:
+        for voce in re.split(r'\s*;\s*', dichiarati):
+            m = re.match(r'(.+?)\s*(?:(\d+(?:[.,]\d+)?)\s*%)?\s*$', voce.strip())
+            if not m or not m.group(1):
+                continue
+            nome = next((x['nome'] for x in I.attivi(m.group(1))), None)
+            if not nome:
+                continue
+            perc = float(m.group(2).replace(',', '.')) if m.group(2) else None
+            gia = next((x for x in att if x['nome'] == nome), None)
+            if gia:
+                gia['perc'] = perc if perc is not None else gia['perc']
+            else:
+                att.append({'nome': nome, 'perc': perc})
     if not att:
         mancano.append('attivi')
     fonti['attivi'] = 'inci' if lista else 'titolo e descrizione'
