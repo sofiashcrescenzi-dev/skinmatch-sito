@@ -4,6 +4,17 @@ Registro di ogni modifica fatta al repository. Ordine: dal più recente al più 
 
 ---
 
+## 2026-10-16 — Cloudflare Access attivo sull'admin
+
+- **Zero Trust → Access**: applicazione «Admin Skinmatch» su `skinmatch.it/admin` e `skinmatch.it/api/admin`
+  (sottopagine comprese), sessione 24 ore, accesso con codice via email (One-time PIN, metodo aggiunto ora),
+  policy «Federico e Sofia» con `sofiashcrescenzi@gmail.com` e `hello@agoranomos.cloud`. Team già esistente:
+  `fragrant-dawn-e18a`.
+- `wrangler.jsonc`: `ACCESS_TEAM` e `ACCESS_AUD` impostati, così il Worker ricontrolla il gettone di Access.
+- `DEPLOY.md`: stato di Access e come aggiungere una persona.
+- La chiave temporanea (`ADMIN_CHIAVE`) resta finché Sofia e Federico confermano di entrare con Access; poi si
+  toglie (`wrangler secret delete ADMIN_CHIAVE`).
+
 ## 2026-10-16 — Admin di nuovo chiuso al pubblico
 
 - **L'admin era aperto a chiunque** conoscesse l'indirizzo (`ADMIN_APERTO = "si"` dal 15/10): pagine e API di

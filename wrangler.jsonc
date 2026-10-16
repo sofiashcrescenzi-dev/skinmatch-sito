@@ -25,9 +25,10 @@
     // Chiuso il 16/10 su richiesta di Sofia: finché Access non è attivo si entra solo con il link con la chiave
     // (segreto ADMIN_CHIAVE); poi resta solo Access. Non rimettere "si": l'admin aperto è modificabile da chiunque.
     "ADMIN_APERTO": "no",
-    // ⚠️ da riempire quando Access è attivo (DEPLOY.md): il nome del team e l'Application Audience tag
-    "ACCESS_TEAM": "",
-    "ACCESS_AUD": ""
+    // Cloudflare Access attivo dal 16/10: team fragrant-dawn-e18a (fragrant-dawn-e18a.cloudflareaccess.com),
+    // applicazione «Admin Skinmatch» su skinmatch.it/admin e skinmatch.it/api/admin, codice via email.
+    "ACCESS_TEAM": "fragrant-dawn-e18a",
+    "ACCESS_AUD": "f21555928e4812dd6b7791cc40a9bc23949ff25ea86e1859ea6e2d47f28b0d19"
   },
   "observability": { "enabled": true }
 }

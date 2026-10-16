@@ -87,7 +87,18 @@ PID), mai nel repo né su Cloudflare.
   (`hello@agoranomos.cloud`, `sofiashcrescenzi@gmail.com`). Il Worker ricontrolla il gettone di Access: finché
   Access non è configurato, l'admin risponde «Area riservata» a tutti.
 
-### Attivare Cloudflare Access (una volta, dalla dashboard dell'account di Sofia)
+### Cloudflare Access — attivo dal 2026-10-16
+
+- Team: `fragrant-dawn-e18a` (`fragrant-dawn-e18a.cloudflareaccess.com`), nome assegnato da Cloudflare.
+- Applicazione **Admin Skinmatch** (self-hosted): `skinmatch.it/admin` e `skinmatch.it/api/admin`, con tutte le
+  sottopagine; sessione di 24 ore; accesso solo con **codice via email** (One-time PIN).
+- Policy **Federico e Sofia** (Allow): `sofiashcrescenzi@gmail.com`, `hello@agoranomos.cloud`. Per aggiungere una
+  persona: Zero Trust → Access → Applications → Admin Skinmatch → Policies, e la stessa email in `ADMIN_EMAILS`.
+- In `wrangler.jsonc` → `vars`: `ACCESS_TEAM` e `ACCESS_AUD` (l'Application Audience tag) già impostati: il Worker
+  ricontrolla il gettone di Access anche su workers.dev, dove Access non c'è.
+- Configurato via API con un token Access (in `~/.secrets/cloudflare-access.env` sul Mac di Sofia, mai nel repo).
+
+### Attivare Cloudflare Access (procedura originale, già fatta)
 
 1. **Zero Trust** (menu a sinistra) → se chiede di creare l'organizzazione, scegliere il nome del team
    (per esempio `skinmatch`) e il piano **Free**.
