@@ -158,7 +158,8 @@ def scheda(r, extra_inci=None, segmento=None):
     if segmento == 'Capelli' and pas not in CAPELLI + ('integratore', 'ciglia e sopracciglia') \
             and not re.search(r'\bviso\b|\bface\b|visage|\bcorpo\b|\bbody\b|pannolin|\bb[ée]b[ée]\b|\bbaby\b|neonat|bambin', _c(tit)) \
             and not (re.search(NON_CAPELLI, _c(tit)) and not re.search(r'capell|cuoio|\bcute\b|scalp|caduta', _c(tit))):
-        pas = 'balsamo e maschera capelli' if re.search(r'lunghezz|punte|balsamo|maschera|conditioner|olio|crespo', _c(tit)) else 'trattamento cute'
+        # anche in inglese (Beautycos, 16/10): «Intense Hydrating Mask», «Leave-in», «Hair Oil», «Frizz»
+        pas = 'balsamo e maschera capelli' if re.search(r'lunghezz|punte|balsamo|maschera|conditioner|olio|crespo|\bmask|masque|\boil\b|leave[- ]in|frizz|discipline|split ends', _c(tit)) else 'trattamento cute'
         fonti['passaggio'] = 'regola: marca per capelli'
     att = I.attivi(testo, lista)
     if not att:

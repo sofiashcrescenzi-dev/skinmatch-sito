@@ -4,7 +4,8 @@
 1. il feed di Liki24: se c'è FEED_LIKI24 in ~/.skinmatch-segreti.env lo riscarica (prezzi e disponibilità
    nuovi), se no usa l'ultima copia in feeds-out/liki24.csv;
 2. le schede con l'arricchimento (Open Beauty Facts, stesso prodotto in altro formato, INCI approvati in admin),
-   e quelle degli altri negozi attivi in admin (Farmaself), che completano Liki24 senza sostituirlo;
+   e quelle degli altri negozi attivi in admin (Farmaself, Beautycos), che completano Liki24: entrano solo i prodotti
+   scelti dal PO, e lo stesso prodotto passa al negozio nuovo solo se costa almeno il 10% in meno;
 3. la selezione per il sito (src/data/prodotti.json) e la lista di lavoro per Zeno;
 4. i clic degli ultimi 90 giorni per prodotto (l'ordine «Più scelti» del catalogo);
 5. se qualcosa è cambiato, mette in coda la pubblicazione (la esegue scripts/admin/pubblica.py).
@@ -42,7 +43,7 @@ for n in json.loads((R / 'src/data/negozi.json').read_text())['negozi']:
         except Exception as e:
             print(f"feed {n['nome']} non scaricato, uso la copia:", type(e).__name__)
     if file_n.exists():
-        altri.append(['schede.py', n['id'], '--file', str(file_n)])
+        altri.append(['schede.py', n['id'], '--file', str(file_n), '--arricchisci'])  # anche qui gli INCI approvati in admin
 for cmd in (['schede.py', 'liki24', '--file', str(feed), '--arricchisci'], *altri, ['al_sito.py', 'liki24'], ['al_sito.py', 'liki24', '--lista']):
     r = subprocess.run([sys.executable, str(Path(__file__).parent / cmd[0]), *cmd[1:]], capture_output=True, text=True, cwd=R)
     if r.returncode:

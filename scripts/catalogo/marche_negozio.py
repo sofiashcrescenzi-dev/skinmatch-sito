@@ -54,7 +54,7 @@ def nome_marca(varianti):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument('negozio', choices=['farmaself'])
+    ap.add_argument('negozio', choices=['farmaself', 'beautycos'])
     ap.add_argument('--file')
     a = ap.parse_args()
     dec = decisioni()

@@ -21,6 +21,7 @@ sys.path.insert(0, str(Path(__file__).parent))
 from schede import decisioni, k
 import traduci
 import titoli
+import fonti
 
 R = Path(__file__).resolve().parents[2]
 QUANTI = {'si': 5, 'selezione': 4, 'alternativa': 3}
@@ -219,7 +220,8 @@ def indirizzi(scelti, vecchi):
     """id → oggetto: stabile (chi aveva già un indirizzo lo tiene), unico, mai la marca."""
     # stabile, salvo quando il tipo nell'indirizzo è sbagliato (un integratore a «balsamo-…», Friday 16/10): allora si
     # rifà, e il vecchio indirizzo resta come rinvio alla pagina nuova (src/data/indirizzi-vecchi.json, /indirizzi.json)
-    giusto = lambda s, sl: sl == tipo_di(s) or sl.startswith(tipo_di(s) + '-')
+    # e quando contiene un refuso del feed corretto dopo («olpalex», 16/10: fonti.REFUSI)
+    giusto = lambda s, sl: (sl == tipo_di(s) or sl.startswith(tipo_di(s) + '-')) and not any(re.search(rx, sl.replace('-', ' '), re.I) for rx, _ in fonti.REFUSI)
     out = {s['id']: vecchi[s['id']] for s in scelti if s['id'] in vecchi and giusto(s, vecchi[s['id']])}
     for s in scelti:
         if s['id'] in vecchi and s['id'] not in out:
@@ -306,8 +308,28 @@ def _parole_nome(s):
 DEC_NEGOZI = json.loads((Path(__file__).parent / 'decisioni_negozi.json').read_text())
 
 
-def commissione(negozio):
-    return (per_nome(negozio) or {}).get('commissione') or 0
+# LO STESSO PRODOTTO IN PIÙ NEGOZI (Federico, 16/10 sera): resta dov'è, a meno che il negozio nuovo lo venda
+# almeno il 10% in meno. CON_SPEDIZIONE: se nel confronto entra la spedizione per un pezzo solo (Beautycos 11,95 €,
+# Liki24 5,99 €): da decidere col PO, finché non lo dice vale il solo prezzo.
+PIU_CONVENIENTE = 0.9
+CON_SPEDIZIONE = False
+
+
+def stesso_formato(a, b):
+    """Il prezzo si confronta solo a parità di confezione: stesso EAN, o stessa misura e stessi pezzi."""
+    ga, gb = (a.get('gtin') or '').lstrip('0'), (b.get('gtin') or '').lstrip('0')
+    if ga and ga == gb:
+        return True
+    ma, mb = a.get('misura') or {}, b.get('misura') or {}
+    return bool(ma and mb and ma.get('valore') == mb.get('valore') and ma.get('unita') == mb.get('unita') and a.get('pezzi') == b.get('pezzi'))
+
+
+def costo(s):
+    c = s['prezzo'] or 0
+    sp = (per_nome(s['negozio']) or {}).get('spedizione') or {}
+    if CON_SPEDIZIONE and sp.get('costo') and not (sp.get('gratis_da') and c >= sp['gratis_da']):
+        c += sp['costo']
+    return c
 
 
 def trova(s, gia):
@@ -327,8 +349,9 @@ def trova(s, gia):
 def unisci(schede, altri, tutti_si=None):
     """Gli altri negozi completano il catalogo, non lo sporcano (Federico, 16/10):
     - un loro prodotto entra solo se il PO l'ha scelto (decisioni_negozi.json; tutti_si: un negozio da simulare tutto «sì»);
-    - se il prodotto c'è già, resta quello del negozio che vale di più (la commissione più alta): l'offerta si sposta,
-      la pagina e l'indirizzo restano; se vale di meno, non entra;
+    - se il prodotto c'è già, passa al negozio nuovo solo se lì costa almeno il 10% in meno (Federico, 16/10 sera,
+      con Beautycos: prende il posto della regola della commissione più alta): l'offerta si sposta, la pagina e
+      l'indirizzo restano; altrimenti non entra;
     - se non c'è, entra nella selezione dopo i prodotti del catalogo principale."""
     for s in schede:
         s['base'] = True
@@ -342,9 +365,9 @@ def unisci(schede, altri, tutti_si=None):
             scelto = tutti_si == nid or DEC_NEGOZI.get(nid, {}).get('prodotti', {}).get(s['id']) == 'si'
             rec = trova(s, gia)
             if rec is not None:
-                if scelto and commissione(s['negozio']) > commissione(rec['negozio']):
-                    rec.update({x: s[x] for x in ('negozio', 'prezzo', 'prezzo_pieno', 'link', 'id_negozio') if x in s})
-                    conti['passati al negozio che vale di più'] += 1
+                if scelto and stesso_formato(s, rec) and costo(s) <= costo(rec) * PIU_CONVENIENTE:
+                    rec.update({x: s[x] for x in ('negozio', 'prezzo', 'prezzo_pieno', 'link', 'id_negozio', 'url_negozio') if x in s})
+                    conti['passati al negozio più conveniente'] += 1
                 else:
                     conti['già nel catalogo'] += 1
             elif not scelto:
@@ -574,14 +597,18 @@ def da_arricchire(neg='liki24', quanti=400):
     K-beauty, poi sieri e trattamenti, poi il resto). Zeno trova l'INCI ufficiale e lo registra con
     `python3 scripts/admin/registro.py arricchimento --prodotto <id> --campo inci --valore "<INCI>" --fonte <url>`."""
     prodotti = json.loads((R / 'src' / 'data' / 'prodotti.json').read_text())['prodotti']
-    schede = {s['id']: s for s in json.loads((R / 'feeds-out' / f'schede-{neg}.json').read_text())}
+    # le schede di tutti i negozi del sito (Liki24, Farmaself, Beautycos…): un prodotto di un altro negozio scelto dal PO
+    # va arricchito come gli altri (16/10)
+    schede = {s['id']: s for f in [R / 'feeds-out' / f'schede-{neg}.json'] + [R / 'feeds-out' / f"schede-{n['id']}.json" for n in NEGOZI if n['id'] != neg and n['attivo']]
+              if f.exists() for s in json.loads(f.read_text())}
     ordine_cat = {'sieri': 0, 'attivi': 0, 'creme': 1, 'detergenti': 2, 'shampoo': 3, 'capelli': 3, 'barba': 4, 'integratori': 5}
     lista = []
     for p in prodotti:
         s = schede.get(p['id'])
-        if not s or s['inci']:
+        # senza INCI, o con un elenco troncato (che non basta per dire «senza profumo»): questi dopo
+        if not s or (s['inci'] and 'inci intero' not in s['mancano']):
             continue
-        pr = (0 if s['segmento'] in ('Medicale premium', 'K-beauty') else 1, ordine_cat.get(p['category'], 6))
+        pr = (1 if s['inci'] else 0, 0 if s['segmento'] in ('Medicale premium', 'K-beauty') else 1, ordine_cat.get(p['category'], 6))
         lista.append((pr, {'id': p['id'], 'marca': p['brand'], 'nome': p['name'], 'titolo': s['titolo'], 'gtin': s.get('gtin'), 'mancano': s['mancano']}))
     lista.sort(key=lambda x: x[0])
     out = [x for _, x in lista[:quanti]]

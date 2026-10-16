@@ -188,6 +188,10 @@ def titolo_e_sottotitolo(nome, s):
     if scelto and a > 0 and parole[a - 1].lower().startswith('spf'):
         scelto = scelto[1:]
         a = scelto[0] if scelto else 0
+    # il numero del modello va col titolo anche se nel nome sta più avanti («Siero Bond nutriente n. 9» → Bond N.9)
+    num = next((k_ for k_, w in enumerate(parole) if re.fullmatch(r'N\.\d+', w.strip('.,;:()'))), None)
+    if scelto and num is not None and num not in scelto:
+        scelto = scelto + [num]
     titolo = ' '.join(_senza_doppioni([parole[k] for k in scelto])).strip(' ,;:-–')
     solo_inglesi = all(parole[k].lower().strip('.,') in INGLESI for k in scelto)
     # «Collagen Shot», «360 Capsule»: un nome di due o tre parole tutte con la maiuscola resta intero

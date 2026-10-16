@@ -30,6 +30,21 @@
    },
    "codici": [],
    "nota": "Commissione dall'API Adtraction (16/10/2026); spedizione dalla pagina ufficiale. Completa Liki24: entrano solo i prodotti che su Liki24 non ci sono (Federico, 16/10)."
+  },
+  {
+   "id": "beautycos",
+   "nome": "Beautycos",
+   "rete": "Adtraction",
+   "commissione": 8.0,
+   "attivo": true,
+   "spedizione": {
+    "costo": 11.95,
+    "gratis_da": 139,
+    "tempi": "4-6 giorni",
+    "nota": ""
+   },
+   "codici": [],
+   "nota": "Approvato su Adtraction il 16/10/2026. Completa Liki24: entrano solo i prodotti scelti dal PO (decisioni_negozi.json)."
   }
  ]
 }

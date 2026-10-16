@@ -15,7 +15,7 @@ from pathlib import Path
 csv.field_size_limit(10 ** 8)
 CANALE_ADTRACTION = '2119692688'
 # il prefisso degli id dei prodotti per negozio (lk-188565, cf-…): gli id non si toccano più, sono le pagine
-PREFISSO = {'Liki24': 'lk', 'Farmaself': 'fs'}
+PREFISSO = {'Liki24': 'lk', 'Farmaself': 'fs', 'Beautycos': 'bc'}
 CACHE = Path(__file__).resolve().parents[2] / 'feeds-out' / 'cache'
 UA = 'Mozilla/5.0 (SkinmatchBot; +https://skinmatch.it)'
 
@@ -47,6 +47,17 @@ def _prezzo(p):
     return float(m.group(1)) if m else None
 
 
+# I REFUSI DEI FEED (16/10/2026): «Olpalex», «Bond Mainenance» arrivavano così da Liki24 e finivano nel titolo
+# del sito. Si correggono qui, per tutti i negozi; un refuso nuovo si aggiunge alla lista.
+REFUSI = [(r'\bOlpalex\b', 'Olaplex'), (r'\bMainenance\b', 'Maintenance')]
+
+
+def corretto(t):
+    for rx, giusto in REFUSI:
+        t = re.sub(rx, giusto, t or '', flags=re.I)
+    return t
+
+
 def canale_skinmatch(link):
     """Il link tracciato Adtraction con il canale di Skinmatch."""
     if not link:
@@ -65,7 +76,7 @@ def liki24(file=None):
         titolo = pulito(x.get('title'))
         marca = (x.get('brand') or '').strip() or (titolo.rsplit(',', 1)[-1].strip() if ',' in titolo else '')
         yield {
-            'negozio': 'Liki24', 'id': x['id'], 'titolo': titolo, 'marca': marca, 'descrizione': pulito(x.get('description')),
+            'negozio': 'Liki24', 'id': x['id'], 'titolo': corretto(titolo), 'marca': marca, 'descrizione': pulito(x.get('description')),
             'prezzo': _prezzo(x.get('sale_price')) or _prezzo(x.get('price')),
             'prezzo_pieno': _prezzo(x.get('price')) if x.get('sale_price') else None,
             'gtin': (x.get('gtin') or '').strip() or None, 'immagine': x.get('image_link'), 'link': canale_skinmatch(x.get('link')),
@@ -134,10 +145,40 @@ def farmaself(file=None):
         prezzo, pieno = _prezzo(p.findtext('Price')), _prezzo(p.findtext('OriginalPrice'))
         marca = _marca_farmaself(nome, p.findtext('Brand') or '', marche)
         yield {
-            'negozio': 'Farmaself', 'id': p.findtext('SKU'), 'titolo': nome, 'marca': alias.get(marca, marca),
+            'negozio': 'Farmaself', 'id': p.findtext('SKU'), 'titolo': corretto(nome), 'marca': alias.get(marca, marca),
             'descrizione': pulito(p.findtext('Description')), 'prezzo': prezzo, 'prezzo_pieno': pieno if pieno and prezzo and pieno > prezzo else None,
             'gtin': (p.findtext('Ean') or '').strip() or None, 'immagine': p.findtext('ImageUrl'), 'link': canale_skinmatch(p.findtext('TrackingUrl')),
             'misura_feed': None, 'prefisso': 'fs', 'categoria_negozio': (p.findtext('Category') or '').strip(),
+            'url_negozio': p.findtext('ProductUrl'),  # la pagina del negozio, per la revisione del PO (mai il link tracciato)
+        }
+
+
+# Beautycos (16/10/2026): catalogo danese, titoli in inglese con il genere tra parentesi («(U) 50 ml»), descrizioni
+# in italiano. Profumi, trucco, tinture, styling, elettrici e lifestyle non servono al test: si saltano dalla categoria.
+_BC_FUORI = re.compile(r'^(?:Perfume|Makeup|Lifestyle|Hair Care - (?:Hair Dye|Hair Styling|Electrical|Accessories)|Personal Care - Hair Removal|Health & Beauty - Personal Care - Cosmetics - Perfume)')
+
+
+def beautycos(file=None):
+    """Il catalogo di Beautycos (Adtraction, XML). La marca è quella del feed, scritta come nelle nostre decisioni."""
+    import xml.etree.ElementTree as ET
+    sorgente = file or segreto('FEED_BEAUTYCOS')
+    if not sorgente:
+        raise SystemExit('Manca il feed di Beautycos: FEED_BEAUTYCOS in ~/.skinmatch-segreti.env, oppure --file')
+    root = ET.fromstring(_testo(sorgente))
+    chiave = lambda t: re.sub(r'[^a-z0-9]+', ' ', t.lower().replace('é', 'e').replace('è', 'e')).strip()
+    nostre = {chiave(x['marca']): x['marca'] for x in json.loads((Path(__file__).parent / 'decisioni_marche.json').read_text())['marche']}
+    for p in root.findall('product'):
+        if (p.findtext('Instock') or '').lower() not in ('yes', 'true', '1', 'in stock') or _BC_FUORI.match(p.findtext('Category') or ''):
+            continue
+        # il genere tra parentesi e i pezzi in danese («4 stk.»: la confezione si legge già da «4x6ml»)
+        nome = re.sub(r'\s*\((?:U|W|M|Unisex|Women|Men)\)|\s*\b\d+\s*stk\.?', '', pulito(p.findtext('Name'))).strip()
+        prezzo, pieno = _prezzo(p.findtext('Price')), _prezzo(p.findtext('OriginalPrice'))
+        marca = pulito(p.findtext('Brand'))
+        yield {
+            'negozio': 'Beautycos', 'id': p.findtext('SKU'), 'titolo': corretto(nome), 'marca': nostre.get(chiave(marca), marca),
+            'descrizione': pulito(p.findtext('Description')), 'prezzo': prezzo, 'prezzo_pieno': pieno if pieno and prezzo and pieno > prezzo else None,
+            'gtin': (p.findtext('Ean') or '').strip() or None, 'immagine': p.findtext('ImageUrl'), 'link': canale_skinmatch(p.findtext('TrackingUrl')),
+            'misura_feed': None, 'prefisso': 'bc', 'categoria_negozio': (p.findtext('Category') or '').strip(),
             'url_negozio': p.findtext('ProductUrl'),  # la pagina del negozio, per la revisione del PO (mai il link tracciato)
         }
 
