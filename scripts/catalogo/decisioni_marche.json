@@ -1,5 +1,5 @@
 {
- "_nota": "Le decisioni di Federico e Sofia sulle marche (pagina «Le marche di Skinmatch», salvate il 2026-10-15). decisione: si / selezione / no. La nota vale come regola: «solo alternativa economica e con attivi», «togli tinta e decolorazione», ecc.",
+ "_nota": "Le decisioni di Federico e Sofia sulle marche (pagina «Le marche di Skinmatch», salvate il 2026-10-15). decisione: si / selezione / no. La nota vale come regola: «solo alternativa economica e con attivi», «togli tinta e decolorazione», ecc. Le marche con «prodotti_uno_per_uno» (aperte dal 16/10) entrano solo con i prodotti scelti in decisioni_negozi.json, in ogni negozio.",
  "marche": [
   {
    "marca": "Skinceuticals",
@@ -1255,6 +1255,173 @@
     "idrocolloid",
     "brufol"
    ]
+  },
+  {
+   "marca": "Skin1004",
+   "segmento": "K-beauty",
+   "proposta": "si",
+   "decisione": "si",
+   "nota": "Beautycos, 16/10: linea Madagascar Centella",
+   "linee": [],
+   "prodotti_uno_per_uno": true
+  },
+  {
+   "marca": "Laneige",
+   "segmento": "K-beauty",
+   "proposta": "no",
+   "decisione": "si",
+   "nota": "Beautycos, 16/10. Federico: «anche per le labbra, poi integreremo anche qualcosa relativo alle labbra e il make up»",
+   "linee": [],
+   "prodotti_uno_per_uno": true
+  },
+  {
+   "marca": "Dermalogica",
+   "segmento": "Medicale premium",
+   "proposta": "si",
+   "decisione": "si",
+   "nota": "Beautycos, 16/10",
+   "linee": [],
+   "prodotti_uno_per_uno": true
+  },
+  {
+   "marca": "Exuviance",
+   "segmento": "Medicale premium",
+   "proposta": "si",
+   "decisione": "si",
+   "nota": "Beautycos, 16/10: stessa azienda di NeoStrata",
+   "linee": [],
+   "prodotti_uno_per_uno": true
+  },
+  {
+   "marca": "Kiehl's",
+   "segmento": "Premium e lusso",
+   "proposta": "selezione",
+   "decisione": "selezione",
+   "nota": "Beautycos, 16/10: solo le linee con attivi",
+   "linee": [
+    "Retinol Skin-Renewing",
+    "Clearly Corrective",
+    "Ultra Facial",
+    "Calendula",
+    "Better Screen"
+   ],
+   "prodotti_uno_per_uno": true
+  },
+  {
+   "marca": "Elizabeth Arden",
+   "segmento": "Premium e lusso",
+   "proposta": "selezione",
+   "decisione": "selezione",
+   "nota": "Beautycos, 16/10. Federico: «da studiare i brand»",
+   "linee": [
+    "Ceramide",
+    "Superstart"
+   ],
+   "prodotti_uno_per_uno": true
+  },
+  {
+   "marca": "Babor",
+   "segmento": "Premium e lusso",
+   "proposta": "selezione",
+   "decisione": "selezione",
+   "nota": "Beautycos, 16/10. Federico: «da studiare il brand»",
+   "linee": [
+    "Doctor Babor"
+   ],
+   "prodotti_uno_per_uno": true
+  },
+  {
+   "marca": "Bioeffect",
+   "segmento": "Premium e lusso",
+   "proposta": "selezione",
+   "decisione": "selezione",
+   "nota": "Beautycos, 16/10. Federico: «dobbiamo trovare maggiori informazioni»",
+   "linee": [
+    "EGF"
+   ],
+   "prodotti_uno_per_uno": true
+  },
+  {
+   "marca": "Sisley",
+   "segmento": "Premium e lusso",
+   "proposta": "no",
+   "decisione": "si",
+   "nota": "Beautycos, 16/10. Federico: «Sisley sicuramente sì»",
+   "linee": [],
+   "prodotti_uno_per_uno": true
+  },
+  {
+   "marca": "Codage",
+   "segmento": "Premium e lusso",
+   "proposta": "no",
+   "decisione": "no",
+   "nota": "Beautycos, 16/10. Federico: «segnamo il brand, vediamo più avanti»: in admin › Marche da conoscere",
+   "linee": []
+  },
+  {
+   "marca": "Elemis",
+   "segmento": "Premium e lusso",
+   "proposta": "no",
+   "decisione": "no",
+   "nota": "Beautycos, 16/10",
+   "linee": []
+  },
+  {
+   "marca": "Origins",
+   "segmento": "Premium e lusso",
+   "proposta": "no",
+   "decisione": "no",
+   "nota": "Beautycos, 16/10: oli essenziali e profumo",
+   "linee": []
+  },
+  {
+   "marca": "Mario Badescu",
+   "segmento": "Premium e lusso",
+   "proposta": "no",
+   "decisione": "no",
+   "nota": "Beautycos, 16/10",
+   "linee": []
+  },
+  {
+   "marca": "Coola",
+   "segmento": "Premium e lusso",
+   "proposta": "no",
+   "decisione": "no",
+   "nota": "Beautycos, 16/10",
+   "linee": []
+  },
+  {
+   "marca": "Ren Skincare",
+   "segmento": "Premium e lusso",
+   "proposta": "no",
+   "decisione": "no",
+   "nota": "Beautycos, 16/10: troppo pochi prodotti",
+   "linee": []
+  },
+  {
+   "marca": "Embryolisse",
+   "segmento": "Dermocosmesi da farmacia",
+   "proposta": "no",
+   "decisione": "no",
+   "nota": "Beautycos, 16/10: manca il Lait-Crème Concentré",
+   "linee": []
+  },
+  {
+   "marca": "Revox",
+   "segmento": "Attivi a buon prezzo",
+   "proposta": "selezione",
+   "decisione": "no",
+   "nota": "Beautycos, 16/10: Federico no",
+   "linee": []
+  },
+  {
+   "marca": "Korff",
+   "segmento": "Dermocosmesi da farmacia",
+   "proposta": "selezione",
+   "decisione": "si",
+   "nota": "Farmaself, 15/10: Federico sì",
+   "linee": [],
+   "prodotti_uno_per_uno": true
   }
  ]
 }

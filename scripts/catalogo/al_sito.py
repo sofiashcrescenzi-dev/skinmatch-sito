@@ -310,7 +310,7 @@ DEC_NEGOZI = json.loads((Path(__file__).parent / 'decisioni_negozi.json').read_t
 
 # LO STESSO PRODOTTO IN PIÙ NEGOZI (Federico, 16/10 sera): resta dov'è, a meno che il negozio nuovo lo venda
 # almeno il 10% in meno. CON_SPEDIZIONE: se nel confronto entra la spedizione per un pezzo solo (Beautycos 11,95 €,
-# Liki24 5,99 €): da decidere col PO, finché non lo dice vale il solo prezzo.
+# Liki24 5,99 €). Deciso da Federico il 16/10 nella revisione di Beautycos: conta solo il prezzo del prodotto.
 PIU_CONVENIENTE = 0.9
 CON_SPEDIZIONE = False
 
@@ -346,6 +346,20 @@ def trova(s, gia):
     return None
 
 
+def stessi_formato(s, gia):
+    """Tutte le copie dello stesso prodotto nella stessa confezione: Liki24 a volte ha lo stesso shampoo due volte con
+    due EAN (Nioxin System 4, 16/10). L'offerta nuova vale per tutte, così vale anche per quella che è sul sito."""
+    out, g = [], (s.get('gtin') or '').lstrip('0')
+    if g and g in gia['gtin'] and stesso_formato(s, gia['gtin'][g]):
+        out.append(gia['gtin'][g])
+    a = _parole_nome(s)
+    for b, rec in gia['marca'].get(k(s['marca']), []):
+        comuni = a & b
+        if len(comuni) >= 2 and len(comuni) / max(1, min(len(a), len(b))) >= 0.75 and stesso_formato(s, rec) and rec not in out:
+            out.append(rec)
+    return out
+
+
 def unisci(schede, altri, tutti_si=None):
     """Gli altri negozi completano il catalogo, non lo sporcano (Federico, 16/10):
     - un loro prodotto entra solo se il PO l'ha scelto (decisioni_negozi.json; tutti_si: un negozio da simulare tutto «sì»);
@@ -365,8 +379,10 @@ def unisci(schede, altri, tutti_si=None):
             scelto = tutti_si == nid or DEC_NEGOZI.get(nid, {}).get('prodotti', {}).get(s['id']) == 'si'
             rec = trova(s, gia)
             if rec is not None:
-                if scelto and stesso_formato(s, rec) and costo(s) <= costo(rec) * PIU_CONVENIENTE:
-                    rec.update({x: s[x] for x in ('negozio', 'prezzo', 'prezzo_pieno', 'link', 'id_negozio', 'url_negozio') if x in s})
+                piu_cari = [r for r in stessi_formato(s, gia) if costo(s) <= costo(r) * PIU_CONVENIENTE] if scelto else []
+                for r in piu_cari:
+                    r.update({x: s[x] for x in ('negozio', 'prezzo', 'prezzo_pieno', 'link', 'id_negozio', 'url_negozio') if x in s})
+                if piu_cari:
                     conti['passati al negozio più conveniente'] += 1
                 else:
                     conti['già nel catalogo'] += 1
@@ -406,7 +422,7 @@ def principale(s):
 
 
 def vicini(x, y):
-    return max(x, y) / min(x, y) <= 1.33
+    return bool(x and y) and max(x, y) / min(x, y) <= 1.33  # una misura a zero («Booster Omega 0 ml») non si confronta
 
 
 def formato_vicino(a, b):
@@ -497,6 +513,19 @@ def main(candidati=None):
     attivi = {n['id']: n for n in NEGOZI if n['id'] != neg and n['attivo']}
     altri = [json.loads(f.read_text()) for f in (R / 'feeds-out' / f'schede-{i}.json' for i in attivi) if f.exists()]
     schede, conti = unisci(schede, altri, candidati)
+    # LE MARCHE APERTE DOPO IL 15/10 (Federico, 16/10: «studiamo bene tutti i prodotti»): non entrano per marca ma
+    # prodotto per prodotto, in qualsiasi negozio, anche Liki24; le scelte stanno in decisioni_negozi.json
+    dec_m = decisioni()
+    def scelto_uno(s):
+        x = dec_m.get(k(s['marca'])) or {}
+        if not x.get('prodotti_uno_per_uno') or candidati:
+            return True
+        nid = {n['nome'].lower(): n['id'] for n in NEGOZI}.get((s['negozio'] or '').lower(), '')  # (in main «per_nome» è un dizionario)
+        return DEC_NEGOZI.get(nid, {}).get('prodotti', {}).get(s['id']) == 'si'
+    fuori = [s for s in schede if not scelto_uno(s)]
+    if fuori:
+        print('marche nuove, prodotti ancora da scegliere:', len(fuori))
+    schede = [s for s in schede if scelto_uno(s)]
     if altri:
         print('altri negozi:', dict(conti))
     for s in schede:  # le schede degli altri negozi, se sono state fatte prima di zona, forma e pezzi (traduci.py)

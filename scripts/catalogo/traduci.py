@@ -172,7 +172,7 @@ def scheda(r, extra_inci=None, segmento=None):
          'attivi': att, 'inci': lista or None}
     # misura e prezzo ogni 10 ml (o 10 g)
     m = re.search(r'(\d+(?:[.,]\d+)?)\s*(ml|g)\b', _c(tit)) or re.search(r'(\d+(?:[.,]\d+)?)\s*(ml|g)\b', _c(r.get('misura_feed')))
-    if m:
+    if m and float(m.group(1).replace(',', '.')) > 0:  # «0 ml» nei feed vuol dire misura sconosciuta
         v = float(m.group(1).replace(',', '.'))
         s['misura'] = {'valore': v, 'unita': m.group(2)}
         s['al_10'] = round(r['prezzo'] / v * 10, 2) if r.get('prezzo') and v else None

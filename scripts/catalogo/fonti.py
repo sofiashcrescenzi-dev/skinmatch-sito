@@ -106,6 +106,7 @@ LINEE_MARCA = [
 AZIENDA_MARCA = [
     (r'la roche posay', 'La Roche-Posay'), (r'^vichy', 'Vichy'), (r'skinceuticals', 'SkinCeuticals'), (r'^cerave', 'CeraVe'),
     (r'^avene', 'Avene'), (r'^ducray', 'Ducray'), (r'^aderma', 'A-Derma'), (r'^klorane', 'Klorane'), (r'^bioderma', 'Bioderma'),
+    (r'^korff', 'Korff'),  # Farmaself, scelta del PO del 15/10
     (r'laboratoires svr', 'SVR'), (r'^uriage', 'Uriage'), (r'bionike', 'BioNike'), (r'^caudalie', 'Caudalie'), (r'^isdin', 'Isdin'),
     (r'^neostrata', 'Neostrata'), (r'^lierac', 'Lierac'), (r'^filorga', 'Filorga'), (r'^sesderma', 'Sesderma'), (r'^martiderm', 'MartiDerm'),
 ]
