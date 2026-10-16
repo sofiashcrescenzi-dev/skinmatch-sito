@@ -455,3 +455,13 @@ details.carta > summary::-webkit-details-marker { display: none; }
 /* il sottotitolo del prodotto: che cos'è e cosa fa (il titolo è la linea o il modello) */
 .sottotitolo { font-size: 14px; line-height: 1.4; color: var(--grigio); }
 .p-sottotitolo { margin: -6px 0 0; font-size: clamp(16px, 1.8vw, 19px); line-height: 1.45; color: var(--grigio); max-width: 46ch; }
+
+/* il risultato al telefono: prima i prodotti (Friday, 16/10: il primo «Compra qui» era a 1.600 px) */
+.foto-biotipo { aspect-ratio: 4 / 3; }
+@media (max-width: 640px) { .foto-biotipo { aspect-ratio: 21 / 9; } }
+.di-piu > summary { cursor: pointer; font-weight: 700; color: var(--terra); min-height: 40px; display: flex; align-items: center; list-style: none; }
+.di-piu > summary::-webkit-details-marker { display: none; }
+.di-piu > summary::after { content: ''; width: 7px; height: 7px; margin-left: 10px; border-right: 2px solid currentColor; border-bottom: 2px solid currentColor; transform: rotate(45deg) translateY(-2px); transition: transform .2s; }
+.di-piu[open] > summary::after { transform: rotate(-135deg); }
+.di-piu[open] { display: grid; gap: 10px; }
+.azioni-risultato .bottone { min-height: 42px; padding: 9px 16px; font-size: 14.5px; }

@@ -29,17 +29,21 @@ export default function Risultato({ r, azioni, condiviso }: { r: R; azioni: Reac
         </section>
       )}
 
-      {r.aree.map((a) => {
+      {r.aree.map((a, ia) => {
         const assi = TEST.assi.filter((x) => x.area === a.area);
         return (
           <section key={a.area} className="pila" style={{ ['--gap' as string]: '20px' }} aria-label={NOMI_AREA[a.area]}>
             {a.biotipo && (
               <article className="carta" style={{ display: 'grid', gap: 18, gridTemplateColumns: 'repeat(auto-fit, minmax(min(280px, 100%), 1fr))', alignItems: 'start' }}>
-                <Foto nome={fotoDi(a.biotipo)} style={{ aspectRatio: '4 / 3' }} sizes="(max-width: 760px) 100vw, 40vw" />
+                <Foto nome={fotoDi(a.biotipo)} className="foto-biotipo" sizes="(max-width: 760px) 100vw, 40vw" />
                 <div className="pila" style={{ ['--gap' as string]: '10px' }}>
                   <span className="etichetta">{SOPRA[a.area]}</span>
-                  <h2 className="titolo-2">{a.biotipo.titolo}</h2>
+                  {/* il primo biotipo è il titolo della pagina (Friday, 16/10: il risultato non aveva un h1) */}
+                  {ia === 0 ? <h1 className="titolo-2">{a.biotipo.titolo}</h1> : <h2 className="titolo-2">{a.biotipo.titolo}</h2>}
                   <span className="motto">{a.biotipo.motto}</span>
+                  {/* al telefono il prodotto arriva prima: la spiegazione lunga e i punteggi si aprono a richiesta */}
+                  <details className="di-piu">
+                    <summary>Leggi di più sul tuo biotipo</summary>
                   <p className="testo" style={{ fontSize: 15.5 }}><ConTermini testo={a.biotipo.descrizione} /></p>
                   {assi.length > 0 && a.area !== 'integrazione' && (
                     <div className="pila" style={{ ['--gap' as string]: '6px' }} aria-label="I tuoi punteggi">
@@ -56,6 +60,7 @@ export default function Risultato({ r, azioni, condiviso }: { r: R; azioni: Reac
                       })}
                     </div>
                   )}
+                  </details>
                   {a.tratti.length > 0 && (
                     <div className="pila" style={{ ['--gap' as string]: '6px' }}>
                       <span className="piccolo">In più:</span>

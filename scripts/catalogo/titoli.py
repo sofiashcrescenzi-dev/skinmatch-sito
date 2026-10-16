@@ -60,9 +60,14 @@ def vocabolario():
     return _voc
 
 
+# parole comuni che nei titoli hanno spesso la maiuscola ma non sono mai il nome di una linea (Friday, 16/10: tre carte
+# «Complesso» nello stesso risultato)
+COMUNI = set('complesso formula linea gamma collezione edizione nuovo nuova new classic original originale extra maxi mini'.split())
+
+
 def _comune(w):
     lw = w.lower().strip('.,;:()[]')
-    if lw in VUOTE or lw in TIPO:
+    if lw in VUOTE or lw in TIPO or lw in COMUNI:
         return True
     q = vocabolario().get(lw)
     return q is not None and q >= 0.5

@@ -114,6 +114,17 @@ const ATTIVI_PER: Record<string, string[]> = {
   'pori-dilatati': ['niacinamide', 'acido salicilico'],
 };
 
+// gli attivi che contano negli integratori, per bisogno (Friday, 16/10: per la caduta il test proponeva un collagene
+// mentre il profilo dice zinco e biotina)
+const ATTIVI_INTEGRAZIONE: Record<string, string[]> = {
+  caduta: ['biotina', 'zinco', 'pantenolo'],
+  'anti-age': ['collagene', 'acido ialuronico', 'vitamina C', 'peptidi'],
+  idratazione: ['acido ialuronico', 'ceramidi'],
+  'acne-sebo': ['zinco', 'niacinamide'],
+  'macchie-luminosita': ['vitamina C'],
+  'protezione-solare': ['vitamina C'],
+};
+
 export type Scelto = { prodotto: Prodotto; compat: number; livello: 'alta' | 'media'; perche: string[] };
 export type PassaggioScelto = { passaggio: Passaggio; consigliato: Scelto; alternativa: (Scelto & { come: 'costa meno' | 'premium' }) | null };
 export type RisultatoArea = { area: Area; biotipo: Biotipo | null; tratti: Biotipo[]; passaggi: PassaggioScelto[]; vuoti: Passaggio[] };
@@ -167,6 +178,9 @@ function compatibilita(x: Prodotto, area: Area, ps: Passaggio, b: Bisogni, p: Pr
     const c = x.concerns || [], h = x.hairConcerns || [];
     if (c.some((k) => b.concerns.has(k))) s += 45;
     if (h.some((k) => b.capelli.has(k))) s += 45;
+    const att = new Set((x.scheda?.attivi || []).map((a) => a.nome));
+    const voluti = new Set([...b.capelli, ...b.concerns].flatMap((k) => ATTIVI_INTEGRAZIONE[k] || []));
+    s += Math.min(24, [...voluti].filter((a) => att.has(a)).length * 12);
     if (/\b50\+/.test(x.name) && p.scelte.menopausa !== true) s -= 25;
     s += 10;
   }

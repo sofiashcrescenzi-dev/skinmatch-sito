@@ -1,0 +1,10 @@
+{
+ "_nota": "Vecchi oggetti degli indirizzi → id del prodotto: il Worker li rinvia alla pagina di oggi (src/app/indirizzi.json). Si aggiunge e basta.",
+ "vecchi": {
+  "balsamo-caduta-occasionale": "lk-242938",
+  "balsamo-caduta-progressiva": "lk-242939",
+  "balsamo-collagena-ossa": "lk-460028",
+  "balsamo-creastim-reactiv": "lk-334708",
+  "balsamo-elisir-forcapil": "lk-125968"
+ }
+}

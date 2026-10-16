@@ -208,9 +208,19 @@ def oggetto(s):
     return [tipo] + parole, list(dict.fromkeys(riserva)), frozenset(modello)
 
 
+ALIAS_F = R / 'src' / 'data' / 'indirizzi-vecchi.json'
+ALIAS = json.loads(ALIAS_F.read_text())['vecchi'] if ALIAS_F.exists() else {}
+
+
 def indirizzi(scelti, vecchi):
     """id → oggetto: stabile (chi aveva già un indirizzo lo tiene), unico, mai la marca."""
-    out = {s['id']: vecchi[s['id']] for s in scelti if s['id'] in vecchi}
+    # stabile, salvo quando il tipo nell'indirizzo è sbagliato (un integratore a «balsamo-…», Friday 16/10): allora si
+    # rifà, e il vecchio indirizzo resta come rinvio alla pagina nuova (src/data/indirizzi-vecchi.json, /indirizzi.json)
+    giusto = lambda s, sl: sl == tipo_di(s) or sl.startswith(tipo_di(s) + '-')
+    out = {s['id']: vecchi[s['id']] for s in scelti if s['id'] in vecchi and giusto(s, vecchi[s['id']])}
+    for s in scelti:
+        if s['id'] in vecchi and s['id'] not in out:
+            ALIAS[vecchi[s['id']]] = s['id']
     usati = set(out.values())
     nuovi = {s['id']: oggetto(s)[:2] for s in scelti if s['id'] not in out}
     freq = defaultdict(int)
@@ -519,6 +529,17 @@ def main(candidati=None):
     vecchi = {p['id']: p['slug'] for p in json.loads(vecchio.read_text())['prodotti'] if p.get('slug')} if vecchio.exists() else {}
     slug = indirizzi(scelti, vecchi)
     prodotti = [prodotto(s) | {'slug': slug[s['id']]} for s in scelti]
+    # lo stesso titolo per più prodotti della stessa marca (5 «Vinoperfect»): si aggiunge il tipo, così la carta li
+    # distingue anche prima del sottotitolo (Friday, 16/10)
+    TIPO_BREVE = {'detergente': 'Detergente', 'tonico': 'Tonico', 'siero': 'Siero', 'crema': 'Crema', 'spf': 'Solare', 'esfoliante': 'Esfoliante',
+                  'shampoo': 'Shampoo', 'trattamento cute': 'Lozione', 'balsamo e maschera capelli': 'Balsamo', 'barba': 'Barba', 'integratore': 'Integratore', 'cerotti': 'Cerotti'}
+    doppi = Counter((p['brand'], p['name']) for p in prodotti)
+    for p in prodotti:
+        tb = TIPO_BREVE.get(p['scheda']['passaggio'])
+        if doppi[(p['brand'], p['name'])] > 1 and tb and tb.lower() not in p['name'].lower():
+            p['name'] = f"{p['name']} {tb}"
+    if ALIAS:
+        ALIAS_F.write_text(json.dumps({'_nota': "Vecchi oggetti degli indirizzi → id del prodotto: il Worker li rinvia alla pagina di oggi (src/app/indirizzi.json). Si aggiunge e basta.", 'vecchi': dict(sorted(ALIAS.items()))}, ensure_ascii=False, indent=1) + '\n')
     conf = confronti(scelti)
     pagine = {}
     for s in scelti:
