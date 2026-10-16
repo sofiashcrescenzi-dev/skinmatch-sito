@@ -72,7 +72,8 @@ def segnalazione(a):
 
 
 def stato(a):
-    nota = f", nota_po = {L(a.nota)}" if a.nota is not None else ''
+    # la nota di chi chiude si aggiunge a quella di Federico o Sofia, non la sostituisce
+    nota = f", nota_po = trim(coalesce(nota_po, '') || char(10) || char(10) || {L('Jarvis: ' + a.nota)})" if a.nota else ''
     sql(f"UPDATE segnalazioni SET stato = {L(a.stato)}{nota}, aggiornato_il = datetime('now') WHERE id = {int(a.id)}")
     print(f'segnalazione {a.id}: {a.stato}')
 
