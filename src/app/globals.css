@@ -451,6 +451,28 @@ details.carta > summary::-webkit-details-marker { display: none; }
 .famiglia-foto .corpo { display: flex; flex-direction: column; gap: 8px; }
 .famiglia-foto .corpo .stendi { margin-top: auto; align-self: flex-start; }
 .adm-scatola-testa .piccolo { white-space: nowrap; }
+/* admin › Squadra: le segnalazioni da decidere, una colonna (Federico, 17/10) */
+.seg-lista { display: grid; gap: 12px; max-width: 820px; }
+.seg { display: flex; flex-direction: column; gap: 10px; }
+.seg > * { margin: 0; }
+.seg-testa { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; }
+.seg-grav { font-size: 12px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; padding: 2px 8px; border-radius: 6px; background: var(--velo); color: var(--testo); }
+.seg-grav--grave { background: var(--attenzione-tenue); color: var(--attenzione); }
+.seg-grav--piccolo { background: transparent; color: var(--grigio); border: 1px solid var(--riga); }
+.seg-stato { font-size: 13px; font-weight: 600; color: var(--grigio); margin-left: auto; }
+.seg-stato--in_lavoro, .seg-stato--fatta { color: var(--bene); }
+.seg-tit { font-family: var(--font-titolo); font-size: clamp(18px, 2vw, 21px); line-height: 1.25; font-weight: 600; letter-spacing: -0.01em; }
+.seg-prop { font-size: 15.5px; line-height: 1.55; padding: 10px 12px; border-radius: var(--raggio-piccolo); background: var(--velo); }
+.seg-etichetta { display: block; font-size: 12.5px; font-weight: 700; color: var(--terra); margin-bottom: 2px; }
+.seg-perche summary { cursor: pointer; font-size: 14px; font-weight: 600; color: var(--terra); min-height: 32px; display: inline-flex; align-items: center; }
+.seg-perche-testo { font-size: 14.5px; line-height: 1.6; color: var(--grigio); margin-top: 4px; }
+.seg-decidi { display: grid; gap: 8px; padding-top: 10px; border-top: 1px solid var(--riga); }
+.seg-bottoni { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.seg-bottone { flex: 0 0 auto; font: inherit; font-size: 14px; font-weight: 600; min-height: 38px; padding: 0 16px; border-radius: 999px; border: 1px solid var(--riga-forte); background: var(--foglio); color: var(--testo); cursor: pointer; line-height: 1; }
+.seg-bottone:hover { border-color: var(--testo); }
+.seg-bottone[aria-pressed='true'] { background: var(--testo); border-color: var(--testo); color: var(--fondo); }
+.seg-bottone--in_lavoro[aria-pressed='true'] { background: var(--bene); border-color: var(--bene); }
+.seg-nota { min-height: 40px; }
 
 /* il sottotitolo del prodotto: che cos'è e cosa fa (il titolo è la linea o il modello) */
 .sottotitolo { font-size: 14px; line-height: 1.4; color: var(--grigio); }

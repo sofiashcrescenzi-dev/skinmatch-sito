@@ -31,7 +31,10 @@ LOCK = REPO / '.pubblica.lock'
 FIRMA = '\n\nCo-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>'
 TIPI = ['test', 'biotipi', 'glossario', 'catalogo', 'negozi']
 # scritti da scripts/catalogo/aggiorna.py: la selezione, le schede delle pagine prodotto, i clic
-CATALOGO_GENERATO = ['src/data/prodotti.json', 'src/data/schede.json', 'src/data/clic.json']
+# ⚠️ indirizzi-vecchi.json lo scrive anche aggiorna.py (gli alias degli indirizzi dei prodotti
+# rinominati, 16/10): fuori da questo elenco la pubblicazione del catalogo restava «in attesa»
+# per sempre (17/10, dalle 8:41).
+CATALOGO_GENERATO = ['src/data/prodotti.json', 'src/data/schede.json', 'src/data/clic.json', 'src/data/indirizzi-vecchi.json']
 
 
 def run(*cmd, ok=True, **kw):

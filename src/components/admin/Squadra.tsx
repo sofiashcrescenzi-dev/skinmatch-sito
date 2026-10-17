@@ -19,35 +19,57 @@ type S = { id: number; agente: string; gravita: string | null; titolo: string; d
 
 // Le segnalazioni (16/10/2026, come su Agoranomos): la squadra propone, Federico e Sofia scelgono.
 // «Sì» la passa a Jarvis (in_lavoro), «Dopo» la parcheggia, «No» la scarta; Jarvis la chiude (fatta).
+// ⚠️ PIU PULITA (17/10/2026, Federico: «non si capisce bene e le CTA si stretchano»). Prima le carte
+// stavano in due colonne: quando una era piu lunga dell'altra, la riga si allungava e i bottoni con
+// lei. Ora una colonna sola; in testa gravita, chi e quando; poi il titolo e la proposta, cioe la cosa
+// da decidere; il perche si apre a richiesta; sotto tre bottoni di misura fissa e la nota.
 const STATO: Record<string, string> = { aperta: 'da decidere', in_lavoro: 'sì, a Jarvis', dopo: 'dopo', fatta: 'fatta', scartata: 'no' };
+const SCELTE: [string, string][] = [['in_lavoro', 'Sì, fatelo'], ['dopo', 'Dopo'], ['scartata', 'No']];
+const GRAVITA = ['grave', 'medio', 'piccolo'];
 
 function Segnalazione({ s, poi }: { s: S; poi: () => void }) {
   const [nota, setNota] = useState(s.nota_po || '');
   const [msg, setMsg] = useState('');
   const decidi = async (stato: string) => {
     setMsg('Salvo…');
-    try { await invia('/api/admin/squadra', { id: s.id, stato, nota }); setMsg(''); poi(); } catch (e) { setMsg((e as Error).message); }
+    try { await invia('/api/admin/squadra', { id: s.id, stato, nota }); setMsg('Salvato.'); poi(); } catch (e) { setMsg((e as Error).message); }
   };
+  const grav = (s.gravita || '').toLowerCase();
   return (
-    <div className="carta pila" style={{ ['--gap' as string]: '8px' }}>
-      <div className="piccolo">{s.agente}{s.gravita ? ` · ${s.gravita}` : ''} · {quando(s.creato_il)}{s.stato !== 'aperta' ? ` · ${STATO[s.stato] || s.stato}${s.chi ? ` (${s.chi.split('@')[0]})` : ''}` : ''}</div>
-      <b className="titolo-3" style={{ fontSize: 18 }}>{s.titolo}</b>
-      {s.dettaglio && <div style={{ fontSize: 15 }}><Markdown testo={s.dettaglio} /></div>}
-      {s.proposta && <div style={{ fontSize: 15 }}><b>Proposta: </b>{s.proposta}</div>}
-      {s.stato === 'fatta' ? (s.nota_po && <div className="piccolo">Nota: {s.nota_po}</div>) : (
-        <>
-          <div className="adm-scatola-azioni">
-            <button type="button" className="chip" aria-pressed={s.stato === 'in_lavoro'} onClick={() => decidi('in_lavoro')}>Sì, fatelo</button>
-            <button type="button" className="chip" aria-pressed={s.stato === 'dopo'} onClick={() => decidi('dopo')}>Dopo</button>
-            <button type="button" className="chip" aria-pressed={s.stato === 'scartata'} onClick={() => decidi('scartata')}>No</button>
-          </div>
-          <textarea className="adm-input" rows={2} value={nota} onChange={(e) => setNota(e.target.value)} placeholder="Una nota, se serve (si salva con la scelta)" aria-label={`Nota su «${s.titolo}»`} />
-          {msg && <span className="piccolo">{msg}</span>}
-        </>
+    <article className="carta seg">
+      <div className="seg-testa">
+        {grav && <span className={`seg-grav seg-grav--${GRAVITA.includes(grav) ? grav : 'medio'}`}>{grav}</span>}
+        <span className="piccolo">{s.agente} · {quando(s.creato_il)}</span>
+        {s.stato !== 'aperta' && <span className={`seg-stato seg-stato--${s.stato}`}>{STATO[s.stato] || s.stato}{s.chi ? ` · ${s.chi.split('@')[0]}` : ''}</span>}
+      </div>
+      <h3 className="seg-tit">{s.titolo}</h3>
+      {s.proposta && <p className="seg-prop"><span className="seg-etichetta">Cosa propone</span>{s.proposta}</p>}
+      {s.dettaglio && (
+        <details className="seg-perche">
+          <summary>Perché</summary>
+          <div className="seg-perche-testo"><Markdown testo={s.dettaglio} /></div>
+        </details>
       )}
-    </div>
+      {s.stato === 'fatta' ? (s.nota_po && <p className="piccolo seg-nota-fatta">Nota: {s.nota_po}</p>) : (
+        <div className="seg-decidi">
+          <div className="seg-bottoni" role="group" aria-label={`Decisione su «${s.titolo}»`}>
+            {SCELTE.map(([k, l]) => (
+              <button key={k} type="button" className={`seg-bottone seg-bottone--${k}`} aria-pressed={s.stato === k} onClick={() => decidi(k)}>{l}</button>
+            ))}
+          </div>
+          <textarea className="adm-input seg-nota" rows={1} value={nota} onChange={(e) => setNota(e.target.value)} placeholder="Nota, se serve: si salva con la scelta" aria-label={`Nota su «${s.titolo}»`} />
+          {msg && <span className="piccolo" role="status">{msg}</span>}
+        </div>
+      )}
+    </article>
   );
 }
+
+// prima le gravi, poi le medie, poi le piccole; a parita le piu recenti
+const ordina = (xs: S[]) => [...xs].sort((a, b) => {
+  const g = (x: S) => { const i = GRAVITA.indexOf((x.gravita || 'medio').toLowerCase()); return i < 0 ? 1 : i; };
+  return g(a) - g(b) || b.creato_il.localeCompare(a.creato_il);
+});
 
 export default function Squadra() {
   const api = useApi<{ rapporti: R[]; pubblicazioni: P[]; segnalazioni: S[] }>('/api/admin/squadra');
@@ -60,11 +82,11 @@ export default function Squadra() {
       <section className="pila" style={{ ['--gap' as string]: '10px' }}>
         <h2 className="titolo-3">Da decidere{aperte.length ? ` · ${aperte.length}` : ''}</h2>
         {!api.caricando && !aperte.length && <Vuoto>Niente da decidere: le proposte nuove di Zeno e Friday arrivano qui.</Vuoto>}
-        <div className="adm-due">{aperte.map((s) => <Segnalazione key={s.id} s={s} poi={api.ricarica} />)}</div>
+        <div className="seg-lista">{ordina(aperte).map((s) => <Segnalazione key={s.id} s={s} poi={api.ricarica} />)}</div>
         {!!decise.length && (
           <details>
             <summary className="piccolo" style={{ cursor: 'pointer' }}>Già decise · {decise.length} (si possono cambiare)</summary>
-            <div className="adm-due" style={{ marginTop: 10 }}>{decise.map((s) => <Segnalazione key={s.id} s={s} poi={api.ricarica} />)}</div>
+            <div className="seg-lista" style={{ marginTop: 10 }}>{decise.map((s) => <Segnalazione key={s.id} s={s} poi={api.ricarica} />)}</div>
           </details>
         )}
       </section>
