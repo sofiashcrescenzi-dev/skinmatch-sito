@@ -4,6 +4,7 @@ import { nelGruppo, PRODOTTI } from '@/lib/catalogo';
 import Foto from '@/components/Foto';
 import { Invito, Luna, Stendi } from '@/components/Inviti';
 import { ConTermini } from '@/components/Termini';
+import RicercaCentrale from '@/components/RicercaCentrale';
 
 const PASSI = [
   ['Rispondi guardandoti allo specchio', 'La fronte a metà giornata, la pelle dopo la detersione, i rossori: domande su quello che vedi, non su come pensi di essere.'],
@@ -34,6 +35,7 @@ export default function Home() {
             <h1 className="sopratitolo">Cosa metti sulla pelle, e perché</h1>
             <div className="scala-fototipi" role="img" aria-label="I sei fototipi della pelle"><i /><i /><i /><i /><i /><i /></div>
             <p className="intro">Ogni prodotto con la sua scheda: gli attivi e le percentuali, per quale pelle, quanto è forte, se va bene in gravidanza, quanto costa. Puoi informarti da solo, o fare il test: parte dalla tua pelle e ti propone una routine.</p>
+            <RicercaCentrale quanti={PRODOTTI.length} />
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: 10 }}>
               <Invito href="/test" scuro>Fai il test</Invito>
               <Link href="/catalogo" className="bottone secondario">Esplora i prodotti</Link>

@@ -37,6 +37,9 @@ const PROBLEMI: [string, string, (p: Prodotto) => boolean][] = [
   ['crespi', 'Capelli secchi e crespi', (p) => !!p.hairConcerns?.includes('secchi-crespi')],
 ];
 type Filtri = { categoria: string; tag: string[]; senza: string[]; attivo: string; pelle: string; problema: string; marca: string; q: string; ordina: string };
+const VUOTE = new Set('a ad al alla allo ai agli con col da dal dalla dei del della delle di e ed gli i il in la le lo l per su un una uno che mi serve cerco vorrei qualcosa'.split(' '));
+const norma = (s: string) => s.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+
 const VUOTI: Filtri = { categoria: '', tag: [], senza: [], attivo: '', pelle: '', problema: '', marca: '', q: '', ordina: 'consigliati' };
 
 export default function Catalogo({ categoria: c0 = '', tag: t0 = '' }: { categoria?: string; tag?: string }) {
@@ -67,7 +70,12 @@ export default function Catalogo({ categoria: c0 = '', tag: t0 = '' }: { categor
   const cat = CATALOGO.categorie.find((x) => x.id === f.categoria);
   const att = ATTIVI.find((a) => a.id === f.attivo);
   const pro = PROBLEMI.find((x) => x[0] === f.problema);
-  const parole = f.q.trim().toLowerCase().split(/\s+/).filter(Boolean);
+  // ⚠️ LA RICERCA SI SCRIVE COME SI PARLA (18/10/2026, con la ricerca al centro della home): «crema per pelle
+  // secca» trovava 3 prodotti, perché voleva ogni parola tale e quale, «per» compreso. Ora le parole vuote non
+  // contano, il singolare trova il plurale (pelle/pelli, secca/secche), gli accenti non pesano, e conta anche il
+  // tipo di pelle della scheda.
+  const parole = norma(f.q).split(/[^a-z0-9%]+/).filter((w) => w && !VUOTE.has(w))
+    .map((w) => (w.length > 4 ? w.replace(/[aeiou]$/, '').replace(/([cg])h$/, '$1') : w));
   // ogni filtro, da solo: così ogni menu conta i prodotti tenendo conto degli altri filtri
   const regole: Record<string, (p: Prodotto) => boolean> = {
     categoria: (p) => !cat || inCategoria(p, cat),
@@ -78,7 +86,11 @@ export default function Catalogo({ categoria: c0 = '', tag: t0 = '' }: { categor
     pelle: (p) => !f.pelle || !!p.skinTypes?.includes(f.pelle as never),
     problema: (p) => !pro || pro[2](p),
     marca: (p) => !f.marca || p.brand === f.marca,
-    q: (p) => parole.every((w) => `${p.brand} ${p.name} ${p.subtitle || ''} ${p.description} ${(p.scheda?.attivi || []).map((a) => a.nome).join(' ')}`.toLowerCase().includes(w)),
+    q: (p) => {
+      if (!parole.length) return true;
+      const t = norma(`${p.brand} ${p.name} ${p.subtitle || ''} ${p.description} ${(p.scheda?.attivi || []).map((a) => a.nome).join(' ')} ${(p.skinTypes || []).map((x) => `pelle ${x}`).join(' ')}`);
+      return parole.every((w) => t.includes(w));
+    },
   };
   const tranne = (k: string) => PRODOTTI.filter((p) => Object.entries(regole).every(([r, fn]) => r === k || fn(p)));
   const lista = useMemo(() => {
