@@ -1130,5 +1130,22 @@
   "larghezza": 1600,
   "altezza": 2400,
   "originale": "media/foto/rivista-spicole-pdrn.jpg"
+ },
+ {
+  "nome": "rivista-niacinamide-percentuale",
+  "alt": "Un ragazzo con i dreadlocks raccolti si mette qualche goccia di siero sulla fronte col contagocce",
+  "autore": "RDNE Stock project",
+  "autore_pagina": "https://www.pexels.com/@rdne",
+  "pagina": "https://www.pexels.com/photo/man-with-dreadlocks-and-necklace-applying-skin-serum-12322962/",
+  "pexels_id": 12322962,
+  "licenza": "Licenza Pexels (uso libero, citazione gradita)",
+  "uso": [
+   "rivista: copertina dell'articolo niacinamide-percentuale",
+   "social"
+  ],
+  "fuoco": "62% 35%",
+  "larghezza": 1600,
+  "altezza": 1066,
+  "originale": "media/foto/rivista-niacinamide-percentuale.jpg"
  }
 ]
