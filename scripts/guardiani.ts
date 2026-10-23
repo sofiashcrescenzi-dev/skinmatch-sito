@@ -90,7 +90,10 @@ for (const per of TEST.persone) {
     if (r.limiti.some((l) => l.area === a.area && l.solo_delicati) && s!.prodotto.sensitiveSafe !== true) pericoli.push(`${per.nome}: ${s!.prodotto.id} non delicato`);
   }
 }
-regola('persone tipo con un risultato diverso da quello atteso', sbagliate, 'BLOCCA');
+// ⚠️ LE PERSONE TIPO AVVISANO, NON FERMANO (23/10/2026, Federico: «mandare online e poi fate check»). Sono il
+// controllo degli agenti sul metodo: se il test cambia e una persona tipo cambia biotipo, la pubblicazione va
+// online lo stesso e l'avviso resta nell'esito, da guardare dopo. La sicurezza (qui sotto) invece ferma.
+regola('persone tipo con un risultato diverso da quello atteso', sbagliate, 'AVVISA');
 regola('prodotti non sicuri consigliati', pericoli, 'BLOCCA');
 
 // ogni percorso deve dare almeno un prodotto per area, rispondendo sempre la prima risposta

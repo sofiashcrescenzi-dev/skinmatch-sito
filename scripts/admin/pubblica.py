@@ -9,7 +9,8 @@ pubblicazioni, stato in_coda), oppure con --approvati se ci sono articoli approv
 2. scrive src/data/*.json dall'ultima versione salvata nell'admin (test, biotipi, glossario,
    catalogo) e gli articoli approvati in src/data/rivista.json;
 3. i biotipi, le categorie o i filtri tolti non lasciano 404: rinvio 301 in public/_redirects;
-4. i guardiani (scripts/guardiani.ts): se fermano, niente va online e l'admin lo dice;
+4. i guardiani (scripts/guardiani.ts): se fermano (struttura rotta, prodotti non sicuri), niente va online e
+   l'admin lo dice; gli avvisi (le persone tipo, dal 23/10) vanno online e restano nell'esito, da guardare dopo;
 5. build, commit «Redazione Skinmatch», push, deploy, IndexNow; poi segna tutto come pubblicato.
 
 ⚠️ Chi modifica a mano src/data/*.json nel repository li vede riscritti qui: si passa dall'admin.
@@ -145,6 +146,8 @@ def pubblica(coda, ids):
         g = run('npx', 'tsx', 'scripts/guardiani.ts', ok=False)
         if g.returncode:
             raise RuntimeError('I guardiani hanno fermato la pubblicazione:\n' + '\n'.join(l for l in g.stdout.splitlines() if '✗' in l)[:1200])
+        # gli avvisi non fermano (23/10/2026): vanno nell'esito, e gli agenti li guardano dopo
+        avvisi = [l.strip() for l in g.stdout.splitlines() if 'AVVISA' in l and ': 0,' not in l]
         run('npx', 'next', 'build')
         run('git', 'add', 'src/data', 'public', 'media')
         if run('git', 'diff', '--cached', '--quiet', ok=False).returncode:
@@ -160,7 +163,8 @@ def pubblica(coda, ids):
             sql(f"UPDATE documenti SET pubblicato_il = datetime('now') WHERE id = {i}")
         for x in articoli:
             sql(f"UPDATE articoli SET stato = 'online', pubblicato_il = coalesce(pubblicato_il, datetime('now')) WHERE id = {x['id']}")
-        esito = f"Online: {', '.join(fatto) or 'niente di nuovo da scrivere'} (home {prova})."
+        esito = f"Online: {', '.join(fatto) or 'niente di nuovo da scrivere'} (home {prova})." + (
+            ' Da guardare: ' + ' | '.join(avvisi)[:900] if avvisi else '')
         sql(f"UPDATE pubblicazioni SET stato = 'fatta', esito = {L(esito)}, fatta_il = datetime('now') WHERE id IN ({ids})")
         print(esito)
         return 0
