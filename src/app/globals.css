@@ -492,7 +492,7 @@ details.carta > summary::-webkit-details-marker { display: none; }
    testo, sul cacao dell'apertura. Il campo è la riga su cui si scrive, nel carattere dei titoli; diventa
    pesca quando si scrive. Niente scatola, niente ombra. ── */
 .ricerca-centrale { display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px 14px; max-width: 560px; min-width: 0; }
-.rc-cerco, .ricerca-centrale input { font-family: var(--font-titolo); font-size: clamp(26px, 3.4vw, 38px); line-height: 1.15; color: var(--latte); }
+.rc-cerco, .ricerca-centrale input { font-family: var(--font-titolo); font-size: clamp(22px, 2.6vw, 30px); line-height: 1.15; color: var(--latte); }
 .ricerca-centrale input { flex: 1 1 10ch; width: 10ch; min-width: 0; background: transparent; border: 0; border-bottom: 2px solid var(--latte);
   border-radius: 0; padding: 2px 0 5px; -webkit-appearance: none; appearance: none; }
 .ricerca-centrale input::placeholder { color: #bfa99c; opacity: 1; }
@@ -503,3 +503,9 @@ details.carta > summary::-webkit-details-marker { display: none; }
 .ricerca-centrale button:focus-visible { outline: 2px solid var(--f2); outline-offset: 3px; }
 .rc-esempi { flex-basis: 100%; font-size: 14.5px; line-height: 1.55; color: #d9c8be; margin-top: 2px; }
 .rc-esempi a { color: var(--latte); text-decoration: underline; text-decoration-color: rgba(250, 246, 244, .35); text-underline-offset: 3px; }
+
+/* ── IL TEST IN PRIMO PIANO (23/10/2026): un blocco suo nell'apertura, prima della ricerca. ── */
+.test-primo { display: grid; justify-items: start; gap: 12px; padding: clamp(16px, 2.4vw, 22px); border: 1px solid rgba(250, 246, 244, .28);
+  border-radius: var(--raggio); background: rgba(250, 246, 244, .06); max-width: 560px; }
+.test-primo .invito { min-height: 58px; font-size: 18px; padding: 0 28px 0 20px; white-space: normal; }
+.test-primo-sotto { font-size: 15px; line-height: 1.55; color: #d9c8be; }

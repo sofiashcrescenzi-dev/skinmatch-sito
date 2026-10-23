@@ -34,13 +34,15 @@ export default function Home() {
             <span className="etichetta">Skincare spiegata, scelta su di te</span>
             <h1 className="sopratitolo">Cosa metti sulla pelle, e perché</h1>
             <div className="scala-fototipi" role="img" aria-label="I sei fototipi della pelle"><i /><i /><i /><i /><i /><i /></div>
-            <p className="intro">Ogni prodotto con la sua scheda: gli attivi e le percentuali, per quale pelle, quanto è forte, se va bene in gravidanza, quanto costa. Puoi informarti da solo, o fare il test: parte dalla tua pelle e ti propone una routine.</p>
-            <RicercaCentrale quanti={PRODOTTI.length} />
-            <div style={{ display: 'flex', flexWrap: 'wrap', gap: 10 }}>
-              <Invito href="/test" scuro>Fai il test</Invito>
-              <Link href="/catalogo" className="bottone secondario">Esplora i prodotti</Link>
+            <p className="intro">Ogni prodotto con la sua scheda: gli attivi e le percentuali, per quale pelle, quanto è forte, se va bene in gravidanza, quanto costa.</p>
+            {/* ⚠️ IL TEST IN PRIMO PIANO (23/10/2026, Federico): è la porta principale del sito, prima della ricerca
+                e del catalogo. Un blocco suo, con cosa si fa e cosa se ne ricava. */}
+            <div className="test-primo">
+              <Invito href="/test" scuro>Fai il test della pelle</Invito>
+              <span className="test-primo-sotto">Domande su quello che vedi allo specchio. Ne escono il tuo biotipo e una routine, con un prodotto per ogni passaggio. Gratis, senza registrazione.</span>
             </div>
-            <span className="piccolo">{PRODOTTI.length} prodotti con la scheda. Il test è gratis, senza registrazione.</span>
+            <RicercaCentrale quanti={PRODOTTI.length} />
+            <Link href="/catalogo" className="piccolo" style={{ color: 'var(--latte)' }}>Oppure esplora tutti i {PRODOTTI.length} prodotti →</Link>
           </div>
           <div className="mezze" role="img" aria-label="Pelle vera, luce naturale, nelle due mezzelune del segno di Skinmatch">
             {/* una vera immagine, ad alta priorità: il browser la scopre subito (è il contenuto principale) */}
