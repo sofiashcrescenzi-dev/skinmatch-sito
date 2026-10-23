@@ -21,7 +21,7 @@ def _c(t):
 
 # ── il passaggio della routine ────────────────────────────────────────────────
 PASSAGGI = [
-    ('integratore', r'^(?!.*\b(shampo\w*|lozione|crema|siero|serum|sérum|balsamo|maschera|gel|spray|fiale|cerott\w*|patch\w*)\b).*(\b(compresse|capsule|bustine|softgel|perle|tavolette|gomme|cps|cpr|caps)\b|\bintegratore\b)'),
+    ('integratore', r'^(?!.*\b(shampo\w*|lozione|crema|siero|serum|sérum|balsamo|maschera|gel|spray|fiale|cerott\w*|patch\w*)\b).*(\b(compresse|capsule|bustine|softgel|perle|tavolette|gomme|cps|cpr|caps)\b|\bintegratore\b|\bcollagene\b.*\b(polvere|complex|\d+(?:[.,]\d+)?\s*g)\b)'),  # 23/10/2026: il collagene in polvere (Zreen) senza «capsule» nel titolo
     ('spf', r'\bspf ?\d+|protezione solare|solare viso|sunscreen|sun stick|fotoprotett|anthelios|photoderm|fusion water|heliocare 360|uv defense|uv mune'),
     # ciglia e sopracciglia non sono la cute né i capelli (il test proponeva un siero per sopracciglia al posto di un tonico per la cute, 15/10)
     ('ciglia e sopracciglia', r'sopraccigli\w*|\bciglia\b|\bciglie\b|\blash\w*|\bbrow\w*|mascara'),

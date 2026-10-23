@@ -375,5 +375,18 @@
   },
   "deciso_il": "2026-10-16",
   "spedizione_nel_confronto": false
+ },
+ "astonfarma": {
+  "prodotti": {
+   "af-972064404": "si",
+   "af-974016368": "si",
+   "af-991169816": "si",
+   "af-987867140": "si",
+   "af-979279243": "no",
+   "af-927291068": "no",
+   "af-986883472": "no"
+  },
+  "deciso_il": "2026-10-23",
+  "spedizione_nel_confronto": false
  }
 }

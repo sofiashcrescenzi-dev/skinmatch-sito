@@ -184,6 +184,54 @@ def beautycos(file=None):
         }
 
 
+# Astonfarma (23/10/2026, Federico: «aggiungili pure ma manteniamo un alto livello di dettaglio»): farmacia
+# generalista su Awin, unita a Skinmatch (programma 29949). Il feed lo scarica la chiave di Agoranomos; il link si
+# rifà con l'ID publisher di Skinmatch (AWIN_PUBLISHER_ID), così la vendita è di Skinmatch. Entrano solo le marche
+# scelte e, per quelle nuove, solo i prodotti scelti uno per uno (decisioni_negozi.json).
+# ⚠️ La «Biogena» di Astonfarma è l'italiana (Valetudo, dermocosmesi), non l'austriaca degli integratori.
+_MARCA_AF = [(r'metagenics', 'Metagenics'), (r'^norsan|san omega', 'Norsan')]
+
+
+_MINUSCOLE_AF = set('e di da del della con per al alla in a il la lo gli le senza ml g mg mcg cps cpr x compresse capsule bustine perle softgel tavolette'.split())
+
+
+def _maiuscole_af(t):
+    """I titoli di Astonfarma sono in minuscolo («Zreen collagene complex»): la linea si riconosce dalle maiuscole
+    (titoli.py), quindi si scrivono come quelli di Liki24 («Zreen Collagene Complex»)."""
+    return ' '.join(w if (not w.isalpha() or not w.islower() or w in _MINUSCOLE_AF) else w[:1].upper() + w[1:] for w in t.split())
+
+
+def astonfarma(file=None):
+    """Il catalogo di Astonfarma (Awin, CSV a virgole, gzip)."""
+    import csv, gzip, io
+    from urllib.parse import quote, urlsplit, urlunsplit
+    sorgente = file or segreto('FEED_ASTONFARMA')
+    if not sorgente:
+        raise SystemExit('Manca il feed di Astonfarma: FEED_ASTONFARMA in ~/.skinmatch-segreti.env, oppure --file')
+    grezzo = Path(sorgente).read_bytes() if Path(str(sorgente)).exists() else urllib.request.urlopen(sorgente, timeout=300).read()
+    try:
+        grezzo = gzip.decompress(grezzo)
+    except OSError:
+        pass
+    pub = segreto('AWIN_PUBLISHER_ID')
+    for r in csv.DictReader(io.StringIO(grezzo.decode('utf-8', 'replace'))):
+        if r.get('in_stock', '1') == '0':
+            continue
+        marca = next((m for rx, m in _MARCA_AF if re.search(rx, r.get('brand_name') or '', re.I)), r.get('brand_name') or '')
+        u = urlsplit(r.get('merchant_deep_link') or '')
+        pagina = urlunsplit((u.scheme, u.netloc, u.path, '', '')) if u.netloc else None
+        link = f"https://www.awin1.com/cread.php?awinmid={r.get('merchant_id') or 29949}&awinaffid={pub}&clickref=skinmatch&ued={quote(pagina, safe='')}" if pagina and pub else None
+        prezzo = _prezzo(r.get('search_price'))
+        yield {
+            'negozio': 'Astonfarma', 'id': r.get('merchant_product_id'), 'titolo': corretto(_maiuscole_af(pulito(r.get('product_name')))), 'marca': marca,
+            'descrizione': pulito(r.get('description')), 'prezzo': prezzo, 'prezzo_pieno': None,
+            'gtin': (r.get('ean') or r.get('product_GTIN') or '').strip() or None,
+            'immagine': r.get('merchant_image_url') or r.get('alternate_image') or r.get('aw_image_url'), 'link': link,
+            'misura_feed': None, 'prefisso': 'af', 'categoria_negozio': (r.get('merchant_category') or '').strip(),
+            'url_negozio': pagina,  # la pagina del negozio, per la revisione del PO (mai il link tracciato)
+        }
+
+
 # ── arricchimento ──────────────────────────────────────────────────────────────
 _OBF = None
 

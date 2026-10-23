@@ -45,6 +45,21 @@
    },
    "codici": [],
    "nota": "Approvato su Adtraction il 16/10/2026. Completa Liki24: entrano solo i prodotti scelti dal PO (decisioni_negozi.json)."
+  },
+  {
+   "id": "astonfarma",
+   "nome": "Astonfarma",
+   "rete": "Awin",
+   "commissione": null,
+   "attivo": true,
+   "spedizione": {
+    "costo": null,
+    "gratis_da": null,
+    "tempi": "",
+    "nota": ""
+   },
+   "codici": [],
+   "nota": "Awin, unito a Skinmatch. Dal 23/10/2026: solo integratori scelti uno per uno (Metagenics, Norsan Zreen), con ingredienti e quantità per dose."
   }
  ]
 }
