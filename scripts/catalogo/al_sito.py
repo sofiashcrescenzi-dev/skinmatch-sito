@@ -335,9 +335,16 @@ def costo(s):
     return c
 
 
+# ⚠️ LE PAROLE CHE FANNO UN ALTRO PRODOTTO (24/10/2026): «Norsan Omega 3 capsule» (olio di pesce) risultava lo stesso di
+# «Norsan Omega-3 Vegan capsule» (olio d'alga) e spariva. Se una di queste c'è in un nome solo, non è lo stesso.
+DISTINGUE = {'vegan', 'vegano', 'vegana', 'vegetariano', 'arktis', 'junior', 'kids', 'bambini', 'baby', 'uomo', 'donna',
+             'men', 'women', 'forte', 'strong', 'plus', 'total', 'notte', 'night', 'giorno', 'day', 'spray', 'gocce'}
+
+
 def trova(s, gia):
     """Lo stesso prodotto nel catalogo: stesso EAN, oppure stessa marca e nome quasi uguale, in qualsiasi formato
-    (un'altra misura dello stesso prodotto non serve). Nel dubbio è lo stesso: meglio un prodotto in meno che un doppione."""
+    (un'altra misura dello stesso prodotto non serve). Nel dubbio è lo stesso: meglio un prodotto in meno che un doppione.
+    Ma non nel dubbio: una forma diversa (olio e capsule) o una parola di DISTINGUE in un nome solo fanno due prodotti."""
     g = (s.get('gtin') or '').lstrip('0')
     if g and g in gia['gtin']:
         return gia['gtin'][g]
@@ -345,6 +352,8 @@ def trova(s, gia):
     for b, rec in gia['marca'].get(k(s['marca']), []):
         comuni = a & b
         if len(comuni) >= 2 and len(comuni) / max(1, min(len(a), len(b))) >= 0.75:
+            if (a ^ b) & DISTINGUE or (s.get('forma') and rec.get('forma') and s['forma'] != rec['forma']):
+                continue
             return rec
     return None
 
@@ -568,6 +577,7 @@ def main(candidati=None):
         for s in ss:
             n = re.sub(r'\s+', ' ', unicodedata.normalize('NFD', s['nome'].lower()).encode('ascii', 'ignore').decode())
             n = re.sub(r'\b(ricarica|refill|maxi|formato|confezione|promo|offerta)\b.*', '', n).strip(' ,')
+            n = f"{n}|{s.get('forma') or ''}"  # stesso nome ma forma diversa: due prodotti (segnalazione 28)
             tutti[n].append(s)
             if n not in per_nome or (s['al_10'] or 999) < (per_nome[n]['al_10'] or 999):
                 per_nome[n] = s
@@ -577,6 +587,9 @@ def main(candidati=None):
             mod = oggetto(per_nome[n])[2]
             if not mod:
                 continue
+            # ⚠️ STESSO MODELLO E STESSA FORMA (24/10/2026, segnalazione 28): l'olio e le capsule Omega-3 di Norsan, o
+            # una crema e un siero della stessa linea, sono due prodotti, non due formati
+            mod = (mod, per_nome[n].get('forma'))
             if mod in per_modello:
                 n0 = per_modello[mod]
                 tutti[n0] += tutti.pop(n)
