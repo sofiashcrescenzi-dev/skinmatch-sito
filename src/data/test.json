@@ -249,7 +249,7 @@
   {
    "id": "viso",
    "nome": "Viso",
-   "titolo": "Il test della pelle",
+   "titolo": "Il test della tua pelle",
    "descrizione": "Domande su quello che vedi allo specchio: lucidità, tensione, rossori, imperfezioni. Ne esce il tuo biotipo e una routine di tre, quattro o cinque passaggi.",
    "immagine": "test-viso",
    "aree": [
@@ -328,8 +328,8 @@
   },
   {
    "id": "completo",
-   "nome": "Tutto insieme",
-   "titolo": "Il test completo",
+   "nome": "Test Completo",
+   "titolo": "Il test che analizza la tua pelle e la tua cute",
    "descrizione": "Pelle, cute e integrazione in un solo giro, senza ripetere le domande in comune. La routine intera, con un integratore solo se serve.",
    "immagine": "test-completo",
    "aree": [
@@ -377,18 +377,18 @@
   {
    "id": "genere",
    "area": "comune",
-   "testo": "Per chi è la routine?",
+   "testo": "La routine è per...",
    "opzioni": [
     {
      "id": "donna",
-     "testo": "Per una donna",
+     "testo": "Una donna",
      "scelte": {
       "genere": "donna"
      }
     },
     {
      "id": "uomo",
-     "testo": "Per un uomo",
+     "testo": "Un uomo",
      "scelte": {
       "genere": "uomo"
      }
@@ -400,12 +400,18 @@
       "genere": "altro"
      }
     }
+   ],
+   "se": [
+    {
+     "asse": "sebo",
+     "min": 1
+    }
    ]
   },
   {
    "id": "eta",
    "area": "comune",
-   "testo": "Quanti anni hai?",
+   "testo": "Qual è il tuo range di età?",
    "opzioni": [
     {
      "id": "meno-25",
@@ -457,17 +463,23 @@
       "eta": "55-piu"
      }
     }
+   ],
+   "se": [
+    {
+     "asse": "sebo",
+     "min": 1
+    }
    ]
   },
   {
    "id": "tzona",
    "area": "pelle",
-   "testo": "A metà giornata, come sono fronte e naso?",
-   "aiuto": "Guardali allo specchio, con la luce del giorno, senza trucco.",
+   "testo": "Guarndandoti allo specchio, durante la giornata, naso e fronte tendono a diventare lucidi?",
+   "aiuto": "Importante: controllati senza luce del sole, e senza trucco applicato",
    "opzioni": [
     {
      "id": "opachi",
-     "testo": "Opachi come al mattino",
+     "testo": "No, rimangono opachi come al mattino.",
      "punti": {
       "sebo": 0
      },
@@ -477,7 +489,7 @@
     },
     {
      "id": "poco-lucidi",
-     "testo": "Un po' lucidi",
+     "testo": "Si in parte, diventano leggermente lucidi.",
      "punti": {
       "sebo": 1
      },
@@ -487,7 +499,7 @@
     },
     {
      "id": "lucidi",
-     "testo": "Lucidi",
+     "testo": "Si, diventano abbastanza lucidi.",
      "punti": {
       "sebo": 2
      },
@@ -497,7 +509,7 @@
     },
     {
      "id": "molto-lucidi",
-     "testo": "Molto lucidi, devo tamponare",
+     "testo": "Si, diventano tanto lucidi da dover tamponare.",
      "punti": {
       "sebo": 3
      },
@@ -505,30 +517,36 @@
       "zona_t": "lucida"
      }
     }
+   ],
+   "se": [
+    {
+     "asse": "sebo",
+     "min": 1
+    }
    ]
   },
   {
    "id": "guance",
    "area": "pelle",
-   "testo": "E le guance?",
+   "testo": "E invece le tue Guance, diventano più lucide?",
    "opzioni": [
     {
      "id": "opache",
-     "testo": "Opache, a volte tirano",
+     "testo": "No restano opache.",
      "punti": {
       "sebo": 0
      }
     },
     {
      "id": "normali",
-     "testo": "Normali",
+     "testo": "Non vedo cambiamenti visibili",
      "punti": {
       "sebo": 1
      }
     },
     {
      "id": "lucide",
-     "testo": "Lucide anche loro",
+     "testo": "Si, anche le guance diventano lucide",
      "punti": {
       "sebo": 2
      }
@@ -538,25 +556,25 @@
   {
    "id": "pori",
    "area": "pelle",
-   "testo": "I pori si vedono?",
+   "testo": "La tua pelle presenta pori visibili?",
    "opzioni": [
     {
      "id": "poco",
-     "testo": "Quasi per niente",
+     "testo": "No, non ho segni visibili",
      "punti": {
       "sebo": 0
      }
     },
     {
      "id": "naso",
-     "testo": "Sul naso",
+     "testo": "Si, ma solo sul naso",
      "punti": {
       "sebo": 1
      }
     },
     {
      "id": "guance",
-     "testo": "Anche sulle guance",
+     "testo": "Si, anche su altre parti del viso",
      "punti": {
       "sebo": 2
      }
@@ -566,25 +584,25 @@
   {
    "id": "tira",
    "area": "pelle",
-   "testo": "Dopo aver lavato il viso, senza mettere niente, la pelle:",
+   "testo": "Dopo esserti lavato il viso, prima di mettere qualsiasi prodotto, come risulta la tua pelle?",
    "opzioni": [
     {
      "id": "bene",
-     "testo": "Sta bene",
+     "testo": "Normale, idratata.",
      "punti": {
       "idr": 0
      }
     },
     {
      "id": "poco",
-     "testo": "Tira un po'",
+     "testo": "Leggermente secca.",
      "punti": {
       "idr": 1
      }
     },
     {
      "id": "molto",
-     "testo": "Tira molto, quasi brucia",
+     "testo": "Molto Secca, e a volte con un leggero bruciore",
      "punti": {
       "idr": 2,
       "re": 1
@@ -623,25 +641,25 @@
   {
    "id": "crema",
    "area": "pelle",
-   "testo": "Quando metti una crema, la pelle:",
+   "testo": "Quando utilizzi una crema idratante, la tua pelle come reagisce?",
    "opzioni": [
     {
      "id": "assorbe",
-     "testo": "La assorbe con calma",
+     "testo": "La assorbe con calma.",
      "punti": {
       "idr": 0
      }
     },
     {
      "id": "beve",
-     "testo": "La beve subito e poco dopo tira di nuovo",
+     "testo": "La assorbe subito ma non vedo effetti.",
      "punti": {
       "idr": 2
      }
     },
     {
      "id": "unta",
-     "testo": "Resta unta",
+     "testo": "Non la assorbe quasi per niente.",
      "punti": {
       "sebo": 1
      }
@@ -651,32 +669,32 @@
   {
    "id": "nuovo",
    "area": "pelle",
-   "testo": "Con un prodotto nuovo, la pelle:",
+   "testo": "Con un prodotto nuovo, la pelle come reagisce:",
    "opzioni": [
     {
      "id": "niente",
-     "testo": "Non reagisce",
+     "testo": "Normale, nessun effetto particolare.",
      "punti": {
       "re": 0
      }
     },
     {
      "id": "a-volte",
-     "testo": "A volte si arrossa",
+     "testo": "A volte si crea un leggero arrossamento.",
      "punti": {
       "re": 1
      }
     },
     {
      "id": "spesso",
-     "testo": "Si arrossa o pizzica spesso",
+     "testo": "Molto spesso si arrossa o pizzica",
      "punti": {
       "re": 2
      }
     },
     {
      "id": "sempre",
-     "testo": "Brucia anche con prodotti delicati",
+     "testo": "Brucia spesso, anche con prodotti delicati",
      "punti": {
       "re": 3
      }
@@ -686,32 +704,32 @@
   {
    "id": "rossore",
    "area": "pelle",
-   "testo": "Il rossore, quando arriva:",
+   "testo": "La tua pelle tende ad arrossarsi?",
    "opzioni": [
     {
      "id": "mai",
-     "testo": "Non mi capita",
+     "testo": "No, non mi è mai capitato.",
      "punti": {
       "re": 0
      }
     },
     {
      "id": "breve",
-     "testo": "Passa in pochi minuti",
+     "testo": "Capita saltuariamente e dura pochi attimi.",
      "punti": {
       "re": 0
      }
     },
     {
      "id": "ore",
-     "testo": "Dura ore",
+     "testo": "Capita spesso ma dura poco.",
      "punti": {
       "re": 1
      }
     },
     {
      "id": "sempre",
-     "testo": "È quasi sempre lì, con capillari visibili",
+     "testo": "Succede sempre e dura anche diverse ore.",
      "punti": {
       "re": 2
      },
@@ -722,39 +740,39 @@
   {
    "id": "brufoli",
    "area": "pelle",
-   "testo": "Punti neri e brufoli:",
+   "testo": "Il tuo viso presenta punti neri e/o brufoli?",
    "opzioni": [
     {
      "id": "mai",
-     "testo": "Quasi mai",
+     "testo": "No, non ne ho proprio.",
      "punti": {
       "imp": 0
      }
     },
     {
      "id": "punti-neri",
-     "testo": "Qualche punto nero",
+     "testo": "Ho giusto qualche punto nero",
      "punti": {
       "imp": 1
      }
     },
     {
      "id": "a-volte",
-     "testo": "Brufoli ogni tanto",
+     "testo": "Ho giusto qualche brufolo",
      "punti": {
       "imp": 2
      }
     },
     {
      "id": "spesso",
-     "testo": "Brufoli spesso",
+     "testo": "Ho tanti brufoli e punti neri",
      "punti": {
       "imp": 3
      }
     },
     {
      "id": "noduli",
-     "testo": "Noduli grossi e dolorosi",
+     "testo": "Ho molti agglomerati di brufoli e punti neri.",
      "punti": {
       "imp": 3
      },
@@ -765,7 +783,7 @@
   {
    "id": "macchie",
    "area": "pelle",
-   "testo": "Macchie scure o segni dei brufoli passati?",
+   "testo": "La tua pelle presenta macchie nere dovute a imperfezioni passate?",
    "opzioni": [
     {
      "id": "no",
@@ -776,32 +794,28 @@
     },
     {
      "id": "qualcuna",
-     "testo": "Qualcuna",
+     "testo": "Si, ma di piccole dimensioni",
      "punti": {
       "mac": 1
      }
     },
     {
      "id": "molte",
-     "testo": "Molte, o si scuriscono al sole",
+     "testo": "Si, di grandi dimensioni e si scuriscono al sole.",
      "punti": {
       "mac": 2
      }
     }
-   ]
+   ],
+   "aiuto": "Solitamente causate da una passata presenza di grossi agglomerati di brufoli o punti neri."
   },
   {
    "id": "condizioni",
    "area": "pelle",
    "multipla": true,
-   "testo": "Un medico ti ha diagnosticato una di queste?",
+   "testo": "Un medico ti ha mai diagnosticato una di queste condizioni?",
    "aiuto": "Puoi sceglierne più di una.",
    "opzioni": [
-    {
-     "id": "nessuna",
-     "testo": "Nessuna",
-     "esclusiva": true
-    },
     {
      "id": "dermatite",
      "testo": "Dermatite atopica",
@@ -816,6 +830,11 @@
      "id": "psoriasi",
      "testo": "Psoriasi",
      "limite": "psoriasi"
+    },
+    {
+     "id": "nessuna",
+     "testo": "Nessuna delle precedenti",
+     "esclusiva": true
     }
    ]
   },
@@ -888,46 +907,46 @@
   {
    "id": "obiettivo",
    "area": "pelle",
-   "testo": "Su cosa vuoi lavorare per primo?",
+   "testo": "Quali sono i principali problemi che vuoi risolvere?",
    "opzioni": [
     {
      "id": "idratazione",
-     "testo": "Idratazione e comfort",
+     "testo": "Comfort della pelle e Idratazione",
      "scelte": {
       "obiettivo": "idratazione"
      }
     },
     {
      "id": "imperfezioni",
-     "testo": "Brufoli e punti neri",
+     "testo": "Ridurre brufoli e punti neri",
      "scelte": {
       "obiettivo": "acne-sebo"
      }
     },
     {
      "id": "pori",
-     "testo": "Pori e grana della pelle",
+     "testo": "Gestione dei pori della pelle.",
      "scelte": {
       "obiettivo": "pori-dilatati"
      }
     },
     {
      "id": "macchie",
-     "testo": "Macchie e luminosità",
+     "testo": "Gestire le macchie e la luminosità della pelle",
      "scelte": {
       "obiettivo": "macchie-luminosita"
      }
     },
     {
      "id": "tempo",
-     "testo": "Segni del tempo",
+     "testo": "Ridurre i segni del tempo",
      "scelte": {
       "obiettivo": "anti-age"
      }
     },
     {
      "id": "calmare",
-     "testo": "Calmare rossori e fastidi",
+     "testo": "Calmare rossori e fastidi della pelle",
      "scelte": {
       "obiettivo": "rossori-sensibilita"
      }
@@ -941,21 +960,21 @@
    "opzioni": [
     {
      "id": "mai",
-     "testo": "Mai",
+     "testo": "No, Mai.",
      "scelte": {
       "esperienza": 0
      }
     },
     {
      "id": "a-volte",
-     "testo": "Qualche volta",
+     "testo": "Solo qualche volta",
      "scelte": {
       "esperienza": 1
      }
     },
     {
      "id": "spesso",
-     "testo": "Li uso abitualmente",
+     "testo": "Si, li uso abitualmente.",
      "scelte": {
       "esperienza": 2
      }
@@ -966,7 +985,7 @@
   {
    "id": "barba",
    "area": "pelle",
-   "testo": "Porti la barba?",
+   "testo": "Ogni quanto ti rasi la barba?",
    "se": [
     {
      "scelta": "genere",
@@ -978,23 +997,23 @@
    "opzioni": [
     {
      "id": "no",
-     "testo": "No, mi rado",
+     "testo": "Ogni giorno o quasi.",
      "scelte": {
       "barba": "no"
      }
     },
     {
      "id": "irritata",
-     "testo": "Sì, e la pelle sotto prude o si irrita",
+     "testo": "Una volta a settimana almeno",
      "scelte": {
-      "barba": "irritazione"
+      "barba": "mantenimento"
      }
     },
     {
      "id": "ok",
-     "testo": "Sì, senza fastidi",
+     "testo": "Non ho dei periodi fissi, ed ogni tanto si irrita",
      "scelte": {
-      "barba": "mantenimento"
+      "barba": "irritazione"
      }
     }
    ],
@@ -1003,25 +1022,25 @@
   {
    "id": "passi",
    "area": "pelle",
-   "testo": "Quanti passaggi vuoi fare ogni giorno?",
+   "testo": "Quante fasi ha la tua Skincare giornaliera?",
    "opzioni": [
     {
      "id": "tre",
-     "testo": "L'essenziale: 3",
+     "testo": "L’essenziale: Mattina e Sera",
      "scelte": {
       "passi": 3
      }
     },
     {
      "id": "quattro",
-     "testo": "Una routine completa: 4",
+     "testo": "Una Routine Completa, 4 fasi",
      "scelte": {
       "passi": 4
      }
     },
     {
      "id": "cinque",
-     "testo": "Quelli che servono: anche 5",
+     "testo": "Fin a 5 fasi diverse della giornata",
      "scelte": {
       "passi": 5
      }
@@ -1032,7 +1051,7 @@
   {
    "id": "cute_unta",
    "area": "cute",
-   "testo": "Dopo quanto tempo dallo shampoo le radici sono unte?",
+   "testo": "Dopo quanto tempo dallo shampoo le radici del cuoio capelluto sono unte?",
    "opzioni": [
     {
      "id": "un-giorno",
@@ -1057,7 +1076,7 @@
     },
     {
      "id": "mai",
-     "testo": "Restano pulite a lungo",
+     "testo": "Restano pulite anche una settimana.",
      "punti": {
       "cs": 0,
       "csec": 1
@@ -1068,18 +1087,18 @@
   {
    "id": "cute_tira",
    "area": "cute",
-   "testo": "Dopo lo shampoo, il cuoio capelluto:",
+   "testo": "Dopo lo shampoo, come senti il tuo cuoi capelluto?",
    "opzioni": [
     {
      "id": "bene",
-     "testo": "Sta bene",
+     "testo": "Direi che sta bene.",
      "punti": {
       "sens": 0
      }
     },
     {
      "id": "tira",
-     "testo": "Tira o prude un po'",
+     "testo": "Solitamente tira un po’.",
      "punti": {
       "csec": 1,
       "sens": 1
@@ -1087,7 +1106,7 @@
     },
     {
      "id": "brucia",
-     "testo": "Prude o brucia spesso, anche con shampoo delicati",
+     "testo": "Ho sempre prurito o fastidi.",
      "punti": {
       "sens": 2
      }
@@ -1111,7 +1130,7 @@
     },
     {
      "id": "secca",
-     "testo": "Scagliette bianche e sottili, che cadono sulle spalle",
+     "testo": "Si, solitamente mi cade sulle spalle.",
      "punti": {
       "desq": 2,
       "csec": 1
@@ -1122,7 +1141,7 @@
     },
     {
      "id": "grassa",
-     "testo": "Scaglie giallastre e unte, attaccate alla cute",
+     "testo": "Si e sono anche sedimenti grandi.",
      "punti": {
       "desq": 2,
       "cs": 1
