@@ -166,6 +166,10 @@ def scheda(r, extra_inci=None, segmento=None, dichiarati=None):
     # gli attivi con la percentuale dichiarata dal produttore, trovati da Zeno e approvati in admin («niacinamide 10%;
     # acido salicilico 2%»): la percentuale vale più di quella letta nel testo del negozio (16/10)
     if dichiarati:
+        # ⚠️ Con gli attivi dichiarati le percentuali vengono solo da lì: il testo del negozio può sbagliare
+        # (Liki24 scrive «acido ialuronico al 3%» per Avène Cleanance Comedomed, che ha il 3% di acido succinico, 23/10)
+        for x in att:
+            x['perc'] = None
         for voce in re.split(r'\s*;\s*', dichiarati):
             m = re.match(r'(.+?)\s*(?:(\d+(?:[.,]\d+)?)\s*%)?\s*$', voce.strip())
             if not m or not m.group(1):
