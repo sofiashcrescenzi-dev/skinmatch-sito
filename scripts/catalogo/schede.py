@@ -50,13 +50,44 @@ def decisioni():
     return {k(x['marca']): x for x in d['marche']}
 
 
-def scegli(r, dec):
+DEC_NEGOZI = json.loads((Path(__file__).parent / 'decisioni_negozi.json').read_text())
+PELLE_INT = r'capelli|unghie|pelle|cute|collagen|ialuronic|biotin|cheratin|cistin|astaxant|carotene|polypodium|fernblock|abbronzatura|sole|solare|hair|skin|nails|beauty|bellezza'
+NON_PELLE_INT = r'multivitamin|energia|immunitar|neuro|memoria|sonno|stanchezza|articolaz|digest|intestin|cardio|colesterol'
+
+
+def dose_fuori(r):
+    """⚠️ I DUE LIMITI DEL GIRO INTEGRATIVO (23/10/2026), anche per un prodotto scelto a mano: in Italia la melatonina
+    negli integratori arriva a 1 mg, e la vitamina D oltre 50 µg (2000 UI) al giorno la decide il medico."""
+    tit = r['titolo'].lower()
+    testo = (tit + ' ' + (r['descrizione'] or '')[:2000].lower()).replace(',', '.')
+    if 'melaton' in tit:
+        # la dose nel titolo vale più della descrizione, dove ci sono anche le dosi «per 100 g» e quelle per il jet lag
+        mg = [float(x) for x in re.findall(r'(\d+(?:\.\d+)?)\s*mg\b', tit.replace(',', '.'))] \
+            or [float(x) for x in re.findall(r'melatonin\w*.{0,30}?(\d+(?:\.\d+)?)\s*mg\b', testo)]
+        if not mg:
+            return 'melatonina senza la dose dichiarata'
+        if max(mg) > 1:
+            return 'melatonina oltre 1 mg'
+    ui = [float(x.replace('.', '')) for x in re.findall(r'(\d[\d.]*)\s*(?:ui|iu|u\.i\.)\b', tit)]
+    ug = [float(x) for x in re.findall(r'(\d+(?:[.,]\d+)?)\s*(?:mcg|µg|ug)\b', tit)] if re.search(r'\bd3?\b|vitamin[ae]? d', tit) else []
+    if (ui and max(ui) > 2000) or (ug and max(ug) > 50):
+        return 'vitamina D oltre 2000 UI'
+    return None
+
+
+def scegli(r, dec, negozio=None):
     """(tenere?, motivo, ruolo)"""
+    # scelto a mano in decisioni_negozi.json: vale anche fuori dalle linee della marca (Arkorelax Melatonyl, 23/10)
+    scelto = DEC_NEGOZI.get(negozio or '', {}).get('prodotti', {}).get(f"{r.get('prefisso', 'lk')}-{r['id']}") == 'si'
     x = dec.get(k(r['marca']))
     if not x:
         return False, 'marca non scelta', None
     if x['decisione'] == 'no':
         return False, 'marca esclusa', None
+    # Astonfarma entra solo prodotto per prodotto (23/10/2026): con le marche col loro nome entravano anche Fertiduo e
+    # Yabro di IBSA o i Solgar per le articolazioni
+    if negozio == 'astonfarma' and not scelto:
+        return False, 'Astonfarma: solo i prodotti scelti uno per uno', None
     t = r['titolo'].lower()
     for motivo, rx in ESCLUSI:
         if re.search(rx, t):
@@ -64,14 +95,23 @@ def scegli(r, dec):
     pas = traduci.passaggio(r['titolo'])
     if not pas:
         return False, 'non è un passaggio della routine', None
-    if pas == 'integratore' and not re.search(r'capelli|unghie|pelle|cute|collagen|ialuronic|biotin|cheratin|cistin|astaxant|carotene|polypodium|fernblock|abbronzatura|sole|solare|hair|skin|nails|beauty|bellezza', (r['titolo'] + ' ' + (r['descrizione'] or '')[:400]).lower()):
-        return False, 'integratore non per pelle, capelli o unghie', None
-    # i multivitaminici e quelli per altro (energia, difese, memoria) non sono per Skinmatch anche se la descrizione cita la pelle
-    if pas == 'integratore' and re.search(r'multivitamin|energia|immunitar|neuro|memoria|sonno|stanchezza|articolaz|digest|intestin|cardio|colesterol', r['titolo'].lower()):
-        return False, 'integratore non per pelle, capelli o unghie', None
+    # ⚠️ GLI INTEGRATORI CHE NON CONSIGLIAMO MAI (23/10/2026): 5-HTP, iperico e ashwagandha interagiscono con
+    # antidepressivi e altri farmaci e non hanno indicazioni autorizzate; i dimagranti non sono per Skinmatch
+    if pas == 'integratore' and re.search(r'5[- ]?htp|idrossitriptofano|griffonia|iperico|ashwagandha|withania|yohimb|dimagr|brucia ?grassi|drenant', k(r['titolo'] + ' ' + (r['descrizione'] or '')[:300])):
+        return False, 'integratore che non consigliamo (interazioni, nessuna indicazione autorizzata, dimagrante)', None
+    if pas == 'integratore':
+        # per la pelle: le parole della pelle, e non un multivitaminico o un prodotto per altro anche se la descrizione la cita
+        pelle = re.search(PELLE_INT, (r['titolo'] + ' ' + (r['descrizione'] or '')[:400]).lower()) and not re.search(NON_PELLE_INT, r['titolo'].lower())
+        # ⚠️ IL GIRO INTEGRATIVO (sonno, stanchezza, difese, vitamina D, omega-3, stress, B12) PRENDE SOLO I PRODOTTI SCELTI
+        # UNO PER UNO, con la dose verificata sulla descrizione: le confezioni estere di Liki24 restano fuori (23/10/2026)
+        if not pelle:
+            if not (scelto and any(re.search(rx, traduci._c(r['titolo'])) for rx in traduci.BENESSERE.values())):
+                return False, 'integratore non per pelle, capelli o unghie', None
+            if dose_fuori(r):
+                return False, dose_fuori(r), None
     nota = (x.get('nota') or '').lower()
     ruolo = 'alternativa' if 'alternativa' in nota else ('premium' if x['segmento'] in ('Medicale premium', 'Premium e lusso') else None)
-    if x['decisione'] == 'selezione' and x['linee'] and 'solo alternativa' not in nota:
+    if x['decisione'] == 'selezione' and x['linee'] and 'solo alternativa' not in nota and not scelto:
         if not any(k(l) in k(r['titolo']) for l in x['linee']):
             return False, 'fuori dalle linee scelte', None
     if 'con attivi' in nota and not [a for a in I.attivi(r['titolo'] + ' ' + (r['descrizione'] or '')[:800]) if a['nome'] != 'acqua termale']:
@@ -89,7 +129,7 @@ def main():
     approvati = fonti.arricchimenti_approvati() if a.arricchisci else {}
     schede, esclusi, grezzi = [], [], {}
     for r in getattr(fonti, a.negozio)(a.file):
-        tieni, motivo, ruolo = scegli(r, dec)
+        tieni, motivo, ruolo = scegli(r, dec, a.negozio)
         if not tieni:
             if motivo != 'marca non scelta':
                 esclusi.append({'marca': r['marca'], 'titolo': r['titolo'], 'motivo': motivo})

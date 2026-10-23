@@ -8,11 +8,15 @@ import SchedaProdotto from '@/components/SchedaProdotto';
 import { Stendi } from '@/components/Inviti';
 import Foto from '@/components/Foto';
 import { percheSimile } from '@/lib/simili';
+import { BISOGNI } from '@/lib/integratori';
 
 const SOPRA: Record<Area, string> = { pelle: 'Il tuo biotipo', cute: 'Il biotipo della tua cute', integrazione: 'Il tuo profilo' };
 
 export default function Risultato({ r, azioni, condiviso }: { r: R; azioni: React.ReactNode; condiviso?: boolean }) {
   const gravidanza = r.profilo.scelte.gravidanza === true;
+  const vegano = ['vegana', 'vegetariana'].includes(String(r.profilo.scelte.dieta));
+  // i bisogni del giro integrativo rimasti senza prodotto (il motore li conta nel tetto di tre)
+  const vuotiGiro = (a: R['aree'][number]) => (a.area === 'integrazione' ? a.vuoti.filter((ps) => ps.con_bisogno) : []);
   let n = 0;
   return (
     <div className="pila" style={{ ['--gap' as string]: 'clamp(28px, 5vw, 48px)' }}>
@@ -73,7 +77,7 @@ export default function Risultato({ r, azioni, condiviso }: { r: R; azioni: Reac
               </article>
             )}
 
-            {a.passaggi.length > 0 && (
+            {(a.passaggi.length > 0 || vuotiGiro(a).length > 0) && (
               <div className="pila" style={{ ['--gap' as string]: '14px' }}>
                 <h3 className="titolo-3">{a.area === 'integrazione' ? 'Il consiglio' : a.area === 'cute' ? 'La routine per la cute' : 'La tua routine'}</h3>
                 {a.passaggi.map((s) => {
@@ -100,6 +104,23 @@ export default function Risultato({ r, azioni, condiviso }: { r: R; azioni: Reac
                             </>} />
                         )}
                       </div>
+                    </div>
+                  );
+                })}
+                {/* ⚠️ UN BISOGNO DEL GIRO SENZA PRODOTTO (23/10/2026): il consiglio resta, con la sua indicazione. Succede a
+                    chi mangia vegano quando nessun integratore è dichiarato vegano: la B12 gli serve comunque. */}
+                {vuotiGiro(a).map((ps) => {
+                  n += 1;
+                  return (
+                    <div key={ps.id} className="pila" style={{ ['--gap' as string]: '8px' }}>
+                      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '4px 10px', alignItems: 'baseline' }}>
+                        <span className="titolo-3" style={{ fontSize: 17 }}>{n} · {ps.nome}</span>
+                        <span className="piccolo">{ps.quando}</span>
+                      </div>
+                      <p className="avviso">
+                        {BISOGNI.find((x) => x.chiave === ps.con_bisogno)?.principale?.replace(/^./, (c) => c.toUpperCase())}.{' '}
+                        {vegano ? 'Per ora nel catalogo non abbiamo un prodotto dichiarato vegano o vegetariano: chiedine uno in farmacia.' : 'Per ora nel catalogo non abbiamo un prodotto adatto alle tue risposte: chiedine uno in farmacia.'}
+                      </p>
                     </div>
                   );
                 })}

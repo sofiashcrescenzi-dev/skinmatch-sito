@@ -42,7 +42,15 @@ export type Concern =
   | 'rossori-sensibilita'
   | 'barriera-cutanea'
   | 'pori-dilatati'
-  | 'protezione-solare';
+  | 'protezione-solare'
+  // il giro integrativo (23/10/2026): solo negli integratori, li cercano i passaggi del test con «con_bisogno»
+  | 'sonno'
+  | 'energia'
+  | 'stress'
+  | 'difese'
+  | 'vitamina-d'
+  | 'omega-3'
+  | 'b12';
 export type HairConcern = 'caduta' | 'forfora' | 'secchi-crespi' | 'mantenimento';
 export type BeardConcern = 'irritazione' | 'mantenimento';
 export type ScalpType = 'grasso' | 'secco' | 'normale' | 'sensibile';
@@ -127,6 +135,7 @@ export type Scheda = {
   zona?: string | null; // viso, occhi, labbra, ciglia, cute, capelli, corpo, bimbi…
   forma?: string | null; // acqua micellare, gel, da lasciare…
   pezzi?: number | null; // capsule, fiale, cerotti
+  vegano?: boolean; // integratori: dichiarato vegano o vegetariano (il test lo chiede a chi non mangia carne o pesce)
   per?: 'uomo' | 'donna' | null;
   lavoro?: string[];
   principale?: { id: string; perc: number | null } | null;

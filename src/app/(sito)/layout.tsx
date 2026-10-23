@@ -1,9 +1,9 @@
 import Header from '@/components/Header';
 import Piede from '@/components/Piede';
-import { ARTICOLI } from '@/lib/dati';
+import { ARTICOLI, NOZIONI } from '@/lib/dati';
 
 export default function SitoLayout({ children }: { children: React.ReactNode }) {
-  const rivista = ARTICOLI.length > 0;
+  const rivista = ARTICOLI.length > 0 || NOZIONI.length > 0; // la Rivista ha anche «Lo sapevi che» (23/10)
   return (
     <>
       <Header rivista={rivista} />

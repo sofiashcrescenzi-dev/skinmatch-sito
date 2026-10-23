@@ -18,7 +18,7 @@ const TIPI_EVENTO = new Set(['test_inizio', 'test_fine', 'clic']);
 // solo percorsi e biotipi che esistono: nessuno scrive righe a caso nel Traffico (Friday, 15/10)
 const PERCORSI = new Set(test.percorsi.map((p) => p.id));
 const BIOTIPI = new Set(biotipi.biotipi.map((b) => b.id));
-const DOCUMENTI = new Set(['test', 'biotipi', 'glossario', 'catalogo', 'negozi']);
+const DOCUMENTI = new Set(['test', 'biotipi', 'glossario', 'catalogo', 'negozi', 'nozioni']);
 const STATI_ARTICOLO = new Set(['in_approvazione', 'da_correggere', 'approvato', 'online', 'scartato']);
 const STATI_SEGNALAZIONE = new Set(['aperta', 'in_lavoro', 'dopo', 'fatta', 'scartata']);
 const STATI_MARCA = new Set(['da_studiare', 'da_contattare', 'contattata', 'risposto', 'decisa']);

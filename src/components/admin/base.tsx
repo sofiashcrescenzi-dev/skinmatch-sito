@@ -36,7 +36,7 @@ export function useApi<T = unknown>(url: string | null) {
 
 type Storia = { id: number; chi: string; nota: string | null; creato_il: string; pubblicato_il: string | null };
 // Il documento in lavorazione: l'ultima versione salvata su D1 o, se non ce n'è, quella online.
-export function useDocumento<T>(tipo: 'test' | 'biotipi' | 'glossario' | 'catalogo' | 'negozi', online: T) {
+export function useDocumento<T>(tipo: 'test' | 'biotipi' | 'glossario' | 'catalogo' | 'negozi' | 'nozioni', online: T) {
   const api = useApi<{ ultimo: { id: number; dati: T; chi: string; creato_il: string; pubblicato_il: string | null } | null; storia: Storia[] }>(`/api/admin/documento?tipo=${tipo}`);
   const [dati, setDati] = useState<T | null>(null);
   const [base, setBase] = useState<number | null>(null);

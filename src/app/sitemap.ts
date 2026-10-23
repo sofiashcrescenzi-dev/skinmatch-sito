@@ -9,7 +9,7 @@ const BASE = 'https://skinmatch.it';
 
 // Solo le pagine da indicizzare: niente admin, niente rivista vuota.
 export default function sitemap(): MetadataRoute.Sitemap {
-  const pagine = ['', '/test', '/biotipi', '/catalogo', '/integratori', '/glossario', '/chi-siamo', ...(ARTICOLI.length ? ['/rivista'] : []), ...(completo() ? ['/privacy', '/cookie', '/note-legali'] : [])];
+  const pagine = ['', '/test', '/biotipi', '/catalogo', '/integratori', '/glossario', '/chi-siamo', ...(ARTICOLI.length ? ['/rivista'] : []), '/rivista/lo-sapevi-che', ...(completo() ? ['/privacy', '/cookie', '/note-legali'] : [])];
   return [
     ...pagine.map((p) => ({ url: `${BASE}${p}` })),
     ...BIOTIPI.map((b) => ({ url: `${BASE}/biotipi/${b.id}` })),

@@ -516,3 +516,12 @@ details.carta > summary::-webkit-details-marker { display: none; }
 .bisogno-attivi { color: var(--terra); }
 .attivi-ue { list-style: none; padding: 0; }
 .attivi-ue li { padding: 10px 14px; border-radius: var(--raggio-piccolo); background: var(--velo); line-height: 1.5; }
+
+/* LE NOZIONI (23/10/2026): la pausa del test e la scheda «Lo sapevi che» della Rivista */
+.nozione { background: var(--velo); border-color: transparent; --gap: 12px; }
+.nozione .opzione { min-height: 48px; padding: 12px 16px; font-size: 15.5px; }
+.nozione .opzione:disabled { cursor: default; }
+.nozione .opzione[data-esito='giusta'] { border-color: var(--bene); background: var(--bene-tenue); color: var(--testo); font-weight: 600; }
+.nozione .opzione[data-esito='sbagliata'] { border-color: var(--attenzione); background: var(--attenzione-tenue); color: var(--testo); }
+.nozione-esito { font-weight: 700; }
+.schede-rivista { display: flex; flex-wrap: wrap; gap: 8px; }

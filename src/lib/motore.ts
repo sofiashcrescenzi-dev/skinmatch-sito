@@ -18,6 +18,7 @@
 import { TEST, BIOTIPI, type Area, type Biotipo, type Condizione, type Domanda, type Limite, type Passaggio, type Percorso, type Test, type Valore } from './dati';
 import { PRODOTTI, rispetta, type Prodotto } from './catalogo';
 import { simili, menoCaro, zonaDi, formaDi } from './simili';
+import { BISOGNI } from './integratori';
 
 // dove si mette un prodotto, per area del test (la zona la legge scripts/catalogo/traduci.py zona()): la crema per il
 // pannolino finita tra i trattamenti per capelli, il contorno occhi con SPF tra i solari, il gel per le unghie tra le
@@ -123,6 +124,28 @@ const ATTIVI_INTEGRAZIONE: Record<string, string[]> = {
   'acne-sebo': ['zinco', 'niacinamide'],
   'macchie-luminosita': ['vitamina C'],
   'protezione-solare': ['vitamina C'],
+  // il giro integrativo (23/10/2026): gli attivi con l'indicazione autorizzata (src/lib/integratori.ts)
+  sonno: ['melatonina'],
+  energia: ['magnesio', 'vitamina B12', 'vitamina B6', 'vitamina C'],
+  stress: ['magnesio', 'vitamina B6', 'vitamina B12'],
+  difese: ['vitamina C', 'vitamina D', 'zinco', 'selenio'],
+  'vitamina-d': ['vitamina D'],
+  'omega-3': ['EPA', 'DHA'],
+  b12: ['vitamina B12'],
+};
+
+// ⚠️ IL GIRO INTEGRATIVO (23/10/2026, Federico: «mancanza di sonno, vitamina C, cose per cui serve un giro
+// integrativo»): ogni bisogno è un passaggio dell'area «integrazione» con il suo asse (sonno, energia, difese...).
+// Si consigliano al massimo MASSIMO_INTEGRATORI prodotti, prima i bisogni con più punti: tre integratori sono già
+// tanti, e chi ha tutto un po' non deve tornare a casa con sette barattoli.
+const MASSIMO_INTEGRATORI = 3;
+// i bisogni del giro: non valgono per il passaggio di pelle, capelli e unghie (una melatonina non è per la pelle)
+const GIRO = new Set(['sonno', 'energia', 'stress', 'difese', 'vitamina-d', 'omega-3', 'b12']);
+// La forza di un passaggio: i punti dell'asse delle sue condizioni; quello di pelle, capelli e unghie è una scelta
+// esplicita di chi risponde e vale come un bisogno forte.
+const forzaDi = (ps: Passaggio, p: Profilo) => {
+  const assi = (ps.se || []).filter((c) => c.asse && !c.no).map((c) => p.punti[c.asse!] || 0);
+  return assi.length ? Math.max(...assi) : 3;
 };
 
 export type Scelto = { prodotto: Prodotto; compat: number; livello: 'alta' | 'media'; perche: string[] };
@@ -183,10 +206,14 @@ function compatibilita(x: Prodotto, area: Area, ps: Passaggio, b: Bisogni, p: Pr
     s += Math.min(20, evitaDi(p).filter((k) => x.scheda?.senza?.includes(k)).length * 10);
   } else {
     const c = x.concerns || [], h = x.hairConcerns || [];
-    if (c.some((k) => b.concerns.has(k))) s += 45;
-    if (h.some((k) => b.capelli.has(k))) s += 45;
+    // un passaggio del giro integrativo cerca il suo bisogno (il prodotto ce l'ha: lo filtra «con_bisogno»)
+    if (ps.con_bisogno) s += 60;
+    else {
+      if (c.some((k) => b.concerns.has(k) && !GIRO.has(k))) s += 45;
+      if (h.some((k) => b.capelli.has(k))) s += 45;
+    }
     const att = new Set((x.scheda?.attivi || []).map((a) => a.nome));
-    const voluti = new Set([...b.capelli, ...b.concerns].flatMap((k) => ATTIVI_INTEGRAZIONE[k] || []));
+    const voluti = new Set((ps.con_bisogno ? [ps.con_bisogno] : [...b.capelli, ...b.concerns]).flatMap((k) => ATTIVI_INTEGRAZIONE[k] || []));
     s += Math.min(24, [...voluti].filter((a) => att.has(a)).length * 12);
     if (/\b50\+/.test(x.name) && p.scelte.menopausa !== true) s -= 25;
     s += 10;
@@ -197,7 +224,8 @@ function compatibilita(x: Prodotto, area: Area, ps: Passaggio, b: Bisogni, p: Pr
 function percheDi(x: Prodotto, area: Area, b: Bisogni, p: Profilo, biotipo: Biotipo | null): string[] {
   const r: string[] = [];
   if (biotipo && area !== 'integrazione') r.push('adatto a: ' + biotipo.titolo.toLowerCase());
-  const aiuti = [...(x.concerns || []), ...(x.hairConcerns || [])].filter((k) => b.concerns.has(k) || b.capelli.has(k)).slice(0, 2);
+  // i bisogni del giro hanno già la loro indicazione autorizzata come primo «perché» (scegli)
+  const aiuti = [...(x.concerns || []), ...(x.hairConcerns || [])].filter((k) => !GIRO.has(k) && (b.concerns.has(k) || b.capelli.has(k))).slice(0, 2);
   if (aiuti.length) r.push('aiuta a ' + aiuti.map((k) => AIUTA[k] || k).join(' e '));
   const att = (x.scheda?.attivi || []).filter((a) => ATTIVI_CHIAVE.has(a.nome)).slice(0, 2);
   if (att.length) r.push('con ' + att.map((a) => a.nome + (a.perc ? ` ${String(a.perc).replace('.', ',')}%` : '')).join(' e '));
@@ -218,6 +246,8 @@ function scegli(area: Area, ps: Passaggio, p: Profilo, b: Bisogni, biotipo: Biot
     .filter((x) => !['creme', 'attivi'].includes(ps.categoria) || formaDi(x) !== 'detergente')
     .filter((x) => x.gender === 'unisex' || genere === 'altro' || genere === undefined || x.gender === genere)
     .filter((x) => p.scelte.gravidanza !== true || x.pregnancySafe === true)
+    // chi mangia vegano o vegetariano: niente olio di pesce né perle di gelatina, solo quelli dichiarati (23/10/2026)
+    .filter((x) => area !== 'integrazione' || !['vegana', 'vegetariana'].includes(String(p.scelte.dieta)) || x.scheda?.vegano === true)
     .filter((x) => !(delicati || (area === 'pelle' && re >= 3)) || x.sensitiveSafe === true)
     .filter((x) => !(area === 'pelle' && re >= 2) || x.sensitiveSafe !== false)
     // dalla scheda, come nel prototipo: i prodotti forti solo a chi usa già gli attivi; con un limite medico
@@ -241,7 +271,9 @@ function scegli(area: Area, ps: Passaggio, p: Profilo, b: Bisogni, biotipo: Biot
     if (nella && nella.c >= top.c - 10) top = nella;
   }
   const livello = (c: number): 'alta' | 'media' => (c >= 70 ? 'alta' : 'media');
-  const scelto = (v: { x: Prodotto; c: number }): Scelto => ({ prodotto: v.x, compat: v.c, livello: livello(v.c), perche: percheDi(v.x, area, b, p, biotipo) });
+  // nel giro integrativo il primo «perché» è l'indicazione autorizzata del bisogno, parola per parola (integratori.ts)
+  const indicazione = area === 'integrazione' && ps.con_bisogno ? BISOGNI.find((x) => x.chiave === ps.con_bisogno)?.principale : undefined;
+  const scelto = (v: { x: Prodotto; c: number }): Scelto => ({ prodotto: v.x, compat: v.c, livello: livello(v.c), perche: [...(indicazione ? [indicazione] : []), ...percheDi(v.x, area, b, p, biotipo)] });
   // l'alternativa: la più compatibile che costa almeno un quinto in meno; se il consigliato
   // è già il più economico, quella premium più compatibile
   // ⚠️ L'ALTERNATIVA FA LO STESSO LAVORO (Friday, 15/10: una crema per i brufoli proposta come
@@ -271,7 +303,11 @@ export function consiglia(percorso: Percorso, risposte: Risposte): Risultato {
     const delicati = limiti.some((l) => l.area === area && l.solo_delicati);
     const passaggi: PassaggioScelto[] = [];
     const vuoti: Passaggio[] = [];
-    for (const ps of T.passaggi.filter((x) => x.area === area && valgonoTutte(x.se, p))) {
+    let da = T.passaggi.filter((x) => x.area === area && valgonoTutte(x.se, p));
+    if (area === 'integrazione') da = da.map((ps, i) => ({ ps, i, f: forzaDi(ps, p) })).sort((u, v) => v.f - u.f || u.i - v.i).map((x) => x.ps);
+    for (const ps of da) {
+      // anche un bisogno senza prodotto conta: il consiglio si mostra lo stesso (la B12 per chi mangia vegano)
+      if (area === 'integrazione' && passaggi.length + vuoti.length >= MASSIMO_INTEGRATORI) break;
       const s = scegli(area, ps, p, b, biotipo, delicati, usati);
       if (s) passaggi.push(s);
       else vuoti.push(ps);

@@ -1,4 +1,4 @@
-// I DATI DEL SITO: test, biotipi, glossario, catalogo, rivista.
+// I DATI DEL SITO: test, biotipi, glossario, catalogo, rivista, nozioni.
 //
 // ⚠️ Stanno in src/data/*.json e si modificano dall'admin (skinmatch.it/admin): la
 // pubblicazione dell'admin (scripts/admin/pubblica.py) riscrive quei file, li prova con i
@@ -12,6 +12,7 @@ import catalogo from '@/data/catalogo.json';
 import rivista from '@/data/rivista.json';
 import attivi from '@/data/attivi.json';
 import negozi from '@/data/negozi.json';
+import nozioni from '@/data/nozioni.json';
 
 export type Area = 'pelle' | 'cute' | 'integrazione';
 export type AreaDomanda = Area | 'comune';
@@ -219,3 +220,20 @@ export function immagine(nome: string): { src: string; piccola: string; alt: str
 // La foto di un biotipo: la sua (biotipo-<id>, una per biotipo, così le pagine non ripetono la
 // stessa immagine — il PO, 15/10/2026), altrimenti quella della sua famiglia.
 export const fotoDi = (b: { id: string; famiglia: string }) => (CREDITI.some((c) => c.nome === `biotipo-${b.id}`) ? `biotipo-${b.id}` : b.famiglia);
+
+// LE NOZIONI (23/10/2026, Federico: «i funnel più interattivi: ogni 4-5 domande un "lo sapevi che…", una nozione
+// storica, tutte correlate»). Le scrive Zeno, con una fonte ciascuna; compaiono nel test dopo la domanda `dopo` e
+// tutte insieme nella Rivista, scheda «Lo sapevi che» (/rivista/lo-sapevi-che).
+export type Nozione = {
+  id: string;
+  tipo: 'lo-sapevi' | 'storia' | 'quiz';
+  dopo: string;
+  titolo: string;
+  testo: string;
+  fonte: string;
+  fonte_nome: string;
+  quiz?: { domanda: string; opzioni: string[]; giusta: number };
+  legame?: string;
+};
+export const NOZIONI = (nozioni as unknown as { nozioni: Nozione[] }).nozioni;
+export const TIPO_NOZIONE: Record<Nozione['tipo'], string> = { 'lo-sapevi': 'Lo sapevi che…', storia: 'Un po\' di storia', quiz: 'Mettiti alla prova' };

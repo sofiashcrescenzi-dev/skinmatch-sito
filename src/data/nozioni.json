@@ -1,0 +1,423 @@
+{
+ "_nota": "Le pause del test, «Lo sapevi che…», le storie e i quiz (23/10/2026, scritte da Zeno). Compaiono nel test dopo la domanda «dopo» e tutte insieme nella Rivista. Si modificano da skinmatch.it/admin/nozioni: questo file lo riscrive la pubblicazione.",
+ "nozioni": [
+  {
+   "id": "sebo-palmi",
+   "tipo": "quiz",
+   "dopo": "pori",
+   "titolo": "Dove non c'è sebo",
+   "testo": "Sui palmi delle mani e sulle piante dei piedi non ci sono ghiandole sebacee. Sono più numerose su viso e cuoio capelluto: per questo fronte, naso e radici si ungono prima del resto.",
+   "fonte": "https://en.wikipedia.org/wiki/Sebaceous_gland",
+   "fonte_nome": "Wikipedia, Sebaceous gland",
+   "quiz": {
+    "domanda": "In quale parte del corpo non ci sono ghiandole sebacee?",
+    "opzioni": [
+     "Sul naso",
+     "Sui palmi delle mani",
+     "Sul cuoio capelluto"
+    ],
+    "giusta": 1
+   },
+   "legame": "/glossario/sebo"
+  },
+  {
+   "id": "comedone-mangione",
+   "tipo": "storia",
+   "dopo": "pori",
+   "titolo": "Il comedone, cioè «il mangione»",
+   "testo": "Comedone viene dal latino comedo, «mangione». Nel Medioevo era il nome di vermi che si credeva mangiassero i cadaveri; il nome passò ai punti neri perché ricordano quei vermetti. In realtà sono pori chiusi da sebo e cellule morte.",
+   "fonte": "https://www.treccani.it/vocabolario/comedone/",
+   "fonte_nome": "Treccani, Vocabolario",
+   "legame": "/glossario/comedoni"
+  },
+  {
+   "id": "urea-pelle",
+   "tipo": "lo-sapevi",
+   "dopo": "crema",
+   "titolo": "L'urea è già nella tua pelle",
+   "testo": "L'urea non è solo un ingrediente da crema: la pelle la produce da sé. Fa parte del fattore naturale di idratazione, le piccole molecole che trattengono l'acqua nello strato più esterno. Le creme all'urea aggiungono quello che la pelle secca ha perso.",
+   "fonte": "https://pubmed.ncbi.nlm.nih.gov/34596890/",
+   "fonte_nome": "PubMed (Piquero-Casals e altri, 2021)",
+   "legame": "/glossario/urea"
+  },
+  {
+   "id": "ceramidi-tre-parti",
+   "tipo": "quiz",
+   "dopo": "crema",
+   "titolo": "Il cemento della pelle",
+   "testo": "Tra le cellule dello strato corneo c'è un cemento di grassi fatto di tre parti in quantità simili: ceramidi, colesterolo e acidi grassi. Quando le ceramidi calano, la barriera perde acqua: per questo le creme per pelli secche le rimettono, spesso con gli altri due.",
+   "fonte": "https://pubmed.ncbi.nlm.nih.gov/12553851/",
+   "fonte_nome": "PubMed (Coderch e altri, 2003)",
+   "quiz": {
+    "domanda": "Di cosa è fatto il «cemento» tra le cellule della pelle?",
+    "opzioni": [
+     "Solo acqua e sali",
+     "Ceramidi, colesterolo e acidi grassi",
+     "Collagene"
+    ],
+    "giusta": 1
+   },
+   "legame": "/glossario/ceramidi"
+  },
+  {
+   "id": "rosacea-sole",
+   "tipo": "quiz",
+   "dopo": "rossore",
+   "titolo": "Che cosa accende il rossore",
+   "testo": "In un sondaggio della National Rosacea Society su 1.066 persone con rosacea, il primo fattore scatenante era il sole (81%), poi lo stress emotivo (79%) e il caldo (75%). Per questo, con la pelle che si arrossa, la protezione solare viene prima di tutto.",
+   "fonte": "https://www.rosacea.org/rosacea-review/2002/summer/new-survey-pinpoints-leading-factors-that-trigger-symptoms",
+   "fonte_nome": "National Rosacea Society, sondaggio 2002",
+   "quiz": {
+    "domanda": "Per chi ha la rosacea, qual è il fattore scatenante più citato?",
+    "opzioni": [
+     "Il sole",
+     "Il caffè",
+     "Il freddo"
+    ],
+    "giusta": 0
+   },
+   "legame": "/glossario/rosacea"
+  },
+  {
+   "id": "pelle-sensibile-comune",
+   "tipo": "lo-sapevi",
+   "dopo": "rossore",
+   "titolo": "Succede a molti",
+   "testo": "Una revisione di 26 studi su più di 51.000 persone in 18 Paesi: il 71% dice di avere la pelle almeno un po' sensibile e il 40% abbastanza o molto. In Europa la quota è più alta che in Asia e in America. Le donne la segnalano più degli uomini.",
+   "fonte": "https://pubmed.ncbi.nlm.nih.gov/31869523/",
+   "fonte_nome": "PubMed (Chen e altri, 2020)",
+   "legame": "/glossario/reattiva"
+  },
+  {
+   "id": "primo-solare-chinino",
+   "tipo": "storia",
+   "dopo": "macchie",
+   "titolo": "Il primo solare era al chinino",
+   "testo": "Nel 1891 il medico tedesco Hammer preparò una crema al chinino per proteggere la pelle dal sole: è considerato il primo solare. Prima c'erano solo veli, cappelli e ombrelli. I filtri moderni arrivano dagli anni '20 in poi.",
+   "fonte": "https://pubmed.ncbi.nlm.nih.gov/11744395/",
+   "fonte_nome": "PubMed (Urbach, 2001)",
+   "legame": "/glossario/spf"
+  },
+  {
+   "id": "uva-finestra",
+   "tipo": "lo-sapevi",
+   "dopo": "macchie",
+   "titolo": "Il sole passa dalla finestra",
+   "testo": "Il vetro delle finestre ferma gli UVB, quelli che scottano, ma lascia passare gli UVA, che arrivano anche con le nuvole. Gli UVA sono fino al 95% dei raggi ultravioletti che ci raggiungono e contano nelle macchie. Vale anche in macchina e in ufficio.",
+   "fonte": "https://www.skincancer.org/risk-factors/uv-radiation/",
+   "fonte_nome": "Skin Cancer Foundation",
+   "legame": "/glossario/uva"
+  },
+  {
+   "id": "segni-brufoli-fototipo",
+   "tipo": "quiz",
+   "dopo": "macchie",
+   "titolo": "I segni dei brufoli e la carnagione",
+   "testo": "La macchia scura che resta dopo un brufolo si chiama iperpigmentazione post-infiammatoria. Colpisce più spesso e più a lungo le pelli scure. Si parte calmando l'infiammazione, e la crema solare fa parte della cura.",
+   "fonte": "https://pubmed.ncbi.nlm.nih.gov/20725554/",
+   "fonte_nome": "PubMed (Davis e Callender, 2010)",
+   "quiz": {
+    "domanda": "Su quali pelli i segni scuri dei brufoli restano più spesso?",
+    "opzioni": [
+     "Sulle pelli chiare",
+     "Sulle pelli scure",
+     "Non c'è differenza"
+    ],
+    "giusta": 1
+   },
+   "legame": "/glossario/macchie"
+  },
+  {
+   "id": "kligman-1969",
+   "tipo": "storia",
+   "dopo": "esperienza",
+   "titolo": "1969: la vitamina A contro l'acne",
+   "testo": "Nel 1969 il dermatologo Albert Kligman pubblicò uno studio sulla tretinoina, un derivato della vitamina A, applicata sulla pelle con l'acne. Da lì sono nati i retinoidi di oggi, compreso il retinolo dei cosmetici, più delicato.",
+   "fonte": "https://pubmed.ncbi.nlm.nih.gov/4238828/",
+   "fonte_nome": "PubMed (Kligman e altri, 1969)",
+   "legame": "/glossario/retinoidi"
+  },
+  {
+   "id": "aha-sole-settimana",
+   "tipo": "lo-sapevi",
+   "dopo": "esperienza",
+   "titolo": "Gli acidi e il sole",
+   "testo": "Secondo la FDA, dopo quattro settimane di creme con acidi esfolianti (AHA) la pelle si arrossava col sole il 18% più facilmente. Una settimana dopo aver smesso, la differenza era sparita. Per questo con gli acidi si usa la protezione solare, anche dopo.",
+   "fonte": "https://www.fda.gov/cosmetics/cosmetic-ingredients/alpha-hydroxy-acids",
+   "fonte_nome": "FDA, Alpha Hydroxy Acids",
+   "legame": "/glossario/aha-pha"
+  },
+  {
+   "id": "vitamina-c-gialla",
+   "tipo": "quiz",
+   "dopo": "esperienza",
+   "titolo": "Il siero che cambia colore",
+   "testo": "La vitamina C pura (acido ascorbico) è instabile: con la luce e l'aria si ossida e diventa gialla, poi arancione. Per questo i sieri stanno in flaconi scuri e chiusi. Se il siero è diventato scuro, la vitamina C si è già ossidata.",
+   "fonte": "https://pubmed.ncbi.nlm.nih.gov/23741676/",
+   "fonte_nome": "PubMed (Telang, 2013)",
+   "quiz": {
+    "domanda": "Un siero alla vitamina C diventato arancione è…",
+    "opzioni": [
+     "Più concentrato",
+     "Ossidato",
+     "Normale, succede sempre"
+    ],
+    "giusta": 1
+   },
+   "legame": "/glossario/vitc"
+  },
+  {
+   "id": "shampoo-massaggiare",
+   "tipo": "storia",
+   "dopo": "cute_tira",
+   "titolo": "Shampoo vuol dire «massaggia»",
+   "testo": "Shampoo viene dall'inglese to shampoo, «frizionare», che a sua volta viene dall'hindi chāmpo, «massaggia». Prima di indicare un detergente, la parola indicava un gesto: il massaggio della testa.",
+   "fonte": "https://www.treccani.it/vocabolario/shampoo/",
+   "fonte_nome": "Treccani, Vocabolario",
+   "legame": "/glossario/cuoio-capelluto"
+  },
+  {
+   "id": "ph-cuoio-capelluto",
+   "tipo": "quiz",
+   "dopo": "cute_tira",
+   "titolo": "Il cuoio capelluto è acido",
+   "testo": "Il cuoio capelluto ha un pH intorno a 5,5, leggermente acido. In uno studio su 123 shampoo, più di sei su dieci avevano un pH più alto. Un pH alcalino aumenta l'attrito tra i capelli e li rende più crespi.",
+   "fonte": "https://pubmed.ncbi.nlm.nih.gov/25210332/",
+   "fonte_nome": "PubMed (Gavazzoni Dias e altri, 2014)",
+   "quiz": {
+    "domanda": "Il cuoio capelluto è…",
+    "opzioni": [
+     "Leggermente acido",
+     "Neutro, come l'acqua",
+     "Basico, come il sapone"
+    ],
+    "giusta": 0
+   },
+   "legame": "/glossario/cuoio-capelluto"
+  },
+  {
+   "id": "capelli-al-giorno",
+   "tipo": "lo-sapevi",
+   "dopo": "caduta",
+   "titolo": "Quanti capelli si perdono",
+   "testo": "È normale perderne da 50 a 100 al giorno. Dopo febbre alta, un parto, un intervento o uno stress forte, la caduta aumenta qualche mese dopo, non subito. Di solito si ferma da sola e in sei-nove mesi i capelli tornano come prima.",
+   "fonte": "https://www.aad.org/public/diseases/hair-loss/insider/shedding",
+   "fonte_nome": "American Academy of Dermatology",
+   "legame": "/glossario/caduta"
+  },
+  {
+   "id": "telogen-1961",
+   "tipo": "storia",
+   "dopo": "caduta",
+   "titolo": "1961: la caduta ha un nome",
+   "testo": "Nel 1961 il dermatologo Albert Kligman diede un nome a questa caduta: telogen effluvium. Molti capelli entrano insieme nella fase di riposo, il telogen, e cadono qualche mese dopo la causa. È la caduta reattiva di cui parla il test.",
+   "fonte": "https://pubmed.ncbi.nlm.nih.gov/13756813/",
+   "fonte_nome": "PubMed (Kligman, 1961)",
+   "legame": "/biotipi/caduta-reattiva"
+  },
+  {
+   "id": "sopracciglia-capelli",
+   "tipo": "quiz",
+   "dopo": "caduta",
+   "titolo": "Perché le sopracciglia restano corte",
+   "testo": "Un capello del cuoio capelluto cresce per due-otto anni prima di fermarsi; un pelo delle sopracciglia solo due-tre mesi. È la durata della fase di crescita, l'anagen, a decidere quanto può diventare lungo.",
+   "fonte": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9917549/",
+   "fonte_nome": "PubMed Central (Natarelli e altri, 2023)",
+   "quiz": {
+    "domanda": "Quanto dura la fase di crescita di un capello?",
+    "opzioni": [
+     "Qualche settimana",
+     "Qualche mese",
+     "Da due a otto anni"
+    ],
+    "giusta": 2
+   },
+   "legame": "/glossario/caduta"
+  },
+  {
+   "id": "piastra-capelli-bagnati",
+   "tipo": "quiz",
+   "dopo": "trattamenti",
+   "titolo": "La piastra sui capelli bagnati",
+   "testo": "Se la piastra o il phon molto caldo scaldano un capello ancora bagnato, l'acqua dentro bolle e lascia bollicine d'aria nel fusto: si chiama bubble hair. Il capello diventa secco e si spezza. Prima si asciuga, poi si liscia, con un termoprotettore.",
+   "fonte": "https://pmc.ncbi.nlm.nih.gov/articles/PMC3250009/",
+   "fonte_nome": "PubMed Central (Savitha e altri, 2011)",
+   "quiz": {
+    "domanda": "Cosa succede se passi la piastra sui capelli ancora bagnati?",
+    "opzioni": [
+     "Si lisciano meglio",
+     "L'acqua bolle dentro il capello",
+     "Niente di diverso"
+    ],
+    "giusta": 1
+   },
+   "legame": "/glossario/termoprotettore"
+  },
+  {
+   "id": "permanente-1906",
+   "tipo": "storia",
+   "dopo": "trattamenti",
+   "titolo": "1906: la prima permanente",
+   "testo": "Intorno al 1906, a Parigi, il parrucchiere Karl Nessler provò la prima permanente sulla sua compagna: ciocche avvolte su bacchette di metallo e scaldate con pinze elettriche. I primi tentativi le lasciarono delle bolle sul cuoio capelluto.",
+   "fonte": "https://en.wikipedia.org/wiki/Karl_Nessler",
+   "fonte_nome": "Wikipedia, Karl Nessler"
+  },
+  {
+   "id": "henne-nero-tinta",
+   "tipo": "lo-sapevi",
+   "dopo": "trattamenti",
+   "titolo": "L'henné nero e la tinta",
+   "testo": "Un tatuaggio all'henné nero può contenere molta PPD, la sostanza delle tinte che più spesso dà allergia. Chi ne ha fatto uno rischia di più una reazione alla tinta. Il servizio sanitario inglese consiglia di provare la tinta su una ciocca 48 ore prima.",
+   "fonte": "https://www.nhs.uk/conditions/hair-dye-reactions/",
+   "fonte_nome": "NHS, Hair dye reactions",
+   "legame": "/biotipi/capelli-trattati"
+  },
+  {
+   "id": "lerner-1958",
+   "tipo": "storia",
+   "dopo": "stress",
+   "titolo": "1958: la melatonina nasce in dermatologia",
+   "testo": "Nel 1958 Aaron Lerner, professore di dermatologia a Yale, isolò la melatonina dalle ghiandole pineali dei bovini. Cercava una sostanza utile per le malattie della pelle: il nome ricorda la melanina perché schiariva la pelle di alcuni anfibi. Oggi la conosciamo come l'ormone del buio.",
+   "fonte": "https://en.wikipedia.org/wiki/Melatonin#Discovery",
+   "fonte_nome": "Wikipedia, Melatonin; PubMed (Lewy, 2007)",
+   "legame": "/biotipi/riposo"
+  },
+  {
+   "id": "sonno-indicazione-ue",
+   "tipo": "quiz",
+   "dopo": "stress",
+   "titolo": "Quale aiuta davvero a prendere sonno",
+   "testo": "Nell'elenco UE delle indicazioni sulla salute c'è la melatonina: 1 mg poco prima di coricarsi «contribuisce alla riduzione del tempo richiesto per prendere sonno». Valeriana e camomilla non hanno un'indicazione autorizzata: chi le vende non può prometterlo.",
+   "fonte": "https://eur-lex.europa.eu/legal-content/IT/TXT/?uri=CELEX:32012R0432",
+   "fonte_nome": "Reg. (UE) 432/2012, EUR-Lex",
+   "quiz": {
+    "domanda": "Quale di queste ha un'indicazione autorizzata in UE per prendere sonno?",
+    "opzioni": [
+     "La valeriana",
+     "La melatonina",
+     "La camomilla"
+    ],
+    "giusta": 1
+   },
+   "legame": "/biotipi/riposo"
+  },
+  {
+   "id": "magnesio-b6-psicologica",
+   "tipo": "lo-sapevi",
+   "dopo": "stress",
+   "titolo": "Cosa dice la legge sulla calma",
+   "testo": "Per l'UE, magnesio e vitamina B6 «contribuiscono alla normale funzione psicologica»; il magnesio anche «alla riduzione della stanchezza e dell'affaticamento». Ashwagandha, rodiola e passiflora un'indicazione autorizzata non ce l'hanno.",
+   "fonte": "https://eur-lex.europa.eu/legal-content/IT/TXT/?uri=CELEX:32012R0432",
+   "fonte_nome": "Reg. (UE) 432/2012, EUR-Lex",
+   "legame": "/biotipi/calma"
+  },
+  {
+   "id": "lind-1747",
+   "tipo": "storia",
+   "dopo": "frutta",
+   "titolo": "1747: arance e limoni contro lo scorbuto",
+   "testo": "Il 20 maggio 1747, sulla nave Salisbury, il medico James Lind divise 12 marinai con lo scorbuto e provò sei rimedi diversi. Arance e limoni funzionarono meglio di tutto. È considerato uno dei primi studi clinici controllati. La ragione si capì quasi due secoli dopo: la vitamina C.",
+   "fonte": "https://pmc.ncbi.nlm.nih.gov/articles/PMC1276007/",
+   "fonte_nome": "PubMed Central (Tröhler, 2005); James Lind Library",
+   "legame": "/biotipi/difese"
+  },
+  {
+   "id": "vitamina-c-cavia",
+   "tipo": "quiz",
+   "dopo": "frutta",
+   "titolo": "Chi non sa fare la vitamina C",
+   "testo": "Quasi tutti i mammiferi producono da soli la vitamina C. L'uomo, le scimmie e la cavia no: il gene dell'ultimo passaggio, la GULO, si è spento. Per questo la vitamina C deve arrivare ogni giorno da frutta e verdura.",
+   "fonte": "https://pubmed.ncbi.nlm.nih.gov/14703305/",
+   "fonte_nome": "PubMed (Inai e altri, 2003)",
+   "quiz": {
+    "domanda": "Quale di questi animali, come noi, non produce la vitamina C?",
+    "opzioni": [
+     "Il cane",
+     "Il gatto",
+     "La cavia"
+    ],
+    "giusta": 2
+   },
+   "legame": "/biotipi/difese"
+  },
+  {
+   "id": "oms-400-grammi",
+   "tipo": "lo-sapevi",
+   "dopo": "frutta",
+   "titolo": "Quanta frutta e verdura",
+   "testo": "L'Organizzazione mondiale della sanità consiglia almeno 400 grammi di frutta e verdura al giorno a chi ha più di 10 anni. Sono la fonte principale di vitamina C, che per l'UE «contribuisce alla normale funzione del sistema immunitario».",
+   "fonte": "https://www.who.int/news-room/fact-sheets/detail/healthy-diet",
+   "fonte_nome": "OMS, Healthy diet; Reg. (UE) 432/2012",
+   "legame": "/biotipi/difese"
+  },
+  {
+   "id": "dyerberg-1971",
+   "tipo": "storia",
+   "dopo": "pesce",
+   "titolo": "1971: gli omega-3 e la Groenlandia",
+   "testo": "Nel 1971 i medici danesi Bang e Dyerberg studiarono il sangue degli Inuit della Groenlandia, che mangiavano molto grasso di pesce, foca e balena. Da lì nacque l'interesse per gli omega-3. Ricerche più recenti hanno ridimensionato l'idea che gli Inuit avessero meno infarti.",
+   "fonte": "https://pubmed.ncbi.nlm.nih.gov/4102857/",
+   "fonte_nome": "PubMed (Bang, Dyerberg e Nielsen, 1971; Fodor e altri, 2014)",
+   "legame": "/glossario/omega3"
+  },
+  {
+   "id": "omega3-alghe",
+   "tipo": "lo-sapevi",
+   "dopo": "pesce",
+   "titolo": "Gli omega-3 vengono dalle alghe",
+   "testo": "EPA e DHA, gli omega-3 del pesce, li producono in origine le microalghe del mare. I pesci li accumulano mangiando alghe o altri pesci. Per questo esistono anche integratori di olio d'alga, adatti a chi non mangia pesce.",
+   "fonte": "https://pubmed.ncbi.nlm.nih.gov/22830315/",
+   "fonte_nome": "PubMed (Adarme-Vega e altri, 2012)",
+   "legame": "/biotipi/omega-3"
+  },
+  {
+   "id": "huldschinsky-1919",
+   "tipo": "storia",
+   "dopo": "pesce",
+   "titolo": "1919: la lampada contro il rachitismo",
+   "testo": "Nel 1919 il pediatra Kurt Huldschinsky curò bambini con il rachitismo esponendoli a una lampada a raggi UV. Bastava illuminare un braccio perché migliorassero le ossa anche dell'altro: qualcosa nato nella pelle passava nel sangue. Era la vitamina D.",
+   "fonte": "https://pubmed.ncbi.nlm.nih.gov/24494042/",
+   "fonte_nome": "PubMed (Wacker e Holick, 2013)",
+   "legame": "/biotipi/vitamina-d"
+  },
+  {
+   "id": "vitamina-d-vetro",
+   "tipo": "quiz",
+   "dopo": "pesce",
+   "titolo": "Il sole dietro il vetro",
+   "testo": "La vitamina D si forma nella pelle grazie ai raggi UVB, e il vetro li ferma tutti. Stare al sole dietro una finestra non ne produce. Contano anche la stagione, l'ora, la latitudine, la carnagione e l'età.",
+   "fonte": "https://pubmed.ncbi.nlm.nih.gov/24494042/",
+   "fonte_nome": "PubMed (Wacker e Holick, 2013)",
+   "quiz": {
+    "domanda": "Stare al sole dietro una finestra chiusa fa produrre vitamina D?",
+    "opzioni": [
+     "Sì, come all'aperto",
+     "Sì, ma la metà",
+     "No, il vetro ferma gli UVB"
+    ],
+    "giusta": 2
+   },
+   "legame": "/biotipi/vitamina-d"
+  },
+  {
+   "id": "b12-batteri",
+   "tipo": "lo-sapevi",
+   "dopo": "dieta",
+   "titolo": "La B12 la fanno i batteri",
+   "testo": "La vitamina B12 non la producono né le piante né gli animali, ma solo alcuni batteri. Gli animali la accumulano, e noi la prendiamo da carne, pesce, latte e uova. Per questo chi mangia vegano ha bisogno di un integratore o di cibi arricchiti.",
+   "fonte": "https://pubmed.ncbi.nlm.nih.gov/29216732/",
+   "fonte_nome": "PubMed (Watanabe e Bito, 2018)",
+   "legame": "/glossario/b12"
+  },
+  {
+   "id": "nobel-1934-fegato",
+   "tipo": "storia",
+   "dopo": "dieta",
+   "titolo": "1934: il Nobel per il fegato",
+   "testo": "Nel 1934 il Nobel per la medicina andò a Whipple, Minot e Murphy per la terapia col fegato nelle anemie. Chi aveva l'anemia perniciosa migliorava mangiando fegato. Il motivo si scoprì più tardi: il fegato è ricco di vitamina B12.",
+   "fonte": "https://www.nobelprize.org/prizes/medicine/1934/summary/",
+   "fonte_nome": "Nobel Prize, Medicina 1934",
+   "legame": "/biotipi/vegana"
+  }
+ ]
+}

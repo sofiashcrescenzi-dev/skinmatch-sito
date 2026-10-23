@@ -189,7 +189,7 @@ def beautycos(file=None):
 # rifà con l'ID publisher di Skinmatch (AWIN_PUBLISHER_ID), così la vendita è di Skinmatch. Entrano solo le marche
 # scelte e, per quelle nuove, solo i prodotti scelti uno per uno (decisioni_negozi.json).
 # ⚠️ La «Biogena» di Astonfarma è l'italiana (Valetudo, dermocosmesi), non l'austriaca degli integratori.
-_MARCA_AF = [(r'metagenics', 'Metagenics'), (r'^norsan|san omega', 'Norsan')]
+_MARCA_AF = [(r'metagenics', 'Metagenics'), (r'^norsan|san omega', 'Norsan'), (r'^solgar', 'Solgar'), (r'^arkofarm|arkopharma', 'Arkopharma'), (r'^ibsa', 'IBSA')]
 
 
 _MINUSCOLE_AF = set('e di da del della con per al alla in a il la lo gli le senza ml g mg mcg cps cpr x compresse capsule bustine perle softgel tavolette'.split())

@@ -1771,6 +1771,248 @@
     ]
    ],
    "bisogni": {}
+  },
+  {
+   "id": "riposo",
+   "area": "integrazione",
+   "tipo": "biotipo",
+   "titolo": "Per prendere sonno",
+   "motto": "Quando la sera il sonno tarda ad arrivare.",
+   "famiglia": "integratori",
+   "tag": [
+    "dall-interno"
+   ],
+   "priorita": 70,
+   "descrizione": "Fai fatica ad addormentarti. Prima di un integratore contano le abitudini: orari regolari, luce bassa la sera, caffè solo al mattino. La melatonina, 1 mg poco prima di coricarsi, contribuisce alla riduzione del tempo richiesto per prendere sonno; in Italia gli integratori arrivano al massimo a 1 mg. Non va presa in gravidanza, né con sedativi o anticoagulanti senza il medico. Se il sonno manca da settimane, parlane col medico.",
+   "caratteristiche": [
+    "Fatica ad addormentarti la sera",
+    "Sonno che salta con turni o viaggi",
+    "Mattine stanche dopo notti corte"
+   ],
+   "cerca": [
+    "Melatonina 1 mg, poco prima di coricarti",
+    "Per il jet lag, 0,5 mg: contribuisce ad alleviarne gli effetti soggettivi",
+    "Orari regolari per andare a letto e alzarti"
+   ],
+   "evita": [
+    "Melatonina in gravidanza, o con sedativi e anticoagulanti senza il medico",
+    "Formule che promettono il sonno con valeriana, camomilla o passiflora: in UE non hanno un'indicazione autorizzata",
+    "Più integratori per il sonno insieme"
+   ],
+   "regole": [
+    [
+     {
+      "asse": "sonno",
+      "min": 2
+     }
+    ]
+   ],
+   "bisogni": {
+    "concerns": [
+     "sonno"
+    ]
+   }
+  },
+  {
+   "id": "energia",
+   "area": "integrazione",
+   "tipo": "biotipo",
+   "titolo": "Stanchezza e affaticamento",
+   "motto": "Per i pomeriggi in cui l'energia cala.",
+   "famiglia": "integratori",
+   "tag": [
+    "dall-interno"
+   ],
+   "priorita": 75,
+   "descrizione": "A metà pomeriggio ti senti spesso senza forze. Magnesio, vitamina C e alcune vitamine del gruppo B contribuiscono alla riduzione della stanchezza e dell'affaticamento: un integratore può servire se mangi in modo poco vario. Prima guarda sonno, pasti e movimento. La stanchezza che dura settimane va vista dal medico: gli esami del sangue possono trovarne la causa, per esempio poco ferro.",
+   "caratteristiche": [
+    "Calo di energia a metà pomeriggio",
+    "Periodi di lavoro o studio intensi",
+    "Pasti saltati o poco vari"
+   ],
+   "cerca": [
+    "Magnesio",
+    "Vitamina C e vitamine B2, B3, B5, B6, B9 e B12",
+    "Il ferro, solo se gli esami dicono che manca"
+   ],
+   "evita": [
+    "Coprire con un integratore una stanchezza che dura settimane: va vista dal medico",
+    "Formule che promettono energia con rodiola o altre piante: in UE non hanno un'indicazione autorizzata"
+   ],
+   "regole": [
+    [
+     {
+      "asse": "energia",
+      "min": 2
+     }
+    ]
+   ],
+   "bisogni": {
+    "concerns": [
+     "energia"
+    ]
+   }
+  },
+  {
+   "id": "calma",
+   "area": "integrazione",
+   "tipo": "biotipo",
+   "titolo": "Nei periodi di stress",
+   "motto": "Per le settimane in cui sei sotto pressione.",
+   "famiglia": "integratori",
+   "tag": [
+    "dall-interno"
+   ],
+   "priorita": 80,
+   "descrizione": "Ti senti spesso sotto pressione, con i nervi tesi. Magnesio e vitamina B6 contribuiscono alla normale funzione psicologica; il magnesio anche alla riduzione della stanchezza e dell'affaticamento. Un integratore non toglie la causa dello stress: contano anche sonno, movimento e pause vere. Se l'ansia ti blocca o dura da settimane, parlane con il medico.",
+   "caratteristiche": [
+    "Nervosismo o tensione frequenti",
+    "Periodi di lavoro o esami impegnativi",
+    "Sonno che ne risente"
+   ],
+   "cerca": [
+    "Magnesio",
+    "Vitamina B6",
+    "Formule che uniscono magnesio e vitamina B6"
+   ],
+   "evita": [
+    "Formule che promettono calma con ashwagandha, rodiola, passiflora o 5-HTP: in UE non hanno un'indicazione autorizzata",
+    "Usare un integratore al posto del medico quando l'ansia pesa"
+   ],
+   "regole": [
+    [
+     {
+      "asse": "stress",
+      "min": 2
+     }
+    ]
+   ],
+   "bisogni": {
+    "concerns": [
+     "stress"
+    ]
+   }
+  },
+  {
+   "id": "difese",
+   "area": "integrazione",
+   "tipo": "biotipo",
+   "titolo": "Difese immunitarie",
+   "motto": "Per chi prende spesso raffreddore e influenza.",
+   "famiglia": "integratori",
+   "tag": [
+    "dall-interno"
+   ],
+   "priorita": 85,
+   "descrizione": "Prendi raffreddore o influenza più volte l'anno, o mangi poca frutta e verdura. Vitamina C, vitamina D, zinco e selenio contribuiscono alla normale funzione del sistema immunitario. Un integratore non tiene lontani i virus: la base è un'alimentazione varia, con frutta e verdura ogni giorno, e il sonno. Se ti ammali molto spesso o guarisci a fatica, parlane con il medico.",
+   "caratteristiche": [
+    "Raffreddori o influenze più volte l'anno",
+    "Poca frutta e verdura nei pasti",
+    "Periodi di stanchezza o di poco sonno"
+   ],
+   "cerca": [
+    "Vitamina C, soprattutto se mangi poca frutta e verdura",
+    "Zinco e selenio",
+    "Vitamina D nei mesi con poco sole"
+   ],
+   "evita": [
+    "Formule che promettono di non ammalarti con echinacea, propoli o probiotici: in UE non hanno un'indicazione autorizzata",
+    "Sommare più prodotti con zinco"
+   ],
+   "regole": [
+    [
+     {
+      "asse": "difese",
+      "min": 2
+     }
+    ]
+   ],
+   "bisogni": {
+    "concerns": [
+     "difese"
+    ]
+   }
+  },
+  {
+   "id": "vitamina-d",
+   "area": "integrazione",
+   "tipo": "biotipo",
+   "titolo": "Poco sole, vitamina D",
+   "motto": "Per chi passa le giornate al chiuso.",
+   "famiglia": "integratori",
+   "tag": [
+    "dall-interno"
+   ],
+   "priorita": 90,
+   "descrizione": "Passi poco tempo all'aperto di giorno. La vitamina D si forma nella pelle con i raggi UVB, che il vetro ferma; d'inverno se ne forma meno. Contribuisce al mantenimento di ossa normali e alla normale funzione del sistema immunitario. Il valore nel sangue si misura con un esame semplice: prima di integrare, chiedi al medico. Oltre 50 µg (2000 UI) al giorno, solo su sua indicazione.",
+   "caratteristiche": [
+    "Giornate in casa, in ufficio o in auto",
+    "Inverni lunghi o poca luce",
+    "Carnagione scura o età avanzata: la pelle ne produce meno"
+   ],
+   "cerca": [
+    "Vitamina D3 (colecalciferolo)",
+    "Da prendere con un pasto che contiene grassi",
+    "Un controllo del valore nel sangue, prima e dopo qualche mese"
+   ],
+   "evita": [
+    "Superare 50 µg (2000 UI) al giorno senza indicazione del medico",
+    "Sommare più prodotti con vitamina D, multivitaminici compresi",
+    "Contare sul sole preso dietro il vetro"
+   ],
+   "regole": [
+    [
+     {
+      "asse": "vitd",
+      "min": 2
+     }
+    ]
+   ],
+   "bisogni": {
+    "concerns": [
+     "vitamina-d"
+    ]
+   }
+  },
+  {
+   "id": "omega-3",
+   "area": "integrazione",
+   "tipo": "biotipo",
+   "titolo": "Poco pesce, omega-3",
+   "motto": "Per chi mangia pesce di rado.",
+   "famiglia": "integratori",
+   "tag": [
+    "dall-interno"
+   ],
+   "priorita": 95,
+   "descrizione": "Mangi poco pesce grasso come salmone, sgombro o sardine. EPA e DHA contribuiscono alla normale funzione cardiaca, con 250 mg al giorno: è anche l'apporto che l'EFSA indica per gli adulti. Ci si arriva con pesce grasso una o due volte a settimana, oppure con un integratore di olio di pesce o d'alga, adatto anche a chi non mangia pesce. Se prendi anticoagulanti, chiedi al medico prima di dosaggi alti.",
+   "caratteristiche": [
+    "Pesce grasso meno di una volta a settimana",
+    "Alimentazione vegetariana o vegana",
+    "Pasti spesso fuori casa"
+   ],
+   "cerca": [
+    "Almeno 250 mg di EPA e DHA al giorno, sommati",
+    "Olio d'alga, se non mangi pesce",
+    "Etichette che dicono quanto EPA e DHA c'è in ogni capsula"
+   ],
+   "evita": [
+    "Dosaggi alti insieme agli anticoagulanti, senza il medico",
+    "Contare sui semi di lino al posto di EPA e DHA: il corpo ne ricava poco"
+   ],
+   "regole": [
+    [
+     {
+      "asse": "omega",
+      "min": 2
+     }
+    ]
+   ],
+   "bisogni": {
+    "concerns": [
+     "omega-3"
+    ]
+   }
   }
  ]
 }

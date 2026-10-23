@@ -1,14 +1,14 @@
 import Link from 'next/link';
 import Header from '@/components/Header';
 import Piede from '@/components/Piede';
-import { ARTICOLI, CATALOGO, ATTIVI } from '@/lib/dati';
+import { ARTICOLI, NOZIONI, CATALOGO, ATTIVI } from '@/lib/dati';
 import { Invito, Stendi } from '@/components/Inviti';
 
 // LA PAGINA CHE NON C'È (404), nello stile dell'apertura della home: fondo cacao, e lo zero fatto con
 // le due mezze lune del segno che si cercano senza chiudersi. Sotto, le strade per ripartire.
 // ⚠️ I prodotti tolti o spostati non arrivano qui: il Worker li rinvia (worker/index.js).
 export default function NonTrovata() {
-  const rivista = ARTICOLI.length > 0;
+  const rivista = ARTICOLI.length > 0 || NOZIONI.length > 0; // la Rivista ha anche «Lo sapevi che» (23/10)
   return (
     <>
       <Header rivista={rivista} />

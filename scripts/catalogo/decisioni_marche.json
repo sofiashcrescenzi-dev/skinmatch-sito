@@ -1439,7 +1439,16 @@
    "segmento": "Integrazione",
    "proposta": "si",
    "decisione": "si",
-   "nota": "Astonfarma, 23/10: la linea Zreen Collagene; gli omega 3 restano fuori (per la pelle non hanno indicazioni autorizzate)",
+   "nota": "Astonfarma, 23/10: la linea Zreen Collagene; dal giro integrativo (23/10) anche gli omega-3 e Zreen Magnesio e Vitamina D3, scelti uno per uno con le dosi verificate",
+   "linee": [],
+   "prodotti_uno_per_uno": true
+  },
+  {
+   "marca": "IBSA",
+   "segmento": "Integrazione",
+   "proposta": "si",
+   "decisione": "si",
+   "nota": "Astonfarma, 23/10: giro integrativo, solo i film orali scelti uno per uno (melatonina 1 mg, vitamina D3 1000 e 2000 UI, B12 500 mcg)",
    "linee": [],
    "prodotti_uno_per_uno": true
   }

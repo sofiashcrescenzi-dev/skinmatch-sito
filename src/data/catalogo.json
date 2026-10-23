@@ -221,5 +221,74 @@
    "descrizione": "Pensati per la pelle maschile e per la barba."
   }
  ],
- "modifiche": {}
+ "modifiche": {
+  "af-985833387": {
+   "name": "Arkorelax Melatonyl",
+   "sottotitolo": "Melatonina 1 mg per compressa, 120 compresse"
+  },
+  "af-987681727": {
+   "name": "Melatonina film orali",
+   "sottotitolo": "Melatonina 1 mg con camomilla, lavanda e vitamina B6, 30 film"
+  },
+  "af-983742976": {
+   "name": "Vitamina B12 film orali",
+   "sottotitolo": "Vitamina B12 500 mcg per film, 30 film"
+  },
+  "af-984845925": {
+   "name": "Vitamina D3 1000 UI film orali",
+   "sottotitolo": "Vitamina D3 25 mcg per film, 30 film orodispersibili"
+  },
+  "af-985826243": {
+   "name": "Vitamina D3 2000 UI film orali",
+   "sottotitolo": "Vitamina D3 50 mcg per film, 30 film orodispersibili"
+  },
+  "af-974016368": {
+   "name": "B-Dyn",
+   "sottotitolo": "Vitamine del gruppo B, B12 500 mcg e folato, 90 compresse"
+  },
+  "af-983696612": {
+   "name": "B-Dyn B12 IF",
+   "sottotitolo": "Vitamina B12 1000 mcg con fattore intrinseco, 84 compresse masticabili"
+  },
+  "af-988129286": {
+   "name": "MetaViva Magnesio, potassio e vitamina C",
+   "sottotitolo": "Magnesio 200 mg e vitamina C 180 mg per bustina, 40 bustine"
+  },
+  "af-951330657": {
+   "name": "Vitamina D3 + K2",
+   "sottotitolo": "Vitamina D3 50 mcg (2000 UI) e K2 45 mcg, 56 compresse masticabili"
+  },
+  "af-972064404": {
+   "name": "ZincoDyn",
+   "sottotitolo": "Zinco 15 mg e selenio 83 mcg per compressa, 56 compresse"
+  },
+  "af-976294405": {
+   "name": "Omega-3 Vegano",
+   "sottotitolo": "Olio di alga: EPA 609 mg e DHA 1158 mg per cucchiaino, 100 ml al limone"
+  },
+  "af-976294417": {
+   "name": "Omega-3 Total",
+   "sottotitolo": "Olio di pesce: EPA 1120 mg e DHA 536 mg per cucchiaio, con vitamina D3, 200 ml"
+  },
+  "af-987867759": {
+   "name": "Zreen Vitamina D3 2000",
+   "sottotitolo": "Gocce: vitamina D3 2000 UI (50 mcg) per goccia, una ogni due giorni, 15 ml"
+  },
+  "af-951160466": {
+   "name": "Zreen Magnesio taurato",
+   "sottotitolo": "Magnesio 300 mg in 2 capsule, da taurato, 120 capsule"
+  },
+  "af-947434914": {
+   "name": "Ester-C Plus 1000",
+   "sottotitolo": "Vitamina C 1000 mg per tavoletta, con bioflavonoidi, 90 tavolette"
+  },
+  "af-945254744": {
+   "name": "Immuno Ester-C Plus",
+   "sottotitolo": "Vitamina C 1000 mg con vitamine A, D3 e del gruppo B in 2 perle, 60 perle"
+  },
+  "af-947414621": {
+   "name": "Natural Vita D3 1000",
+   "sottotitolo": "Vitamina D3 25 mcg (1000 UI) per perla, 100 perle"
+  }
+ }
 }

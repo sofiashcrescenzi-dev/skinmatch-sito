@@ -21,7 +21,7 @@ def _c(t):
 
 # ── il passaggio della routine ────────────────────────────────────────────────
 PASSAGGI = [
-    ('integratore', r'^(?!.*\b(shampo\w*|lozione|crema|siero|serum|sérum|balsamo|maschera|gel|spray|fiale|cerott\w*|patch\w*)\b).*(\b(compresse|capsule|bustine|softgel|perle|tavolette|gomme|cps|cpr|caps)\b|\bintegratore\b|\bcollagene\b.*\b(polvere|complex|\d+(?:[.,]\d+)?\s*g)\b)'),  # 23/10/2026: il collagene in polvere (Zreen) senza «capsule» nel titolo
+    ('integratore', r'^(?!.*\b(shampo\w*|lozione|crema|siero|serum|sérum|balsamo|maschera|gel|spray|fiale|cerott\w*|patch\w*)\b).*(\b(compresse|capsule|bustine|softgel|perle|tavolette|gomme|cps|cpr|caps|film or\w+)\b|\bintegratore\b|\bcollagene\b.*\b(polvere|complex|\d+(?:[.,]\d+)?\s*g)\b|\b(omega[- ]?3|vitamin[ae]? d3?)\b.*\b\d+\s*ml\b)'),  # 23/10/2026: il collagene in polvere (Zreen) senza «capsule» nel titolo; i film orali (IBSA), l'olio di omega-3 e la vitamina D in gocce
     ('spf', r'\bspf ?\d+|protezione solare|solare viso|sunscreen|sun stick|fotoprotett|anthelios|photoderm|fusion water|heliocare 360|uv defense|uv mune'),
     # ciglia e sopracciglia non sono la cute né i capelli (il test proponeva un siero per sopracciglia al posto di un tonico per la cute, 15/10)
     ('ciglia e sopracciglia', r'sopraccigli\w*|\bciglia\b|\bciglie\b|\blash\w*|\bbrow\w*|mascara'),
@@ -119,8 +119,22 @@ def forza(attivi, pas):
 CAPELLI = ('shampoo', 'trattamento cute', 'balsamo e maschera capelli')
 BISOGNI_CAPELLI = {'caduta': r'caduta|anticaduta|diradament|rinforz|fortific|densit|crescita|stimolant|energizz', 'forfora': r'forfora|antiforfora|desquam|squam',
                    'secchi-crespi': r'secch|crespi|danneggiat|sfibrat|ristruttur|nutrient|riparat', 'mantenimento': r'uso frequente|delicat|quotidian|tutti i tipi'}
-INTEGRAZIONE = {'capelli': r'capelli|caduta|hair', 'unghie': r'unghie|nails', 'pelle-secca': r'idrataz|secchezza|omega', 'tono': r'collagen|rughe|elasticit|anti-?age|tonicit',
+INTEGRAZIONE = {'capelli': r'capelli|caduta|hair', 'unghie': r'unghie|nails', 'pelle-secca': r'idrataz|secchezza', 'tono': r'collagen|rughe|elasticit|anti-?age|tonicit',
                 'sole': r'\bsole\b|solar|abbronzatur|carotene|polypodium|fernblock', 'imperfezioni': r'acne|imperfezion|brufol'}
+# IL GIRO INTEGRATIVO (23/10/2026, Federico: «mancanza di sonno, vitamina C, cose per cui serve un giro integrativo»).
+# Si leggono nel TITOLO, non nella descrizione: un collagene «con vitamina C» non è un integratore per le difese.
+# Ogni bisogno è un'indicazione autorizzata del Reg. (UE) 432/2012 (src/lib/integratori.ts): melatonina per
+# addormentarsi; vitamine B, C e magnesio per la stanchezza; C, D, zinco e selenio per le difese; EPA e DHA per il
+# cuore; magnesio e vitamine B per la funzione psicologica; B12 per chi mangia vegano.
+BENESSERE = {
+    'sonno': r'melaton',
+    'energia': r'stanchezz|affaticament|b[- ]?dyn(?! ?b12)|vitamin[ae] b\b|complesso b|magnesio|magnesium|metaviva',
+    'stress': r'\bstress|magnesio|magnesium|b[- ]?dyn(?! ?b12)|vitamin[ae] b\b|complesso b|metaviva',
+    'difese': r'immun|difes|ester[- ]?c|vitamin[ae]? c\b|\bzinco\b|zincodyn|picozinco',
+    'vitamina-d': r'vitamin[ae]? d\b|vit\.? ?d3|\bd3\b|colecalciferol',
+    'omega-3': r'omega[- ]?3|\bepa\b|\bdha\b|olio di (?:pesce|fegato)|krill',
+    'b12': r'\bb ?12\b|cobalamin',
+}
 
 
 def scheda(r, extra_inci=None, segmento=None, dichiarati=None):
@@ -271,7 +285,13 @@ def scheda(r, extra_inci=None, segmento=None, dichiarati=None):
     # integratori
     if pas == 'integratore':
         t = _c(testo)
-        s['integrazione'] = [c for c, rx in INTEGRAZIONE.items() if re.search(rx, t)]
+        ben = [c for c, rx in BENESSERE.items() if re.search(rx, _c(tit))]
+        # gli omega-3 per la pelle non hanno indicazioni autorizzate (src/lib/integratori.ts): niente bisogni della pelle,
+        # anche se la descrizione parla di pelle o di sole (Norsan, 23/10)
+        s['integrazione'] = ([] if 'omega-3' in ben else [c for c, rx in INTEGRAZIONE.items() if re.search(rx, t)]) + ben
+        # vegano o vegetariano solo se lo dichiara; l'olio di pesce e le perle di gelatina mai (il test lo chiede, 23/10)
+        s['vegano'] = bool(re.search(r'vegan|vegetal|vegetarian', t)) and not re.search(
+            r'non (?:è |e )?adatt\w* a\w* ?(?:vegan|vegetarian)|olio di (?:pesce|fegato)|fish oil|merluzzo|gelatina|krill', t)
     # che cosa è davvero, per i confronti (al_sito.py simili() e src/lib/simili.ts): dove si mette, in che forma, quanti pezzi
     s['zona'], s['forma'], s['pezzi'] = zona(tit, pas), forma(tit, pas), pezzi(tit)
     s['fonti'] = fonti

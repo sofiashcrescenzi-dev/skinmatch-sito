@@ -8,18 +8,17 @@ import { Invito } from '@/components/Inviti';
 // Ogni bisogno porta alla sua pagina (/biotipi/<id>), dove ci sono gli attivi con le indicazioni autorizzate
 // e i prodotti. Vedi lib/integratori.ts.
 export const metadata: Metadata = {
-  title: 'Integratori per pelle, capelli e unghie: per bisogno',
-  description: 'Capelli che cadono, pelle secca, tono, sole, unghie fragili, brufoli: quali sostanze hanno un\'indicazione autorizzata in UE e quali integratori le contengono.',
+  title: 'Integratori per bisogno: sonno, energia, difese, vitamina D, omega-3, pelle e capelli',
+  description: 'Sonno, stanchezza, difese, vitamina D, omega-3, B12, e poi capelli, pelle e unghie: quali sostanze hanno un\'indicazione autorizzata in UE e quali integratori le contengono.',
   alternates: { canonical: '/integratori' },
 };
 
 export default function Integratori() {
-  const vegana = BIOTIPI.find((b) => b.id === 'vegana');
   return (
     <main className="contenitore sezione pila" style={{ ['--gap' as string]: 'clamp(28px, 5vw, 48px)' }}>
       <header className="pila" style={{ ['--gap' as string]: '12px', maxWidth: 760 }}>
         <span className="etichetta">Dall&apos;interno</span>
-        <h1 className="sopratitolo" style={{ fontSize: 'clamp(32px, 5.4vw, 54px)' }}>Integratori per pelle, capelli e unghie</h1>
+        <h1 className="sopratitolo" style={{ fontSize: 'clamp(32px, 5.4vw, 54px)' }}>Integratori per bisogno</h1>
         <p className="intro">
           Si parte da quello che ti serve. Per ogni bisogno trovi le sostanze che hanno un&apos;indicazione autorizzata
           in UE, quelle che non ce l&apos;hanno, e gli integratori che le contengono. Un integratore aiuta se qualcosa
@@ -42,17 +41,11 @@ export default function Integratori() {
         })}
       </section>
 
-      {vegana && (
-        <p className="testo" style={{ maxWidth: 760 }}>
-          <b>Se mangi vegano</b>: la prima cosa da controllare è la vitamina B12, che negli alimenti vegetali non c&apos;è.{' '}
-          <Link href="/biotipi/vegana">Cosa sapere →</Link>
-        </p>
-      )}
 
       <section className="carta" style={{ display: 'flex', flexWrap: 'wrap', gap: 16, alignItems: 'center', justifyContent: 'space-between' }}>
         <div className="pila" style={{ ['--gap' as string]: '4px' }}>
           <span className="titolo-3">Non sai da dove partire?</span>
-          <span className="piccolo">Tre domande su cosa ti serve, come mangi e se prendi farmaci.</span>
+          <span className="piccolo">Qualche domanda su sonno, energia, come mangi e se prendi farmaci: al massimo tre integratori.</span>
         </div>
         <Invito href="/test?percorso=integrazione">Fai il test</Invito>
       </section>

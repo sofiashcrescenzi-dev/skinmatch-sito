@@ -81,6 +81,48 @@
    "nome": "Lunghezze provate",
    "area": "cute",
    "soglie": "capelli secchi da 2"
+  },
+  {
+   "id": "sonno",
+   "nome": "Sonno",
+   "area": "integrazione",
+   "soglie": "il passaggio si apre da 2"
+  },
+  {
+   "id": "energia",
+   "nome": "Energia",
+   "area": "integrazione",
+   "soglie": "il passaggio si apre da 2"
+  },
+  {
+   "id": "stress",
+   "nome": "Stress",
+   "area": "integrazione",
+   "soglie": "il passaggio si apre da 2"
+  },
+  {
+   "id": "difese",
+   "nome": "Difese",
+   "area": "integrazione",
+   "soglie": "il passaggio si apre da 2"
+  },
+  {
+   "id": "vitd",
+   "nome": "Vitamina D",
+   "area": "integrazione",
+   "soglie": "il passaggio si apre da 2"
+  },
+  {
+   "id": "omega",
+   "nome": "Omega-3",
+   "area": "integrazione",
+   "soglie": "il passaggio si apre da 2"
+  },
+  {
+   "id": "b12",
+   "nome": "Vitamina B12",
+   "area": "integrazione",
+   "soglie": "il passaggio si apre da 2"
   }
  ],
  "scelte": [
@@ -308,18 +350,25 @@
   {
    "id": "integrazione",
    "nome": "Integrazione",
-   "titolo": "Il test dell'integrazione",
-   "descrizione": "Per pelle, capelli e unghie, dall'interno: un solo integratore, scelto sul tuo obiettivo, oppure nessuno se non serve.",
+   "titolo": "Il tuo giro integrativo",
+   "descrizione": "Sonno, energia, difese, vitamina D, omega-3 e, se vuoi, pelle e capelli: le domande su come vivi e mangi. Ne escono al massimo tre integratori, ognuno con l'indicazione autorizzata in Europa.",
    "immagine": "test-integrazione",
    "aree": [
     "integrazione"
    ],
-   "minuti": 1,
+   "minuti": 3,
    "domande": [
     "genere",
     "eta",
-    "int_obiettivo",
+    "sonno",
+    "stanchezza",
+    "stress",
+    "raffreddori",
+    "frutta",
+    "aperto",
+    "pesce",
     "dieta",
+    "int_obiettivo",
     "farmaci",
     "gravidanza",
     "menopausa",
@@ -1279,7 +1328,7 @@
   {
    "id": "int_obiettivo",
    "area": "integrazione",
-   "testo": "Su cosa vorresti un aiuto dall'interno?",
+   "testo": "E per pelle, capelli o unghie, vuoi un aiuto anche dall'interno?",
    "aiuto": "Scegli la cosa che conta di più per te adesso.",
    "opzioni": [
     {
@@ -1326,7 +1375,7 @@
     },
     {
      "id": "nessuno",
-     "testo": "Niente in particolare",
+     "testo": "No, va bene così",
      "scelte": {
       "integrazione": "nessuno"
      }
@@ -1357,6 +1406,9 @@
      "testo": "Vegano",
      "scelte": {
       "dieta": "vegana"
+     },
+     "punti": {
+      "b12": 4
      }
     }
    ]
@@ -1450,6 +1502,190 @@
     }
    ],
    "saltabile": true
+  },
+  {
+   "id": "sonno",
+   "area": "integrazione",
+   "testo": "Come dormi, nelle ultime settimane?",
+   "opzioni": [
+    {
+     "id": "bene",
+     "testo": "Bene: mi addormento presto e mi sveglio riposato"
+    },
+    {
+     "id": "addormentarsi",
+     "testo": "Ci metto molto ad addormentarmi",
+     "punti": {
+      "sonno": 3
+     }
+    },
+    {
+     "id": "risvegli",
+     "testo": "Mi sveglio spesso durante la notte",
+     "punti": {
+      "sonno": 1
+     }
+    },
+    {
+     "id": "fuso",
+     "testo": "Viaggio tra fusi orari o faccio i turni",
+     "punti": {
+      "sonno": 2
+     }
+    }
+   ]
+  },
+  {
+   "id": "stanchezza",
+   "area": "integrazione",
+   "testo": "Come arrivi a metà pomeriggio?",
+   "aiuto": "Se la stanchezza dura da settimane senza un motivo, parlane con il medico: un esame del sangue dice più di un test.",
+   "opzioni": [
+    {
+     "id": "piena",
+     "testo": "Con la stessa energia del mattino"
+    },
+    {
+     "id": "calo",
+     "testo": "Con un calo, che poi passa",
+     "punti": {
+      "energia": 1
+     }
+    },
+    {
+     "id": "scarica",
+     "testo": "Senza energie, quasi ogni giorno",
+     "punti": {
+      "energia": 3
+     }
+    }
+   ]
+  },
+  {
+   "id": "stress",
+   "area": "integrazione",
+   "testo": "Quanto spesso ti senti sotto pressione o con i nervi tesi?",
+   "opzioni": [
+    {
+     "id": "raramente",
+     "testo": "Raramente"
+    },
+    {
+     "id": "periodi",
+     "testo": "In certi periodi",
+     "punti": {
+      "stress": 1
+     }
+    },
+    {
+     "id": "spesso",
+     "testo": "Quasi sempre",
+     "punti": {
+      "stress": 3
+     }
+    }
+   ]
+  },
+  {
+   "id": "raffreddori",
+   "area": "integrazione",
+   "testo": "Quante volte all'anno prendi raffreddore o influenza?",
+   "opzioni": [
+    {
+     "id": "raro",
+     "testo": "Una volta, o mai"
+    },
+    {
+     "id": "qualche",
+     "testo": "Due o tre volte",
+     "punti": {
+      "difese": 1
+     }
+    },
+    {
+     "id": "spesso",
+     "testo": "Quattro o più",
+     "punti": {
+      "difese": 3
+     }
+    }
+   ]
+  },
+  {
+   "id": "frutta",
+   "area": "integrazione",
+   "testo": "Quante porzioni di frutta e verdura mangi al giorno?",
+   "aiuto": "Una porzione è un frutto, una ciotola di insalata o un piatto di verdure cotte.",
+   "opzioni": [
+    {
+     "id": "cinque",
+     "testo": "Cinque o più"
+    },
+    {
+     "id": "qualche",
+     "testo": "Due, tre o quattro",
+     "punti": {
+      "difese": 1
+     }
+    },
+    {
+     "id": "poche",
+     "testo": "Una, o nessuna",
+     "punti": {
+      "difese": 2
+     }
+    }
+   ]
+  },
+  {
+   "id": "aperto",
+   "area": "integrazione",
+   "testo": "Quanto tempo passi all'aperto, alla luce del giorno?",
+   "opzioni": [
+    {
+     "id": "ogni-giorno",
+     "testo": "Almeno mezz'ora, quasi ogni giorno"
+    },
+    {
+     "id": "weekend",
+     "testo": "Solo nel fine settimana",
+     "punti": {
+      "vitd": 2
+     }
+    },
+    {
+     "id": "quasi-mai",
+     "testo": "Quasi mai, soprattutto d'inverno",
+     "punti": {
+      "vitd": 3
+     }
+    }
+   ]
+  },
+  {
+   "id": "pesce",
+   "area": "integrazione",
+   "testo": "Mangi pesce come salmone, sgombro o sardine?",
+   "opzioni": [
+    {
+     "id": "spesso",
+     "testo": "Due volte a settimana, o di più"
+    },
+    {
+     "id": "a-volte",
+     "testo": "Ogni tanto",
+     "punti": {
+      "omega": 1
+     }
+    },
+    {
+     "id": "mai",
+     "testo": "Quasi mai",
+     "punti": {
+      "omega": 3
+     }
+    }
+   ]
   }
  ],
  "limiti": [
@@ -1655,7 +1891,7 @@
   {
    "id": "integratore",
    "area": "integrazione",
-   "nome": "Integratore",
+   "nome": "Pelle, capelli e unghie",
    "quando": "per un ciclo di due o tre mesi, poi una pausa",
    "categoria": "integratori",
    "se": [
@@ -1670,6 +1906,153 @@
      "scelta": "integrazione",
      "valori": [
       "nessuno"
+     ],
+     "no": true
+    }
+   ]
+  },
+  {
+   "id": "b12",
+   "area": "integrazione",
+   "nome": "Vitamina B12",
+   "quando": "ogni giorno: chi mangia vegano la trova solo così",
+   "categoria": "integratori",
+   "con_bisogno": "b12",
+   "se": [
+    {
+     "asse": "b12",
+     "min": 2
+    },
+    {
+     "scelta": "gravidanza",
+     "valori": [
+      true
+     ],
+     "no": true
+    }
+   ]
+  },
+  {
+   "id": "sonno",
+   "area": "integrazione",
+   "nome": "Per addormentarsi",
+   "quando": "mezz'ora prima di dormire, per periodi brevi",
+   "categoria": "integratori",
+   "con_bisogno": "sonno",
+   "se": [
+    {
+     "asse": "sonno",
+     "min": 2
+    },
+    {
+     "scelta": "gravidanza",
+     "valori": [
+      true
+     ],
+     "no": true
+    }
+   ]
+  },
+  {
+   "id": "energia",
+   "area": "integrazione",
+   "nome": "Contro la stanchezza",
+   "quando": "la mattina, per un ciclo di due o tre mesi",
+   "categoria": "integratori",
+   "con_bisogno": "energia",
+   "se": [
+    {
+     "asse": "energia",
+     "min": 2
+    },
+    {
+     "scelta": "gravidanza",
+     "valori": [
+      true
+     ],
+     "no": true
+    }
+   ]
+  },
+  {
+   "id": "stress",
+   "area": "integrazione",
+   "nome": "Nei periodi di pressione",
+   "quando": "ogni giorno, per un ciclo di due o tre mesi",
+   "categoria": "integratori",
+   "con_bisogno": "stress",
+   "se": [
+    {
+     "asse": "stress",
+     "min": 2
+    },
+    {
+     "scelta": "gravidanza",
+     "valori": [
+      true
+     ],
+     "no": true
+    }
+   ]
+  },
+  {
+   "id": "difese",
+   "area": "integrazione",
+   "nome": "Per le difese",
+   "quando": "ai pasti, nei mesi freddi",
+   "categoria": "integratori",
+   "con_bisogno": "difese",
+   "se": [
+    {
+     "asse": "difese",
+     "min": 2
+    },
+    {
+     "scelta": "gravidanza",
+     "valori": [
+      true
+     ],
+     "no": true
+    }
+   ]
+  },
+  {
+   "id": "vitamina-d",
+   "area": "integrazione",
+   "nome": "Vitamina D",
+   "quando": "con il pasto principale, da ottobre ad aprile",
+   "categoria": "integratori",
+   "con_bisogno": "vitamina-d",
+   "se": [
+    {
+     "asse": "vitd",
+     "min": 2
+    },
+    {
+     "scelta": "gravidanza",
+     "valori": [
+      true
+     ],
+     "no": true
+    }
+   ]
+  },
+  {
+   "id": "omega-3",
+   "area": "integrazione",
+   "nome": "Omega-3",
+   "quando": "ogni giorno, ai pasti",
+   "categoria": "integratori",
+   "con_bisogno": "omega-3",
+   "se": [
+    {
+     "asse": "omega",
+     "min": 2
+    },
+    {
+     "scelta": "gravidanza",
+     "valori": [
+      true
      ],
      "no": true
     }
@@ -2210,6 +2593,53 @@
     "tratti": [
      "vegana"
     ]
+   }
+  },
+  {
+   "nome": "Chiara, 29 anni",
+   "nota": "Vegana, poco sole, nessun disturbo",
+   "percorso": "integrazione",
+   "risposte": {
+    "genere": "donna",
+    "eta": "25-34",
+    "sonno": "bene",
+    "stanchezza": "piena",
+    "stress": "raramente",
+    "raffreddori": "raro",
+    "frutta": "cinque",
+    "aperto": "quasi-mai",
+    "pesce": "mai",
+    "dieta": "vegana",
+    "int_obiettivo": "nessuno",
+    "farmaci": "no",
+    "gravidanza": "no"
+   },
+   "atteso": {
+    "integrazione": "vitamina-d"
+   }
+  },
+  {
+   "nome": "Paola, 58 anni",
+   "nota": "Raffreddori spesso, poca frutta, vuole aiutare i capelli",
+   "percorso": "integrazione",
+   "risposte": {
+    "genere": "donna",
+    "eta": "55-piu",
+    "sonno": "bene",
+    "stanchezza": "calo",
+    "stress": "raramente",
+    "raffreddori": "spesso",
+    "frutta": "poche",
+    "aperto": "weekend",
+    "pesce": "a-volte",
+    "dieta": "onnivora",
+    "int_obiettivo": "capelli",
+    "farmaci": "no",
+    "gravidanza": "no",
+    "menopausa": "si"
+   },
+   "atteso": {
+    "integrazione": "sostegno-capelli"
    }
   }
  ]

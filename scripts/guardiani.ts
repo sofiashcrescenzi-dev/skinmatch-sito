@@ -8,7 +8,7 @@
 //
 // Uso: npx tsx scripts/guardiani.ts  (gira da solo prima di `next build`, vedi package.json)
 
-import { TEST, BIOTIPI, TAG_BIOTIPI, TERMINI, CATALOGO, ARTICOLI, type Condizione } from '../src/lib/dati';
+import { TEST, BIOTIPI, TAG_BIOTIPI, TERMINI, CATALOGO, ARTICOLI, NOZIONI, type Condizione } from '../src/lib/dati';
 import { PRODOTTI, prodottoPerId, indirizzo } from '../src/lib/catalogo';
 import { consiglia, profiloDi } from '../src/lib/motore';
 import { PRODUCTS } from '../src/lib/products';
@@ -63,6 +63,15 @@ regola('prodotti senza immagine', PRODOTTI.filter((p) => !p.image).map((p) => p.
 // le pagine prodotto: ognuno ha il suo indirizzo, e due prodotti non hanno mai lo stesso
 regola('prodotti senza pagina (manca l\'indirizzo o la categoria)', PRODOTTI.filter((p) => !indirizzo(p)).map((p) => p.id), 'BLOCCA');
 regola('due prodotti con lo stesso indirizzo', Object.entries(PRODOTTI.reduce((m, p) => { const u = indirizzo(p); if (u) m[u] = (m[u] || 0) + 1; return m; }, {} as Record<string, number>)).filter(([, n]) => n > 1).map(([u]) => u), 'BLOCCA');
+
+console.log('Le nozioni');
+regola('identificativi doppi', doppi(NOZIONI.map((n) => n.id)), 'BLOCCA');
+regola('nozioni dopo una domanda che non c\'è', NOZIONI.filter((n) => !TEST.domande.some((d) => d.id === n.dopo)).map((n) => n.id), 'BLOCCA');
+regola('quiz rotti (meno di due risposte, o la giusta che non c\'è)', NOZIONI.filter((n) => n.tipo === 'quiz' && (!n.quiz || n.quiz.opzioni.filter(Boolean).length < 2 || !n.quiz.opzioni[n.quiz.giusta])).map((n) => n.id), 'BLOCCA');
+regola('nozioni senza testo o senza fonte', NOZIONI.filter((n) => !n.testo || !n.fonte?.startsWith('http')).map((n) => n.id), 'BLOCCA');
+regola('nozioni troppo lunghe (titolo oltre 60, testo oltre 300 caratteri)', NOZIONI.filter((n) => n.titolo.length > 60 || n.testo.length > 300).map((n) => n.id), 'AVVISA');
+regola('approfondimenti verso pagine che non ci sono', NOZIONI.filter((n) => n.legame && !(
+  (n.legame.startsWith('/glossario/') && TERMINI.some((x) => x.id === n.legame!.split('/')[2])) || (n.legame.startsWith('/biotipi/') && BIOTIPI.some((x) => x.id === n.legame!.split('/')[2])))).map((n) => `${n.id}: ${n.legame}`), 'AVVISA');
 
 console.log('La rivista');
 regola('articoli con indirizzi doppi', doppi(ARTICOLI.map((a) => a.slug)), 'BLOCCA');

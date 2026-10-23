@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { ARTICOLI } from '@/lib/dati';
 import Foto from '@/components/Foto';
+import SchedeRivista from '@/components/SchedeRivista';
 
 export const metadata: Metadata = {
   title: 'La Rivista: guide, novità e confronti sulla skincare',
@@ -20,8 +21,9 @@ export default function RivistaPage() {
         <span className="etichetta">La Rivista</span>
         <h1 className="sopratitolo">Capire la pelle, scegliere meglio</h1>
         <p className="intro">Guide, confronti e novità: ogni articolo finisce con i prodotti giusti, o con il test per trovarli.</p>
+        <SchedeRivista qui="articoli" />
       </header>
-      {!primo && <p className="avviso">Il primo articolo arriva a giorni. Intanto, <Link className="link" href="/test">fai il test</Link> o sfoglia il <Link className="link" href="/glossario">glossario</Link>.</p>}
+      {!primo && <p className="avviso">Il primo articolo arriva a giorni. Intanto leggi <Link className="link" href="/rivista/lo-sapevi-che">Lo sapevi che</Link>: curiosità, storie e quiz su pelle, capelli e integratori.</p>}
       {primo && (
         <Link href={`/rivista/${primo.slug}`} className="carta-foto" style={{ ['--rapporto' as string]: '16 / 9' }}>
           <Foto nome={primo.immagine?.file || 'rivista'} priorita sizes="(max-width: 1180px) 100vw, 1180px" />

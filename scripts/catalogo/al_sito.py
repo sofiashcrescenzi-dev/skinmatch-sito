@@ -72,6 +72,8 @@ def prodotto(s):
     integ = s.get('integrazione') or []
     if s['passaggio'] == 'integratore':
         concerns = [c for c, ok in {'anti-age': 'tono' in integ, 'idratazione': 'pelle-secca' in integ, 'protezione-solare': 'sole' in integ, 'acne-sebo': 'imperfezioni' in integ}.items() if ok]
+        # i bisogni del giro integrativo restano col loro nome: li cercano i passaggi del test (con_bisogno, 23/10/2026)
+        concerns += [c for c in traduci.BENESSERE if c in integ]
     uomo = bool(re.search(r'\b(uomo|men|homme|man)\b', s['titolo'], re.I))
     out = {
         'id': s['id'], 'name': tit[0], 'subtitle': tit[1], 'brand': marca_bella(s['marca']), 'gender': 'uomo' if uomo else 'unisex', 'category': CATEGORIA[s['passaggio']],
@@ -90,6 +92,7 @@ def prodotto(s):
         out['scalpTypes'] = cap.get('cute') or ['normale']
     elif s['passaggio'] == 'integratore':
         out['concerns'] = concerns
+        out['scheda']['vegano'] = bool(s.get('vegano'))
         hc = [c for c in ('caduta',) if 'capelli' in integ or 'unghie' in integ]
         if hc:
             out['hairConcerns'] = hc
@@ -275,7 +278,7 @@ def lavoro(s):
     if s['passaggio'] == 'integratore':
         # un integratore fa un lavoro solo se fa le stesse cose: «capelli e unghie» non è «sole» né «capelli» e basta
         b = set(s.get('integrazione') or [])
-        b = {c for c, rx in traduci.INTEGRAZIONE.items() if c in b and re.search(rx, t)} or b
+        b = {c for c, rx in (traduci.INTEGRAZIONE | traduci.BENESSERE).items() if c in b and re.search(rx, t)} or b
         return {'+'.join(sorted(b))} if b else set()
     if s['passaggio'] in ('cerotti', 'barba'):
         return {s['passaggio']}
