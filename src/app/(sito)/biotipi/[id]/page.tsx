@@ -7,6 +7,7 @@ import { ConTermini } from '@/components/Termini';
 import SchedaProdotto from '@/components/SchedaProdotto';
 import Foto from '@/components/Foto';
 import { Invito } from '@/components/Inviti';
+import { bisognoPerBiotipo, prodottiDelBisogno } from '@/lib/integratori';
 
 export function generateStaticParams() {
   return BIOTIPI.map((b) => ({ id: b.id }));
@@ -30,7 +31,9 @@ export default async function BiotipoPage({ params }: { params: Promise<{ id: st
   const { id } = await params;
   const b = biotipoPerId(id);
   if (!b) notFound();
-  const prodotti = prodottiPer(b);
+  // un bisogno dell'integrazione (lib/integratori.ts): gli attivi con le indicazioni UE e tutti gli integratori adatti
+  const bisogno = bisognoPerBiotipo(b.id);
+  const prodotti = bisogno ? prodottiDelBisogno(bisogno.chiave) : prodottiPer(b);
   const vicini = BIOTIPI.filter((x) => x.id !== b.id && x.area === b.area && x.tipo === 'biotipo' && (x.famiglia === b.famiglia || x.tag.some((t) => b.tag.includes(t)))).slice(0, 4);
   const tag = b.tag.map((t) => TAG_BIOTIPI.find((x) => x.id === t)).filter(Boolean);
   return (
@@ -66,10 +69,26 @@ export default async function BiotipoPage({ params }: { params: Promise<{ id: st
         <p className="consulto"><span><b>Da seguire con il medico.</b> È una condizione che si diagnostica e si cura: i cosmetici possono accompagnare la terapia, non sostituirla.</span></p>
       )}
 
+      {bisogno && (
+        <section className="pila" style={{ ['--gap' as string]: '14px' }}>
+          <h2 className="titolo-2">Gli attivi che contano</h2>
+          <ul className="pila attivi-ue" style={{ ['--gap' as string]: '8px' }}>
+            {bisogno.autorizzati.map((a) => <li key={a.nome}><b>{a.nome}</b>: «{a.indicazione}».</li>)}
+          </ul>
+          <p className="piccolo">
+            Senza un&apos;indicazione autorizzata, anche se li trovi spesso: {bisogno.senza.join(', ')}.
+            Le frasi tra virgolette sono quelle del Regolamento (UE) 432/2012. <Link href="/integratori">Tutti i bisogni →</Link>
+          </p>
+          {bisogno.nota && <p className="consulto"><span>{bisogno.nota}</span></p>}
+        </section>
+      )}
+
       {prodotti.length > 0 && (
         <section className="pila" style={{ ['--gap' as string]: '16px' }}>
           <h2 className="titolo-2">Prodotti adatti</h2>
-          <p className="piccolo">Scelti sui bisogni di questo biotipo. Il test li sceglie anche sulle tue risposte, con un&apos;alternativa simile, di solito più economica.</p>
+          <p className="piccolo">{bisogno
+            ? 'Tutti quelli del catalogo per questo bisogno: prima i più completi, poi i più ricchi. Il test li sceglie anche sulla tua alimentazione e sui farmaci che prendi.'
+            : 'Scelti sui bisogni di questo biotipo. Il test li sceglie anche sulle tue risposte, con un\u2019alternativa simile, di solito più economica.'}</p>
           <div className="griglia" style={{ ['--min' as string]: '300px' }}>{prodotti.map((p) => <SchedaProdotto key={p.id} p={p} da={`biotipo-${b.id}`} />)}</div>
         </section>
       )}

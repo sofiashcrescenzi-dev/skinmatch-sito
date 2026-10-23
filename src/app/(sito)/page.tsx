@@ -5,6 +5,7 @@ import Foto from '@/components/Foto';
 import { Invito, Luna, Stendi } from '@/components/Inviti';
 import { ConTermini } from '@/components/Termini';
 import RicercaCentrale from '@/components/RicercaCentrale';
+import { BISOGNI } from '@/lib/integratori';
 
 const PASSI = [
   ['Rispondi guardandoti allo specchio', 'La fronte a metà giornata, la pelle dopo la detersione, i rossori: domande su quello che vedi, non su come pensi di essere.'],
@@ -113,6 +114,21 @@ export default function Home() {
             <span className="piccolo" style={{ alignSelf: 'center', marginRight: 4 }}>E poi:</span>
             {ALTRO.map((id) => CATALOGO.categorie.find((x) => x.id === id)).filter((c) => c && nelGruppo(c.id).length).map((c) => <Link key={c!.id} href={`/catalogo/${c!.id}`} className="chip">{c!.nome}</Link>)}
           </div>
+        </div>
+      </section>
+
+      {/* DALL'INTERNO (23/10/2026): gli integratori per bisogno, come «Scegli chi sei» su Proteo. Vedi /integratori. */}
+      <section className="contenitore sezione pila" style={{ ['--gap' as string]: 'clamp(20px, 4vw, 36px)' }}>
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 12, alignItems: 'end', justifyContent: 'space-between' }}>
+          <div className="pila" style={{ ['--gap' as string]: '8px' }}>
+            <span className="etichetta">Dall&apos;interno</span>
+            <h2 className="titolo-2">Integratori, per bisogno</h2>
+            <p className="intro">Da quello che ti serve alle sostanze con un&apos;indicazione autorizzata, e agli integratori che le contengono.</p>
+          </div>
+          <Stendi href="/integratori">Tutti i bisogni</Stendi>
+        </div>
+        <div className="riga-chip">
+          {BISOGNI.map((b) => <Link key={b.chiave} href={`/biotipi/${b.biotipo}`} className="chip">{b.domanda}</Link>)}
         </div>
       </section>
 

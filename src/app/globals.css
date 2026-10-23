@@ -509,3 +509,10 @@ details.carta > summary::-webkit-details-marker { display: none; }
   border-radius: var(--raggio); background: rgba(250, 246, 244, .06); max-width: 560px; }
 .test-primo .invito { min-height: 58px; font-size: 18px; padding: 0 28px 0 20px; white-space: normal; }
 .test-primo-sotto { font-size: 15px; line-height: 1.55; color: #d9c8be; }
+
+/* ── GLI INTEGRATORI PER BISOGNO (23/10/2026, /integratori e i biotipi dell'integrazione) ── */
+.bisogno-carta { text-decoration: none; color: var(--testo); transition: border-color .2s var(--curva); }
+.bisogno-carta:hover { border-color: var(--riga-forte); }
+.bisogno-attivi { color: var(--terra); }
+.attivi-ue { list-style: none; padding: 0; }
+.attivi-ue li { padding: 10px 14px; border-radius: var(--raggio-piccolo); background: var(--velo); line-height: 1.5; }

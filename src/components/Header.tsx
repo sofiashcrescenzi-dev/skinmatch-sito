@@ -22,6 +22,7 @@ export default function Header({ rivista }: { rivista: boolean }) {
   const voci = [
     { nome: 'Biotipi', href: '/biotipi' },
     { nome: 'Catalogo', href: '/catalogo' },
+    { nome: 'Integratori', href: '/integratori' },
     { nome: 'Glossario', href: '/glossario' },
     ...(rivista ? [{ nome: 'Rivista', href: '/rivista' }] : []),
   ];
