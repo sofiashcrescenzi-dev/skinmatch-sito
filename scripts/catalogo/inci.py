@@ -109,6 +109,10 @@ def _concentrazioni(testo):
         v = float(m.group(1).replace(',', '.'))
         if v > 40:
             continue
+        # ⚠️ «con acido salicilico e il 10% in meno di tensioattivi» (Acnemy Zitclean, 23/10/2026): una percentuale
+        # seguita da «in meno», «in più», «di sconto» è un confronto, non una concentrazione.
+        if re.match(r'\s*(?:in\s+)?(?:meno|più|piu|less|more|di sconto|sconto|off)\b', testo[m.end():m.end() + 20], re.I):
+            continue
         dopo = re.sub(r"^\s*(?:\)\s*)?(?:di |d['’]|of |de )?", '', testo[m.end():m.end() + 40])
         prima = re.sub(r"(?:\s+|\(|:|-|\b(?:al|all['’]|at|a|con|il|lo)\b)*$", '', testo[max(0, m.start() - 40):m.start()])
         migliore = None
@@ -117,7 +121,7 @@ def _concentrazioni(testo):
                 continue
             # subito dopo, al massimo una parola in mezzo («2% di acido salicilico», «6 % Acido Mandelico»)
             d = rx.search(dopo[:40])
-            if d and d.start() <= 8 and not re.search(r'[,.;:+\d%()]', dopo[:d.start()]):
+            if d and d.start() <= 8 and not re.search(r'[,.;:+\d%()]', dopo[:d.start()]) and not re.search(r'\b(?:e|ed|and)\b', dopo[:d.start()], re.I):
                 migliore = nome
                 break
         if migliore is None:
@@ -126,13 +130,21 @@ def _concentrazioni(testo):
                     continue
                 # tra l'attivo e la percentuale al massimo qualche parola senza numeri né punteggiatura:
                 # «mucina di lumaca 3%», «vitamina C pura al 15%»
-                ultimi = [u for u in rx.finditer(prima) if len(prima) - u.end() <= 22 and not re.search(r'[,.;:+\d%()]', prima[u.end():])]
+                # ⚠️ «… acido salicilico e il 10%»: una «e» in mezzo apre un'altra frase, la percentuale non è dell'attivo
+                ultimi = [u for u in rx.finditer(prima) if len(prima) - u.end() <= 22 and not re.search(r'[,.;:+\d%()]', prima[u.end():])
+                          and not re.search(r'\b(?:e|ed|and|ma|oltre)\b', prima[u.end():], re.I)]
                 if ultimi:
                     migliore = nome
                     break
         if migliore:
             out.setdefault(migliore, v)
     return out
+
+
+# I massimi del Regolamento (CE) 1223/2009 (allegato III) per gli attivi che hanno un limite: oltre, la percentuale è
+# un errore di lettura e si toglie (23/10/2026). Acido salicilico: 2% sul viso, 3% nei prodotti da risciacquo per i
+# capelli. Il retinolo no: i prodotti all'1% messi in vendita prima del limite del 2025 restano vendibili fino al 2027.
+MASSIMI = {'acido salicilico': 3.0}
 
 
 def attivi(testo, inci=None):
@@ -143,7 +155,7 @@ def attivi(testo, inci=None):
         if (sorgente_inci and rx.search(sorgente_inci)) or (testo and nome not in SOLO_DA_INCI and rx.search(testo)):
             trovati.setdefault(nome, None)
     for nome, v in _concentrazioni(testo).items():
-        trovati[nome] = v
+        trovati[nome] = None if (nome in MASSIMI and v > MASSIMI[nome]) else v
     return [{'nome': n, 'perc': p} for n, p in trovati.items()]
 
 
