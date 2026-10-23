@@ -526,6 +526,27 @@ def main(candidati=None):
     if fuori:
         print('marche nuove, prodotti ancora da scegliere:', len(fuori))
     schede = [s for s in schede if scelto_uno(s)]
+    # ⚠️ GLI ESCLUSI COL LORO MOTIVO (23/10/2026, segnalazioni 11-14): fuori produzione, codici Babor vecchi, solari
+    # con la sola etichetta USA, Comodynes segnato come Korff. Vedi esclusi.json.
+    esclusi = json.loads((Path(__file__).parent / 'esclusi.json').read_text())['esclusi']
+    schede = [s for s in schede if s['id'] not in esclusi]
+    # ⚠️ LO STESSO INCI DELLA STESSA MARCA IN DUE NEGOZI E LO STESSO PRODOTTO (segnalazione 10: 21 Korff fra Liki24 e
+    # Farmaself con titoli diversi, che trova() non riconosceva). Resta il negozio che costa meno al ml; le altre
+    # confezioni dello stesso negozio restano, sono i formati.
+    per_inci = defaultdict(list)
+    for s in schede:
+        inci = s.get('inci')
+        inci = re.sub(r'[^a-z0-9]', '', (','.join(inci) if isinstance(inci, list) else (inci or '')).lower())
+        if len(inci) >= 120:
+            per_inci[(k(s['marca']), inci)].append(s)
+    doppi = set()
+    for g in per_inci.values():
+        if len({s.get('negozio') for s in g}) > 1:
+            meglio = min(g, key=lambda s: costo(s) or 1e9)
+            doppi |= {id(s) for s in g if s.get('negozio') != meglio.get('negozio')}
+    if doppi:
+        print('stesso INCI in due negozi, tolti i più cari:', len(doppi))
+    schede = [s for s in schede if id(s) not in doppi]
     if altri:
         print('altri negozi:', dict(conti))
     for s in schede:  # le schede degli altri negozi, se sono state fatte prima di zona, forma e pezzi (traduci.py)
