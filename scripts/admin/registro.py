@@ -10,7 +10,7 @@
                                            un testo del test riscritto (domande/<id>/testo, domande/<id>/aiuto,
                                            domande/<id>/opzioni/<id>/testo, percorsi/<id>/descrizione, limiti/<id>/testo…)
   elenco riscritture [--stato proposta]    le riscritture e le scelte di Federico e Sofia
-  marca --nome M --gruppo G [--perche] [--origine] [--sito] [--email] [--email-fonte URL] [--contatto-nota]
+  marca --nome M --gruppo G [--perche] [--origine] [--sito] [--email] [--email-fonte URL] [--contatto-nota] [--note]
                                            una marca da conoscere (admin › Marche); se c'è già, aggiorna i campi dati
   arricchimento --prodotto ID --campo C --valore V --fonte URL [--chi zeno]
       --campo inci: l'elenco intero, come sulla confezione; --campo attivi: quelli con la percentuale dichiarata dal
@@ -117,7 +117,8 @@ def riscrittura(a):
 
 
 def marca(a):
-    campi = {'gruppo': a.gruppo, 'perche': a.perche, 'origine': a.origine, 'sito': a.sito, 'email': a.email, 'email_fonte': a.email_fonte, 'contatto_nota': a.contatto_nota}
+    campi = {'gruppo': a.gruppo, 'perche': a.perche, 'origine': a.origine, 'sito': a.sito, 'email': a.email, 'email_fonte': a.email_fonte, 'contatto_nota': a.contatto_nota,
+             'note': a.note}  # note: il riassunto di Zeno sulla marca (reputazione, formule, recensioni, con le fonti)
     campi = {k_: v for k_, v in campi.items() if v is not None}
     gia = sql(f"SELECT id FROM marche_studio WHERE lower(marca) = lower({L(a.nome)})")
     if gia:
@@ -164,7 +165,7 @@ x = sub.add_parser('riscrittura')
 x.add_argument('--percorso', required=True); x.add_argument('--dopo', required=True); x.add_argument('--motivo', required=True); x.add_argument('--agente', default='zeno')
 x = sub.add_parser('marca')
 x.add_argument('--nome', required=True); x.add_argument('--gruppo', required=True)
-for c in ('perche', 'origine', 'sito', 'email', 'email-fonte', 'contatto-nota'):
+for c in ('perche', 'origine', 'sito', 'email', 'email-fonte', 'contatto-nota', 'note'):
     x.add_argument(f'--{c}')
 x = sub.add_parser('arricchimento')
 for k in ('prodotto', 'campo', 'valore', 'fonte'):
