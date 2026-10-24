@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { NOZIONI, TEST, TIPO_NOZIONE, type Nozione } from '@/lib/dati';
 import { useDocumento, BarraSalva, Campo, Testo, Titolo, Vuoto, nuovoId } from './base';
 
-// LE NOZIONI (23/10/2026): le pause del test («Lo sapevi che…», storie, quiz) e la scheda della Rivista.
+// LE NOZIONI (23/10/2026): le pause del test («Lo sapevi che…» e storie, solo da leggere) e la scheda della Rivista.
 // Ognuna compare dopo una domanda e parla dello stesso tema; ognuna ha una fonte che si può aprire.
 type Doc = { nozioni: Nozione[] };
 const TIPI = Object.keys(TIPO_NOZIONE) as Nozione['tipo'][];
@@ -33,20 +33,11 @@ export default function Nozioni() {
           <summary><b>{n.titolo}</b> <span className="piccolo">· {TIPO_NOZIONE[n.tipo]} · dopo «{domanda(n.dopo)}»</span></summary>
           <div className="pila" style={{ ['--gap' as string]: '10px', marginTop: 10 }}>
             <div className="adm-due">
-              <Campo etichetta="Tipo"><select className="adm-input" value={n.tipo} onChange={(e) => metti(i, { ...n, tipo: e.target.value as Nozione['tipo'], quiz: e.target.value === 'quiz' ? n.quiz || { domanda: '', opzioni: ['', ''], giusta: 0 } : n.quiz })}>{TIPI.map((t) => <option key={t} value={t}>{TIPO_NOZIONE[t]}</option>)}</select></Campo>
+              <Campo etichetta="Tipo"><select className="adm-input" value={n.tipo} onChange={(e) => metti(i, { ...n, tipo: e.target.value as Nozione['tipo'] })}>{TIPI.map((t) => <option key={t} value={t}>{TIPO_NOZIONE[t]}</option>)}</select></Campo>
               <Campo etichetta="Dopo la domanda"><select className="adm-input" value={n.dopo} onChange={(e) => metti(i, { ...n, dopo: e.target.value })}>{TEST.domande.map((d) => <option key={d.id} value={d.id}>{d.testo}</option>)}</select></Campo>
             </div>
             <Campo etichetta="Titolo" aiuto="Al massimo 60 caratteri."><Testo valore={n.titolo} cambia={(v) => metti(i, { ...n, titolo: v })} /></Campo>
-            <Campo etichetta={n.tipo === 'quiz' ? 'Spiegazione (dopo la risposta)' : 'Testo'} aiuto="Al massimo 300 caratteri."><Testo lungo valore={n.testo} cambia={(v) => metti(i, { ...n, testo: v })} /></Campo>
-            {n.tipo === 'quiz' && n.quiz && (
-              <div className="adm-due">
-                <Campo etichetta="Domanda del quiz"><Testo valore={n.quiz.domanda} cambia={(v) => metti(i, { ...n, quiz: { ...n.quiz!, domanda: v } })} /></Campo>
-                <Campo etichetta="Risposte, una per riga" aiuto="Scegli sotto quale è giusta.">
-                  <Testo lungo valore={n.quiz.opzioni.join('\n')} cambia={(v) => metti(i, { ...n, quiz: { ...n.quiz!, opzioni: v.split('\n') } })} />
-                  <select className="adm-input" value={n.quiz.giusta} onChange={(e) => metti(i, { ...n, quiz: { ...n.quiz!, giusta: Number(e.target.value) } })}>{n.quiz.opzioni.map((o, j) => <option key={j} value={j}>Giusta: {o || `risposta ${j + 1}`}</option>)}</select>
-                </Campo>
-              </div>
-            )}
+            <Campo etichetta="Testo" aiuto="Al massimo 300 caratteri. Una cosa da leggere: niente domande al lettore."><Testo lungo valore={n.testo} cambia={(v) => metti(i, { ...n, testo: v })} /></Campo>
             <div className="adm-due">
               <Campo etichetta="Fonte (indirizzo)"><Testo valore={n.fonte} placeholder="https://…" cambia={(v) => metti(i, { ...n, fonte: v })} /></Campo>
               <Campo etichetta="Fonte (come si chiama)"><Testo valore={n.fonte_nome} placeholder="EFSA, PubMed (autore, anno)…" cambia={(v) => metti(i, { ...n, fonte_nome: v })} /></Campo>

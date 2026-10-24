@@ -426,35 +426,36 @@
   {
    "id": "genere",
    "area": "comune",
-   "testo": "La routine è per:",
+   "testo": "Per chi stai costruendo la routine?",
    "opzioni": [
     {
      "id": "donna",
-     "testo": "Una donna",
+     "testo": "Per una donna",
      "scelte": {
       "genere": "donna"
      }
     },
     {
      "id": "uomo",
-     "testo": "Un uomo",
+     "testo": "Per un uomo",
      "scelte": {
       "genere": "uomo"
      }
     },
     {
      "id": "altro",
-     "testo": "Preferisco non dirlo",
+     "testo": "Preferisco non indicarlo",
      "scelte": {
       "genere": "altro"
      }
     }
-   ]
+   ],
+   "aiuto": "Alcuni prodotti sono formulati in modo diverso per la pelle maschile e per quella femminile: usiamo questa risposta solo per questo."
   },
   {
    "id": "eta",
    "area": "comune",
-   "testo": "Quanti anni hai?",
+   "testo": "In quale fascia d'età rientri?",
    "opzioni": [
     {
      "id": "meno-25",
@@ -506,17 +507,18 @@
       "eta": "55-piu"
      }
     }
-   ]
+   ],
+   "aiuto": "Con l'età cambiano la produzione di sebo, l'idratazione e il rinnovamento della pelle: ci aiuta a scegliere gli attivi e la loro intensità."
   },
   {
    "id": "tzona",
    "area": "pelle",
-   "testo": "A metà giornata, naso e fronte diventano lucidi?",
-   "aiuto": "Guardali allo specchio con la luce del giorno, ma non al sole diretto, e senza trucco.",
+   "testo": "A metà giornata, come appaiono naso e fronte (la cosiddetta zona T)?",
+   "aiuto": "Osservali allo specchio con la luce del giorno, lontano dal sole diretto e senza trucco. Ci dice quanto sebo produce la pelle.",
    "opzioni": [
     {
      "id": "opachi",
-     "testo": "No, restano opachi come al mattino",
+     "testo": "Opachi, come al mattino",
      "punti": {
       "sebo": 0
      },
@@ -526,7 +528,7 @@
     },
     {
      "id": "poco-lucidi",
-     "testo": "Sì, un po' lucidi",
+     "testo": "Leggermente lucidi",
      "punti": {
       "sebo": 1
      },
@@ -536,7 +538,7 @@
     },
     {
      "id": "lucidi",
-     "testo": "Sì, abbastanza lucidi",
+     "testo": "Abbastanza lucidi",
      "punti": {
       "sebo": 2
      },
@@ -546,7 +548,7 @@
     },
     {
      "id": "molto-lucidi",
-     "testo": "Sì, tanto che devo tamponarli",
+     "testo": "Molto lucidi: sento il bisogno di tamponarli",
      "punti": {
       "sebo": 3
      },
@@ -559,67 +561,69 @@
   {
    "id": "guance",
    "area": "pelle",
-   "testo": "E le guance diventano lucide?",
+   "testo": "E le guance, nello stesso momento della giornata?",
    "opzioni": [
     {
      "id": "opache",
-     "testo": "No, restano opache (a volte tirano)",
+     "testo": "Opache, a volte tirano",
      "punti": {
       "sebo": 0
      }
     },
     {
      "id": "normali",
-     "testo": "Non noto differenze",
+     "testo": "Come al mattino, senza differenze",
      "punti": {
       "sebo": 1
      }
     },
     {
      "id": "lucide",
-     "testo": "Sì, anche le guance",
+     "testo": "Lucide anche loro",
      "punti": {
       "sebo": 2
      }
     }
-   ]
+   ],
+   "aiuto": "Confrontarle con la zona T ci dice se la pelle è mista: più grassa al centro, normale o secca ai lati."
   },
   {
    "id": "pori",
    "area": "pelle",
-   "testo": "Si vedono i pori?",
+   "testo": "Quanto sono visibili i pori?",
    "opzioni": [
     {
      "id": "poco",
-     "testo": "No, quasi per niente",
+     "testo": "Quasi per niente",
      "punti": {
       "sebo": 0
      }
     },
     {
      "id": "naso",
-     "testo": "Sì, solo sul naso",
+     "testo": "Solo sul naso",
      "punti": {
       "sebo": 1
      }
     },
     {
      "id": "guance",
-     "testo": "Sì, anche sulle guance",
+     "testo": "Sul naso e anche sulle guance",
      "punti": {
       "sebo": 2
      }
     }
-   ]
+   ],
+   "aiuto": "Guardati allo specchio da circa trenta centimetri, con luce naturale. I pori dilatati accompagnano spesso una pelle che produce più sebo."
   },
   {
    "id": "tira",
    "area": "pelle",
-   "testo": "Dopo aver lavato il viso, prima di mettere qualsiasi prodotto, come senti la pelle?",
+   "testo": "Subito dopo aver lavato il viso, prima di applicare qualsiasi prodotto, come senti la pelle?",
    "opzioni": [
     {
      "id": "bene",
-     "testo": "Normale, a posto",
+     "testo": "Normale, a mio agio",
      "punti": {
       "idr": 0
      }
@@ -639,12 +643,13 @@
       "re": 1
      }
     }
-   ]
+   ],
+   "aiuto": "Aspetta un paio di minuti prima di rispondere: è uno dei segnali più affidabili della secchezza."
   },
   {
    "id": "spella",
    "area": "pelle",
-   "testo": "Ti capita che la pelle si spelli o che ci siano zone ruvide?",
+   "testo": "Ti capita di avere zone che si desquamano o che al tatto risultano ruvide?",
    "opzioni": [
     {
      "id": "mai",
@@ -667,40 +672,42 @@
       "idr": 2
      }
     }
-   ]
+   ],
+   "aiuto": "Pensa alle ultime settimane. La desquamazione indica una barriera cutanea che trattiene poca acqua."
   },
   {
    "id": "crema",
    "area": "pelle",
-   "testo": "Quando metti una crema idratante, cosa succede?",
+   "testo": "Dopo aver applicato una crema idratante, come si comporta la pelle?",
    "opzioni": [
     {
      "id": "assorbe",
-     "testo": "La pelle la assorbe con calma",
+     "testo": "La assorbe gradualmente e resta confortevole",
      "punti": {
       "idr": 0
      }
     },
     {
      "id": "beve",
-     "testo": "La assorbe subito, e poco dopo è di nuovo secca",
+     "testo": "La assorbe subito, ma dopo poco torna a tirare",
      "punti": {
       "idr": 2
      }
     },
     {
      "id": "unta",
-     "testo": "Resta in superficie, la sento unta",
+     "testo": "La crema resta in superficie e la pelle appare unta",
      "punti": {
       "sebo": 1
      }
     }
-   ]
+   ],
+   "aiuto": "Ci dice se alla pelle mancano acqua, grassi o nessuno dei due."
   },
   {
    "id": "nuovo",
    "area": "pelle",
-   "testo": "Quando provi un prodotto nuovo, come reagisce la pelle?",
+   "testo": "Quando provi un prodotto nuovo, come reagisce di solito la pelle?",
    "opzioni": [
     {
      "id": "niente",
@@ -711,7 +718,7 @@
     },
     {
      "id": "a-volte",
-     "testo": "A volte si arrossa un po'",
+     "testo": "A volte si arrossa leggermente",
      "punti": {
       "re": 1
      }
@@ -730,12 +737,13 @@
       "re": 3
      }
     }
-   ]
+   ],
+   "aiuto": "Se la pelle è reattiva ti proponiamo formule più delicate, senza profumo."
   },
   {
    "id": "rossore",
    "area": "pelle",
-   "testo": "La pelle ti si arrossa?",
+   "testo": "Ti capita che il viso si arrossi, per esempio con il caldo, il freddo o un'emozione?",
    "opzioni": [
     {
      "id": "mai",
@@ -766,16 +774,17 @@
      },
      "limite": "rossore"
     }
-   ]
+   ],
+   "aiuto": "Rossori frequenti o che durano a lungo possono indicare una pelle sensibile o una rosacea."
   },
   {
    "id": "brufoli",
    "area": "pelle",
-   "testo": "Hai punti neri o brufoli?",
+   "testo": "Con quale frequenza compaiono punti neri o brufoli?",
    "opzioni": [
     {
      "id": "mai",
-     "testo": "No, quasi mai",
+     "testo": "Quasi mai",
      "punti": {
       "imp": 0
      }
@@ -796,7 +805,7 @@
     },
     {
      "id": "spesso",
-     "testo": "Sì, spesso, brufoli e punti neri",
+     "testo": "Spesso, sia brufoli sia punti neri",
      "punti": {
       "imp": 3
      }
@@ -809,12 +818,13 @@
      },
      "limite": "noduli"
     }
-   ]
+   ],
+   "aiuto": "Pensa agli ultimi tre mesi. Se i brufoli sono grossi, profondi e dolorosi, ti consiglieremo anche il parere di un dermatologo."
   },
   {
    "id": "macchie",
    "area": "pelle",
-   "testo": "Hai macchie scure, per esempio i segni lasciati dai brufoli?",
+   "testo": "Hai macchie scure sul viso?",
    "opzioni": [
     {
      "id": "no",
@@ -825,27 +835,27 @@
     },
     {
      "id": "qualcuna",
-     "testo": "Sì, qualcuna piccola",
+     "testo": "Qualcuna, piccola",
      "punti": {
       "mac": 1
      }
     },
     {
      "id": "molte",
-     "testo": "Sì, molte, o si scuriscono al sole",
+     "testo": "Molte, oppure si scuriscono con il sole",
      "punti": {
       "mac": 2
      }
     }
    ],
-   "aiuto": "Possono essere i segni di brufoli passati o macchie del sole."
+   "aiuto": "Possono essere i segni lasciati dai brufoli o macchie dovute al sole e all'età. Ci servono per scegliere attivi che uniformano il colorito."
   },
   {
    "id": "condizioni",
    "area": "pelle",
    "multipla": true,
-   "testo": "Un medico ti ha diagnosticato una di queste condizioni?",
-   "aiuto": "Puoi sceglierne più di una.",
+   "testo": "Un medico ti ha diagnosticato una di queste condizioni della pelle?",
+   "aiuto": "In questi casi ti proponiamo solo prodotti delicati, da affiancare alle indicazioni del dermatologo. Puoi sceglierne più di una.",
    "opzioni": [
     {
      "id": "dermatite",
@@ -872,7 +882,7 @@
   {
    "id": "gravidanza",
    "area": "comune",
-   "testo": "Sei in gravidanza o allattamento?",
+   "testo": "Sei in gravidanza o stai allattando?",
    "se": [
     {
      "scelta": "genere",
@@ -895,13 +905,14 @@
      },
      "limite": "gravidanza-integratori"
     }
-   ]
+   ],
+   "aiuto": "Alcuni attivi, come i retinoidi, sono sconsigliati in questo periodo: in quel caso ti mostriamo solo prodotti adatti."
   },
   {
    "id": "menopausa",
    "area": "comune",
    "testo": "Sei in perimenopausa o in menopausa?",
-   "aiuto": "Cicli irregolari, vampate, o niente ciclo da almeno un anno.",
+   "aiuto": "Cicli irregolari, vampate o assenza di ciclo da almeno un anno. In questa fase la pelle tende a diventare più secca e sottile.",
    "se": [
     {
      "scelta": "genere",
@@ -938,7 +949,7 @@
   {
    "id": "obiettivo",
    "area": "pelle",
-   "testo": "Qual è la cosa che vuoi migliorare di più?",
+   "testo": "Quale aspetto della pelle vorresti migliorare per primo?",
    "opzioni": [
     {
      "id": "idratazione",
@@ -982,12 +993,13 @@
       "obiettivo": "rossori-sensibilita"
      }
     }
-   ]
+   ],
+   "aiuto": "Scegline uno solo: la routine metterà al centro questo obiettivo."
   },
   {
    "id": "esperienza",
    "area": "pelle",
-   "testo": "Hai mai usato prodotti con retinolo o acidi esfolianti?",
+   "testo": "Hai già usato prodotti con retinolo o acidi esfolianti, come l'acido glicolico o il salicilico?",
    "opzioni": [
     {
      "id": "mai",
@@ -1005,18 +1017,19 @@
     },
     {
      "id": "spesso",
-     "testo": "Sì, li uso abitualmente",
+     "testo": "Sì, li uso regolarmente",
      "scelte": {
       "esperienza": 2
      }
     }
    ],
-   "saltabile": true
+   "saltabile": true,
+   "aiuto": "Sono attivi efficaci ma impegnativi: se non li hai mai usati, partiamo da formule più leggere."
   },
   {
    "id": "barba",
    "area": "pelle",
-   "testo": "Ogni quanto ti radi la barba?",
+   "testo": "Con quale frequenza ti radi?",
    "se": [
     {
      "scelta": "genere",
@@ -1042,29 +1055,30 @@
     },
     {
      "id": "ok",
-     "testo": "Senza regolarità, e ogni tanto la pelle si irrita",
+     "testo": "Senza regolarità, e a volte la pelle si irrita",
      "scelte": {
       "barba": "irritazione"
      }
     }
    ],
-   "saltabile": true
+   "saltabile": true,
+   "aiuto": "La rasatura frequente sollecita la pelle: ci aiuta a scegliere prodotti che la proteggono."
   },
   {
    "id": "passi",
    "area": "pelle",
-   "testo": "Quanti passaggi vuoi fare ogni giorno?",
+   "testo": "Quanto tempo vuoi dedicare alla routine ogni giorno?",
    "opzioni": [
     {
      "id": "tre",
-     "testo": "L'essenziale: 3, mattina e sera",
+     "testo": "L'essenziale: 3 prodotti, mattina e sera",
      "scelte": {
       "passi": 3
      }
     },
     {
      "id": "quattro",
-     "testo": "Una routine completa: 4",
+     "testo": "Una routine completa: 4 prodotti",
      "scelte": {
       "passi": 4
      }
@@ -1077,12 +1091,13 @@
      }
     }
    ],
-   "saltabile": true
+   "saltabile": true,
+   "aiuto": "Più passaggi permettono di seguire più esigenze, ma una routine semplice e costante funziona meglio di una complessa che si abbandona."
   },
   {
    "id": "cute_unta",
    "area": "cute",
-   "testo": "Dopo quanto tempo dallo shampoo le radici diventano unte?",
+   "testo": "Quanto tempo dopo lo shampoo le radici iniziano ad apparire unte?",
    "opzioni": [
     {
      "id": "un-giorno",
@@ -1107,13 +1122,14 @@
     },
     {
      "id": "mai",
-     "testo": "Restano pulite anche una settimana",
+     "testo": "Restano pulite anche per una settimana",
      "punti": {
       "cs": 0,
       "csec": 1
      }
     }
-   ]
+   ],
+   "aiuto": "Ci dice quanto sebo produce il cuoio capelluto, e quindi quale shampoo ti serve."
   },
   {
    "id": "cute_tira",
@@ -1122,7 +1138,7 @@
    "opzioni": [
     {
      "id": "bene",
-     "testo": "Sta bene",
+     "testo": "Bene, nessun fastidio",
      "punti": {
       "sens": 0
      }
@@ -1142,12 +1158,13 @@
       "sens": 2
      }
     }
-   ]
+   ],
+   "aiuto": "Tensione o prurito ricorrenti indicano un cuoio capelluto secco o sensibile."
   },
   {
    "id": "forfora",
    "area": "cute",
-   "testo": "Hai forfora?",
+   "testo": "Noti forfora sul cuoio capelluto o sulle spalle?",
    "opzioni": [
     {
      "id": "no",
@@ -1161,7 +1178,7 @@
     },
     {
      "id": "secca",
-     "testo": "Sì, scagliette bianche e sottili che cadono sulle spalle",
+     "testo": "Sì, scaglie bianche e sottili che cadono sulle spalle",
      "punti": {
       "desq": 2,
       "csec": 1
@@ -1189,13 +1206,14 @@
      },
      "limite": "placche-cute"
     }
-   ]
+   ],
+   "aiuto": "Conta il tipo di scaglie: quelle secche e quelle grasse si trattano in modo diverso."
   },
   {
    "id": "caduta",
    "area": "cute",
-   "testo": "Quanti capelli perdi?",
-   "aiuto": "Ne cadono fino a un centinaio al giorno: è normale.",
+   "testo": "Rispetto al solito, quanti capelli stai perdendo?",
+   "aiuto": "Perderne fino a un centinaio al giorno è normale. Una caduta a chiazze, o che dura da mesi, va valutata da un dermatologo.",
    "opzioni": [
     {
      "id": "normale",
@@ -1219,7 +1237,7 @@
     },
     {
      "id": "progressiva",
-     "testo": "Si stanno diradando piano piano, da mesi",
+     "testo": "Si stanno diradando gradualmente, da mesi",
      "punti": {
       "cad": 3
      },
@@ -1244,7 +1262,7 @@
   {
    "id": "lunghezze",
    "area": "cute",
-   "testo": "Le lunghezze come sono?",
+   "testo": "Come descriveresti le lunghezze e le punte?",
    "opzioni": [
     {
      "id": "morbide",
@@ -1262,18 +1280,19 @@
     },
     {
      "id": "crespe",
-     "testo": "Opache e crespe, si spezzano",
+     "testo": "Opache e crespe, si spezzano facilmente",
      "punti": {
       "lung": 2
      }
     }
-   ]
+   ],
+   "aiuto": "Ci serve per scegliere balsamo e maschera adatti."
   },
   {
    "id": "trattamenti",
    "area": "cute",
    "multipla": true,
-   "testo": "Colori i capelli o usi spesso piastra e phon caldo?",
+   "testo": "Fai trattamenti che sollecitano i capelli?",
    "opzioni": [
     {
      "id": "nessuno",
@@ -1292,7 +1311,7 @@
     },
     {
      "id": "calore",
-     "testo": "Piastra o phon caldo quasi ogni giorno",
+     "testo": "Piastra o phon molto caldo quasi ogni giorno",
      "punti": {
       "lung": 1
      },
@@ -1300,13 +1319,14 @@
       "trattati": true
      }
     }
-   ]
+   ],
+   "aiuto": "Colorazioni, decolorazioni e calore frequente indeboliscono la fibra. Puoi sceglierne più di uno."
   },
   {
    "id": "condizioni_cute",
    "area": "cute",
    "multipla": true,
-   "testo": "Un medico ti ha diagnosticato una di queste?",
+   "testo": "Un medico ti ha diagnosticato una di queste condizioni del cuoio capelluto?",
    "opzioni": [
     {
      "id": "nessuna",
@@ -1323,13 +1343,14 @@
      "testo": "Psoriasi del cuoio capelluto",
      "limite": "psoriasi-cute"
     }
-   ]
+   ],
+   "aiuto": "In questi casi ti proponiamo prodotti specifici e delicati, da affiancare alle indicazioni del medico."
   },
   {
    "id": "int_obiettivo",
    "area": "integrazione",
-   "testo": "E per pelle, capelli o unghie, vuoi un aiuto anche dall'interno?",
-   "aiuto": "Scegli la cosa che conta di più per te adesso.",
+   "testo": "Oltre a quanto indicato finora, vorresti un integratore per pelle, capelli o unghie?",
+   "aiuto": "Scegli l'aspetto più importante per te in questo momento, oppure rispondi di no.",
    "opzioni": [
     {
      "id": "capelli",
@@ -1385,25 +1406,25 @@
   {
    "id": "dieta",
    "area": "integrazione",
-   "testo": "Come mangi?",
+   "testo": "Che tipo di alimentazione segui?",
    "opzioni": [
     {
      "id": "onnivora",
-     "testo": "Un po' di tutto",
+     "testo": "Mangio un po' di tutto",
      "scelte": {
       "dieta": "onnivora"
      }
     },
     {
      "id": "vegetariana",
-     "testo": "Vegetariano",
+     "testo": "Vegetariana",
      "scelte": {
       "dieta": "vegetariana"
      }
     },
     {
      "id": "vegana",
-     "testo": "Vegano",
+     "testo": "Vegana",
      "scelte": {
       "dieta": "vegana"
      },
@@ -1411,13 +1432,14 @@
       "b12": 4
      }
     }
-   ]
+   ],
+   "aiuto": "Chi non mangia carne o pesce può avere bisogno di alcuni nutrienti in più, come la vitamina B12."
   },
   {
    "id": "farmaci",
    "area": "integrazione",
-   "testo": "Prendi farmaci tutti i giorni?",
-   "aiuto": "Per esempio per la pressione, la tiroide, la coagulazione o la pillola.",
+   "testo": "Assumi farmaci tutti i giorni?",
+   "aiuto": "Per esempio per la pressione, la tiroide, la coagulazione o la pillola. Alcuni integratori possono interferire: in quel caso ti ricorderemo di sentire il medico o il farmacista.",
    "opzioni": [
     {
      "id": "no",
@@ -1435,8 +1457,8 @@
    "area": "comune",
    "multipla": true,
    "saltabile": true,
-   "testo": "C'è qualcosa che preferisci evitare?",
-   "aiuto": "Puoi sceglierne più di uno.",
+   "testo": "Ci sono ingredienti che preferisci evitare?",
+   "aiuto": "Ti mostreremo per primi i prodotti che non li contengono. Puoi sceglierne più di uno.",
    "opzioni": [
     {
      "id": "profumo",
@@ -1469,8 +1491,8 @@
   {
    "id": "budget",
    "area": "comune",
-   "testo": "Quanto vuoi spendere per ogni prodotto?",
-   "aiuto": "Per ogni consiglio ti mostriamo comunque un'alternativa che costa meno.",
+   "testo": "Quanto vorresti spendere, indicativamente, per ogni prodotto?",
+   "aiuto": "Per ogni consiglio ti mostriamo comunque un'alternativa simile, di solito più economica.",
    "opzioni": [
     {
      "id": "base",
@@ -1506,15 +1528,15 @@
   {
    "id": "sonno",
    "area": "integrazione",
-   "testo": "Come dormi, nelle ultime settimane?",
+   "testo": "Come stai dormendo nelle ultime settimane?",
    "opzioni": [
     {
      "id": "bene",
-     "testo": "Bene: mi addormento presto e mi sveglio riposato"
+     "testo": "Bene: mi addormento facilmente e al risveglio sono in forma"
     },
     {
      "id": "addormentarsi",
-     "testo": "Ci metto molto ad addormentarmi",
+     "testo": "Impiego molto tempo ad addormentarmi",
      "punti": {
       "sonno": 3
      }
@@ -1528,17 +1550,18 @@
     },
     {
      "id": "fuso",
-     "testo": "Viaggio tra fusi orari o faccio i turni",
+     "testo": "Cambio spesso fuso orario o lavoro su turni",
      "punti": {
       "sonno": 2
      }
     }
-   ]
+   ],
+   "aiuto": "Il sonno incide sull'energia e anche sull'aspetto della pelle. Se i disturbi durano da tempo, è bene parlarne con il medico."
   },
   {
    "id": "stanchezza",
    "area": "integrazione",
-   "testo": "Come arrivi a metà pomeriggio?",
+   "testo": "Come ti senti a metà pomeriggio, in termini di energia?",
    "aiuto": "Se la stanchezza dura da settimane senza un motivo, parlane con il medico: un esame del sangue dice più di un test.",
    "opzioni": [
     {
@@ -1564,7 +1587,7 @@
   {
    "id": "stress",
    "area": "integrazione",
-   "testo": "Quanto spesso ti senti sotto pressione o con i nervi tesi?",
+   "testo": "Con quale frequenza ti senti sotto pressione o con i nervi tesi?",
    "opzioni": [
     {
      "id": "raramente",
@@ -1584,16 +1607,17 @@
       "stress": 3
      }
     }
-   ]
+   ],
+   "aiuto": "Pensa alle ultime settimane. Se ansia o umore basso durano da tempo, il primo passo è parlarne con il medico."
   },
   {
    "id": "raffreddori",
    "area": "integrazione",
-   "testo": "Quante volte all'anno prendi raffreddore o influenza?",
+   "testo": "Quante volte all'anno ti capita di prendere raffreddore o influenza?",
    "opzioni": [
     {
      "id": "raro",
-     "testo": "Una volta, o mai"
+     "testo": "Al massimo una volta"
     },
     {
      "id": "qualche",
@@ -1609,13 +1633,14 @@
       "difese": 3
      }
     }
-   ]
+   ],
+   "aiuto": "Ci aiuta a capire se ha senso un sostegno per le difese."
   },
   {
    "id": "frutta",
    "area": "integrazione",
-   "testo": "Quante porzioni di frutta e verdura mangi al giorno?",
-   "aiuto": "Una porzione è un frutto, una ciotola di insalata o un piatto di verdure cotte.",
+   "testo": "Quante porzioni di frutta e verdura mangi, in media, al giorno?",
+   "aiuto": "Una porzione è un frutto, una ciotola di insalata o un piatto di verdure cotte. Sono la principale fonte di vitamina C.",
    "opzioni": [
     {
      "id": "cinque",
@@ -1640,7 +1665,7 @@
   {
    "id": "aperto",
    "area": "integrazione",
-   "testo": "Quanto tempo passi all'aperto, alla luce del giorno?",
+   "testo": "Quanto tempo trascorri all'aperto, alla luce del giorno?",
    "opzioni": [
     {
      "id": "ogni-giorno",
@@ -1660,16 +1685,17 @@
       "vitd": 3
      }
     }
-   ]
+   ],
+   "aiuto": "La vitamina D si forma nella pelle con il sole: chi sta molto al chiuso, soprattutto d'inverno, ne produce poca."
   },
   {
    "id": "pesce",
    "area": "integrazione",
-   "testo": "Mangi pesce come salmone, sgombro o sardine?",
+   "testo": "Quanto spesso mangi pesce grasso, come salmone, sgombro o sardine?",
    "opzioni": [
     {
      "id": "spesso",
-     "testo": "Due volte a settimana, o di più"
+     "testo": "Due volte a settimana o più"
     },
     {
      "id": "a-volte",
@@ -1685,7 +1711,8 @@
       "omega": 3
      }
     }
-   ]
+   ],
+   "aiuto": "È la fonte principale degli omega-3 EPA e DHA."
   }
  ],
  "limiti": [

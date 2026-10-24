@@ -67,7 +67,7 @@ regola('due prodotti con lo stesso indirizzo', Object.entries(PRODOTTI.reduce((m
 console.log('Le nozioni');
 regola('identificativi doppi', doppi(NOZIONI.map((n) => n.id)), 'BLOCCA');
 regola('nozioni dopo una domanda che non c\'è', NOZIONI.filter((n) => !TEST.domande.some((d) => d.id === n.dopo)).map((n) => n.id), 'BLOCCA');
-regola('quiz rotti (meno di due risposte, o la giusta che non c\'è)', NOZIONI.filter((n) => n.tipo === 'quiz' && (!n.quiz || n.quiz.opzioni.filter(Boolean).length < 2 || !n.quiz.opzioni[n.quiz.giusta])).map((n) => n.id), 'BLOCCA');
+regola('nozioni con un tipo che non esiste (i quiz non ci sono più: si legge e basta)', NOZIONI.filter((n) => !['lo-sapevi', 'storia'].includes(n.tipo)).map((n) => n.id), 'BLOCCA');
 regola('nozioni senza testo o senza fonte', NOZIONI.filter((n) => !n.testo || !n.fonte?.startsWith('http')).map((n) => n.id), 'BLOCCA');
 regola('nozioni troppo lunghe (titolo oltre 60, testo oltre 300 caratteri)', NOZIONI.filter((n) => n.titolo.length > 60 || n.testo.length > 300).map((n) => n.id), 'AVVISA');
 regola('approfondimenti verso pagine che non ci sono', NOZIONI.filter((n) => n.legame && !(

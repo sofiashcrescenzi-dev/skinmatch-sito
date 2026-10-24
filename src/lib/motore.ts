@@ -246,8 +246,6 @@ function scegli(area: Area, ps: Passaggio, p: Profilo, b: Bisogni, biotipo: Biot
     .filter((x) => !['creme', 'attivi'].includes(ps.categoria) || formaDi(x) !== 'detergente')
     .filter((x) => x.gender === 'unisex' || genere === 'altro' || genere === undefined || x.gender === genere)
     .filter((x) => p.scelte.gravidanza !== true || x.pregnancySafe === true)
-    // chi mangia vegano o vegetariano: niente olio di pesce né perle di gelatina, solo quelli dichiarati (23/10/2026)
-    .filter((x) => area !== 'integrazione' || !['vegana', 'vegetariana'].includes(String(p.scelte.dieta)) || x.scheda?.vegano === true)
     .filter((x) => !(delicati || (area === 'pelle' && re >= 3)) || x.sensitiveSafe === true)
     .filter((x) => !(area === 'pelle' && re >= 2) || x.sensitiveSafe !== false)
     // dalla scheda, come nel prototipo: i prodotti forti solo a chi usa già gli attivi; con un limite medico
@@ -264,6 +262,16 @@ function scegli(area: Area, ps: Passaggio, p: Profilo, b: Bisogni, biotipo: Biot
     .filter((v) => v.c >= minimo)
     .sort((u, v) => ordine(v) - ordine(u) || linkPronto(v.x) - linkPronto(u.x) || u.x.price - v.x.price);
   if (!voti.length) return null;
+  // ⚠️ CHI MANGIA VEGANO O VEGETARIANO (25/10/2026, Federico: «per ora punta su consigliare qualcosa segnalando non è
+  // vegano»): prima gli integratori dichiarati vegani; se per questo bisogno non ce n'è nessuno, si consiglia il migliore
+  // e si dice che non è dichiarato vegano, invece di lasciare il passaggio vuoto.
+  const veg = area === 'integrazione' && ['vegana', 'vegetariana'].includes(String(p.scelte.dieta));
+  let nonVegano = false;
+  if (veg) {
+    const dichiarati = voti.filter((v) => v.x.scheda?.vegano === true);
+    if (dichiarati.length) voti.splice(0, voti.length, ...dichiarati);
+    else nonVegano = true;
+  }
   let top = voti[0];
   const budget = p.scelte.budget;
   if (typeof budget === 'string' && budget !== 'nessuna') {
@@ -273,7 +281,8 @@ function scegli(area: Area, ps: Passaggio, p: Profilo, b: Bisogni, biotipo: Biot
   const livello = (c: number): 'alta' | 'media' => (c >= 70 ? 'alta' : 'media');
   // nel giro integrativo il primo «perché» è l'indicazione autorizzata del bisogno, parola per parola (integratori.ts)
   const indicazione = area === 'integrazione' && ps.con_bisogno ? BISOGNI.find((x) => x.chiave === ps.con_bisogno)?.principale : undefined;
-  const scelto = (v: { x: Prodotto; c: number }): Scelto => ({ prodotto: v.x, compat: v.c, livello: livello(v.c), perche: [...(indicazione ? [indicazione] : []), ...percheDi(v.x, area, b, p, biotipo)] });
+  const avvisoVegano = nonVegano ? [p.scelte.dieta === 'vegana' ? 'non è dichiarato vegano: controlla l\'etichetta prima di comprarlo' : 'non è dichiarato vegetariano: controlla l\'etichetta prima di comprarlo'] : [];
+  const scelto = (v: { x: Prodotto; c: number }): Scelto => ({ prodotto: v.x, compat: v.c, livello: livello(v.c), perche: [...avvisoVegano, ...(indicazione ? [indicazione] : []), ...percheDi(v.x, area, b, p, biotipo)] });
   // l'alternativa: la più compatibile che costa almeno un quinto in meno; se il consigliato
   // è già il più economico, quella premium più compatibile
   // ⚠️ L'ALTERNATIVA FA LO STESSO LAVORO (Friday, 15/10: una crema per i brufoli proposta come

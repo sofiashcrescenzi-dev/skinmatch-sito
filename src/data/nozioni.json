@@ -1,23 +1,14 @@
 {
- "_nota": "Le pause del test, «Lo sapevi che…», le storie e i quiz (23/10/2026, scritte da Zeno). Compaiono nel test dopo la domanda «dopo» e tutte insieme nella Rivista. Si modificano da skinmatch.it/admin/nozioni: questo file lo riscrive la pubblicazione.",
+ "_nota": "Le pause del test, «Lo sapevi che…», e le storie (23/10/2026, scritte da Zeno). Compaiono nel test dopo la domanda «dopo» e tutte insieme nella Rivista. Si modificano da skinmatch.it/admin/nozioni: questo file lo riscrive la pubblicazione.",
  "nozioni": [
   {
    "id": "sebo-palmi",
-   "tipo": "quiz",
+   "tipo": "lo-sapevi",
    "dopo": "pori",
    "titolo": "Dove non c'è sebo",
    "testo": "Sui palmi delle mani e sulle piante dei piedi non ci sono ghiandole sebacee. Sono più numerose su viso e cuoio capelluto: per questo fronte, naso e radici si ungono prima del resto.",
    "fonte": "https://en.wikipedia.org/wiki/Sebaceous_gland",
    "fonte_nome": "Wikipedia, Sebaceous gland",
-   "quiz": {
-    "domanda": "In quale parte del corpo non ci sono ghiandole sebacee?",
-    "opzioni": [
-     "Sul naso",
-     "Sui palmi delle mani",
-     "Sul cuoio capelluto"
-    ],
-    "giusta": 1
-   },
    "legame": "/glossario/sebo"
   },
   {
@@ -42,40 +33,22 @@
   },
   {
    "id": "ceramidi-tre-parti",
-   "tipo": "quiz",
+   "tipo": "lo-sapevi",
    "dopo": "crema",
    "titolo": "Il cemento della pelle",
    "testo": "Tra le cellule dello strato corneo c'è un cemento di grassi fatto di tre parti in quantità simili: ceramidi, colesterolo e acidi grassi. Quando le ceramidi calano, la barriera perde acqua: per questo le creme per pelli secche le rimettono, spesso con gli altri due.",
    "fonte": "https://pubmed.ncbi.nlm.nih.gov/12553851/",
    "fonte_nome": "PubMed (Coderch e altri, 2003)",
-   "quiz": {
-    "domanda": "Di cosa è fatto il «cemento» tra le cellule della pelle?",
-    "opzioni": [
-     "Solo acqua e sali",
-     "Ceramidi, colesterolo e acidi grassi",
-     "Collagene"
-    ],
-    "giusta": 1
-   },
    "legame": "/glossario/ceramidi"
   },
   {
    "id": "rosacea-sole",
-   "tipo": "quiz",
+   "tipo": "lo-sapevi",
    "dopo": "rossore",
-   "titolo": "Che cosa accende il rossore",
+   "titolo": "Il sole accende il rossore",
    "testo": "In un sondaggio della National Rosacea Society su 1.066 persone con rosacea, il primo fattore scatenante era il sole (81%), poi lo stress emotivo (79%) e il caldo (75%). Per questo, con la pelle che si arrossa, la protezione solare viene prima di tutto.",
    "fonte": "https://www.rosacea.org/rosacea-review/2002/summer/new-survey-pinpoints-leading-factors-that-trigger-symptoms",
    "fonte_nome": "National Rosacea Society, sondaggio 2002",
-   "quiz": {
-    "domanda": "Per chi ha la rosacea, qual è il fattore scatenante più citato?",
-    "opzioni": [
-     "Il sole",
-     "Il caffè",
-     "Il freddo"
-    ],
-    "giusta": 0
-   },
    "legame": "/glossario/rosacea"
   },
   {
@@ -110,21 +83,12 @@
   },
   {
    "id": "segni-brufoli-fototipo",
-   "tipo": "quiz",
+   "tipo": "lo-sapevi",
    "dopo": "macchie",
    "titolo": "I segni dei brufoli e la carnagione",
    "testo": "La macchia scura che resta dopo un brufolo si chiama iperpigmentazione post-infiammatoria. Colpisce più spesso e più a lungo le pelli scure. Si parte calmando l'infiammazione, e la crema solare fa parte della cura.",
    "fonte": "https://pubmed.ncbi.nlm.nih.gov/20725554/",
    "fonte_nome": "PubMed (Davis e Callender, 2010)",
-   "quiz": {
-    "domanda": "Su quali pelli i segni scuri dei brufoli restano più spesso?",
-    "opzioni": [
-     "Sulle pelli chiare",
-     "Sulle pelli scure",
-     "Non c'è differenza"
-    ],
-    "giusta": 1
-   },
    "legame": "/glossario/macchie"
   },
   {
@@ -149,21 +113,12 @@
   },
   {
    "id": "vitamina-c-gialla",
-   "tipo": "quiz",
+   "tipo": "lo-sapevi",
    "dopo": "esperienza",
    "titolo": "Il siero che cambia colore",
    "testo": "La vitamina C pura (acido ascorbico) è instabile: con la luce e l'aria si ossida e diventa gialla, poi arancione. Per questo i sieri stanno in flaconi scuri e chiusi. Se il siero è diventato scuro, la vitamina C si è già ossidata.",
    "fonte": "https://pubmed.ncbi.nlm.nih.gov/23741676/",
    "fonte_nome": "PubMed (Telang, 2013)",
-   "quiz": {
-    "domanda": "Un siero alla vitamina C diventato arancione è…",
-    "opzioni": [
-     "Più concentrato",
-     "Ossidato",
-     "Normale, succede sempre"
-    ],
-    "giusta": 1
-   },
    "legame": "/glossario/vitc"
   },
   {
@@ -178,21 +133,12 @@
   },
   {
    "id": "ph-cuoio-capelluto",
-   "tipo": "quiz",
+   "tipo": "lo-sapevi",
    "dopo": "cute_tira",
    "titolo": "Il cuoio capelluto è acido",
    "testo": "Il cuoio capelluto ha un pH intorno a 5,5, leggermente acido. In uno studio su 123 shampoo, più di sei su dieci avevano un pH più alto. Un pH alcalino aumenta l'attrito tra i capelli e li rende più crespi.",
    "fonte": "https://pubmed.ncbi.nlm.nih.gov/25210332/",
    "fonte_nome": "PubMed (Gavazzoni Dias e altri, 2014)",
-   "quiz": {
-    "domanda": "Il cuoio capelluto è…",
-    "opzioni": [
-     "Leggermente acido",
-     "Neutro, come l'acqua",
-     "Basico, come il sapone"
-    ],
-    "giusta": 0
-   },
    "legame": "/glossario/cuoio-capelluto"
   },
   {
@@ -217,40 +163,22 @@
   },
   {
    "id": "sopracciglia-capelli",
-   "tipo": "quiz",
+   "tipo": "lo-sapevi",
    "dopo": "caduta",
    "titolo": "Perché le sopracciglia restano corte",
    "testo": "Un capello del cuoio capelluto cresce per due-otto anni prima di fermarsi; un pelo delle sopracciglia solo due-tre mesi. È la durata della fase di crescita, l'anagen, a decidere quanto può diventare lungo.",
    "fonte": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9917549/",
    "fonte_nome": "PubMed Central (Natarelli e altri, 2023)",
-   "quiz": {
-    "domanda": "Quanto dura la fase di crescita di un capello?",
-    "opzioni": [
-     "Qualche settimana",
-     "Qualche mese",
-     "Da due a otto anni"
-    ],
-    "giusta": 2
-   },
    "legame": "/glossario/caduta"
   },
   {
    "id": "piastra-capelli-bagnati",
-   "tipo": "quiz",
+   "tipo": "lo-sapevi",
    "dopo": "trattamenti",
    "titolo": "La piastra sui capelli bagnati",
    "testo": "Se la piastra o il phon molto caldo scaldano un capello ancora bagnato, l'acqua dentro bolle e lascia bollicine d'aria nel fusto: si chiama bubble hair. Il capello diventa secco e si spezza. Prima si asciuga, poi si liscia, con un termoprotettore.",
    "fonte": "https://pmc.ncbi.nlm.nih.gov/articles/PMC3250009/",
    "fonte_nome": "PubMed Central (Savitha e altri, 2011)",
-   "quiz": {
-    "domanda": "Cosa succede se passi la piastra sui capelli ancora bagnati?",
-    "opzioni": [
-     "Si lisciano meglio",
-     "L'acqua bolle dentro il capello",
-     "Niente di diverso"
-    ],
-    "giusta": 1
-   },
    "legame": "/glossario/termoprotettore"
   },
   {
@@ -284,21 +212,12 @@
   },
   {
    "id": "sonno-indicazione-ue",
-   "tipo": "quiz",
+   "tipo": "lo-sapevi",
    "dopo": "stress",
-   "titolo": "Quale aiuta davvero a prendere sonno",
+   "titolo": "Per il sonno l'UE riconosce solo la melatonina",
    "testo": "Nell'elenco UE delle indicazioni sulla salute c'è la melatonina: 1 mg poco prima di coricarsi «contribuisce alla riduzione del tempo richiesto per prendere sonno». Valeriana e camomilla non hanno un'indicazione autorizzata: chi le vende non può prometterlo.",
    "fonte": "https://eur-lex.europa.eu/legal-content/IT/TXT/?uri=CELEX:32012R0432",
    "fonte_nome": "Reg. (UE) 432/2012, EUR-Lex",
-   "quiz": {
-    "domanda": "Quale di queste ha un'indicazione autorizzata in UE per prendere sonno?",
-    "opzioni": [
-     "La valeriana",
-     "La melatonina",
-     "La camomilla"
-    ],
-    "giusta": 1
-   },
    "legame": "/biotipi/riposo"
   },
   {
@@ -323,21 +242,12 @@
   },
   {
    "id": "vitamina-c-cavia",
-   "tipo": "quiz",
+   "tipo": "lo-sapevi",
    "dopo": "frutta",
-   "titolo": "Chi non sa fare la vitamina C",
+   "titolo": "Noi, le scimmie e la cavia: senza vitamina C propria",
    "testo": "Quasi tutti i mammiferi producono da soli la vitamina C. L'uomo, le scimmie e la cavia no: il gene dell'ultimo passaggio, la GULO, si è spento. Per questo la vitamina C deve arrivare ogni giorno da frutta e verdura.",
    "fonte": "https://pubmed.ncbi.nlm.nih.gov/14703305/",
    "fonte_nome": "PubMed (Inai e altri, 2003)",
-   "quiz": {
-    "domanda": "Quale di questi animali, come noi, non produce la vitamina C?",
-    "opzioni": [
-     "Il cane",
-     "Il gatto",
-     "La cavia"
-    ],
-    "giusta": 2
-   },
    "legame": "/biotipi/difese"
   },
   {
@@ -382,21 +292,12 @@
   },
   {
    "id": "vitamina-d-vetro",
-   "tipo": "quiz",
+   "tipo": "lo-sapevi",
    "dopo": "pesce",
    "titolo": "Il sole dietro il vetro",
    "testo": "La vitamina D si forma nella pelle grazie ai raggi UVB, e il vetro li ferma tutti. Stare al sole dietro una finestra non ne produce. Contano anche la stagione, l'ora, la latitudine, la carnagione e l'età.",
    "fonte": "https://pubmed.ncbi.nlm.nih.gov/24494042/",
    "fonte_nome": "PubMed (Wacker e Holick, 2013)",
-   "quiz": {
-    "domanda": "Stare al sole dietro una finestra chiusa fa produrre vitamina D?",
-    "opzioni": [
-     "Sì, come all'aperto",
-     "Sì, ma la metà",
-     "No, il vetro ferma gli UVB"
-    ],
-    "giusta": 2
-   },
    "legame": "/biotipi/vitamina-d"
   },
   {

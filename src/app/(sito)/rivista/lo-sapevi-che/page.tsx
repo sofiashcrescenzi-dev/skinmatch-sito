@@ -5,9 +5,9 @@ import Nozione from '@/components/Nozione';
 import SchedeRivista from '@/components/SchedeRivista';
 
 // «LO SAPEVI CHE» (23/10/2026): tutte le nozioni dei test, divise per test. Sono le stesse pause che compaiono tra
-// una domanda e l'altra (src/data/nozioni.json), qui da leggere di fila, con i quiz da provare.
+// una domanda e l'altra (src/data/nozioni.json), qui da leggere di fila.
 export const metadata: Metadata = {
-  title: 'Lo sapevi che: curiosità, storie e quiz su pelle, capelli e integratori',
+  title: 'Lo sapevi che: curiosità e storie su pelle, capelli e integratori',
   description: 'Perché il sole passa dalla finestra, da dove viene la parola shampoo, chi scoprì la melatonina: le curiosità dei test di Skinmatch, ognuna con la sua fonte.',
   alternates: { canonical: '/rivista/lo-sapevi-che' },
 };
@@ -22,7 +22,7 @@ export default function LoSapeviChe() {
       <header className="pila" style={{ ['--gap' as string]: '12px' }}>
         <span className="etichetta">La Rivista</span>
         <h1 className="sopratitolo">Lo sapevi che…</h1>
-        <p className="intro">Curiosità, storie e piccoli quiz su pelle, capelli e integratori: le stesse che trovi tra una domanda e l&apos;altra del <Link className="link" href="/test">test</Link>. Ognuna ha la sua fonte.</p>
+        <p className="intro">Curiosità e storie su pelle, capelli e integratori: le stesse che trovi tra una domanda e l&apos;altra del <Link className="link" href="/test">test</Link>. Ognuna ha la sua fonte.</p>
         <SchedeRivista qui="nozioni" />
       </header>
       {AREE.map((a) => {

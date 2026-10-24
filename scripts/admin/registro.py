@@ -28,6 +28,7 @@ approfondisce [id]: i termini del glossario che l'articolo spiega davvero (di so
 termine nel glossario e nelle pagine dei prodotti con quell'attivo o quel lavoro (src/lib/dati.ts articoliPerProdotto).
 """
 import argparse
+import datetime as dt
 import json
 import re
 import sys
@@ -118,7 +119,12 @@ def riscrittura(a):
 
 def marca(a):
     campi = {'gruppo': a.gruppo, 'perche': a.perche, 'origine': a.origine, 'sito': a.sito, 'email': a.email, 'email_fonte': a.email_fonte, 'contatto_nota': a.contatto_nota,
-             'note': a.note}  # note: il riassunto di Zeno sulla marca (reputazione, formule, recensioni, con le fonti)
+             'note': a.note,
+             # ⚠️ IL PARERE DI ZENO NEI SUOI CAMPI, NON IN NOTE (25/10/2026, Federico): il consiglio (tenere, alcuni, resta,
+             # togli, dopo, fuori), cosa farebbe in una frase, il perché e le fonti; l'admin li mostra in un riquadro a sé.
+             'zeno_consiglio': a.consiglio, 'zeno_azione': a.azione, 'zeno_perche': a.perche_zeno,
+             'zeno_fonti': json.dumps(a.fonti.split()) if a.fonti else None,
+             'zeno_il': dt.date.today().isoformat() if a.consiglio else None}
     campi = {k_: v for k_, v in campi.items() if v is not None}
     gia = sql(f"SELECT id FROM marche_studio WHERE lower(marca) = lower({L(a.nome)})")
     if gia:
@@ -167,6 +173,10 @@ x = sub.add_parser('marca')
 x.add_argument('--nome', required=True); x.add_argument('--gruppo', required=True)
 for c in ('perche', 'origine', 'sito', 'email', 'email-fonte', 'contatto-nota', 'note'):
     x.add_argument(f'--{c}')
+x.add_argument('--consiglio', choices=['tenere', 'alcuni', 'resta', 'togli', 'dopo', 'fuori'], help='il parere di Zeno')
+x.add_argument('--azione', help='cosa farebbe, in una frase («Aprirei solo il siero X e la crema Y»)')
+x.add_argument('--perche-zeno', help='perché, con i fatti')
+x.add_argument('--fonti', help='gli indirizzi delle fonti, separati da spazi')
 x = sub.add_parser('arricchimento')
 for k in ('prodotto', 'campo', 'valore', 'fonte'):
     x.add_argument(f'--{k}', required=True)

@@ -226,14 +226,15 @@ export const fotoDi = (b: { id: string; famiglia: string }) => (CREDITI.some((c)
 // tutte insieme nella Rivista, scheda «Lo sapevi che» (/rivista/lo-sapevi-che).
 export type Nozione = {
   id: string;
-  tipo: 'lo-sapevi' | 'storia' | 'quiz';
+  tipo: 'lo-sapevi' | 'storia';
   dopo: string;
   titolo: string;
   testo: string;
   fonte: string;
   fonte_nome: string;
-  quiz?: { domanda: string; opzioni: string[]; giusta: number };
   legame?: string;
 };
 export const NOZIONI = (nozioni as unknown as { nozioni: Nozione[] }).nozioni;
-export const TIPO_NOZIONE: Record<Nozione['tipo'], string> = { 'lo-sapevi': 'Lo sapevi che…', storia: 'Un po\' di storia', quiz: 'Mettiti alla prova' };
+// ⚠️ SOLO DA LEGGERE (25/10/2026, Federico: «non devono essere altre scelte multiple o altri lavori da fare»): i quiz sono
+// diventati nozioni, e il tipo «quiz» non c'e piu.
+export const TIPO_NOZIONE: Record<Nozione['tipo'], string> = { 'lo-sapevi': 'Lo sapevi che…', storia: 'Un po\' di storia' };

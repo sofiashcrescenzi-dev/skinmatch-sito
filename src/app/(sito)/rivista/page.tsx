@@ -23,7 +23,7 @@ export default function RivistaPage() {
         <p className="intro">Guide, confronti e novità: ogni articolo finisce con i prodotti giusti, o con il test per trovarli.</p>
         <SchedeRivista qui="articoli" />
       </header>
-      {!primo && <p className="avviso">Il primo articolo arriva a giorni. Intanto leggi <Link className="link" href="/rivista/lo-sapevi-che">Lo sapevi che</Link>: curiosità, storie e quiz su pelle, capelli e integratori.</p>}
+      {!primo && <p className="avviso">Il primo articolo arriva a giorni. Intanto leggi <Link className="link" href="/rivista/lo-sapevi-che">Lo sapevi che</Link>: curiosità e storie su pelle, capelli e integratori.</p>}
       {primo && (
         <Link href={`/rivista/${primo.slug}`} className="carta-foto" style={{ ['--rapporto' as string]: '16 / 9' }}>
           <Foto nome={primo.immagine?.file || 'rivista'} priorita sizes="(max-width: 1180px) 100vw, 1180px" />
