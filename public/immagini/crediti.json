@@ -1659,5 +1659,22 @@
   "larghezza": 1600,
   "altezza": 765,
   "originale": "media/foto/nozione-huldschinsky-1919.jpg"
+ },
+ {
+  "nome": "rivista-vitamina-c-mattina",
+  "alt": "Una ragazza con le lentiggini e i capelli raccolti stende un siero sulla guancia con la punta delle dita",
+  "autore": "Alena Darmel",
+  "autore_pagina": "https://www.pexels.com/@a-darmel",
+  "pagina": "https://www.pexels.com/photo/woman-doing-skin-care-8990301/",
+  "pexels_id": 8990301,
+  "licenza": "Licenza Pexels (uso libero, citazione gradita)",
+  "uso": [
+   "rivista: copertina dell'articolo vitamina-c-siero",
+   "social"
+  ],
+  "fuoco": "55% 40%",
+  "larghezza": 1600,
+  "altezza": 1066,
+  "originale": "media/foto/rivista-vitamina-c-mattina.jpg"
  }
 ]
