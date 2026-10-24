@@ -2,36 +2,1279 @@
  "_nota": "Le decisioni di Federico e Sofia sulle marche (pagina «Le marche di Skinmatch», salvate il 2026-10-15). decisione: si / selezione / no. La nota vale come regola: «solo alternativa economica e con attivi», «togli tinta e decolorazione», ecc. Le marche con «prodotti_uno_per_uno» (aperte dal 16/10) entrano solo con i prodotti scelti in decisioni_negozi.json, in ogni negozio.",
  "marche": [
   {
-   "marca": "Skinceuticals",
-   "segmento": "Medicale premium",
-   "proposta": "si",
-   "decisione": "si",
+   "marca": "BasicLab",
+   "segmento": "Attivi a buon prezzo",
+   "proposta": "no",
+   "decisione": "no",
    "nota": "",
+   "linee": []
+  },
+  {
+   "marca": "Ecooking",
+   "segmento": "Attivi a buon prezzo",
+   "proposta": "selezione",
+   "decisione": "selezione",
+   "nota": "solo i prodotti scelti (decisione 20, 25/10)",
    "linee": [
-    "C E Ferulic",
-    "Phloretin CF",
-    "Retinol",
-    "Blemish + Age",
-    "Discoloration Defense",
-    "Hydrating B5",
-    "Phyto Corrective",
-    "RGN-6",
-    "Age Interrupter",
-    "UV Defense SPF50",
-    "Gentle Cleanser"
+    "Cleansing Gel"
    ]
   },
   {
-   "marca": "Medik8",
+   "marca": "Geek&Gorgeous",
+   "segmento": "Attivi a buon prezzo",
+   "proposta": "si",
+   "decisione": "si",
+   "nota": "mi piace, teniamolo come alternativa valida low cost",
+   "linee": [
+    "Retinal",
+    "A-Game",
+    "Liquid Glow",
+    "Calm Down",
+    "Jelly Joy",
+    "C-Glow"
+   ]
+  },
+  {
+   "marca": "Revox",
+   "segmento": "Attivi a buon prezzo",
+   "proposta": "selezione",
+   "decisione": "no",
+   "nota": "Beautycos, 16/10: Federico no",
+   "linee": []
+  },
+  {
+   "marca": "Skincyclopedia",
+   "segmento": "Attivi a buon prezzo",
+   "proposta": "no",
+   "decisione": "selezione",
+   "nota": "teniamolo come alternativa valida low cost lo stesso",
+   "linee": []
+  },
+  {
+   "marca": "Transparent Lab",
+   "segmento": "Attivi a buon prezzo",
+   "proposta": "no",
+   "decisione": "no",
+   "nota": "",
+   "linee": []
+  },
+  {
+   "marca": "Biokap",
+   "segmento": "Capelli",
+   "proposta": "no",
+   "decisione": "selezione",
+   "nota": "valutiamo magari c'è qualcosa che ha senso tenere, togli tutto che riguarda tinta e decolorazione",
+   "linee": []
+  },
+  {
+   "marca": "Bioscalin",
+   "segmento": "Capelli",
+   "proposta": "si",
+   "decisione": "si",
+   "nota": "",
+   "linee": [
+    "Physiogenina",
+    "Energy",
+    "iSFRP-1",
+    "Pro Density",
+    "Menopausa"
+   ]
+  },
+  {
+   "marca": "Crescina",
+   "segmento": "Capelli",
+   "proposta": "si",
+   "decisione": "si",
+   "nota": "",
+   "linee": [
+    "HFSC",
+    "Ri-Crescita",
+    "Transdermic",
+    "Isole Follicolari"
+   ]
+  },
+  {
+   "marca": "Kerastase",
+   "segmento": "Capelli",
+   "proposta": "no",
+   "decisione": "selezione",
+   "nota": "valutiamo magari c'è qualcosa che ha senso tenere, togli tutto che riguarda tinta e decolorazione",
+   "linee": []
+  },
+  {
+   "marca": "Klorane",
+   "segmento": "Capelli",
+   "proposta": "si",
+   "decisione": "si",
+   "nota": "",
+   "linee": [
+    "Chinina",
+    "Quinine",
+    "Mango",
+    "Ortica",
+    "Peonia",
+    "Avena",
+    "Lino",
+    "Cedro"
+   ]
+  },
+  {
+   "marca": "Lazartigue",
+   "segmento": "Capelli",
+   "proposta": "selezione",
+   "decisione": "selezione",
+   "nota": "valutiamo magari c'è qualcosa che ha senso tenere, togli tutto che riguarda tinta e decolorazione",
+   "linee": [
+    "Fortify",
+    "Soothe",
+    "Clear"
+   ]
+  },
+  {
+   "marca": "Moroccanoil",
+   "segmento": "Capelli",
+   "proposta": "selezione",
+   "decisione": "selezione",
+   "nota": "il Treatment è styling e resta fuori dal test; il resto come deciso (decisione 22, 25/10)",
+   "linee": [
+    "Treatment",
+    "Hydrating"
+   ],
+   "escludi": [
+    [
+     "Treatment",
+     "è un prodotto di styling (soprattutto siliconi, l'argan dopo), non un trattamento"
+    ]
+   ]
+  },
+  {
+   "marca": "Nioxin",
+   "segmento": "Capelli",
+   "proposta": "selezione",
+   "decisione": "selezione",
+   "nota": "solo gli shampoo, per capelli fini, senza promesse sulla caduta: prove deboli (decisione 22, 25/10)",
+   "linee": [
+    "Cleanser",
+    "Shampoo"
+   ],
+   "senza_bisogni": [
+    "caduta"
+   ],
+   "escludi": [
+    [
+     "Dry",
+     "shampoo secco: è styling, non lava"
+    ],
+    [
+     "shampoo secco",
+     "shampoo secco: è styling, non lava"
+    ]
+   ]
+  },
+  {
+   "marca": "Olaplex",
+   "segmento": "Capelli",
+   "proposta": "si",
+   "decisione": "si",
+   "nota": "",
+   "linee": [
+    "No. 4",
+    "No. 5",
+    "No. 6",
+    "No. 7",
+    "Rich Hydration"
+   ]
+  },
+  {
+   "marca": "Phyto",
+   "segmento": "Capelli",
+   "proposta": "selezione",
+   "decisione": "selezione",
+   "nota": "valutiamo magari c'è qualcosa che ha senso tenere, togli tutto che riguarda tinta e decolorazione",
+   "linee": [
+    "Phytocyane",
+    "Phytophanere",
+    "Phytoapaisant",
+    "Phytosquam"
+   ]
+  },
+  {
+   "marca": "Rene Furterer",
+   "segmento": "Capelli",
+   "proposta": "si",
+   "decisione": "si",
+   "nota": "",
+   "linee": [
+    "Triphasic",
+    "Forticea",
+    "Melaleuca",
+    "Karite",
+    "Neopur",
+    "Astera"
+   ]
+  },
+  {
+   "marca": "A-Derma",
+   "segmento": "Dermocosmesi da farmacia",
+   "proposta": "selezione",
+   "decisione": "selezione",
+   "nota": "",
+   "linee": [
+    "Exomega",
+    "Dermalibour",
+    "Epitheliale",
+    "Biology"
+   ]
+  },
+  {
+   "marca": "Acm",
+   "segmento": "Dermocosmesi da farmacia",
+   "proposta": "selezione",
+   "decisione": "no",
+   "nota": "",
+   "linee": [
+    "Sebionex",
+    "Depiwhite",
+    "Novophane"
+   ]
+  },
+  {
+   "marca": "Annemarie Börlind",
+   "segmento": "Dermocosmesi da farmacia",
+   "proposta": "si",
+   "decisione": "si",
+   "nota": "intera, partendo da Aquanature e ZZ Sensitive (decisione 20, 25/10; Öko-Test 01/2024 «sehr gut»)",
+   "linee": []
+  },
+  {
+   "marca": "Apivita",
+   "segmento": "Dermocosmesi da farmacia",
+   "proposta": "no",
+   "decisione": "no",
+   "nota": "",
+   "linee": []
+  },
+  {
+   "marca": "Avene",
+   "segmento": "Dermocosmesi da farmacia",
+   "proposta": "si",
+   "decisione": "selezione",
+   "nota": "solo alternativa economica e con attivi",
+   "linee": [
+    "Cleanance",
+    "Tolerance",
+    "Antirougeurs",
+    "Cicalfate",
+    "XeraCalm",
+    "Hyaluron Activ",
+    "RetrinAL",
+    "A-Oxitive",
+    "Hydrance"
+   ]
+  },
+  {
+   "marca": "Bakel",
+   "segmento": "Dermocosmesi da farmacia",
+   "proposta": "si",
+   "decisione": "si",
+   "nota": "intera quando entra una farmacia TradeTracker che la vende (decisione 23, 25/10)",
+   "linee": []
+  },
+  {
+   "marca": "Bioderma",
+   "segmento": "Dermocosmesi da farmacia",
+   "proposta": "si",
+   "decisione": "selezione",
+   "nota": "solo alternativa economica e con attivi",
+   "linee": [
+    "Sensibio",
+    "Sebium",
+    "Atoderm",
+    "Hydrabio",
+    "Cicabio",
+    "Pigmentbio",
+    "Photoderm",
+    "Node"
+   ]
+  },
+  {
+   "marca": "BioNike",
+   "segmento": "Dermocosmesi da farmacia",
+   "proposta": "selezione",
+   "decisione": "selezione",
+   "nota": "solo alternativa economica e con attivi",
+   "linee": [
+    "Defence",
+    "Triderm",
+    "Proxera"
+   ]
+  },
+  {
+   "marca": "Caudalie",
+   "segmento": "Dermocosmesi da farmacia",
+   "proposta": "selezione",
+   "decisione": "selezione",
+   "nota": "",
+   "linee": [
+    "Vinoperfect",
+    "Vinopure",
+    "Resveratrol",
+    "Vinergetic"
+   ]
+  },
+  {
+   "marca": "CeraVe",
+   "segmento": "Dermocosmesi da farmacia",
+   "proposta": "si",
+   "decisione": "selezione",
+   "nota": "solo alternativa economica e con attivi",
+   "linee": [
+    "Hydrating",
+    "Foaming",
+    "Moisturising",
+    "Blemish",
+    "SA ",
+    "Retinol",
+    "Skin Renewing",
+    "Eye"
+   ]
+  },
+  {
+   "marca": "Cetaphil",
+   "segmento": "Dermocosmesi da farmacia",
+   "proposta": "si",
+   "decisione": "selezione",
+   "nota": "solo alternativa economica e con attivi",
+   "linee": [
+    "Gentle",
+    "Moistur",
+    "Restoraderm",
+    "Pro "
+   ]
+  },
+  {
+   "marca": "Dermedic",
+   "segmento": "Dermocosmesi da farmacia",
+   "proposta": "no",
+   "decisione": "no",
+   "nota": "",
+   "linee": []
+  },
+  {
+   "marca": "Dr. Hauschka",
+   "segmento": "Dermocosmesi da farmacia",
+   "proposta": "no",
+   "decisione": "no",
+   "nota": "",
+   "linee": []
+  },
+  {
+   "marca": "Ducray",
+   "segmento": "Dermocosmesi da farmacia",
+   "proposta": "si",
+   "decisione": "selezione",
+   "nota": "solo alternativa economica e con attivi",
+   "linee": [
+    "Anaphase",
+    "Neoptide",
+    "Kelual",
+    "Squanorm",
+    "Sensinol",
+    "Elution",
+    "Keracnyl",
+    "Melascreen",
+    "Dexyane",
+    "Creastim"
+   ]
+  },
+  {
+   "marca": "Embryolisse",
+   "segmento": "Dermocosmesi da farmacia",
+   "proposta": "no",
+   "decisione": "no",
+   "nota": "Beautycos, 16/10: manca il Lait-Crème Concentré",
+   "linee": []
+  },
+  {
+   "marca": "Eucerin",
+   "segmento": "Dermocosmesi da farmacia",
+   "proposta": "selezione",
+   "decisione": "selezione",
+   "nota": "",
+   "linee": [
+    "Anti-Pigment",
+    "Hyaluron-Filler",
+    "DermoPure",
+    "AtopiControl",
+    "UreaRepair",
+    "Aquaphor",
+    "Sun"
+   ]
+  },
+  {
+   "marca": "Frezyderm",
+   "segmento": "Dermocosmesi da farmacia",
+   "proposta": "no",
+   "decisione": "no",
+   "nota": "",
+   "linee": []
+  },
+  {
+   "marca": "Galderma",
+   "segmento": "Dermocosmesi da farmacia",
+   "proposta": "no",
+   "decisione": "no",
+   "nota": "",
+   "linee": []
+  },
+  {
+   "marca": "Garancia",
+   "segmento": "Dermocosmesi da farmacia",
+   "proposta": "no",
+   "decisione": "no",
+   "nota": "",
+   "linee": []
+  },
+  {
+   "marca": "Isis Pharma",
+   "segmento": "Dermocosmesi da farmacia",
+   "proposta": "no",
+   "decisione": "no",
+   "nota": "",
+   "linee": []
+  },
+  {
+   "marca": "Korff",
+   "segmento": "Dermocosmesi da farmacia",
+   "proposta": "selezione",
+   "decisione": "si",
+   "nota": "Farmaself, 15/10: Federico sì",
+   "linee": [],
+   "prodotti_uno_per_uno": true
+  },
+  {
+   "marca": "Korres",
+   "segmento": "Dermocosmesi da farmacia",
+   "proposta": "no",
+   "decisione": "no",
+   "nota": "",
+   "linee": []
+  },
+  {
+   "marca": "La Roche-Posay",
+   "segmento": "Dermocosmesi da farmacia",
+   "proposta": "si",
+   "decisione": "selezione",
+   "nota": "solo alternativa economica e con attivi",
+   "linee": [
+    "Effaclar",
+    "Cicaplast",
+    "Toleriane",
+    "Lipikar",
+    "Anthelios",
+    "Hyalu B5",
+    "Retinol B3",
+    "Mela B3",
+    "Vitamin C",
+    "Rosaliac",
+    "Kerium"
+   ]
+  },
+  {
+   "marca": "Lierac",
+   "segmento": "Dermocosmesi da farmacia",
+   "proposta": "selezione",
+   "decisione": "selezione",
+   "nota": "",
+   "linee": [
+    "Hydragenist",
+    "Lift Integral",
+    "Sebologie",
+    "Cica-Filler"
+   ]
+  },
+  {
+   "marca": "Mustela",
+   "segmento": "Dermocosmesi da farmacia",
+   "proposta": "no",
+   "decisione": "no",
+   "nota": "",
+   "linee": []
+  },
+  {
+   "marca": "Neutrogena",
+   "segmento": "Dermocosmesi da farmacia",
+   "proposta": "no",
+   "decisione": "no",
+   "nota": "",
+   "linee": []
+  },
+  {
+   "marca": "Noreva",
+   "segmento": "Dermocosmesi da farmacia",
+   "proposta": "selezione",
+   "decisione": "selezione",
+   "nota": "",
+   "linee": [
+    "Exfoliac",
+    "Sebodiane",
+    "Xerodiane",
+    "Sensidiane"
+   ]
+  },
+  {
+   "marca": "Nuxe",
+   "segmento": "Dermocosmesi da farmacia",
+   "proposta": "no",
+   "decisione": "no",
+   "nota": "",
+   "linee": []
+  },
+  {
+   "marca": "Pharmaceris",
+   "segmento": "Dermocosmesi da farmacia",
+   "proposta": "no",
+   "decisione": "no",
+   "nota": "",
+   "linee": []
+  },
+  {
+   "marca": "Rilastil",
+   "segmento": "Dermocosmesi da farmacia",
+   "proposta": "selezione",
+   "decisione": "si",
+   "nota": "",
+   "linee": [
+    "Xerolact",
+    "Aqua",
+    "Acnestil",
+    "Progression",
+    "Sun System",
+    "D-Clar"
+   ]
+  },
+  {
+   "marca": "Roc",
+   "segmento": "Dermocosmesi da farmacia",
+   "proposta": "selezione",
+   "decisione": "selezione",
+   "nota": "solo alternativa economica e con attivi",
+   "linee": [
+    "Retinol Correxion",
+    "Multi Correxion"
+   ]
+  },
+  {
+   "marca": "Sebamed",
+   "segmento": "Dermocosmesi da farmacia",
+   "proposta": "selezione",
+   "decisione": "selezione",
+   "nota": "",
+   "linee": [
+    "Anti-Forfora",
+    "Clear Face",
+    "Anti-Dry",
+    "pH 5.5"
+   ]
+  },
+  {
+   "marca": "SVR",
+   "segmento": "Dermocosmesi da farmacia",
+   "proposta": "selezione",
+   "decisione": "selezione",
+   "nota": "",
+   "linee": [
+    "Sebiaclear",
+    "Ampoule",
+    "Densitium",
+    "Topialyse",
+    "Sensifine",
+    "Xerial",
+    "Hydraliane",
+    "Sun Secure"
+   ]
+  },
+  {
+   "marca": "Topicrem",
+   "segmento": "Dermocosmesi da farmacia",
+   "proposta": "selezione",
+   "decisione": "selezione",
+   "nota": "",
+   "linee": [
+    "Ultra-Hydratant",
+    "UR-10",
+    " AC ",
+    "Calm"
+   ]
+  },
+  {
+   "marca": "Uriage",
+   "segmento": "Dermocosmesi da farmacia",
+   "proposta": "selezione",
+   "decisione": "selezione",
+   "nota": "",
+   "linee": [
+    "Xemose",
+    "Bariederm",
+    "Hyseac",
+    "Roseliane",
+    "Depiderm",
+    "Age Lift"
+   ]
+  },
+  {
+   "marca": "Vichy",
+   "segmento": "Dermocosmesi da farmacia",
+   "proposta": "selezione",
+   "decisione": "selezione",
+   "nota": "",
+   "linee": [
+    "Liftactiv",
+    "Mineral 89",
+    "Normaderm",
+    "Capital Soleil",
+    "Dercos",
+    "Neovadiol"
+   ]
+  },
+  {
+   "marca": "Weleda",
+   "segmento": "Dermocosmesi da farmacia",
+   "proposta": "no",
+   "decisione": "no",
+   "nota": "",
+   "linee": []
+  },
+  {
+   "marca": "A-Lab",
+   "segmento": "Integrazione",
+   "proposta": "selezione",
+   "decisione": "selezione",
+   "nota": "decisione 17 (25/10): per le imperfezioni (zinco) e per la pelle secca; ingredienti e quantità per porzione dal sito della marca (Zeno)",
+   "linee": [
+    "Zinco liposomiale"
+   ]
+  },
+  {
+   "marca": "Arkopharma",
+   "segmento": "Integrazione",
+   "proposta": "selezione",
+   "decisione": "selezione",
+   "nota": "",
+   "linee": [
+    "Capelli",
+    "Unghie",
+    "Forcapil"
+   ]
+  },
+  {
+   "marca": "Biocyte",
+   "segmento": "Integrazione",
+   "proposta": "selezione",
+   "decisione": "selezione",
+   "nota": "",
+   "linee": [
+    "Collagen",
+    "Hyaluronic",
+    "Longcils",
+    "Keratine"
+   ]
+  },
+  {
+   "marca": "Doppelherz",
+   "segmento": "Integrazione",
+   "proposta": "no",
+   "decisione": "no",
+   "nota": "",
+   "linee": []
+  },
+  {
+   "marca": "Effinov",
+   "segmento": "Integrazione",
+   "proposta": "selezione",
+   "decisione": "selezione",
+   "nota": "decisione 17 (25/10): per le imperfezioni (zinco) e per la pelle secca; ingredienti e quantità per porzione dal sito della marca (Zeno)",
+   "linee": [
+    "Dermae"
+   ]
+  },
+  {
+   "marca": "Granions",
+   "segmento": "Integrazione",
+   "proposta": "selezione",
+   "decisione": "selezione",
+   "nota": "",
+   "linee": [
+    "Capelli",
+    "Collagene",
+    "Bellezza"
+   ]
+  },
+  {
+   "marca": "IBSA",
+   "segmento": "Integrazione",
+   "proposta": "si",
+   "decisione": "si",
+   "nota": "Astonfarma, 23/10: giro integrativo, solo i film orali scelti uno per uno (melatonina 1 mg, vitamina D3 1000 e 2000 UI, B12 500 mcg)",
+   "linee": [],
+   "prodotti_uno_per_uno": true
+  },
+  {
+   "marca": "Imedeen",
+   "segmento": "Integrazione",
+   "proposta": "selezione",
+   "decisione": "selezione",
+   "nota": "decisione 17 (25/10): per le imperfezioni (zinco) e per la pelle secca; ingredienti e quantità per porzione dal sito della marca (Zeno)",
+   "linee": [
+    "Time Perfection"
+   ]
+  },
+  {
+   "marca": "Ivatherm",
+   "segmento": "Integrazione",
+   "proposta": "selezione",
+   "decisione": "selezione",
+   "nota": "decisione 17 (25/10): per le imperfezioni (zinco) e per la pelle secca; ingredienti e quantità per porzione dal sito della marca (Zeno)",
+   "linee": [
+    "Zinco"
+   ]
+  },
+  {
+   "marca": "Metagenics",
+   "segmento": "Integrazione",
+   "proposta": "si",
+   "decisione": "si",
+   "nota": "solo ZincoDyn e C-Dyn, scelti uno per uno in Astonfarma (decisione 23, 25/10)",
+   "linee": [],
+   "prodotti_uno_per_uno": true
+  },
+  {
+   "marca": "New Nordic",
+   "segmento": "Integrazione",
+   "proposta": "selezione",
+   "decisione": "selezione",
+   "nota": "",
+   "linee": [
+    "Hair Volume",
+    "Skin"
+   ]
+  },
+  {
+   "marca": "Nhco Nutrition",
+   "segmento": "Integrazione",
+   "proposta": "selezione",
+   "decisione": "selezione",
+   "nota": "decisione 17 (25/10): per le imperfezioni (zinco) e per la pelle secca; ingredienti e quantità per porzione dal sito della marca (Zeno)",
+   "linee": [
+    "L-amino Skin"
+   ]
+  },
+  {
+   "marca": "Norsan",
+   "segmento": "Integrazione",
+   "proposta": "si",
+   "decisione": "si",
+   "nota": "Astonfarma, 23/10: la linea Zreen Collagene; dal giro integrativo (23/10) anche gli omega-3 e Zreen Magnesio e Vitamina D3, scelti uno per uno con le dosi verificate",
+   "linee": [],
+   "prodotti_uno_per_uno": true
+  },
+  {
+   "marca": "Novo Biomedics",
+   "segmento": "Integrazione",
+   "proposta": "selezione",
+   "decisione": "selezione",
+   "nota": "decisione 17 (25/10): per le imperfezioni (zinco) e per la pelle secca; ingredienti e quantità per porzione dal sito della marca (Zeno)",
+   "linee": [
+    "Zinco picolinato"
+   ]
+  },
+  {
+   "marca": "Now Foods",
+   "segmento": "Integrazione",
+   "proposta": "selezione",
+   "decisione": "selezione",
+   "nota": "",
+   "linee": [
+    "Biotin",
+    "Collagen",
+    "Hyaluronic"
+   ]
+  },
+  {
+   "marca": "Oenobiol",
+   "segmento": "Integrazione",
+   "proposta": "si",
+   "decisione": "si",
+   "nota": "",
+   "linee": [
+    "Hair Expert",
+    "Sun Expert",
+    "Derma Expert"
+   ]
+  },
+  {
+   "marca": "Ostrovit",
+   "segmento": "Integrazione",
+   "proposta": "no",
+   "decisione": "no",
+   "nota": "",
+   "linee": []
+  },
+  {
+   "marca": "Pharma Nord",
+   "segmento": "Integrazione",
+   "proposta": "selezione",
+   "decisione": "selezione",
+   "nota": "decisione 17 (25/10): per le imperfezioni (zinco) e per la pelle secca; ingredienti e quantità per porzione dal sito della marca (Zeno)",
+   "linee": [
+    "Selenio Zinco"
+   ]
+  },
+  {
+   "marca": "Pure Encapsulations",
+   "segmento": "Integrazione",
+   "proposta": "selezione",
+   "decisione": "selezione",
+   "nota": "solo zinco, biotina e Hair/Skin/Nails, dopo il controllo della notifica al Ministero (decisione 23, 25/10)",
+   "linee": [
+    "Zinc",
+    "Zinco",
+    "Biotin",
+    "Biotina",
+    "Hair/Skin/Nails",
+    "Hair Skin Nails"
+   ]
+  },
+  {
+   "marca": "Solgar",
+   "segmento": "Integrazione",
+   "proposta": "si",
+   "decisione": "si",
+   "nota": "",
+   "linee": [
+    "Pelle Unghie e Capelli",
+    "Biotina",
+    "Collagene e acido ialuronico",
+    "Astaxantina"
+   ]
+  },
+  {
+   "marca": "The Aeternum Company",
+   "segmento": "Integrazione",
+   "proposta": "no",
+   "decisione": "no",
+   "nota": "fuori: il NMN non è autorizzato in UE (decisione 23, 25/10)",
+   "linee": []
+  },
+  {
+   "marca": "Vitabiotics",
+   "segmento": "Integrazione",
+   "proposta": "selezione",
+   "decisione": "selezione",
+   "nota": "",
+   "linee": [
+    "Perfectil"
+   ]
+  },
+  {
+   "marca": "Anua",
+   "segmento": "K-beauty",
+   "proposta": "si",
+   "decisione": "selezione",
+   "nota": "solo i prodotti scelti da Zeno (decisione 19, 25/10); niente solari senza etichetta UE",
+   "linee": [
+    "TXA",
+    "Heartleaf 77"
+   ],
+   "escludi": [
+    [
+     "Cleansing Oil",
+     "olio detergente: Zeno non lo consiglia"
+    ]
+   ]
+  },
+  {
+   "marca": "Axis-Y",
+   "segmento": "K-beauty",
+   "proposta": "si",
+   "decisione": "selezione",
+   "nota": "solo i prodotti scelti da Zeno (decisione 19, 25/10); niente solari senza etichetta UE",
+   "linee": [
+    "Dark Spot Correcting Glow Serum"
+   ]
+  },
+  {
+   "marca": "Banila Co",
+   "segmento": "K-beauty",
+   "proposta": "selezione",
+   "decisione": "no",
+   "nota": "fuori (decisione 19, 25/10)",
+   "linee": []
+  },
+  {
+   "marca": "Beauty Of Joseon",
+   "segmento": "K-beauty",
+   "proposta": "si",
+   "decisione": "selezione",
+   "nota": "solo i prodotti scelti da Zeno (decisione 19, 25/10); niente solari senza etichetta UE",
+   "linee": [
+    "Siero",
+    "Serum",
+    "Crema",
+    "Cream",
+    "Moisturizer",
+    "Dynasty"
+   ],
+   "escludi": [
+    [
+     "Relief Sun",
+     "solare: SPF misurato 36 contro 50+ dichiarato (Consumer Reports, 8/2026)"
+    ],
+    [
+     "Sun Stick",
+     "solare: SPF non confermato da test indipendenti"
+    ],
+    [
+     "solare",
+     "solare: SPF non confermato da test indipendenti"
+    ],
+    [
+     "detergente",
+     "Zeno: solo sieri e creme"
+    ],
+    [
+     "Cleanser",
+     "Zeno: solo sieri e creme"
+    ],
+    [
+     "Cleansing",
+     "Zeno: solo sieri e creme"
+    ]
+   ]
+  },
+  {
+   "marca": "Biodance",
+   "segmento": "K-beauty",
+   "proposta": "no",
+   "decisione": "no",
+   "nota": "",
+   "linee": []
+  },
+  {
+   "marca": "COSRX",
+   "segmento": "K-beauty",
+   "proposta": "si",
+   "decisione": "si",
+   "nota": "intera (decisione 19, 25/10); i solari solo nella versione con etichetta UE",
+   "linee": []
+  },
+  {
+   "marca": "Dr. Jart",
+   "segmento": "K-beauty",
+   "proposta": "selezione",
+   "decisione": "no",
+   "nota": "fuori (decisione 19, 25/10)",
+   "linee": []
+  },
+  {
+   "marca": "Dr.Althea",
+   "segmento": "K-beauty",
+   "proposta": "selezione",
+   "decisione": "selezione",
+   "nota": "solo i prodotti scelti da Zeno (decisione 19, 25/10); niente solari senza etichetta UE",
+   "linee": [
+    "345 Relief"
+   ]
+  },
+  {
+   "marca": "Erborian",
+   "segmento": "K-beauty",
+   "proposta": "no",
+   "decisione": "no",
+   "nota": "",
+   "linee": []
+  },
+  {
+   "marca": "Hada Labo Tokyo",
+   "segmento": "K-beauty",
+   "proposta": "si",
+   "decisione": "selezione",
+   "nota": "solo i prodotti scelti da Zeno (decisione 19, 25/10); niente solari senza etichetta UE",
+   "linee": [
+    "Lozione n 1",
+    "Lozione idratante n 1",
+    "Lotion No 1"
+   ]
+  },
+  {
+   "marca": "Haruharu Wonder",
+   "segmento": "K-beauty",
+   "proposta": "si",
+   "decisione": "selezione",
+   "nota": "solo i prodotti scelti da Zeno (decisione 19, 25/10); niente solari senza etichetta UE",
+   "linee": [
+    "Tonico viso idratante per pelli sensibili",
+    "Olio detergente per il viso a base di riso nero"
+   ]
+  },
+  {
+   "marca": "Holika Holika",
+   "segmento": "K-beauty",
+   "proposta": "no",
+   "decisione": "no",
+   "nota": "",
+   "linee": []
+  },
+  {
+   "marca": "Isntree",
+   "segmento": "K-beauty",
+   "proposta": "si",
+   "decisione": "selezione",
+   "nota": "solo i prodotti scelti da Zeno (decisione 19, 25/10); niente solari senza etichetta UE",
+   "linee": [
+    "Tonico all acido ialuronico",
+    "Tonico idratante all acido ialuronico",
+    "Watery Sun Gel"
+   ]
+  },
+  {
+   "marca": "Iunik",
+   "segmento": "K-beauty",
+   "proposta": "selezione",
+   "decisione": "selezione",
+   "nota": "solo i prodotti scelti da Zeno (decisione 19, 25/10); niente solari senza etichetta UE",
+   "linee": [
+    "Centella Calming Gel Cream"
+   ]
+  },
+  {
+   "marca": "Laneige",
+   "segmento": "K-beauty",
+   "proposta": "no",
+   "decisione": "si",
+   "nota": "Beautycos, 16/10. Federico: «anche per le labbra, poi integreremo anche qualcosa relativo alle labbra e il make up»",
+   "linee": [],
+   "prodotti_uno_per_uno": true
+  },
+  {
+   "marca": "Manyo",
+   "segmento": "K-beauty",
+   "proposta": "selezione",
+   "decisione": "selezione",
+   "nota": "solo i prodotti scelti da Zeno (decisione 19, 25/10); niente solari senza etichetta UE",
+   "linee": [
+    "Pure Cleansing Oil"
+   ]
+  },
+  {
+   "marca": "Mary and May",
+   "segmento": "K-beauty",
+   "proposta": "no",
+   "decisione": "selezione",
+   "nota": "però valutiamo anche se costoso poi nel caso vediamo.",
+   "linee": []
+  },
+  {
+   "marca": "Medicube",
+   "segmento": "K-beauty",
+   "proposta": "selezione",
+   "decisione": "no",
+   "nota": "fuori (decisione 19, 25/10)",
+   "linee": []
+  },
+  {
+   "marca": "Missha",
+   "segmento": "K-beauty",
+   "proposta": "selezione",
+   "decisione": "selezione",
+   "nota": "solo i prodotti scelti da Zeno (decisione 19, 25/10); niente solari senza etichetta UE",
+   "linee": [
+    "Time Revolution First Treatment Essence",
+    "First Treatment Essence"
+   ]
+  },
+  {
+   "marca": "Mixsoon",
+   "segmento": "K-beauty",
+   "proposta": "selezione",
+   "decisione": "selezione",
+   "nota": "solo i prodotti scelti da Zeno (decisione 19, 25/10); niente solari senza etichetta UE",
+   "linee": [
+    "essenza di fagioli",
+    "Bean Essence"
+   ]
+  },
+  {
+   "marca": "Numbuzin",
+   "segmento": "K-beauty",
+   "proposta": "selezione",
+   "decisione": "selezione",
+   "nota": "solo i prodotti scelti da Zeno (decisione 19, 25/10); niente solari senza etichetta UE",
+   "linee": [
+    "No 3",
+    "N 3",
+    "No 5",
+    "N 5"
+   ]
+  },
+  {
+   "marca": "Petitfee",
+   "segmento": "K-beauty",
+   "proposta": "selezione",
+   "decisione": "selezione",
+   "nota": "solo i cerotti per brufoli (Federico, 15/10)",
+   "linee": [
+    "Spot",
+    "Clearing",
+    "idrocolloid"
+   ]
+  },
+  {
+   "marca": "Purederm",
+   "segmento": "K-beauty",
+   "proposta": "selezione",
+   "decisione": "selezione",
+   "nota": "solo i cerotti per brufoli (Federico, 15/10)",
+   "linee": [
+    "anti-acne",
+    "idrocolloid",
+    "brufol"
+   ]
+  },
+  {
+   "marca": "Purito",
+   "segmento": "K-beauty",
+   "proposta": "selezione",
+   "decisione": "selezione",
+   "nota": "solo i prodotti scelti da Zeno (decisione 19, 25/10); niente solari senza etichetta UE",
+   "linee": [
+    "Oat-in Calming Gel Cream",
+    "Centella Unscented Serum"
+   ]
+  },
+  {
+   "marca": "Pyunkang Yul",
+   "segmento": "K-beauty",
+   "proposta": "si",
+   "decisione": "si",
+   "nota": "intera (decisione 19, 25/10); i solari solo nella versione con etichetta UE",
+   "linee": []
+  },
+  {
+   "marca": "Round Lab",
+   "segmento": "K-beauty",
+   "proposta": "si",
+   "decisione": "si",
+   "nota": "intera (decisione 19, 25/10); i solari solo nella versione con etichetta UE",
+   "linee": []
+  },
+  {
+   "marca": "Skin1004",
+   "segmento": "K-beauty",
+   "proposta": "si",
+   "decisione": "selezione",
+   "nota": "solo i prodotti scelti da Zeno (decisione 19, 25/10); niente solari senza etichetta UE",
+   "linee": [
+    "Centella Ampoule",
+    "Cleansing Oil"
+   ],
+   "prodotti_uno_per_uno": true
+  },
+  {
+   "marca": "Some By Mi",
+   "segmento": "K-beauty",
+   "proposta": "selezione",
+   "decisione": "no",
+   "nota": "fuori (decisione 19, 25/10)",
+   "linee": []
+  },
+  {
+   "marca": "Thank You Farmer",
+   "segmento": "K-beauty",
+   "proposta": "selezione",
+   "decisione": "selezione",
+   "nota": "solo i prodotti scelti da Zeno (decisione 19, 25/10); niente solari senza etichetta UE",
+   "linee": [
+    "Skin Relief Sun Cream"
+   ]
+  },
+  {
+   "marca": "TirTir",
+   "segmento": "K-beauty",
+   "proposta": "no",
+   "decisione": "no",
+   "nota": "",
+   "linee": []
+  },
+  {
+   "marca": "Cantabria Labs",
+   "segmento": "Medicale premium",
+   "proposta": "selezione",
+   "decisione": "selezione",
+   "nota": "",
+   "linee": [
+    "Endocare",
+    "Biretix",
+    "Neoretin"
+   ]
+  },
+  {
+   "marca": "Dermalogica",
+   "segmento": "Medicale premium",
+   "proposta": "si",
+   "decisione": "si",
+   "nota": "Beautycos, 16/10",
+   "linee": [],
+   "prodotti_uno_per_uno": true
+  },
+  {
+   "marca": "Exuviance",
+   "segmento": "Medicale premium",
+   "proposta": "si",
+   "decisione": "si",
+   "nota": "Beautycos, 16/10: stessa azienda di NeoStrata",
+   "linee": [],
+   "prodotti_uno_per_uno": true
+  },
+  {
+   "marca": "Filorga",
+   "segmento": "Medicale premium",
+   "proposta": "selezione",
+   "decisione": "si",
+   "nota": "",
+   "linee": [
+    "Time-Filler",
+    "NCEF",
+    "Hydra-Hyal",
+    "Global-Repair",
+    "Age-Purify"
+   ]
+  },
+  {
+   "marca": "Heliocare",
    "segmento": "Medicale premium",
    "proposta": "si",
    "decisione": "si",
    "nota": "",
    "linee": [
-    "Crystal Retinal",
-    "Calmwise",
-    "Total Moisture",
-    "Pro-Collagen"
+    "360",
+    "Water Gel",
+    "Mineral",
+    "Ultra",
+    "Advanced",
+    "capsule"
+   ]
+  },
+  {
+   "marca": "Institut Esthederm",
+   "segmento": "Medicale premium",
+   "proposta": "selezione",
+   "decisione": "si",
+   "nota": "",
+   "linee": [
+    "Photo Reverse",
+    "Intensive",
+    "Adaptasun"
    ]
   },
   {
@@ -52,31 +1295,37 @@
    ]
   },
   {
-   "marca": "Heliocare",
-   "segmento": "Medicale premium",
-   "proposta": "si",
-   "decisione": "si",
-   "nota": "",
-   "linee": [
-    "360",
-    "Water Gel",
-    "Mineral",
-    "Ultra",
-    "Advanced",
-    "capsule"
-   ]
-  },
-  {
-   "marca": "Cantabria Labs",
+   "marca": "MartiDerm",
    "segmento": "Medicale premium",
    "proposta": "selezione",
    "decisione": "selezione",
    "nota": "",
    "linee": [
-    "Endocare",
-    "Biretix",
-    "Neoretin"
+    "Platinum",
+    "Proteos",
+    "Hair System 3GF"
    ]
+  },
+  {
+   "marca": "Medik8",
+   "segmento": "Medicale premium",
+   "proposta": "si",
+   "decisione": "si",
+   "nota": "",
+   "linee": [
+    "Crystal Retinal",
+    "Calmwise",
+    "Total Moisture",
+    "Pro-Collagen"
+   ]
+  },
+  {
+   "marca": "Murad",
+   "segmento": "Medicale premium",
+   "proposta": "no",
+   "decisione": "si",
+   "nota": "poi magari integriamo da altri ",
+   "linee": []
   },
   {
    "marca": "Neostrata",
@@ -108,750 +1357,75 @@
    ]
   },
   {
-   "marca": "MartiDerm",
+   "marca": "Skinceuticals",
    "segmento": "Medicale premium",
-   "proposta": "selezione",
-   "decisione": "selezione",
-   "nota": "",
-   "linee": [
-    "Platinum",
-    "Proteos",
-    "Hair System 3GF"
-   ]
-  },
-  {
-   "marca": "Filorga",
-   "segmento": "Medicale premium",
-   "proposta": "selezione",
+   "proposta": "si",
    "decisione": "si",
    "nota": "",
    "linee": [
-    "Time-Filler",
-    "NCEF",
-    "Hydra-Hyal",
-    "Global-Repair",
-    "Age-Purify"
-   ]
-  },
-  {
-   "marca": "Institut Esthederm",
-   "segmento": "Medicale premium",
-   "proposta": "selezione",
-   "decisione": "si",
-   "nota": "",
-   "linee": [
-    "Photo Reverse",
-    "Intensive",
-    "Adaptasun"
-   ]
-  },
-  {
-   "marca": "Murad",
-   "segmento": "Medicale premium",
-   "proposta": "no",
-   "decisione": "si",
-   "nota": "poi magari integriamo da altri ",
-   "linee": []
-  },
-  {
-   "marca": "La Roche-Posay",
-   "segmento": "Dermocosmesi da farmacia",
-   "proposta": "si",
-   "decisione": "selezione",
-   "nota": "solo alternativa economica e con attivi",
-   "linee": [
-    "Effaclar",
-    "Cicaplast",
-    "Toleriane",
-    "Lipikar",
-    "Anthelios",
-    "Hyalu B5",
-    "Retinol B3",
-    "Mela B3",
-    "Vitamin C",
-    "Rosaliac",
-    "Kerium"
-   ]
-  },
-  {
-   "marca": "Avene",
-   "segmento": "Dermocosmesi da farmacia",
-   "proposta": "si",
-   "decisione": "selezione",
-   "nota": "solo alternativa economica e con attivi",
-   "linee": [
-    "Cleanance",
-    "Tolerance",
-    "Antirougeurs",
-    "Cicalfate",
-    "XeraCalm",
-    "Hyaluron Activ",
-    "RetrinAL",
-    "A-Oxitive",
-    "Hydrance"
-   ]
-  },
-  {
-   "marca": "Bioderma",
-   "segmento": "Dermocosmesi da farmacia",
-   "proposta": "si",
-   "decisione": "selezione",
-   "nota": "solo alternativa economica e con attivi",
-   "linee": [
-    "Sensibio",
-    "Sebium",
-    "Atoderm",
-    "Hydrabio",
-    "Cicabio",
-    "Pigmentbio",
-    "Photoderm",
-    "Node"
-   ]
-  },
-  {
-   "marca": "CeraVe",
-   "segmento": "Dermocosmesi da farmacia",
-   "proposta": "si",
-   "decisione": "selezione",
-   "nota": "solo alternativa economica e con attivi",
-   "linee": [
-    "Hydrating",
-    "Foaming",
-    "Moisturising",
-    "Blemish",
-    "SA ",
+    "C E Ferulic",
+    "Phloretin CF",
     "Retinol",
-    "Skin Renewing",
-    "Eye"
+    "Blemish + Age",
+    "Discoloration Defense",
+    "Hydrating B5",
+    "Phyto Corrective",
+    "RGN-6",
+    "Age Interrupter",
+    "UV Defense SPF50",
+    "Gentle Cleanser"
    ]
   },
   {
-   "marca": "Ducray",
-   "segmento": "Dermocosmesi da farmacia",
-   "proposta": "si",
-   "decisione": "selezione",
-   "nota": "solo alternativa economica e con attivi",
-   "linee": [
-    "Anaphase",
-    "Neoptide",
-    "Kelual",
-    "Squanorm",
-    "Sensinol",
-    "Elution",
-    "Keracnyl",
-    "Melascreen",
-    "Dexyane",
-    "Creastim"
-   ]
-  },
-  {
-   "marca": "Cetaphil",
-   "segmento": "Dermocosmesi da farmacia",
-   "proposta": "si",
-   "decisione": "selezione",
-   "nota": "solo alternativa economica e con attivi",
-   "linee": [
-    "Gentle",
-    "Moistur",
-    "Restoraderm",
-    "Pro "
-   ]
-  },
-  {
-   "marca": "Eucerin",
-   "segmento": "Dermocosmesi da farmacia",
+   "marca": "Babor",
+   "segmento": "Premium e lusso",
    "proposta": "selezione",
    "decisione": "selezione",
-   "nota": "",
+   "nota": "solo i prodotti scelti (decisione 20, 25/10)",
    "linee": [
-    "Anti-Pigment",
-    "Hyaluron-Filler",
-    "DermoPure",
-    "AtopiControl",
-    "UreaRepair",
-    "Aquaphor",
-    "Sun"
-   ]
+    "Doctor Babor"
+   ],
+   "prodotti_uno_per_uno": true
   },
   {
-   "marca": "Vichy",
-   "segmento": "Dermocosmesi da farmacia",
+   "marca": "Bioeffect",
+   "segmento": "Premium e lusso",
    "proposta": "selezione",
    "decisione": "selezione",
-   "nota": "",
+   "nota": "solo EGF Serum, come riferimento costoso con l'alternativa: un solo studio, su 29 persone, pagato dal produttore (decisione 20, 25/10)",
    "linee": [
-    "Liftactiv",
-    "Mineral 89",
-    "Normaderm",
-    "Capital Soleil",
-    "Dercos",
-    "Neovadiol"
-   ]
+    "EGF Serum"
+   ],
+   "prodotti_uno_per_uno": true
   },
   {
-   "marca": "Uriage",
-   "segmento": "Dermocosmesi da farmacia",
+   "marca": "Biotherm",
+   "segmento": "Premium e lusso",
    "proposta": "selezione",
    "decisione": "selezione",
-   "nota": "",
+   "nota": "ok poi segna da qualche parte cosa togliamo",
    "linee": [
-    "Xemose",
-    "Bariederm",
-    "Hyseac",
-    "Roseliane",
-    "Depiderm",
-    "Age Lift"
+    "Life Plankton",
+    "Homme"
    ]
   },
   {
-   "marca": "SVR",
-   "segmento": "Dermocosmesi da farmacia",
-   "proposta": "selezione",
-   "decisione": "selezione",
-   "nota": "",
-   "linee": [
-    "Sebiaclear",
-    "Ampoule",
-    "Densitium",
-    "Topialyse",
-    "Sensifine",
-    "Xerial",
-    "Hydraliane",
-    "Sun Secure"
-   ]
-  },
-  {
-   "marca": "A-Derma",
-   "segmento": "Dermocosmesi da farmacia",
-   "proposta": "selezione",
-   "decisione": "selezione",
-   "nota": "",
-   "linee": [
-    "Exomega",
-    "Dermalibour",
-    "Epitheliale",
-    "Biology"
-   ]
-  },
-  {
-   "marca": "Rilastil",
-   "segmento": "Dermocosmesi da farmacia",
-   "proposta": "selezione",
-   "decisione": "si",
-   "nota": "",
-   "linee": [
-    "Xerolact",
-    "Aqua",
-    "Acnestil",
-    "Progression",
-    "Sun System",
-    "D-Clar"
-   ]
-  },
-  {
-   "marca": "Noreva",
-   "segmento": "Dermocosmesi da farmacia",
-   "proposta": "selezione",
-   "decisione": "selezione",
-   "nota": "",
-   "linee": [
-    "Exfoliac",
-    "Sebodiane",
-    "Xerodiane",
-    "Sensidiane"
-   ]
-  },
-  {
-   "marca": "BioNike",
-   "segmento": "Dermocosmesi da farmacia",
-   "proposta": "selezione",
-   "decisione": "selezione",
-   "nota": "solo alternativa economica e con attivi",
-   "linee": [
-    "Defence",
-    "Triderm",
-    "Proxera"
-   ]
-  },
-  {
-   "marca": "Topicrem",
-   "segmento": "Dermocosmesi da farmacia",
-   "proposta": "selezione",
-   "decisione": "selezione",
-   "nota": "",
-   "linee": [
-    "Ultra-Hydratant",
-    "UR-10",
-    " AC ",
-    "Calm"
-   ]
-  },
-  {
-   "marca": "Sebamed",
-   "segmento": "Dermocosmesi da farmacia",
-   "proposta": "selezione",
-   "decisione": "selezione",
-   "nota": "",
-   "linee": [
-    "Anti-Forfora",
-    "Clear Face",
-    "Anti-Dry",
-    "pH 5.5"
-   ]
-  },
-  {
-   "marca": "Caudalie",
-   "segmento": "Dermocosmesi da farmacia",
-   "proposta": "selezione",
-   "decisione": "selezione",
-   "nota": "",
-   "linee": [
-    "Vinoperfect",
-    "Vinopure",
-    "Resveratrol",
-    "Vinergetic"
-   ]
-  },
-  {
-   "marca": "Lierac",
-   "segmento": "Dermocosmesi da farmacia",
-   "proposta": "selezione",
-   "decisione": "selezione",
-   "nota": "",
-   "linee": [
-    "Hydragenist",
-    "Lift Integral",
-    "Sebologie",
-    "Cica-Filler"
-   ]
-  },
-  {
-   "marca": "Roc",
-   "segmento": "Dermocosmesi da farmacia",
-   "proposta": "selezione",
-   "decisione": "selezione",
-   "nota": "solo alternativa economica e con attivi",
-   "linee": [
-    "Retinol Correxion",
-    "Multi Correxion"
-   ]
-  },
-  {
-   "marca": "Acm",
-   "segmento": "Dermocosmesi da farmacia",
-   "proposta": "selezione",
-   "decisione": "no",
-   "nota": "",
-   "linee": [
-    "Sebionex",
-    "Depiwhite",
-    "Novophane"
-   ]
-  },
-  {
-   "marca": "Galderma",
-   "segmento": "Dermocosmesi da farmacia",
+   "marca": "Bynacht",
+   "segmento": "Premium e lusso",
    "proposta": "no",
    "decisione": "no",
-   "nota": "",
+   "nota": "fuori (decisione 20, 25/10)",
    "linee": []
   },
   {
-   "marca": "Nuxe",
-   "segmento": "Dermocosmesi da farmacia",
-   "proposta": "no",
-   "decisione": "no",
-   "nota": "",
-   "linee": []
-  },
-  {
-   "marca": "Isis Pharma",
-   "segmento": "Dermocosmesi da farmacia",
-   "proposta": "no",
-   "decisione": "no",
-   "nota": "",
-   "linee": []
-  },
-  {
-   "marca": "Pharmaceris",
-   "segmento": "Dermocosmesi da farmacia",
-   "proposta": "no",
-   "decisione": "no",
-   "nota": "",
-   "linee": []
-  },
-  {
-   "marca": "Dermedic",
-   "segmento": "Dermocosmesi da farmacia",
-   "proposta": "no",
-   "decisione": "no",
-   "nota": "",
-   "linee": []
-  },
-  {
-   "marca": "Frezyderm",
-   "segmento": "Dermocosmesi da farmacia",
-   "proposta": "no",
-   "decisione": "no",
-   "nota": "",
-   "linee": []
-  },
-  {
-   "marca": "Neutrogena",
-   "segmento": "Dermocosmesi da farmacia",
-   "proposta": "no",
-   "decisione": "no",
-   "nota": "",
-   "linee": []
-  },
-  {
-   "marca": "Mustela",
-   "segmento": "Dermocosmesi da farmacia",
-   "proposta": "no",
-   "decisione": "no",
-   "nota": "",
-   "linee": []
-  },
-  {
-   "marca": "Apivita",
-   "segmento": "Dermocosmesi da farmacia",
-   "proposta": "no",
-   "decisione": "no",
-   "nota": "",
-   "linee": []
-  },
-  {
-   "marca": "Korres",
-   "segmento": "Dermocosmesi da farmacia",
-   "proposta": "no",
-   "decisione": "no",
-   "nota": "",
-   "linee": []
-  },
-  {
-   "marca": "Weleda",
-   "segmento": "Dermocosmesi da farmacia",
-   "proposta": "no",
-   "decisione": "no",
-   "nota": "",
-   "linee": []
-  },
-  {
-   "marca": "Dr. Hauschka",
-   "segmento": "Dermocosmesi da farmacia",
-   "proposta": "no",
-   "decisione": "no",
-   "nota": "",
-   "linee": []
-  },
-  {
-   "marca": "Garancia",
-   "segmento": "Dermocosmesi da farmacia",
-   "proposta": "no",
-   "decisione": "no",
-   "nota": "",
-   "linee": []
-  },
-  {
-   "marca": "COSRX",
-   "segmento": "K-beauty",
-   "proposta": "si",
-   "decisione": "si",
-   "nota": "studiamo poi quali sono i più validi e il rapporto tra uno e l'altro in termini di attivi",
-   "linee": [
-    "Snail",
-    "BHA",
-    "AHA",
-    "Low pH",
-    "Retinol",
-    "Niacinamide",
-    "Centella",
-    "Propolis",
-    "Peptide",
-    "Ceramide"
-   ]
-  },
-  {
-   "marca": "Beauty Of Joseon",
-   "segmento": "K-beauty",
-   "proposta": "si",
-   "decisione": "si",
-   "nota": "studiamo poi quali sono i più validi e il rapporto tra uno e l'altro in termini di attivi",
-   "linee": [
-    "Relief Sun",
-    "Glow Deep",
-    "Revive",
-    "Dynasty",
-    "Prugna verde",
-    "Sun Stick"
-   ]
-  },
-  {
-   "marca": "Anua",
-   "segmento": "K-beauty",
-   "proposta": "si",
-   "decisione": "si",
-   "nota": "studiamo poi quali sono i più validi e il rapporto tra uno e l'altro in termini di attivi",
-   "linee": [
-    "Heartleaf",
-    "Niacinamide",
-    "Peach",
-    "Rice"
-   ]
-  },
-  {
-   "marca": "Round Lab",
-   "segmento": "K-beauty",
-   "proposta": "si",
-   "decisione": "si",
-   "nota": "studiamo poi quali sono i più validi e il rapporto tra uno e l'altro in termini di attivi",
-   "linee": [
-    "Dokdo",
-    "Birch",
-    "Soybean",
-    "Mugwort"
-   ]
-  },
-  {
-   "marca": "Isntree",
-   "segmento": "K-beauty",
-   "proposta": "si",
-   "decisione": "si",
-   "nota": "studiamo poi quali sono i più validi e il rapporto tra uno e l'altro in termini di attivi",
-   "linee": [
-    "Acido ialuronico",
-    "Retinolo 1%",
-    "Niacinamide 20%",
-    "Aloe"
-   ]
-  },
-  {
-   "marca": "Haruharu Wonder",
-   "segmento": "K-beauty",
-   "proposta": "si",
-   "decisione": "si",
-   "nota": "studiamo poi quali sono i più validi e il rapporto tra uno e l'altro in termini di attivi",
-   "linee": [
-    "Black Rice"
-   ]
-  },
-  {
-   "marca": "Axis-Y",
-   "segmento": "K-beauty",
-   "proposta": "si",
-   "decisione": "si",
-   "nota": "studiamo poi quali sono i più validi e il rapporto tra uno e l'altro in termini di attivi",
-   "linee": [
-    "Dark Spot",
-    "Mugwort",
-    "Biome",
-    "Collagen"
-   ]
-  },
-  {
-   "marca": "Pyunkang Yul",
-   "segmento": "K-beauty",
-   "proposta": "si",
-   "decisione": "si",
-   "nota": "studiamo poi quali sono i più validi e il rapporto tra uno e l'altro in termini di attivi",
-   "linee": [
-    "Essence Toner",
-    "Calming",
-    "Cleansing"
-   ]
-  },
-  {
-   "marca": "Hada Labo Tokyo",
-   "segmento": "K-beauty",
-   "proposta": "si",
-   "decisione": "si",
-   "nota": "studiamo poi quali sono i più validi e il rapporto tra uno e l'altro in termini di attivi",
-   "linee": [
-    "Hyaluronic",
-    "Gokujyun",
-    "Shirojyun",
-    "Retinol"
-   ]
-  },
-  {
-   "marca": "Medicube",
-   "segmento": "K-beauty",
+   "marca": "Clarins",
+   "segmento": "Premium e lusso",
    "proposta": "selezione",
    "decisione": "selezione",
-   "nota": "studiamo poi quali sono i più validi e il rapporto tra uno e l'altro in termini di attivi",
+   "nota": "ok poi segna da qualche parte cosa togliamo, profumato non vuol dire male attenzione",
    "linee": [
-    "Zero Pore",
-    "PDRN",
-    "Collagen",
-    "Deep Vita",
-    "Red"
+    "Double Serum"
    ]
-  },
-  {
-   "marca": "Some By Mi",
-   "segmento": "K-beauty",
-   "proposta": "selezione",
-   "decisione": "selezione",
-   "nota": "studiamo poi quali sono i più validi e il rapporto tra uno e l'altro in termini di attivi",
-   "linee": [
-    "AHA",
-    "Retinol",
-    "Galactomyces",
-    "Truecica",
-    "Yuja"
-   ]
-  },
-  {
-   "marca": "Dr. Jart",
-   "segmento": "K-beauty",
-   "proposta": "selezione",
-   "decisione": "selezione",
-   "nota": "studiamo poi quali sono i più validi e il rapporto tra uno e l'altro in termini di attivi",
-   "linee": [
-    "Cicapair",
-    "Ceramidin",
-    "Vital Hydra"
-   ]
-  },
-  {
-   "marca": "Missha",
-   "segmento": "K-beauty",
-   "proposta": "selezione",
-   "decisione": "selezione",
-   "nota": "studiamo poi quali sono i più validi e il rapporto tra uno e l'altro in termini di attivi",
-   "linee": [
-    "Time Revolution",
-    "All Around Safe",
-    "Super Aqua"
-   ]
-  },
-  {
-   "marca": "Althea Life Science",
-   "segmento": "K-beauty",
-   "proposta": "selezione",
-   "decisione": "selezione",
-   "nota": "studiamo poi quali sono i più validi e il rapporto tra uno e l'altro in termini di attivi",
-   "linee": [
-    "345",
-    "Relief"
-   ]
-  },
-  {
-   "marca": "Numbuzin",
-   "segmento": "K-beauty",
-   "proposta": "selezione",
-   "decisione": "selezione",
-   "nota": "studiamo poi quali sono i più validi e il rapporto tra uno e l'altro in termini di attivi",
-   "linee": [
-    "No.3",
-    "No.5",
-    "No.9",
-    "No.1"
-   ]
-  },
-  {
-   "marca": "Manyo",
-   "segmento": "K-beauty",
-   "proposta": "selezione",
-   "decisione": "selezione",
-   "nota": "studiamo poi quali sono i più validi e il rapporto tra uno e l'altro in termini di attivi",
-   "linee": [
-    "Cleansing Oil",
-    "Bifida"
-   ]
-  },
-  {
-   "marca": "Thank You Farmer",
-   "segmento": "K-beauty",
-   "proposta": "selezione",
-   "decisione": "selezione",
-   "nota": "studiamo poi quali sono i più validi e il rapporto tra uno e l'altro in termini di attivi",
-   "linee": [
-    "Sun Project"
-   ]
-  },
-  {
-   "marca": "Purito",
-   "segmento": "K-beauty",
-   "proposta": "selezione",
-   "decisione": "selezione",
-   "nota": "studiamo poi quali sono i più validi e il rapporto tra uno e l'altro in termini di attivi",
-   "linee": [
-    "Centella",
-    "Daily"
-   ]
-  },
-  {
-   "marca": "Iunik",
-   "segmento": "K-beauty",
-   "proposta": "selezione",
-   "decisione": "selezione",
-   "nota": "studiamo poi quali sono i più validi e il rapporto tra uno e l'altro in termini di attivi",
-   "linee": [
-    "Propolis",
-    "Vitamin",
-    "Tea Tree"
-   ]
-  },
-  {
-   "marca": "Banila Co",
-   "segmento": "K-beauty",
-   "proposta": "selezione",
-   "decisione": "selezione",
-   "nota": "studiamo poi quali sono i più validi e il rapporto tra uno e l'altro in termini di attivi",
-   "linee": [
-    "Clean It Zero"
-   ]
-  },
-  {
-   "marca": "Mixsoon",
-   "segmento": "K-beauty",
-   "proposta": "selezione",
-   "decisione": "selezione",
-   "nota": "studiamo poi quali sono i più validi e il rapporto tra uno e l'altro in termini di attivi",
-   "linee": [
-    "Bean"
-   ]
-  },
-  {
-   "marca": "Biodance",
-   "segmento": "K-beauty",
-   "proposta": "no",
-   "decisione": "no",
-   "nota": "",
-   "linee": []
-  },
-  {
-   "marca": "Mary and May",
-   "segmento": "K-beauty",
-   "proposta": "no",
-   "decisione": "selezione",
-   "nota": "però valutiamo anche se costoso poi nel caso vediamo.",
-   "linee": []
-  },
-  {
-   "marca": "Holika Holika",
-   "segmento": "K-beauty",
-   "proposta": "no",
-   "decisione": "no",
-   "nota": "",
-   "linee": []
-  },
-  {
-   "marca": "TirTir",
-   "segmento": "K-beauty",
-   "proposta": "no",
-   "decisione": "no",
-   "nota": "",
-   "linee": []
-  },
-  {
-   "marca": "Erborian",
-   "segmento": "K-beauty",
-   "proposta": "no",
-   "decisione": "no",
-   "nota": "",
-   "linee": []
   },
   {
    "marca": "Clinique",
@@ -865,7 +1439,85 @@
     "Anti-Blemish",
     "Superdefense",
     "for Men"
+   ],
+   "escludi": [
+    [
+     "Take The Day Off Cleansing Oil",
+     "ultimo su 20 nel test Öko-Test del 6/3/2024 (PEG e BHT)"
+    ]
    ]
+  },
+  {
+   "marca": "Codage",
+   "segmento": "Premium e lusso",
+   "proposta": "no",
+   "decisione": "selezione",
+   "nota": "solo i prodotti scelti (decisione 20, 25/10)",
+   "linee": [
+    "N 01",
+    "N 07"
+   ]
+  },
+  {
+   "marca": "Coola",
+   "segmento": "Premium e lusso",
+   "proposta": "no",
+   "decisione": "no",
+   "nota": "Beautycos, 16/10",
+   "linee": []
+  },
+  {
+   "marca": "Darphin",
+   "segmento": "Premium e lusso",
+   "proposta": "no",
+   "decisione": "selezione",
+   "nota": "teniamola come alternativa, segnamo cosa togliamo",
+   "linee": [],
+   "escludi": [
+    [
+     "Essential Oil Elixir",
+     "aromaterapia a base di oli essenziali, non adatta alle pelli sensibili"
+    ],
+    [
+     "Oil Elixir",
+     "aromaterapia a base di oli essenziali, non adatta alle pelli sensibili"
+    ]
+   ]
+  },
+  {
+   "marca": "DM Skincare",
+   "segmento": "Premium e lusso",
+   "proposta": "no",
+   "decisione": "no",
+   "nota": "fuori (decisione 20, 25/10)",
+   "linee": []
+  },
+  {
+   "marca": "Dr. Barbara Sturm",
+   "segmento": "Premium e lusso",
+   "proposta": "no",
+   "decisione": "no",
+   "nota": "fuori (decisione 21, 25/10)",
+   "linee": []
+  },
+  {
+   "marca": "Elemis",
+   "segmento": "Premium e lusso",
+   "proposta": "no",
+   "decisione": "no",
+   "nota": "Beautycos, 16/10",
+   "linee": []
+  },
+  {
+   "marca": "Elizabeth Arden",
+   "segmento": "Premium e lusso",
+   "proposta": "selezione",
+   "decisione": "selezione",
+   "nota": "solo i prodotti scelti (decisione 20, 25/10)",
+   "linee": [
+    "Ceramide"
+   ],
+   "prodotti_uno_per_uno": true
   },
   {
    "marca": "Estee Lauder",
@@ -880,419 +1532,12 @@
    ]
   },
   {
-   "marca": "Clarins",
-   "segmento": "Premium e lusso",
-   "proposta": "selezione",
-   "decisione": "selezione",
-   "nota": "ok poi segna da qualche parte cosa togliamo, profumato non vuol dire male attenzione",
-   "linee": [
-    "Double Serum"
-   ]
-  },
-  {
-   "marca": "Biotherm",
-   "segmento": "Premium e lusso",
-   "proposta": "selezione",
-   "decisione": "selezione",
-   "nota": "ok poi segna da qualche parte cosa togliamo",
-   "linee": [
-    "Life Plankton",
-    "Homme"
-   ]
-  },
-  {
-   "marca": "Shiseido",
+   "marca": "Jurlique",
    "segmento": "Premium e lusso",
    "proposta": "no",
-   "decisione": "selezione",
-   "nota": "ok poi segna da qualche parte cosa togliamo e valutiamolo come brand premium",
-   "linee": []
-  },
-  {
-   "marca": "Darphin",
-   "segmento": "Premium e lusso",
-   "proposta": "no",
-   "decisione": "selezione",
-   "nota": "teniamola come alternativa, segnamo cosa togliamo",
-   "linee": []
-  },
-  {
-   "marca": "Geek&Gorgeous",
-   "segmento": "Attivi a buon prezzo",
-   "proposta": "si",
-   "decisione": "si",
-   "nota": "mi piace, teniamolo come alternativa valida low cost",
-   "linee": [
-    "Retinal",
-    "A-Game",
-    "Liquid Glow",
-    "Calm Down",
-    "Jelly Joy",
-    "C-Glow"
-   ]
-  },
-  {
-   "marca": "Skincyclopedia",
-   "segmento": "Attivi a buon prezzo",
-   "proposta": "no",
-   "decisione": "selezione",
-   "nota": "teniamolo come alternativa valida low cost lo stesso",
-   "linee": []
-  },
-  {
-   "marca": "BasicLab",
-   "segmento": "Attivi a buon prezzo",
-   "proposta": "no",
    "decisione": "no",
-   "nota": "",
+   "nota": "fuori (decisione 20, 25/10)",
    "linee": []
-  },
-  {
-   "marca": "Transparent Lab",
-   "segmento": "Attivi a buon prezzo",
-   "proposta": "no",
-   "decisione": "no",
-   "nota": "",
-   "linee": []
-  },
-  {
-   "marca": "Klorane",
-   "segmento": "Capelli",
-   "proposta": "si",
-   "decisione": "si",
-   "nota": "",
-   "linee": [
-    "Chinina",
-    "Quinine",
-    "Mango",
-    "Ortica",
-    "Peonia",
-    "Avena",
-    "Lino",
-    "Cedro"
-   ]
-  },
-  {
-   "marca": "Rene Furterer",
-   "segmento": "Capelli",
-   "proposta": "si",
-   "decisione": "si",
-   "nota": "",
-   "linee": [
-    "Triphasic",
-    "Forticea",
-    "Melaleuca",
-    "Karite",
-    "Neopur",
-    "Astera"
-   ]
-  },
-  {
-   "marca": "Bioscalin",
-   "segmento": "Capelli",
-   "proposta": "si",
-   "decisione": "si",
-   "nota": "",
-   "linee": [
-    "Physiogenina",
-    "Energy",
-    "iSFRP-1",
-    "Pro Density",
-    "Menopausa"
-   ]
-  },
-  {
-   "marca": "Crescina",
-   "segmento": "Capelli",
-   "proposta": "si",
-   "decisione": "si",
-   "nota": "",
-   "linee": [
-    "HFSC",
-    "Ri-Crescita",
-    "Transdermic",
-    "Isole Follicolari"
-   ]
-  },
-  {
-   "marca": "Olaplex",
-   "segmento": "Capelli",
-   "proposta": "si",
-   "decisione": "si",
-   "nota": "",
-   "linee": [
-    "No. 4",
-    "No. 5",
-    "No. 6",
-    "No. 7",
-    "Rich Hydration"
-   ]
-  },
-  {
-   "marca": "Phyto",
-   "segmento": "Capelli",
-   "proposta": "selezione",
-   "decisione": "selezione",
-   "nota": "valutiamo magari c'è qualcosa che ha senso tenere, togli tutto che riguarda tinta e decolorazione",
-   "linee": [
-    "Phytocyane",
-    "Phytophanere",
-    "Phytoapaisant",
-    "Phytosquam"
-   ]
-  },
-  {
-   "marca": "Nioxin",
-   "segmento": "Capelli",
-   "proposta": "selezione",
-   "decisione": "selezione",
-   "nota": "valutiamo magari c'è qualcosa che ha senso tenere, togli tutto che riguarda tinta e decolorazione",
-   "linee": [
-    "System",
-    "Ultimate Power"
-   ]
-  },
-  {
-   "marca": "Lazartigue",
-   "segmento": "Capelli",
-   "proposta": "selezione",
-   "decisione": "selezione",
-   "nota": "valutiamo magari c'è qualcosa che ha senso tenere, togli tutto che riguarda tinta e decolorazione",
-   "linee": [
-    "Fortify",
-    "Soothe",
-    "Clear"
-   ]
-  },
-  {
-   "marca": "Moroccanoil",
-   "segmento": "Capelli",
-   "proposta": "selezione",
-   "decisione": "selezione",
-   "nota": "valutiamo magari c'è qualcosa che ha senso tenere, togli tutto che riguarda tinta e decolorazione",
-   "linee": [
-    "Treatment",
-    "Hydrating"
-   ]
-  },
-  {
-   "marca": "Biokap",
-   "segmento": "Capelli",
-   "proposta": "no",
-   "decisione": "selezione",
-   "nota": "valutiamo magari c'è qualcosa che ha senso tenere, togli tutto che riguarda tinta e decolorazione",
-   "linee": []
-  },
-  {
-   "marca": "Kerastase",
-   "segmento": "Capelli",
-   "proposta": "no",
-   "decisione": "selezione",
-   "nota": "valutiamo magari c'è qualcosa che ha senso tenere, togli tutto che riguarda tinta e decolorazione",
-   "linee": []
-  },
-  {
-   "marca": "Solgar",
-   "segmento": "Integrazione",
-   "proposta": "si",
-   "decisione": "si",
-   "nota": "",
-   "linee": [
-    "Pelle Unghie e Capelli",
-    "Biotina",
-    "Collagene e acido ialuronico",
-    "Astaxantina"
-   ]
-  },
-  {
-   "marca": "Oenobiol",
-   "segmento": "Integrazione",
-   "proposta": "si",
-   "decisione": "si",
-   "nota": "",
-   "linee": [
-    "Hair Expert",
-    "Sun Expert",
-    "Derma Expert"
-   ]
-  },
-  {
-   "marca": "Biocyte",
-   "segmento": "Integrazione",
-   "proposta": "selezione",
-   "decisione": "selezione",
-   "nota": "",
-   "linee": [
-    "Collagen",
-    "Hyaluronic",
-    "Longcils",
-    "Keratine"
-   ]
-  },
-  {
-   "marca": "Pure Encapsulations",
-   "segmento": "Integrazione",
-   "proposta": "selezione",
-   "decisione": "selezione",
-   "nota": "",
-   "linee": [
-    "Capelli Pelle Unghie",
-    "Acido ialuronico",
-    "Collagene"
-   ]
-  },
-  {
-   "marca": "Arkopharma",
-   "segmento": "Integrazione",
-   "proposta": "selezione",
-   "decisione": "selezione",
-   "nota": "",
-   "linee": [
-    "Capelli",
-    "Unghie",
-    "Forcapil"
-   ]
-  },
-  {
-   "marca": "Granions",
-   "segmento": "Integrazione",
-   "proposta": "selezione",
-   "decisione": "selezione",
-   "nota": "",
-   "linee": [
-    "Capelli",
-    "Collagene",
-    "Bellezza"
-   ]
-  },
-  {
-   "marca": "Now Foods",
-   "segmento": "Integrazione",
-   "proposta": "selezione",
-   "decisione": "selezione",
-   "nota": "",
-   "linee": [
-    "Biotin",
-    "Collagen",
-    "Hyaluronic"
-   ]
-  },
-  {
-   "marca": "New Nordic",
-   "segmento": "Integrazione",
-   "proposta": "selezione",
-   "decisione": "selezione",
-   "nota": "",
-   "linee": [
-    "Hair Volume",
-    "Skin"
-   ]
-  },
-  {
-   "marca": "Vitabiotics",
-   "segmento": "Integrazione",
-   "proposta": "selezione",
-   "decisione": "selezione",
-   "nota": "",
-   "linee": [
-    "Perfectil"
-   ]
-  },
-  {
-   "marca": "Doppelherz",
-   "segmento": "Integrazione",
-   "proposta": "no",
-   "decisione": "no",
-   "nota": "",
-   "linee": []
-  },
-  {
-   "marca": "Ostrovit",
-   "segmento": "Integrazione",
-   "proposta": "no",
-   "decisione": "no",
-   "nota": "",
-   "linee": []
-  },
-  {
-   "marca": "Hero",
-   "segmento": "Trattamenti mirati",
-   "proposta": "si",
-   "decisione": "si",
-   "nota": "cerotti idrocolloidali per brufoli (Federico, 15/10)",
-   "linee": [
-    "Mighty Patch"
-   ]
-  },
-  {
-   "marca": "Acnemy",
-   "segmento": "Trattamenti mirati",
-   "proposta": "si",
-   "decisione": "si",
-   "nota": "cerotti idrocolloidali per brufoli (Federico, 15/10)",
-   "linee": [
-    "Zitproof"
-   ]
-  },
-  {
-   "marca": "Petitfee",
-   "segmento": "K-beauty",
-   "proposta": "selezione",
-   "decisione": "selezione",
-   "nota": "solo i cerotti per brufoli (Federico, 15/10)",
-   "linee": [
-    "Spot",
-    "Clearing",
-    "idrocolloid"
-   ]
-  },
-  {
-   "marca": "Purederm",
-   "segmento": "K-beauty",
-   "proposta": "selezione",
-   "decisione": "selezione",
-   "nota": "solo i cerotti per brufoli (Federico, 15/10)",
-   "linee": [
-    "anti-acne",
-    "idrocolloid",
-    "brufol"
-   ]
-  },
-  {
-   "marca": "Skin1004",
-   "segmento": "K-beauty",
-   "proposta": "si",
-   "decisione": "si",
-   "nota": "Beautycos, 16/10: linea Madagascar Centella",
-   "linee": [],
-   "prodotti_uno_per_uno": true
-  },
-  {
-   "marca": "Laneige",
-   "segmento": "K-beauty",
-   "proposta": "no",
-   "decisione": "si",
-   "nota": "Beautycos, 16/10. Federico: «anche per le labbra, poi integreremo anche qualcosa relativo alle labbra e il make up»",
-   "linee": [],
-   "prodotti_uno_per_uno": true
-  },
-  {
-   "marca": "Dermalogica",
-   "segmento": "Medicale premium",
-   "proposta": "si",
-   "decisione": "si",
-   "nota": "Beautycos, 16/10",
-   "linee": [],
-   "prodotti_uno_per_uno": true
-  },
-  {
-   "marca": "Exuviance",
-   "segmento": "Medicale premium",
-   "proposta": "si",
-   "decisione": "si",
-   "nota": "Beautycos, 16/10: stessa azienda di NeoStrata",
-   "linee": [],
-   "prodotti_uno_per_uno": true
   },
   {
    "marca": "Kiehl's",
@@ -1310,58 +1555,44 @@
    "prodotti_uno_per_uno": true
   },
   {
-   "marca": "Elizabeth Arden",
-   "segmento": "Premium e lusso",
-   "proposta": "selezione",
-   "decisione": "selezione",
-   "nota": "Beautycos, 16/10. Federico: «da studiare i brand»",
-   "linee": [
-    "Ceramide",
-    "Superstart"
-   ],
-   "prodotti_uno_per_uno": true
-  },
-  {
-   "marca": "Babor",
-   "segmento": "Premium e lusso",
-   "proposta": "selezione",
-   "decisione": "selezione",
-   "nota": "Beautycos, 16/10. Federico: «da studiare il brand»",
-   "linee": [
-    "Doctor Babor"
-   ],
-   "prodotti_uno_per_uno": true
-  },
-  {
-   "marca": "Bioeffect",
-   "segmento": "Premium e lusso",
-   "proposta": "selezione",
-   "decisione": "selezione",
-   "nota": "Beautycos, 16/10. Federico: «dobbiamo trovare maggiori informazioni»",
-   "linee": [
-    "EGF"
-   ],
-   "prodotti_uno_per_uno": true
-  },
-  {
-   "marca": "Sisley",
-   "segmento": "Premium e lusso",
-   "proposta": "no",
-   "decisione": "si",
-   "nota": "Beautycos, 16/10. Federico: «Sisley sicuramente sì»",
-   "linee": [],
-   "prodotti_uno_per_uno": true
-  },
-  {
-   "marca": "Codage",
+   "marca": "Kora Organics",
    "segmento": "Premium e lusso",
    "proposta": "no",
    "decisione": "no",
-   "nota": "Beautycos, 16/10. Federico: «segnamo il brand, vediamo più avanti»: in admin › Marche da conoscere",
+   "nota": "fuori (decisione 20, 25/10)",
    "linee": []
   },
   {
-   "marca": "Elemis",
+   "marca": "La Mer",
+   "segmento": "Premium e lusso",
+   "proposta": "selezione",
+   "decisione": "selezione",
+   "nota": "solo la Crème, come riferimento di lusso sempre con l'alternativa che costa meno (decisione 21, 25/10); serve un negozio affiliato",
+   "linee": [
+    "Creme de la Mer",
+    "Crème de la Mer"
+   ]
+  },
+  {
+   "marca": "La Prairie",
+   "segmento": "Premium e lusso",
+   "proposta": "selezione",
+   "decisione": "selezione",
+   "nota": "solo Skin Caviar, come riferimento di lusso sempre con l'alternativa (decisione 21, 25/10); serve un negozio affiliato",
+   "linee": [
+    "Skin Caviar"
+   ]
+  },
+  {
+   "marca": "Lancôme",
+   "segmento": "Premium e lusso",
+   "proposta": "no",
+   "decisione": "no",
+   "nota": "fuori (decisione 20, 25/10)",
+   "linee": []
+  },
+  {
+   "marca": "Mario Badescu",
    "segmento": "Premium e lusso",
    "proposta": "no",
    "decisione": "no",
@@ -1377,19 +1608,11 @@
    "linee": []
   },
   {
-   "marca": "Mario Badescu",
+   "marca": "Raz Skincare",
    "segmento": "Premium e lusso",
    "proposta": "no",
    "decisione": "no",
-   "nota": "Beautycos, 16/10",
-   "linee": []
-  },
-  {
-   "marca": "Coola",
-   "segmento": "Premium e lusso",
-   "proposta": "no",
-   "decisione": "no",
-   "nota": "Beautycos, 16/10",
+   "nota": "fuori (decisione 20, 25/10)",
    "linee": []
   },
   {
@@ -1401,56 +1624,62 @@
    "linee": []
   },
   {
-   "marca": "Embryolisse",
-   "segmento": "Dermocosmesi da farmacia",
+   "marca": "Shiseido",
+   "segmento": "Premium e lusso",
    "proposta": "no",
-   "decisione": "no",
-   "nota": "Beautycos, 16/10: manca il Lait-Crème Concentré",
+   "decisione": "selezione",
+   "nota": "ok poi segna da qualche parte cosa togliamo e valutiamolo come brand premium · Ultimune: alcol fra i primi ingredienti, mai alla pelle secca o sensibile (regola in traduci.py, decisione 22, 25/10)",
    "linee": []
   },
   {
-   "marca": "Revox",
-   "segmento": "Attivi a buon prezzo",
+   "marca": "Sisley",
+   "segmento": "Premium e lusso",
+   "proposta": "no",
+   "decisione": "si",
+   "nota": "Beautycos, 16/10. Federico: «Sisley sicuramente sì»",
+   "linee": [],
+   "prodotti_uno_per_uno": true
+  },
+  {
+   "marca": "The Organic Pharmacy",
+   "segmento": "Premium e lusso",
    "proposta": "selezione",
-   "decisione": "no",
-   "nota": "Beautycos, 16/10: Federico no",
-   "linee": []
+   "decisione": "selezione",
+   "nota": "solo i prodotti scelti (decisione 20, 25/10)",
+   "linee": [
+    "Retinol",
+    "Hyaluronic"
+   ]
   },
   {
-   "marca": "Korff",
-   "segmento": "Dermocosmesi da farmacia",
+   "marca": "Votary",
+   "segmento": "Premium e lusso",
    "proposta": "selezione",
-   "decisione": "si",
-   "nota": "Farmaself, 15/10: Federico sì",
-   "linee": [],
-   "prodotti_uno_per_uno": true
+   "decisione": "selezione",
+   "nota": "solo Super Seed Facial Oil nella versione senza profumo (decisione 20, 25/10)",
+   "linee": [
+    "Super Seed"
+   ]
   },
   {
-   "marca": "Metagenics",
-   "segmento": "Integrazione",
+   "marca": "Acnemy",
+   "segmento": "Trattamenti mirati",
    "proposta": "si",
    "decisione": "si",
-   "nota": "Astonfarma, 23/10: solo i prodotti scelti uno per uno, con ingredienti e quantità per dose dal sito della marca",
-   "linee": [],
-   "prodotti_uno_per_uno": true
+   "nota": "cerotti idrocolloidali per brufoli (Federico, 15/10)",
+   "linee": [
+    "Zitproof"
+   ]
   },
   {
-   "marca": "Norsan",
-   "segmento": "Integrazione",
+   "marca": "Hero",
+   "segmento": "Trattamenti mirati",
    "proposta": "si",
    "decisione": "si",
-   "nota": "Astonfarma, 23/10: la linea Zreen Collagene; dal giro integrativo (23/10) anche gli omega-3 e Zreen Magnesio e Vitamina D3, scelti uno per uno con le dosi verificate",
-   "linee": [],
-   "prodotti_uno_per_uno": true
-  },
-  {
-   "marca": "IBSA",
-   "segmento": "Integrazione",
-   "proposta": "si",
-   "decisione": "si",
-   "nota": "Astonfarma, 23/10: giro integrativo, solo i film orali scelti uno per uno (melatonina 1 mg, vitamina D3 1000 e 2000 UI, B12 500 mcg)",
-   "linee": [],
-   "prodotti_uno_per_uno": true
+   "nota": "cerotti idrocolloidali per brufoli (Federico, 15/10)",
+   "linee": [
+    "Mighty Patch"
+   ]
   }
  ]
 }

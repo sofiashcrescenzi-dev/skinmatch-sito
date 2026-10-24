@@ -269,6 +269,12 @@ def scheda(r, extra_inci=None, segmento=None, dichiarati=None):
         if s['forza'] == 3: rea = 0
         elif s['forza'] == 2: rea = min(rea, 1)
         if s['profumo'] or s['oli_essenziali'] or s['alcol']: rea = min(rea, 1)
+        # ⚠️ L'ALCOL FRA I PRIMI CINQUE INGREDIENTI (25/10/2026, decisione 22: Shiseido Ultimune): secca, quindi non va
+        # alla pelle secca né a quella reattiva, qualunque cosa dica la descrizione
+        if any(I._ALCOL.search(re.sub(r'\s+', ' ', v.upper()).strip(' .')) for v in (lista or [])[:5]):
+            sebo = [x for x in sebo if x != 'basso'] or ['medio', 'alto']
+            rea = 0
+            fonti['sebo'] = 'regola: alcol fra i primi ingredienti, non per la pelle secca'
         s['pelle'] = {'sebo': sebo, 'idr': idr, 'reattiva': rea}
         fonti['reattiva'] = 'regola: forza, profumo e dichiarazioni'
     # per cosa lavora
@@ -289,6 +295,10 @@ def scheda(r, extra_inci=None, segmento=None, dichiarati=None):
         # gli omega-3 per la pelle non hanno indicazioni autorizzate (src/lib/integratori.ts): niente bisogni della pelle,
         # anche se la descrizione parla di pelle o di sole (Norsan, 23/10)
         s['integrazione'] = ([] if 'omega-3' in ben else [c for c, rx in INTEGRAZIONE.items() if re.search(rx, t)]) + ben
+        # lo zinco nel NOME vale per le imperfezioni: l'indicazione UE è «mantenimento di una pelle normale» (decisione 17,
+        # 25/10/2026); dentro un complesso anti-età no, lì è un ingrediente fra tanti
+        if re.search(r'\bzinc', _c(tit)) and 'imperfezioni' not in s['integrazione'] and 'omega-3' not in ben:
+            s['integrazione'].append('imperfezioni')
         # vegano o vegetariano solo se lo dichiara; l'olio di pesce e le perle di gelatina mai (il test lo chiede, 23/10)
         s['vegano'] = bool(re.search(r'vegan|vegetal|vegetarian', t)) and not re.search(
             r'non (?:è |e )?adatt\w* a\w* ?(?:vegan|vegetarian)|olio di (?:pesce|fegato)|fish oil|merluzzo|gelatina|krill', t)

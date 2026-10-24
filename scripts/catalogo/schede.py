@@ -102,6 +102,9 @@ def scegli(r, dec, negozio=None):
     if pas == 'integratore':
         # per la pelle: le parole della pelle, e non un multivitaminico o un prodotto per altro anche se la descrizione la cita
         pelle = re.search(PELLE_INT, (r['titolo'] + ' ' + (r['descrizione'] or '')[:400]).lower()) and not re.search(NON_PELLE_INT, r['titolo'].lower())
+        # lo zinco nel NOME è per la pelle (indicazione UE «mantenimento di una pelle normale», decisione 17 del 25/10);
+        # nella descrizione no: c'è in mezzo integratore per la menopausa o per i capelli
+        pelle = pelle or bool(re.search(r'\bzinc', r['titolo'].lower()))
         # ⚠️ IL GIRO INTEGRATIVO (sonno, stanchezza, difese, vitamina D, omega-3, stress, B12) PRENDE SOLO I PRODOTTI SCELTI
         # UNO PER UNO, con la dose verificata sulla descrizione: le confezioni estere di Liki24 restano fuori (23/10/2026)
         if not pelle:
@@ -111,6 +114,12 @@ def scegli(r, dec, negozio=None):
                 return False, dose_fuori(r), None
     nota = (x.get('nota') or '').lower()
     ruolo = 'alternativa' if 'alternativa' in nota else ('premium' if x['segmento'] in ('Medicale premium', 'Premium e lusso') else None)
+    # ⚠️ I PRODOTTI TOLTI UNO PER UNO (25/10/2026, decisione 22 di Federico): «escludi» nella decisione della marca,
+    # [testo che sta nel nome, perché]. L'olio struccante Clinique ultimo su 20 nel test Öko-Test, gli elisir di oli
+    # essenziali Darphin, il Treatment Moroccanoil che è styling.
+    for testo, perche in x.get('escludi') or []:
+        if k(testo) in k(r['titolo']):
+            return False, perche, None
     if x['decisione'] == 'selezione' and x['linee'] and 'solo alternativa' not in nota and not scelto:
         if not any(k(l) in k(r['titolo']) for l in x['linee']):
             return False, 'fuori dalle linee scelte', None
@@ -151,6 +160,13 @@ def main():
                 s = traduci.scheda(r, extra, segmento=seg, dichiarati=dich)
         s['ruolo'] = ruolo
         s['segmento'] = dec[k(r['marca'])]['segmento']
+        # ⚠️ I BISOGNI CHE UNA MARCA NON PUÒ PROMETTERE (25/10/2026, decisione 22): Nioxin non ha prove pubblicate sulla
+        # caduta, quindi i suoi shampoo non rispondono mai a «perdo capelli»
+        via = set(dec[k(r['marca'])].get('senza_bisogni') or [])
+        if via:
+            s['bisogni'] = [b for b in s['bisogni'] if b not in via]
+            if s.get('capelli'):
+                s['capelli']['bisogni'] = [b for b in s['capelli']['bisogni'] if b not in via] or ['mantenimento']
         s['completezza'] = traduci.completezza(s)
         schede.append(s)
     # lo stesso prodotto in un altro formato: se una confezione ha l'INCI, vale anche per le altre
