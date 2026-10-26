@@ -1,1 +1,338 @@
-{ "_nota": "Gli articoli pubblicati della Rivista. Li scrive la pubblicazione dell admin dopo il sì di Federico o Sofia.", "articoli": [] }
+{
+ "_nota": "Gli articoli pubblicati della Rivista. Li scrive la pubblicazione dell admin dopo il sì di Federico o Sofia.",
+ "articoli": [
+  {
+   "slug": "caduta-capelli-autunno",
+   "titolo": "Caduta dei capelli in autunno: quanto dura e cosa usare",
+   "sommario": "In autunno si perdono più capelli, e di solito la caduta passa da sola in qualche settimana. Come distinguerla da un diradamento, cosa usare nel frattempo e quando parlarne con il dermatologo.",
+   "tipo": "guida",
+   "testo": "Ogni anno, tra settembre e novembre, la spazzola si riempie un po' di più, e lo scarico della doccia anche. Spesso è un ricambio di stagione: fastidioso da vedere, ma temporaneo.\n\n## Perché proprio in autunno\n\nOgni capello cresce per qualche anno, poi entra in una fase di riposo che dura circa tre mesi e alla fine cade, per lasciare il posto a un capello nuovo. Uno studio svizzero su 823 donne (Kunz, Seifert e Trüeb, *Dermatology*, 2009) ha trovato la quota più alta di capelli a riposo d'estate, con il massimo a luglio. Tre mesi dopo, quei capelli cadono: tra ottobre e novembre.\n\nPer questo la caduta d'autunno di solito non vuol dire perdere capelli per sempre. Stai cambiando quelli che avevano finito il loro ciclo.\n\n## Quanto dura\n\nIn genere qualche settimana, poi rallenta da sola. Perdere fino a un centinaio di capelli al giorno è normale, e nei giorni del lavaggio ne vedi di più perché vengono via insieme quelli che si erano già staccati.\n\nConviene farsi vedere da un dermatologo se:\n\n- la caduta dura più di tre mesi, o aumenta invece di calare;\n- compaiono chiazze senza capelli, o la riga e le tempie si allargano piano nel tempo;\n- il cuoio capelluto prude, brucia, si arrossa o si squama;\n- la caduta è cominciata due o tre mesi dopo un parto, una febbre alta, una dieta drastica o un periodo molto pesante. Di solito passa anche questa, ma il medico può voler controllare alcuni valori del sangue, come il ferro e la tiroide.\n\n## Caduta di stagione o diradamento?\n\nLa differenza sta nel tempo e nella forma. La caduta di stagione è diffusa su tutta la testa, arriva in fretta e se ne va. Il diradamento è lento, dura da mesi o da anni e si vede in alcune zone, come la riga centrale o l'attaccatura.\n\nIl [test del cuoio capelluto](/test?percorso=cute) ti chiede da quanto tempo cadono e in che modo. Se il risultato è una [caduta reattiva](/biotipi/caduta-reattiva) o una [tendenza al diradamento](/biotipi/diradamento), ti propone uno shampoo e un trattamento adatti, e ti dice quando è meglio farsi vedere.\n\n## Cosa usare intanto\n\nNessun cosmetico ferma un ricambio naturale, e nessuno shampoo fa ricrescere i capelli. Puoi lavarli senza stressare la cute e dare un po' di sostegno alle radici.\n\n- **Uno shampoo delicato, anche se li lavi spesso.** Gli shampoo detti energizzanti o anticaduta puliscono senza sgrassare troppo e contengono attivi che i produttori indicano per rinforzare il capello: per esempio il [Physiogenina di Bioscalin](/catalogo/shampoo/shampoo-physiogenina), lo [shampoo energizzante Dercos di Vichy](/catalogo/shampoo/shampoo-dercos-technique-energizzante) o lo [shampoo di Klorane alla chinina](/catalogo/shampoo/shampoo-chinino-stella). In menopausa c'è anche uno [shampoo rinforzante di Bioscalin](/catalogo/shampoo/shampoo-rinforzante-menopausa) pensato per quel periodo. Lavarli spesso non fa cadere più capelli: fa cadere prima quelli che erano già pronti.\n- **Una lozione, se la caduta è forte e dura.** Le lozioni senza risciacquo, come la [Creastim Reactiv di Ducray](/catalogo/capelli/lozione-creastim-reactiv) o il [siero anticaduta di Klorane](/catalogo/capelli/siero-anti-caduta), si applicano sulla cute ogni giorno per qualche settimana. Funzionano solo con la costanza, seguendo le indicazioni del produttore.\n- **Un integratore, solo se serve.** Se negli ultimi mesi hai mangiato poco o in modo poco vario, un integratore per capelli con zinco, cistina e biotina, come [Perfectil Original](/catalogo/integratori/integratore-perfectil-original), può sostenere la crescita del capello nuovo. Per la caduta di stagione ci sono formule pensate apposta, come [Anacaps Reactiv di Ducray](/catalogo/integratori/integratore-anacaps-caduta-reactiv). Un integratore non sostituisce una dieta varia né il parere del medico: il [test dell'integrazione](/test?percorso=integrazione) ti dice se ti serve o no.\n\nSe prendi biotina, dillo al medico prima degli esami del sangue: in quantità elevate può falsare alcuni risultati, come quelli della tiroide.\n\n## Le piccole abitudini che aiutano\n\n- Pettina i capelli partendo dalle punte, con un pettine a denti larghi.\n- Evita code strette e trecce tirate tutti i giorni.\n- Asciugali con il phon tiepido, non bollente.\n- Mangia in modo vario, con abbastanza proteine, ferro e zinco: pesce, uova, legumi, carne, frutta secca.\n\nSe a fine inverno i capelli sono ancora pochi, o la riga si è allargata, non aspettare la prossima stagione: parlane con un dermatologo.",
+   "immagine": {
+    "file": "rivista-caduta-capelli-autunno",
+    "autore": "olga Volkovitskaia",
+    "pagina": "https://www.pexels.com/photo/autumn-leaves-in-blonde-hair-close-up-33634516/",
+    "alt": "Capelli lunghi con due foglie d'autunno impigliate"
+   },
+   "prodotti": [
+    "lk-718322",
+    "lk-43626",
+    "lk-331443",
+    "lk-618395",
+    "lk-240197",
+    "lk-116229",
+    "lk-545519",
+    "lk-454250"
+   ],
+   "biotipi": [
+    "caduta-reattiva",
+    "diradamento",
+    "sostegno-capelli"
+   ],
+   "termini": [
+    "caduta",
+    "cuoio-capelluto",
+    "biotina"
+   ],
+   "approfondisce": [
+    "caduta"
+   ],
+   "pubblicato_il": "2026-10-26"
+  },
+  {
+   "slug": "forfora-secca-o-grassa",
+   "titolo": "Forfora secca o grassa: come capirlo e quale shampoo scegliere",
+   "sommario": "La forfora secca e quella grassa si somigliano, ma vengono da una cute diversa e si trattano in modo diverso. Come riconoscerle in un minuto e quali shampoo usare per l'una e per l'altra.",
+   "tipo": "guida",
+   "testo": "Si dice «forfora» come se fosse una cosa sola, ma ce ne sono due, e lo shampoo che va bene per l'una può peggiorare l'altra. Prima di comprarne uno, conviene capire quale hai.\n\n## Come riconoscerle\n\nGuarda le scaglie, e come si comportano i capelli nei giorni dopo il lavaggio.\n\n**Forfora secca.** Le scaglie sono bianche, piccole e sottili, si staccano da sole e cadono sulle spalle. La cute tira e prude, di più in inverno e dopo gli shampoo aggressivi. I capelli restano puliti a lungo, ma sono spesso opachi.\n\n**Forfora grassa.** Le scaglie sono più grandi, giallastre e untuose, e restano attaccate alla cute o ai capelli. Le radici si ungono in uno o due giorni. A volte la cute è arrossata, e lo stesso rossore con qualche scaglia compare ai lati del naso o sulle sopracciglia: è il segno di una dermatite seborroica, che va e viene.\n\nIl [test del cuoio capelluto](/test?percorso=cute) ti fa queste domande una alla volta e ti dice il tuo biotipo, per esempio [cuoio capelluto secco e desquamante](/biotipi/secco-desquamante) o [seborroico](/biotipi/seborroico), con lo shampoo giusto e un'alternativa che costa meno.\n\n## Da dove vengono\n\nSu ogni cuoio capelluto vive un lievito, la Malassezia, che si nutre di sebo. Quando il sebo è tanto, il lievito si moltiplica e irrita la cute, che si rinnova troppo in fretta e si stacca in scaglie: è la forfora grassa. In quella secca conta di più la secchezza: la cute ha poco sebo e trattiene poca acqua, la barriera si indebolisce e la pelle si sfalda in scaglie fini.\n\n## Lo shampoo per la forfora secca\n\nServe uno shampoo antiforfora delicato, che tolga le scaglie senza sgrassare: il [Neopur di René Furterer per la forfora secca](/catalogo/shampoo/shampoo-neopur-antiforfora-secca) e il [Clear di Lazartigue per il cuoio capelluto secco](/catalogo/shampoo/shampoo-clear) sono pensati per questo; costa meno lo [shampoo antiforfora di Bioscalin per capelli secchi](/catalogo/shampoo/shampoo-antiforfora-secchi-maxi). Nei giorni senza trattamento usa uno shampoo delicato adatto ai lavaggi frequenti, come l'[Elution di Ducray](/catalogo/shampoo/shampoo-elution-riequilibrante). Evita l'acqua molto calda e gli shampoo con tanta schiuma, spesso ricchi di solfati.\n\n## Lo shampoo per la forfora grassa\n\nQui serve uno shampoo che regoli il sebo e contenga un attivo contro la Malassezia, come il piroctone olamina, spesso insieme a un esfoliante delicato che stacca le scaglie. Le scelte più semplici sono il [Kerium DS di La Roche-Posay](/catalogo/shampoo/shampoo-kerium-ds-antiforfora), lo [shampoo-gel Kerium per la forfora grassa](/catalogo/shampoo/shampoo-kerium-purificante-anti-forfora) e il [Nutradeica di ISDIN per la forfora grassa](/catalogo/shampoo/shampoo-nutradeica-antiforfora-grassa). Se la cute è anche arrossata e prude, il [Nodé P di Bioderma](/catalogo/shampoo/shampoo-node-p-antiforfora-lenitivo) è formulato per essere più lenitivo.\n\n## Come si usa uno shampoo antiforfora\n\n- Massaggialo sulla cute, non sulle lunghezze, e lascialo agire qualche minuto prima di sciacquare: è il tempo che serve all'attivo.\n- Nelle prime settimane usalo due o tre volte a settimana, poi una, alternandolo con uno shampoo delicato. Segui comunque le indicazioni sulla confezione.\n- Se le lunghezze sono secche, mettici il balsamo, lontano dalla cute.\n- Non grattare le scaglie: la cute si irrita e si squama di più.\n\n## Quando parlarne con il medico\n\nFatti vedere da un dermatologo se dopo un mese di shampoo giusto la forfora non migliora, se le scaglie sono spesse e formano placche che superano l'attaccatura dei capelli, se il prurito è forte o compaiono chiazze rosse anche su altre parti del corpo. Dermatite seborroica e psoriasi del cuoio capelluto si somigliano, ma si curano in modo diverso, e la diagnosi la fa il medico.",
+   "immagine": {
+    "file": "rivista-forfora-secca-o-grassa",
+    "autore": "Towfiqu barbhuiya",
+    "pagina": "https://www.pexels.com/photo/a-close-up-shot-of-a-man-touching-his-head-12474260/",
+    "alt": "Un uomo si tocca l'attaccatura dei capelli scuri"
+   },
+   "prodotti": [
+    "lk-155398",
+    "lk-880411",
+    "lk-804062",
+    "lk-464292",
+    "lk-904479",
+    "lk-462746",
+    "lk-506124",
+    "lk-464456"
+   ],
+   "biotipi": [
+    "secco-desquamante",
+    "seborroico",
+    "cute-secca",
+    "cute-grassa",
+    "cute-sensibile"
+   ],
+   "termini": [
+    "forfora",
+    "dermatite-seborroica",
+    "piroctone",
+    "cuoio-capelluto",
+    "sebo",
+    "solfati",
+    "barriera"
+   ],
+   "approfondisce": [
+    "forfora"
+   ],
+   "pubblicato_il": "2026-10-26"
+  },
+  {
+   "slug": "pelle-grassa-disidratata",
+   "titolo": "Pelle grassa ma disidratata: come riconoscerla e cosa usare",
+   "sommario": "Lucida a metà giornata ma tira dopo il lavaggio: una pelle può avere troppo sebo e poca acqua insieme. Come riconoscerla, perché succede e una routine in quattro passaggi per rimetterla in equilibrio.",
+   "tipo": "guida",
+   "testo": "Fronte e naso lucidi a metà mattina, ma subito dopo il lavaggio la pelle tira, e la crema sembra sparire in pochi minuti. Non è una contraddizione: sebo e acqua sono due cose diverse. Una pelle può produrre troppo grasso e, nello stesso tempo, trattenere poca acqua.\n\n## Come riconoscerla\n\n- Dopo la detersione la pelle tira, anche se è grassa.\n- La zona T si lucida durante il giorno, mentre sulle guance o intorno al naso compare qualche pellicina.\n- Le creme vengono assorbite in fretta, e il trucco si segna sulle zone secche.\n- I pori si vedono, e a volte spunta un rossore o un brufolo.\n\nSe ti riconosci in tre punti su quattro, è probabile che la tua pelle sia grassa e disidratata. Il [test della pelle](/test?percorso=viso) fa domande separate su quanto sebo produce la tua pelle e su quanta acqua trattiene, e distingue una [pelle seborroica disidratata](/biotipi/seborroica-disidratata) da una [pelle normale disidratata](/biotipi/normale-disidratata), che si trattano in modo diverso.\n\n## Perché succede\n\nQuasi sempre per troppo zelo. Per togliere il lucido si usano detergenti forti, esfolianti tutti i giorni, tonici con alcol o trattamenti contro i brufoli che seccano. La barriera cutanea si indebolisce, l'acqua evapora più facilmente e la pelle non diventa meno grassa: resta lucida e in più tira. Il freddo, il riscaldamento e l'aria condizionata fanno il resto.\n\n## La routine, in quattro passaggi\n\nL'obiettivo non è sgrassare di più, ma pulire senza togliere acqua, e poi restituirla.\n\n1. **Un detergente delicato, mattina e sera.** Un gel o una schiuma che non lasci la pelle «che stride»: il [gel a pH basso di COSRX](/catalogo/detergenti/detergente-ph-buongiorno), con un pH vicino a quello della pelle, oppure la [lozione detergente di Hada Labo Tokyo](/catalogo/detergenti/lozione-acido-super), con acido ialuronico. Acqua tiepida, mai calda.\n2. **Un siero idratante leggero.** Sulla pelle ancora umida trattiene l'acqua senza ungere: il [siero all'acido ialuronico di Isntree](/catalogo/sieri/siero-acido-ialuronico-ultra-basso), con pantenolo e centella, o il [siero concentrato di Hada Labo Tokyo](/catalogo/sieri/siero-concentrato-acqua), che costa meno.\n3. **Una crema in gel, non comedogenica.** Leggera, ma non saltarla: l'[Aknet Hydra Plus di BioNike](/catalogo/creme/crema-aknet-hydra-plus-riparatore), un gel-crema con ceramidi pensato per le pelli con imperfezioni, o la [crema gel di Haruharu Wonder](/catalogo/creme/crema-centella) con niacinamide e centella.\n4. **La protezione solare, ogni mattina.** In inverno come in estate, una crema che non lucida, come la [Relief Sun Aqua-Fresh di Beauty of Joseon](/catalogo/solari/crema-solare-relief-aqua-fresh-rice-b5).\n\n## Cosa togliere per qualche settimana\n\n- Gli scrub a grani e gli esfolianti tutti i giorni: al massimo una o due volte a settimana, e solo quando la pelle non tira più.\n- I tonici con alcol e le maschere all'argilla lasciate seccare.\n- I prodotti nuovi tutti insieme: introducine uno alla volta, così capisci cosa funziona.\n\nSe usi trattamenti prescritti dal medico, come i retinoidi o altri farmaci per l'acne, non sospenderli da solo: chiedi a chi te li ha prescritti come idratare la pelle nel frattempo. E se i brufoli sono tanti, profondi o dolorosi, o il rossore non passa, è il momento di farsi vedere da un dermatologo.\n\n## Quanto ci vuole\n\nLo strato più superficiale della pelle si rinnova in circa un mese, di più con l'età: dai alla nuova routine almeno quattro settimane prima di giudicarla. Il primo segno arriva di solito prima: la pelle smette di tirare dopo il lavaggio.",
+   "immagine": {
+    "file": "rivista-pelle-grassa-disidratata",
+    "autore": "Ron Lach",
+    "pagina": "https://www.pexels.com/photo/woman-using-face-towel-on-her-face-9253759/",
+    "alt": "Una ragazza si tampona la guancia con un asciugamano"
+   },
+   "prodotti": [
+    "lk-189206",
+    "lk-240195",
+    "lk-395123",
+    "lk-194253",
+    "lk-145835",
+    "lk-725010",
+    "lk-560448"
+   ],
+   "biotipi": [
+    "seborroica-disidratata",
+    "normale-disidratata",
+    "imperfezioni",
+    "disidratata-sensibile"
+   ],
+   "termini": [
+    "disidratata",
+    "sebo",
+    "barriera",
+    "zona-t",
+    "ceramidi",
+    "niacinamide",
+    "ialuronico",
+    "comedogenico",
+    "retinoidi",
+    "spf"
+   ],
+   "approfondisce": [
+    "disidratata"
+   ],
+   "pubblicato_il": "2026-10-26"
+  },
+  {
+   "slug": "retinolo-come-iniziare",
+   "titolo": "Retinolo: come iniziare in autunno senza irritare la pelle",
+   "sommario": "Ottobre è il mese giusto per cominciare il retinolo. A chi serve, chi deve aspettare, quale prodotto scegliere per primo e il calendario delle prime settimane, con la routine che lo accompagna.",
+   "tipo": "guida",
+   "testo": "Ottobre è il mese giusto per cominciare il retinolo. Il sole è più basso, si sta meno all'aperto, e c'è tutto l'inverno per abituare la pelle prima della primavera. La protezione solare però resta, ogni mattina: il retinolo rende la pelle più sensibile al sole.\n\n## A chi serve\n\nIl retinolo è il più conosciuto dei retinoidi, i derivati della vitamina A. Nei cosmetici si usa per tre obiettivi:\n\n- i segni del tempo: rughe sottili, pelle meno compatta, grana irregolare;\n- le macchie e i segni lasciati dai brufoli;\n- i pori in evidenza e le imperfezioni.\n\nSe non sai da quale partire, il [test della pelle](/test?percorso=viso) ti dice se il tuo biotipo ha anche una tendenza alla [pelle matura](/biotipi/matura), alle [macchie](/biotipi/macchie) o alle [imperfezioni](/biotipi/imperfezioni), e sceglie i prodotti di conseguenza.\n\n## Chi deve aspettare\n\n- **In gravidanza, se la stai cercando o se allatti**: niente retinoidi. Chiedi al medico cosa usare nel frattempo.\n- **Se la pelle si arrossa e brucia facilmente**, come una [pelle reattiva](/biotipi/reattiva), o se hai rosacea o dermatite: parlane prima con un dermatologo.\n- **Se usi già un retinoide prescritto**, per l'acne o per altro: non aggiungerne un altro. Ne basta uno.\n\n## Quale scegliere per cominciare\n\nSi parte dal basso. Una concentrazione più alta non vuol dire un risultato più rapido: vuol dire più facilità di irritare.\n\n1. **Una crema col retinolo, il passo più semplice.** La [Revive Firming Moisturizer di Beauty of Joseon](/catalogo/creme/crema-revive-firming-moisturizer) mette il retinolo dentro una crema idratante con ceramidi: un solo prodotto la sera, invece di due. Il marchio non dichiara la percentuale. Se vuoi sapere quanto ne metti, [The Retinol 0.1 di COSRX](/catalogo/creme/crema-0-retinol) è una crema con retinolo allo 0,1%.\n2. **Un siero per i segni del tempo.** Il [Retinol Serum di CeraVe](/catalogo/sieri/siero-retinol) unisce il retinolo a niacinamide e acido ialuronico. Costa di più il [Redermic Retinol B3 di La Roche-Posay](/catalogo/sieri/siero-redermic-retinol-b3-anti-rughe), che mette insieme due forme di retinolo e la niacinamide.\n3. **Se l'obiettivo sono anche le macchie.** La [crema Deep Vita C di Medicube](/catalogo/creme/crema-deep-vita) unisce retinolo, niacinamide e vitamina C.\n4. **Più avanti, non adesso.** Il [siero all'1% di retinolo di Isntree](/catalogo/sieri/siero-retinolo) ha una concentrazione alta: tienilo per quando la pelle tollera il retinolo senza problemi da qualche mese.\n\nGli altri sono tra i prodotti con [retinoidi](/catalogo?attivo=retinoidi).\n\n## Il calendario delle prime settimane\n\n- **Settimane 1 e 2:** due sere a settimana, non di seguito.\n- **Settimane 3 e 4:** una sera sì e una no.\n- **Dalla quinta settimana:** ogni sera, se la pelle sta bene. Se no, resta a sere alterne: va bene lo stesso.\n\nUna quantità come un pisello basta per tutto il viso, sulla pelle asciutta. Tienilo lontano dagli occhi, dalle narici e dagli angoli della bocca. Se la pelle tira, metti prima un velo di crema idratante e il retinolo sopra.\n\nLe sere del retinolo niente esfolianti: né acidi come glicolico e salicilico, né scrub. Nelle altre sere, al massimo una volta a settimana.\n\n## La routine intorno\n\n- **Detergente delicato, mattina e sera.** La [Toleriane di La Roche-Posay](/catalogo/detergenti/detergente-toleriane), un'emulsione che non sgrassa, o il [gel a pH basso di COSRX](/catalogo/detergenti/detergente-ph-buongiorno), per chi ha la pelle più grassa, che costa meno.\n- **Una crema che ripara la barriera cutanea**, la sera dopo il retinolo e la mattina: la [crema Haruharu Wonder ai cinque ceramidi](/catalogo/creme/crema-riso-nero-5-barriera), oppure [Happier Barrier di Geek & Gorgeous](/catalogo/creme/crema-happier-barrier), che costa meno.\n- **La protezione solare ogni mattina**, anche quando è nuvoloso: la [crema idratante SPF 50 di CeraVe](/catalogo/solari/crema-solare-ceramidi-normale) se la pelle è secca, la [Relief Sun Aqua-Fresh di Beauty of Joseon](/catalogo/solari/crema-solare-relief-aqua-fresh-rice-b5), leggera, se è grassa. Le altre sono tra i [solari](/catalogo/solari).\n\n## Cosa è normale e cosa no\n\nNelle prime settimane un po' di secchezza, qualche pellicina e un leggero rossore sono comuni. Se succede, salta due o tre sere e riprendi più piano.\n\nBruciore forte, gonfiore o chiazze rosse che non passano non sono normali: smetti e fatti vedere da un medico.\n\n## Quanto ci vuole\n\nIl retinolo lavora piano. I fastidi dell'inizio, se ci sono, passano in qualche settimana; per una differenza su grana, macchie e segni servono di solito almeno tre mesi di uso regolare. Prima di giudicarlo, o di passare a una concentrazione più alta, aspetta quel tempo.\n",
+   "immagine": {
+    "file": "rivista-retinolo-come-iniziare",
+    "autore": "KoolShooters",
+    "pagina": "https://www.pexels.com/photo/woman-putting-moisturizer-on-her-face-8945838/",
+    "alt": "Una ragazza con le lentiggini e l'accappatoio si mette un siero col contagocce sulla fronte"
+   },
+   "prodotti": [
+    "lk-753238",
+    "lk-242262",
+    "lk-660219",
+    "lk-152216",
+    "lk-429130",
+    "lk-133242",
+    "lk-326298",
+    "lk-189206",
+    "lk-724999",
+    "lk-215975",
+    "lk-334061",
+    "lk-560448"
+   ],
+   "biotipi": [
+    "matura",
+    "macchie",
+    "imperfezioni",
+    "reattiva"
+   ],
+   "termini": [
+    "retinoidi",
+    "fotosensibilizzante",
+    "barriera",
+    "spf",
+    "niacinamide",
+    "ceramidi",
+    "esfolianti",
+    "aha-pha",
+    "salicilico",
+    "reattiva",
+    "rosacea",
+    "dermatite",
+    "pori",
+    "macchie"
+   ],
+   "approfondisce": [
+    "retinoidi"
+   ],
+   "pubblicato_il": "2026-10-26"
+  },
+  {
+   "slug": "spicole-pdrn",
+   "titolo": "Sieri con spicole e PDRN: cosa sono, come si usano, a cosa stare attenti",
+   "sommario": "Le spicole sono aghi microscopici che pizzicano e aprono la strada agli altri ingredienti; il PDRN è DNA in frammenti. Cosa dicono gli studi, per chi vanno bene, come usarle e con cosa non combinarle.",
+   "tipo": "approfondimento",
+   "testo": "Li chiamano «microneedling in flacone»: sieri che, picchiettati sul viso, pizzicano per qualche minuto. Dentro ci sono le spicole, e spesso il PDRN, un altro nome che si legge sempre più spesso sulle confezioni coreane. Vediamo cosa sono, cosa si sa davvero e come usarli senza irritare la pelle.\n\n## Cosa sono le spicole\n\nLe spicole sono minuscoli aghi di silice prodotti da alcune spugne marine, per esempio del genere *Haliclona*. Quelle usate negli studi sono lunghe circa un ottavo di millimetro e sottili meno di un capello. Nell'[INCI](/glossario) si riconoscono come *Hydrolyzed Sponge*, spugna idrolizzata.\n\nSulla pelle si infilano nello strato più superficiale e lo bucano in tanti punti. Per qualche giorno i forellini lasciano passare meglio le altre sostanze del siero; poi le spicole se ne vanno con il normale ricambio della pelle e i canali si richiudono.\n\nQuanto si sa, però, viene da prove su pelle di maiale in laboratorio, su topi e su cavie, quasi tutte dello stesso gruppo di ricerca. Studi sulle persone con i sieri che trovi in commercio non ce ne sono: i risultati promessi sulle confezioni li dichiarano i produttori.\n\n## E il PDRN?\n\nPDRN sta per polideossiribonucleotide: frammenti di DNA, ricavati di solito dal salmone, a volte dalle piante. In medicina estetica si usa in iniezione, e lì qualche studio clinico c'è. In un siero il discorso cambia: le molecole sono grandi e, secondo i dermatologi, difficilmente arrivano dove servirebbero. Le spicole servono proprio ad aprire la strada, ma quanto PDRN passi davvero non lo ha misurato nessuno.\n\nSe la pelle migliora, il merito è probabilmente degli altri ingredienti della formula: [niacinamide](/catalogo?attivo=niacinamide), [acido ialuronico](/catalogo?attivo=ialuronico), [peptidi](/catalogo?attivo=peptidi). Leggere l'INCI conta più del nome sulla confezione.\n\n## Per chi vanno bene\n\nPer chi ha una pelle normale, mista o grassa che tollera bene gli attivi, e cerca una grana più uniforme e pori meno in evidenza.\n\nSono da evitare, o da chiedere prima al dermatologo, se:\n\n- la pelle si arrossa e brucia facilmente, come una [pelle reattiva](/biotipi/reattiva), o se hai [rosacea](/biotipi/rosacea), dermatite o una [pelle atopica](/biotipi/atopica);\n- hai brufoli infiammati, herpes, tagli, scottature o una ferita da cicatrizzare;\n- hai fatto da poco un peeling, un laser o un altro trattamento in studio;\n- sei in gravidanza, la stai cercando o allatti, se il siero contiene [retinoidi](/catalogo?attivo=retinoidi).\n\nSe non sai che pelle hai, il [test della pelle](/test?percorso=viso) te lo dice in pochi minuti e ti propone i prodotti adatti al tuo biotipo, con un'alternativa che costa meno.\n\n## Quale scegliere\n\n- **Spicole e PDRN insieme.** Il [siero Medicube con spicole, esosomi e PDRN 7500](/catalogo/sieri/siero-spicole-pdrn-7500) contiene anche retinolo e niacinamide. Per questo va usato solo la sera e chiede la protezione solare ogni mattina: il retinolo rende la pelle più sensibile al sole.\n- **Il PDRN senza spicole**, se la pelle è delicata o non vuoi il pizzicore: il [siero Anua con PDRN e acido ialuronico](/catalogo/sieri/siero-pdrn-acido-ialuronico-100), oppure il [siero Haruharu Wonder con PDRN di rosa e acido azelaico](/catalogo/sieri/siero-pdrn), che costa meno.\n\nAltri sieri coreani sono tra i prodotti [K-beauty](/catalogo/k-beauty).\n\n## Come si usa\n\n1. **La sera, sulla pelle pulita e asciutta.** Un detergente delicato, come la [Toleriane di La Roche-Posay](/catalogo/detergenti/detergente-toleriane), e poi aspetta che la pelle sia asciutta.\n2. **Poche gocce, picchiettate.** Stendi il siero premendo con i polpastrelli, senza strofinare: strofinando, le spicole graffiano. Tienilo lontano da occhi, labbra e narici.\n3. **Si comincia piano.** Una o due sere a settimana per le prime settimane, non di seguito. Se la pelle sta bene, si può aumentare seguendo le indicazioni della confezione.\n4. **Poi una crema per la barriera.** Una crema con ceramidi aiuta la pelle a richiudersi: la [crema Haruharu Wonder ai cinque ceramidi](/catalogo/creme/crema-riso-nero-5-barriera), oppure [Happier Barrier di Geek & Gorgeous](/catalogo/creme/crema-happier-barrier), che costa meno.\n5. **La mattina, la protezione solare.** Sempre, anche quando è nuvoloso: la [Relief Sun Aqua-Fresh di Beauty of Joseon](/catalogo/solari/crema-solare-relief-aqua-fresh-rice-b5) se la pelle è grassa, la [crema idratante SPF 50 di CeraVe](/catalogo/solari/crema-solare-ceramidi-normale) se è più secca.\n\nLa prima volta, provalo su una piccola zona, per esempio sotto la mandibola, e aspetta un giorno.\n\n## Cosa aspettarsi\n\nUn pizzicore che dura qualche minuto è normale: sono le spicole. Possono seguire un leggero rossore e, il giorno dopo, la sensazione di una pelle un po' ruvida al tatto. Di solito, sera dopo sera, si sentono meno.\n\nBruciore forte, gonfiore, bollicine o un rossore che non passa in qualche ora non sono normali: sciacqua, smetti di usarlo e, se non passa, fatti vedere da un medico.\n\n## Con cosa non combinarle\n\nNella stessa sera, e in quella dopo, niente:\n\n- esfolianti: acidi come [glicolico e lattico](/catalogo?attivo=aha-pha) o [salicilico](/catalogo?attivo=salicilico), scrub, peeling;\n- altri [retinoidi](/catalogo?attivo=retinoidi), soprattutto se il siero ne contiene già;\n- un secondo prodotto con spicole;\n- spazzole, rulli ad aghi o altri strumenti per il viso;\n- la pelle appena rasata, depilata o scottata dal sole.\n\nSe usi creme prescritte dal medico, per l'acne o per altro, chiedi a lui prima di aggiungere le spicole.\n\n## In breve\n\nLe spicole pizzicano davvero e aprono davvero la pelle, almeno in laboratorio; quanto aiutino il PDRN a fare il suo lavoro, sulle persone, non è ancora dimostrato. Se la pelle è robusta e vuoi provarle, vanno usate poco e con una buona crema e la protezione solare intorno. Se la pelle è delicata, meglio un siero con PDRN senza spicole.\n\n## Le fonti\n\n- Liang X. e altri, *Skin Delivery of siRNA Using Sponge Spicules in Combination with Cationic Flexible Liposomes*, Molecular Therapy: Nucleic Acids, 2020: [pmc.ncbi.nlm.nih.gov/articles/PMC7210381](https://pmc.ncbi.nlm.nih.gov/articles/PMC7210381).\n- Bosslett M., *Social Media Mythbusters: PDRN Serums*, Dermatology Times, luglio 2026: [dermatologytimes.com](https://www.dermatologytimes.com/view/social-media-mythbusters-pdrn-serums).",
+   "immagine": {
+    "file": "rivista-spicole-pdrn",
+    "autore": "Alena Darmel",
+    "pagina": "https://www.pexels.com/photo/woman-doing-skin-care-8990301/",
+    "alt": "Una ragazza con i capelli ricci raccolti si picchietta la guancia con la punta delle dita"
+   },
+   "prodotti": [
+    "lk-579751",
+    "lk-725630",
+    "lk-753536",
+    "lk-326298",
+    "lk-724999",
+    "lk-215975",
+    "lk-560448",
+    "lk-334061"
+   ],
+   "biotipi": [
+    "pelle-mista",
+    "seborroica-idratata",
+    "normale"
+   ],
+   "termini": [
+    "inci",
+    "k-beauty",
+    "niacinamide",
+    "ialuronico",
+    "peptidi",
+    "retinoidi",
+    "fotosensibilizzante",
+    "barriera",
+    "ceramidi",
+    "spf",
+    "esfolianti",
+    "aha-pha",
+    "salicilico",
+    "reattiva",
+    "rosacea",
+    "dermatite"
+   ],
+   "approfondisce": [],
+   "pubblicato_il": "2026-10-26"
+  },
+  {
+   "slug": "niacinamide-percentuale",
+   "titolo": "Niacinamide: quale percentuale scegliere, e per cosa",
+   "sommario": "Sui sieri alla niacinamide il numero in grande va dal 5 al 20%. Quanto ne serve davvero per sebo, macchie, imperfezioni e pelle sensibile, quale prodotto scegliere per ogni obiettivo e con cosa abbinarla.",
+   "tipo": "guida",
+   "testo": "Sull'etichetta dei sieri alla niacinamide il numero è sempre in grande: 5, 10, 15, 20%. Viene da pensare che più alto sia meglio. Non è così: la percentuale giusta dipende da cosa vuoi ottenere, e per quasi tutto basta meno di quanto si trova in vendita.\n\n## Cos'è e a cosa serve\n\nLa niacinamide è una forma della vitamina B3. Nei cosmetici lavora su tre cose:\n\n- **il sebo**: la pelle lucida meno in fretta e i pori si vedono meno;\n- **le macchie**: l'incarnato si uniforma piano;\n- **la barriera cutanea**: la pelle trattiene meglio l'acqua e reagisce meno.\n\nÈ tra gli attivi meglio tollerati, per questo si trova in tanti prodotti diversi, dalle creme ai solari.\n\n## Quanta ne serve\n\nNegli studi su cui si basano questi risultati la niacinamide è usata tra il 2 e il 5%. Il 10% è diffuso nei sieri e la maggior parte delle pelli lo sopporta bene. Sopra il 10% non ci sono prove che funzioni di più, e aumenta la probabilità di rossori e pizzicore, soprattutto sulla pelle che reagisce.\n\nUna regola semplice:\n\n- **2-5%** per cominciare, e per la pelle sensibile;\n- **fino al 10%** se la pelle la tollera e vuoi un siero più deciso;\n- **oltre il 10%** non serve per cominciare: se lo usi, tienilo a sere alterne e smetti se arrossa.\n\n## Quale scegliere, obiettivo per obiettivo\n\nSe non sai da dove partire, il [test della pelle](/test?percorso=viso) riconosce il tuo biotipo e sceglie i prodotti di conseguenza.\n\n### Pelle grassa, lucida, pori in evidenza\n\nPer una [pelle seborroica](/biotipi/seborroica-idratata) o [mista](/biotipi/pelle-mista) il primo passo è il [siero Sebiaclear di SVR](/catalogo/sieri/siero-sebiaclear), con niacinamide al 4% e acido ialuronico: una percentuale vicina a quella degli studi, a un prezzo basso. Il [siero di COSRX al 15%](/catalogo/sieri/siero-niacinamide-controllo) aggiunge lo zinco, che aiuta anche lui a tenere a bada il sebo; è più concentrato, quindi da provare dopo, se il primo non basta.\n\n### Macchie e segni lasciati dai brufoli\n\nPer le [macchie](/biotipi/macchie) la percentuale degli studi è il 5%. Il [Dark Spot Correcting di Axis-Y](/catalogo/sieri/siero-dark-spot-correcting-glow) la dichiara, e costa poco. Il [siero di Anua](/catalogo/sieri/siero-txa) mette insieme niacinamide al 10% e acido tranexamico al 4%, un altro attivo contro le macchie. Lo stesso abbinamento, a percentuali più basse, è nel [Discoloration Defense di SkinCeuticals](/catalogo/sieri/siero-discoloration-defense-visage-anti), che però costa circa quattro volte tanto.\n\nQualunque siero tu scelga, senza protezione solare ogni mattina le macchie tornano. Il [solare Ultra-Light di COSRX](/catalogo/solari/crema-solare-ultra-light-invisible-sunscreen) contiene anche lui niacinamide ed è adatto alle pelli sensibili.\n\n### Imperfezioni\n\nCon le [imperfezioni](/biotipi/imperfezioni) la niacinamide calma il rossore dei brufoli, ma da sola non basta. Il [Flash AZ di SVR](/catalogo/sieri/siero-flash-az) la unisce all'acido azelaico, che lavora insieme su brufoli, rossori e segni. Se i brufoli sono tanti, profondi o lasciano cicatrici, serve un dermatologo: un cosmetico non sostituisce la terapia.\n\n### Pelle secca o sensibile\n\nQui la niacinamide serve alla barriera, e conviene prenderla dentro un prodotto che idrata. Per una [pelle disidratata e sensibile](/biotipi/disidratata-sensibile), il [siero Riso 7 Ceramide di Anua](/catalogo/sieri/siero-riso-7-ceramide) ha niacinamide al 3% con ceramidi e pantenolo. Costa meno della metà il [siero alle ceramidi di Skincyclopedia](/catalogo/sieri/siero-complesso-ceramidi), con ceramidi al 3% e niacinamide. Per chiudere, una crema semplice come la [crema idratante di Cetaphil](/catalogo/creme/crema-sensibili-secche) per pelli sensibili e secche.\n\n## Con cosa si abbina\n\n- **Vitamina C**: si possono usare insieme. Molti prodotti le contengono già nello stesso flacone, come il [siero di Mary and May](/catalogo/sieri/siero-niacinamide-chaenomeles-sinensis), con niacinamide al 2% e vitamina C, adatto alle pelli sensibili.\n- **Retinoidi**: vanno d'accordo, e la niacinamide aiuta la pelle a sopportarli meglio. Se cominci adesso il retinolo, la niacinamide può restare nella routine dal primo giorno.\n- **Acidi esfolianti** (glicolico, salicilico): si possono usare nella stessa routine. Se la pelle pizzica, mettili in sere diverse.\n\nUn siero alla niacinamide va dopo la detersione e prima della crema, la mattina o la sera. Due o tre gocce bastano per tutto il viso.\n\n## Quanto ci vuole, e quando smettere\n\nSul sebo si vede qualcosa dopo circa quattro settimane. Per le macchie servono almeno due o tre mesi di uso regolare, sempre col solare.\n\nUn po' di rossore nei primi giorni con le percentuali alte può capitare: passa a sere alterne o a un prodotto più leggero. Se il rossore resta, brucia o compare un'eruzione, smetti e fatti vedere da un medico. Se hai la [rosacea](/biotipi/rosacea), parlane col dermatologo prima di provare percentuali alte. In gravidanza la niacinamide è tra gli attivi considerati più tranquilli: chiedi comunque conferma al tuo medico.\n\nTutti i prodotti del catalogo con la niacinamide sono [in questa pagina](/catalogo?attivo=niacinamide).\n",
+   "immagine": {
+    "file": "rivista-niacinamide-percentuale",
+    "autore": "RDNE Stock project",
+    "pagina": "https://www.pexels.com/photo/man-with-dreadlocks-and-necklace-applying-skin-serum-12322962/",
+    "alt": "Un ragazzo con i dreadlocks raccolti si mette qualche goccia di siero sulla fronte col contagocce"
+   },
+   "prodotti": [
+    "lk-503617",
+    "lk-242876",
+    "lk-411712",
+    "lk-398486",
+    "lk-459689",
+    "lk-370762",
+    "lk-238716",
+    "lk-429235",
+    "lk-522111",
+    "lk-125325",
+    "lk-211331"
+   ],
+   "biotipi": [
+    "seborroica-idratata",
+    "pelle-mista",
+    "macchie",
+    "imperfezioni",
+    "disidratata-sensibile",
+    "rosacea"
+   ],
+   "termini": [
+    "niacinamide",
+    "sebo",
+    "pori",
+    "barriera",
+    "macchie",
+    "spf",
+    "zinco",
+    "azelaico",
+    "ceramidi",
+    "pantenolo",
+    "vitc",
+    "retinoidi",
+    "aha-pha",
+    "salicilico",
+    "rosacea",
+    "reattiva",
+    "ialuronico"
+   ],
+   "approfondisce": [
+    "niacinamide"
+   ],
+   "pubblicato_il": "2026-10-26"
+  },
+  {
+   "slug": "vitamina-c-siero",
+   "titolo": "Siero alla vitamina C: quale forma, a che percentuale e come usarlo",
+   "sommario": "Acido ascorbico o derivato, 10 o 20%: come leggere l'etichetta di un siero alla vitamina C, quale scegliere per cominciare, per le macchie o per la pelle sensibile, e come conservarlo perché non si ossidi.",
+   "tipo": "guida",
+   "testo": "Dopo l'estate molti cercano un siero alla vitamina C per le macchie e per una pelle che appare spenta. Sugli scaffali però «vitamina C» vuol dire cose diverse: forme diverse, percentuali dal 2 al 23%, prezzi da 15 a oltre 200 euro. Qui trovi come leggere l'etichetta e quale scegliere.\n\n## Cosa fa\n\nLa vitamina C è un antiossidante. Sulla pelle lavora su tre cose:\n\n- **protegge**: limita i danni che sole e inquinamento lasciano nella pelle. Non sostituisce la protezione solare, ma la affianca;\n- **le macchie**: uniforma piano l'incarnato e attenua le macchie lasciate dal sole;\n- **la luminosità**: con l'uso regolare la pelle appare meno spenta.\n\nPer questo si usa **la mattina**, prima del solare.\n\n## Le forme: cosa cercare nell'INCI\n\nNell'INCI, la lista degli ingredienti, la vitamina C compare con nomi diversi.\n\n- **Ascorbic acid** (acido ascorbico): la vitamina C «pura», la forma più studiata. Funziona, ma si ossida in fretta e, sulla pelle che reagisce, può pizzicare.\n- **3-O-ethyl ascorbic acid** (acido etil ascorbico): un derivato più stabile, di solito più tollerato. Gli studi sono meno numerosi.\n- **Sodium ascorbyl phosphate, ascorbyl glucoside, ascorbyl palmitate**: altri derivati, più delicati. Si trovano spesso in creme e solari, a percentuali basse.\n\nPiù la vitamina C è in alto nell'INCI, più ce n'è nel prodotto.\n\n## Quanta ne serve\n\nPer l'acido ascorbico gli studi indicano una percentuale tra il 10 e il 20%. Sotto il 10% l'effetto è più debole. Sopra il 20% la pelle non ne assorbe di più, e cresce la probabilità di arrossamenti. Per i derivati il conto è diverso: conta come la marca dichiara la percentuale e quanto è vicina alla vitamina C pura.\n\n## Quale scegliere\n\nSe non sai da dove partire, il [test della pelle](/test?percorso=viso) riconosce il tuo biotipo e sceglie i prodotti di conseguenza.\n\n### Per cominciare\n\nIl [siero alla vitamina C di CeraVe](/catalogo/sieri/siero-vitamina-rinnova) ha acido ascorbico al 10%, la percentuale più bassa tra quelle che funzionano, insieme a ceramidi e acido ialuronico che aiutano la pelle a sopportarlo. Se dopo un mese la pelle sta bene e vuoi qualcosa di più deciso, il [Liftactiv Supreme di Vichy](/catalogo/sieri/siero-liftactiv-supremo-vitamina) sale al 15%, con una formula di pochi ingredienti.\n\n### Per le macchie\n\nPer le [macchie](/biotipi/macchie) lasciate dal sole, il [siero di Anua](/catalogo/sieri/siero-vitamina-lamie) ha acido ascorbico al 20%, il massimo utile, con niacinamide e acido ferulico, un altro antiossidante che rende la vitamina C più stabile. Il [siero Anti-Pigmento di Eucerin](/catalogo/sieri/siero-doppio-anti-pigmento) usa invece un derivato delicato insieme al thiamidol, un attivo pensato apposta per le macchie: è la scelta se l'obiettivo sono soprattutto quelle.\n\nIl riferimento più citato è il [CE Ferulic di SkinCeuticals](/catalogo/sieri/siero-ce-ferulic-antiossidante-vitamina): acido ascorbico al 15% con vitamina E e acido ferulico, la combinazione studiata per proteggere dai danni del sole. Costa circa sei volte il siero di Anua, che ha due di quei tre ingredienti.\n\n### Pelle sensibile o che reagisce\n\nCon una [pelle reattiva](/biotipi/reattiva) conviene partire da un derivato. Il [siero di Beauty of Joseon](/catalogo/sieri/siero-illuminante-centella) ha acido etil ascorbico con centella, e costa meno di 15 euro. L'[Ampoule C Anti-Ox di SVR](/catalogo/sieri/siero-anti-ox) usa lo stesso derivato al 20%, che secondo la marca equivale a circa il 17% di vitamina C pura: più concentrato, per chi ha già provato il primo senza fastidi.\n\n### Pelle matura\n\nSu una [pelle matura](/biotipi/matura) la vitamina C la mattina e un retinoide la sera sono una coppia classica. Qualunque siero tu scelga tra quelli sopra, l'importante è la costanza.\n\n## Il solare, sempre\n\nLa vitamina C non protegge da sola dal sole. Senza un solare ogni mattina, le macchie tornano. Il [Photoderm Spot-Age di Bioderma](/catalogo/solari/protezione-solare-photoderm-spot-age) ha SPF 50 con vitamina C, e costa poco. Il [FotoUltra Spot Prevent di ISDIN](/catalogo/solari/fluido-solare-fotoultra-100-spot-prevent) è un fluido SPF 50+ con vitamina C, pensato per chi ha le macchie.\n\n## Come usarla\n\n1. La mattina, dopo la detersione, tre o quattro gocce su viso e collo.\n2. Aspetta un minuto, poi la crema e il solare.\n3. Con la **niacinamide** si può usare insieme: alcuni sieri le contengono già tutte e due, come quello di [Mary and May](/catalogo/sieri/siero-niacinamide-chaenomeles-sinensis).\n4. Con **retinoidi** e **acidi esfolianti** meglio separarli: vitamina C la mattina, gli altri la sera.\n\n## Come conservarla\n\nL'acido ascorbico si ossida all'aria e alla luce. Il siero nasce trasparente o giallo chiaro. Se diventa arancione scuro o marrone, ha perso efficacia: è ora di cambiarlo. Tieni il flacone chiuso, lontano dalla finestra e dal calore del bagno, e usalo entro tre mesi dall'apertura, salvo indicazioni diverse sulla confezione.\n\n## Quanto ci vuole, e quando smettere\n\nPer la luminosità bastano poche settimane. Per le macchie servono due o tre mesi di uso regolare, sempre col solare.\n\nUn leggero pizzicore all'inizio con l'acido ascorbico può capitare. Se la pelle arrossa e il rossore resta, passa a un derivato o a giorni alterni. Se brucia o compare un'eruzione, smetti e fatti vedere da un medico. Una macchia che cambia forma o colore, o che compare all'improvviso, va sempre mostrata al dermatologo, così come le macchie scure e diffuse su guance e fronte, che possono essere melasma. Se hai la [rosacea](/biotipi/rosacea), chiedi al dermatologo prima di usare l'acido ascorbico ad alta percentuale. In gravidanza la vitamina C sulla pelle è tra gli attivi considerati più tranquilli: chiedi comunque conferma al tuo medico.\n\nTutti i prodotti del catalogo con la vitamina C sono [in questa pagina](/catalogo?attivo=vitamina-c).\n",
+   "immagine": {
+    "file": "rivista-vitamina-c-mattina",
+    "autore": "Alena Darmel",
+    "pagina": "https://www.pexels.com/photo/woman-doing-skin-care-8990301/",
+    "alt": "Una ragazza con le lentiggini e i capelli raccolti stende un siero sulla guancia con la punta delle dita"
+   },
+   "prodotti": [
+    "lk-521012",
+    "lk-376017",
+    "lk-398485",
+    "lk-586477",
+    "lk-801106",
+    "lk-123333",
+    "lk-525594",
+    "lk-504074",
+    "lk-151122",
+    "lk-211331"
+   ],
+   "biotipi": [
+    "macchie",
+    "reattiva",
+    "matura",
+    "rosacea"
+   ],
+   "termini": [
+    "vitc",
+    "antiossidanti",
+    "macchie",
+    "inci",
+    "ferulico",
+    "ceramidi",
+    "ialuronico",
+    "niacinamide",
+    "centella",
+    "retinoidi",
+    "esfolianti",
+    "spf",
+    "reattiva",
+    "rosacea"
+   ],
+   "approfondisce": [
+    "vitc"
+   ],
+   "pubblicato_il": "2026-10-26"
+  }
+ ]
+}
