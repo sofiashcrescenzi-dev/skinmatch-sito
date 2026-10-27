@@ -1676,5 +1676,39 @@
   "larghezza": 1600,
   "altezza": 1066,
   "originale": "media/foto/rivista-vitamina-c-mattina.jpg"
+ },
+ {
+  "nome": "rivista-acido-salicilico",
+  "alt": "Un uomo in accappatoio bianco si sciacqua il viso con le mani sopra il lavandino del bagno",
+  "autore": "Tima Miroshnichenko",
+  "autore_pagina": "https://www.pexels.com/@tima-miroshnichenko",
+  "pagina": "https://www.pexels.com/photo/man-in-white-bathrobe-washing-his-face-7608046/",
+  "pexels_id": 7608046,
+  "licenza": "Licenza Pexels (uso libero, citazione gradita)",
+  "uso": [
+   "rivista: copertina dell'articolo acido-salicilico",
+   "social"
+  ],
+  "fuoco": "55% 40%",
+  "larghezza": 1600,
+  "altezza": 1067,
+  "originale": "media/foto/rivista-acido-salicilico.jpg"
+ },
+ {
+  "nome": "rivista-capelli-integratori-esami",
+  "alt": "Una ragazza di profilo si lega i capelli castani in una coda, con le braccia alzate",
+  "autore": "Andrea Piacquadio",
+  "autore_pagina": "https://www.pexels.com/@olly",
+  "pagina": "https://www.pexels.com/photo/beautiful-young-woman-making-ponytail-raising-arms-up-3830864/",
+  "pexels_id": 3830864,
+  "licenza": "Licenza Pexels (uso libero, citazione gradita)",
+  "uso": [
+   "rivista: copertina dell'articolo capelli-integratori-esami",
+   "social"
+  ],
+  "fuoco": "35% 50%",
+  "larghezza": 1600,
+  "altezza": 1067,
+  "originale": "media/foto/rivista-capelli-integratori-esami.jpg"
  }
 ]
