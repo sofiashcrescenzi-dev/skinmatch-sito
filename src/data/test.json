@@ -318,8 +318,7 @@
     "esperienza",
     "barba",
     "passi",
-    "evitare",
-    "budget"
+    "evitare"
    ]
   },
   {
@@ -343,8 +342,7 @@
     "trattamenti",
     "condizioni_cute",
     "gravidanza",
-    "evitare",
-    "budget"
+    "evitare"
    ]
   },
   {
@@ -371,8 +369,7 @@
     "int_obiettivo",
     "farmaci",
     "gravidanza",
-    "menopausa",
-    "budget"
+    "menopausa"
    ]
   },
   {
@@ -417,8 +414,7 @@
     "farmaci",
     "gravidanza",
     "menopausa",
-    "evitare",
-    "budget"
+    "evitare"
    ]
   }
  ],
@@ -450,7 +446,13 @@
      }
     }
    ],
-   "aiuto": "Alcuni prodotti sono formulati in modo diverso per la pelle maschile e per quella femminile: usiamo questa risposta solo per questo."
+   "aiuto": "Alcuni prodotti sono formulati in modo diverso per la pelle maschile e per quella femminile: usiamo questa risposta solo per questo.",
+   "se": [
+    {
+     "asse": "sebo",
+     "min": 1
+    }
+   ]
   },
   {
    "id": "eta",
@@ -518,7 +520,7 @@
    "opzioni": [
     {
      "id": "opachi",
-     "testo": "Opachi, come al mattino",
+     "testo": "Secca",
      "punti": {
       "sebo": 0
      },
@@ -528,7 +530,7 @@
     },
     {
      "id": "poco-lucidi",
-     "testo": "Leggermente lucidi",
+     "testo": "Normale, non noto particolarità",
      "punti": {
       "sebo": 1
      },
@@ -538,19 +540,9 @@
     },
     {
      "id": "lucidi",
-     "testo": "Abbastanza lucidi",
+     "testo": "Lucida",
      "punti": {
       "sebo": 2
-     },
-     "scelte": {
-      "zona_t": "lucida"
-     }
-    },
-    {
-     "id": "molto-lucidi",
-     "testo": "Molto lucidi: sento il bisogno di tamponarli",
-     "punti": {
-      "sebo": 3
      },
      "scelte": {
       "zona_t": "lucida"
@@ -561,31 +553,31 @@
   {
    "id": "guance",
    "area": "pelle",
-   "testo": "E le guance, nello stesso momento della giornata?",
+   "testo": "Le guance invece?",
    "opzioni": [
     {
      "id": "opache",
-     "testo": "Opache, a volte tirano",
+     "testo": "Secche",
      "punti": {
       "sebo": 0
      }
     },
     {
      "id": "normali",
-     "testo": "Come al mattino, senza differenze",
+     "testo": "Anche in questo caso normali",
      "punti": {
       "sebo": 1
      }
     },
     {
      "id": "lucide",
-     "testo": "Lucide anche loro",
+     "testo": "Lucide",
      "punti": {
       "sebo": 2
      }
     }
    ],
-   "aiuto": "Confrontarle con la zona T ci dice se la pelle è mista: più grassa al centro, normale o secca ai lati."
+   "aiuto": "Confrontala con la zona T: più grassa al centro, normale o secca ai lati."
   },
   {
    "id": "pori",
@@ -614,12 +606,12 @@
      }
     }
    ],
-   "aiuto": "Guardati allo specchio da circa trenta centimetri, con luce naturale. I pori dilatati accompagnano spesso una pelle che produce più sebo."
+   "aiuto": "Guardati allo specchio con luce naturale. I pori dilatati accompagnano spesso una pelle che produce più sebo."
   },
   {
    "id": "tira",
    "area": "pelle",
-   "testo": "Subito dopo aver lavato il viso, prima di applicare qualsiasi prodotto, come senti la pelle?",
+   "testo": "Dopo aver lavato il viso, prima di applicare qualsiasi prodotto, come senti la tua pelle?",
    "opzioni": [
     {
      "id": "bene",
@@ -644,7 +636,12 @@
      }
     }
    ],
-   "aiuto": "Aspetta un paio di minuti prima di rispondere: è uno dei segnali più affidabili della secchezza."
+   "se": [
+    {
+     "asse": "sebo",
+     "min": 1
+    }
+   ]
   },
   {
    "id": "spella",
@@ -729,21 +726,14 @@
      "punti": {
       "re": 2
      }
-    },
-    {
-     "id": "sempre",
-     "testo": "Brucia spesso, anche con prodotti delicati",
-     "punti": {
-      "re": 3
-     }
     }
    ],
-   "aiuto": "Se la pelle è reattiva ti proponiamo formule più delicate, senza profumo."
+   "aiuto": "Se la pelle più reattiva può suggerire la necessità di formule più delicate."
   },
   {
    "id": "rossore",
    "area": "pelle",
-   "testo": "Ti capita che il viso si arrossi, per esempio con il caldo, il freddo o un'emozione?",
+   "testo": "Ti capita che il viso si arrossi, con il caldo o il freddo?",
    "opzioni": [
     {
      "id": "mai",
@@ -791,35 +781,33 @@
     },
     {
      "id": "punti-neri",
-     "testo": "Qualche punto nero",
+     "testo": "Ho qualche punto nero",
      "punti": {
       "imp": 1
      }
     },
     {
      "id": "a-volte",
-     "testo": "Qualche brufolo ogni tanto",
+     "testo": "Ho qualche brufolo ogni tanto",
      "punti": {
       "imp": 2
      }
     },
     {
      "id": "spesso",
-     "testo": "Spesso, sia brufoli sia punti neri",
+     "testo": "Ho sia tanti brufoli che punti neri",
      "punti": {
       "imp": 3
      }
-    },
-    {
-     "id": "noduli",
-     "testo": "Brufoli grossi, profondi e dolorosi",
-     "punti": {
-      "imp": 3
-     },
-     "limite": "noduli"
     }
    ],
-   "aiuto": "Pensa agli ultimi tre mesi. Se i brufoli sono grossi, profondi e dolorosi, ti consiglieremo anche il parere di un dermatologo."
+   "aiuto": "Pensa agli ultimi tre mesi. Se i brufoli sono grossi, profondi e dolorosi, chiedi un parere di un dermatologo.",
+   "se": [
+    {
+     "asse": "sebo",
+     "min": 1
+    }
+   ]
   },
   {
    "id": "macchie",
@@ -842,7 +830,7 @@
     },
     {
      "id": "molte",
-     "testo": "Molte, oppure si scuriscono con il sole",
+     "testo": "Molte, e tendono a scurirsi con il sole",
      "punti": {
       "mac": 2
      }
@@ -1188,17 +1176,6 @@
      }
     },
     {
-     "id": "grassa",
-     "testo": "Sì, scaglie più grandi, giallastre e unte",
-     "punti": {
-      "desq": 2,
-      "cs": 1
-     },
-     "scelte": {
-      "forfora": "grassa"
-     }
-    },
-    {
      "id": "placche",
      "testo": "Placche spesse e arrossate, anche oltre l'attaccatura",
      "punti": {
@@ -1212,12 +1189,12 @@
   {
    "id": "caduta",
    "area": "cute",
-   "testo": "Rispetto al solito, quanti capelli stai perdendo?",
+   "testo": "Ritieni di star perdendo capelli in questo periodo?",
    "aiuto": "Perderne fino a un centinaio al giorno è normale. Una caduta a chiazze, o che dura da mesi, va valutata da un dermatologo.",
    "opzioni": [
     {
      "id": "normale",
-     "testo": "Come sempre",
+     "testo": "No, non sto perdendo capelli",
      "punti": {
       "cad": 0
      },
@@ -1237,7 +1214,7 @@
     },
     {
      "id": "progressiva",
-     "testo": "Si stanno diradando gradualmente, da mesi",
+     "testo": "Da mesi, si stanno diradando visibilmente",
      "punti": {
       "cad": 3
      },
@@ -1245,17 +1222,6 @@
       "caduta": "progressiva"
      },
      "limite": "diradamento"
-    },
-    {
-     "id": "chiazze",
-     "testo": "Ci sono zone senza capelli, a chiazze",
-     "punti": {
-      "cad": 3
-     },
-     "scelte": {
-      "caduta": "chiazze"
-     },
-     "limite": "chiazze"
     }
    ]
   },
@@ -1401,7 +1367,8 @@
       "integrazione": "nessuno"
      }
     }
-   ]
+   ],
+   "multipla": true
   },
   {
    "id": "dieta",
@@ -1489,68 +1456,27 @@
    ]
   },
   {
-   "id": "budget",
-   "area": "comune",
-   "testo": "Quanto vorresti spendere, indicativamente, per ogni prodotto?",
-   "aiuto": "Per ogni consiglio ti mostriamo comunque un'alternativa simile, di solito più economica.",
-   "opzioni": [
-    {
-     "id": "base",
-     "testo": "Il meno possibile",
-     "scelte": {
-      "budget": "base"
-     }
-    },
-    {
-     "id": "top",
-     "testo": "Il giusto, per un buon prodotto",
-     "scelte": {
-      "budget": "top"
-     }
-    },
-    {
-     "id": "premium",
-     "testo": "Il meglio, anche se costa",
-     "scelte": {
-      "budget": "premium"
-     }
-    },
-    {
-     "id": "nessuna",
-     "testo": "Non conta",
-     "scelte": {
-      "budget": "nessuna"
-     }
-    }
-   ],
-   "saltabile": true
-  },
-  {
    "id": "sonno",
    "area": "integrazione",
    "testo": "Come stai dormendo nelle ultime settimane?",
    "opzioni": [
     {
      "id": "bene",
-     "testo": "Bene: mi addormento facilmente e al risveglio sono in forma"
-    },
-    {
-     "id": "addormentarsi",
-     "testo": "Impiego molto tempo ad addormentarmi",
+     "testo": "Bene: mi addormento facilmente e al risveglio sono in forma",
      "punti": {
-      "sonno": 3
+      "sonno": 0
      }
     },
     {
      "id": "risvegli",
-     "testo": "Mi sveglio spesso durante la notte",
+     "testo": "Ogni tanto non mi addormento o mi sveglio durante la notte",
      "punti": {
       "sonno": 1
      }
     },
     {
-     "id": "fuso",
-     "testo": "Cambio spesso fuso orario o lavoro su turni",
+     "id": "addormentarsi",
+     "testo": "Non riesco a dormire e la mattina mi sveglio stanco",
      "punti": {
       "sonno": 2
      }
@@ -1566,7 +1492,10 @@
    "opzioni": [
     {
      "id": "piena",
-     "testo": "Con la stessa energia del mattino"
+     "testo": "Con la stessa energia del mattino",
+     "punti": {
+      "energia": 0
+     }
     },
     {
      "id": "calo",
@@ -1579,7 +1508,7 @@
      "id": "scarica",
      "testo": "Senza energie, quasi ogni giorno",
      "punti": {
-      "energia": 3
+      "energia": 2
      }
     }
    ]
@@ -1604,7 +1533,7 @@
      "id": "spesso",
      "testo": "Quasi sempre",
      "punti": {
-      "stress": 3
+      "stress": 2
      }
     }
    ],
@@ -1617,7 +1546,10 @@
    "opzioni": [
     {
      "id": "raro",
-     "testo": "Al massimo una volta"
+     "testo": "Quasi mai ,al massimo una volta",
+     "punti": {
+      "difese": 0
+     }
     },
     {
      "id": "qualche",
@@ -1630,7 +1562,7 @@
      "id": "spesso",
      "testo": "Quattro o più",
      "punti": {
-      "difese": 3
+      "difese": 2
      }
     }
    ],
@@ -1644,7 +1576,10 @@
    "opzioni": [
     {
      "id": "cinque",
-     "testo": "Cinque o più"
+     "testo": "Cinque o più",
+     "punti": {
+      "difese": 0
+     }
     },
     {
      "id": "qualche",
@@ -1669,20 +1604,23 @@
    "opzioni": [
     {
      "id": "ogni-giorno",
-     "testo": "Almeno mezz'ora, quasi ogni giorno"
+     "testo": "Almeno mezz'ora, quasi ogni giorno",
+     "punti": {
+      "vitd": 0
+     }
     },
     {
      "id": "weekend",
      "testo": "Solo nel fine settimana",
      "punti": {
-      "vitd": 2
+      "vitd": 1
      }
     },
     {
      "id": "quasi-mai",
      "testo": "Quasi mai, soprattutto d'inverno",
      "punti": {
-      "vitd": 3
+      "vitd": 2
      }
     }
    ],
@@ -1708,7 +1646,7 @@
      "id": "mai",
      "testo": "Quasi mai",
      "punti": {
-      "omega": 3
+      "omega": 2
      }
     }
    ],

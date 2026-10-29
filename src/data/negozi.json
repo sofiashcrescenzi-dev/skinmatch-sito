@@ -9,11 +9,17 @@
    "attivo": true,
    "spedizione": {
     "costo": 5.99,
-    "gratis_da": null,
+    "gratis_da": 49,
     "tempi": "",
     "nota": ""
    },
-   "codici": [],
+   "codici": [
+    {
+     "codice": "AD26T",
+     "descrizione": "11% Sconto",
+     "scade": "2026-12-30"
+    }
+   ],
    "nota": "Commissione dall'API Adtraction (15/10/2026). Spedizione: 5,99 € dal feed del negozio; la soglia per la spedizione gratis non è confermata (i siti di coupon dicono 49 €): va verificata al carrello."
   },
   {
@@ -28,14 +34,20 @@
     "tempi": "24/48 ore",
     "nota": "Corriere BRT."
    },
-   "codici": [],
+   "codici": [
+    {
+     "codice": "AD5",
+     "descrizione": "5% per una spesa di 29€",
+     "scade": "2026-12-30"
+    }
+   ],
    "nota": "Commissione dall'API Adtraction (16/10/2026); spedizione dalla pagina ufficiale. Completa Liki24: entrano solo i prodotti che su Liki24 non ci sono (Federico, 16/10)."
   },
   {
    "id": "beautycos",
    "nome": "Beautycos",
    "rete": "Adtraction",
-   "commissione": 8.0,
+   "commissione": 8,
    "attivo": true,
    "spedizione": {
     "costo": 11.95,
