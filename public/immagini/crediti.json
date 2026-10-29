@@ -1710,5 +1710,22 @@
   "larghezza": 1600,
   "altezza": 1067,
   "originale": "media/foto/rivista-capelli-integratori-esami.jpg"
+ },
+ {
+  "nome": "rivista-acido-azelaico",
+  "alt": "Una donna con i capelli rossi e le lentiggini, in accappatoio, si mette qualche goccia di siero sul viso davanti allo specchio del bagno",
+  "autore": "KoolShooters",
+  "autore_pagina": "https://www.pexels.com/@koolshooters",
+  "pagina": "https://www.pexels.com/photo/woman-holding-a-bottle-and-a-dropper-8945923/",
+  "pexels_id": 8945923,
+  "licenza": "Licenza Pexels (uso libero, citazione gradita)",
+  "uso": [
+   "rivista: copertina dell'articolo acido-azelaico",
+   "social"
+  ],
+  "fuoco": "60% 35%",
+  "larghezza": 1600,
+  "altezza": 1067,
+  "originale": "media/foto/rivista-acido-azelaico.jpg"
  }
 ]
