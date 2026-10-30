@@ -14,7 +14,7 @@
 import test from '../src/data/test.json';
 import biotipi from '../src/data/biotipi.json';
 
-const TIPI_EVENTO = new Set(['test_inizio', 'test_fine', 'clic']);
+const TIPI_EVENTO = new Set(['test_inizio', 'test_fine', 'clic', 'guasto']);
 // solo percorsi e biotipi che esistono: nessuno scrive righe a caso nel Traffico (Friday, 15/10)
 const PERCORSI = new Set(test.percorsi.map((p) => p.id));
 const BIOTIPI = new Set(biotipi.biotipi.map((b) => b.id));
@@ -90,6 +90,12 @@ async function evento(req, env) {
     if (sec >= 15 && sec <= 1800) righe.push(['durata', `${e.p}:${Math.round(sec / 30) * 30}`]);
   }
   if (e.e === 'clic' && /^[a-z0-9-]{2,80}$/.test(String(e.id))) righe.push(['clic', e.id], ['clic_negozio', breve(e.m, 40)], ['clic_da', breve(e.da)]);
+  // un errore JavaScript (src/lib/guasti.ts): la pagina senza query e il messaggio, niente altro (30/10/2026)
+  if (e.e === 'guasto') {
+    const pagina = (String(e.pg || '').match(/^\/[a-z0-9/-]{0,60}/) || ['/'])[0].replace(/\/(catalogo|rivista|biotipi)\/.+/, '/$1/…');
+    const m = String(e.m || '').replace(/https?:\/\/\S+/g, '').replace(/[^\p{L}\p{N}_.,:;'()\- ]/gu, '').trim().slice(0, 120);
+    if (m) righe.push(['guasto', `${pagina} · ${m}`]);
+  }
   if (!righe.length) return new Response(null, { status: 400 });
   const st = env.DB.prepare('INSERT INTO eventi_giorno (giorno, tipo, chiave, n) VALUES (?1, ?2, ?3, 1) ON CONFLICT (giorno, tipo, chiave) DO UPDATE SET n = n + 1');
   await env.DB.batch(righe.filter(([, k]) => k).map(([t, k]) => st.bind(g, t, k)));

@@ -5,7 +5,7 @@ import { TEST, NOZIONI, percorsoPerId, type Nozione as N } from '@/lib/dati';
 import { consiglia, domandeDi, type Risposte } from '@/lib/motore';
 import { ConTermini } from '@/components/Termini';
 import { useRouter } from 'next/navigation';
-import { codifica } from '@/lib/condividi';
+import { codifica, indirizzoCondiviso } from '@/lib/condividi';
 import Foto from '@/components/Foto';
 import { segna } from '@/lib/eventi';
 import { Luna } from '@/components/Inviti';
@@ -72,8 +72,8 @@ export default function TestPage() {
     // quanto è durato, per il «circa N minuti» della scelta (solo i secondi, niente risposte)
     const secondi = s.inizio ? Math.round((Date.now() - s.inizio) / 1000) : 0;
     segna({ e: 'test_fine', p: risultato.percorso.id, b: risultato.aree.map((a) => a.biotipo?.id || '').filter(Boolean), ...(secondi >= 15 && secondi <= 1800 ? { s: secondi } : {}) });
-    // il risultato ha la sua pagina, con un link da condividere (lib/condividi.ts)
-    router.push(`/risultato#${codifica(risultato.percorso.id, s.risposte)}`);
+    // il risultato ha la sua pagina, con un link da condividere che porta il biotipo (lib/condividi.ts)
+    router.push(indirizzoCondiviso(risultato, codifica(risultato.percorso.id, s.risposte)));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [risultato]);
 

@@ -9,7 +9,7 @@
    "testo": "Sui palmi delle mani e sulle piante dei piedi non ci sono ghiandole sebacee. Sono più numerose su viso e cuoio capelluto: per questo fronte, naso e radici si ungono prima del resto.",
    "fonte": "https://en.wikipedia.org/wiki/Sebaceous_gland",
    "fonte_nome": "Wikipedia, Sebaceous gland",
-   "legame": "/glossario/sebo"
+   "legame": "/glossario#sebo"
   },
   {
    "id": "comedone-mangione",
@@ -19,7 +19,7 @@
    "testo": "Comedone viene dal latino comedo, «mangione». Nel Medioevo era il nome di vermi che si credeva mangiassero i cadaveri; il nome passò ai punti neri perché ricordano quei vermetti. In realtà sono pori chiusi da sebo e cellule morte.",
    "fonte": "https://www.treccani.it/vocabolario/comedone/",
    "fonte_nome": "Treccani, Vocabolario",
-   "legame": "/glossario/comedoni"
+   "legame": "/glossario#comedoni"
   },
   {
    "id": "urea-pelle",
@@ -29,7 +29,7 @@
    "testo": "L'urea non è solo un ingrediente da crema: la pelle la produce da sé. Fa parte del fattore naturale di idratazione, le piccole molecole che trattengono l'acqua nello strato più esterno. Le creme all'urea aggiungono quello che la pelle secca ha perso.",
    "fonte": "https://pubmed.ncbi.nlm.nih.gov/34596890/",
    "fonte_nome": "PubMed (Piquero-Casals e altri, 2021)",
-   "legame": "/glossario/urea"
+   "legame": "/glossario#urea"
   },
   {
    "id": "ceramidi-tre-parti",
@@ -39,7 +39,7 @@
    "testo": "Tra le cellule dello strato corneo c'è un cemento di grassi fatto di tre parti in quantità simili: ceramidi, colesterolo e acidi grassi. Quando le ceramidi calano, la barriera perde acqua: per questo le creme per pelli secche le rimettono, spesso con gli altri due.",
    "fonte": "https://pubmed.ncbi.nlm.nih.gov/12553851/",
    "fonte_nome": "PubMed (Coderch e altri, 2003)",
-   "legame": "/glossario/ceramidi"
+   "legame": "/glossario#ceramidi"
   },
   {
    "id": "rosacea-sole",
@@ -49,7 +49,7 @@
    "testo": "In un sondaggio della National Rosacea Society su 1.066 persone con rosacea, il primo fattore scatenante era il sole (81%), poi lo stress emotivo (79%) e il caldo (75%). Per questo, con la pelle che si arrossa, la protezione solare viene prima di tutto.",
    "fonte": "https://www.rosacea.org/rosacea-review/2002/summer/new-survey-pinpoints-leading-factors-that-trigger-symptoms",
    "fonte_nome": "National Rosacea Society, sondaggio 2002",
-   "legame": "/glossario/rosacea"
+   "legame": "/glossario#rosacea"
   },
   {
    "id": "pelle-sensibile-comune",
@@ -59,7 +59,7 @@
    "testo": "Una revisione di 26 studi su più di 51.000 persone in 18 Paesi: il 71% dice di avere la pelle almeno un po' sensibile e il 40% abbastanza o molto. In Europa la quota è più alta che in Asia e in America. Le donne la segnalano più degli uomini.",
    "fonte": "https://pubmed.ncbi.nlm.nih.gov/31869523/",
    "fonte_nome": "PubMed (Chen e altri, 2020)",
-   "legame": "/glossario/reattiva"
+   "legame": "/glossario#reattiva"
   },
   {
    "id": "primo-solare-chinino",
@@ -69,7 +69,7 @@
    "testo": "Nel 1891 il medico tedesco Hammer preparò una crema al chinino per proteggere la pelle dal sole: è considerato il primo solare. Prima c'erano solo veli, cappelli e ombrelli. I filtri moderni arrivano dagli anni '20 in poi.",
    "fonte": "https://pubmed.ncbi.nlm.nih.gov/11744395/",
    "fonte_nome": "PubMed (Urbach, 2001)",
-   "legame": "/glossario/spf"
+   "legame": "/glossario#spf"
   },
   {
    "id": "uva-finestra",
@@ -79,7 +79,7 @@
    "testo": "Il vetro delle finestre ferma gli UVB, quelli che scottano, ma lascia passare gli UVA, che arrivano anche con le nuvole. Gli UVA sono fino al 95% dei raggi ultravioletti che ci raggiungono e contano nelle macchie. Vale anche in macchina e in ufficio.",
    "fonte": "https://www.skincancer.org/risk-factors/uv-radiation/",
    "fonte_nome": "Skin Cancer Foundation",
-   "legame": "/glossario/uva"
+   "legame": "/glossario#uva"
   },
   {
    "id": "segni-brufoli-fototipo",
@@ -89,7 +89,7 @@
    "testo": "La macchia scura che resta dopo un brufolo si chiama iperpigmentazione post-infiammatoria. Colpisce più spesso e più a lungo le pelli scure. Si parte calmando l'infiammazione, e la crema solare fa parte della cura.",
    "fonte": "https://pubmed.ncbi.nlm.nih.gov/20725554/",
    "fonte_nome": "PubMed (Davis e Callender, 2010)",
-   "legame": "/glossario/macchie"
+   "legame": "/glossario#macchie"
   },
   {
    "id": "kligman-1969",
@@ -99,7 +99,7 @@
    "testo": "Nel 1969 il dermatologo Albert Kligman pubblicò uno studio sulla tretinoina, un derivato della vitamina A, applicata sulla pelle con l'acne. Da lì sono nati i retinoidi di oggi, compreso il retinolo dei cosmetici, più delicato.",
    "fonte": "https://pubmed.ncbi.nlm.nih.gov/4238828/",
    "fonte_nome": "PubMed (Kligman e altri, 1969)",
-   "legame": "/glossario/retinoidi"
+   "legame": "/glossario#retinoidi"
   },
   {
    "id": "aha-sole-settimana",
@@ -109,7 +109,7 @@
    "testo": "Secondo la FDA, dopo quattro settimane di creme con acidi esfolianti (AHA) la pelle si arrossava col sole il 18% più facilmente. Una settimana dopo aver smesso, la differenza era sparita. Per questo con gli acidi si usa la protezione solare, anche dopo.",
    "fonte": "https://www.fda.gov/cosmetics/cosmetic-ingredients/alpha-hydroxy-acids",
    "fonte_nome": "FDA, Alpha Hydroxy Acids",
-   "legame": "/glossario/aha-pha"
+   "legame": "/glossario#aha-pha"
   },
   {
    "id": "vitamina-c-gialla",
@@ -119,7 +119,7 @@
    "testo": "La vitamina C pura (acido ascorbico) è instabile: con la luce e l'aria si ossida e diventa gialla, poi arancione. Per questo i sieri stanno in flaconi scuri e chiusi. Se il siero è diventato scuro, la vitamina C si è già ossidata.",
    "fonte": "https://pubmed.ncbi.nlm.nih.gov/23741676/",
    "fonte_nome": "PubMed (Telang, 2013)",
-   "legame": "/glossario/vitc"
+   "legame": "/glossario#vitc"
   },
   {
    "id": "shampoo-massaggiare",
@@ -129,7 +129,7 @@
    "testo": "Shampoo viene dall'inglese to shampoo, «frizionare», che a sua volta viene dall'hindi chāmpo, «massaggia». Prima di indicare un detergente, la parola indicava un gesto: il massaggio della testa.",
    "fonte": "https://www.treccani.it/vocabolario/shampoo/",
    "fonte_nome": "Treccani, Vocabolario",
-   "legame": "/glossario/cuoio-capelluto"
+   "legame": "/glossario#cuoio-capelluto"
   },
   {
    "id": "ph-cuoio-capelluto",
@@ -139,7 +139,7 @@
    "testo": "Il cuoio capelluto ha un pH intorno a 5,5, leggermente acido. In uno studio su 123 shampoo, più di sei su dieci avevano un pH più alto. Un pH alcalino aumenta l'attrito tra i capelli e li rende più crespi.",
    "fonte": "https://pubmed.ncbi.nlm.nih.gov/25210332/",
    "fonte_nome": "PubMed (Gavazzoni Dias e altri, 2014)",
-   "legame": "/glossario/cuoio-capelluto"
+   "legame": "/glossario#cuoio-capelluto"
   },
   {
    "id": "capelli-al-giorno",
@@ -149,7 +149,7 @@
    "testo": "È normale perderne da 50 a 100 al giorno. Dopo febbre alta, un parto, un intervento o uno stress forte, la caduta aumenta qualche mese dopo, non subito. Di solito si ferma da sola e in sei-nove mesi i capelli tornano come prima.",
    "fonte": "https://www.aad.org/public/diseases/hair-loss/insider/shedding",
    "fonte_nome": "American Academy of Dermatology",
-   "legame": "/glossario/caduta"
+   "legame": "/glossario#caduta"
   },
   {
    "id": "telogen-1961",
@@ -169,7 +169,7 @@
    "testo": "Un capello del cuoio capelluto cresce per due-otto anni prima di fermarsi; un pelo delle sopracciglia solo due-tre mesi. È la durata della fase di crescita, l'anagen, a decidere quanto può diventare lungo.",
    "fonte": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9917549/",
    "fonte_nome": "PubMed Central (Natarelli e altri, 2023)",
-   "legame": "/glossario/caduta"
+   "legame": "/glossario#caduta"
   },
   {
    "id": "piastra-capelli-bagnati",
@@ -179,7 +179,7 @@
    "testo": "Se la piastra o il phon molto caldo scaldano un capello ancora bagnato, l'acqua dentro bolle e lascia bollicine d'aria nel fusto: si chiama bubble hair. Il capello diventa secco e si spezza. Prima si asciuga, poi si liscia, con un termoprotettore.",
    "fonte": "https://pmc.ncbi.nlm.nih.gov/articles/PMC3250009/",
    "fonte_nome": "PubMed Central (Savitha e altri, 2011)",
-   "legame": "/glossario/termoprotettore"
+   "legame": "/glossario#termoprotettore"
   },
   {
    "id": "permanente-1906",
@@ -268,7 +268,7 @@
    "testo": "Nel 1971 i medici danesi Bang e Dyerberg studiarono il sangue degli Inuit della Groenlandia, che mangiavano molto grasso di pesce, foca e balena. Da lì nacque l'interesse per gli omega-3. Ricerche più recenti hanno ridimensionato l'idea che gli Inuit avessero meno infarti.",
    "fonte": "https://pubmed.ncbi.nlm.nih.gov/4102857/",
    "fonte_nome": "PubMed (Bang, Dyerberg e Nielsen, 1971; Fodor e altri, 2014)",
-   "legame": "/glossario/omega3"
+   "legame": "/glossario#omega3"
   },
   {
    "id": "omega3-alghe",
@@ -308,7 +308,7 @@
    "testo": "La vitamina B12 non la producono né le piante né gli animali, ma solo alcuni batteri. Gli animali la accumulano, e noi la prendiamo da carne, pesce, latte e uova. Per questo chi mangia vegano ha bisogno di un integratore o di cibi arricchiti.",
    "fonte": "https://pubmed.ncbi.nlm.nih.gov/29216732/",
    "fonte_nome": "PubMed (Watanabe e Bito, 2018)",
-   "legame": "/glossario/b12"
+   "legame": "/glossario#b12"
   },
   {
    "id": "nobel-1934-fegato",

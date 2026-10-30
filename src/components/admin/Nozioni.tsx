@@ -42,7 +42,7 @@ export default function Nozioni() {
               <Campo etichetta="Fonte (indirizzo)"><Testo valore={n.fonte} placeholder="https://…" cambia={(v) => metti(i, { ...n, fonte: v })} /></Campo>
               <Campo etichetta="Fonte (come si chiama)"><Testo valore={n.fonte_nome} placeholder="EFSA, PubMed (autore, anno)…" cambia={(v) => metti(i, { ...n, fonte_nome: v })} /></Campo>
             </div>
-            <Campo etichetta="Approfondisci (facoltativo)" aiuto="Una pagina del sito: /glossario/… o /biotipi/…"><Testo valore={n.legame} cambia={(v) => metti(i, { ...n, legame: v || undefined })} /></Campo>
+            <Campo etichetta="Approfondisci (facoltativo)" aiuto="Una pagina del sito: /glossario#termine (il glossario è una pagina sola) o /biotipi/…"><Testo valore={n.legame} cambia={(v) => metti(i, { ...n, legame: v || undefined })} /></Campo>
             <button type="button" className="chip" style={{ justifySelf: 'end' }} onClick={() => confirm(`Togliere «${n.titolo}»?`) && doc.setDati({ nozioni: g.nozioni.filter((_, j) => j !== i) })}>Togli la nozione</button>
           </div>
         </details>

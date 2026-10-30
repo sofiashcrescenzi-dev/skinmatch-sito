@@ -70,8 +70,11 @@ regola('nozioni dopo una domanda che non c\'è', NOZIONI.filter((n) => !TEST.dom
 regola('nozioni con un tipo che non esiste (i quiz non ci sono più: si legge e basta)', NOZIONI.filter((n) => !['lo-sapevi', 'storia'].includes(n.tipo)).map((n) => n.id), 'BLOCCA');
 regola('nozioni senza testo o senza fonte', NOZIONI.filter((n) => !n.testo || !n.fonte?.startsWith('http')).map((n) => n.id), 'BLOCCA');
 regola('nozioni troppo lunghe (titolo oltre 60, testo oltre 300 caratteri)', NOZIONI.filter((n) => n.titolo.length > 60 || n.testo.length > 300).map((n) => n.id), 'AVVISA');
+// ⚠️ IL GLOSSARIO È UNA PAGINA SOLA (30/10/2026, Federico: «a volte il test dà errore»): un termine si apre con
+// /glossario#<termine>. Diciannove pause del test puntavano a /glossario/<termine>, che non esiste, e questa regola le
+// dava per buone: chi toccava «Approfondisci» a metà test finiva su una pagina d'errore. Ora ferma la pubblicazione.
 regola('approfondimenti verso pagine che non ci sono', NOZIONI.filter((n) => n.legame && !(
-  (n.legame.startsWith('/glossario/') && TERMINI.some((x) => x.id === n.legame!.split('/')[2])) || (n.legame.startsWith('/biotipi/') && BIOTIPI.some((x) => x.id === n.legame!.split('/')[2])))).map((n) => `${n.id}: ${n.legame}`), 'AVVISA');
+  (n.legame.startsWith('/glossario#') && TERMINI.some((x) => x.id === n.legame!.slice('/glossario#'.length))) || (/^\/biotipi\/[^/#]+$/.test(n.legame) && BIOTIPI.some((x) => x.id === n.legame!.split('/')[2])))).map((n) => `${n.id}: ${n.legame}`), 'BLOCCA');
 
 console.log('La rivista');
 regola('articoli con indirizzi doppi', doppi(ARTICOLI.map((a) => a.slug)), 'BLOCCA');

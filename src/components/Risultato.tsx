@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { TEST, NOMI_AREA, type Area, fotoDi } from '@/lib/dati';
 import { massimoAsse, type Risultato as R, type PassaggioScelto } from '@/lib/motore';
 import { ConTermini } from '@/components/Termini';
-import { Stendi } from '@/components/Inviti';
+import { Invito, Stendi } from '@/components/Inviti';
 import Foto from '@/components/Foto';
 import FotoProdotto, { tonoProdotto } from '@/components/FotoProdotto';
 import Campione from '@/components/Campione';
@@ -17,6 +17,8 @@ import { indirizzo, categoriaDi } from '@/lib/indirizzo';
 import type { Prodotto } from '@/lib/catalogo';
 
 const SOPRA: Record<Area, string> = { pelle: 'Il tuo biotipo', cute: 'Il biotipo della tua cute', integrazione: 'Il tuo profilo' };
+const SOPRA_SUO: Record<Area, string> = { pelle: 'Il suo biotipo', cute: 'Il biotipo della sua cute', integrazione: 'Il suo profilo' };
+const CHIEDI: Record<string, string> = { viso: 'E la tua pelle, che biotipo è?', completo: 'E la tua pelle, che biotipo è?', cute: 'E la tua cute, com’è?', integrazione: 'E a te, cosa servirebbe?' };
 
 // ⚠️ IL RISULTATO NON È PIÙ UNA LISTA LUNGA (Federico, 30/10/2026). In alto i biotipi; poi la giornata (Giornata.tsx);
 // poi i passaggi una volta sola, raggruppati per momento, ognuno con la scelta top e l'alternativa affiancate e scritto
@@ -103,11 +105,23 @@ export default function Risultato({ r, azioni, condiviso }: { r: R; azioni: Reac
   ].filter((x) => x.passi.length);
   return (
     <div className="pila" style={{ ['--gap' as string]: 'clamp(28px, 5vw, 48px)' }}>
-      <header className="pila" style={{ ['--gap' as string]: '12px' }}>
-        <span className="etichetta">{condiviso ? 'Un risultato condiviso' : 'Il tuo risultato'} · {r.percorso.titolo.toLowerCase()}</span>
-        <p className="piccolo">{condiviso ? 'Qualcuno ha condiviso con te il suo risultato del test. Il tuo potrebbe essere diverso: le domande sono su quello che vedi allo specchio.' : 'Non è una diagnosi: è il punto di partenza per scegliere i prodotti. Le risposte stanno solo nel link di questa pagina: condividilo se vuoi.'}</p>
-        {azioni}
-      </header>
+      {condiviso ? (
+        // ⚠️ CHI APRE UN LINK CONDIVISO (30/10/2026, Federico: «spingere poi a fare il test»): prima l'invito, poi il
+        // risultato dell'altra persona; l'invito torna in fondo, con le azioni.
+        <section className="carta apertura-scura pila" aria-label="Fai il test anche tu" style={{ ['--gap' as string]: '12px', background: 'var(--cacao)' }}>
+          <span className="etichetta">Un risultato condiviso con te</span>
+          <h2 className="titolo-2">{CHIEDI[r.percorso.id] || CHIEDI.viso}</h2>
+          <div className="scala-fototipi" aria-hidden="true"><i /><i /><i /><i /><i /><i /></div>
+          <p className="intro">Circa {r.percorso.minuti} minuti di domande su quello che vedi allo specchio. Alla fine hai {r.percorso.id === 'integrazione' ? 'il tuo profilo' : 'il tuo biotipo'} e una routine con un’alternativa che di solito costa meno per ogni prodotto. Le risposte restano sul tuo telefono.</p>
+          <div><Invito href={`/test?percorso=${r.percorso.id}&nuovo=1`} scuro>{r.percorso.id === 'integrazione' ? 'Scopri il tuo profilo' : 'Scopri il tuo biotipo'}</Invito></div>
+        </section>
+      ) : (
+        <header className="pila" style={{ ['--gap' as string]: '12px' }}>
+          <span className="etichetta">Il tuo risultato · {r.percorso.titolo.toLowerCase()}</span>
+          <p className="piccolo">Non è una diagnosi: è il punto di partenza per scegliere i prodotti. Le risposte stanno solo nel link di questa pagina: condividilo se vuoi.</p>
+          {azioni}
+        </header>
+      )}
 
       {r.limiti.length > 0 && (
         <section className="consulto" aria-label="Prima di tutto, un consulto">
@@ -124,12 +138,12 @@ export default function Risultato({ r, azioni, condiviso }: { r: R; azioni: Reac
           <article key={a.area} className="carta" aria-label={NOMI_AREA[a.area]} style={{ display: 'grid', gap: 18, gridTemplateColumns: 'repeat(auto-fit, minmax(min(280px, 100%), 1fr))', alignItems: 'start' }}>
             <Foto nome={fotoDi(a.biotipo)} className="foto-biotipo" sizes="(max-width: 760px) 100vw, 40vw" />
             <div className="pila" style={{ ['--gap' as string]: '10px' }}>
-              <span className="etichetta">{SOPRA[a.area]}</span>
+              <span className="etichetta">{(condiviso ? SOPRA_SUO : SOPRA)[a.area]}</span>
               {/* il primo biotipo è il titolo della pagina (Friday, 16/10: il risultato non aveva un h1) */}
               {ia === 0 ? <h1 className="titolo-2">{a.biotipo.titolo}</h1> : <h2 className="titolo-2">{a.biotipo.titolo}</h2>}
               <span className="motto">{a.biotipo.motto}</span>
               <details className="di-piu">
-                <summary>Leggi di più sul tuo biotipo</summary>
+                <summary>{condiviso ? 'Leggi di più su questo biotipo' : 'Leggi di più sul tuo biotipo'}</summary>
                 <p className="testo" style={{ fontSize: 15.5 }}><ConTermini testo={a.biotipo.descrizione} /></p>
                 {assi.length > 0 && a.area !== 'integrazione' && (
                   <div className="pila" style={{ ['--gap' as string]: '6px' }} aria-label="I tuoi punteggi">

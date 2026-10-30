@@ -62,7 +62,7 @@ export default function Traffico({ vista }: { vista: 'traffico' | 'test' }) {
     };
     return (
       <div className="pila" style={{ ['--gap' as string]: '24px' }}>
-        <Titolo sotto="Quanti test partono e quanti arrivano al risultato, per percorso, quanto durano e quali biotipi escono. Se il tempo medio si allontana dal «circa» del sito, si corregge in Domande › Percorsi › Minuti. Le risposte non lasciano il telefono di chi fa il test: qui ci sono solo i conteggi.">Test fatti</Titolo>
+        <Titolo sotto="Quanti test partono e quanti arrivano al risultato, per percorso, quanto durano e quali biotipi escono, e gli errori che qualcuno ha visto sulle pagine. Se il tempo medio si allontana dal «circa» del sito, si corregge in Domande › Percorsi › Minuti. Le risposte non lasciano il telefono di chi fa il test: qui ci sono solo i conteggi.">Test fatti</Titolo>
         {scelta}
         {api.errore && <Vuoto>Non riesco a leggere i numeri: {api.errore}</Vuoto>}
         <div className="adm-numeri">
@@ -74,6 +74,8 @@ export default function Traffico({ vista }: { vista: 'traffico' | 'test' }) {
         <div className="adm-tabella"><table><thead><tr><th>Percorso</th><th className="num">Iniziati</th><th className="num">Finiti</th><th className="num">Completati</th><th className="num">Tempo medio</th><th className="num">Sul sito</th></tr></thead>
           <tbody>{TEST.percorsi.map((p) => { const i = iniziati.find(([k]) => k === p.id)?.[1] || 0, f = finiti[p.id] || 0; return <tr key={p.id}><td>{p.nome}</td><td className="num">{i}</td><td className="num">{f}</td><td className="num">{i ? Math.round((f / i) * 100) : 0}%</td><td className="num">{tempo(p.id)}</td><td className="num">circa {p.minuti} min</td></tr>; })}</tbody></table></div>
         <Tabella titolo="Biotipi usciti" righe={perChiave(r, 'biotipo')} nome={(k) => BIOTIPI.find((b) => b.id === k)?.titolo || k} colonna="Volte" />
+        {/* gli errori delle pagine, dal 30/10/2026 (src/lib/guasti.ts): pagina · messaggio, senza dati di chi li ha visti */}
+        <Tabella titolo="Guasti nelle pagine" righe={perChiave(r, 'guasto')} colonna="Volte" />
       </div>
     );
   }
