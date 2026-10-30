@@ -2,16 +2,26 @@ import Link from 'next/link';
 import { TEST, BIOTIPI, CATALOGO, ARTICOLI, TERMINI, ATTIVI, conAttivo, fotoDi, immagine } from '@/lib/dati';
 import { nelGruppo, PRODOTTI } from '@/lib/catalogo';
 import Foto from '@/components/Foto';
-import { Invito, Luna, Stendi } from '@/components/Inviti';
+import { Invito, Stendi } from '@/components/Inviti';
 import { ConTermini } from '@/components/Termini';
 import RicercaCentrale from '@/components/RicercaCentrale';
 import { BISOGNI } from '@/lib/integratori';
 
 const PASSI = [
-  ['Rispondi guardandoti allo specchio', 'La fronte a metà giornata, la pelle dopo la detersione, i rossori: domande su quello che vedi, non su come pensi di essere.'],
-  ['Scopri il tuo biotipo', 'Dai punteggi su sebo, idratazione e reattività esce il tuo biotipo, con i tratti che si aggiungono e cosa evitare.'],
-  ['Ricevi la routine', 'Un prodotto per ogni passaggio, scelto sul biotipo, e accanto un\'alternativa simile, di solito più economica. Se serve un medico, te lo diciamo prima.'],
+  ['Rispondi a poche domande', 'Su quello che vedi allo specchio, sulla cute e i capelli, su come dormi e mangi: domande su come sei, non su come pensi di essere.'],
+  ['Scopri il tuo biotipo', 'Dai punteggi esce il tuo biotipo, con i tratti che si aggiungono e cosa evitare. Se serve un medico, te lo diciamo prima.'],
+  ['Ricevi la tua giornata', 'Ogni prodotto all\'ora in cui si usa. Per ogni passaggio la scelta top e un\'alternativa che costa meno, con scritto dove la top è migliore.'],
 ];
+
+// ⚠️ I QUATTRO TEST SUBITO SOTTO L'APERTURA (Federico, 30/10/2026: «sotto la hero metti i 4 test, strutturati in
+// maniera differente e più bella»). Il completo in grande, gli altri tre in fila; di ognuno quanto dura, quante domande
+// fa al massimo e cosa ne esce. Il tono di fondo è un fototipo diverso per test.
+const ESCE: Record<string, string> = {
+  completo: 'Il biotipo della pelle e della cute, la routine di tutta la giornata e, se servono, fino a tre integratori.',
+  viso: 'Il biotipo della pelle e una routine da tre a cinque passaggi, mattina e sera.',
+  cute: 'Il biotipo della cute, lo shampoo e il trattamento giusti.',
+  integrazione: 'Fino a tre integratori, ognuno con l\'indicazione autorizzata in Europa.',
+};
 
 // La routine in ordine: a cosa serve ogni passaggio e quando si usa, con i suoi prodotti.
 const ROUTINE: [string, string, string, string][] = [
@@ -32,15 +42,17 @@ export default function Home() {
       <section className="apertura-scura" style={{ marginTop: -84, paddingTop: 84 }}>
         <div className="contenitore" style={{ display: 'grid', gap: 'clamp(28px, 5vw, 64px)', gridTemplateColumns: 'repeat(auto-fit, minmax(min(340px, 100%), 1fr))', alignItems: 'center', paddingBlock: 'clamp(28px, 5vw, 64px) clamp(40px, 6vw, 80px)' }}>
           <div className="pila" style={{ ['--gap' as string]: '18px' }}>
-            <span className="etichetta">Skincare spiegata, scelta su di te</span>
-            <h1 className="sopratitolo">Cosa metti sulla pelle, e perché</h1>
+            {/* ⚠️ PIÙ GENERICA DELLA PELLE (Federico, 30/10/2026: «sull'home page io andrei più generico, non solo
+                pelle, ma fai test per la tua routine»): pelle, capelli e integratori sono tutti e tre nel test */}
+            <span className="etichetta">Pelle, capelli, integratori</span>
+            <h1 className="sopratitolo">La tua routine, scelta su di te</h1>
             <div className="scala-fototipi" role="img" aria-label="I sei fototipi della pelle"><i /><i /><i /><i /><i /><i /></div>
-            <p className="intro">Ogni prodotto con la sua scheda: gli attivi e le percentuali, per quale pelle, quanto è forte, se va bene in gravidanza, quanto costa.</p>
+            <p className="intro">Rispondi a poche domande e ricevi la tua giornata: ogni prodotto all’ora in cui si usa, la scelta top e un’alternativa che costa meno. Ogni prodotto ha la sua scheda, con gli attivi e per chi è.</p>
             {/* ⚠️ IL TEST IN PRIMO PIANO (23/10/2026, Federico): è la porta principale del sito, prima della ricerca
                 e del catalogo. Un blocco suo, con cosa si fa e cosa se ne ricava. */}
             <div className="test-primo">
-              <Invito href="/test" scuro>Fai il test della pelle</Invito>
-              <span className="test-primo-sotto">Domande su quello che vedi allo specchio. Ne escono il tuo biotipo e una routine, con un prodotto per ogni passaggio. Gratis, senza registrazione.</span>
+              <Invito href="#i-test" scuro>Fai il test per la tua routine</Invito>
+              <span className="test-primo-sotto">Quattro test, da 2 a 6 minuti. Gratis, senza registrazione.</span>
             </div>
             <RicercaCentrale quanti={PRODOTTI.length} />
             <Link href="/catalogo" className="piccolo" style={{ color: 'var(--latte)' }}>Oppure esplora tutti i {PRODOTTI.length} prodotti →</Link>
@@ -52,6 +64,29 @@ export default function Home() {
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <span><img src="/immagini/home-800.webp" srcSet="/immagini/home-800.webp 800w, /immagini/home-1600.webp 1600w" sizes="(max-width: 760px) 90vw, 520px" alt="" fetchPriority="high" decoding="async" /></span>
             {immagine('home')?.autore && <small className="credito" style={{ gridColumn: "1 / -1", textAlign: "right", marginTop: "18%" }}>Foto di {immagine("home")!.autore} su Pexels</small>}
+          </div>
+        </div>
+      </section>
+
+      <section id="i-test" className="test-scaffale" aria-labelledby="test-titolo">
+        <div className="contenitore sezione pila" style={{ ['--gap' as string]: 'clamp(20px, 4vw, 32px)' }}>
+          <div className="pila" style={{ ['--gap' as string]: '8px' }}>
+            <span className="etichetta">Da dove partire</span>
+            <h2 id="test-titolo" className="titolo-2">Quattro test, una routine</h2>
+          </div>
+          <div className="test-griglia">
+            {['completo', 'viso', 'cute', 'integrazione'].map((id) => TEST.percorsi.find((x) => x.id === id)).filter((p): p is (typeof TEST.percorsi)[number] => !!p).map((p, i) => (
+              <Link key={p.id} href={`/test?percorso=${p.id}`} className={`test-carta${i === 0 ? ' test-grande' : ''}`} style={{ ['--tono' as string]: `var(--f${i + 1})` }}>
+                <span className="test-foto"><Foto nome={p.immagine} sizes={i === 0 ? '(max-width: 760px) 100vw, 40vw' : '(max-width: 760px) 100vw, 25vw'} /></span>
+                <span className="test-corpo">
+                  <span className="test-dati"><b>{p.minuti} min</b><span>fino a {p.domande.length} domande</span></span>
+                  <span className="titolo-3">{p.nome === 'Test Completo' ? 'Il test completo' : p.titolo}</span>
+                  <span className="piccolo">{p.descrizione}</span>
+                  <span className="test-esce"><b>Ne esce</b> {ESCE[p.id] || 'Il tuo biotipo e una routine.'}</span>
+                  <span className="test-via">Inizia <span aria-hidden="true">→</span></span>
+                </span>
+              </Link>
+            ))}
           </div>
         </div>
       </section>
@@ -154,28 +189,6 @@ export default function Home() {
               </article>
             );
           })}
-        </div>
-      </section>
-
-      <section style={{ background: 'var(--velo)' }}>
-        <div className="contenitore sezione pila" style={{ ['--gap' as string]: 'clamp(20px, 4vw, 36px)' }}>
-          <div className="pila" style={{ ['--gap' as string]: '8px' }}>
-            <span className="etichetta">Se preferisci partire dalla tua pelle</span>
-            <h2 className="titolo-2">Quattro test</h2>
-            <p className="intro">Domande su quello che vedi allo specchio: ne escono il tuo biotipo e una routine, con un prodotto per passaggio.</p>
-          </div>
-          <div className="griglia" style={{ ['--min' as string]: '240px' }}>
-            {TEST.percorsi.map((p) => (
-              <Link key={p.id} href={`/test?percorso=${p.id}`} className="carta-foto con-luna">
-                <Foto nome={p.immagine} sizes="(max-width: 760px) 100vw, 25vw" />
-                <span className="corpo">
-                  <span className="titolo-3">{p.nome}</span>
-                  <span className="piccolo">{p.descrizione}</span>
-                  <Luna>Circa {p.minuti} minuti</Luna>
-                </span>
-              </Link>
-            ))}
-          </div>
         </div>
       </section>
 

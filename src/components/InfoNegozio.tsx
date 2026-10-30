@@ -5,7 +5,7 @@ import { euro } from '@/lib/formato';
 import { negozioPerNome } from '@/lib/dati';
 import Icona from '@/components/Icona';
 
-// Spedizione e codici sconto del negozio, vicino a «Compra qui» (Federico, 15/10). Dati da admin › Negozi.
+// Spedizione e codici sconto del negozio, vicino a «Acquista» (Federico, 15/10). Dati da admin › Negozi.
 // Un codice scaduto sparisce anche senza ripubblicare (si controlla nel browser); il codice si copia al tocco.
 export default function InfoNegozio({ negozio, prezzo, breve }: { negozio?: string | null; prezzo: number; breve?: boolean }) {
   const n = negozioPerNome(negozio);

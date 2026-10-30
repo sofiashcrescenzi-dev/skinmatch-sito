@@ -130,7 +130,9 @@ img { max-width: 100%; }
 .carta-foto .corpo { padding: 16px 18px 18px; display: grid; gap: 6px; align-content: start; }
 
 /* il termine con la «i» */
-.termine { border: 0; background: none; padding: 0; font: inherit; color: inherit; text-decoration: underline dotted; text-decoration-color: var(--clinico); text-underline-offset: 3px; cursor: pointer; }
+/* ⚠️ la «i» resta attaccata alla parola (Federico, 30/10/2026: «va a capo facendo vedere tutto bruttissimo»): il
+   termine e un bottone, e senza nowrap andava a capo DENTRO il bottone, lasciando la «i» da sola sulla riga */
+.termine { white-space: nowrap; border: 0; background: none; padding: 0; font: inherit; color: inherit; text-decoration: underline dotted; text-decoration-color: var(--clinico); text-underline-offset: 3px; cursor: pointer; }
 .termine::after { content: 'i'; display: inline-grid; place-items: center; width: 15px; height: 15px; margin-left: 3px; border-radius: 50%; font-family: Georgia, serif; font-size: 10.5px; font-style: italic; font-weight: 700; background: var(--clinico); color: var(--foglio); vertical-align: 2px; text-decoration: none; }
 .velo-scuro { position: fixed; inset: 0; background: rgba(15, 12, 10, 0.45); display: grid; place-items: end center; z-index: 2000; padding: 16px; }
 @media (min-width: 640px) { .velo-scuro { place-items: center; } }
@@ -521,3 +523,95 @@ details.carta > summary::-webkit-details-marker { display: none; }
 .nozione { background: var(--velo); border-color: transparent; --gap: 12px; }
 .nozione > .foto-nozione { aspect-ratio: 16 / 9; margin-bottom: 4px !important; }
 .schede-rivista { display: flex; flex-wrap: wrap; gap: 8px; }
+
+
+/* ============================================================
+   IL RISULTATO: LA GIORNATA E LE COPPIE (30/10/2026, Federico: «un bel resoconto della giornata, con un bel grafico
+   che analizza gli orari della skin routine. Non una lista a discesa, molto lunga tutta staccata»).
+   La fascia va dalla luce del mattino al buio della sera con i toni della scala dei fototipi: è il marchio che fa
+   da cielo. Componenti: src/components/Giornata.tsx e Risultato.tsx; logica in src/lib/giornata.ts.
+   ============================================================ */
+.gi-fascia { position: relative; isolation: isolate; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; align-items: start;
+  border-radius: var(--raggio); overflow: hidden; padding: 18px clamp(8px, 2vw, 18px) 40px; min-height: 190px; }
+.gi-cielo { position: absolute; inset: 0; z-index: -1;
+  background: linear-gradient(90deg, var(--f1) 0%, #fbf1ea 20%, var(--foglio) 42%, #f6ebe3 58%, var(--f4) 76%, var(--f6) 92%, var(--cacao) 100%); }
+.gi-ore { position: absolute; left: clamp(8px, 2vw, 18px); right: clamp(8px, 2vw, 18px); bottom: 10px; height: 18px; margin: 0; padding: 0; list-style: none; }
+.gi-ore li { position: absolute; transform: translateX(-50%); font-size: 11px; font-weight: 700; font-variant-numeric: tabular-nums; color: var(--cacao);
+  background: rgba(250, 246, 244, .78); border-radius: 999px; padding: 1px 6px; }
+.gi-ore li:first-child { transform: none; } .gi-ore li:last-child { transform: translateX(-100%); }
+.gi-momento { display: grid; justify-items: center; gap: 10px; min-width: 0; }
+.gi-quando { display: grid; justify-items: center; gap: 1px; font-size: 11.5px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--terra); }
+.gi-quando b { font-family: var(--font-titolo); font-size: clamp(19px, 2.6vw, 24px); letter-spacing: 0; text-transform: none; color: var(--testo); font-variant-numeric: tabular-nums; }
+.gi-sera .gi-quando, .gi-sera .gi-quando b { color: var(--latte); }
+.gi-pila { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; max-width: 112px; }
+.gi-bolla { position: relative; display: block; width: 48px; height: 48px; border-radius: 50%; background: var(--foglio);
+  box-shadow: 0 0 0 2px var(--foglio), 0 4px 12px -6px var(--ombra); transition: transform .18s var(--curva); }
+.gi-bolla .fp { width: 100%; height: 100%; border-radius: 50%; }
+.gi-bolla b { position: absolute; right: -3px; bottom: -3px; display: grid; place-items: center; width: 19px; height: 19px; border-radius: 50%;
+  background: var(--cacao); color: var(--latte); font-size: 11px; font-weight: 700; box-shadow: 0 0 0 2px var(--foglio); font-variant-numeric: tabular-nums; }
+.gi-bolla.gi-ogni { box-shadow: none; outline: 2px dashed var(--f4); outline-offset: 2px; }
+.gi-sera .gi-bolla.gi-ogni { outline-color: var(--f2); }
+.gi-bolla.gi-piccola { width: 42px; height: 42px; flex: none; }
+@media (hover: hover) { .gi-bolla:hover { transform: translateY(-2px); } }
+.gi-bolla:focus-visible { outline: 2px solid var(--cacao); outline-offset: 3px; }
+.gi-settimana { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(240px, 100%), 1fr)); gap: 12px 18px; }
+.gi-settimana li { display: flex; align-items: center; gap: 12px; min-width: 0; }
+.gi-settimana li > span { display: grid; min-width: 0; font-size: 15px; line-height: 1.3; }
+.gi-settimana small { font-size: 13px; color: var(--grigio); }
+.gi-numeri { margin: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(140px, 46%), 1fr)); gap: 12px 18px; padding-top: 14px; border-top: 1px solid var(--riga); }
+.gi-numeri dt { font-size: 11.5px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--grigio); }
+.gi-numeri dd { margin: 2px 0 0; font-family: var(--font-titolo); font-size: clamp(19px, 2.4vw, 23px); font-variant-numeric: tabular-nums; }
+@media (prefers-reduced-motion: reduce) { .gi-bolla { transition: none; } }
+
+.gruppo-titolo { font-size: clamp(22px, 3vw, 28px); padding-top: 14px; border-top: 1px solid var(--riga-forte); }
+.passo { scroll-margin-top: 90px; }
+.passo-testa { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 12px; }
+.coppia { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr)); align-items: start; }
+.coppia.sola { grid-template-columns: minmax(0, 640px); }
+.coppia > .carta { display: grid; gap: 12px; }
+.coppia-top { border-color: var(--riga-forte); }
+.coppia-nota { align-self: center; }
+.breve { display: grid; grid-template-columns: 76px minmax(0, 1fr); gap: 12px; align-items: start; }
+.breve-foto { display: block; width: 76px; }
+.breve .marca { font-size: 11.5px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--grigio); }
+.breve .nome { font-size: 15.5px; font-weight: 600; line-height: 1.3; color: var(--testo); text-decoration: none; }
+.breve a.nome:hover { text-decoration: underline; text-underline-offset: 3px; }
+.breve-attivi { font-size: 13px; font-weight: 700; color: var(--terra); }
+.breve .riga-compra { margin-top: 6px; }
+.meglio { background: var(--bene-tenue); border-radius: var(--raggio-piccolo); padding: 10px 14px; font-size: 14px; line-height: 1.5; }
+.meglio b { font-size: 11.5px; letter-spacing: .1em; text-transform: uppercase; color: var(--bene); }
+.meglio ul { margin: 4px 0 0; padding-left: 18px; display: grid; gap: 2px; }
+.meglio p { margin: 4px 0 0; }
+.risparmio { font-size: 12.5px; font-weight: 700; color: var(--bene); background: var(--bene-tenue); border-radius: 999px; padding: 3px 10px; font-variant-numeric: tabular-nums; }
+
+/* ============================================================
+   I QUATTRO TEST IN HOME (30/10/2026): il completo in grande, gli altri tre in fila. Ogni test ha il tono di un
+   fototipo (--tono, da --f1 a --f4) dietro la foto; i dati che servono a scegliere stanno in alto: minuti e domande.
+   ============================================================ */
+.test-scaffale { background: var(--velo); }
+.test-griglia { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr)); }
+.test-carta { display: grid; grid-template-rows: auto 1fr; border-radius: var(--raggio); overflow: hidden; background: var(--foglio);
+  border: 1px solid var(--riga); color: var(--testo); text-decoration: none; min-width: 0; transition: transform .2s var(--curva), box-shadow .2s var(--curva); }
+@media (hover: hover) { .test-carta:hover { transform: translateY(-3px); box-shadow: 0 14px 34px -18px var(--ombra); } }
+.test-carta:focus-visible { outline: 2px solid var(--cacao); outline-offset: 3px; }
+.test-foto { display: block; background: var(--tono, var(--f2)); padding: 14px 14px 0; }
+.test-foto > * { display: block; aspect-ratio: 16 / 9; border-radius: 14px 14px 0 0; overflow: hidden; }
+.test-foto img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.test-corpo { display: grid; gap: 8px; align-content: start; padding: 16px 18px 18px; }
+.test-dati { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 10px; font-size: 13px; color: var(--grigio); }
+.test-dati b { font-family: var(--font-titolo); font-size: 22px; color: var(--testo); font-variant-numeric: tabular-nums; }
+.test-esce { font-size: 14px; line-height: 1.45; padding: 10px 12px; border-radius: var(--raggio-piccolo); background: var(--velo); }
+.test-esce b { display: block; font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--terra); margin-bottom: 2px; }
+.test-via { justify-self: start; margin-top: 4px; font-weight: 700; font-size: 15.5px; padding: 10px 18px; border-radius: 999px; background: var(--cacao); color: var(--latte); }
+.test-via span { display: inline-block; transition: transform .2s var(--curva); }
+@media (hover: hover) { .test-carta:hover .test-via span { transform: translateX(3px); } }
+/* il completo: su tutta la riga, foto a sinistra quando c'è spazio */
+.test-grande { grid-column: 1 / -1; }
+@media (min-width: 760px) {
+  .test-grande { grid-template-rows: none; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); }
+  .test-grande .test-foto { padding: 18px 0 18px 18px; }
+  .test-grande .test-foto > * { aspect-ratio: auto; height: 100%; min-height: 260px; border-radius: 14px; }
+  .test-grande .test-corpo { padding: clamp(20px, 3vw, 34px); align-content: center; }
+  .test-grande .titolo-3 { font-size: clamp(24px, 2.6vw, 32px); }
+}
+@media (prefers-reduced-motion: reduce) { .test-carta, .test-via span { transition: none; } }

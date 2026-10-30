@@ -194,8 +194,18 @@
    "id": "zona_t",
    "nome": "Zona T",
    "valori": [
-    "opaca",
+    "secca",
+    "normale",
     "lucida"
+   ]
+  },
+  {
+   "id": "guance",
+   "nome": "Guance",
+   "valori": [
+    "secche",
+    "normali",
+    "lucide"
    ]
   },
   {
@@ -253,16 +263,6 @@
     "onnivora",
     "vegetariana",
     "vegana"
-   ]
-  },
-  {
-   "id": "budget",
-   "nome": "Budget per prodotto",
-   "valori": [
-    "base",
-    "top",
-    "premium",
-    "nessuna"
    ]
   },
   {
@@ -446,13 +446,7 @@
      }
     }
    ],
-   "aiuto": "Alcuni prodotti sono formulati in modo diverso per la pelle maschile e per quella femminile: usiamo questa risposta solo per questo.",
-   "se": [
-    {
-     "asse": "sebo",
-     "min": 1
-    }
-   ]
+   "aiuto": "Alcuni prodotti sono formulati in modo diverso per la pelle maschile e per quella femminile: usiamo questa risposta solo per questo."
   },
   {
    "id": "eta",
@@ -525,7 +519,7 @@
       "sebo": 0
      },
      "scelte": {
-      "zona_t": "opaca"
+      "zona_t": "secca"
      }
     },
     {
@@ -535,7 +529,7 @@
       "sebo": 1
      },
      "scelte": {
-      "zona_t": "opaca"
+      "zona_t": "normale"
      }
     },
     {
@@ -560,6 +554,9 @@
      "testo": "Secche",
      "punti": {
       "sebo": 0
+     },
+     "scelte": {
+      "guance": "secche"
      }
     },
     {
@@ -567,6 +564,9 @@
      "testo": "Anche in questo caso normali",
      "punti": {
       "sebo": 1
+     },
+     "scelte": {
+      "guance": "normali"
      }
     },
     {
@@ -574,6 +574,9 @@
      "testo": "Lucide",
      "punti": {
       "sebo": 2
+     },
+     "scelte": {
+      "guance": "lucide"
      }
     }
    ],
@@ -634,12 +637,6 @@
       "idr": 2,
       "re": 1
      }
-    }
-   ],
-   "se": [
-    {
-     "asse": "sebo",
-     "min": 1
     }
    ]
   },
@@ -799,15 +796,17 @@
      "punti": {
       "imp": 3
      }
+    },
+    {
+     "id": "noduli",
+     "testo": "Ho brufoli grossi, profondi e dolorosi",
+     "punti": {
+      "imp": 3
+     },
+     "limite": "noduli"
     }
    ],
-   "aiuto": "Pensa agli ultimi tre mesi. Se i brufoli sono grossi, profondi e dolorosi, chiedi un parere di un dermatologo.",
-   "se": [
-    {
-     "asse": "sebo",
-     "min": 1
-    }
-   ]
+   "aiuto": "Pensa agli ultimi tre mesi. Se i brufoli sono grossi, profondi e dolorosi, chiedi un parere di un dermatologo."
   },
   {
    "id": "macchie",
@@ -1031,7 +1030,7 @@
      "id": "no",
      "testo": "Ogni giorno o quasi",
      "scelte": {
-      "barba": "no"
+      "barba": "mantenimento"
      }
     },
     {
@@ -1176,6 +1175,17 @@
      }
     },
     {
+     "id": "grassa",
+     "testo": "Sì, scaglie giallastre e untuose, che restano attaccate alla cute",
+     "punti": {
+      "desq": 2,
+      "cs": 1
+     },
+     "scelte": {
+      "forfora": "grassa"
+     }
+    },
+    {
      "id": "placche",
      "testo": "Placche spesse e arrossate, anche oltre l'attaccatura",
      "punti": {
@@ -1222,6 +1232,17 @@
       "caduta": "progressiva"
      },
      "limite": "diradamento"
+    },
+    {
+     "id": "chiazze",
+     "testo": "Ho zone senza capelli, a chiazze",
+     "punti": {
+      "cad": 3
+     },
+     "scelte": {
+      "caduta": "chiazze"
+     },
+     "limite": "chiazze"
     }
    ]
   },
@@ -2032,7 +2053,7 @@
    "risposte": {
     "genere": "donna",
     "eta": "meno-25",
-    "tzona": "molto-lucidi",
+    "tzona": "lucidi",
     "guance": "normali",
     "pori": "guance",
     "tira": "bene",
@@ -2048,8 +2069,7 @@
     "gravidanza": "no",
     "obiettivo": "imperfezioni",
     "esperienza": "mai",
-    "passi": "cinque",
-    "budget": "base"
+    "passi": "cinque"
    },
    "atteso": {
     "pelle": "acneica"
@@ -2062,7 +2082,7 @@
    "risposte": {
     "genere": "donna",
     "eta": "25-34",
-    "tzona": "molto-lucidi",
+    "tzona": "lucidi",
     "guance": "normali",
     "pori": "naso",
     "tira": "molto",
@@ -2078,8 +2098,7 @@
     "gravidanza": "no",
     "obiettivo": "idratazione",
     "esperienza": "a-volte",
-    "passi": "quattro",
-    "budget": "top"
+    "passi": "quattro"
    },
    "atteso": {
     "pelle": "seborroica-disidratata"
@@ -2109,8 +2128,7 @@
     "menopausa": "no",
     "obiettivo": "tempo",
     "esperienza": "spesso",
-    "passi": "cinque",
-    "budget": "premium"
+    "passi": "cinque"
    },
    "atteso": {
     "pelle": "secca",
@@ -2143,8 +2161,7 @@
     "gravidanza": "si",
     "obiettivo": "macchie",
     "esperienza": "a-volte",
-    "passi": "cinque",
-    "budget": "nessuna"
+    "passi": "cinque"
    },
    "atteso": {
     "pelle": "normale",
@@ -2176,8 +2193,7 @@
     "obiettivo": "calmare",
     "esperienza": "mai",
     "barba": "irritata",
-    "passi": "tre",
-    "budget": "nessuna"
+    "passi": "tre"
    },
    "atteso": {
     "pelle": "normale",
@@ -2201,7 +2217,7 @@
     "tira": "molto",
     "spella": "spesso",
     "crema": "beve",
-    "nuovo": "sempre",
+    "nuovo": "spesso",
     "rossore": "ore",
     "brufoli": "mai",
     "macchie": "no",
@@ -2211,8 +2227,7 @@
     "gravidanza": "no",
     "obiettivo": "calmare",
     "esperienza": "mai",
-    "passi": "tre",
-    "budget": "base"
+    "passi": "tre"
    },
    "atteso": {
     "pelle": "disidratata-sensibile",
@@ -2228,7 +2243,7 @@
    "risposte": {
     "genere": "uomo",
     "eta": "meno-25",
-    "tzona": "molto-lucidi",
+    "tzona": "lucidi",
     "guance": "lucide",
     "pori": "guance",
     "tira": "bene",
@@ -2244,8 +2259,7 @@
     "obiettivo": "imperfezioni",
     "esperienza": "mai",
     "barba": "no",
-    "passi": "tre",
-    "budget": "base"
+    "passi": "tre"
    },
    "atteso": {
     "pelle": "acneica",
@@ -2276,8 +2290,7 @@
     "menopausa": "no",
     "obiettivo": "tempo",
     "esperienza": "a-volte",
-    "passi": "cinque",
-    "budget": "top"
+    "passi": "cinque"
    },
    "atteso": {
     "pelle": "normale",
@@ -2311,8 +2324,7 @@
     "menopausa": "no",
     "obiettivo": "calmare",
     "esperienza": "mai",
-    "passi": "quattro",
-    "budget": "nessuna"
+    "passi": "quattro"
    },
    "atteso": {
     "pelle": "atopica",
@@ -2326,7 +2338,7 @@
    "risposte": {
     "genere": "uomo",
     "eta": "25-34",
-    "tzona": "molto-lucidi",
+    "tzona": "lucidi",
     "guance": "lucide",
     "pori": "guance",
     "tira": "bene",
@@ -2342,8 +2354,7 @@
     "obiettivo": "macchie",
     "esperienza": "spesso",
     "barba": "ok",
-    "passi": "cinque",
-    "budget": "nessuna"
+    "passi": "cinque"
    },
    "atteso": {
     "pelle": "seborroica-idratata",
@@ -2377,8 +2388,7 @@
     "menopausa": "si",
     "obiettivo": "tempo",
     "esperienza": "a-volte",
-    "passi": "quattro",
-    "budget": "top"
+    "passi": "quattro"
    },
    "atteso": {
     "pelle": "secca-disidratata",
@@ -2412,8 +2422,7 @@
     "gravidanza": "no",
     "obiettivo": "idratazione",
     "esperienza": "mai",
-    "passi": "tre",
-    "budget": "base"
+    "passi": "tre"
    },
    "atteso": {
     "pelle": "pelle-mista"
@@ -2436,8 +2445,7 @@
     ],
     "condizioni_cute": [
      "nessuna"
-    ],
-    "budget": "top"
+    ]
    },
    "atteso": {
     "cute": "seborroico"
@@ -2461,8 +2469,7 @@
     "condizioni_cute": [
      "nessuna"
     ],
-    "gravidanza": "si",
-    "budget": "nessuna"
+    "gravidanza": "si"
    },
    "atteso": {
     "cute": "caduta-reattiva",
@@ -2488,8 +2495,7 @@
     ],
     "condizioni_cute": [
      "nessuna"
-    ],
-    "budget": "premium"
+    ]
    },
    "atteso": {
     "cute": "diradamento",
@@ -2515,8 +2521,7 @@
     "condizioni_cute": [
      "nessuna"
     ],
-    "gravidanza": "no",
-    "budget": "top"
+    "gravidanza": "no"
    },
    "atteso": {
     "cute": "capelli-secchi"
@@ -2533,8 +2538,7 @@
     "dieta": "onnivora",
     "farmaci": "si",
     "gravidanza": "no",
-    "menopausa": "si",
-    "budget": "nessuna"
+    "menopausa": "si"
    },
    "atteso": {
     "integrazione": "sostegno-capelli",
@@ -2550,8 +2554,7 @@
     "eta": "25-34",
     "int_obiettivo": "nessuno",
     "dieta": "vegana",
-    "farmaci": "no",
-    "budget": "base"
+    "farmaci": "no"
    },
    "atteso": {
     "integrazione": "equilibrio",

@@ -219,6 +219,34 @@
     ]
    },
    "descrizione": "Pensati per la pelle maschile e per la barba."
+  },
+  {
+   "id": "senza-profumo",
+   "nome": "Senza profumo",
+   "regola": {
+    "senza": [
+     "profumo"
+    ]
+   },
+   "descrizione": "Prodotti con l’elenco degli ingredienti (INCI) verificato, senza profumo: la scelta più tranquilla per le pelli che si irritano facilmente."
+  },
+  {
+   "id": "senza-alcol",
+   "nome": "Senza alcol",
+   "regola": {
+    "senza": [
+     "alcol"
+    ]
+   },
+   "descrizione": "Prodotti con l’INCI verificato, senza alcol aggiunto: per chi ha la pelle secca o reattiva e lo preferisce evitare."
+  },
+  {
+   "id": "vegani",
+   "nome": "Vegani",
+   "regola": {
+    "vegano": true
+   },
+   "descrizione": "Prodotti dichiarati vegani dal produttore, senza ingredienti di origine animale."
   }
  ],
  "modifiche": {

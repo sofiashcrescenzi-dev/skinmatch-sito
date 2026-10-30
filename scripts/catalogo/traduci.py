@@ -457,6 +457,9 @@ def _corregge(nome, pas, marca=''):
         nome = re.sub(r'\bper (l\')?eczema\b', 'per brufoli', nome, flags=re.I)
         nome = re.sub(r"\b(dopo |contro )?l['’]eczema\b", lambda m: (m.group(1) or '') + 'i brufoli', nome, flags=re.I)
         nome = re.sub(r'\beczema\b', 'brufoli', nome, flags=re.I)
+        # «Zitless», la tecnologia dei microdardi di Acnemy, tradotto «senza brufoli» (Federico, 30/10/2026: «crema
+        # brufoli senza brufoli»): «Cerotti con microdardi per brufoli senza brufoli» diventa «… per brufoli Zitless»
+        nome = re.sub(r'\b(per (?:i )?brufoli) senza brufoli\b', r'\1 Zitless', nome, flags=re.I)
     return nome
 
 

@@ -8,7 +8,7 @@ import { useDocumento, BarraSalva, Campo, Testo, Titolo, Vuoto, nuovoId } from '
 // I NEGOZI (Federico, 15/10/2026): per ognuno la commissione, la spedizione e i codici sconto.
 // - La commissione decide il link quando lo stesso prodotto è in più negozi a prezzo simile
 //   (scripts/catalogo/offerte.py): vince chi paga di più.
-// - Spedizione e codici si vedono nella scheda prodotto, vicino a «Compra qui»; un codice scaduto sparisce da solo.
+// - Spedizione e codici si vedono nella scheda prodotto, vicino a «Acquista»; un codice scaduto sparisce da solo.
 // - «Attivo» no: il negozio resta fuori dal sito (per esempio finché non approva Skinmatch).
 const num = (s: string) => (s.trim() === '' ? null : Number(s.replace(',', '.')));
 
@@ -24,7 +24,7 @@ export default function Negozi() {
   const oggi = new Date().toISOString().slice(0, 10);
   return (
     <div className="pila" style={{ ['--gap' as string]: '24px' }}>
-      <Titolo sotto="La commissione sceglie il link quando un prodotto è in più negozi a prezzo simile; spedizione e codici sconto si vedono nelle schede, vicino a «Compra qui». Poi Salva e Pubblica.">I negozi</Titolo>
+      <Titolo sotto="La commissione sceglie il link quando un prodotto è in più negozi a prezzo simile; spedizione e codici sconto si vedono nelle schede, vicino a «Acquista». Poi Salva e Pubblica.">I negozi</Titolo>
       <div className="adm-scatole">
         {d.negozi.map((n, i) => {
           const su = aperto === n.id;

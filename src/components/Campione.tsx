@@ -10,10 +10,10 @@ import { segna } from '@/lib/eventi';
 export default function Campione({ href, prezzo, dove, id, da, da_prezzo }: { href: string; prezzo: number; dove: string | null; id: string; da: string; da_prezzo?: boolean }) {
   return (
     <a className="campione" href={href} target="_blank" rel="sponsored nofollow noopener"
-      aria-label={`Compra qui${dove ? ` su ${dove}` : ''}, ${da_prezzo ? 'da ' : ''}${euro(prezzo)}`}
+      aria-label={`Acquista${dove ? ` su ${dove}` : ''}, ${da_prezzo ? 'da ' : ''}${euro(prezzo)}`}
       onClick={() => segna({ e: 'clic', id, m: dove || 'negozio', da })}>
       <span className="cp">{da_prezzo ? <small>da&nbsp;</small> : null}{euro(prezzo)}</span>
-      <span className="cn">Compra qui</span>
+      <span className="cn">Acquista</span>
     </a>
   );
 }

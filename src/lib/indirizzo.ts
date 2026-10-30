@@ -17,6 +17,8 @@ export function rispetta(p: Product, r: RegolaProdotti, categorie = CATALOGO.cat
   if (r.genere && !r.genere.includes(p.gender)) return false;
   if (r.segmento?.length && !r.segmento.includes(p.segment || '')) return false;
   if (r.categorie?.length && !r.categorie.includes(categoriaDi(p, categorie)?.id || '')) return false;
+  if (r.senza?.length && !r.senza.every((k) => (p.scheda?.senza as string[] | undefined)?.includes(k))) return false;
+  if (r.vegano && p.scheda?.vegano !== true) return false;
   return true;
 }
 

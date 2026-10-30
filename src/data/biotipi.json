@@ -295,6 +295,18 @@
       "asse": "idr",
       "min": 3
      }
+    ],
+    [
+     {
+      "scelta": "zona_t",
+      "valori": [
+       "lucida"
+      ]
+     },
+     {
+      "asse": "idr",
+      "min": 3
+     }
     ]
    ],
    "bisogni": {
@@ -343,6 +355,20 @@
      {
       "asse": "sebo",
       "min": 5
+     }
+    ],
+    [
+     {
+      "scelta": "zona_t",
+      "valori": [
+       "lucida"
+      ]
+     },
+     {
+      "scelta": "guance",
+      "valori": [
+       "lucide"
+      ]
      }
     ]
    ],
@@ -452,7 +478,26 @@
     [
      {
       "asse": "sebo",
-      "max": 2
+      "max": 1
+     },
+     {
+      "asse": "idr",
+      "min": 3
+     }
+    ],
+    [
+     {
+      "scelta": "guance",
+      "valori": [
+       "secche"
+      ]
+     },
+     {
+      "scelta": "zona_t",
+      "valori": [
+       "secca",
+       "normale"
+      ]
      },
      {
       "asse": "idr",
@@ -504,7 +549,22 @@
     [
      {
       "asse": "sebo",
-      "max": 2
+      "max": 1
+     }
+    ],
+    [
+     {
+      "scelta": "guance",
+      "valori": [
+       "secche"
+      ]
+     },
+     {
+      "scelta": "zona_t",
+      "valori": [
+       "secca",
+       "normale"
+      ]
      }
     ]
    ],
@@ -595,14 +655,16 @@
    "regole": [
     [
      {
-      "asse": "sebo",
-      "min": 3,
-      "max": 4
-     },
-     {
       "scelta": "zona_t",
       "valori": [
        "lucida"
+      ]
+     },
+     {
+      "scelta": "guance",
+      "valori": [
+       "secche",
+       "normali"
       ]
      }
     ]

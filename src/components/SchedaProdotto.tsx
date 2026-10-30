@@ -10,7 +10,7 @@ import Campione from '@/components/Campione';
 import InfoNegozio from '@/components/InfoNegozio';
 
 // Un prodotto: foto, marca, nome e «La scheda completa» portano alla sua pagina (/catalogo/<categoria>/<oggetto>);
-// in fondo i tag e, per ultimo, il bottone prezzo + «Compra qui» verso il negozio (link di affiliazione,
+// in fondo i tag e, per ultimo, il bottone prezzo + «Acquista» verso il negozio (link di affiliazione,
 // rel sponsored, il clic si conta senza dati personali). Niente prezzo ogni 10 ml (Federico, 15/10).
 export default function SchedaProdotto({ p, da, sopra, sotto, conTag = true }: { p: Prodotto; da: string; sopra?: React.ReactNode; sotto?: React.ReactNode; conTag?: boolean }) {
   const dove = negozio(p);
@@ -38,7 +38,7 @@ export default function SchedaProdotto({ p, da, sopra, sotto, conTag = true }: {
         </div>
       </div>
       {sotto}
-      {/* in fondo: i tag e sotto il «Compra qui» (Federico, 15/10) */}
+      {/* in fondo: i tag e sotto l’«Acquista» (Federico, 15/10; «Compra qui» fino al 30/10) */}
       <div className="carta-fondo">
         {tag.length > 0 && <div className="riga-chip">{tag.map((t) => <span key={t} className="chip tenue">{t}</span>)}</div>}
         <div className="riga-compra">

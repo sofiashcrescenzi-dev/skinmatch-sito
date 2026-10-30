@@ -12,8 +12,7 @@
 //    tutte le sue condizioni sono vere;
 // 3. PRIMA I FILTRI, POI I PUNTI: in gravidanza solo i prodotti segnati sicuri; con la pelle
 //    molto reattiva o un limite «solo delicati» solo quelli per pelli sensibili; poi la
-//    compatibilità 0-100 (alta da 70, media da 50) decide il consigliato e l'alternativa che
-//    costa meno.
+//    compatibilità 0-100 (alta da 70, media da 50) sceglie la top e l'alternativa che costa meno (scegli).
 
 import { TEST, BIOTIPI, type Area, type Biotipo, type Condizione, type Domanda, type Limite, type Passaggio, type Percorso, type Test, type Valore } from './dati';
 import { PRODOTTI, rispetta, type Prodotto } from './catalogo';
@@ -149,7 +148,7 @@ const forzaDi = (ps: Passaggio, p: Profilo) => {
 };
 
 export type Scelto = { prodotto: Prodotto; compat: number; livello: 'alta' | 'media'; perche: string[] };
-export type PassaggioScelto = { passaggio: Passaggio; consigliato: Scelto; alternativa: (Scelto & { come: 'costa meno' | 'premium' }) | null };
+export type PassaggioScelto = { passaggio: Passaggio; consigliato: Scelto; alternativa: (Scelto & { come: 'costa meno' }) | null; meglio: string[] };
 export type RisultatoArea = { area: Area; biotipo: Biotipo | null; tratti: Biotipo[]; passaggi: PassaggioScelto[]; vuoti: Passaggio[] };
 export type Risultato = { percorso: Percorso; profilo: Profilo; domande: Domanda[]; aree: RisultatoArea[]; limiti: Limite[] };
 
@@ -272,33 +271,74 @@ function scegli(area: Area, ps: Passaggio, p: Profilo, b: Bisogni, biotipo: Biot
     if (dichiarati.length) voti.splice(0, voti.length, ...dichiarati);
     else nonVegano = true;
   }
-  let top = voti[0];
-  const budget = p.scelte.budget;
-  if (typeof budget === 'string' && budget !== 'nessuna') {
-    const nella = voti.find((v) => v.x.tier === budget);
-    if (nella && nella.c >= top.c - 10) top = nella;
-  }
+  // ⚠️ SEMPRE UN PRODOTTO TOP E UN'ALTERNATIVA (Federico, 30/10/2026: «Non voglio la domanda su quanto vuoi pagare, tu
+  // devi mettere sempre un prodotto costoso e una alternativa, evidenziando dove quello costoso è comunque migliore»).
+  // Prima la compatibilità saliva a 100 per decine di prodotti, e a parità vinceva il più economico: il consigliato era
+  // quasi sempre il prodotto base e l'alternativa più cara usciva di rado. Ora:
+  // 1. la scelta top: tra i più compatibili (fino a 8 punti dal migliore), la fascia più alta, poi la compatibilità, poi
+  //    gli attivi giusti per i bisogni, poi il prezzo;
+  // 2. l'alternativa: fa lo stesso lavoro e costa almeno un quinto in meno (anche al ml); prima una simile davvero
+  //    (lib/simili.ts), se non c'è una dello stesso passaggio, zona e forma con un bisogno in comune;
+  // 3. dove la top è migliore, con i dati delle schede (doveMeglio): se non lo è in niente di misurabile, lo si dice.
+  const RANGO: Record<string, number> = { premium: 3, top: 2, base: 1 };
+  const voluti = ATTIVI_PER[typeof p.scelte.obiettivo === 'string' ? p.scelte.obiettivo : ''] || [];
+  const ricchezza = (x: Prodotto) => {
+    const att = new Set((x.scheda?.attivi || []).map((a) => a.nome));
+    return voluti.filter((a) => att.has(a)).length * 2 + [...att].filter((a) => ATTIVI_CHIAVE.has(a)).length;
+  };
+  const migliore = voti[0].c;
+  const fascia = voti.filter((v) => v.c >= migliore - 8);
+  const top = [...fascia].sort((u, v) => (RANGO[v.x.tier] || 0) - (RANGO[u.x.tier] || 0) || ordine(v) - ordine(u)
+    || ricchezza(v.x) - ricchezza(u.x) || linkPronto(v.x) - linkPronto(u.x) || v.x.price - u.x.price)[0];
   const livello = (c: number): 'alta' | 'media' => (c >= 70 ? 'alta' : 'media');
   // nel giro integrativo il primo «perché» è l'indicazione autorizzata del bisogno, parola per parola (integratori.ts)
   const indicazione = area === 'integrazione' && ps.con_bisogno ? BISOGNI.find((x) => x.chiave === ps.con_bisogno)?.principale : undefined;
   const avvisoVegano = nonVegano ? [p.scelte.dieta === 'vegana' ? 'non è dichiarato vegano: controlla l\'etichetta prima di comprarlo' : 'non è dichiarato vegetariano: controlla l\'etichetta prima di comprarlo'] : [];
   const scelto = (v: { x: Prodotto; c: number }): Scelto => ({ prodotto: v.x, compat: v.c, livello: livello(v.c), perche: [...avvisoVegano, ...(indicazione ? [indicazione] : []), ...percheDi(v.x, area, b, p, biotipo)] });
-  // l'alternativa: la più compatibile che costa almeno un quinto in meno; se il consigliato
-  // è già il più economico, quella premium più compatibile
-  // ⚠️ L'ALTERNATIVA FA LO STESSO LAVORO (Friday, 15/10: una crema per i brufoli proposta come
-  // alternativa a una crema lenitiva su pelle secca): deve avere almeno un bisogno in comune con
-  // quelli per cui il consigliato è stato scelto, e la stessa natura di prodotto (solare con solare).
+  // ⚠️ L'ALTERNATIVA FA LO STESSO LAVORO (Friday, 15/10: una crema per i brufoli proposta come alternativa a una crema
+  // lenitiva su pelle secca): almeno un bisogno in comune con quelli per cui la top è stata scelta.
   const lavoro = (x: Prodotto) => [...(x.concerns || []), ...(x.hairConcerns || [])].filter((k) => b.concerns.has(k) || b.capelli.has(k));
   const lavoroTop = lavoro(top.x);
-  // e (Federico, 15/10) stessa zona, stessa forma, stesso attivo principale, formato vicino: lib/simili.ts.
-  // Senza scheda non si sa se è simile: nessuna alternativa (meglio nessuna che una a caso).
-  const stesso = (x: Prodotto) => (!lavoroTop.length || lavoro(x).some((k) => lavoroTop.includes(k))) && simili(top.x, x);
-  const meno = voti.find((v) => v !== top && stesso(v.x) && menoCaro(v.x, top.x) && v.c >= Math.max(50, top.c - 15));
-  const premium = !meno && budget !== 'base' ? voti.find((v) => v !== top && stesso(v.x) && v.x.tier === 'premium' && top.x.tier !== 'premium' && v.c >= Math.max(50, top.c - 10)) : undefined;
-  const alt = meno || premium;
+  const inComune = (x: Prodotto) => !lavoroTop.length || lavoro(x).some((k) => lavoroTop.includes(k));
+  const vicina = (x: Prodotto) => !!x.scheda && !!top.x.scheda && zonaDi(x) === zonaDi(top.x) && formaDi(x) === formaDi(top.x)
+    && x.scheda.passaggio === top.x.scheda.passaggio;
+  const candidate = voti.filter((v) => v !== top && v.x.brand + v.x.name !== top.x.brand + top.x.name && menoCaro(v.x, top.x) && inComune(v.x)
+    && v.c >= Math.max(50, top.c - 15));
+  const piuCompat = (u: { x: Prodotto; c: number }, v: { x: Prodotto; c: number }) => ordine(v) - ordine(u) || u.x.price - v.x.price;
+  const alt = candidate.filter((v) => simili(top.x, v.x)).sort(piuCompat)[0] || candidate.filter((v) => vicina(v.x)).sort(piuCompat)[0];
   usati.add(top.x.id);
   if (alt) usati.add(alt.x.id);
-  return { passaggio: ps, consigliato: scelto(top), alternativa: alt ? { ...scelto(alt), come: meno ? 'costa meno' : 'premium' } : null };
+  return {
+    passaggio: ps, consigliato: scelto(top),
+    alternativa: alt ? { ...scelto(alt), come: 'costa meno' } : null,
+    meglio: alt ? doveMeglio(top.x, alt.x, top.c, alt.c, voluti, { gravidanza: p.scelte.gravidanza === true, sensibile: re >= 2 || delicati }) : [],
+  };
+}
+
+// DOVE LA TOP È MIGLIORE DELL'ALTERNATIVA: solo cose che le schede dicono (attivi, percentuali, profumo, pelli sensibili,
+// INCI verificato, prezzo al ml). Se non c'è niente da dire, si dice che fanno lo stesso lavoro: meglio un vero «no»
+// che un vantaggio inventato.
+export function doveMeglio(t: Prodotto, a: Prodotto, ct: number, ca: number, voluti: string[] = [],
+  chi: { gravidanza?: boolean; sensibile?: boolean } = {}): string[] {
+  const r: string[] = [];
+  const at = new Map((t.scheda?.attivi || []).map((x) => [x.nome, x.perc ?? null]));
+  const aa = new Map((a.scheda?.attivi || []).map((x) => [x.nome, x.perc ?? null]));
+  const piu = [...at.keys()].filter((n) => !aa.has(n) && (ATTIVI_CHIAVE.has(n) || voluti.includes(n)))
+    .sort((x, y) => Number(voluti.includes(y)) - Number(voluti.includes(x))).slice(0, 3);
+  if (piu.length) r.push(`ha in più ${piu.length > 1 ? `${piu.slice(0, -1).join(', ')} e ${piu[piu.length - 1]}` : piu[0]}`);
+  const pc = (n: number) => `${String(n).replace('.', ',')}%`;
+  for (const [n, perc] of at) {
+    const q = aa.get(n);
+    if (perc && q && perc > q) { r.push(`${n} al ${pc(perc)}, contro il ${pc(q)}`); break; }
+  }
+  if (ct - ca >= 5) r.push('risponde meglio alle tue risposte');
+  // pelli sensibili e gravidanza solo a chi riguardano: agli altri sono rumore
+  if (chi.sensibile && t.sensitiveSafe === true && a.sensitiveSafe !== true) r.push('adatto anche alle pelli sensibili');
+  if (t.scheda?.senza?.includes('profumo') && (a.scheda?.profumo === true || a.scheda?.con?.includes('profumo'))) r.push('senza profumo');
+  if (chi.gravidanza && t.pregnancySafe === true && a.pregnancySafe !== true) r.push('segnato sicuro in gravidanza');
+  if (t.scheda?.inci && !a.scheda?.inci) r.push('ingredienti verificati, elenco INCI completo');
+  if (t.scheda?.al_10 && a.scheda?.al_10 && t.scheda.al_10 < a.scheda.al_10) r.push('al ml costa meno');
+  return r;
 }
 
 export function consiglia(percorso: Percorso, risposte: Risposte): Risultato {

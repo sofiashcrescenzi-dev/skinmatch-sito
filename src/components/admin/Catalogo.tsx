@@ -44,6 +44,8 @@ function regolaInParole(r: RegolaProdotti) {
   if (r.sensibili) p.push('adatti alle pelli sensibili');
   if (r.gravidanza) p.push('sicuri in gravidanza');
   if (r.genere?.length) p.push(r.genere.join(', '));
+  if (r.senza?.length) p.push(`senza ${r.senza.map((k) => k.replace('_', ' ')).join(', ')} (dall'INCI)`);
+  if (r.vegano) p.push('vegani');
   return p.join(' · ') || 'nessuna regola: solo i prodotti messi a mano';
 }
 
@@ -76,8 +78,12 @@ function EditorRegola({ r, cambia, categoria, categorie, marchePer, segmenti }: 
         <Campo etichetta="Sicurezza"><div className="pila" style={{ ['--gap' as string]: '4px' }}>
           <label className="piccolo" style={{ display: 'inline-flex', gap: 6, alignItems: 'center' }}><input type="checkbox" checked={!!r.sensibili} onChange={(e) => v('sensibili', e.target.checked || undefined)} />solo adatti alle pelli sensibili</label>
           <label className="piccolo" style={{ display: 'inline-flex', gap: 6, alignItems: 'center' }}><input type="checkbox" checked={!!r.gravidanza} onChange={(e) => v('gravidanza', e.target.checked || undefined)} />solo sicuri in gravidanza</label>
+          <label className="piccolo" style={{ display: 'inline-flex', gap: 6, alignItems: 'center' }}><input type="checkbox" checked={!!r.vegano} onChange={(e) => v('vegano', e.target.checked || undefined)} />solo dichiarati vegani</label>
         </div></Campo>
       </div>
+      <Campo etichetta="Senza, letto nell'INCI" aiuto="Solo i prodotti con l'elenco degli ingredienti verificato che non contiene quello che spunti.">
+        <Scegli valori={['profumo', 'alcol', 'oli_essenziali']} nomi={{ profumo: 'profumo', alcol: 'alcol', oli_essenziali: 'oli essenziali' }} scelti={r.senza} cambia={(x) => v('senza', x)} />
+      </Campo>
       <Campo etichetta={`Marche (${adatte.length} con questi criteri)`} aiuto="Nessuna scelta = tutte quelle qui sotto.">
         {marche.length ? <Scegli valori={marche} scelti={r.marca} cambia={(x) => v('marca', x)} /> : <span className="piccolo">Nessuna marca con questi criteri.</span>}
       </Campo>

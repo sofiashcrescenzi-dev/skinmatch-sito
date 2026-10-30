@@ -123,6 +123,10 @@ export type RegolaProdotti = {
   genere?: string[];
   segmento?: string[]; // il segmento della marca deciso nell'artifact «Le marche di Skinmatch»
   categorie?: string[]; // le categorie del catalogo (sieri, creme…): un filtro può valere solo per alcune
+  // dall'INCI verificato (30/10/2026, Federico: «trova quali filtri marketing sono utilizzabili»): profumo, alcol, oli
+  // essenziali che la scheda sa ASSENTI; un prodotto senza INCI non entra, perché non si sa
+  senza?: string[];
+  vegano?: boolean; // dichiarato vegano nella scheda
 };
 // la fascia di prezzo, rispetto agli altri prodotti dello stesso passaggio (scripts/catalogo/schede.py):
 // il terzo più economico, la parte centrale, il 20% più caro
