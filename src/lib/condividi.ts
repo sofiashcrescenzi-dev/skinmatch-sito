@@ -9,6 +9,7 @@
 // link di un test diverso non dà un risultato sbagliato, dice che il test è cambiato (decodifica → «vecchio»).
 // I link di prima (cominciano con «eyJ») si leggono ancora.
 import type { Risposte, Risultato } from './motore';
+import { giornataDi, MOMENTI } from './giornata';
 import { TEST, type Domanda } from './dati';
 
 const SEGNI = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_';
@@ -85,15 +86,32 @@ export function indirizzoCondiviso(r: Risultato, codice: string): string {
   return `/risultato${b ? `/${b.id}` : ''}#${codice}`;
 }
 
-// ⚠️ PIÙ TESO (30/10/2026, Federico): una riga, il biotipo, il suo motto e la domanda. Il conto dei prodotti e dei
-// momenti della giornata allungava senza convincere; lo racconta la pagina.
-const IO: Record<string, [string, string]> = { pelle: ['Il mio biotipo Skinmatch', 'E il tuo?'], cute: ['La mia cute, secondo Skinmatch', 'E la tua?'], integrazione: ['Il mio profilo Skinmatch', 'E il tuo?'] };
+// ⚠️ UN MESSAGGIO COME LO SCRIVEREBBE UNA PERSONA (30/10/2026, Federico: «quando fai condividi o copia link vorrei
+// anche del testo, tipo "hey guarda ho fatto il test su skinmatch.it ed è uscito che…", e il link con l'immagine»).
+// Cosa è uscito, il motto, che routine ne viene e l'invito a farlo; il link in fondo, da solo sulla sua riga, così
+// l'app ne fa l'anteprima con la carta. I limiti («prima un consulto con un medico») non entrano: li legge chi apre.
+const COSA: Record<string, string> = { pelle: 'il mio biotipo è', cute: 'il biotipo della mia cute è', integrazione: 'il mio profilo è' };
+const QUELLO: Record<string, string> = { pelle: 'il biotipo della pelle', cute: 'quello della cute', integrazione: 'il profilo per l’integrazione' };
+const unisci = (v: string[]) => (v.length < 2 ? v.join('') : `${v.slice(0, -1).join(', ')} e ${v[v.length - 1]}`);
 
 export function messaggio(r: Risultato, mio: boolean): { titolo: string; testo: string } {
-  const a = r.aree.find((x) => x.biotipo);
-  const tempo = `Bastano ${r.percorso.minuti} minuti:`;
-  if (!a) return { titolo: 'Il test di Skinmatch', testo: `Il test di Skinmatch: domande su quello che vedi allo specchio. ${tempo}` };
-  const b = a.biotipo!, [io, tu] = IO[a.area];
-  if (!mio) return { titolo: `Un risultato di Skinmatch: ${b.titolo}`, testo: `Un risultato del test di Skinmatch: ${b.titolo}. ${tu} ${tempo}` };
-  return { titolo: `${io}: ${b.titolo}`, testo: `${io}: ${b.titolo}. ${b.motto} ${tu} ${tempo}` };
+  const aree = r.aree.filter((x) => x.biotipo);
+  const tempo = `ci vogliono circa ${r.percorso.minuti} minuti`;
+  const invito = `Fallo anche tu, ${tempo}: sono domande su quello che vedi allo specchio, e le risposte restano sul tuo telefono.`;
+  if (!aree.length) return { titolo: 'Il test di Skinmatch', testo: `Ehi, guarda: su skinmatch.it c’è un test per capire che pelle hai e che prodotti usare. ${invito}` };
+  const [a, ...altre] = aree;
+  const b = a.biotipo!;
+  if (!mio) {
+    return { titolo: `Un risultato di Skinmatch: ${b.titolo}`, testo: `Ehi, guarda questo risultato del test di skinmatch.it: è uscito «${b.titolo}». ${invito}` };
+  }
+  const uscito = [`${COSA[a.area]} «${b.titolo}»`, ...altre.map((x) => `${QUELLO[x.area]} «${x.biotipo!.titolo}»`)];
+  const g = giornataDi(r);
+  const n = g.passi.length + g.settimana.length;
+  const quando = unisci(MOMENTI.filter((m) => g.passi.some((p) => p.orario.momenti.includes(m.id))).map((m) => m.nome.toLowerCase()));
+  const soloIntegratori = r.aree.every((x) => x.area === 'integrazione');
+  const routine = !n ? '' : soloIntegratori
+    ? `Mi ha consigliato ${n === 1 ? 'un integratore, con' : `${n} integratori, ognuno con`} un’alternativa che di solito costa meno.`
+    : `Mi ha dato una routine di ${n} ${n === 1 ? 'prodotto' : 'prodotti'}${quando ? `, ${quando}` : ''}, e per ognuno anche un’alternativa che di solito costa meno.`;
+  const righe = [`Ehi, guarda: ho fatto il test su skinmatch.it ed è uscito che ${unisci(uscito)}.`, `«${b.motto}»`, routine, invito];
+  return { titolo: `Il mio biotipo Skinmatch: ${b.titolo}`, testo: righe.filter(Boolean).join('\n') };
 }

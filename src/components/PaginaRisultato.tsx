@@ -55,13 +55,13 @@ export default function PaginaRisultato() {
     <div className="azioni-risultato">
       {mio ? (<>
         <Condividi titolo={m.titolo} messaggio={m.testo} indirizzo={indirizzo} />
-        <Copia indirizzo={indirizzo} />
+        <Copia messaggio={m.testo} indirizzo={indirizzo} />
         <Link href={`/test?percorso=${percorso.id}&nuovo=1`} className="bottone secondario"><Icona nome="aggiorna" size={18} />Rifai il test</Link>
         <Link href="/test?nuovo=1" className="bottone secondario">Prova un altro test</Link>
       </>) : (<>
         <Invito href={`/test?percorso=${percorso.id}&nuovo=1`}>Scopri il tuo biotipo</Invito>
         <Condividi titolo={m.titolo} messaggio={m.testo} indirizzo={indirizzo} testo="Condividi" />
-        <Copia indirizzo={indirizzo} />
+        <Copia messaggio={m.testo} indirizzo={indirizzo} />
       </>)}
     </div>
   );
