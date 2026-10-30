@@ -65,10 +65,10 @@
    "commissione": null,
    "attivo": true,
    "spedizione": {
-    "costo": null,
-    "gratis_da": null,
+    "costo": 7,
+    "gratis_da": 59.9,
     "tempi": "",
-    "nota": ""
+    "nota": "Da 7 € secondo peso e volume; gratis da 59,90 € (condizioni sul sito, 30/10/2026)."
    },
    "codici": [],
    "nota": "Awin, unito a Skinmatch. Dal 23/10/2026: solo integratori scelti uno per uno (Metagenics, Norsan Zreen), con ingredienti e quantità per dose."

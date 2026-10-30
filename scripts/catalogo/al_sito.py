@@ -312,13 +312,10 @@ DEC_NEGOZI = json.loads((Path(__file__).parent / 'decisioni_negozi.json').read_t
 
 
 # LO STESSO PRODOTTO IN PIÙ NEGOZI (Federico, 16/10 sera): resta dov'è, a meno che il negozio nuovo lo venda
-# almeno il 10% in meno. CON_SPEDIZIONE: se nel confronto entra la spedizione per un pezzo solo (Beautycos 11,95 €,
-# Liki24 5,99 €). Deciso da Federico il 16/10 nella revisione di Beautycos: conta solo il prezzo del prodotto.
-# Il 30/10 per Clubfarma: «se più conveniente e le spese di spedizione pure, meglio mettere prodotto di clubfarma».
-# CON_SPEDIZIONE sono i negozi per cui il confronto conta la spedizione da tutte e due le parti; per gli altri è una
-# decisione aperta nella pagina del punto del 30/10 (con la spedizione, dei 17 prodotti passati a Beautycos ne restano 8).
+# almeno il 10% in meno. ⚠️ CON LA SPEDIZIONE, PER TUTTI I NEGOZI (Federico, 30/10, pagina del punto: «sì»): il costo
+# è quello di un pezzo solo spedito (Beautycos 11,95 €, Liki24 5,99 €, gratis sopra la soglia del negozio), da tutte
+# e due le parti. Il 16/10, con Beautycos, contava solo il prezzo del prodotto; il 30/10 Clubfarma ha aperto la regola.
 PIU_CONVENIENTE = 0.9
-CON_SPEDIZIONE = {'clubfarma'}
 
 
 def stesso_formato(a, b):
@@ -330,10 +327,10 @@ def stesso_formato(a, b):
     return bool(ma and mb and ma.get('valore') == mb.get('valore') and ma.get('unita') == mb.get('unita') and a.get('pezzi') == b.get('pezzi'))
 
 
-def costo(s, spedizione=False):
+def costo(s):
     c = s['prezzo'] or 0
     sp = (per_nome(s['negozio']) or {}).get('spedizione') or {}
-    if spedizione and sp.get('costo') and not (sp.get('gratis_da') and c >= sp['gratis_da']):
+    if sp.get('costo') and not (sp.get('gratis_da') and c >= sp['gratis_da']):
         c += sp['costo']
     return c
 
@@ -398,8 +395,7 @@ def unisci(schede, altri, tutti_si=None):
                 continue
             rec = trova(s, gia)
             if rec is not None:
-                sped = nid in CON_SPEDIZIONE
-                piu_cari = [r for r in stessi_formato(s, gia) if costo(s, sped) <= costo(r, sped) * PIU_CONVENIENTE] if scelto else []
+                piu_cari = [r for r in stessi_formato(s, gia) if costo(s) <= costo(r) * PIU_CONVENIENTE] if scelto else []
                 for r in piu_cari:
                     r.update({x: s[x] for x in ('negozio', 'prezzo', 'prezzo_pieno', 'link', 'id_negozio', 'url_negozio') if x in s})
                 if piu_cari:
