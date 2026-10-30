@@ -460,6 +460,9 @@ def _corregge(nome, pas, marca=''):
         # «Zitless», la tecnologia dei microdardi di Acnemy, tradotto «senza brufoli» (Federico, 30/10/2026: «crema
         # brufoli senza brufoli»): «Cerotti con microdardi per brufoli senza brufoli» diventa «… per brufoli Zitless»
         nome = re.sub(r'\b(per (?:i )?brufoli) senza brufoli\b', r'\1 Zitless', nome, flags=re.I)
+    # «Ceutics», metà della linea Isdinceutics che il negozio scrive staccata: nel nome non dice niente (30/10/2026)
+    if marca == 'ISDIN':
+        nome = re.sub(r'\b(?:isdin)?ceutics\b\s*', '', nome, flags=re.I).strip()
     return nome
 
 

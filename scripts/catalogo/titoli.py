@@ -219,5 +219,8 @@ def titolo_e_sottotitolo(nome, s):
     ha_tipo = any(w.lower() in TIPO for w in re.findall(r'[A-Za-zÀ-ÿ]+', resto))
     if len(parole_resto) < 2 or inglesi >= len(parole_resto) / 2 or (not ha_tipo and len(parole_resto) < 3):
         resto = sottotitolo_dalla_scheda(s) if s else resto
+    # la stessa parola due volte di fila, anche separata da una virgola o da un trattino («Gel gel detergente»,
+    # «Shampoo, shampoo per…», «Maschera - maschera capelli secchi», «uomo uomo»: Federico, 30/10/2026)
+    resto = re.sub(r'\b([A-Za-zÀ-ÿ]{2,})(?:\s*[,:–-]\s*|\s+)\1\b', r'\1', resto, flags=re.I)
     resto = resto[:1].upper() + resto[1:] if resto else resto
     return titolo, resto
