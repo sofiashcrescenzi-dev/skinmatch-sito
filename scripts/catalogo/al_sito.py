@@ -522,7 +522,8 @@ def main(candidati=None):
     neg = sys.argv[1] if len(sys.argv) > 1 else 'liki24'
     schede = json.loads((R / 'feeds-out' / f'schede-{neg}.json').read_text())
     # gli altri negozi attivi in admin (Farmaself): solo i prodotti che su Liki24 non ci sono
-    attivi = {n['id']: n for n in NEGOZI if n['id'] != neg and n['attivo']}
+    # (con --candidati il negozio in prova conta anche se è ancora spento: la proposta serve proprio prima di accenderlo)
+    attivi = {n['id']: n for n in NEGOZI if n['id'] != neg and (n['attivo'] or n['id'] == candidati)}
     altri = [json.loads(f.read_text()) for f in (R / 'feeds-out' / f'schede-{i}.json' for i in attivi) if f.exists()]
     schede, conti = unisci(schede, altri, candidati)
     # LE MARCHE APERTE DOPO IL 15/10 (Federico, 16/10: «studiamo bene tutti i prodotti»): non entrano per marca ma

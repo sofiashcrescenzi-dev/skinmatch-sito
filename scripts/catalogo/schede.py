@@ -130,7 +130,7 @@ def scegli(r, dec, negozio=None):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument('negozio', choices=['liki24', 'farmaself', 'beautycos', 'astonfarma'])
+    ap.add_argument('negozio', choices=['liki24', 'farmaself', 'beautycos', 'astonfarma', 'stylevana', 'clubfarma'])
     ap.add_argument('--file')
     ap.add_argument('--arricchisci', action='store_true')
     a = ap.parse_args()

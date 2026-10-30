@@ -72,6 +72,36 @@
    },
    "codici": [],
    "nota": "Awin, unito a Skinmatch. Dal 23/10/2026: solo integratori scelti uno per uno (Metagenics, Norsan Zreen), con ingredienti e quantità per dose."
+  },
+  {
+   "id": "stylevana",
+   "nome": "Stylevana",
+   "rete": "Awin",
+   "commissione": 5,
+   "attivo": true,
+   "spedizione": {
+    "costo": 4.39,
+    "gratis_da": 47,
+    "tempi": "8-14 giorni lavorativi, da Hong Kong",
+    "nota": ""
+   },
+   "codici": [],
+   "nota": "Awin, programma 31533 (Stylevana IT), 5% dall'API Awin (30/10/2026). Spedizione dalla pagina del negozio (30/10). Entra solo con i prodotti scelti uno per uno (decisioni_negozi.json)."
+  },
+  {
+   "id": "clubfarma",
+   "nome": "Clubfarma",
+   "rete": "Awin",
+   "commissione": 7,
+   "attivo": false,
+   "spedizione": {
+    "costo": null,
+    "gratis_da": 59.9,
+    "tempi": "",
+    "nota": "costo sotto soglia non dichiarato"
+   },
+   "codici": [],
+   "nota": "Awin, programma 113792 (Clubfarma IT), 7% dall'API Awin (30/10/2026). Il feed Awin risulta importato l'ultima volta il 05/06/2026: prezzi da controllare. Entra solo con i prodotti scelti uno per uno. ⚠️ Spento finché i prezzi non hanno una fonte fresca: a campione il 30/10, 7 prezzi veri su 8 diversi da quelli del feed."
   }
  ]
 }

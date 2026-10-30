@@ -15,7 +15,7 @@ from pathlib import Path
 csv.field_size_limit(10 ** 8)
 CANALE_ADTRACTION = '2119692688'
 # il prefisso degli id dei prodotti per negozio (lk-188565, cf-…): gli id non si toccano più, sono le pagine
-PREFISSO = {'Liki24': 'lk', 'Farmaself': 'fs', 'Beautycos': 'bc'}
+PREFISSO = {'Liki24': 'lk', 'Farmaself': 'fs', 'Beautycos': 'bc', 'Stylevana': 'sv', 'Clubfarma': 'cf'}
 CACHE = Path(__file__).resolve().parents[2] / 'feeds-out' / 'cache'
 UA = 'Mozilla/5.0 (SkinmatchBot; +https://skinmatch.it)'
 
@@ -230,6 +230,60 @@ def astonfarma(file=None):
             'misura_feed': None, 'prefisso': 'af', 'categoria_negozio': (r.get('merchant_category') or '').strip(),
             'url_negozio': pagina,  # la pagina del negozio, per la revisione del PO (mai il link tracciato)
         }
+
+
+# STYLEVANA E CLUBFARMA (30/10/2026, Federico: «abbiamo stylevana e clubfarma da awin da integrare»). Skinmatch è
+# iscritto a tutti e due (Stylevana IT 31533, Clubfarma IT 113792): il feed lo scarica la chiave di Agoranomos, il link
+# si rifà con l'ID publisher di Skinmatch, come Astonfarma. Completano Liki24 e basta: entrano solo le marche decise e i
+# prodotti scelti uno per uno dal PO (decisioni_negozi.json), come per gli altri negozi.
+# ⚠️ Stylevana scrive i titoli in inglese, «Marca - Prodotto - 100ml»; Clubfarma lascia la marca vuota («false») su un
+# quinto del feed, e quei prodotti restano fuori perché nessuna marca decisa li riconosce.
+def _awin(negozio, prefisso, mid, nome_feed, file=None, titolo=lambda t: t):
+    import csv, gzip, io
+    from urllib.parse import quote, urlsplit, urlunsplit
+    sorgente = file or segreto(nome_feed)
+    if not sorgente:
+        raise SystemExit(f'Manca il feed di {negozio}: {nome_feed} in ~/.skinmatch-segreti.env, oppure --file')
+    grezzo = Path(sorgente).read_bytes() if Path(str(sorgente)).exists() else urllib.request.urlopen(sorgente, timeout=300).read()
+    try:
+        grezzo = gzip.decompress(grezzo)
+    except OSError:
+        pass
+    pub = segreto('AWIN_PUBLISHER_ID')
+    for r in csv.DictReader(io.StringIO(grezzo.decode('utf-8', 'replace'))):
+        if r.get('in_stock', '1') == '0':
+            continue
+        marca = (r.get('brand_name') or '').strip()
+        if marca.lower() in ('', 'false', 'none', 'null'):
+            continue
+        u = urlsplit(r.get('merchant_deep_link') or '')
+        pagina = urlunsplit((u.scheme, u.netloc, u.path, '', '')) if u.netloc else None
+        link = f"https://www.awin1.com/cread.php?awinmid={mid}&awinaffid={pub}&clickref=skinmatch&ued={quote(pagina, safe='')}" if pagina and pub else None
+        yield {
+            'negozio': negozio, 'id': r.get('merchant_product_id') or r.get('aw_product_id'), 'titolo': corretto(titolo(pulito(r.get('product_name')))),
+            'marca': marca, 'descrizione': pulito(r.get('description')), 'prezzo': _prezzo(r.get('search_price')), 'prezzo_pieno': _prezzo(r.get('rrp_price')) or None,
+            'gtin': (r.get('ean') or r.get('product_GTIN') or '').strip() or None,
+            'immagine': r.get('merchant_image_url') or r.get('large_image') or r.get('aw_image_url'), 'link': link,
+            'misura_feed': None, 'prefisso': prefisso, 'categoria_negozio': (r.get('merchant_category') or '').strip(),
+            'url_negozio': pagina,  # la pagina del negozio, per la revisione del PO (mai il link tracciato)
+        }
+
+
+def _trattini(t):
+    """«COSRX - Advanced Snail 96 Mucin Power Essence - 100ml» → «COSRX Advanced Snail 96 Mucin Power Essence, 100ml»."""
+    pezzi = [x.strip() for x in t.split(' - ') if x.strip()]
+    return (' '.join(pezzi[:-1]) + ', ' + pezzi[-1]) if len(pezzi) > 2 else ' '.join(pezzi)
+
+
+def stylevana(file=None):
+    """Il catalogo di Stylevana (Awin): K-beauty e J-beauty, titoli in inglese. Le offerte a tempo («[Saldi]», «[Deal]»)
+    restano fuori: quasi sempre doppioni del prodotto normale, e vanno e vengono."""
+    return (x for x in _awin('Stylevana', 'sv', 31533, 'FEED_STYLEVANA', file, _trattini) if not x['titolo'].startswith('['))
+
+
+def clubfarma(file=None):
+    """Il catalogo di Clubfarma (Awin): farmacia generalista, titoli spesso in minuscolo."""
+    return _awin('Clubfarma', 'cf', 113792, 'FEED_CLUBFARMA', file, _maiuscole_af)
 
 
 # ── arricchimento ──────────────────────────────────────────────────────────────
