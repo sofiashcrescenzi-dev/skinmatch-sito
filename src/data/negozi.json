@@ -93,15 +93,15 @@
    "nome": "Clubfarma",
    "rete": "Awin",
    "commissione": 7,
-   "attivo": false,
+   "attivo": true,
    "spedizione": {
-    "costo": null,
+    "costo": 5.99,
     "gratis_da": 59.9,
     "tempi": "",
-    "nota": "costo sotto soglia non dichiarato"
+    "nota": "Corriere 5,99 € sotto i 59,90 €, InPost 3,99 €; gratis sopra i 59,90 € (condizioni sul sito, 30/10/2026)."
    },
    "codici": [],
-   "nota": "Awin, programma 113792 (Clubfarma IT), 7% dall'API Awin (30/10/2026). Il feed Awin risulta importato l'ultima volta il 05/06/2026: prezzi da controllare. Entra solo con i prodotti scelti uno per uno. ⚠️ Spento finché i prezzi non hanno una fonte fresca: a campione il 30/10, 7 prezzi veri su 8 diversi da quelli del feed."
+   "nota": "Awin, programma 113792 (Clubfarma IT), 7% dall'API Awin (30/10/2026). Il feed Awin è fermo al 05/06/2026: i prezzi si leggono sulle pagine del negozio una volta al mese (scripts/catalogo/prezzi_pagine.py, Federico 30/10) e valgono 40 giorni; senza prezzo controllato il prodotto non va sul sito. Entra solo con i prodotti scelti uno per uno; nel confronto con gli altri negozi conta anche la spedizione."
   }
  ]
 }

@@ -281,9 +281,27 @@ def stylevana(file=None):
     return (x for x in _awin('Stylevana', 'sv', 31533, 'FEED_STYLEVANA', file, _trattini) if not x['titolo'].startswith('['))
 
 
+# ⚠️ IL FEED FERMO (30/10/2026): il feed Awin di Clubfarma è fermo al 5 giugno. Il prezzo vero si legge sulla pagina
+# del negozio una volta al mese (prezzi_pagine.py) e vale PREZZI_VALIDI giorni; un prodotto senza prezzo controllato,
+# o esaurito, resta nelle schede (così il controllo del mese dopo lo rilegge) ma senza prezzo, e non va sul sito.
+PREZZI_VALIDI = 40
+
+
+def prezzi_controllati(negozio):
+    from datetime import date
+    f = CACHE.parent / f'prezzi-{negozio}.json'
+    tutti = json.loads(f.read_text()) if f.exists() else {}
+    return {u: x for u, x in tutti.items() if (date.today() - date.fromisoformat(x['il'])).days <= PREZZI_VALIDI}
+
+
 def clubfarma(file=None):
-    """Il catalogo di Clubfarma (Awin): farmacia generalista, titoli spesso in minuscolo."""
-    return _awin('Clubfarma', 'cf', 113792, 'FEED_CLUBFARMA', file, _maiuscole_af)
+    """Il catalogo di Clubfarma (Awin): farmacia generalista, titoli spesso in minuscolo. Prezzi dalle pagine."""
+    controllati = prezzi_controllati('clubfarma')
+    for x in _awin('Clubfarma', 'cf', 113792, 'FEED_CLUBFARMA', file, _maiuscole_af):
+        c = controllati.get(x['url_negozio'])
+        x['prezzo'] = c['prezzo'] if c and c['disponibile'] else None
+        x['prezzo_pieno'] = None  # anche il prezzo pieno del feed è vecchio
+        yield x
 
 
 # ── arricchimento ──────────────────────────────────────────────────────────────
