@@ -470,9 +470,16 @@ def nome_pulito(titolo, marca):
     """Il nome senza la marca, la misura e il maiuscolo urlato (regola dei titoli di tutti i siti)."""
     t = titolo
     # la marca anche tradotta dal negozio («Grazie Farmer», «Mary e May»)
-    for m_ in {marca, marca.replace(' and ', ' e '), marca.replace(' & ', ' e '), marca.replace('-', ' '), re.sub(r'(?i)^thank you', 'Grazie', marca)} if marca else ():
+    forme = [re.escape(m_) for m_ in {marca, marca.replace(' and ', ' e '), marca.replace(' & ', ' e '), marca.replace('-', ' '), re.sub(r'(?i)^thank you', 'Grazie', marca)}] if marca else []
+    # ⚠️ LA MARCA CON I SEPARATORI DI UN ALTRO (30/10/2026): il feed scrive «Geek&Gorgeous» e «A-Derma», i titoli
+    # «Jelly Joker, Geek & Gorgeous» e «ADERMA Epitheliale»: la marca restava nel nome. Tra le sue parole vale qualunque
+    # separatore, anche nessuno.
+    parole = re.findall(r'[^\W_]+', marca or '')
+    if len(parole) > 1:
+        forme.append(r"[\s&'’.\-]*".join(map(re.escape, parole)))
+    for f in forme:
         # parola intera: «A Derma» non deve prendersi la «a» di «A-Derma Dermalibour», né «Isdin» mezza «Isdinceutics»
-        t = re.sub(r'(?<!\w)' + re.escape(m_) + r'(?!\w)', ' ', t, flags=re.I)
+        t = re.sub(r'(?<!\w)' + f + r'(?!\w)', ' ', t, flags=re.I)
     if marca:
         t2 = _senza_accenti(t)
         if len(t2) == len(t):  # la marca scritta con gli accenti («Avène»): si toglie sulla versione senza

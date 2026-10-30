@@ -81,7 +81,7 @@ function PassoVista({ p, da }: { p: Passo; da: string }) {
   const ps = p.scelta.passaggio;
   const quando = [...p.orario.momenti.map((m) => MOMENTI.find((x) => x.id === m)!.nome.toLowerCase()), ...(p.orario.ogni ? [p.orario.ogni] : [])];
   return (
-    <div id={`passo-${ps.id}`} className="passo pila" style={{ ['--gap' as string]: '10px' }}>
+    <div id={`passo-${ps.id}`} tabIndex={-1} className="passo pila" style={{ ['--gap' as string]: '10px' }}>
       <div className="passo-testa">
         <span className="titolo-3" style={{ fontSize: 18 }}>{ps.nome}</span>
         <span className="riga-chip">{quando.map((q) => <span key={q} className="chip tenue">{q}</span>)}</span>

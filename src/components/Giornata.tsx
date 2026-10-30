@@ -6,13 +6,28 @@ import type { Giornata as G, Passo } from '@/lib/giornata';
 
 // LA TUA GIORNATA: la fascia dall'alba alla notte con i prodotti all'ora in cui si usano, e sotto quelli che non sono
 // di ogni giorno. Il fondo va dai toni chiari ai toni scuri della scala dei fototipi: la luce del giorno, col marchio.
-// Ogni foto porta al suo passaggio più sotto. Vedi lib/giornata.ts.
+// Ogni foto porta al suo passaggio più sotto, scorrendo (vai). Vedi lib/giornata.ts.
 const ORE = [6, 9, 12, 15, 18, 21, 24];
+
+// ⚠️ SI SCORRE, NON SI CAMBIA L'INDIRIZZO (30/10/2026, Federico: «il clic sull'immaginina porta a link errati»). Le
+// risposte del risultato stanno dopo il «#» (lib/condividi.ts): un'ancora «#passo-crema» le sostituiva, la pagina
+// rileggeva l'indirizzo e diceva «Questo link non contiene un risultato». Il passaggio d'arrivo si illumina un attimo.
+function vai(e: React.MouseEvent<HTMLAnchorElement>, id: string) {
+  const el = document.getElementById(`passo-${id}`);
+  if (!el) return;
+  e.preventDefault();
+  const fermo = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  el.scrollIntoView({ behavior: fermo ? 'auto' : 'smooth', block: 'start' });
+  el.focus({ preventScroll: true });
+  el.classList.remove('arrivo');
+  void el.offsetWidth; // fa ripartire l'animazione se si tocca due volte la stessa foto
+  el.classList.add('arrivo');
+}
 
 function Bolla({ p, piccola, k }: { p: Passo; piccola?: boolean; k?: number }) {
   const x = p.scelta.consigliato.prodotto;
   return (
-    <a href={`#passo-${p.scelta.passaggio.id}`} className={`gi-bolla${p.orario.ogni ? ' gi-ogni' : ''}${piccola ? ' gi-piccola' : ''}`}
+    <a href={`#passo-${p.scelta.passaggio.id}`} onClick={(e) => vai(e, p.scelta.passaggio.id)} className={`gi-bolla${p.orario.ogni ? ' gi-ogni' : ''}${piccola ? ' gi-piccola' : ''}`}
       title={`${k ? `${k} · ` : ''}${p.scelta.passaggio.nome}${p.orario.ogni ? ` (${p.orario.ogni})` : ''}: ${x.brand} ${x.name}`}>
       <FotoProdotto src={x.image} alt="" variante="mini" />
       {k ? <b aria-hidden="true">{k}</b> : null}
