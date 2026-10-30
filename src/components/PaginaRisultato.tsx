@@ -4,9 +4,9 @@ import { useEffect, useMemo, useState } from 'react';
 import Link from 'next/link';
 import { percorsoPerId } from '@/lib/dati';
 import { consiglia } from '@/lib/motore';
-import { decodifica, indirizzoCondiviso, messaggio } from '@/lib/condividi';
+import { codifica, decodifica, indirizzoCondiviso, messaggio } from '@/lib/condividi';
 import Risultato from '@/components/Risultato';
-import Condividi from '@/components/Condividi';
+import Condividi, { Copia } from '@/components/Condividi';
 import { Invito } from '@/components/Inviti';
 import Icona from '@/components/Icona';
 
@@ -24,14 +24,17 @@ export default function PaginaRisultato() {
       try {
         const st = JSON.parse(localStorage.getItem(CHIAVE) || 'null');
         const d = decodifica(c);
-        setMio(!!st && !!d && st.percorso === d.percorso && JSON.stringify(st.risposte) === JSON.stringify(d.risposte));
+        // il proprio risultato: lo stesso codice (i link corti) o le stesse risposte (i link di prima del 30/10)
+        setMio(!!st && !!d && d !== 'vecchio' && st.percorso === d.percorso &&
+          (c === codifica(st.percorso, st.risposte) || JSON.stringify(st.risposte) === JSON.stringify(d.risposte)));
       } catch { setMio(false); }
     };
     leggi();
     window.addEventListener('hashchange', leggi);
     return () => window.removeEventListener('hashchange', leggi);
   }, []);
-  const dati = useMemo(() => (codice ? decodifica(codice) : null), [codice]);
+  const letto = useMemo(() => (codice ? decodifica(codice) : null), [codice]);
+  const dati = letto === 'vecchio' ? null : letto;
   const percorso = dati ? percorsoPerId(dati.percorso) : null;
   const r = useMemo(() => (dati && percorso ? consiglia(percorso, dati.risposte) : null), [dati, percorso]);
 
@@ -40,8 +43,8 @@ export default function PaginaRisultato() {
     return (
       <main className="contenitore sezione pila" style={{ ['--gap' as string]: '16px', minHeight: '50vh' }}>
         <span className="etichetta">Il risultato</span>
-        <h1 className="titolo-2">Questo link non contiene un risultato</h1>
-        <p className="intro">Forse si è tagliato copiandolo. Il test dura pochi minuti.</p>
+        <h1 className="titolo-2">{letto === 'vecchio' ? 'Il test è cambiato da quando è stato condiviso questo risultato' : 'Questo link non contiene un risultato'}</h1>
+        <p className="intro">{letto === 'vecchio' ? 'Le domande non sono più le stesse, quindi non possiamo ricostruirlo. Il test dura pochi minuti.' : 'Forse si è tagliato copiandolo. Il test dura pochi minuti.'}</p>
         <div><Invito href="/test">Fai il test</Invito></div>
       </main>
     );
@@ -52,11 +55,13 @@ export default function PaginaRisultato() {
     <div className="azioni-risultato">
       {mio ? (<>
         <Condividi titolo={m.titolo} messaggio={m.testo} indirizzo={indirizzo} />
+        <Copia indirizzo={indirizzo} />
         <Link href={`/test?percorso=${percorso.id}&nuovo=1`} className="bottone secondario"><Icona nome="aggiorna" size={18} />Rifai il test</Link>
         <Link href="/test?nuovo=1" className="bottone secondario">Prova un altro test</Link>
       </>) : (<>
         <Invito href={`/test?percorso=${percorso.id}&nuovo=1`}>Scopri il tuo biotipo</Invito>
         <Condividi titolo={m.titolo} messaggio={m.testo} indirizzo={indirizzo} testo="Condividi" />
+        <Copia indirizzo={indirizzo} />
       </>)}
     </div>
   );

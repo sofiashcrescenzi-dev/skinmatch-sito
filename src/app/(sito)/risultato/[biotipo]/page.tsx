@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
-import { existsSync } from 'node:fs';
+import { existsSync, readFileSync } from 'node:fs';
+import { createHash } from 'node:crypto';
 import { join } from 'node:path';
 import { BIOTIPI } from '@/lib/dati';
 import PaginaRisultato from '@/components/PaginaRisultato';
@@ -18,7 +19,10 @@ export async function generateMetadata({ params }: { params: Promise<{ biotipo: 
   const io = b.area === 'integrazione' ? 'Il mio profilo' : 'Il mio biotipo';
   const titolo = `${io}: ${b.titolo}`;
   const descrizione = `«${b.motto}» E il tuo? Fai il test di Skinmatch: domande su quello che vedi allo specchio, una routine con un’alternativa che costa meno per ogni prodotto.`;
-  const carta = existsSync(join(process.cwd(), 'public', 'condividi', `${b.id}.jpg`)) ? `/condividi/${b.id}.jpg` : null;
+  // l'impronta del file nell'indirizzo: WhatsApp e le altre app tengono l'anteprima di un'immagine già vista, e una carta
+  // rifatta (30/10/2026: il testo nel quadrato centrale) altrimenti non la vedrebbe nessuno
+  const file = join(process.cwd(), 'public', 'condividi', `${b.id}.jpg`);
+  const carta = existsSync(file) ? `/condividi/${b.id}.jpg?v=${createHash('md5').update(readFileSync(file)).digest('hex').slice(0, 8)}` : null;
   return {
     title: titolo,
     description: descrizione,
