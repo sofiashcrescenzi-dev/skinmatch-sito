@@ -49,6 +49,22 @@ export function orarioDi(ps: Passaggio): Orario {
   return { momenti: momenti.length || ogni ? momenti : ['mattina'], ordine: ps.area === 'integrazione' ? 8 : 5, ogni, minuti: ps.area === 'integrazione' ? 0 : 1 };
 }
 
+// ⚠️ IL MOMENTO DEL PRODOTTO, NON SOLO DEL PASSAGGIO (30/10/2026). Il siero stava sempre la mattina: un siero su
+// dieci era con retinoidi o acidi esfolianti (Sesderma Reti Age, Filorga Age-Purify), che vanno la sera perché rendono
+// la pelle sensibile al sole. La scheda sa quando si usa (scripts/catalogo/traduci.py, «momento»: retinoidi e acidi la
+// sera, vitamina C la mattina, «notte» la sera, il resto mattina e sera) e per siero e crema vale quella.
+// Per la crema conta solo «sera» (da notte, con retinoidi): la scheda segna «mattina» anche le creme idratanti con un
+// po' di vitamina C (Clinique Moisture Surge, Round Lab), e la sera la pelle restava senza crema.
+// Gli altri passaggi hanno il loro orario fisso: la barba la mattina anche se il dopobarba si potrebbe usare di sera.
+function orarioScelta(s: PassaggioScelto): Orario {
+  const o = orarioDi(s.passaggio);
+  const m = s.consigliato.prodotto.scheda?.momento;
+  if (!m || o.ogni) return o;
+  if (s.passaggio.id === 'siero') return { ...o, momenti: m === 'mattina' ? ['mattina'] : m === 'sera' ? ['sera'] : ['mattina', 'sera'] };
+  if (s.passaggio.id === 'crema' && m === 'sera') return { ...o, momenti: ['sera'] };
+  return o;
+}
+
 export type Passo = { scelta: PassaggioScelto; orario: Orario; n: number };
 export type Giornata = {
   momenti: { id: Momento; nome: string; ora: string; passi: Passo[] }[];
@@ -62,7 +78,7 @@ export type Giornata = {
 
 export function giornataDi(r: Risultato): Giornata {
   const tutti = r.aree.flatMap((a) => a.passaggi);
-  const ordinati = tutti.map((s, i) => ({ s, i, o: orarioDi(s.passaggio) }))
+  const ordinati = tutti.map((s, i) => ({ s, i, o: orarioScelta(s) }))
     .sort((u, v) => primo(u.o) - primo(v.o) || u.o.ordine - v.o.ordine || u.i - v.i);
   const passi: Passo[] = ordinati.map((x, k) => ({ scelta: x.s, orario: x.o, n: k + 1 }));
   const momenti = MOMENTI.map((m) => ({ ...m, passi: passi.filter((p) => p.orario.momenti.includes(m.id)).sort((u, v) => u.orario.ordine - v.orario.ordine) }));

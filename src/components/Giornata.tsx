@@ -39,6 +39,13 @@ export default function Giornata({ g }: { g: G }) {
   const mattina = g.momenti.find((m) => m.id === 'mattina')?.passi.length || 0;
   const sera = g.momenti.find((m) => m.id === 'sera')?.passi.length || 0;
   const risparmio = g.costoTop - g.costoAlternative;
+  // ⚠️ I NUMERI NON RIPARTONO LA SERA E, SE CI SONO SOLO MATTINA E SERA, UNA ACCANTO ALL'ALTRA (Federico, 30/10/2026):
+  // la mattina 1-4, la sera 5-6; senza il pranzo la fascia delle ore lasciava un pomeriggio vuoto in mezzo.
+  const due = !g.momenti.some((m) => m.id === 'pranzo' && m.passi.length);
+  const pelle = g.passi.some((p) => p.scelta.passaggio.area === 'pelle');
+  const momenti = due ? g.momenti.filter((m) => m.id !== 'pranzo') : g.momenti;
+  const inizio: Record<string, number> = {};
+  momenti.reduce((n, m) => { inizio[m.id] = n; return n + m.passi.length; }, 0);
   return (
     <section className="gi pila" aria-labelledby="gi-titolo" style={{ ['--gap' as string]: '18px' }}>
       <div className="pila" style={{ ['--gap' as string]: '6px' }}>
@@ -46,20 +53,20 @@ export default function Giornata({ g }: { g: G }) {
         <h2 id="gi-titolo" className="titolo-2">La tua giornata</h2>
       </div>
 
-      <div className="gi-fascia" role="img" aria-label={g.momenti.filter((m) => m.passi.length).map((m) => `${m.nome}, verso le ${m.ora}: ${m.passi.map((p) => p.scelta.passaggio.nome.toLowerCase()).join(', ')}`).join('. ')}>
+      <div className={`gi-fascia${due ? ' gi-due' : ''}`} role="img" aria-label={g.momenti.filter((m) => m.passi.length).map((m) => `${m.nome}, verso le ${m.ora}: ${m.passi.map((p) => p.scelta.passaggio.nome.toLowerCase()).join(', ')}`).join('. ')}>
         <div className="gi-cielo" aria-hidden="true" />
-        <ol className="gi-ore" aria-hidden="true">{ORE.map((h) => <li key={h} style={{ left: `${((h - 6) / 18) * 100}%` }}>{h === 24 ? '0' : h}</li>)}</ol>
-        {/* tre colonne fisse, anche vuote: la mattina resta a sinistra e la sera a destra, come sulla fascia delle ore */}
-        {g.momenti.map((m) => (
+        {!due && <ol className="gi-ore" aria-hidden="true">{ORE.map((h) => <li key={h} style={{ left: `${((h - 6) / 18) * 100}%` }}>{h === 24 ? '0' : h}</li>)}</ol>}
+        {/* con il pranzo, tre colonne fisse sulla fascia delle ore; senza, mattina e sera affiancate */}
+        {momenti.map((m) => (
           <div key={m.id} className={`gi-momento gi-${m.id}${m.passi.length ? '' : ' gi-vuoto'}`}>
             {m.passi.length > 0 && <>
               <span className="gi-quando"><b>{m.ora}</b>{m.nome.replace(/^(La|A) /, '')}</span>
-              <div className="gi-pila">{m.passi.map((p, i) => <Bolla key={p.scelta.passaggio.id} p={p} k={i + 1} />)}</div>
+              <div className="gi-pila">{m.passi.map((p, i) => <Bolla key={p.scelta.passaggio.id} p={p} k={inizio[m.id] + i + 1} />)}</div>
             </>}
           </div>
         ))}
       </div>
-      <p className="piccolo">Gli orari sono indicativi. I numeri dicono in che ordine stenderli: prima il più leggero, la protezione solare per ultima. Tocca un prodotto per vederlo.</p>
+      <p className="piccolo">Gli orari sono indicativi. I numeri seguono la giornata{pelle ? ': la mattina dal prodotto più leggero alla protezione solare, poi la sera' : ''}. Tocca un prodotto per vederlo.</p>
 
       {g.settimana.length > 0 && (
         <div className="pila" style={{ ['--gap' as string]: '10px' }}>

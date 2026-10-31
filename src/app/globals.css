@@ -535,6 +535,12 @@ details.carta > summary::-webkit-details-marker { display: none; }
   border-radius: var(--raggio); overflow: hidden; padding: 18px clamp(8px, 2vw, 18px) 40px; min-height: 190px; }
 .gi-cielo { position: absolute; inset: 0; z-index: -1;
   background: linear-gradient(90deg, var(--f1) 0%, #fbf1ea 20%, var(--foglio) 42%, #f6ebe3 58%, var(--f4) 76%, var(--f6) 92%, var(--cacao) 100%); }
+/* solo mattina e sera (Giornata.tsx, due): le due colonne affiancate, dalla luce al buio, i prodotti in fila */
+.gi-fascia.gi-due { grid-template-columns: repeat(2, minmax(0, 1fr)); padding-bottom: 20px; min-height: 0; }
+.gi-due .gi-cielo { background: linear-gradient(90deg, var(--f1) 0%, var(--foglio) 26%, #f6ebe3 44%, var(--f4) 60%, var(--f6) 82%, var(--cacao) 100%); }
+.gi-due .gi-pila { max-width: calc(4 * var(--bolla) + 18px); }
+.gi-due .gi-bolla { --bolla: clamp(48px, 4.6vw, 62px); width: var(--bolla); height: var(--bolla); }
+.gi-due { --bolla: clamp(48px, 4.6vw, 62px); }
 .gi-ore { position: absolute; left: clamp(8px, 2vw, 18px); right: clamp(8px, 2vw, 18px); bottom: 10px; height: 18px; margin: 0; padding: 0; list-style: none; }
 .gi-ore li { position: absolute; transform: translateX(-50%); font-size: 11px; font-weight: 700; font-variant-numeric: tabular-nums; color: var(--cacao);
   background: rgba(250, 246, 244, .78); border-radius: 999px; padding: 1px 6px; }
