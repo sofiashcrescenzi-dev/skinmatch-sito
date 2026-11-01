@@ -277,6 +277,12 @@ function scegli(area: Area, ps: Passaggio, p: Profilo, b: Bisogni, biotipo: Biot
     if (dichiarati.length) voti.splice(0, voti.length, ...dichiarati);
     else nonVegano = true;
   }
+  // ⚠️ L'OMEGA-3 DA PESCE PER CHI LO MANGIA (1/11/2026, resoconto: l'omega-3 di alga, vegano, usciva per tutti): chi non
+  // mangia vegano o vegetariano riceve prima quelli da pesce; quello di alga resta per chi lo chiede.
+  if (area === 'integrazione' && !veg && ps.con_bisogno === 'omega-3') {
+    const pesce = voti.filter((v) => v.x.scheda?.vegano !== true);
+    if (pesce.length) voti.splice(0, voti.length, ...pesce);
+  }
   // ⚠️ SEMPRE UN PRODOTTO TOP E UN'ALTERNATIVA (Federico, 30/10/2026: «Non voglio la domanda su quanto vuoi pagare, tu
   // devi mettere sempre un prodotto costoso e una alternativa, evidenziando dove quello costoso è comunque migliore»).
   // Prima la compatibilità saliva a 100 per decine di prodotti, e a parità vinceva il più economico: il consigliato era
@@ -314,8 +320,10 @@ function scegli(area: Area, ps: Passaggio, p: Profilo, b: Bisogni, biotipo: Biot
   // alternativa a una crema idratante, un antiforfora come alternativa a un trattamento per capelli secchi)
   const principaleTop = lavoro(top.x)[0];
   const inComune = (x: Prodotto) => !principaleTop || lavoro(x).includes(principaleTop);
-  const vicina = (x: Prodotto) => !!x.scheda && !!top.x.scheda && zonaDi(x) === zonaDi(top.x) && formaDi(x) === formaDi(top.x)
-    && x.scheda.passaggio === top.x.scheda.passaggio;
+  // un integratore fa lo stesso lavoro se risponde allo stesso bisogno, in gocce, film o compresse (1/11/2026, resoconto:
+  // vitamina D, B12 e omega-3 restavano senza alternativa perché la forma non combaciava)
+  const vicina = (x: Prodotto) => (area === 'integrazione' && !!ps.con_bisogno) || (!!x.scheda && !!top.x.scheda && zonaDi(x) === zonaDi(top.x)
+    && formaDi(x) === formaDi(top.x) && x.scheda.passaggio === top.x.scheda.passaggio);
   const candidate = voti.filter((v) => v !== top && v.x.brand + v.x.name !== top.x.brand + top.x.name && menoCaro(v.x, top.x) && inComune(v.x)
     && v.c >= Math.max(50, top.c - 15));
   const piuCompat = (u: { x: Prodotto; c: number }, v: { x: Prodotto; c: number }) => ordine(v) - ordine(u) || u.x.price - v.x.price;
