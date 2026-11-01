@@ -165,6 +165,12 @@ function bisogniDi(biotipo: Biotipo | null, tratti: Biotipo[], p: Profilo): Biso
 
 const linkPronto = (x: Prodotto) => (x.linkPending ? 0 : 4);
 
+// ⚠️ DELICATO, PER AREA (1/11/2026, resoconto: il cuoio capelluto con psoriasi non riceveva nessun prodotto). «Adatto
+// alle pelli sensibili» è un dato della pelle e nessun prodotto per capelli ce l'ha: con un limite «solo delicati» il
+// cuoio capelluto restava vuoto. Lì delicato vuol dire per cute sensibile e di forza leggera.
+export const delicato = (x: Prodotto, area: Area) =>
+  area === 'cute' ? (x.scalpTypes || []).includes('sensibile') && (!x.scheda || x.scheda.forza <= 1) : x.sensitiveSafe === true;
+
 // «C'è qualcosa che preferisci evitare?» (16/10): fuori i prodotti che lo contengono, avanti quelli che di sicuro
 // non lo contengono; di quelli che non conosciamo non si dice niente
 const SENSIBILI = [['profumo', 'profumo'], ['alcol', 'alcol'], ['oli_essenziali', 'oli essenziali']] as const;
@@ -245,7 +251,7 @@ function scegli(area: Area, ps: Passaggio, p: Profilo, b: Bisogni, biotipo: Biot
     .filter((x) => !['creme', 'attivi'].includes(ps.categoria) || formaDi(x) !== 'detergente')
     .filter((x) => x.gender === 'unisex' || genere === 'altro' || genere === undefined || x.gender === genere)
     .filter((x) => p.scelte.gravidanza !== true || x.pregnancySafe === true)
-    .filter((x) => !(delicati || (area === 'pelle' && re >= 3)) || x.sensitiveSafe === true)
+    .filter((x) => !(delicati || (area === 'pelle' && re >= 3)) || delicato(x, area))
     .filter((x) => !(area === 'pelle' && re >= 2) || x.sensitiveSafe !== false)
     // dalla scheda, come nel prototipo: i prodotti forti solo a chi usa già gli attivi; con un limite medico
     // solo i delicati; con la pelle molto reattiva niente profumo
@@ -288,7 +294,13 @@ function scegli(area: Area, ps: Passaggio, p: Profilo, b: Bisogni, biotipo: Biot
   };
   const migliore = voti[0].c;
   const fascia = voti.filter((v) => v.c >= migliore - 8);
-  const top = [...fascia].sort((u, v) => (RANGO[v.x.tier] || 0) - (RANGO[u.x.tier] || 0) || ordine(v) - ordine(u)
+  // ⚠️ PRIMA IL PRODOTTO FATTO PER QUELLO (1/11/2026, resoconto: a pari compatibilità decideva la fascia, e a chi ha
+  // l'acne usciva una crema anti-età da 85 € prima della crema per l'acne). Fra i più compatibili prima chi ha come
+  // bisogno principale (il primo) l'obiettivo della persona, o il primo bisogno del suo tipo; poi la fascia, come prima.
+  const mira = area === 'integrazione' ? undefined : area === 'cute' ? biotipo?.bisogni.capelli?.[0]
+    : typeof p.scelte.obiettivo === 'string' ? p.scelte.obiettivo : biotipo?.bisogni.concerns?.[0];
+  const centrato = (x: Prodotto) => (mira && ((area === 'cute' ? x.hairConcerns : x.concerns) || [])[0] === mira ? 1 : 0);
+  const top = [...fascia].sort((u, v) => centrato(v.x) - centrato(u.x) || (RANGO[v.x.tier] || 0) - (RANGO[u.x.tier] || 0) || ordine(v) - ordine(u)
     || ricchezza(v.x) - ricchezza(u.x) || linkPronto(v.x) - linkPronto(u.x) || v.x.price - u.x.price)[0];
   const livello = (c: number): 'alta' | 'media' => (c >= 70 ? 'alta' : 'media');
   // nel giro integrativo il primo «perché» è l'indicazione autorizzata del bisogno, parola per parola (integratori.ts)
@@ -298,8 +310,10 @@ function scegli(area: Area, ps: Passaggio, p: Profilo, b: Bisogni, biotipo: Biot
   // ⚠️ L'ALTERNATIVA FA LO STESSO LAVORO (Friday, 15/10: una crema per i brufoli proposta come alternativa a una crema
   // lenitiva su pelle secca): almeno un bisogno in comune con quelli per cui la top è stata scelta.
   const lavoro = (x: Prodotto) => [...(x.concerns || []), ...(x.hairConcerns || [])].filter((k) => b.concerns.has(k) || b.capelli.has(k));
-  const lavoroTop = lavoro(top.x);
-  const inComune = (x: Prodotto) => !lavoroTop.length || lavoro(x).some((k) => lavoroTop.includes(k));
+  // e condivide il bisogno principale della top, non uno qualsiasi (1/11/2026, resoconto: una crema per le macchie come
+  // alternativa a una crema idratante, un antiforfora come alternativa a un trattamento per capelli secchi)
+  const principaleTop = lavoro(top.x)[0];
+  const inComune = (x: Prodotto) => !principaleTop || lavoro(x).includes(principaleTop);
   const vicina = (x: Prodotto) => !!x.scheda && !!top.x.scheda && zonaDi(x) === zonaDi(top.x) && formaDi(x) === formaDi(top.x)
     && x.scheda.passaggio === top.x.scheda.passaggio;
   const candidate = voti.filter((v) => v !== top && v.x.brand + v.x.name !== top.x.brand + top.x.name && menoCaro(v.x, top.x) && inComune(v.x)

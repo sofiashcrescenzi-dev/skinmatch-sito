@@ -10,7 +10,7 @@
 
 import { TEST, BIOTIPI, TAG_BIOTIPI, TERMINI, CATALOGO, ARTICOLI, NOZIONI, type Condizione } from '../src/lib/dati';
 import { PRODOTTI, prodottoPerId, indirizzo } from '../src/lib/catalogo';
-import { consiglia, profiloDi } from '../src/lib/motore';
+import { consiglia, profiloDi, delicato } from '../src/lib/motore';
 import { PRODUCTS } from '../src/lib/products';
 
 let fermo = false;
@@ -99,7 +99,7 @@ for (const per of TEST.persone) {
   const p = profiloDi(per.risposte);
   for (const a of r.aree) for (const ps of a.passaggi) for (const s of [ps.consigliato, ps.alternativa].filter(Boolean)) {
     if (p.scelte.gravidanza === true && s!.prodotto.pregnancySafe !== true) pericoli.push(`${per.nome}: ${s!.prodotto.id} in gravidanza`);
-    if (r.limiti.some((l) => l.area === a.area && l.solo_delicati) && s!.prodotto.sensitiveSafe !== true) pericoli.push(`${per.nome}: ${s!.prodotto.id} non delicato`);
+    if (r.limiti.some((l) => l.area === a.area && l.solo_delicati) && !delicato(s!.prodotto, a.area)) pericoli.push(`${per.nome}: ${s!.prodotto.id} non delicato`);
   }
 }
 // ⚠️ LE PERSONE TIPO AVVISANO, NON FERMANO (23/10/2026, Federico: «mandare online e poi fate check»). Sono il

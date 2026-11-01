@@ -183,6 +183,27 @@ def main():
                 n['ruolo'], n['segmento'] = s['ruolo'], s['segmento']
                 n['completezza'] = traduci.completezza(n)
                 schede[i] = n
+    # ⚠️ LA STESSA CONFEZIONE, PIÙ OFFERTE (1/11/2026, resoconto di ogni risultato: 612 EAN di Liki24 con più schede a
+    # prezzi diversi; il Cicaplast Lavant 200 ml a 78 € e a 14,40 €, e il prezzo alto lo faceva passare per premium).
+    # Per ogni EAN, a parità di misura, vale l'offerta più economica: le altre schede tengono il loro id (sono pagine
+    # del sito) ma prendono prezzo e link di quella, prima che si calcoli la fascia.
+    per_ean = defaultdict(list)
+    for s in schede:
+        g = (s.get('gtin') or '').lstrip('0')
+        if g and s.get('prezzo'):
+            per_ean[g].append(s)
+    allineate = 0
+    for xs in per_ean.values():
+        m = min(xs, key=lambda x: x['prezzo'])
+        for s in xs:
+            if s is m or s['prezzo'] <= m['prezzo'] or (s.get('misura') and m.get('misura') and s['misura'] != m['misura']):
+                continue
+            if s.get('al_10'):
+                s['al_10'] = round(s['al_10'] * m['prezzo'] / s['prezzo'], 2)
+            for c in ('prezzo', 'prezzo_pieno', 'link', 'url_negozio'):
+                s[c] = m.get(c)
+            allineate += 1
+    print('stessa confezione con il prezzo della più economica:', allineate, file=sys.stderr)
     # la fascia: dal prezzo ogni 10 ml, per passaggio (un terzo più economico «base», il 20% più caro «premium»)
     per = defaultdict(list)
     for s in schede:
