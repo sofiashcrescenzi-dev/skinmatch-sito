@@ -1727,5 +1727,22 @@
   "larghezza": 1600,
   "altezza": 1067,
   "originale": "media/foto/rivista-acido-azelaico.jpg"
+ },
+ {
+  "nome": "rivista-ceramidi",
+  "alt": "Un uomo con la barba, sorridente, si stende la crema sulle guance con le dita, davanti a una parete chiara",
+  "autore": "August de Richelieu",
+  "autore_pagina": "https://www.pexels.com/@august-de-richelieu",
+  "pagina": "https://www.pexels.com/photo/man-putting-on-cream-on-his-face-7433339/",
+  "pexels_id": 7433339,
+  "licenza": "Licenza Pexels (uso libero, citazione gradita)",
+  "uso": [
+   "rivista: copertina dell'articolo ceramidi",
+   "social"
+  ],
+  "fuoco": "35% 40%",
+  "larghezza": 1600,
+  "altezza": 1066,
+  "originale": "media/foto/rivista-ceramidi.jpg"
  }
 ]
