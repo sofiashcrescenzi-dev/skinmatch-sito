@@ -325,6 +325,188 @@
   "af-981499054": {
    "name": "Omega-3 Arktis capsule",
    "sottotitolo": "Olio di fegato di merluzzo, 6 capsule al giorno, 120 capsule"
+  },
+  "lk-879872": {
+   "concerns": [
+    "acne-sebo",
+    "barriera-cutanea"
+   ]
+  },
+  "bc-8809598455634": {
+   "concerns": [
+    "protezione-solare",
+    "macchie-luminosita",
+    "idratazione"
+   ]
+  },
+  "lk-155722": {
+   "concerns": [
+    "macchie-luminosita",
+    "idratazione"
+   ]
+  },
+  "lk-152148": {
+   "concerns": [
+    "barriera-cutanea",
+    "rossori-sensibilita"
+   ]
+  },
+  "fs-930585841": {
+   "concerns": [
+    "rossori-sensibilita",
+    "idratazione"
+   ]
+  },
+  "lk-198149": {
+   "concerns": [
+    "protezione-solare",
+    "macchie-luminosita"
+   ]
+  },
+  "lk-498030": {
+   "concerns": [
+    "anti-age",
+    "barriera-cutanea"
+   ]
+  },
+  "lk-880337": {
+   "concerns": [
+    "protezione-solare",
+    "macchie-luminosita"
+   ]
+  },
+  "lk-759636": {
+   "concerns": [
+    "idratazione",
+    "barriera-cutanea"
+   ]
+  },
+  "lk-522111": {
+   "concerns": [
+    "barriera-cutanea",
+    "idratazione",
+    "rossori-sensibilita"
+   ]
+  },
+  "lk-123333": {
+   "concerns": [
+    "macchie-luminosita",
+    "rossori-sensibilita"
+   ]
+  },
+  "lk-157249": {
+   "concerns": [
+    "barriera-cutanea",
+    "idratazione",
+    "rossori-sensibilita"
+   ]
+  },
+  "fs-973474505": {
+   "concerns": [
+    "rossori-sensibilita",
+    "idratazione"
+   ]
+  },
+  "lk-157497": {
+   "concerns": [
+    "barriera-cutanea",
+    "rossori-sensibilita",
+    "idratazione"
+   ]
+  },
+  "lk-748943": {
+   "concerns": [
+    "rossori-sensibilita",
+    "barriera-cutanea",
+    "acne-sebo"
+   ]
+  },
+  "lk-903432": {
+   "concerns": [
+    "protezione-solare"
+   ]
+  },
+  "lk-884611": {
+   "concerns": [
+    "barriera-cutanea",
+    "rossori-sensibilita"
+   ]
+  },
+  "lk-758185": {
+   "concerns": [
+    "idratazione"
+   ]
+  },
+  "lk-884286": {
+   "hairConcerns": [
+    "forfora"
+   ]
+  },
+  "lk-464456": {
+   "hairConcerns": [
+    "forfora"
+   ]
+  },
+  "lk-755639": {
+   "hairConcerns": [
+    "forfora"
+   ]
+  },
+  "lk-685444": {
+   "hairConcerns": [
+    "mantenimento"
+   ]
+  },
+  "lk-753453": {
+   "hairConcerns": [
+    "caduta",
+    "secchi-crespi"
+   ]
+  },
+  "lk-908337": {
+   "hairConcerns": [
+    "caduta"
+   ]
+  },
+  "lk-586364": {
+   "hairConcerns": [
+    "forfora",
+    "secchi-crespi"
+   ]
+  },
+  "lk-753001": {
+   "hairConcerns": [
+    "caduta"
+   ]
+  },
+  "lk-890475": {
+   "hairConcerns": [
+    "caduta"
+   ]
+  },
+  "lk-396022": {
+   "hairConcerns": [
+    "caduta"
+   ]
+  },
+  "lk-105836": {
+   "hairConcerns": [
+    "forfora"
+   ],
+   "scalpTypes": [
+    "secco",
+    "sensibile"
+   ]
+  },
+  "lk-506124": {
+   "scalpTypes": [
+    "grasso",
+    "sensibile"
+   ]
+  },
+  "lk-344718": {
+   "name": "For Men Post-Shave Soother",
+   "sottotitolo": "Lozione dopobarba lenitiva"
   }
  }
 }
