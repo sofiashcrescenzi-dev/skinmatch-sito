@@ -137,13 +137,19 @@ def farmaself(file=None):
     dec = json.loads((Path(__file__).parent / 'decisioni_marche.json').read_text())['marche']
     marche = sorted({x['marca'] for x in dec} | {'La Roche Posay', 'Avène'}, key=len, reverse=True)
     alias = {'La Roche Posay': 'La Roche-Posay', 'Avène': 'Avene'}
+    controllati = prezzi_controllati('farmaself', FARMASELF_VALIDI)
     for p in root.findall('product'):
         nome = pulito(p.findtext('Name'))
         if (p.findtext('Instock') or '').lower() not in ('yes', 'true', '1', 'in stock'):
             continue
+        c = controllati.get(p.findtext('ProductUrl'))
+        if c and not c['disponibile']:
+            continue
         if '*' in nome or not re.search(r'[a-zà-ù]', nome):  # sigle da gestionale e farmaci
             continue
         prezzo, pieno = _prezzo(p.findtext('Price')), _prezzo(p.findtext('OriginalPrice'))
+        if c and c['prezzo']:
+            prezzo = c['prezzo']
         marca = _marca_farmaself(nome, p.findtext('Brand') or '', marche)
         yield {
             'negozio': 'Farmaself', 'id': p.findtext('SKU'), 'titolo': corretto(nome), 'marca': alias.get(marca, marca),
@@ -287,11 +293,18 @@ def stylevana(file=None):
 PREZZI_VALIDI = 40
 
 
-def prezzi_controllati(negozio):
+def prezzi_controllati(negozio, giorni=PREZZI_VALIDI):
     from datetime import date
     f = CACHE.parent / f'prezzi-{negozio}.json'
     tutti = json.loads(f.read_text()) if f.exists() else {}
-    return {u: x for u, x in tutti.items() if (date.today() - date.fromisoformat(x['il'])).days <= PREZZI_VALIDI}
+    return {u: x for u, x in tutti.items() if (date.today() - date.fromisoformat(x['il'])).days <= giorni}
+
+
+# ⚠️ FARMASELF, LA PAGINA VINCE SUL FEED (2/11/2026, edith-dati-20261102-0935-1): il feed resta indietro, e a campione
+# il sito costava il 13-15% meno e aveva esaurito prodotti che il feed dava disponibili. Il prezzo letto sulla pagina
+# da meno di 8 giorni (prezzi_pagine.py, ogni lunedi) sostituisce quello del feed; esaurito sulla pagina, fuori.
+# Senza controllo recente resta il feed: a differenza di Clubfarma, e aggiornato ogni giorno.
+FARMASELF_VALIDI = 8
 
 
 def clubfarma(file=None):
