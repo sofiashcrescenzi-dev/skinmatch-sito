@@ -414,13 +414,6 @@
     "idratazione"
    ]
   },
-  "lk-748943": {
-   "concerns": [
-    "rossori-sensibilita",
-    "barriera-cutanea",
-    "acne-sebo"
-   ]
-  },
   "lk-903432": {
    "concerns": [
     "protezione-solare"
@@ -450,11 +443,6 @@
   "lk-755639": {
    "hairConcerns": [
     "forfora"
-   ]
-  },
-  "lk-685444": {
-   "hairConcerns": [
-    "mantenimento"
    ]
   },
   "lk-753453": {
@@ -504,7 +492,19 @@
     "sensibile"
    ]
   },
-  "lk-344718": {
+  "lk-525459": {
+   "concerns": [
+    "rossori-sensibilita",
+    "barriera-cutanea",
+    "acne-sebo"
+   ]
+  },
+  "lk-661716": {
+   "hairConcerns": [
+    "mantenimento"
+   ]
+  },
+  "lk-906303": {
    "name": "For Men Post-Shave Soother",
    "sottotitolo": "Lozione dopobarba lenitiva"
   }

@@ -569,6 +569,30 @@ def main(candidati=None):
     if doppi:
         print('stesso INCI in due negozi, tolti i più cari:', len(doppi))
     schede = [s for s in schede if id(s) not in doppi]
+    # ⚠️ UNA PAGINA PER PRODOTTO, NON PER OFFERTA (7/11/2026, d-ean, sì del PO): lo stesso codice a barre arrivava due,
+    # tre, quattro volte dal feed con titoli diversi (il siero Effaclar in 4 pagine, metà «esfoliante» e metà «siero»;
+    # 57 EAN su 119 pagine, edith-dati di novembre). Resta una scheda per EAN: prima Liki24, poi la più ricca di dati,
+    # poi la meno cara. Le pagine tolte rinviano a quella che resta (indirizzi-vecchi.json): mai un 404.
+    _pj = R / 'src' / 'data' / 'prodotti.json'
+    gia_online = {p['id'] for p in json.loads(_pj.read_text())['prodotti']} if _pj.exists() else set()
+    per_ean = defaultdict(list)
+    for s in schede:
+        g = re.sub(r'\D', '', str(s.get('gtin') or ''))
+        if len(g) >= 8 and s['passaggio'] in CATEGORIA and s.get('prezzo') and s.get('link'):
+            per_ean[g.lstrip('0')].append(s)
+    tolti_ean = {}
+    for g, ss in per_ean.items():
+        if len(ss) < 2:
+            continue
+        # prima quella che ha già una pagina sul sito (gli indirizzi restano), poi Liki24, i dati, il prezzo
+        resta = max(ss, key=lambda s: (s['id'] in gia_online, s.get('base', True), valore(s), -(s.get('prezzo') or 1e9)))
+        for s in ss:
+            if s is not resta:
+                tolti_ean[s['id']] = resta['id']
+    if tolti_ean:
+        print('stesso codice a barre, una pagina sola:', len(tolti_ean), 'schede tolte')
+        (R / 'feeds-out' / 'doppi-ean.json').write_text(json.dumps(tolti_ean, ensure_ascii=False, indent=0))
+    schede = [s for s in schede if s['id'] not in tolti_ean]
     if altri:
         print('altri negozi:', dict(conti))
     for s in schede:  # le schede degli altri negozi, se sono state fatte prima di zona, forma e pezzi (traduci.py)
@@ -630,6 +654,11 @@ def main(candidati=None):
     vecchio = R / 'src' / 'data' / 'prodotti.json'
     vecchi = {p['id']: p['slug'] for p in json.loads(vecchio.read_text())['prodotti'] if p.get('slug')} if vecchio.exists() else {}
     slug = indirizzi(scelti, vecchi)
+    # le pagine dei doppioni per codice a barre rinviano al prodotto che resta (se è nel sito; se no alla categoria)
+    dentro, vivi = {s['id'] for s in scelti}, set(slug.values())
+    for tolto, resta in tolti_ean.items():
+        if tolto in vecchi and resta in dentro and vecchi[tolto] not in vivi:
+            ALIAS[vecchi[tolto]] = resta
     prodotti = [prodotto(s) | {'slug': slug[s['id']]} for s in scelti]
     # lo stesso titolo per più prodotti della stessa marca (5 «Vinoperfect»): si aggiunge il tipo, così la carta li
     # distingue anche prima del sottotitolo (Friday, 16/10)
