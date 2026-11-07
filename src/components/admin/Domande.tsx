@@ -299,6 +299,7 @@ export default function Domande() {
                 <Campo etichetta="Nome"><Testo valore={ps.nome} cambia={(v) => metti({ passaggi: t.passaggi.map((y, j) => (j === i ? { ...ps, nome: v } : y)) })} /></Campo>
                 <Campo etichetta="Quando"><Testo valore={ps.quando} cambia={(v) => metti({ passaggi: t.passaggi.map((y, j) => (j === i ? { ...ps, quando: v } : y)) })} /></Campo>
               </div>
+              <Campo etichetta="Perché è nella routine" aiuto="Una frase: si legge nel risultato sotto il nome del passaggio."><Testo lungo valore={ps.perche || ''} cambia={(v) => metti({ passaggi: t.passaggi.map((y, j) => (j === i ? { ...ps, perche: v || undefined } : y)) })} /></Campo>
               <Campo etichetta="Si mostra solo se"><Condizioni lista={ps.se || []} test={t} cambia={(l) => metti({ passaggi: t.passaggi.map((y, j) => (j === i ? { ...ps, se: l.length ? l : undefined } : y)) })} /></Campo>
             </div>
           </details>

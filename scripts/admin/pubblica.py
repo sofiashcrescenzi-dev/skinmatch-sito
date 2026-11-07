@@ -59,7 +59,13 @@ def pulito():
 def scrivi(nome, dati, nota):
     f = DATI / f'{nome}.json'
     vecchio = json.loads(f.read_text(encoding='utf-8')) if f.exists() else {}
-    doc = {'_nota': vecchio.get('_nota', nota), **{k: v for k, v in dati.items() if k != '_nota'}}
+    corpo = {k: v for k, v in dati.items() if not k.startswith('_')}
+    doc = {'_nota': vecchio.get('_nota', nota), **corpo}
+    # ⚠️ LA DATA DEL METODO (7/11/2026, voto l-dossier): test e biotipi portano _versione, il giorno in cui sono cambiati
+    # l'ultima volta; il risultato la mostra (src/lib/dati.ts, DATA_METODO). Una pubblicazione che non cambia niente la tiene.
+    if nome in ('test', 'biotipi'):
+        prima = {k: v for k, v in vecchio.items() if not k.startswith('_')}
+        doc = {'_nota': doc['_nota'], '_versione': vecchio.get('_versione') if prima == corpo and vecchio.get('_versione') else dt.date.today().isoformat(), **corpo}
     f.write_text(json.dumps(doc, ensure_ascii=False, indent=1) + '\n', encoding='utf-8')
     return vecchio
 

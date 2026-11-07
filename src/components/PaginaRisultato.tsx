@@ -67,7 +67,7 @@ export default function PaginaRisultato() {
   );
   return (
     <main className="contenitore sezione">
-      <Risultato r={r} azioni={azioni} condiviso={!mio} />
+      <Risultato r={r} azioni={azioni} condiviso={!mio} metodoCambiato={!!dati?.metodoCambiato} />
     </main>
   );
 }

@@ -72,6 +72,8 @@ export type Passaggio = {
   senza_bisogno?: string;
   minimo?: number;
   se?: Condizione[];
+  // perché il passaggio è nella routine, in una frase (7/11/2026, voto l-dossier): si legge nel risultato
+  perche?: string;
 };
 export type Persona = {
   nome: string;
@@ -171,6 +173,10 @@ export type Articolo = {
 
 export const TEST = test as unknown as Test;
 export const BIOTIPI = (biotipi as unknown as { biotipi: Biotipo[] }).biotipi;
+// LA DATA DEL METODO (7/11/2026, voto l-dossier): l'ultima volta che sono cambiate le regole del test o dei biotipi.
+// La scrive la pubblicazione dall'admin (scripts/admin/pubblica.py, scrivi) nel campo _versione dei due file.
+export const DATA_METODO: string | null = [(test as { _versione?: string })._versione, (biotipi as { _versione?: string })._versione]
+  .filter((x): x is string => !!x).sort().pop() || null;
 export const TAG_BIOTIPI = (biotipi as unknown as { tag: TagBiotipo[] }).tag;
 export const TERMINI = (glossario as unknown as { termini: Termine[] }).termini;
 export const CATALOGO = catalogo as unknown as Catalogo;

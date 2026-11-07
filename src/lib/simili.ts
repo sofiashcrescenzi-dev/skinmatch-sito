@@ -101,10 +101,12 @@ export function percheSimile(a: Product, b: Product): string | null {
   const pa = principale(a), pb = principale(b);
   const tipo = PASSAGGIO_BREVE[sa.passaggio] || sa.passaggio;
   const nome = (n: string) => { const t = n.replace(/\s*\(.*\)$/, ''); return t[0].toLowerCase() + t.slice(1); };
-  if (pa) {
-    const perc = pc(pa.perc) && pc(pb?.perc) ? (pa.perc === pb?.perc ? `, ${pc(pa.perc)} in tutti e due` : `, ${pc(pb?.perc)} contro ${pc(pa.perc)}`) : '';
-    parti.push(`stesso passaggio (${tipo}) e stesso attivo principale (${nome(pa.attivo.nome)}${perc})`);
-  } else parti.push(`stesso passaggio (${tipo}) e stessa forza`);
+  // ⚠️ 7/11/2026 (Friday ed Edith, voto l-dossier): «stesso attivo principale» si scriveva col solo attivo della top,
+  // anche per le alternative scelte con vicina() (motore.ts), che l'attivo non lo guardano: «peptidi» su prodotti senza.
+  if (pa && pb && pa.attivo.id === pb.attivo.id) {
+    const perc = pc(pa.perc) && pc(pb.perc) ? (pa.perc === pb.perc ? `, ${pc(pa.perc)} in tutti e due` : `, ${pc(pb.perc)} contro ${pc(pa.perc)}`) : '';
+    parti.push(`stessa funzione (${tipo}) e stesso attivo principale (${nome(pa.attivo.nome)}${perc})`);
+  } else parti.push(`stessa funzione (${tipo})${sa.forza === sb.forza ? ' e stessa forza' : ''}`);
   const comuni = (sb.lavoro || []).filter((k) => (sa.lavoro || []).includes(k)).map((k) => LAVORO[k] || k);
   if (comuni.length) parti.push(`in comune: ${elenco(comuni.slice(0, 3))}`);
   const ma = misuraDi(a), mb = misuraDi(b);

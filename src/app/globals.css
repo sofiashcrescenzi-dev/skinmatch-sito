@@ -165,6 +165,14 @@ img { max-width: 100%; }
 .consulto { background: var(--attenzione-tenue); border-radius: var(--raggio); padding: clamp(16px, 2.4vw, 22px); display: grid; gap: 8px; }
 .consulto b { color: var(--attenzione); }
 .motto { font-family: var(--font-testo); font-style: italic; font-size: clamp(18px, 2.2vw, 21px); color: var(--terra); }
+/* le risposte che hanno pesato e il perché del passaggio (7/11/2026, voto l-dossier) */
+.pesato { display: grid; gap: 6px; padding: 12px 14px; border-radius: var(--raggio); background: var(--velo); }
+.pesato b { font-size: 12.5px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--terra); }
+.pesato ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+.pesato li { font-size: 15px; line-height: 1.4; }
+.pesato li span { color: var(--grigio); }
+.pesato li span::after { content: ' →'; }
+.perche-passo { font-size: 15.5px; max-width: 64ch; }
 .avviso { background: var(--velo); border-radius: var(--raggio-piccolo); padding: 12px 14px; font-size: 14px; line-height: 1.5; }
 
 /* la rivista */

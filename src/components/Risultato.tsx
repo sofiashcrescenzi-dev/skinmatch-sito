@@ -2,7 +2,9 @@
 
 import Link from 'next/link';
 import { TEST, NOMI_AREA, type Area, fotoDi } from '@/lib/dati';
-import { massimoAsse, type Risultato as R, type PassaggioScelto } from '@/lib/motore';
+import { massimoAsse, improntaMetodo, type Risultato as R, type PassaggioScelto } from '@/lib/motore';
+import { DATA_METODO } from '@/lib/dati';
+import prodotti from '@/data/prodotti.json';
 import { ConTermini } from '@/components/Termini';
 import { Invito, Stendi } from '@/components/Inviti';
 import Foto from '@/components/Foto';
@@ -52,7 +54,8 @@ function Coppia({ s, da }: { s: PassaggioScelto; da: string }) {
   return (
     <div className={a ? 'coppia' : 'coppia sola'}>
       <article className="carta coppia-top">
-        <div className="testa-carta"><span className="etichetta">La scelta top</span><span className={`livello ${t.livello}`}>compatibilità {t.livello}</span></div>
+        {/* via «compatibilità alta» (7/11/2026, voto l-dossier): compariva su tutto senza dire cosa misura */}
+        <div className="testa-carta"><span className="etichetta">La scelta top</span></div>
         <Breve p={t.prodotto} da={da} />
         {a && (
           <div className="meglio">
@@ -86,12 +89,18 @@ function PassoVista({ p, da }: { p: Passo; da: string }) {
         <span className="titolo-3" style={{ fontSize: 18 }}>{ps.nome}</span>
         <span className="riga-chip">{quando.map((q) => <span key={q} className="chip tenue">{q}</span>)}</span>
       </div>
+      {ps.perche && <p className="testo perche-passo"><strong>Perché questo passaggio.</strong> {ps.perche}</p>}
       <Coppia s={p.scelta} da={da} />
     </div>
   );
 }
 
-export default function Risultato({ r, azioni, condiviso }: { r: R; azioni: React.ReactNode; condiviso?: boolean }) {
+// la data dei dati, scritta per esteso: «7 novembre 2026»
+const dataIt = (d: string) => new Date(d.slice(0, 10) + 'T12:00:00').toLocaleDateString('it-IT', { day: 'numeric', month: 'long', year: 'numeric' });
+// la data del catalogo la scrive la pipeline (scripts/catalogo/al_sito.py) quando rigenera la selezione
+const DATA_CATALOGO = (prodotti as { _aggiornato?: string })._aggiornato || null;
+
+export default function Risultato({ r, azioni, condiviso, metodoCambiato }: { r: R; azioni: React.ReactNode; condiviso?: boolean; metodoCambiato?: boolean }) {
   const gravidanza = r.profilo.scelte.gravidanza === true;
   const vegano = ['vegana', 'vegetariana'].includes(String(r.profilo.scelte.dieta));
   // i bisogni del giro integrativo rimasti senza prodotto (il motore li conta nel tetto di tre)
@@ -123,6 +132,8 @@ export default function Risultato({ r, azioni, condiviso }: { r: R; azioni: Reac
         </header>
       )}
 
+      {metodoCambiato && <p className="avviso">Il metodo è stato aggiornato da quando questo risultato è stato creato: lo vedi ricalcolato con le regole di oggi, e qualche scelta può essere diversa da quella vista allora.</p>}
+
       {r.limiti.length > 0 && (
         <section className="consulto" aria-label="Prima di tutto, un consulto">
           <b className="titolo-3">Prima di tutto, un consulto con un medico</b>
@@ -151,6 +162,13 @@ export default function Risultato({ r, azioni, condiviso }: { r: R; azioni: Reac
               {/* il primo biotipo è il titolo della pagina (Friday, 16/10: il risultato non aveva un h1) */}
               {ia === 0 ? <h1 className="titolo-2">{a.biotipo.titolo}</h1> : <h2 className="titolo-2">{a.biotipo.titolo}</h2>}
               <span className="motto">{a.biotipo.motto}</span>
+              {/* LE RISPOSTE CHE HANNO PESATO (7/11/2026, voto l-dossier): da dove viene il biotipo, con le parole del test */}
+              {a.peso.length > 0 && (
+                <div className="pesato">
+                  <b>{condiviso ? 'Le risposte che hanno pesato di più' : 'Le tue risposte che hanno pesato di più'}</b>
+                  <ul>{a.peso.map((x) => <li key={x.domanda + x.risposta}><span>{x.domanda}</span> <strong>{x.risposta}</strong></li>)}</ul>
+                </div>
+              )}
               <details className="di-piu">
                 <summary>{condiviso ? 'Leggi di più su questo biotipo' : 'Leggi di più sul tuo biotipo'}</summary>
                 <p className="testo" style={{ fontSize: 15.5 }}><ConTermini testo={a.biotipo.descrizione} /></p>
@@ -209,6 +227,7 @@ export default function Risultato({ r, azioni, condiviso }: { r: R; azioni: Reac
       ))}
 
       {azioni}
+      <p className="piccolo">Calcolato col metodo di Skinmatch{DATA_METODO ? ` aggiornato al ${dataIt(DATA_METODO)}` : ''} (versione {improntaMetodo()}){DATA_CATALOGO ? `, con i prodotti e i prezzi del ${dataIt(DATA_CATALOGO)}` : ''}. <Link className="link" href="/chi-siamo">Come funziona</Link>.</p>
       <p className="piccolo">Alcuni link sono di affiliazione: se compri, Skinmatch riceve una piccola commissione, a te non costa nulla in più.</p>
     </div>
   );

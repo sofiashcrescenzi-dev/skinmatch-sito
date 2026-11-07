@@ -1,5 +1,6 @@
 {
  "_nota": "I biotipi e i tratti. Si modificano da skinmatch.it/admin/biotipi. regole: gruppi in alternativa (basta che uno sia vero), ogni gruppo vale se tutte le sue condizioni sono vere; un gruppo vuoto vale sempre. Il biotipo di un'area e il primo per priorita che vale; i tratti sono tutti quelli che valgono.",
+ "_versione": "2026-11-07",
  "tag": [
   {
    "id": "sebo-basso",

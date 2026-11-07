@@ -1,5 +1,6 @@
 {
  "_nota": "L'architettura del test. Si modifica da skinmatch.it/admin/domande: questo file lo riscrive la pubblicazione dell'admin (scripts/admin/pubblica.py). Le regole del gioco sono in src/lib/motore.ts.",
+ "_versione": "2026-11-07",
  "assi": [
   {
    "id": "sebo",
@@ -1766,7 +1767,8 @@
    "area": "pelle",
    "nome": "Detersione",
    "quando": "mattina e sera",
-   "categoria": "detergenti"
+   "categoria": "detergenti",
+   "perche": "Toglie sebo, sudore, protezione solare e smog della giornata. Su una pelle pulita il resto della routine lavora meglio; quello giusto non la lascia tirare."
   },
   {
    "id": "siero",
@@ -1782,7 +1784,8 @@
       5
      ]
     }
-   ]
+   ],
+   "perche": "Porta l’attivo per il tuo obiettivo in una formula leggera e concentrata. È nella tua routine perché hai scelto quattro o cinque passaggi."
   },
   {
    "id": "crema",
@@ -1790,7 +1793,8 @@
    "nome": "Crema",
    "quando": "mattina e sera",
    "categoria": "creme",
-   "senza_bisogno": "protezione-solare"
+   "senza_bisogno": "protezione-solare",
+   "perche": "Trattiene l’acqua nella pelle e protegge la barriera, anche quando la pelle è grassa: cambia la texture, non il bisogno."
   },
   {
    "id": "spf",
@@ -1798,7 +1802,8 @@
    "nome": "Protezione solare",
    "quando": "ogni mattina, anche in città",
    "categoria": "creme",
-   "con_bisogno": "protezione-solare"
+   "con_bisogno": "protezione-solare",
+   "perche": "Il sole è la prima causa di macchie e segni del tempo, anche d’inverno e in città. È il passaggio che conta di più nel tempo."
   },
   {
    "id": "sera",
@@ -1828,7 +1833,8 @@
       "anti-age"
      ]
     }
-   ]
+   ],
+   "perche": "Gli attivi più forti, come retinoidi e acidi, si usano la sera. È nella tua routine perché li usi già e il tuo obiettivo è brufoli, macchie o segni del tempo."
   },
   {
    "id": "cerotti",
@@ -1841,7 +1847,8 @@
      "asse": "imp",
      "min": 2
     }
-   ]
+   ],
+   "perche": "Hai indicato brufoli frequenti: il cerotto copre il brufolo, assorbe e ti evita di toccarlo."
   },
   {
    "id": "barba",
@@ -1857,14 +1864,16 @@
       "mantenimento"
      ]
     }
-   ]
+   ],
+   "perche": "Hai indicato la barba: un prodotto dopo la rasatura, o per la barba, tiene a bada irritazioni e peli incarniti."
   },
   {
    "id": "shampoo",
    "area": "cute",
    "nome": "Shampoo",
    "quando": "a ogni lavaggio",
-   "categoria": "shampoo"
+   "categoria": "shampoo",
+   "perche": "La cute è pelle: lo shampoo giusto dipende da quanto sebo fa e da quanto è sensibile, non dalle lunghezze."
   },
   {
    "id": "trattamento",
@@ -1872,7 +1881,8 @@
    "nome": "Trattamento",
    "quando": "come indicato sulla confezione",
    "categoria": "capelli",
-   "minimo": 45
+   "minimo": 45,
+   "perche": "Lavora sul bisogno principale della tua cute, dove lo shampoo da solo non arriva perché resta in posa pochi secondi."
   },
   {
    "id": "integratore",
@@ -1895,7 +1905,8 @@
      ],
      "no": true
     }
-   ]
+   ],
+   "perche": "Hai chiesto un aiuto per pelle, capelli o unghie: un ciclo di qualche mese, poi una pausa."
   },
   {
    "id": "b12",
@@ -1916,7 +1927,8 @@
      ],
      "no": true
     }
-   ]
+   ],
+   "perche": "Mangi vegano o vegetariano: la vitamina B12 si trova quasi solo negli alimenti di origine animale."
   },
   {
    "id": "sonno",
@@ -1937,7 +1949,8 @@
      ],
      "no": true
     }
-   ]
+   ],
+   "perche": "Dalle tue risposte fai fatica ad addormentarti."
   },
   {
    "id": "energia",
@@ -1958,7 +1971,8 @@
      ],
      "no": true
     }
-   ]
+   ],
+   "perche": "Dalle tue risposte la stanchezza torna spesso."
   },
   {
    "id": "stress",
@@ -1979,7 +1993,8 @@
      ],
      "no": true
     }
-   ]
+   ],
+   "perche": "Dalle tue risposte stai attraversando un periodo di pressione."
   },
   {
    "id": "difese",
@@ -2000,7 +2015,8 @@
      ],
      "no": true
     }
-   ]
+   ],
+   "perche": "Dalle tue risposte nei mesi freddi i raffreddori sono frequenti."
   },
   {
    "id": "vitamina-d",
@@ -2021,7 +2037,8 @@
      ],
      "no": true
     }
-   ]
+   ],
+   "perche": "Dalle tue risposte prendi poco sole, e da ottobre ad aprile la pelle ne produce poca."
   },
   {
    "id": "omega-3",
@@ -2042,7 +2059,8 @@
      ],
      "no": true
     }
-   ]
+   ],
+   "perche": "Dalle tue risposte mangi pesce di rado."
   }
  ],
  "persone": [

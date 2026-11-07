@@ -149,7 +149,8 @@ const forzaDi = (ps: Passaggio, p: Profilo) => {
 
 export type Scelto = { prodotto: Prodotto; compat: number; livello: 'alta' | 'media'; perche: string[] };
 export type PassaggioScelto = { passaggio: Passaggio; consigliato: Scelto; alternativa: (Scelto & { come: 'costa meno' }) | null; meglio: string[] };
-export type RisultatoArea = { area: Area; biotipo: Biotipo | null; tratti: Biotipo[]; passaggi: PassaggioScelto[]; vuoti: Passaggio[] };
+export type Peso = { domanda: string; risposta: string };
+export type RisultatoArea = { area: Area; biotipo: Biotipo | null; tratti: Biotipo[]; passaggi: PassaggioScelto[]; vuoti: Passaggio[]; peso: Peso[] };
 export type Risultato = { percorso: Percorso; profilo: Profilo; domande: Domanda[]; aree: RisultatoArea[]; limiti: Limite[] };
 
 type Bisogni = { pelle: Set<string>; concerns: Set<string>; capelli: Set<string>; cute: Set<string> };
@@ -237,7 +238,8 @@ function percheDi(x: Prodotto, area: Area, b: Bisogni, p: Profilo, biotipo: Biot
   if ((p.punti.re || 0) >= 2 && x.sensitiveSafe) r.push('va bene anche per le pelli sensibili');
   const senza = SENSIBILI.filter(([k]) => x.scheda?.senza?.includes(k) && (evitaDi(p).includes(k) || (k === 'profumo' && (p.punti.re || 0) >= 2))).map(([, n]) => n);
   if (senza.length) r.push('senza ' + (senza.length > 1 ? `${senza.slice(0, -1).join(', ')} e ${senza[senza.length - 1]}` : senza[0]));
-  if (x.scheda?.fotosensibilizzante) r.push('la mattina dopo, protezione solare');
+  // non su un prodotto che è già la protezione solare (7/11/2026: «la mattina dopo, protezione solare» su un SPF 30)
+  if (x.scheda?.fotosensibilizzante && !(x.concerns || []).includes('protezione-solare')) r.push('la mattina dopo, protezione solare');
   // ⚠️ 7/11/2026 (voto b-gravidanza): non e una garanzia, e solo l'assenza degli ingredienti della lista di attenzione
   // nell'INCI intero; l'avviso in testa al risultato dice di chiedere al medico
   if (p.scelte.gravidanza === true && x.pregnancySafe) r.push('nell’elenco degli ingredienti nessuno della nostra lista di attenzione per la gravidanza');
@@ -365,6 +367,46 @@ export function doveMeglio(t: Prodotto, a: Prodotto, ct: number, ca: number, vol
   return r;
 }
 
+// LE RISPOSTE CHE HANNO PESATO (7/11/2026, voto l-dossier: «il risultato che spiega»). Il biotipo esce dalla prima
+// regola che vale (biotipoDi): qui le risposte che hanno dato più punti agli assi di quella regola, o fissato una sua
+// scelta. Se la regola non chiede niente (il biotipo di base), contano gli assi che decidono gli altri biotipi dell'area
+// (non quelli dei tratti: per una pelle normale le macchie non spiegano niente). Al massimo quattro.
+function pesoDi(area: Area, biotipo: Biotipo | null, p: Profilo, risposte: Risposte, domande: Domanda[]): Peso[] {
+  if (!biotipo) return [];
+  const gruppo = biotipo.regole.find((g) => valgonoTutte(g, p, [])) || [];
+  let assi = new Set(gruppo.filter((c) => c.asse).map((c) => c.asse!));
+  const scelte = new Set(gruppo.filter((c) => c.scelta).map((c) => c.scelta!));
+  if (!assi.size && !scelte.size) {
+    assi = new Set(BB.filter((x) => x.area === area && x.tipo === 'biotipo').flatMap((x) => x.regole.flat()).filter((c) => c.asse).map((c) => c.asse!));
+  }
+  // una soglia «al massimo» (pelle secca: poco sebo) la spiegano anche le risposte da zero punti, se la domanda misura
+  // quell'asse; per il biotipo di base contano solo le risposte basse, quelle che l'hanno tenuto fuori dagli altri
+  const base = !gruppo.length;
+  const out: (Peso & { n: number })[] = [];
+  for (const d of domande) {
+    const tocca = [...assi].filter((k) => d.opzioni.some((x) => x.punti?.[k]));
+    for (const id of lista(risposte[d.id])) {
+      const o = d.opzioni.find((x) => x.id === id);
+      if (!o) continue;
+      const punti = tocca.reduce((s, k) => s + Math.abs(o.punti?.[k] || 0), 0);
+      const n = (base ? (tocca.length && punti <= 1 ? 2 - punti : 0) : punti + tocca.length)
+        + Object.keys(o.scelte || {}).filter((k) => scelte.has(k)).length * 2;
+      if (n > 0) out.push({ domanda: d.testo, risposta: o.testo, n });
+    }
+  }
+  return out.sort((a, b) => b.n - a.n).slice(0, 4).map(({ domanda, risposta }) => ({ domanda, risposta }));
+}
+
+// L'IMPRONTA DEL METODO (7/11/2026, voto l-dossier): cambia se cambiano punti, soglie, limiti, passaggi o regole dei
+// biotipi. Va nel link condiviso: chi lo apre dopo un cambio di metodo lo sa (lib/condividi.ts).
+export function improntaMetodo(): string {
+  let h = 0x811c9dc5;
+  const s = JSON.stringify([T.domande.map((d) => d.opzioni.map((o) => [o.punti, o.scelte, o.limite])), T.limiti, T.passaggi.map((x) => [x.id, x.categoria, x.se, x.con_bisogno, x.senza_bisogno, x.minimo]),
+    BB.map((b) => [b.id, b.priorita, b.regole, b.bisogni])]);
+  for (let i = 0; i < s.length; i++) h = Math.imul(h ^ s.charCodeAt(i), 0x01000193) >>> 0;
+  return h.toString(36).slice(-4);
+}
+
 export function consiglia(percorso: Percorso, risposte: Risposte): Risultato {
   const domande = domandeDi(percorso, risposte);
   const p = profiloDi(risposte, domande);
@@ -385,7 +427,7 @@ export function consiglia(percorso: Percorso, risposte: Risposte): Risultato {
       if (s) passaggi.push(s);
       else vuoti.push(ps);
     }
-    return { area, biotipo, tratti, passaggi, vuoti };
+    return { area, biotipo, tratti, passaggi, vuoti, peso: pesoDi(area, biotipo, p, risposte, domande) };
   });
   return { percorso, profilo: p, domande, aree, limiti };
 }

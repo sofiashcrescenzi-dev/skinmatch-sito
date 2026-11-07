@@ -8,7 +8,11 @@
 // più risposte i bit delle opzioni), una trentina di caratteri. L'impronta cambia se cambiano domande o opzioni: un
 // link di un test diverso non dà un risultato sbagliato, dice che il test è cambiato (decodifica → «vecchio»).
 // I link di prima (cominciano con «eyJ») si leggono ancora.
-import type { Risposte, Risultato } from './motore';
+//
+// ⚠️ IL METODO NEL LINK (7/11/2026, voto l-dossier: «un link condiviso avvisa se il metodo è cambiato»). Dal formato «3»
+// dopo l'impronta del test vengono due segni dell'impronta del metodo (motore.ts, improntaMetodo): se le regole sono
+// cambiate il risultato si ricalcola lo stesso, e la pagina lo dice. I link «2» si leggono ancora, senza avviso.
+import { improntaMetodo, type Risposte, type Risultato } from './motore';
 import { giornataDi, MOMENTI } from './giornata';
 import { TEST, type Domanda } from './dati';
 
@@ -27,7 +31,7 @@ function impronta(dd: Domanda[]): string {
 export function codifica(percorso: string, risposte: Risposte): string {
   const dd = domandeDel(percorso), ip = TEST.percorsi.findIndex((x) => x.id === percorso);
   if (!dd || ip < 0) return '';
-  let s = '2' + SEGNI[ip] + impronta(dd);
+  let s = '3' + SEGNI[ip] + impronta(dd) + improntaMetodo().slice(-2);
   for (const d of dd) {
     const v = risposte[d.id];
     if (!d.multipla) { s += SEGNI[typeof v === 'string' ? d.opzioni.findIndex((o) => o.id === v) + 1 : 0]; continue; }
@@ -41,14 +45,15 @@ export function codifica(percorso: string, risposte: Risposte): string {
   return s;
 }
 
-export function decodifica(codice: string): { percorso: string; risposte: Risposte } | 'vecchio' | null {
-  if (codice.startsWith('2')) {
+export function decodifica(codice: string): { percorso: string; risposte: Risposte; metodoCambiato?: boolean } | 'vecchio' | null {
+  if (codice.startsWith('2') || codice.startsWith('3')) {
     const p = TEST.percorsi[SEGNI.indexOf(codice[1])];
     const dd = p && domandeDel(p.id);
     if (!p || !dd) return null;
     if (codice.slice(2, 4) !== impronta(dd)) return 'vecchio';
     const risposte: Risposte = {};
-    let i = 4;
+    const nuovo = codice[0] === '3';
+    let i = nuovo ? 6 : 4;
     for (const d of dd) {
       if (!d.multipla) {
         const n = SEGNI.indexOf(codice[i++] ?? 'A');
@@ -62,7 +67,7 @@ export function decodifica(codice: string): { percorso: string; risposte: Rispos
       }
       if (scelte.length) risposte[d.id] = scelte;
     }
-    return { percorso: p.id, risposte };
+    return { percorso: p.id, risposte, ...(nuovo && codice.slice(4, 6) !== improntaMetodo().slice(-2) ? { metodoCambiato: true } : {}) };
   }
   try {
     const b = atob(codice.replace(/-/g, '+').replace(/_/g, '/'));
