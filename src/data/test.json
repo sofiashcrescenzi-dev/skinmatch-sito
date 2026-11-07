@@ -286,6 +286,16 @@
    "valori": [
     true
    ]
+  },
+  {
+   "id": "budget",
+   "nome": "Budget per iniziare",
+   "valori": [
+    50,
+    100,
+    150,
+    250
+   ]
   }
  ],
  "percorsi": [
@@ -319,7 +329,8 @@
     "esperienza",
     "barba",
     "passi",
-    "evitare"
+    "evitare",
+    "budget"
    ]
   },
   {
@@ -343,7 +354,8 @@
     "trattamenti",
     "condizioni_cute",
     "gravidanza",
-    "evitare"
+    "evitare",
+    "budget"
    ]
   },
   {
@@ -415,7 +427,8 @@
     "farmaci",
     "gravidanza",
     "menopausa",
-    "evitare"
+    "evitare",
+    "budget"
    ]
   }
  ],
@@ -608,6 +621,10 @@
      "punti": {
       "sebo": 2
      }
+    },
+    {
+     "id": "non-so",
+     "testo": "Non so"
     }
    ],
    "aiuto": "Guardati allo specchio con luce naturale. I pori dilatati accompagnano spesso una pelle che produce più sebo."
@@ -666,6 +683,10 @@
      "punti": {
       "idr": 2
      }
+    },
+    {
+     "id": "non-so",
+     "testo": "Non so"
     }
    ],
    "aiuto": "Pensa alle ultime settimane. La desquamazione indica una barriera cutanea che trattiene poca acqua."
@@ -695,6 +716,10 @@
      "punti": {
       "sebo": 1
      }
+    },
+    {
+     "id": "non-so",
+     "testo": "Non so"
     }
    ],
    "aiuto": "Ci dice se alla pelle mancano acqua, grassi o nessuno dei due."
@@ -724,6 +749,10 @@
      "punti": {
       "re": 2
      }
+    },
+    {
+     "id": "non-so",
+     "testo": "Non so"
     }
    ],
    "aiuto": "Se la pelle più reattiva può suggerire la necessità di formule più delicate."
@@ -1145,6 +1174,10 @@
      "punti": {
       "sens": 2
      }
+    },
+    {
+     "id": "non-so",
+     "testo": "Non so"
     }
    ],
    "aiuto": "Tensione o prurito ricorrenti indicano un cuoio capelluto secco o sensibile."
@@ -1673,6 +1706,47 @@
     }
    ],
    "aiuto": "È la fonte principale degli omega-3 EPA e DHA."
+  },
+  {
+   "id": "budget",
+   "area": "comune",
+   "testo": "Quanto vuoi spendere per iniziare?",
+   "aiuto": "Il totale della routine. Se scegli una cifra, restiamo dentro: dove serve, al posto della prima scelta entra l’alternativa.",
+   "saltabile": true,
+   "opzioni": [
+    {
+     "id": "fino-50",
+     "testo": "Fino a 50 €",
+     "scelte": {
+      "budget": 50
+     }
+    },
+    {
+     "id": "fino-100",
+     "testo": "Fino a 100 €",
+     "scelte": {
+      "budget": 100
+     }
+    },
+    {
+     "id": "fino-150",
+     "testo": "Fino a 150 €",
+     "scelte": {
+      "budget": 150
+     }
+    },
+    {
+     "id": "fino-250",
+     "testo": "Fino a 250 €",
+     "scelte": {
+      "budget": 250
+     }
+    },
+    {
+     "id": "consigliami",
+     "testo": "Consigliami tu"
+    }
+   ]
   }
  ],
  "limiti": [

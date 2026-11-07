@@ -651,3 +651,8 @@ details.carta > summary::-webkit-details-marker { display: none; }
 .fascia-cerca .piccolo { color: #d9c8be; }
 .fascia-cerca .ricerca-centrale { max-width: 760px; }
 .fascia-cerca .cerca-tutto { color: var(--latte); font-weight: 600; text-decoration: underline; text-underline-offset: 4px; text-decoration-color: rgba(250, 246, 244, .4); justify-self: start; }
+
+/* il budget nel risultato (7/11/2026, d-budget) */
+.nel-budget { font-size: 11.5px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; padding: 3px 8px; border-radius: 999px; background: var(--bene-tenue); color: var(--bene); white-space: nowrap; }
+.budget-ok { background: var(--bene-tenue); }
+.budget-ok strong { color: var(--bene); }

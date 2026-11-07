@@ -56,7 +56,7 @@ function Coppia({ s, da }: { s: PassaggioScelto; da: string }) {
     <div className={a ? 'coppia' : 'coppia sola'}>
       <article className="carta coppia-top">
         {/* via «compatibilità alta» (7/11/2026, voto l-dossier): compariva su tutto senza dire cosa misura */}
-        <div className="testa-carta"><span className="etichetta">La scelta top</span></div>
+        <div className="testa-carta"><span className="etichetta">La scelta top</span>{s.nelBudget === 'consigliato' && <span className="nel-budget">Nel tuo budget</span>}</div>
         <Breve p={t.prodotto} da={da} />
         {a && (
           <div className="meglio">
@@ -70,7 +70,7 @@ function Coppia({ s, da }: { s: PassaggioScelto; da: string }) {
       </article>
       {a ? (
         <article className="carta coppia-alt">
-          <div className="testa-carta"><span className="etichetta" style={{ color: 'var(--clinico)' }}>L’alternativa</span>{risparmi > 0.5 && <span className="risparmio">{euro(risparmi)} in meno</span>}</div>
+          <div className="testa-carta"><span className="etichetta" style={{ color: 'var(--clinico)' }}>L’alternativa</span>{s.nelBudget === 'alternativa' ? <span className="nel-budget">Nel tuo budget</span> : risparmi > 0.5 && <span className="risparmio">{euro(risparmi)} in meno</span>}</div>
           <Breve p={a.prodotto} da={`${da}-alternativa`} />
           {percheSimile(t.prodotto, a.prodotto) && <p className="piccolo perche-simile"><strong>Perché è simile:</strong> {percheSimile(t.prodotto, a.prodotto)}</p>}
         </article>
@@ -204,6 +204,14 @@ export default function Risultato({ r, azioni, condiviso, metodoCambiato }: { r:
 
       {g.passi.length > 0 && <Giornata g={g} />}
 
+      {/* IL BUDGET (7/11/2026, voto d-budget): la routine resta dentro la cifra scelta; se non ci sta, lo diciamo */}
+      {r.budget && (
+        <p className={r.budget.dentro ? 'consulto budget-ok' : 'avviso'} style={{ maxWidth: '72ch' }}>
+          {r.budget.dentro
+            ? <>Il tuo budget: fino a {euro(r.budget.tetto)}. La routine qui sotto costa <strong>{euro(r.budget.totale)}</strong>: in ogni passaggio, il prodotto segnato «Nel tuo budget».</>
+            : <>Il tuo budget: fino a {euro(r.budget.tetto)}. Con i prodotti di oggi la routine più economica costa <strong>{euro(r.budget.totale)}</strong>. Per restare dentro puoi scegliere meno passaggi: rifai il test e scegli «L’essenziale».</>}
+        </p>
+      )}
       {/* come si sceglie (7/11/2026, voto l-prima): una volta, prima dei passaggi */}
       <p className="piccolo" style={{ maxWidth: '72ch' }}>La prima scelta è la più completa fra i prodotti adatti a te. L’alternativa fa lo stesso lavoro e di solito costa meno. La commissione non entra mai nella scelta. <Link className="link" href="/chi-siamo#come-scegliamo">Come scegliamo</Link></p>
       {gruppi.map((gr) => (

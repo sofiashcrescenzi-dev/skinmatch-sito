@@ -148,10 +148,16 @@ const forzaDi = (ps: Passaggio, p: Profilo) => {
 };
 
 export type Scelto = { prodotto: Prodotto; compat: number; livello: 'alta' | 'media'; perche: string[] };
-export type PassaggioScelto = { passaggio: Passaggio; consigliato: Scelto; alternativa: (Scelto & { come: 'costa meno' }) | null; meglio: string[] };
+export type PassaggioScelto = {
+  passaggio: Passaggio; consigliato: Scelto; alternativa: (Scelto & { come: 'costa meno' | 'nel budget' }) | null; meglio: string[];
+  // il budget (7/11/2026, voto d-budget): il prodotto più economico che fa lo stesso lavoro, se costa meno dell'alternativa,
+  // e quale dei due entra nella routine dentro il budget
+  economico?: { scelto: Scelto; meglio: string[] }; nelBudget?: 'consigliato' | 'alternativa';
+};
 export type Peso = { domanda: string; risposta: string };
 export type RisultatoArea = { area: Area; biotipo: Biotipo | null; tratti: Biotipo[]; passaggi: PassaggioScelto[]; vuoti: Passaggio[]; peso: Peso[] };
-export type Risultato = { percorso: Percorso; profilo: Profilo; domande: Domanda[]; aree: RisultatoArea[]; limiti: Limite[] };
+export type Budget = { tetto: number; totale: number; dentro: boolean };
+export type Risultato = { percorso: Percorso; profilo: Profilo; domande: Domanda[]; aree: RisultatoArea[]; limiti: Limite[]; budget?: Budget };
 
 type Bisogni = { pelle: Set<string>; concerns: Set<string>; capelli: Set<string>; cute: Set<string> };
 function bisogniDi(biotipo: Biotipo | null, tratti: Biotipo[], p: Profilo): Bisogni {
@@ -333,12 +339,16 @@ function scegli(area: Area, ps: Passaggio, p: Profilo, b: Bisogni, biotipo: Biot
     && v.c >= Math.max(50, top.c - 15));
   const piuCompat = (u: { x: Prodotto; c: number }, v: { x: Prodotto; c: number }) => ordine(v) - ordine(u) || u.x.price - v.x.price;
   const alt = candidate.filter((v) => simili(top.x, v.x)).sort(piuCompat)[0] || candidate.filter((v) => vicina(v.x)).sort(piuCompat)[0];
+  // per il budget: il più economico fra quelli che fanno lo stesso lavoro, se costa meno dell'alternativa
+  const eco = [...candidate].filter((v) => v.x.price < (alt ? alt.x.price : top.x.price) - 0.5).sort((u, v) => u.x.price - v.x.price)[0];
+  const chi = { gravidanza: p.scelte.gravidanza === true, sensibile: re >= 2 || delicati };
   usati.add(top.x.id);
   if (alt) usati.add(alt.x.id);
   return {
     passaggio: ps, consigliato: scelto(top),
     alternativa: alt ? { ...scelto(alt), come: 'costa meno' } : null,
-    meglio: alt ? doveMeglio(top.x, alt.x, top.c, alt.c, voluti, { gravidanza: p.scelte.gravidanza === true, sensibile: re >= 2 || delicati }) : [],
+    meglio: alt ? doveMeglio(top.x, alt.x, top.c, alt.c, voluti, chi) : [],
+    ...(eco ? { economico: { scelto: scelto(eco), meglio: doveMeglio(top.x, eco.x, top.c, eco.c, voluti, chi) } } : {}),
   };
 }
 
@@ -430,5 +440,37 @@ export function consiglia(percorso: Percorso, risposte: Risposte): Risultato {
     }
     return { area, biotipo, tratti, passaggi, vuoti, peso: pesoDi(area, biotipo, p, risposte, domande) };
   });
-  return { percorso, profilo: p, domande, aree, limiti };
+  const budget = dentroIlBudget(aree.flatMap((a) => a.passaggi), Number(p.scelte.budget) || 0);
+  return { percorso, profilo: p, domande, aree, limiti, ...(budget ? { budget } : {}) };
+}
+
+// ⚠️ IL BUDGET (7/11/2026, voto d-budget; Federico: «lascerei risposta anche aperta tipo "consigliami tu", però mi
+// raccomando, poi il budget del risultato deve rimanere lì dentro»). La domanda è facoltativa; senza tetto il risultato
+// è quello di sempre. Con un tetto: si parte dalle scelte top e si passa alle alternative che fanno risparmiare di più
+// finché il totale ci sta; se non basta, l'alternativa diventa il prodotto più economico che fa lo stesso lavoro
+// (economico, scegli). Se neanche così ci sta, il risultato lo dice (dentro: false). La top resta sempre in vista:
+// cambia solo quale dei due entra nella routine.
+function dentroIlBudget(passi: PassaggioScelto[], tetto: number): Budget | null {
+  if (!tetto || !passi.length) return null;
+  const prezzo = (s: PassaggioScelto) => (s.nelBudget === 'alternativa' ? s.alternativa! : s.consigliato).prodotto.price;
+  passi.forEach((s) => { s.nelBudget = 'consigliato'; });
+  let totale = passi.reduce((t, s) => t + prezzo(s), 0);
+  for (const fase of ['alternativa', 'economico'] as const) {
+    while (totale > tetto) {
+      // se un cambio solo basta, il più piccolo che basta (restano più scelte top); se no, quello che fa risparmiare di più
+      const cambi = passi.map((s) => {
+        const dopo = fase === 'alternativa'
+          ? (s.nelBudget === 'consigliato' && s.alternativa ? s.alternativa.prodotto.price : null)
+          : (s.economico && s.economico.scelto.prodotto.price < prezzo(s) ? s.economico.scelto.prodotto.price : null);
+        return { s, risparmio: dopo === null ? 0 : prezzo(s) - dopo };
+      }).filter((x) => x.risparmio > 0);
+      if (!cambi.length) break;
+      const basta = cambi.filter((x) => totale - x.risparmio <= tetto).sort((a, b) => a.risparmio - b.risparmio)[0];
+      const { s: meglio, risparmio } = basta || cambi.sort((a, b) => b.risparmio - a.risparmio)[0];
+      if (fase === 'economico') { meglio.alternativa = { ...meglio.economico!.scelto, come: 'nel budget' }; meglio.meglio = meglio.economico!.meglio; }
+      meglio.nelBudget = 'alternativa';
+      totale -= risparmio;
+    }
+  }
+  return { tetto, totale: Math.round(totale * 100) / 100, dentro: totale <= tetto + 0.005 };
 }
