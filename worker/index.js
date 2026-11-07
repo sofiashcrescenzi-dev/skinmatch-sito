@@ -26,29 +26,49 @@ const breve = (s, n = 80) => String(s ?? '').replace(/[^\p{L}\p{N}_.\- ]/gu, '')
 const json = (dati, stato = 200) => new Response(JSON.stringify(dati), { status: stato, headers: { 'content-type': 'application/json; charset=utf-8', 'cache-control': 'no-store' } });
 const oggi = () => new Date().toISOString().slice(0, 10);
 
+// le intestazioni di sicurezza, le stesse di public/_headers (che vale solo per i file statici)
+const SICUREZZA = {
+  'strict-transport-security': 'max-age=31536000; includeSubDomains',
+  'x-content-type-options': 'nosniff',
+  'referrer-policy': 'strict-origin-when-cross-origin',
+  'x-frame-options': 'SAMEORIGIN',
+  'permissions-policy': 'camera=(), microphone=(), geolocation=(), payment=(), usb=()',
+  'content-security-policy': "frame-ancestors 'self'; base-uri 'self'; object-src 'none'; form-action 'self'",
+};
+function sicura(r) {
+  if (r.status === 101) return r;
+  const h = new Headers(r.headers);
+  for (const [k, v] of Object.entries(SICUREZZA)) if (!h.has(k)) h.set(k, v);
+  return new Response(r.body, { status: r.status, statusText: r.statusText, headers: h });
+}
+
 export default {
   async fetch(req, env) {
-    const url = new URL(req.url);
-    const p = url.pathname;
-    if (p === '/api/evento') return evento(req, env);
-    if (p.startsWith('/api/admin/') || p === '/admin' || p.startsWith('/admin/')) {
-      const chi = await accesso(req, env);
-      if (!chi.ok) {
-        if (p.startsWith('/api/')) return json({ errore: chi.motivo }, 401);
-        return new Response(PAGINA_CHIUSA(chi.motivo), { status: 403, headers: { 'content-type': 'text/html; charset=utf-8', 'cache-control': 'no-store', 'x-robots-tag': 'noindex' } });
-      }
-      if (p.startsWith('/api/admin/')) {
-        try { return await admin(req, env, url, chi.email); } catch (e) { return json({ errore: String(e && e.message || e) }, 500); }
-      }
-      const r = await env.ASSETS.fetch(req);
-      const h = new Headers(r.headers); h.set('x-robots-tag', 'noindex'); h.set('cache-control', 'no-store');
-      return new Response(r.body, { status: r.status, headers: h });
-    }
-    const r = await env.ASSETS.fetch(req);
-    if (r.status !== 404) return r;
-    return nonTrovata(req, env, url);
+    return sicura(await servi(req, env));
   },
 };
+
+async function servi(req, env) {
+  const url = new URL(req.url);
+  const p = url.pathname;
+  if (p === '/api/evento') return evento(req, env);
+  if (p.startsWith('/api/admin/') || p === '/admin' || p.startsWith('/admin/')) {
+    const chi = await accesso(req, env);
+    if (!chi.ok) {
+      if (p.startsWith('/api/')) return json({ errore: chi.motivo }, 401);
+      return new Response(PAGINA_CHIUSA(chi.motivo), { status: 403, headers: { 'content-type': 'text/html; charset=utf-8', 'cache-control': 'no-store', 'x-robots-tag': 'noindex' } });
+    }
+    if (p.startsWith('/api/admin/')) {
+      try { return await admin(req, env, url, chi.email); } catch (e) { return json({ errore: String(e && e.message || e) }, 500); }
+    }
+    const r = await env.ASSETS.fetch(req);
+    const h = new Headers(r.headers); h.set('x-robots-tag', 'noindex'); h.set('cache-control', 'no-store');
+    return new Response(r.body, { status: r.status, headers: h });
+  }
+  const r = await env.ASSETS.fetch(req);
+  if (r.status !== 404) return r;
+  return nonTrovata(req, env, url);
+}
 
 // ── 4. le pagine che non ci sono ─────────────────────────────────────────────
 // Un prodotto spostato di categoria rinvia alla sua pagina nuova (public: /indirizzi.json); uno uscito dal
