@@ -1744,5 +1744,69 @@
   "larghezza": 1600,
   "altezza": 1066,
   "originale": "media/foto/rivista-ceramidi.jpg"
+ },
+ {
+  "nome": "rivista-che-tipo-di-pelle-ho",
+  "alt": "Una donna con le treccine bionde si guarda la pelle del collo e del viso allo specchio del bagno",
+  "autore": "Tima Miroshnichenko",
+  "autore_pagina": "https://www.pexels.com/@tima-miroshnichenko",
+  "pagina": "https://www.pexels.com/photo/woman-in-gray-long-sleeve-shirt-looking-at-a-mirror-7608044/",
+  "pexels_id": 7608044,
+  "licenza": "Licenza Pexels (uso libero, citazione gradita)",
+  "uso": [
+   "rivista: copertina dell'articolo che-tipo-di-pelle-ho"
+  ],
+  "fuoco": "45% 35%",
+  "larghezza": 1600,
+  "altezza": 1067,
+  "originale": "media/foto/rivista-che-tipo-di-pelle-ho.jpg"
+ },
+ {
+  "nome": "rivista-metodo-skinmatch",
+  "alt": "Un quaderno aperto pieno di appunti a mano, con un paio di occhiali e una matita, su un tavolo di legno",
+  "autore": "Mikhail Nilov",
+  "autore_pagina": "https://www.pexels.com/@mikhail-nilov",
+  "pagina": "https://www.pexels.com/photo/an-eyeglasses-on-a-notebook-with-a-pen-7594642/",
+  "pexels_id": 7594642,
+  "licenza": "Licenza Pexels (uso libero, citazione gradita)",
+  "uso": [
+   "rivista: copertina dell'articolo metodo-skinmatch"
+  ],
+  "fuoco": "50% 50%",
+  "larghezza": 1600,
+  "altezza": 1067,
+  "originale": "media/foto/rivista-metodo-skinmatch.jpg"
+ },
+ {
+  "nome": "rivista-ordine-prodotti-skincare",
+  "alt": "Una ragazza con lo chignon si stende la crema sulle guance e sorride al suo riflesso nello specchio del bagno",
+  "autore": "Miriam Alonso",
+  "autore_pagina": "https://www.pexels.com/@miriam-alonso",
+  "pagina": "https://www.pexels.com/photo/woman-looking-at-a-mirror-7622582/",
+  "pexels_id": 7622582,
+  "licenza": "Licenza Pexels (uso libero, citazione gradita)",
+  "uso": [
+   "rivista: copertina dell'articolo ordine-prodotti-skincare"
+  ],
+  "fuoco": "40% 40%",
+  "larghezza": 1600,
+  "altezza": 1067,
+  "originale": "media/foto/rivista-ordine-prodotti-skincare.jpg"
+ },
+ {
+  "nome": "rivista-attivi-insieme",
+  "alt": "Una mano in accappatoio lascia cadere una goccia di siero dal contagocce sul dorso dell'altra mano",
+  "autore": "https://kaboompics.com/",
+  "autore_pagina": "https://www.pexels.com/@karola-g",
+  "pagina": "https://www.pexels.com/photo/person-applying-serum-on-her-hand-7321720/",
+  "pexels_id": 7321720,
+  "licenza": "Licenza Pexels (uso libero, citazione gradita)",
+  "uso": [
+   "rivista: copertina dell'articolo attivi-insieme"
+  ],
+  "fuoco": "55% 45%",
+  "larghezza": 1600,
+  "altezza": 1067,
+  "originale": "media/foto/rivista-attivi-insieme.jpg"
  }
 ]
