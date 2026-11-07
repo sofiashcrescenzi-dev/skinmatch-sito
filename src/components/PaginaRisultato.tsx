@@ -38,7 +38,9 @@ export default function PaginaRisultato() {
   const percorso = dati ? percorsoPerId(dati.percorso) : null;
   const r = useMemo(() => (dati && percorso ? consiglia(percorso, dati.risposte) : null), [dati, percorso]);
 
-  if (codice === null) return <main className="contenitore sezione" style={{ minHeight: '60vh' }} />;
+  // ⚠️ ALTO QUANTO LO SCHERMO (7/11/2026, Friday: CLS 0,254 a 390 px): con 60vh il piede compariva a metà schermo e
+  // spariva quando arrivava il risultato. Fuori dallo schermo il suo spostamento non conta e non si vede.
+  if (codice === null) return <main className="contenitore sezione" style={{ minHeight: '100svh' }} />;
   if (!r || !percorso) {
     return (
       <main className="contenitore sezione pila" style={{ ['--gap' as string]: '16px', minHeight: '50vh' }}>

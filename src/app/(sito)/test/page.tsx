@@ -77,7 +77,7 @@ export default function TestPage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [risultato]);
 
-  if (!pronto) return <main className="contenitore sezione" style={{ minHeight: '60vh' }} />;
+  if (!pronto) return <main className="contenitore sezione" style={{ minHeight: '100svh' }} />;
 
   // la scelta del percorso
   if (!percorso) {
@@ -106,7 +106,9 @@ export default function TestPage() {
     );
   }
 
-  if (risultato) return <main className="contenitore sezione" style={{ minHeight: '60vh' }} />;
+  // ⚠️ ALTO QUANTO LO SCHERMO (7/11/2026, Friday: CLS 0,254 a 390 px): con 60vh il piede compariva a metà schermo e
+  // spariva quando arrivava il risultato. Fuori dallo schermo il suo spostamento non conta e non si vede.
+  if (risultato) return <main className="contenitore sezione" style={{ minHeight: '100svh' }} />;
 
   const passo = Math.min(s.passo, domande.length - 1);
   const d = domande[passo];
