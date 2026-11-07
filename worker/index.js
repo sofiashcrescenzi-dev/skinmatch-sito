@@ -18,7 +18,8 @@ const TIPI_EVENTO = new Set(['test_inizio', 'test_fine', 'clic', 'guasto']);
 // solo percorsi e biotipi che esistono: nessuno scrive righe a caso nel Traffico (Friday, 15/10)
 const PERCORSI = new Set(test.percorsi.map((p) => p.id));
 const BIOTIPI = new Set(biotipi.biotipi.map((b) => b.id));
-const DOCUMENTI = new Set(['test', 'biotipi', 'glossario', 'catalogo', 'negozi', 'nozioni']);
+// chisiamo (7/11/2026, d-nome): le persone della pagina Chi siamo, con le foto caricate dall'admin
+const DOCUMENTI = new Set(['test', 'biotipi', 'glossario', 'catalogo', 'negozi', 'nozioni', 'chisiamo']);
 const STATI_ARTICOLO = new Set(['in_approvazione', 'da_correggere', 'approvato', 'online', 'scartato']);
 const STATI_SEGNALAZIONE = new Set(['aperta', 'in_lavoro', 'dopo', 'fatta', 'scartata']);
 const STATI_MARCA = new Set(['da_studiare', 'da_contattare', 'contattata', 'risposto', 'decisa']);
@@ -209,9 +210,9 @@ async function admin(req, env, url, email) {
     if (!a) return json({ errore: 'articolo non trovato' }, 404);
     if (stato && !STATI_ARTICOLO.has(stato)) return json({ errore: 'stato sconosciuto' }, 400);
     if (stato === 'online') return json({ errore: 'online lo segna la pubblicazione' }, 400);
-    const ok = ['titolo', 'sommario', 'testo', 'approfondisce'];
+    const ok = ['titolo', 'sommario', 'testo', 'approfondisce', 'firma'];
     // approfondisce: i termini del glossario che l'articolo spiega, come JSON (al massimo tre)
-    const valido = (k, v) => k !== 'approfondisce' || (() => { try { const x = JSON.parse(v); return Array.isArray(x) && x.length <= 3 && x.every((t) => /^[a-z0-9-]{1,40}$/.test(t)); } catch { return false; } })();
+    const valido = (k, v) => (k === 'firma' ? ['redazione', 'sofia'].includes(v) : k !== 'approfondisce') || (() => { try { const x = JSON.parse(v); return Array.isArray(x) && x.length <= 3 && x.every((t) => /^[a-z0-9-]{1,40}$/.test(t)); } catch { return false; } })();
     const set = Object.entries(campi || {}).filter(([k, v]) => ok.includes(k) && typeof v === 'string' && valido(k, v));
     await DB.prepare(`UPDATE articoli SET ${[stato ? 'stato = ?2' : null, 'feedback = ?3', "aggiornato_il = datetime('now')", ...set.map(([k], i) => `${k} = ?${i + 4}`)].filter(Boolean).join(', ')} WHERE id = ?1`)
       .bind(id, stato || null, feedback ?? null, ...set.map(([, v]) => v)).run();
@@ -256,6 +257,18 @@ async function admin(req, env, url, email) {
     const r = await DB.prepare(`INSERT INTO marche_studio (${set.map(([k]) => k).join(', ')}, chi) VALUES (${set.map((_, i) => `?${i + 1}`).join(', ')}, ?${set.length + 1}) RETURNING id`)
       .bind(...set.map(([, v]) => v), email).first().catch((e) => ({ errore: String(e.message || e) }));
     if (!r || r.errore) return json({ errore: /UNIQUE/.test(r?.errore || '') ? 'questa marca c\'è già' : 'non salvata' }, 400);
+    return json({ ok: true, id: r.id });
+  }
+
+  if (via === 'revisioni') {
+    // IL REGISTRO DELLE REVISIONI (7/11/2026, voto l-revisione): si aggiunge, non si cambia. L'ultima riga per chiave vale.
+    if (req.method === 'GET') return json({ revisioni: await tutti('SELECT * FROM revisioni ORDER BY id DESC LIMIT 1000') });
+    const { chiave, contenuto, esito, nota } = corpo || {};
+    if (!/^(metodo|biotipo:[a-z0-9-]+|consiglio:[a-z0-9-]+|articolo:[a-z0-9-]+)$/.test(chiave || '')) return json({ errore: 'chiave sconosciuta' }, 400);
+    if (!['approvato', 'da_cambiare'].includes(esito)) return json({ errore: 'esito sconosciuto' }, 400);
+    if (typeof contenuto !== 'string' || !contenuto || contenuto.length > 200000) return json({ errore: 'contenuto mancante' }, 400);
+    const r = await DB.prepare('INSERT INTO revisioni (chiave, contenuto, esito, nota, chi) VALUES (?1, ?2, ?3, ?4, ?5) RETURNING id')
+      .bind(chiave, contenuto, esito, typeof nota === 'string' && nota.trim() ? nota.trim().slice(0, 2000) : null, email).first();
     return json({ ok: true, id: r.id });
   }
 

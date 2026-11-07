@@ -76,3 +76,14 @@ CREATE TABLE IF NOT EXISTS arricchimenti (
   id INTEGER PRIMARY KEY AUTOINCREMENT, prodotto TEXT NOT NULL, campo TEXT NOT NULL, valore TEXT NOT NULL, fonte TEXT,
   stato TEXT NOT NULL DEFAULT 'proposto', chi TEXT, creato_il TEXT NOT NULL DEFAULT (datetime('now'))
 );
+
+-- IL REGISTRO DELLE REVISIONI (7/11/2026, voto l-revisione): chi ha rivisto cosa e quando. Ogni approvazione porta il
+-- contenuto che è stato letto: la pubblicazione la porta sul sito solo se il contenuto è ancora quello (se il testo
+-- cambia, la revisione decade). chiave: «metodo», «biotipo:<id>», «consiglio:<id>», «articolo:<slug>».
+CREATE TABLE IF NOT EXISTS revisioni (
+  id INTEGER PRIMARY KEY AUTOINCREMENT, chiave TEXT NOT NULL, contenuto TEXT NOT NULL, esito TEXT NOT NULL,
+  nota TEXT, chi TEXT NOT NULL, creato_il TEXT NOT NULL DEFAULT (datetime('now'))
+);
+CREATE INDEX IF NOT EXISTS revisioni_chiave ON revisioni (chiave, id);
+-- la firma di un articolo (7/11/2026, d-nome): «redazione» (scritto dalla Redazione) o «sofia» (scritto da Sofia)
+-- ALTER TABLE articoli ADD COLUMN firma TEXT;

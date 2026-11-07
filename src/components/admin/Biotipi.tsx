@@ -23,6 +23,7 @@ function EditorBiotipo({ b, cambia, togli, doc }: { b: Biotipo; cambia: (b: Biot
         <Campo etichetta="Motto"><Testo valore={b.motto} cambia={(v) => cambia({ ...b, motto: v })} /></Campo>
       </div>
       <Campo etichetta="Descrizione"><Testo lungo valore={b.descrizione} cambia={(v) => cambia({ ...b, descrizione: v })} /></Campo>
+      <Campo etichetta="Consiglio del medico" aiuto="2-3 frasi pratiche, senza farmaci né diagnosi. Sul sito compare solo dopo l’approvazione di Sofia in admin › Revisioni; se lo cambi, va riapprovato."><Testo lungo valore={b.consiglio_medico} cambia={(v) => cambia({ ...b, consiglio_medico: v || undefined })} /></Campo>
       <div className="adm-due">
         <Campo etichetta="Come si riconosce (una per riga)"><Righe valore={b.caratteristiche} cambia={(v) => cambia({ ...b, caratteristiche: v })} /></Campo>
         <Campo etichetta="Cosa cercare"><Righe valore={b.cerca} cambia={(v) => cambia({ ...b, cerca: v })} /></Campo>

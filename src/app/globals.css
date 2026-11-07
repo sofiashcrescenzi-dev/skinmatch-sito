@@ -634,3 +634,11 @@ details.carta > summary::-webkit-details-marker { display: none; }
   .test-grande .titolo-3 { font-size: clamp(24px, 2.6vw, 32px); }
 }
 @media (prefers-reduced-motion: reduce) { .test-carta, .test-via span { transition: none; } }
+
+/* chi siamo, firma e consiglio del medico (7/11/2026, d-nome e d-compat) */
+.ritratto { border-radius: 50%; object-fit: cover; flex: none; display: block; }
+.ritratto-vuoto { display: grid; place-items: center; background: linear-gradient(90deg, var(--f5) 50%, var(--f4) 50%); color: var(--latte); font-family: var(--font-titolo); font-weight: 600; letter-spacing: 0.02em; }
+.firma { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; color: inherit; }
+.consiglio-medico { display: grid; gap: 8px; padding: clamp(14px, 2.4vw, 20px); border-radius: var(--raggio); background: var(--bene-tenue); border-left: 4px solid var(--bene); }
+.consiglio-medico .etichetta { color: var(--bene); }
+.consiglio-medico .testo { font-size: 16px; margin: 0; }

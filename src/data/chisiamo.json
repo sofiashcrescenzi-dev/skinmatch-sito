@@ -1,0 +1,36 @@
+{
+ "_nota": "LA PAGINA CHI SIAMO (7/11/2026, voto d-nome): le persone, con foto, testo e un link. Si modifica da admin › Chi siamo; la pubblicazione scrive le foto in public/immagini. Finché «pubblica» è false le schede si vedono solo con /chi-siamo#anteprima: i testi qui sotto sono una storia di prova di Zeno, da riscrivere.",
+ "pubblica": false,
+ "persone": [
+  {
+   "id": "sofia",
+   "nome": "dr.ssa Sofia Crescenzi",
+   "ruolo": "Medico estetico · scrive le domande del test e controlla gli articoli",
+   "testo": [
+    "Sofia è medico estetico. In studio vede ogni settimana persone che arrivano con una borsa di creme comprate per sentito dire: troppe, a volte forti insieme, quasi mai scelte per la loro pelle.",
+    "Le domande del test sono le sue: le stesse che fa in visita, prima di guardare la pelle da vicino. Ha stabilito quando un profilo va mandato dal medico e quali prodotti non vanno proposti a chi ha la pelle che reagisce. Rilegge gli articoli della Rivista prima che escano.",
+    "Su Skinmatch non consiglia prodotti a suo nome e non compare accanto ai prodotti: il consiglio personale lo dà in studio."
+   ],
+   "foto": "",
+   "link": {
+    "testo": "Lo studio di Sofia",
+    "url": ""
+   }
+  },
+  {
+   "id": "federico",
+   "nome": "Federico",
+   "ruolo": "Fondatore · progetta il sito e il catalogo",
+   "testo": [
+    "Federico progetta prodotti digitali. Skinmatch è nato da una domanda semplice: perché trovare una crema adatta online è così difficile, quando le informazioni ci sono tutte?",
+    "Ha costruito il test, il catalogo e il modo in cui scegliamo i prodotti: per ogni scheda cerchiamo l’elenco degli ingredienti dal sito della marca, e quando non c’è lo diciamo.",
+    "Si occupa anche di quello che non si vede: che nessun prodotto salga in cima perché fa guadagnare di più."
+   ],
+   "foto": "",
+   "link": {
+    "testo": "Federico su LinkedIn",
+    "url": ""
+   }
+  }
+ ]
+}

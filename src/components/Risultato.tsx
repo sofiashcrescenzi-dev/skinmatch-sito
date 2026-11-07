@@ -11,6 +11,7 @@ import Foto from '@/components/Foto';
 import FotoProdotto, { tonoProdotto } from '@/components/FotoProdotto';
 import Campione from '@/components/Campione';
 import Giornata from '@/components/Giornata';
+import ConsiglioMedico from '@/components/ConsiglioMedico';
 import { percheSimile } from '@/lib/simili';
 import { BISOGNI } from '@/lib/integratori';
 import { giornataDi, MOMENTI, type Passo } from '@/lib/giornata';
@@ -188,6 +189,7 @@ export default function Risultato({ r, azioni, condiviso, metodoCambiato }: { r:
                   </div>
                 )}
               </details>
+              <ConsiglioMedico b={a.biotipo} />
               {a.tratti.length > 0 && (
                 <div className="pila" style={{ ['--gap' as string]: '6px' }}>
                   <span className="piccolo">In più:</span>

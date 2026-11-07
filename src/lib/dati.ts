@@ -13,6 +13,8 @@ import rivista from '@/data/rivista.json';
 import attivi from '@/data/attivi.json';
 import negozi from '@/data/negozi.json';
 import nozioni from '@/data/nozioni.json';
+import chisiamo from '@/data/chisiamo.json';
+import revisioni from '@/data/revisioni.json';
 
 export type Area = 'pelle' | 'cute' | 'integrazione';
 export type AreaDomanda = Area | 'comune';
@@ -108,6 +110,9 @@ export type Biotipo = {
   evita: string[];
   regole: Condizione[][];
   bisogni: Bisogni;
+  // il consiglio del medico per questo biotipo (7/11/2026, voto d-compat): lo scrive o lo approva Sofia; sul sito
+  // compare solo con la sua revisione (revisione('consiglio:<id>'))
+  consiglio_medico?: string;
 };
 export type TagBiotipo = { id: string; nome: string; area: Area | 'tutti' };
 
@@ -167,6 +172,7 @@ export type Articolo = {
   biotipi?: string[];
   termini?: string[];
   approfondisce?: string[]; // i termini del glossario che spiega: lo mostrano sotto il termine e nei prodotti
+  firma?: 'redazione' | 'sofia'; // chi l'ha scritto (7/11/2026, d-nome): «sofia» solo per i pezzi scritti da lei
   pubblicato_il: string;
   aggiornato_il?: string;
 };
@@ -248,3 +254,23 @@ export const NOZIONI = (nozioni as unknown as { nozioni: Nozione[] }).nozioni;
 // ⚠️ SOLO DA LEGGERE (25/10/2026, Federico: «non devono essere altre scelte multiple o altri lavori da fare»): i quiz sono
 // diventati nozioni, e il tipo «quiz» non c'e piu.
 export const TIPO_NOZIONE: Record<Nozione['tipo'], string> = { 'lo-sapevi': 'Lo sapevi che…', storia: 'Un po\' di storia' };
+
+// CHI SIAMO (7/11/2026, voto d-nome): le persone, modificabili da admin › Chi siamo. Finché «pubblica» è false le schede
+// si vedono solo in anteprima (/chi-siamo#anteprima).
+export type Membro = { id: string; nome: string; ruolo: string; testo: string[]; foto: string; link: { testo: string; url: string } };
+export const CHI_SIAMO = chisiamo as unknown as { pubblica: boolean; persone: Membro[] };
+
+// IL REGISTRO DELLE REVISIONI (7/11/2026, voto l-revisione): le approvazioni di Sofia ancora valide, per chiave
+// («metodo», «biotipo:<id>», «consiglio:<id>», «articolo:<slug>»). Le scrive la pubblicazione dall'admin; qui c'è solo
+// quello che si può dire sul sito: «rivisto da … il …» compare solo dove la revisione c'è davvero.
+export type Revisione = { chi: string; data: string };
+export const REVISIONI = (revisioni as unknown as { revisioni: Record<string, Revisione> }).revisioni;
+export const revisione = (chiave: string): Revisione | null => REVISIONI[chiave] || null;
+export const dataLunga = (d: string) => new Date(d.slice(0, 10) + 'T12:00:00').toLocaleDateString('it-IT', { day: 'numeric', month: 'long', year: 'numeric' });
+
+// IL CONTENUTO CHE SI APPROVA (7/11/2026): il testo che Sofia ha letto. Lo stesso calcolo è in scripts/admin/pubblica.py
+// (contenuti): se cambia uno, cambiare anche l'altro.
+export const VERSIONI_METODO = { test: (test as { _versione?: string })._versione || '', biotipi: (biotipi as { _versione?: string })._versione || '' };
+export const contenutoMetodo = (v = VERSIONI_METODO) => `test ${v.test} · biotipi ${v.biotipi}`;
+export const contenutoBiotipo = (b: Biotipo) => [b.titolo, b.motto, b.descrizione, ...(b.caratteristiche || []), ...(b.cerca || []), ...(b.evita || [])].join('\n');
+export const contenutoArticolo = (a: { titolo: string; sommario: string; testo: string }) => [a.titolo, a.sommario, a.testo].join('\n');

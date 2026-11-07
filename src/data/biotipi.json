@@ -154,7 +154,8 @@
      "barriera-cutanea",
      "idratazione"
     ]
-   }
+   },
+   "consiglio_medico": "Lava il viso con acqua tiepida e un detergente senza sapone, e metti la crema entro pochi minuti, quando la pelle è ancora un po' umida. Un prodotto nuovo alla volta, provato prima per qualche sera su una piccola zona. Se compaiono chiazze che prudono o si spaccano, la routine va rivista con chi ti segue."
   },
   {
    "id": "psoriasica",
@@ -202,7 +203,8 @@
      "barriera-cutanea",
      "idratazione"
     ]
-   }
+   },
+   "consiglio_medico": "La skincare serve a rendere la pelle più morbida e a non irritarla: niente scrub, niente prodotti profumati sulle placche. Creme ricche, anche più volte al giorno nelle zone secche. Ogni cambiamento importante va concordato con il medico che ti segue."
   },
   {
    "id": "acneica",
@@ -255,7 +257,8 @@
      "acne-sebo",
      "pori-dilatati"
     ]
-   }
+   },
+   "consiglio_medico": "Lava il viso due volte al giorno, non di più: lavarlo spesso non toglie i brufoli e secca la pelle. Non schiacciarli, perché lasciano segni che durano mesi. Se i brufoli sono profondi, dolorosi o lasciano cicatrici, è il momento di una visita."
   },
   {
    "id": "seborroica-disidratata",
@@ -321,7 +324,8 @@
      "idratazione",
      "acne-sebo"
     ]
-   }
+   },
+   "consiglio_medico": "Il sebo non va combattuto con detergenti forti: è proprio questo che toglie acqua. Un gel delicato, un siero idratante e una crema leggera fanno più di un prodotto «sebo-regolatore» aggressivo."
   },
   {
    "id": "seborroica-idratata",
@@ -382,7 +386,8 @@
      "pori-dilatati",
      "acne-sebo"
     ]
-   }
+   },
+   "consiglio_medico": "Una pelle che produce molto sebo ma sta bene chiede poco: detersione delicata mattina e sera, crema leggera, protezione solare non grassa. Gli attivi per i pori vanno introdotti piano, uno alla volta."
   },
   {
    "id": "disidratata-sensibile",
@@ -441,7 +446,8 @@
      "rossori-sensibilita",
      "idratazione"
     ]
-   }
+   },
+   "consiglio_medico": "Per qualche settimana togli tutto quello che non serve: detergente delicato, crema per la barriera, protezione solare. Gli attivi tornano solo quando la pelle smette di tirare e bruciare."
   },
   {
    "id": "secca-disidratata",
@@ -515,7 +521,8 @@
      "barriera-cutanea",
      "idratazione"
     ]
-   }
+   },
+   "consiglio_medico": "Acqua tiepida, mai calda, e un detergente in crema o in latte. Crema ricca mattina e sera; d'inverno anche un umidificatore in camera aiuta."
   },
   {
    "id": "secca",
@@ -577,7 +584,8 @@
      "idratazione",
      "barriera-cutanea"
     ]
-   }
+   },
+   "consiglio_medico": "La pelle secca chiede grassi: creme con ceramidi o burri, applicate sulla pelle appena lavata. Esfolia poco, una volta a settimana al massimo, e solo se la pelle è ruvida."
   },
   {
    "id": "normale-disidratata",
@@ -624,7 +632,8 @@
     "concerns": [
      "idratazione"
     ]
-   }
+   },
+   "consiglio_medico": "Spesso la causa è fuori dalla pelle: detergente troppo forte, aria secca, riscaldamento. Prima di aggiungere prodotti, prova a cambiare il detergente e a mettere un siero idratante sotto la crema."
   },
   {
    "id": "pelle-mista",
@@ -678,7 +687,8 @@
      "idratazione",
      "pori-dilatati"
     ]
-   }
+   },
+   "consiglio_medico": "Non serve una routine per ogni zona: un detergente delicato e una crema leggera per tutto il viso, e se vuoi un trattamento solo sulla zona T. Sulle guance non usare prodotti troppo seccanti."
   },
   {
    "id": "normale",
@@ -715,7 +725,8 @@
     "concerns": [
      "idratazione"
     ]
-   }
+   },
+   "consiglio_medico": "Una pelle in equilibrio si mantiene con poco: detergente, crema, protezione solare ogni mattina. Gli attivi si aggiungono per un obiettivo preciso, non perché vanno di moda."
   },
   {
    "id": "macchie",
@@ -764,7 +775,8 @@
      "macchie-luminosita",
      "protezione-solare"
     ]
-   }
+   },
+   "consiglio_medico": "La protezione solare ogni mattina, tutto l'anno, conta più di qualunque siero schiarente. Le macchie si attenuano in mesi, non in settimane. Una macchia che cambia forma, colore o dimensione va fatta vedere a un dermatologo."
   },
   {
    "id": "rosacea",
@@ -814,7 +826,8 @@
     "concerns": [
      "rossori-sensibilita"
     ]
-   }
+   },
+   "consiglio_medico": "Evita quello che scatena i rossori: acqua calda, scrub, prodotti profumati o con alcol, sbalzi di temperatura. Prodotti semplici, pochi, provati uno alla volta. Rossori che durano o peggiorano vanno visti da un medico."
   },
   {
    "id": "matura",
@@ -862,7 +875,8 @@
     "concerns": [
      "anti-age"
     ]
-   }
+   },
+   "consiglio_medico": "La protezione solare quotidiana è il primo prodotto per i segni del tempo. Il retinolo si introduce piano, due o tre sere a settimana, aumentando solo se la pelle lo tollera. Una buona crema la sera conta quanto gli attivi."
   },
   {
    "id": "menopausa",
@@ -915,7 +929,8 @@
      "anti-age",
      "idratazione"
     ]
-   }
+   },
+   "consiglio_medico": "La pelle diventa più sottile e più secca: passa a detergenti più delicati e a creme più ricche. Gli attivi vanno bene, ma più piano di prima. Cambiamenti improvvisi della pelle vanno raccontati al medico."
   },
   {
    "id": "reattiva",
@@ -960,7 +975,8 @@
      "rossori-sensibilita",
      "barriera-cutanea"
     ]
-   }
+   },
+   "consiglio_medico": "Meno prodotti, senza profumo, uno nuovo ogni due o tre settimane. Prova ogni novità per qualche sera su una piccola zona del collo prima del viso."
   },
   {
    "id": "imperfezioni",
@@ -1008,7 +1024,8 @@
      "acne-sebo",
      "pori-dilatati"
     ]
-   }
+   },
+   "consiglio_medico": "Lavora sui pori con costanza, non con forza: un esfoliante delicato due o tre sere a settimana basta. Non saltare la crema anche se la pelle è grassa. Non schiacciare i punti neri."
   },
   {
    "id": "psoriasi-cuoio-capelluto",
@@ -1060,7 +1077,8 @@
      "secco",
      "sensibile"
     ]
-   }
+   },
+   "consiglio_medico": "Non grattare e non staccare le squame: si irrita la pelle e peggiora. Uno shampoo delicato e il tempo di posa indicato dal prodotto. Il trattamento lo decide chi ti segue: lo shampoo lo accompagna."
   },
   {
    "id": "seborroico",
@@ -1112,7 +1130,8 @@
     "cute": [
      "grasso"
     ]
-   }
+   },
+   "consiglio_medico": "Lavare spesso i capelli non aumenta il sebo: puoi lavarli anche ogni giorno, con uno shampoo delicato. Massaggia la cute con i polpastrelli, non con le unghie. Se compaiono chiazze rosse con squame, parlane con un medico."
   },
   {
    "id": "diradamento",
@@ -1167,7 +1186,8 @@
     "cute": [
      "normale"
     ]
-   }
+   },
+   "consiglio_medico": "Prima si guarda, più si conserva: se noti che la riga si allarga o l'attaccatura arretra, una visita dermatologica è il primo passo. Lo shampoo e i trattamenti cosmetici accompagnano, non sostituiscono la visita."
   },
   {
    "id": "caduta-reattiva",
@@ -1216,7 +1236,8 @@
     "cute": [
      "normale"
     ]
-   }
+   },
+   "consiglio_medico": "Una caduta che inizia due o tre mesi dopo un periodo difficile (febbre alta, stress, un parto, una dieta drastica) di solito si ferma da sola. Mangia in modo vario e abbi pazienza. Se dura più di sei mesi, fai controllare dal medico anche con le analisi del sangue."
   },
   {
    "id": "secco-desquamante",
@@ -1262,7 +1283,8 @@
     "cute": [
      "secco"
     ]
-   }
+   },
+   "consiglio_medico": "Acqua tiepida, shampoo delicato, e non troppo spesso. Evita phon molto caldo sulla cute. Se il prurito è forte o le squame sono spesse e gialle, chiedi al medico."
   },
   {
    "id": "capelli-secchi",
@@ -1307,7 +1329,8 @@
     "cute": [
      "normale"
     ]
-   }
+   },
+   "consiglio_medico": "Il balsamo va sulle lunghezze ogni volta, la maschera una volta a settimana. Proteggi i capelli dal calore e asciugali tamponando, senza strofinare."
   },
   {
    "id": "cute-grassa",
@@ -1351,7 +1374,8 @@
     "cute": [
      "grasso"
     ]
-   }
+   },
+   "consiglio_medico": "Uno shampoo delicato anche tutti i giorni va bene. Il balsamo solo sulle lunghezze, mai sulla cute. Le spazzole vanno lavate spesso."
   },
   {
    "id": "cute-secca",
@@ -1399,7 +1423,8 @@
     "cute": [
      "secco"
     ]
-   }
+   },
+   "consiglio_medico": "Lava meno spesso, con uno shampoo delicato e acqua tiepida. Una lozione idratante per la cute può aiutare d'inverno."
   },
   {
    "id": "equilibrato",
@@ -1433,7 +1458,8 @@
     "cute": [
      "normale"
     ]
-   }
+   },
+   "consiglio_medico": "Niente da correggere: uno shampoo delicato e un balsamo sulle lunghezze. Cambia prodotto solo se cambia qualcosa."
   },
   {
    "id": "cute-sensibile",
@@ -1474,7 +1500,8 @@
     "cute": [
      "sensibile"
     ]
-   }
+   },
+   "consiglio_medico": "Pochi prodotti, senza profumo, e uno nuovo alla volta. Prova tinte e trattamenti su una piccola zona prima. Bruciore o prurito che non passano vanno visti da un medico."
   },
   {
    "id": "capelli-trattati",
@@ -1524,7 +1551,8 @@
     "capelli": [
      "secchi-crespi"
     ]
-   }
+   },
+   "consiglio_medico": "Distanzia colorazioni e decolorazioni, e usa sempre un termoprotettore prima di phon e piastra. Le lunghezze vanno nutrite a ogni lavaggio."
   },
   {
    "id": "sostegno-capelli",
@@ -1567,7 +1595,8 @@
     "capelli": [
      "caduta"
     ]
-   }
+   },
+   "consiglio_medico": "Se i capelli cadono, prima di un integratore conviene capire il perché con il medico, anche con le analisi del sangue. Una dieta con abbastanza proteine, ferro e vitamine resta la base."
   },
   {
    "id": "pelle-idratazione",
@@ -1610,7 +1639,8 @@
      "idratazione",
      "barriera-cutanea"
     ]
-   }
+   },
+   "consiglio_medico": "Prima di tutto acqua, frutta e verdura e una crema adatta. Un integratore può affiancare, non sostituire, la cura della pelle da fuori."
   },
   {
    "id": "tono-collagene",
@@ -1652,7 +1682,8 @@
     "concerns": [
      "anti-age"
     ]
-   }
+   },
+   "consiglio_medico": "Sole e fumo sono i fattori che contano di più sul tono della pelle: protezione solare e niente sigarette vengono prima di qualunque integratore."
   },
   {
    "id": "preparazione-sole",
@@ -1694,7 +1725,8 @@
      "protezione-solare",
      "macchie-luminosita"
     ]
-   }
+   },
+   "consiglio_medico": "Un integratore non sostituisce la protezione solare, mai. Va usato insieme a crema solare, ombra nelle ore centrali e cappello."
   },
   {
    "id": "unghie-fragili",
@@ -1734,7 +1766,8 @@
      "caduta",
      "mantenimento"
     ]
-   }
+   },
+   "consiglio_medico": "Proteggi le mani dall'acqua e dai detergenti con i guanti, e usa una crema per le mani. Se le unghie cambiano colore o forma, falle vedere al medico."
   },
   {
    "id": "imperfezioni-interno",
@@ -1774,7 +1807,8 @@
     "concerns": [
      "acne-sebo"
     ]
-   }
+   },
+   "consiglio_medico": "Nessun integratore sostituisce la cura della pelle o una visita se i brufoli sono tanti. Parlane con il medico prima di iniziarne uno."
   },
   {
    "id": "equilibrio",
@@ -1799,7 +1833,8 @@
    "regole": [
     []
    ],
-   "bisogni": {}
+   "bisogni": {},
+   "consiglio_medico": "Dalle tue risposte non serve un integratore: una dieta varia basta. Se cambia qualcosa (stanchezza, alimentazione, stagione) puoi rifare il test."
   },
   {
    "id": "vegana",
@@ -1833,7 +1868,8 @@
      }
     ]
    ],
-   "bisogni": {}
+   "bisogni": {},
+   "consiglio_medico": "Con un'alimentazione vegana la vitamina B12 è la prima da controllare: parlane con il medico e fai le analisi. Anche ferro, vitamina D e omega-3 vanno tenuti d'occhio."
   },
   {
    "id": "riposo",
@@ -1874,7 +1910,8 @@
     "concerns": [
      "sonno"
     ]
-   }
+   },
+   "consiglio_medico": "Prima di un integratore, le abitudini: orari regolari, niente schermi nell'ultima ora, camera fresca e buia. Se il sonno manca per settimane, parlane con il medico."
   },
   {
    "id": "energia",
@@ -1914,7 +1951,8 @@
     "concerns": [
      "energia"
     ]
-   }
+   },
+   "consiglio_medico": "Una stanchezza che dura settimane va capita con il medico, anche con le analisi del sangue. Un integratore non la risolve se la causa è un'altra."
   },
   {
    "id": "calma",
@@ -1954,7 +1992,8 @@
     "concerns": [
      "stress"
     ]
-   }
+   },
+   "consiglio_medico": "Movimento, sonno e pause fanno più di qualunque integratore. Se l'ansia o la tensione durano, il medico è la persona giusta."
   },
   {
    "id": "difese",
@@ -1994,7 +2033,8 @@
     "concerns": [
      "difese"
     ]
-   }
+   },
+   "consiglio_medico": "Sonno, frutta e verdura ogni giorno e attività all'aperto sono la base. Raffreddori molto frequenti vanno raccontati al medico."
   },
   {
    "id": "vitamina-d",
@@ -2035,7 +2075,8 @@
     "concerns": [
      "vitamina-d"
     ]
-   }
+   },
+   "consiglio_medico": "Prima di prendere la vitamina D, controlla i valori con un esame del sangue e parlane con il medico."
   },
   {
    "id": "omega-3",
@@ -2075,7 +2116,8 @@
     "concerns": [
      "omega-3"
     ]
-   }
+   },
+   "consiglio_medico": "Pesce azzurro due volte a settimana, noci e semi di lino sono le fonti principali. Se segui una terapia, chiedi al medico prima di iniziare un integratore."
   }
  ]
 }

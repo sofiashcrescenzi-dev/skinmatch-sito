@@ -3,10 +3,13 @@ import Link from 'next/link';
 import Foto from '@/components/Foto';
 import { LEGALE } from '@/lib/legale';
 import { Invito } from '@/components/Inviti';
+import Persone from '@/components/Persone';
+import { CHI_SIAMO } from '@/lib/dati';
 
-// CHI SIAMO (15/10/2026). ⚠️ Il medico che ha costruito il metodo non è nominato e non compare in
-// foto: il codice deontologico chiede che l'immagine di un medico non promuova prodotti commerciali
-// (tappa 9 delle «Tappe di Skinmatch»). Se Sofia decide diversamente, si cambia qui.
+// CHI SIAMO (15/10/2026). ⚠️ Il codice deontologico chiede che l'immagine di un medico non promuova prodotti
+// commerciali (tappa 9 delle «Tappe di Skinmatch»): qui niente prodotti, niente prezzi, niente bottoni verso i negozi.
+// Dal 7/11/2026 (voto d-nome) le persone, con nome e foto, stanno in admin › Chi siamo (components/Persone.tsx) e si
+// vedono quando Federico e Sofia accendono «pubblica»; prima solo con /chi-siamo#anteprima.
 
 export const metadata: Metadata = {
   title: 'Chi siamo: perché esiste Skinmatch e come sceglie i prodotti',
@@ -39,9 +42,13 @@ export default function ChiSiamo() {
         <div className="testo pila" style={{ ['--gap' as string]: '12px' }}>
           <p>Skinmatch nasce in Italia nel 2026, dall&apos;incontro fra un medico estetico e chi progetta prodotti digitali. In studio le domande erano sempre le stesse, e le risposte trovate online quasi sempre sbagliate per la persona che le cercava: classifiche uguali per tutti, «la crema migliore» senza dire per chi, prodotti scelti perché pagano di più.</p>
           <p>Allora abbiamo messo per iscritto quello che in una visita si fa senza pensarci: guardare la pelle prima di chiedere, distinguere una pelle grassa da una pelle disidratata, capire quando un rossore è solo sensibilità e quando va visto dal vivo. Ne sono uscite le domande del test, i biotipi e le regole con cui scegliamo i prodotti.</p>
-          <p>Il metodo lo rivede un medico estetico, che non compare sul sito e non presta il suo nome ai prodotti: il marchio è Skinmatch, il medico consiglia in studio.</p>
+          <p>{CHI_SIAMO.pubblica
+            ? <>Il metodo lo rivede la <a className="link" href="#sofia">dr.ssa Sofia Crescenzi</a>, medico estetico, che non presta il suo nome ai prodotti: il consiglio personale lo dà in studio.</>
+            : 'Il metodo lo rivede un medico estetico, che non compare sul sito e non presta il suo nome ai prodotti: il marchio è Skinmatch, il medico consiglia in studio.'}</p>
         </div>
       </section>
+
+      <Persone />
 
       <section className="pila" style={{ ['--gap' as string]: '18px' }}>
         <h2 className="titolo-2">Cinque regole che non cambiamo</h2>

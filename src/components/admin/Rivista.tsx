@@ -10,7 +10,7 @@ import { useApi, invia, Titolo, Vuoto, quando } from './base';
 // sbizzarrire: un lavoro ogni due giorni, e scoprire delle novità almeno una volta a
 // settimana». Approvato = esce con la prossima pubblicazione (Jarvis la lancia alle 8:40 e alle
 // 14:40, oppure il bottone «Pubblica» di qualsiasi scheda).
-type A = { id: number; slug: string; titolo: string; sommario: string; tipo: string; testo: string; immagine: string; prodotti: string; biotipi: string; approfondisce: string | null; parole: number; stato: string; feedback: string; autore: string; creato_il: string; pubblicato_il: string };
+type A = { id: number; slug: string; titolo: string; sommario: string; tipo: string; testo: string; immagine: string; prodotti: string; biotipi: string; approfondisce: string | null; firma: string | null; parole: number; stato: string; feedback: string; autore: string; creato_il: string; pubblicato_il: string };
 const SCHEDE: [string, string][] = [['in_approvazione', 'Da approvare'], ['da_correggere', 'Da correggere'], ['approvato', 'Approvati, in uscita'], ['online', 'Online'], ['scartato', 'Scartati']];
 const leggiJ = (s: string) => { try { return JSON.parse(s || 'null'); } catch { return null; } };
 
@@ -22,6 +22,9 @@ function Articolo({ a, poi }: { a: A; poi: () => void }) {
   const im = leggiJ(a.immagine) as { file?: string } | null;
   const appr = ((leggiJ(a.approfondisce || '') || []) as string[])[0] || '';
   // il termine del glossario che l'articolo spiega: lo mette sotto il termine e nelle pagine dei prodotti con quell'attivo
+  // la firma (7/11/2026, d-nome): «Redatto e controllato da» solo per i pezzi scritti da Sofia; per gli altri «Redazione
+  // Skinmatch · controllato da». Il nome di Sofia compare solo dopo la sua revisione (admin › Revisioni).
+  const firma = async (f: string) => { setErr(''); try { await invia('/api/admin/articoli', { id: a.id, feedback: nota, campi: { firma: f } }); poi(); } catch (e) { setErr((e as Error).message); } };
   const collega = async (t: string) => { setErr(''); try { await invia('/api/admin/articoli', { id: a.id, feedback: nota, campi: { approfondisce: JSON.stringify(t ? [t] : []) } }); poi(); } catch (e) { setErr((e as Error).message); } };
   const decidi = async (stato: string) => { setErr(''); try { await invia('/api/admin/articoli', { id: a.id, stato, feedback: nota }); poi(); } catch (e) { setErr((e as Error).message); } };
   return (
@@ -40,6 +43,13 @@ function Articolo({ a, poi }: { a: A; poi: () => void }) {
           {TERMINI.slice().sort((x, y) => x.nome.localeCompare(y.nome, 'it')).map((t) => <option key={t.id} value={t.id}>{t.nome}</option>)}
         </select>
         <span className="piccolo">Compare sotto il termine nel glossario e nelle pagine dei prodotti con quell&apos;attivo.</span>
+      </label>
+      <label className="adm-campo" style={{ maxWidth: 420 }}><span className="adm-etichetta">Chi l&apos;ha scritto</span>
+        <select className="adm-input" value={a.firma === 'sofia' ? 'sofia' : 'redazione'} onChange={(e) => firma(e.target.value)}>
+          <option value="redazione">La Redazione (Sofia lo controlla)</option>
+          <option value="sofia">Sofia</option>
+        </select>
+        <span className="piccolo">Con la revisione di Sofia la firma diventa «Redatto e controllato da» oppure «Redazione Skinmatch · controllato da», con la sua foto.</span>
       </label>
       <button type="button" className="chip" style={{ justifySelf: 'start' }} onClick={() => setApri(!apri)}>{apri ? 'Chiudi' : 'Leggi tutto'}</button>
       {apri && (

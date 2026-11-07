@@ -1,7 +1,8 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { ARTICOLI, biotipoPerId } from '@/lib/dati';
+import { ARTICOLI, biotipoPerId, revisione } from '@/lib/dati';
+import Firma from '@/components/Firma';
 import { prodottoPerId } from '@/lib/catalogo';
 import Markdown from '@/components/Markdown';
 import SchedaProdotto from '@/components/SchedaProdotto';
@@ -35,7 +36,7 @@ export default async function ArticoloPage({ params }: { params: Promise<{ slug:
         <span className="etichetta">{a.tipo}</span>
         <h1 className="sopratitolo" style={{ fontSize: 'clamp(30px, 5vw, 50px)' }}>{a.titolo}</h1>
         <p className="intro">{a.sommario}</p>
-        <span className="piccolo">Redazione Skinmatch · {new Date(a.pubblicato_il).toLocaleDateString('it-IT', { day: 'numeric', month: 'long', year: 'numeric' })}</span>
+        <Firma firma={a.firma} rev={revisione(`articolo:${a.slug}`)} pubblicato={a.pubblicato_il} />
       </header>
       {a.immagine?.file && <Foto nome={a.immagine.file} priorita style={{ aspectRatio: '16 / 9' }} sizes="(max-width: 1180px) 100vw, 1180px" credito />}
       <div className="stretto"><Markdown testo={a.testo} /></div>
@@ -55,7 +56,9 @@ export default async function ArticoloPage({ params }: { params: Promise<{ slug:
       </section>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
         '@context': 'https://schema.org', '@type': 'Article', headline: a.titolo, description: a.sommario, datePublished: a.pubblicato_il, dateModified: a.aggiornato_il || a.pubblicato_il,
-        author: { '@type': 'Organization', name: 'Redazione Skinmatch' }, publisher: { '@type': 'Organization', name: 'Skinmatch', url: 'https://skinmatch.it' }, inLanguage: 'it',
+        author: a.firma === 'sofia' && revisione(`articolo:${a.slug}`) ? { '@type': 'Person', name: 'Sofia Crescenzi', jobTitle: 'Medico estetico' } : { '@type': 'Organization', name: 'Redazione Skinmatch' },
+        ...(revisione(`articolo:${a.slug}`) ? { reviewedBy: { '@type': 'Person', name: 'Sofia Crescenzi', jobTitle: 'Medico estetico' }, lastReviewed: revisione(`articolo:${a.slug}`)!.data } : {}),
+        publisher: { '@type': 'Organization', name: 'Skinmatch', url: 'https://skinmatch.it' }, inLanguage: 'it',
         image: a.immagine?.file ? `https://skinmatch.it/immagini/${a.immagine.file}-1600.webp` : undefined, mainEntityOfPage: `https://skinmatch.it/rivista/${a.slug}`,
       }).replace(/</g, '\\u003c') }} />
     </main>

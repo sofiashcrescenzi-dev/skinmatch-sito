@@ -1,7 +1,8 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { BIOTIPI, TAG_BIOTIPI, biotipoPerId, NOMI_AREA, fotoDi } from '@/lib/dati';
+import { BIOTIPI, TAG_BIOTIPI, biotipoPerId, NOMI_AREA, fotoDi, revisione, dataLunga } from '@/lib/dati';
+import ConsiglioMedico from '@/components/ConsiglioMedico';
 import { prodottiPer } from '@/lib/catalogo';
 import { ConTermini } from '@/components/Termini';
 import SchedaProdotto from '@/components/SchedaProdotto';
@@ -45,6 +46,9 @@ export default async function BiotipoPage({ params }: { params: Promise<{ id: st
           <h1 className="sopratitolo" style={{ fontSize: 'clamp(32px, 5.4vw, 54px)' }}>{b.titolo}</h1>
           <span className="motto">{b.motto}</span>
           <p className="testo"><ConTermini testo={b.descrizione} /></p>
+          {/* «rivisto il…» solo dove la revisione c'è davvero (7/11/2026, voto l-revisione) */}
+          {revisione(`biotipo:${b.id}`) && <span className="piccolo">Rivisto da <Link className="link" href="/chi-siamo#sofia">{revisione(`biotipo:${b.id}`)!.chi}</Link> il {dataLunga(revisione(`biotipo:${b.id}`)!.data)}</span>}
+          <ConsiglioMedico b={b} />
           {tag.length > 0 && <div className="riga-chip">{tag.map((t) => <span key={t!.id} className="chip tenue">{t!.nome}</span>)}</div>}
         </div>
         <Foto nome={fotoDi(b)} priorita style={{ aspectRatio: '4 / 5', maxHeight: 560 }} sizes="(max-width: 760px) 100vw, 45vw" credito />

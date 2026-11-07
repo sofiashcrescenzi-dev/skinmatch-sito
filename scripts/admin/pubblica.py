@@ -30,7 +30,7 @@ DATI = REPO / 'src' / 'data'
 REDIRECTS = REPO / 'public' / '_redirects'
 LOCK = REPO / '.pubblica.lock'
 FIRMA = '\n\nCo-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>'
-TIPI = ['test', 'biotipi', 'glossario', 'catalogo', 'negozi', 'nozioni']
+TIPI = ['test', 'biotipi', 'glossario', 'catalogo', 'negozi', 'nozioni', 'chisiamo']
 # scritti da scripts/catalogo/aggiorna.py: la selezione, le schede delle pagine prodotto, i clic
 # ⚠️ indirizzi-vecchi.json lo scrive anche aggiorna.py (gli alias degli indirizzi dei prodotti
 # rinominati, 16/10): fuori da questo elenco la pubblicazione del catalogo restava «in attesa»
@@ -63,11 +63,64 @@ def scrivi(nome, dati, nota):
     doc = {'_nota': vecchio.get('_nota', nota), **corpo}
     # ⚠️ LA DATA DEL METODO (7/11/2026, voto l-dossier): test e biotipi portano _versione, il giorno in cui sono cambiati
     # l'ultima volta; il risultato la mostra (src/lib/dati.ts, DATA_METODO). Una pubblicazione che non cambia niente la tiene.
+    # Dei biotipi contano solo le regole: un testo o un consiglio del medico corretto non cambia il metodo.
     if nome in ('test', 'biotipi'):
+        regole = lambda d: d if nome == 'test' else [[b.get(k) for k in ('id', 'area', 'tipo', 'priorita', 'regole', 'bisogni')] for b in d.get('biotipi', [])]
         prima = {k: v for k, v in vecchio.items() if not k.startswith('_')}
-        doc = {'_nota': doc['_nota'], '_versione': vecchio.get('_versione') if prima == corpo and vecchio.get('_versione') else dt.date.today().isoformat(), **corpo}
+        uguale = regole(prima) == regole(corpo) and vecchio.get('_versione')
+        doc = {'_nota': doc['_nota'], '_versione': vecchio.get('_versione') if uguale else dt.date.today().isoformat(), **corpo}
     f.write_text(json.dumps(doc, ensure_ascii=False, indent=1) + '\n', encoding='utf-8')
     return vecchio
+
+
+def foto_persone(dati):
+    """LE FOTO DI CHI SIAMO (7/11/2026, d-nome): l'admin le salva nel documento come data URL (ridotte a 640 px); qui
+    diventano file in public/immagini, col nome che cambia se cambia la foto, e nel JSON del sito resta il percorso."""
+    import base64, hashlib, re
+    for p in dati.get('persone', []):
+        m = re.match(r'data:image/(webp|jpeg|png);base64,(.+)$', p.get('foto') or '', re.S)
+        if not m:
+            continue
+        grezzo = base64.b64decode(m.group(2))
+        nome = f"persona-{re.sub(r'[^a-z0-9-]', '', p['id'])}-{hashlib.sha1(grezzo).hexdigest()[:8]}.{'jpg' if m.group(1) == 'jpeg' else m.group(1)}"
+        (REPO / 'public' / 'immagini' / nome).write_bytes(grezzo)
+        p['foto'] = f'/immagini/{nome}'
+    return dati
+
+
+SOFIA = 'dr.ssa Sofia Crescenzi'
+
+
+def contenuti():
+    """Il contenuto che Sofia ha letto, per chiave: lo stesso calcolo di src/lib/dati.ts (contenuto*)."""
+    test = json.loads((DATI / 'test.json').read_text(encoding='utf-8'))
+    bio = json.loads((DATI / 'biotipi.json').read_text(encoding='utf-8'))
+    riv = json.loads((DATI / 'rivista.json').read_text(encoding='utf-8'))
+    out = {'metodo': f"test {test.get('_versione', '')} · biotipi {bio.get('_versione', '')}"}
+    for b in bio.get('biotipi', []):
+        out[f"biotipo:{b['id']}"] = '\n'.join([b['titolo'], b['motto'], b['descrizione'], *b.get('caratteristiche', []), *b.get('cerca', []), *b.get('evita', [])])
+        if b.get('consiglio_medico'):
+            out[f"consiglio:{b['id']}"] = b['consiglio_medico']
+    for a in riv.get('articoli', []):
+        out[f"articolo:{a['slug']}"] = '\n'.join([a['titolo'], a['sommario'], a['testo']])
+    return out
+
+
+def esporta_revisioni():
+    """IL REGISTRO SUL SITO (7/11/2026, voto l-revisione): per ogni chiave l'ultima revisione; va online solo se è
+    un'approvazione di Sofia e il contenuto è ancora quello che ha letto. Restituisce quante sono."""
+    ultime = {}
+    for r in sql('SELECT chiave, contenuto, esito, chi, creato_il FROM revisioni ORDER BY id'):
+        ultime[r['chiave']] = r
+    ora = contenuti()
+    valide = {k: {'chi': SOFIA, 'data': r['creato_il'][:10]} for k, r in sorted(ultime.items())
+              if r['esito'] == 'approvato' and 'sofia' in (r['chi'] or '').split('@')[0].lower() and ora.get(k) == r['contenuto']}
+    f = DATI / 'revisioni.json'
+    doc = json.loads(f.read_text(encoding='utf-8'))
+    if doc.get('revisioni') != valide:
+        doc['revisioni'] = valide
+        f.write_text(json.dumps(doc, ensure_ascii=False, indent=1) + '\n', encoding='utf-8')
+    return len(valide)
 
 
 def rinvii(vecchi, nuovi, base, verso):
@@ -130,6 +183,8 @@ def pubblica(coda, ids):
             if r and not r[0]['pubblicato_il']:
                 docs[tipo] = r[0]['id']
                 nuovo = json.loads(r[0]['dati'])
+                if tipo == 'chisiamo':
+                    nuovo = foto_persone(nuovo)
                 vecchio = scrivi(tipo, nuovo, '')
                 fatto.append(tipo)
                 if tipo == 'biotipi':
@@ -149,11 +204,15 @@ def pubblica(coda, ids):
                     'slug': x['slug'], 'titolo': x['titolo'], 'sommario': x['sommario'] or '', 'tipo': x['tipo'] or 'guida', 'testo': x['testo'],
                     'immagine': json.loads(x['immagine'] or '{}') or None, 'prodotti': json.loads(x['prodotti'] or '[]'),
                     'biotipi': json.loads(x['biotipi'] or '[]'), 'termini': json.loads(x['termini'] or '[]'), 'approfondisce': json.loads(x.get('approfondisce') or '[]'),
+                    'firma': 'sofia' if x.get('firma') == 'sofia' else 'redazione',
                     'pubblicato_il': per_slug.get(x['slug'], {}).get('pubblicato_il', oggi), **({'aggiornato_il': oggi} if x['slug'] in per_slug else {}),
                 }
             riv['articoli'] = sorted(per_slug.values(), key=lambda y: y['pubblicato_il'], reverse=True)
             (DATI / 'rivista.json').write_text(json.dumps(riv, ensure_ascii=False, indent=1) + '\n', encoding='utf-8')
             fatto.append(f'{len(articoli)} articoli')
+        # le revisioni di Sofia: a ogni pubblicazione, perché un testo cambiato le fa decadere
+        if esporta_revisioni():
+            fatto.append('revisioni')
         g = run('npx', 'tsx', 'scripts/guardiani.ts', ok=False)
         if g.returncode:
             raise RuntimeError('I guardiani hanno fermato la pubblicazione:\n' + '\n'.join(l for l in g.stdout.splitlines() if '✗' in l)[:1200])
