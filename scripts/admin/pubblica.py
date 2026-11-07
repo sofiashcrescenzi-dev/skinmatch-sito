@@ -46,7 +46,12 @@ def run(*cmd, ok=True, **kw):
 
 
 def pulito():
-    sporchi = [r[3:] for r in run('git', 'status', '--porcelain').stdout.splitlines()]
+    righe = run('git', 'status', '--porcelain').stdout.splitlines()
+    # ⚠️ I DOCUMENTI DI LAVORO NON FERMANO LA PUBBLICAZIONE (7/11/2026: la cartella strategia/ dell'audit, non registrata,
+    # ha tenuto in coda il catalogo del mattino per ore). Un file nuovo fuori da quello che la pubblicazione registra
+    # (src/data, public, media) non tocca né la build né il commit.
+    fuori = lambda r: r.startswith('?? ') and not r[3:].lstrip('"').startswith(('src/', 'public/', 'media/', 'scripts/', 'worker/'))
+    sporchi = [r[3:] for r in righe if not fuori(r)]
     # si pubblicano anche le foto nuove di Zeno e la selezione del catalogo (scripts/catalogo/aggiorna.py)
     return [f for f in sporchi if not (f.startswith('public/immagini/') or f.startswith('media/') or f.startswith('"media/') or f in CATALOGO_GENERATO)]
 

@@ -10,7 +10,7 @@
 4. i clic degli ultimi 90 giorni per prodotto (l'ordine «Più scelti» del catalogo);
 5. se qualcosa è cambiato, mette in coda la pubblicazione (la esegue scripts/admin/pubblica.py).
 """
-import hashlib, subprocess, sys, urllib.request
+import hashlib, json, subprocess, sys, urllib.request
 from pathlib import Path
 
 R = Path(__file__).resolve().parents[2]
@@ -29,8 +29,27 @@ FILE = [R / 'src/data' / n for n in ('prodotti.json', 'schede.json', 'clic.json'
 impronta = lambda: hashlib.md5(b''.join(f.read_bytes() for f in FILE if f.exists())).hexdigest()
 prima = impronta()
 subprocess.run([sys.executable, str(Path(__file__).parent / 'clic.py')], cwd=R)
+# ⚠️ I PREZZI LETTI SULLE PAGINE, DENTRO QUESTO GIRO (7/11/2026, il PO: «si attiva il giro e tutti gli altri lavori per
+# rendere il catalogo sempre aggiornato»). Il turno a parte per Farmaself non è mai esistito (niente launchd nuovi):
+# i prezzi letti il 2/11 scadevano il 10/11 e il sito tornava ai prezzi del feed, sbagliati del 13-15%. Ora, se l'ultima
+# lettura di un negozio è più vecchia di OGNI giorni (o non c'è), la si rifà qui, prima delle schede: Farmaself ogni 6
+# giorni (vale fonti.FARMASELF_VALIDI = 8), Clubfarma ogni 30 (vale fonti.PREZZI_VALIDI = 40; il turno del primo del
+# mese resta, questo copre il Mac spento quel giorno). Una lettura fallita non ferma il catalogo.
+from datetime import date
+OGNI = {'farmaself': 6, 'clubfarma': 30}
+for negozio, ogni in OGNI.items():
+    f = R / 'feeds-out' / f'prezzi-{negozio}.json'
+    try:
+        ultima = max(date.fromisoformat(x['il']) for x in json.loads(f.read_text()).values())
+        eta = (date.today() - ultima).days
+    except Exception:
+        eta = None
+    if eta is not None and eta < ogni:
+        continue
+    print(f'prezzi {negozio}: ultima lettura {"mai" if eta is None else f"di {eta} giorni fa"}, rileggo le pagine')
+    r = subprocess.run([sys.executable, str(Path(__file__).parent / 'prezzi_pagine.py'), negozio], capture_output=True, text=True, cwd=R)
+    print((r.stdout.strip() or r.stderr.strip()[-300:]) or f'prezzi {negozio}: uscita {r.returncode}')
 # gli altri negozi attivi in admin (oggi Farmaself) completano Liki24: stesso giro, il loro feed e le loro schede
-import json
 altri = []
 for n in json.loads((R / 'src/data/negozi.json').read_text())['negozi']:
     if n['id'] == 'liki24' or not n['attivo']:

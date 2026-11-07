@@ -7,8 +7,10 @@ Il feed Awin di Clubfarma è fermo al 5 giugno 2026 e a campione 7 prezzi su 8 e
 tracciato) e si salvano prezzo e disponibilità in feeds-out/prezzi-<negozio>.json. fonti.clubfarma() usa solo i prezzi
 controllati da meno di fonti.PREZZI_VALIDI giorni: gli altri prodotti restano senza prezzo e non vanno sul sito.
 
-Gira il primo del mese per Clubfarma (launchd com.agoranomos.squadra.skinmatch-prezzi) e ogni lunedi per Farmaself
-(com.agoranomos.squadra.skinmatch-prezzi-farmaself); a mano: python3 prezzi_pagine.py clubfarma|farmaself
+Gira il primo del mese per Clubfarma (launchd com.agoranomos.squadra.skinmatch-prezzi) e, dal 7/11/2026, dentro il giro
+del mattino (aggiorna.py) quando l'ultima lettura è vecchia: Farmaself ogni 6 giorni, Clubfarma ogni 30 se il turno del
+primo del mese è saltato. Il turno «skinmatch-prezzi-farmaself» non è mai esistito.
+A mano: python3 prezzi_pagine.py clubfarma|farmaself
 """
 import json, re, sys, time, urllib.error, urllib.request
 from datetime import date
@@ -26,7 +28,7 @@ LETTURA = {
     },
     # ⚠️ FARMASELF (2/11/2026, edith-dati-20261102-0935-1, sì del PO): il feed arriva ogni giorno ma resta indietro, a
     # campione il 13-15% sotto il sito e con prodotti esauriti dati disponibili (Crescina Mito 1900). Magento: prezzo e
-    # disponibilita nei meta di Open Graph. Si legge ogni lunedi (launchd skinmatch-prezzi-farmaself) e vale 8 giorni.
+    # disponibilita nei meta di Open Graph. Si rilegge ogni 6 giorni nel giro del mattino (aggiorna.py) e vale 8 giorni.
     'farmaself': {
         'prezzo': re.compile(r'<meta\s+property="product:price:amount"\s+content="([\d.]+)"'),
         'esaurito': re.compile(r'<meta\s+property="product:availability"\s+content="out of stock"'),
