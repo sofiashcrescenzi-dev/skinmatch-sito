@@ -88,13 +88,20 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const att = (p.scheda?.attivi || []).slice(0, 3).map((a) => a.nome + perc(a.perc)).join(', ');
   const descr = [`${pas} di ${p.brand}${att ? ` con ${att}` : ''}.`, x?.pelle ? pelleTesto(x.pelle) + '.' : '', `${euro(p.price)}.`, 'Attivi, forza, gravidanza e INCI nella scheda di Skinmatch.'].filter(Boolean).join(' ');
   return {
-    title: `${p.brand} ${p.name}${p.subtitle ? `: ${p.subtitle}` : ': attivi e per quale pelle'}`.slice(0, 90),
+    title: titoloDi(p),
     description: descr.slice(0, 158),
     alternates: { canonical: `/catalogo/${slug}/${prodotto}` },
     openGraph: { images: p.image ? [p.image] : undefined },
   };
 }
 
+// ⚠️ IL TITOLO SEMPRE INTERO (7/11/2026, Friday: «…per la barr»): prima si tagliava a 90 caratteri a metà parola. Ora il
+// sottotitolo entra solo se ci sta tutto (con « | Skinmatch» resta sotto i 70 caratteri circa); se no marca e nome, interi.
+function titoloDi(p: { brand: string; name: string; subtitle?: string | null }) {
+  const base = `${p.brand} ${p.name}`;
+  const lungo = `${base}: ${p.subtitle || 'attivi e per quale pelle'}`;
+  return lungo.length <= 58 ? lungo : base;
+}
 const elenca = (v: string[]) => { const t = v.length > 1 ? `${v.slice(0, -1).join(', ')} e ${v[v.length - 1]}` : v[0] || ''; return t[0]?.toUpperCase() + t.slice(1); };
 
 export default async function ProdottoPage({ params }: { params: Promise<{ slug: string; prodotto: string }> }) {
