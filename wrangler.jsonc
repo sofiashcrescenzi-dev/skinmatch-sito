@@ -5,6 +5,12 @@
   "name": "skinmatch-sito",
   "main": "worker/index.js",
   "compatibility_date": "2026-09-01",
+  // niente skinmatch-sito.<account>.workers.dev (7/11/2026): era un doppione del sito per Google e un ingresso all'admin
+  // senza Cloudflare Access. Il sito vive solo su skinmatch.it.
+  "workers_dev": false,
+  "preview_urls": false,
+  // il dominio, già collegato come Custom Domain: scritto qui perché il deploy non lo tolga senza workers.dev
+  "routes": [{ "pattern": "skinmatch.it", "custom_domain": true }],
   "account_id": "7fca2fe0c2f889d868a70e712cdcef85",
   "assets": {
     "directory": "./out",
@@ -22,8 +28,8 @@
   "vars": {
     // chi può aprire l'admin (oltre a passare da Cloudflare Access)
     "ADMIN_EMAILS": "hello@agoranomos.cloud,sofiashcrescenzi@gmail.com",
-    // Chiuso il 16/10 su richiesta di Sofia: finché Access non è attivo si entra solo con il link con la chiave
-    // (segreto ADMIN_CHIAVE); poi resta solo Access. Non rimettere "si": l'admin aperto è modificabile da chiunque.
+    // Chiuso il 16/10 su richiesta di Sofia; dal 7/11 niente più chiave temporanea (ADMIN_CHIAVE): resta solo Access.
+    // Non rimettere "si": l'admin aperto è modificabile da chiunque.
     "ADMIN_APERTO": "no",
     // Cloudflare Access attivo dal 16/10: team fragrant-dawn-e18a (fragrant-dawn-e18a.cloudflareaccess.com),
     // applicazione «Admin Skinmatch» su skinmatch.it/admin e skinmatch.it/api/admin, codice via email.
