@@ -63,9 +63,13 @@ export default function ChiSiamo() {
         </ol>
       </section>
 
-      <section className="pila stretto" style={{ ['--gap' as string]: '14px' }}>
+      <section id="come-scegliamo" className="pila stretto" style={{ ['--gap' as string]: '14px' }}>
         <h2 className="titolo-2">Come scegliamo i prodotti</h2>
         <div className="testo pila" style={{ ['--gap' as string]: '12px' }}>
+          {/* COME SI SCEGLIE LA PRIMA SCELTA (7/11/2026, voto l-prima; testo di Zeno): la regola del 30/10, detta in pagina */}
+          <p>Prima guardiamo la tua pelle: escludiamo i prodotti che non vanno bene per quello che hai indicato, per esempio quelli troppo forti se la pelle reagisce, o quelli con ingredienti della nostra lista di attenzione in gravidanza.</p>
+          <p>Fra quelli che restano, la <strong>prima scelta</strong> è la più completa: quella con più attivi utili per te o della fascia più alta. L’<strong>alternativa</strong> fa lo stesso lavoro, con una formula più semplice, e di solito costa meno.</p>
+          <p>Quando compri attraverso i nostri link riceviamo una piccola commissione. <strong>Non entra mai nella scelta</strong>: un prodotto non sale perché ci fa guadagnare di più.</p>
           <p>Ogni prodotto del catalogo ha una scheda con le stesse informazioni: per quale pelle è, per cosa lavora, se va bene in gravidanza e sulle pelli sensibili, in che fascia di prezzo sta. Le leggiamo dalle schede dei produttori e dagli ingredienti (l&apos;INCI), non dalle pubblicità. Il test incrocia la scheda con il tuo biotipo e sceglie il più adatto per ogni passaggio della routine.</p>
           <p>Il catalogo copre la dermocosmesi da farmacia, la cosmetica coreana, i marchi di ricerca e quelli di fascia alta, perché ogni biotipo trovi qualcosa in ogni budget. Quando un prodotto non va più bene, lo togliamo.</p>
         </div>

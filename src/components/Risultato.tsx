@@ -204,6 +204,8 @@ export default function Risultato({ r, azioni, condiviso, metodoCambiato }: { r:
 
       {g.passi.length > 0 && <Giornata g={g} />}
 
+      {/* come si sceglie (7/11/2026, voto l-prima): una volta, prima dei passaggi */}
+      <p className="piccolo" style={{ maxWidth: '72ch' }}>La prima scelta è la più completa fra i prodotti adatti a te. L’alternativa fa lo stesso lavoro e di solito costa meno. La commissione non entra mai nella scelta. <Link className="link" href="/chi-siamo#come-scegliamo">Come scegliamo</Link></p>
       {gruppi.map((gr) => (
         <section key={gr.id} className="pila" style={{ ['--gap' as string]: '22px' }} aria-labelledby={`gruppo-${gr.id}`}>
           <h2 id={`gruppo-${gr.id}`} className="titolo-3 gruppo-titolo">{gr.nome}</h2>

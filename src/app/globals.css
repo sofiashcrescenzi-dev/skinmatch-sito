@@ -642,3 +642,12 @@ details.carta > summary::-webkit-details-marker { display: none; }
 .consiglio-medico { display: grid; gap: 8px; padding: clamp(14px, 2.4vw, 20px); border-radius: var(--raggio); background: var(--bene-tenue); border-left: 4px solid var(--bene); }
 .consiglio-medico .etichetta { color: var(--bene); }
 .consiglio-medico .testo { font-size: 16px; margin: 0; }
+
+/* la fascia «Cerchi un prodotto preciso?» della home (7/11/2026, voto l-home): scura come l'apertura, il campo grande */
+.fascia-cerca { background: var(--cacao); color: var(--latte); }
+.fascia-cerca .etichetta { color: var(--f2); }
+.fascia-cerca .titolo-2 { color: var(--latte); }
+.fascia-cerca .intro { color: #e6d6cc; max-width: 62ch; }
+.fascia-cerca .piccolo { color: #d9c8be; }
+.fascia-cerca .ricerca-centrale { max-width: 760px; }
+.fascia-cerca .cerca-tutto { color: var(--latte); font-weight: 600; text-decoration: underline; text-underline-offset: 4px; text-decoration-color: rgba(250, 246, 244, .4); justify-self: start; }

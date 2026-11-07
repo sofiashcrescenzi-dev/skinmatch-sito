@@ -7,6 +7,7 @@ import { ConTermini } from '@/components/Termini';
 import RicercaCentrale from '@/components/RicercaCentrale';
 import { BISOGNI } from '@/lib/integratori';
 import { domandeDi } from '@/lib/motore';
+import { CHI_SIAMO } from '@/lib/dati';
 
 // ⚠️ IL NUMERO VERO DI DOMANDE (7/11/2026, audit di Jarvis): «fino a» contava tutte le domande del percorso, anche quelle
 // che nessuno riceve insieme (la barba solo agli uomini, gravidanza e menopausa solo alle donne). Ora è il massimo che
@@ -16,20 +17,28 @@ const massimoDomande = (p: (typeof TEST.percorsi)[number]) => {
   return Math.max(...d('genere').flatMap((g) => d('eta').map((e) => domandeDi(p, { ...(g ? { genere: g } : {}), ...(e ? { eta: e } : {}) }).length)));
 };
 
+// ⚠️ LA HOME SULLA ROUTINE, NON SUL CATALOGO (7/11/2026, voto l-home; testi di Zeno, strategia/testi-lancio.md §1).
+// Il PO: «manteniamo una parte abbastanza importante sul cerca prodotto, magari non subito nell'hero ma sotto».
 const PASSI = [
-  ['Rispondi a poche domande', 'Su quello che vedi allo specchio, sulla cute e i capelli, su come dormi e mangi: domande su come sei, non su come pensi di essere.'],
-  ['Scopri il tuo biotipo', 'Dai punteggi esce il tuo biotipo, con i tratti che si aggiungono e cosa evitare. Se serve un medico, te lo diciamo prima.'],
-  ['Ricevi la tua giornata', 'Ogni prodotto all\'ora in cui si usa. Per ogni passaggio la scelta top e un\'alternativa che costa meno, con scritto dove la top è migliore.'],
+  ['Rispondi su quello che vedi', 'Com’è la fronte a metà giornata, se la pelle tira dopo averla lavata, se arrossa. Nessuna foto, nessuna email.'],
+  ['Leggi la tua pelle', 'Ti diamo un profilo con un nome semplice e ti mostriamo le risposte che lo hanno deciso.'],
+  ['Ricevi la routine', 'Mattina e sera, un passaggio alla volta: a cosa serve, il prodotto scelto per te e un’alternativa.'],
+];
+const NEL_RISULTATO: [string, string][] = [
+  ['Il tuo profilo, spiegato', 'Un nome semplice e le risposte che lo hanno deciso.'],
+  ['La routine in ordine', 'Ogni passaggio all’ora in cui si usa, con il motivo per cui c’è.'],
+  ['Una scelta e un’alternativa', 'Per ogni passaggio, il prodotto che risponde meglio a quello che hai indicato e un altro che fa lo stesso lavoro, di solito a un prezzo più basso.'],
+  ['Le cautele', 'Cosa introdurre piano e quando chiedere al medico, prima dei prodotti.'],
 ];
 
 // ⚠️ I QUATTRO TEST SUBITO SOTTO L'APERTURA (Federico, 30/10/2026: «sotto la hero metti i 4 test, strutturati in
 // maniera differente e più bella»). Il completo in grande, gli altri tre in fila; di ognuno quanto dura, quante domande
 // fa al massimo e cosa ne esce. Il tono di fondo è un fototipo diverso per test.
 const ESCE: Record<string, string> = {
-  completo: 'Il biotipo della pelle e della cute, la routine di tutta la giornata e, se servono, fino a tre integratori.',
-  viso: 'Il biotipo della pelle e una routine da tre a cinque passaggi, mattina e sera.',
-  cute: 'Il biotipo della cute, lo shampoo e il trattamento giusti.',
-  integrazione: 'Fino a tre integratori, ognuno con l\'indicazione autorizzata in Europa.',
+  completo: 'Tutta la giornata, dalla detersione al cuoio capelluto.',
+  viso: 'Il tuo profilo e una routine da tre a cinque passaggi, mattina e sera.',
+  cute: 'Il profilo della tua cute, lo shampoo e il trattamento.',
+  integrazione: 'Al massimo tre integratori, ognuno con l\'indicazione autorizzata in Europa. Se non te ne serve nessuno, te lo diciamo.',
 };
 
 // La routine in ordine: a cosa serve ogni passaggio e quando si usa, con i suoi prodotti.
@@ -54,17 +63,15 @@ export default function Home() {
             {/* ⚠️ PIÙ GENERICA DELLA PELLE (Federico, 30/10/2026: «sull'home page io andrei più generico, non solo
                 pelle, ma fai test per la tua routine»): pelle, capelli e integratori sono tutti e tre nel test */}
             <span className="etichetta">Pelle, capelli, integratori</span>
-            <h1 className="sopratitolo">La tua routine, scelta su di te</h1>
+            <h1 className="sopratitolo">La tua pelle. La tua routine.</h1>
             <div className="scala-fototipi" role="img" aria-label="I sei fototipi della pelle"><i /><i /><i /><i /><i /><i /></div>
-            <p className="intro">Rispondi a poche domande e ricevi la tua giornata: ogni prodotto all’ora in cui si usa, la scelta top e un’alternativa che costa meno. Ogni prodotto ha la sua scheda, con gli attivi e per chi è.</p>
+            <p className="intro">Rispondi su quello che vedi allo specchio. Ti diciamo quali passaggi ti servono e perché, con un prodotto per ognuno e un’alternativa che fa lo stesso lavoro.</p>
             {/* ⚠️ IL TEST IN PRIMO PIANO (23/10/2026, Federico): è la porta principale del sito, prima della ricerca
                 e del catalogo. Un blocco suo, con cosa si fa e cosa se ne ricava. */}
             <div className="test-primo">
-              <Invito href="#i-test" scuro>Fai il test per la tua routine</Invito>
-              <span className="test-primo-sotto">Quattro test, da 2 a 6 minuti. Gratis, senza registrazione.</span>
+              <Invito href="/test?percorso=viso" scuro>Fai il test della pelle</Invito>
+              <span className="test-primo-sotto">{TEST.percorsi.find((p) => p.id === 'viso')?.minuti ?? 3} minuti · Gratis, senza registrazione · <a href="#i-test" style={{ color: 'inherit' }}>o scegli fra quattro test</a></span>
             </div>
-            <RicercaCentrale quanti={PRODOTTI.length} />
-            <Link href="/catalogo" className="piccolo" style={{ color: 'var(--latte)' }}>Oppure esplora tutti i {PRODOTTI.length} prodotti →</Link>
           </div>
           <div className="mezze" role="img" aria-label="Pelle vera, luce naturale, nelle due mezzelune del segno di Skinmatch">
             {/* una vera immagine, ad alta priorità: il browser la scopre subito (è il contenuto principale) */}
@@ -82,15 +89,18 @@ export default function Home() {
           <div className="pila" style={{ ['--gap' as string]: '8px' }}>
             <span className="etichetta">Da dove partire</span>
             <h2 id="test-titolo" className="titolo-2">Quattro test, una routine</h2>
+            <p className="intro">Da 2 a 6 minuti. Puoi farne uno solo.</p>
           </div>
           <div className="test-griglia">
-            {['completo', 'viso', 'cute', 'integrazione'].map((id) => TEST.percorsi.find((x) => x.id === id)).filter((p): p is (typeof TEST.percorsi)[number] => !!p).map((p, i) => (
+            {/* la pelle per prima e più grande: è l'azione principale (voto l-home); il completo in fondo */}
+            {['viso', 'cute', 'integrazione', 'completo'].map((id) => TEST.percorsi.find((x) => x.id === id)).filter((p): p is (typeof TEST.percorsi)[number] => !!p).map((p, i) => (
               <Link key={p.id} href={`/test?percorso=${p.id}`} className={`test-carta${i === 0 ? ' test-grande' : ''}`} style={{ ['--tono' as string]: `var(--f${i + 1})` }}>
                 <span className="test-foto"><Foto nome={p.immagine} sizes={i === 0 ? '(max-width: 760px) 100vw, 40vw' : '(max-width: 760px) 100vw, 25vw'} /></span>
                 <span className="test-corpo">
                   <span className="test-dati"><b>{p.minuti} min</b><span>fino a {massimoDomande(p)} domande</span></span>
-                  <span className="titolo-3">{p.nome === 'Test Completo' ? 'Il test completo' : p.titolo}</span>
-                  <span className="piccolo">{p.descrizione}</span>
+                  <span className="titolo-3">{p.id === 'completo' ? 'Il test completo' : p.id === 'viso' ? 'Il test della tua pelle' : p.titolo}</span>
+                  {/* solo la prima frase: «Ne esce» sta sotto, e la descrizione lo ripeteva */}
+                  <span className="piccolo">{p.descrizione.split(/\.\s+Ne escon?o?\b/)[0].replace(/\.?$/, '.')}</span>
                   <span className="test-esce"><b>Ne esce</b> {ESCE[p.id] || 'Il tuo biotipo e una routine.'}</span>
                   <span className="test-via">Inizia <span aria-hidden="true">→</span></span>
                 </span>
@@ -100,11 +110,41 @@ export default function Home() {
         </div>
       </section>
 
+      {/* CERCHI UN PRODOTTO PRECISO? (7/11/2026, voto l-home): grande, sotto i test, senza il numero dei prodotti */}
+      <section className="fascia-cerca" aria-labelledby="cerca-titolo">
+        <div className="contenitore sezione pila" style={{ ['--gap' as string]: '16px' }}>
+          <span className="etichetta">Il catalogo</span>
+          <h2 id="cerca-titolo" className="titolo-2">Cerchi un prodotto preciso?</h2>
+          <p className="intro">Scrivi il nome, la marca o l’attivo. Per ogni prodotto trovi cosa contiene, per quale pelle è pensato, a cosa stare attento e i profili a cui lo consigliamo.</p>
+          <RicercaCentrale />
+          <Link href="/catalogo" className="cerca-tutto">Oppure guarda tutto il catalogo →</Link>
+          <span className="piccolo">Il catalogo è piccolo di proposito: entra solo quello che sappiamo descrivere bene.</span>
+        </div>
+      </section>
+
+      <section className="contenitore sezione pila" style={{ ['--gap' as string]: 'clamp(20px, 4vw, 36px)' }}>
+        <h2 className="titolo-2">Come funziona</h2>
+        <ol className="griglia" style={{ ['--min' as string]: '240px', listStyle: 'none', padding: 0, margin: 0 }}>
+          {PASSI.map(([t, d], i) => (
+            <li key={t} className="pila" style={{ ['--gap' as string]: '8px' }}>
+              <span className="titolo" style={{ fontSize: 44, lineHeight: 1, color: 'var(--terra)' }}>{i + 1}</span>
+              <span className="titolo-3">{t}</span>
+              <span className="piccolo" style={{ fontSize: 15 }}>{d}</span>
+            </li>
+          ))}
+        </ol>
+        <h3 className="titolo-3">Cosa trovi nel risultato</h3>
+        <ul className="griglia" style={{ ['--min' as string]: '240px', listStyle: 'none', padding: 0, margin: 0 }}>
+          {NEL_RISULTATO.map(([t, d]) => <li key={t} className="carta pila" style={{ ['--gap' as string]: '6px' }}><b>{t}</b><span className="piccolo" style={{ fontSize: 15 }}>{d}</span></li>)}
+        </ul>
+        <p className="avviso" style={{ maxWidth: '72ch' }}>Il test non è una diagnosi. Se una risposta fa pensare a qualcosa da far vedere a un medico, il risultato lo dice per primo.</p>
+      </section>
+
       <section className="contenitore sezione pila" style={{ ['--gap' as string]: 'clamp(20px, 4vw, 36px)' }}>
         <div className="pila" style={{ ['--gap' as string]: '8px' }}>
           <span className="etichetta">Per orientarsi</span>
           <h2 className="titolo-2">Le famiglie della skincare</h2>
-          <p className="intro">Cosa distingue le grandi famiglie della skincare, e i prodotti di ognuna.</p>
+          <p className="intro">Quattro modi diversi di fare cosmetici. Nessuno è meglio degli altri: cambia quello che cerchi.</p>
         </div>
         {/* le famiglie sono i filtri segnati «in homepage» nell'admin (Federico, 15/10), nel loro ordine */}
         <div className="griglia" style={{ ['--min' as string]: '260px' }}>
@@ -121,7 +161,7 @@ export default function Home() {
                   <span className="titolo-3">{x.nome}</span>
                   <span className="testo-carta">{x.descrizione}</span>
                   <span className="piccolo">Per esempio {marche.join(', ')}.</span>
-                  <span className="stendi">I {g.length} prodotti<span className="barra" aria-hidden="true"><i /><i /><i /><i /><i /><i /></span></span>
+                  <span className="stendi">Vedi la famiglia<span className="barra" aria-hidden="true"><i /><i /><i /><i /><i /><i /></span></span>
                 </span>
               </Link>
             );
@@ -133,8 +173,8 @@ export default function Home() {
         <div className="contenitore sezione pila" style={{ ['--gap' as string]: 'clamp(20px, 4vw, 36px)' }}>
           <div className="pila" style={{ ['--gap' as string]: '8px' }}>
             <span className="etichetta">La routine, in ordine</span>
-            <h2 className="titolo-2">A cosa serve ogni prodotto</h2>
-            <p className="intro">Pochi passaggi, nell’ordine in cui si mettono. Ognuno porta ai suoi prodotti.</p>
+            <h2 className="titolo-2">A cosa serve ogni passaggio</h2>
+            <p className="intro">Pochi passaggi, nell’ordine in cui si mettono. Non servono tutti a tutti: il test ti dice quali.</p>
           </div>
           <ol className="griglia routine" style={{ ['--min' as string]: '200px' }}>
             {ROUTINE.map(([id, nome, quando, testo], i) => {
@@ -167,7 +207,7 @@ export default function Home() {
           <div className="pila" style={{ ['--gap' as string]: '8px' }}>
             <span className="etichetta">Dall&apos;interno</span>
             <h2 className="titolo-2">Integratori, per bisogno</h2>
-            <p className="intro">Da quello che ti serve alle sostanze con un&apos;indicazione autorizzata, e agli integratori che le contengono.</p>
+            <p className="intro">Parti da quello che senti, non da quello che si vende. Per ogni bisogno trovi le sostanze con un&apos;indicazione autorizzata in Europa e gli integratori che le contengono. Un integratore non sostituisce una dieta varia né il parere del medico.</p>
           </div>
           <Stendi href="/integratori">Tutti i bisogni</Stendi>
         </div>
@@ -194,25 +234,29 @@ export default function Home() {
                 <p className="testo-carta">{a!.cosa}</p>
                 <p className="piccolo"><b>Per chi.</b> {a!.per_chi}</p>
                 <p className="piccolo"><b>Attenzione.</b> {a!.attenzione}</p>
-                {n > 0 && <Stendi href={`/catalogo?attivo=${a!.id}`}>{n} prodotti con {a!.nome.split(' (')[0].toLowerCase().replace(/^vitamina c$/, 'vitamina C')}</Stendi>}
+                {n > 0 && <Stendi href={`/catalogo?attivo=${a!.id}`}>I prodotti con {a!.nome.split(' (')[0].toLowerCase().replace(/^vitamina c$/, 'vitamina C')}</Stendi>}
               </article>
             );
           })}
         </div>
       </section>
 
-      <section className="contenitore sezione pila" style={{ ['--gap' as string]: 'clamp(20px, 4vw, 36px)' }}>
-        <h2 className="titolo-2">Come funziona</h2>
-        <ol className="griglia" style={{ ['--min' as string]: '240px', listStyle: 'none', padding: 0, margin: 0 }}>
-          {PASSI.map(([t, d], i) => (
-            <li key={t} className="pila" style={{ ['--gap' as string]: '8px' }}>
-              <span className="titolo" style={{ fontSize: 44, lineHeight: 1, color: 'var(--terra)' }}>{i + 1}</span>
-              <span className="titolo-3">{t}</span>
-              <span className="piccolo" style={{ fontSize: 15 }}>{d}</span>
-            </li>
-          ))}
-        </ol>
-        <p className="avviso" style={{ maxWidth: '72ch' }}>Skinmatch non fa diagnosi. Se una risposta fa pensare a qualcosa da far vedere a un medico (noduli dolorosi, rossori che non passano, capelli che cadono a chiazze), il risultato lo dice per primo e ti mostra solo prodotti delicati.</p>
+      {/* COME SCEGLIAMO (7/11/2026, voto l-prima) e CHI C'È DIETRO: il nome di Sofia solo quando Chi siamo è pubblica */}
+      <section className="contenitore sezione griglia" style={{ ['--min' as string]: '300px', gap: 'clamp(20px, 4vw, 48px)' }}>
+        <div className="pila" style={{ ['--gap' as string]: '10px' }}>
+          <span className="etichetta">Il metodo</span>
+          <h2 className="titolo-2">Come scegliamo i prodotti</h2>
+          <p className="testo">Partiamo dalla tua pelle, non dal prezzo. Fra i prodotti adatti scegliamo quello più completo, poi un’alternativa che fa lo stesso lavoro. Quello che guadagniamo quando compri non decide mai la scelta.</p>
+          <Link href="/chi-siamo#come-scegliamo" className="link">Il metodo, per intero →</Link>
+        </div>
+        <div className="pila" style={{ ['--gap' as string]: '10px' }}>
+          <span className="etichetta">Chi siamo</span>
+          <h2 className="titolo-2">Chi c’è dietro</h2>
+          <p className="testo">{CHI_SIAMO.pubblica
+            ? 'Skinmatch nasce dall’incontro fra Sofia Crescenzi, medico estetico, e Federico, che progetta prodotti digitali. Sofia ha scritto le domande del test e rivede il metodo.'
+            : 'Skinmatch nasce dall’incontro fra un medico estetico e chi progetta prodotti digitali. Il medico ha scritto le domande del test e rivede il metodo.'}</p>
+          <Link href="/chi-siamo" className="link">Chi siamo →</Link>
+        </div>
       </section>
 
       <section className="contenitore sezione pila" style={{ ['--gap' as string]: 'clamp(20px, 4vw, 36px)', paddingTop: 0 }}>
@@ -236,7 +280,7 @@ export default function Home() {
       {ARTICOLI.length > 0 && (
         <section className="contenitore sezione pila" style={{ ['--gap' as string]: 'clamp(20px, 4vw, 36px)' }}>
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: 12, alignItems: 'end', justifyContent: 'space-between' }}>
-            <div className="pila" style={{ ['--gap' as string]: '8px' }}><span className="etichetta">La Rivista</span><h2 className="titolo-2">Da leggere</h2></div>
+            <div className="pila" style={{ ['--gap' as string]: '8px' }}><span className="etichetta">La Rivista</span><h2 className="titolo-2">Dalla Rivista</h2><p className="intro">Guide brevi su pelle, attivi e routine.</p></div>
             <Link href="/rivista" className="link">Tutti gli articoli</Link>
           </div>
           <div className="griglia" style={{ ['--min' as string]: '280px' }}>
