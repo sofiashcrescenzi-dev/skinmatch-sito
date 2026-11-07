@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'Il catalogo: detergenti, sieri, creme, solari, shampoo, integratori',
-  description: 'I prodotti che Skinmatch consiglia, per categoria e per filtro: premium, buona qualità/prezzo, K-beauty, da farmacia, per pelli sensibili, anche in gravidanza.',
+  description: 'I prodotti che Skinmatch consiglia, per categoria e per filtro: premium, buona qualità/prezzo, K-beauty, da farmacia, per pelli sensibili, senza ingredienti di attenzione in gravidanza.',
   alternates: { canonical: '/catalogo' },
 };
 

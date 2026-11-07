@@ -131,6 +131,15 @@ export default function Risultato({ r, azioni, condiviso }: { r: R; azioni: Reac
         </section>
       )}
 
+      {/* ⚠️ GRAVIDANZA (7/11/2026, voto b-gravidanza): prima c'era solo nell'integrazione; nel viso e nella cute
+          il risultato filtrava senza dirlo e scriveva «indicato in gravidanza» come una garanzia. */}
+      {gravidanza && r.aree.some((a) => a.area !== 'integrazione') && (
+        <section className="consulto" aria-label="In gravidanza o in allattamento">
+          <b className="titolo-3">In gravidanza o in allattamento</b>
+          <p className="testo" style={{ fontSize: 15.5 }}>Ti mostriamo solo prodotti di cui abbiamo l’elenco completo degli ingredienti, e in cui non troviamo quelli della nostra lista di attenzione. Non è un via libera: prima di iniziare un prodotto nuovo chiedi al tuo medico o al ginecologo.</p>
+        </section>
+      )}
+
       {r.aree.map((a, ia) => {
         const assi = TEST.assi.filter((x) => x.area === a.area);
         if (!a.biotipo) return null;
@@ -194,7 +203,7 @@ export default function Risultato({ r, azioni, condiviso }: { r: R; azioni: Reac
           ))}
           {a.area === 'integrazione' && gravidanza && <p className="avviso">In gravidanza e in allattamento gli integratori li sceglie il medico: per questo qui non ne trovi.</p>}
           {a.area !== 'integrazione' && !a.passaggi.length && (
-            <p className="avviso">{gravidanza ? `${NOMI_AREA[a.area]}: in gravidanza ti mostriamo solo i prodotti segnati come sicuri, e per questa parte non ne abbiamo ancora. Chiedi in farmacia.` : `${NOMI_AREA[a.area]}: per questa parte non abbiamo ancora un prodotto adatto alle tue risposte. Stiamo ampliando il catalogo.`}</p>
+            <p className="avviso">{gravidanza ? `${NOMI_AREA[a.area]}: in gravidanza ti mostriamo solo i prodotti senza gli ingredienti della nostra lista di attenzione, e per questa parte non ne abbiamo ancora. Chiedi al tuo medico o in farmacia.` : `${NOMI_AREA[a.area]}: per questa parte non abbiamo ancora un prodotto adatto alle tue risposte. Stiamo ampliando il catalogo.`}</p>
           )}
         </div>
       ))}

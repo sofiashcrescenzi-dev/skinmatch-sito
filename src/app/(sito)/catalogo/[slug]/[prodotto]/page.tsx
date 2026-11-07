@@ -63,7 +63,7 @@ function fonteSebo(f?: string) {
 }
 
 function gravidanza(g: boolean | null, f?: string) {
-  if (g === true) return ['Sì', 'Nell’elenco degli ingredienti non ci sono quelli da evitare. Chiedi comunque conferma al medico.'];
+  if (g === true) return ['Nessun ingrediente di attenzione', 'Nell’elenco completo degli ingredienti non troviamo quelli della nostra lista di attenzione. Non è un via libera: chiedi comunque al tuo medico.'];
   if (g === false) return ['Da evitare', f?.includes('retinoid') ? 'Contiene retinoidi.' : 'Contiene un ingrediente da evitare in gravidanza e allattamento.'];
   if (f?.includes('salicilico')) return ['Da chiedere al medico', 'Contiene acido salicilico da lasciare sulla pelle.'];
   if (f?.includes('integratore')) return ['Da chiedere al medico', 'Per un integratore in gravidanza decide il medico.'];

@@ -238,7 +238,9 @@ function percheDi(x: Prodotto, area: Area, b: Bisogni, p: Profilo, biotipo: Biot
   const senza = SENSIBILI.filter(([k]) => x.scheda?.senza?.includes(k) && (evitaDi(p).includes(k) || (k === 'profumo' && (p.punti.re || 0) >= 2))).map(([, n]) => n);
   if (senza.length) r.push('senza ' + (senza.length > 1 ? `${senza.slice(0, -1).join(', ')} e ${senza[senza.length - 1]}` : senza[0]));
   if (x.scheda?.fotosensibilizzante) r.push('la mattina dopo, protezione solare');
-  if (p.scelte.gravidanza === true && x.pregnancySafe) r.push('indicato anche in gravidanza e allattamento');
+  // ⚠️ 7/11/2026 (voto b-gravidanza): non e una garanzia, e solo l'assenza degli ingredienti della lista di attenzione
+  // nell'INCI intero; l'avviso in testa al risultato dice di chiedere al medico
+  if (p.scelte.gravidanza === true && x.pregnancySafe) r.push('nell’elenco degli ingredienti nessuno della nostra lista di attenzione per la gravidanza');
   return r;
 }
 
@@ -357,7 +359,7 @@ export function doveMeglio(t: Prodotto, a: Prodotto, ct: number, ca: number, vol
   // pelli sensibili e gravidanza solo a chi riguardano: agli altri sono rumore
   if (chi.sensibile && t.sensitiveSafe === true && a.sensitiveSafe !== true) r.push('adatto anche alle pelli sensibili');
   if (t.scheda?.senza?.includes('profumo') && (a.scheda?.profumo === true || a.scheda?.con?.includes('profumo'))) r.push('senza profumo');
-  if (chi.gravidanza && t.pregnancySafe === true && a.pregnancySafe !== true) r.push('segnato sicuro in gravidanza');
+  if (chi.gravidanza && t.pregnancySafe === true && a.pregnancySafe !== true) r.push('nessun ingrediente della lista di attenzione per la gravidanza');
   if (t.scheda?.inci && !a.scheda?.inci) r.push('ingredienti verificati, elenco INCI completo');
   if (t.scheda?.al_10 && a.scheda?.al_10 && t.scheda.al_10 < a.scheda.al_10) r.push('al ml costa meno');
   return r;

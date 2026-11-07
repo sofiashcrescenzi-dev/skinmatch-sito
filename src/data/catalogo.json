@@ -204,11 +204,11 @@
   },
   {
    "id": "gravidanza",
-   "nome": "Anche in gravidanza",
+   "nome": "Gravidanza: senza ingredienti di attenzione",
    "regola": {
     "gravidanza": true
    },
-   "descrizione": "Senza gli ingredienti da evitare in gravidanza e allattamento. Chiedi comunque al tuo medico."
+   "descrizione": "Nell’elenco completo degli ingredienti non troviamo quelli della nostra lista di attenzione per la gravidanza e l’allattamento. Non è un via libera: chiedi comunque al tuo medico."
   },
   {
    "id": "uomo",
