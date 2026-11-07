@@ -108,7 +108,7 @@
    "id": "atopica",
    "area": "pelle",
    "tipo": "biotipo",
-   "titolo": "Pelle atopica",
+   "titolo": "Hai indicato una dermatite atopica diagnosticata: qui trovi prodotti delicati che accompagnano la cura",
    "motto": "Una barriera da proteggere, ogni giorno.",
    "famiglia": "pelle-secca",
    "tag": [
@@ -160,7 +160,7 @@
    "id": "psoriasica",
    "area": "pelle",
    "tipo": "biotipo",
-   "titolo": "Pelle con psoriasi",
+   "titolo": "Hai indicato una psoriasi diagnosticata: qui trovi prodotti delicati che accompagnano la cura",
    "motto": "La skincare accompagna, la terapia guida.",
    "famiglia": "pelle-sensibile",
    "tag": [
@@ -770,7 +770,7 @@
    "id": "rosacea",
    "area": "pelle",
    "tipo": "tratto",
-   "titolo": "Con tendenza a rosacea/couperose",
+   "titolo": "Hai indicato rossori frequenti o una rosacea: qui trovi prodotti delicati che accompagnano la cura",
    "motto": "Rossori da calmare, mai da sfidare.",
    "famiglia": "pelle-sensibile",
    "tag": [
@@ -1014,7 +1014,7 @@
    "id": "psoriasi-cuoio-capelluto",
    "area": "cute",
    "tipo": "biotipo",
-   "titolo": "Cuoio capelluto con psoriasi",
+   "titolo": "Hai indicato placche o una psoriasi del cuoio capelluto: qui trovi prodotti delicati che accompagnano la cura",
    "motto": "Squame da ammorbidire, senza grattare.",
    "famiglia": "cute-secca",
    "tag": [

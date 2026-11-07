@@ -145,7 +145,44 @@ def sottotitolo_dalla_scheda(s):
     return testo
 
 
+# ⚠️ GLI INTEGRATORI: SOLO CHE COS'È E COSA CONTIENE (7/11/2026, b-integratori, sì del PO). Il sottotitolo nasceva dal
+# titolo del negozio o dai bisogni, e 15 promettevano cose che il Reg. (UE) 432/2012 non autorizza («Contro la caduta
+# dei capelli», «Collagene anti-età», «Acido ialuronico rughe d'età»), altri 28 le nostre frasi («per il tono della
+# pelle»). Ora: «Integratore con zinco, selenio e biotina». Le indicazioni ammesse, parola per parola, le scrivono le
+# pagine dei bisogni e il risultato (src/lib/integratori.ts), non il sottotitolo.
+NUTRIENTI = [('melatonina', r'melaton'), ('magnesio', r'magnes'), ('vitamina D3', r'vitamin\w*\s*d3?\b|\bd3\b|colecalcifer'),
+             ('vitamina B12', r'\bb12\b|cobalamin'), ('vitamine del gruppo B', r'b-?dyn|vitamine b\b|gruppo b\b|complesso b\b'),
+             ('vitamina C', r'vitamin\w*\s*c\b|ester-?c|ascorb'), ('omega-3', r'omega\s*-?\s*3|\bepa\b|\bdha\b'), ('zinco', r'\bzinc'),
+             ('selenio', r'selen'), ('biotina', r'biotin'), ('ferro', r'\bferro\b|\biron\b'), ('collagene', r'collag'),
+             ('acido ialuronico', r'ialuron|hyaluron'), ('cheratina', r'cheratin|keratin'), ('lattoferrina', r'lattoferr'),
+             ('carotenoidi', r'carot|licopen|lycopen|luteina'), ('vitamina E', r'vitamin\w*\s*e\b|tocofer'), ('probiotici', r'probiot|fermenti lattici')]
+ATTIVO_INTEGRATORE = {'niacinamide': 'vitamina B3', 'pantenolo': 'vitamina B5', 'biotina': 'biotina', 'zinco': 'zinco', 'vitamina C': 'vitamina C',
+                      'collagene': 'collagene', 'acido ialuronico': 'acido ialuronico', 'vitamina E': 'vitamina E'}
+
+
+def sottotitolo_integratore(s):
+    t = (s.get('titolo') or '') + ' ' + (s.get('nome') or '')
+    dentro = [n for n, rx in NUTRIENTI if re.search(rx, t, re.I)]
+    for a in s.get('attivi') or []:
+        n = ATTIVO_INTEGRATORE.get(a['nome'])
+        if n and n not in dentro:
+            dentro.append(n)
+    if 'vitamine del gruppo B' in dentro:
+        dentro = [n for n in dentro if n not in ('vitamina B3', 'vitamina B5', 'vitamina B12', 'biotina')]
+    dentro = dentro[:3]
+    if not dentro:
+        return 'Integratore alimentare'
+    return 'Integratore con ' + (', '.join(dentro[:-1]) + ' e ' + dentro[-1] if len(dentro) > 1 else dentro[0])
+
+
 def titolo_e_sottotitolo(nome, s):
+    tit, sotto = _titolo_e_sottotitolo(nome, s)
+    if s and s.get('passaggio') == 'integratore':
+        sotto = sottotitolo_integratore(s)
+    return tit, sotto
+
+
+def _titolo_e_sottotitolo(nome, s):
     """(titolo, sottotitolo) dal nome pulito (senza marca) e dalla scheda."""
     nome = re.sub(r'\b(?:No|N|Nº|N°)\.?\s*(\d+)\b', r'N.\1', nome, flags=re.I)  # «No. 4», «n. 3»: un pezzo solo della linea
     parole = _frasi(nome)

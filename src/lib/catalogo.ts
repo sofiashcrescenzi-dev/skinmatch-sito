@@ -54,7 +54,18 @@ export { euro, negozio } from './formato';
 // I prodotti da mostrare nella pagina di un biotipo: quelli che rispondono ai suoi bisogni,
 // al massimo due per categoria, così la pagina mostra una routine e non sei creme uguali.
 const CATEGORIE_AREA: Record<string, string[]> = { pelle: ['detergenti', 'sieri', 'creme', 'attivi', 'barba', 'cerotti'], cute: ['shampoo', 'capelli'], integrazione: ['integratori'] };
-type ConBisogni = { area: string; bisogni: { pelle?: string[]; concerns?: string[]; capelli?: string[]; cute?: string[] } };
+type ConBisogni = { id?: string; area: string; bisogni: { pelle?: string[]; concerns?: string[]; capelli?: string[]; cute?: string[] } };
+
+// ⚠️ I PROFILI DELICATI (7/11/2026, b-delicati; Federico: «non possiamo selezionarli noi manualmente uno ad uno»). Per le
+// condizioni dichiarate nel test, la pelle reattiva e il cuoio capelluto sensibile l'elenco non nasce dai bisogni ma da
+// una regola per profilo che legge l'INCI intero (scripts/catalogo/delicati.py): entra solo chi ha il profilo nel campo
+// «delicati» di prodotti.json, ordinato dal suo punteggio. Senza INCI intero, con retinoidi, acidi forti, profumo, oli
+// essenziali o alcol denaturato non si entra. Prima l'elenco di atopica e psoriasi era lo stesso, col siero al retinolo.
+export const PROFILI_DELICATI = ['atopica', 'psoriasica', 'rosacea', 'reattiva', 'disidratata-sensibile', 'psoriasi-cuoio-capelluto', 'cute-sensibile'];
+type ConDelicati = { delicati?: Record<string, number> };
+export const delicatoPer = (p: Product, profilo: string) => (p as Product & ConDelicati).delicati?.[profilo];
+const eDelicato = (b: ConBisogni) => !!b.id && PROFILI_DELICATI.includes(b.id);
+
 const voto = (p: Product, b: ConBisogni) => {
   const k = b.bisogni;
   return ((p.skinTypes || []).some((t) => k.pelle?.includes(t)) ? 2 : 0) +
@@ -65,9 +76,16 @@ const voto = (p: Product, b: ConBisogni) => {
 };
 export function prodottiPer(b: ConBisogni, quanti = 6): Prodotto[] {
   const per: Record<string, number> = {};
+  const delicato = eDelicato(b);
   return PRODOTTI.filter((p) => CATEGORIE_AREA[b.area]?.includes(p.category) && p.category !== 'cerotti')
-    .map((p) => ({ p, v: voto(p, b) }))
-    .filter((x) => x.v >= 2)
+    // un profilo delicato: solo i prodotti della sua regola, prima i più adatti; gli altri biotipi mai un prodotto
+    // che i dati marcano «non per pelli sensibili» se il biotipo lo è
+    .filter((p) => (delicato ? delicatoPer(p, b.id!) !== undefined : !(b.bisogni.pelle?.includes('sensibile') && p.sensitiveSafe === false)))
+    .map((p) => ({ p, v: voto(p, b) + (delicato ? delicatoPer(p, b.id!)! : 0) }))
+    // anche per un profilo delicato il prodotto deve rispondere a qualcosa: un bisogno o il tipo di pelle o di cute in
+    // comune, oppure l'indicazione del produttore (+3 nel punteggio); se no un tonico anticaduta finiva fra i prodotti
+    // per le placche del cuoio capelluto
+    .filter((x) => (delicato ? voto(x.p, b) >= 1 || delicatoPer(x.p, b.id!)! >= 4 : x.v >= 2))
     .sort((a, b2) => b2.v - a.v || a.p.price - b2.p.price)
     .filter((x) => (per[x.p.category] = (per[x.p.category] || 0) + 1) <= 2)
     .slice(0, quanti)
@@ -81,6 +99,7 @@ export function biotipiPer<B extends ConBisogni & { id: string; tipo: string }>(
   return biotipi
     .filter((b) => CATEGORIE_AREA[b.area]?.includes(p.category))
     .filter((b) => !(b.bisogni.pelle?.includes('sensibile') && p.sensitiveSafe === false))
+    .filter((b) => !eDelicato(b) || delicatoPer(p, b.id) !== undefined)
     .map((b) => ({ b, v: voto(p, b) - (b.tipo === 'tratto' ? 0.5 : 0) }))
     .filter((x) => x.v >= soglia[x.b.area])
     .sort((a, b2) => b2.v - a.v)

@@ -22,6 +22,7 @@ from schede import decisioni, k
 import traduci
 import titoli
 import fonti
+import delicati
 
 R = Path(__file__).resolve().parents[2]
 QUANTI = {'si': 5, 'selezione': 4, 'alternativa': 3}
@@ -101,6 +102,10 @@ def prodotto(s):
         out['concerns'] = concerns
         if s['passaggio'] == 'barba':
             out['beardConcerns'] = ['irritazione' if re.search(r'irritaz|lenitiv|sensibil', s['titolo'], re.I) else 'mantenimento']
+    # i profili delicati per cui il prodotto è dentro, col punteggio che ordina il loro elenco (delicati.py, 7/11/2026)
+    dl = delicati.punteggi(s)
+    if dl:
+        out['delicati'] = dl
     if s['gravidanza'] is not None:
         out['pregnancySafe'] = s['gravidanza']
     if p.get('reattiva') == 2:
@@ -652,7 +657,7 @@ def main(candidati=None):
             'formati': list(misure.values()) if len(misure) > 1 else [], 'confronto': conf.get(s['id'], {}),
         }
     prodotti.sort(key=lambda p: (p['category'], p['brand'], p['name']))
-    (R / 'src' / 'data' / 'prodotti.json').write_text(json.dumps({'_nota': f'La selezione dalle schede di {neg} (scripts/catalogo/al_sito.py). Non si modifica a mano: si rigenera.', 'prodotti': prodotti}, ensure_ascii=False, separators=(',', ':')))
+    (R / 'src' / 'data' / 'prodotti.json').write_text(json.dumps({'_nota': f'La selezione dalle schede di {neg} (scripts/catalogo/al_sito.py). Non si modifica a mano: si rigenera.', '_aggiornato': __import__('datetime').date.today().isoformat(), 'prodotti': prodotti}, ensure_ascii=False, separators=(',', ':')))
     (R / 'src' / 'data' / 'schede.json').write_text(json.dumps({'_nota': 'Le schede per esteso delle pagine prodotto (scripts/catalogo/al_sito.py), lette solo nella build. Non si modifica a mano.', 'schede': pagine}, ensure_ascii=False, separators=(',', ':')))
     print('confronti: più ricco', sum(1 for c in conf.values() if 'ricco' in c), '· più economico', sum(1 for c in conf.values() if 'economico' in c), '· misure unite', sum(1 for p in pagine.values() if p['formati']))
     print(len(prodotti), 'prodotti nel sito;', dict(Counter(p['category'] for p in prodotti)))

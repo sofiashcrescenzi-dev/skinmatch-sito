@@ -70,6 +70,12 @@ def texture(titolo):
 
 
 # ── pelle, bisogni, forza ──────────────────────────────────────────────────────
+DICHIARA = {
+    'atopica': r'atopic|eczem', 'psoriasi': r'psorias', 'rosacea': r'rosacea|couperose|anti-?rossor|arrossament|redness',
+    'sensibile': r'pell[ei] sensibil|pelli sensibil|sensitive skin|intolleran|ipoallergenic|iper-?reattiv|reattiv',
+    'cute sensibile': r'cute sensibil|cuoio capelluto sensibil|cuoio capelluto irritat|sensitive scalp',
+    'squame': r'squam|desquam|placc|ipercheratos',
+}
 PELLE = {
     'grassa': r'pelle grassa|pelli grasse|pelle mista|pelli miste|seborr|oily|sebo|opacizzant|purificant|imperfezion|acne|pori',
     'secca': r'pelle secca|pelli secche|molto secca|xerosi|atopic|nutrient|ricca|riche|ristrutturante|dry skin',
@@ -225,6 +231,9 @@ def scheda(r, extra_inci=None, segmento=None, dichiarati=None):
     dichiarato = {'profumo': re.search(r'senza profum|privo di profum|fragrance[- ]free|non profumat|senza fragranz|parfum[- ]free|perfume[- ]free', _c(testo)),
                   'alcol': re.search(r'senza alcol|alcohol[- ]free|privo di alcol', _c(testo)),
                   'oli_essenziali': re.search(r'senza oli essenziali|essential[- ]oil[- ]free|privo di oli essenziali', _c(testo))}
+    # le pelli e le condizioni per cui il produttore dice che il prodotto è fatto (titolo e descrizione): le legge
+    # delicati.py per ordinare gli elenchi dei profili delicati (7/11/2026)
+    s['dichiara'] = [k for k, rx in DICHIARA.items() if re.search(rx, _c(testo))]
     for k in ('profumo', 'alcol', 'oli_essenziali'):
         s[k] = True if seg.get(k) else False if (s['inci_completo'] or dichiarato[k]) else None
     fonti['profumo'] = 'inci' if (s['profumo'] or s['inci_completo']) else 'descrizione' if dichiarato['profumo'] else None
@@ -246,8 +255,12 @@ def scheda(r, extra_inci=None, segmento=None, dichiarati=None):
         s['gravidanza'] = None; fonti['gravidanza'] = 'da verificare: acido salicilico da lasciare sulla pelle'
     elif pas == 'integratore':
         s['gravidanza'] = None; fonti['gravidanza'] = 'integratore: decide il medico'
-    elif lista:
+    # ⚠️ IL «SÌ» SOLO CON L'ELENCO INTERO (7/11/2026, sì del PO a b-gravidanza): con un INCI troncato non si può dire che
+    # gli ingredienti da evitare non ci sono. 99 prodotti erano «sì» con l'elenco a metà (edith-dati, audit di novembre).
+    elif lista and s['inci_completo']:
         s['gravidanza'] = True; fonti['gravidanza'] = 'regola: INCI senza ingredienti da evitare (da confermare)'
+    elif lista:
+        s['gravidanza'] = None; fonti['gravidanza'] = "da verificare: l'elenco degli ingredienti non è intero"
     else:
         s['gravidanza'] = None; fonti['gravidanza'] = 'da verificare: manca l\'INCI'
     # per quale pelle
@@ -300,8 +313,13 @@ def scheda(r, extra_inci=None, segmento=None, dichiarati=None):
         if re.search(r'\bzinc', _c(tit)) and 'imperfezioni' not in s['integrazione'] and 'omega-3' not in ben:
             s['integrazione'].append('imperfezioni')
         # vegano o vegetariano solo se lo dichiara; l'olio di pesce e le perle di gelatina mai (il test lo chiede, 23/10)
-        s['vegano'] = bool(re.search(r'vegan|vegetal|vegetarian', t)) and not re.search(
-            r'non (?:è |e )?adatt\w* a\w* ?(?:vegan|vegetarian)|olio di (?:pesce|fegato)|fish oil|merluzzo|gelatina|krill', t)
+        # ⚠️ SOLO SE LO DICHIARA (7/11/2026, b-integratori): «vegetale» non vuol dire vegano (magnesio stearato vegetale,
+        # glicerolo vegetale, capsula vegetale), e 11 «vegani» avevano collagene, cheratina o uova (edith-dati, novembre).
+        # Vale la parola vegano o vegetariano detta del prodotto, non della capsula; mai con un ingrediente animale.
+        dich = re.sub(r'capsul\w*\s+(?:di\s+origine\s+)?(?:vegetal|vegan|vegetarian)\w*|(?:vegetal|vegan|vegetarian)\w*\s+capsul\w*', ' ', t)
+        s['vegano'] = bool(re.search(r'\bvegan[aoei]?\b|\bvegetarian[aoei]?\b|\bvegan\b|adatt\w* (?:a|ai|per) (?:vegani|vegetariani)', dich)) and not re.search(
+            r'non (?:è |e )?adatt\w* a\w* ?(?:vegan|vegetarian)|olio di (?:pesce|fegato)|fish oil|merluzzo|gelatin|krill|collagen|cheratin|keratin|\buov[ao]\b|\begg\b'
+            r'|lanolin|cera d.api|propoli|pappa reale|chitosan|condroitin|glucosamin|lattoferrin|siero di latte|whey|caseina|carminio|gommalacca|shellac|cartilagin|pesce', t)
     # che cosa è davvero, per i confronti (al_sito.py simili() e src/lib/simili.ts): dove si mette, in che forma, quanti pezzi
     s['zona'], s['forma'], s['pezzi'] = zona(tit, pas), forma(tit, pas), pezzi(tit)
     s['fonti'] = fonti
