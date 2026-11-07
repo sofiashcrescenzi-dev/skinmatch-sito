@@ -229,7 +229,8 @@ function compatibilita(x: Prodotto, area: Area, ps: Passaggio, b: Bisogni, p: Pr
 
 function percheDi(x: Prodotto, area: Area, b: Bisogni, p: Profilo, biotipo: Biotipo | null): string[] {
   const r: string[] = [];
-  if (biotipo && area !== 'integrazione') r.push('adatto a: ' + biotipo.titolo.toLowerCase());
+  // per i profili medici non si ripete il titolo («adatto a: psoriasi, indicata da te»): si dice perché è nell'elenco
+  if (biotipo && area !== 'integrazione') r.push(biotipo.titolo_elenco ? 'delicato, per quello che hai indicato' : 'adatto a: ' + biotipo.titolo.toLowerCase());
   // i bisogni del giro hanno già la loro indicazione autorizzata come primo «perché» (scegli)
   const aiuti = [...(x.concerns || []), ...(x.hairConcerns || [])].filter((k) => !GIRO.has(k) && (b.concerns.has(k) || b.capelli.has(k))).slice(0, 2);
   if (aiuti.length) r.push('aiuta a ' + aiuti.map((k) => AIUTA[k] || k).join(' e '));

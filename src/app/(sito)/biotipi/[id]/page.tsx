@@ -89,7 +89,7 @@ export default async function BiotipoPage({ params }: { params: Promise<{ id: st
 
       {prodotti.length > 0 && (
         <section className="pila" style={{ ['--gap' as string]: '16px' }}>
-          <h2 className="titolo-2">Prodotti adatti</h2>
+          <h2 className="titolo-2">{b.titolo_elenco || 'Prodotti adatti'}</h2>
           <p className="piccolo">{bisogno
             ? 'Tutti quelli del catalogo per questo bisogno: prima i più completi, poi i più ricchi. Il test li sceglie anche sulla tua alimentazione e sui farmaci che prendi.'
             : 'Scelti sui bisogni di questo biotipo. Il test li sceglie anche sulle tue risposte, con un\u2019alternativa simile, di solito più economica.'}</p>

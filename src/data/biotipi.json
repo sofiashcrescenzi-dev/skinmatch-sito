@@ -108,7 +108,7 @@
    "id": "atopica",
    "area": "pelle",
    "tipo": "biotipo",
-   "titolo": "Hai indicato una dermatite atopica diagnosticata: qui trovi prodotti delicati che accompagnano la cura",
+   "titolo": "Dermatite atopica, indicata da te",
    "motto": "Una barriera da proteggere, ogni giorno.",
    "famiglia": "pelle-secca",
    "tag": [
@@ -155,13 +155,14 @@
      "idratazione"
     ]
    },
-   "consiglio_medico": "Lava il viso con acqua tiepida e un detergente senza sapone, e metti la crema entro pochi minuti, quando la pelle è ancora un po' umida. Un prodotto nuovo alla volta, provato prima per qualche sera su una piccola zona. Se compaiono chiazze che prudono o si spaccano, la routine va rivista con chi ti segue."
+   "consiglio_medico": "Lava il viso con acqua tiepida e un detergente senza sapone, e metti la crema entro pochi minuti, quando la pelle è ancora un po' umida. Un prodotto nuovo alla volta, provato prima per qualche sera su una piccola zona. Se compaiono chiazze che prudono o si spaccano, la routine va rivista con chi ti segue.",
+   "titolo_elenco": "Hai indicato una dermatite atopica diagnosticata: qui trovi prodotti delicati che accompagnano la cura"
   },
   {
    "id": "psoriasica",
    "area": "pelle",
    "tipo": "biotipo",
-   "titolo": "Hai indicato una psoriasi diagnosticata: qui trovi prodotti delicati che accompagnano la cura",
+   "titolo": "Psoriasi, indicata da te",
    "motto": "La skincare accompagna, la terapia guida.",
    "famiglia": "pelle-sensibile",
    "tag": [
@@ -204,7 +205,8 @@
      "idratazione"
     ]
    },
-   "consiglio_medico": "La skincare serve a rendere la pelle più morbida e a non irritarla: niente scrub, niente prodotti profumati sulle placche. Creme ricche, anche più volte al giorno nelle zone secche. Ogni cambiamento importante va concordato con il medico che ti segue."
+   "consiglio_medico": "La skincare serve a rendere la pelle più morbida e a non irritarla: niente scrub, niente prodotti profumati sulle placche. Creme ricche, anche più volte al giorno nelle zone secche. Ogni cambiamento importante va concordato con il medico che ti segue.",
+   "titolo_elenco": "Hai indicato una psoriasi diagnosticata: qui trovi prodotti delicati che accompagnano la cura"
   },
   {
    "id": "acneica",
@@ -782,7 +784,7 @@
    "id": "rosacea",
    "area": "pelle",
    "tipo": "tratto",
-   "titolo": "Hai indicato rossori frequenti o una rosacea: qui trovi prodotti delicati che accompagnano la cura",
+   "titolo": "Rossori o rosacea, indicati da te",
    "motto": "Rossori da calmare, mai da sfidare.",
    "famiglia": "pelle-sensibile",
    "tag": [
@@ -827,7 +829,8 @@
      "rossori-sensibilita"
     ]
    },
-   "consiglio_medico": "Evita quello che scatena i rossori: acqua calda, scrub, prodotti profumati o con alcol, sbalzi di temperatura. Prodotti semplici, pochi, provati uno alla volta. Rossori che durano o peggiorano vanno visti da un medico."
+   "consiglio_medico": "Evita quello che scatena i rossori: acqua calda, scrub, prodotti profumati o con alcol, sbalzi di temperatura. Prodotti semplici, pochi, provati uno alla volta. Rossori che durano o peggiorano vanno visti da un medico.",
+   "titolo_elenco": "Hai indicato rossori frequenti o una rosacea: qui trovi prodotti delicati che accompagnano la cura"
   },
   {
    "id": "matura",
@@ -1031,7 +1034,7 @@
    "id": "psoriasi-cuoio-capelluto",
    "area": "cute",
    "tipo": "biotipo",
-   "titolo": "Hai indicato placche o una psoriasi del cuoio capelluto: qui trovi prodotti delicati che accompagnano la cura",
+   "titolo": "Psoriasi del cuoio capelluto, indicata da te",
    "motto": "Squame da ammorbidire, senza grattare.",
    "famiglia": "cute-secca",
    "tag": [
@@ -1078,7 +1081,8 @@
      "sensibile"
     ]
    },
-   "consiglio_medico": "Non grattare e non staccare le squame: si irrita la pelle e peggiora. Uno shampoo delicato e il tempo di posa indicato dal prodotto. Il trattamento lo decide chi ti segue: lo shampoo lo accompagna."
+   "consiglio_medico": "Non grattare e non staccare le squame: si irrita la pelle e peggiora. Uno shampoo delicato e il tempo di posa indicato dal prodotto. Il trattamento lo decide chi ti segue: lo shampoo lo accompagna.",
+   "titolo_elenco": "Hai indicato placche o una psoriasi del cuoio capelluto: qui trovi prodotti delicati che accompagnano la cura"
   },
   {
    "id": "seborroico",

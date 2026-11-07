@@ -113,6 +113,9 @@ export type Biotipo = {
   // il consiglio del medico per questo biotipo (7/11/2026, voto d-compat): lo scrive o lo approva Sofia; sul sito
   // compare solo con la sua revisione (revisione('consiglio:<id>'))
   consiglio_medico?: string;
+  // per i profili medici (7/11/2026, voto b-delicati): il titolo dell'elenco dei prodotti, che dice cosa hai indicato
+  // («Hai indicato una psoriasi diagnosticata: qui trovi prodotti delicati che accompagnano la cura»); il titolo resta corto
+  titolo_elenco?: string;
 };
 export type TagBiotipo = { id: string; nome: string; area: Area | 'tutti' };
 
