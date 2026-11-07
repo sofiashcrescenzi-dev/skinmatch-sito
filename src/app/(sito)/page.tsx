@@ -6,6 +6,15 @@ import { Invito, Stendi } from '@/components/Inviti';
 import { ConTermini } from '@/components/Termini';
 import RicercaCentrale from '@/components/RicercaCentrale';
 import { BISOGNI } from '@/lib/integratori';
+import { domandeDi } from '@/lib/motore';
+
+// ⚠️ IL NUMERO VERO DI DOMANDE (7/11/2026, audit di Jarvis): «fino a» contava tutte le domande del percorso, anche quelle
+// che nessuno riceve insieme (la barba solo agli uomini, gravidanza e menopausa solo alle donne). Ora è il massimo che
+// una persona riceve davvero, provando ogni genere ed età: cambia da solo se cambiano domande o condizioni.
+const massimoDomande = (p: (typeof TEST.percorsi)[number]) => {
+  const d = (id: string) => TEST.domande.find((x) => x.id === id)?.opzioni.map((o) => o.id) || [undefined];
+  return Math.max(...d('genere').flatMap((g) => d('eta').map((e) => domandeDi(p, { ...(g ? { genere: g } : {}), ...(e ? { eta: e } : {}) }).length)));
+};
 
 const PASSI = [
   ['Rispondi a poche domande', 'Su quello che vedi allo specchio, sulla cute e i capelli, su come dormi e mangi: domande su come sei, non su come pensi di essere.'],
@@ -79,7 +88,7 @@ export default function Home() {
               <Link key={p.id} href={`/test?percorso=${p.id}`} className={`test-carta${i === 0 ? ' test-grande' : ''}`} style={{ ['--tono' as string]: `var(--f${i + 1})` }}>
                 <span className="test-foto"><Foto nome={p.immagine} sizes={i === 0 ? '(max-width: 760px) 100vw, 40vw' : '(max-width: 760px) 100vw, 25vw'} /></span>
                 <span className="test-corpo">
-                  <span className="test-dati"><b>{p.minuti} min</b><span>fino a {p.domande.length} domande</span></span>
+                  <span className="test-dati"><b>{p.minuti} min</b><span>fino a {massimoDomande(p)} domande</span></span>
                   <span className="titolo-3">{p.nome === 'Test Completo' ? 'Il test completo' : p.titolo}</span>
                   <span className="piccolo">{p.descrizione}</span>
                   <span className="test-esce"><b>Ne esce</b> {ESCE[p.id] || 'Il tuo biotipo e una routine.'}</span>

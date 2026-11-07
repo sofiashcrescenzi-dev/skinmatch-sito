@@ -1568,7 +1568,7 @@
    "opzioni": [
     {
      "id": "raro",
-     "testo": "Quasi mai ,al massimo una volta",
+     "testo": "Quasi mai, al massimo una volta",
      "punti": {
       "difese": 0
      }
