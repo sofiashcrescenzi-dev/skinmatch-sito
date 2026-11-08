@@ -1,4 +1,85 @@
 {
  "_nota": "L'INDICE DEI POST SOCIAL DI SKINMATCH: lo scrive il motore dei video (Agoranomos/social/remotion, rendi-piano.mjs) con i post.json di public/social/<data>-<slug>/. Si legge in admin › Social e nella vetrina di /link.",
- "post": []
+ "post": [
+  {
+   "id": "skinmatch-2026-11-12-pelle-grassa-disidratata-carosello",
+   "data": "2026-11-12",
+   "ora": "18:30",
+   "tipo": "carosello",
+   "titolo": "Pelle grassa che tira? Non è secca, è disidratata",
+   "slug": "pelle-grassa-disidratata-carosello",
+   "pagina": "/rivista/pelle-grassa-disidratata",
+   "base": "/social/2026-11-12-pelle-grassa-disidratata-carosello",
+   "copertina": "copertina.jpg",
+   "file": [
+    "01.png",
+    "02.png",
+    "03.png",
+    "04.png",
+    "05.png",
+    "06.png",
+    "07.png",
+    "08.png",
+    "09.png"
+   ],
+   "didascalie": {
+    "instagram": "Pelle grassa che tira? Non è secca: è disidratata, e capita più di quanto pensi.\n\nSecca vuol dire poco sebo. Disidratata vuol dire poca acqua. Una pelle può essere lucida e assetata insieme, soprattutto d'inverno o dopo detergenti troppo forti.\n\nLa trappola: lavarla di più. Toglie ancora acqua.\n\nMandalo a chi dice «io la crema non la metto, sono grassa».\n\nIl test della pelle è nel link in bio: tre minuti, gratis.\n\n#pellegrassa #pelledisidratata #skincare #skincareitalia #routineviso",
+    "threads": "Pelle grassa che tira dopo il lavaggio? Non è secca, è disidratata. Secca vuol dire poco sebo, disidratata poca acqua: possono stare insieme. Lavarla di più peggiora. Detergente delicato, un siero idratante, crema leggera. Il test della pelle: skinmatch.it/test",
+    "tiktok": "Pelle grassa che tira? Non è secca. Ecco la differenza in 30 secondi. Il test è nel link in bio. #pellegrassa #pelledisidratata #skincare #skincareitalia #routineviso"
+   },
+   "hashtag": [
+    "#pellegrassa",
+    "#pelledisidratata",
+    "#skincare",
+    "#skincareitalia",
+    "#routineviso"
+   ],
+   "alt": [
+    "Slide 1 di 9. Pelle grassa che tira? Non è secca.",
+    "Slide 2 di 9. Due cose diverse Secca: Poco sebo. Sempre. Disidratata: Poca acqua. Per un periodo.",
+    "Slide 3 di 9. Si può essere grassi e disidratati insieme. Lucidi a metà giornata, tesi dopo il lavaggio.",
+    "Slide 4 di 9. Come riconoscerla Luccica sulla zona T, ma tira e si spella ai lati del naso.",
+    "Slide 5 di 9. Perché succede Detergenti forti, riscaldamento, troppi attivi insieme.",
+    "Slide 6 di 9. Cosa non fare Lavare il viso tre volte al giorno «per togliere l'unto»: toglie ancora acqua.",
+    "Slide 7 di 9. Cosa fare Detergente delicato, un siero idratante (acido ialuronico), crema leggera.",
+    "Slide 8 di 9. Quando chiedere al medico Se tira e brucia per settimane, o si arrossa a chiazze.",
+    "Slide 9 di 9. Che pelle hai davvero? Il test dura tre minuti, gratis e senza registrazione."
+   ],
+   "note": "Instagram e Threads: carosello. TikTok: modalità foto, con un brano strumentale tranquillo dall’app.",
+   "sofia": "Confermare le tre cause (detergente forte, riscaldamento, troppi attivi insieme) e il consiglio «crema anche se luccichi» come indicazioni generali."
+  },
+  {
+   "id": "skinmatch-2026-11-13-pelle-grassa-disidratata",
+   "data": "2026-11-13",
+   "ora": "11:00",
+   "tipo": "video",
+   "titolo": "Pelle grassa che tira? Non è secca, è disidratata",
+   "slug": "pelle-grassa-disidratata",
+   "pagina": "/rivista/pelle-grassa-disidratata",
+   "base": "/social/2026-11-13-pelle-grassa-disidratata",
+   "copertina": "copertina.jpg",
+   "file": [
+    "video.mp4"
+   ],
+   "didascalie": {
+    "instagram": "Pelle grassa che tira? Non è secca: è disidratata, e capita più di quanto pensi.\n\nSecca vuol dire poco sebo. Disidratata vuol dire poca acqua. Una pelle può essere lucida e assetata insieme, soprattutto d'inverno o dopo detergenti troppo forti.\n\nLa trappola: lavarla di più. Toglie ancora acqua.\n\nMandalo a chi dice «io la crema non la metto, sono grassa».\n\nIl test della pelle è nel link in bio: tre minuti, gratis.\n\n#pellegrassa #pelledisidratata #skincare #skincareitalia #routineviso",
+    "tiktok": "Pelle grassa che tira? Non è secca. Ecco la differenza in 30 secondi. Il test è nel link in bio. #pellegrassa #pelledisidratata #skincare #skincareitalia #routineviso",
+    "threads": "Pelle grassa che tira dopo il lavaggio? Non è secca, è disidratata. Secca vuol dire poco sebo, disidratata poca acqua: possono stare insieme. Lavarla di più peggiora. Detergente delicato, un siero idratante, crema leggera. Il test della pelle: skinmatch.it/test",
+    "youtube_titolo": "Pelle grassa che tira? Non è secca, è disidratata",
+    "youtube": "Secca vuol dire poco sebo. Disidratata vuol dire poca acqua. Una pelle può essere lucida e assetata insieme, soprattutto d'inverno o dopo detergenti troppo forti.\n\nIl test della pelle, gratis: https://skinmatch.it/test\nFonti: Rivista: Pelle grassa ma disidratata (skinmatch.it/rivista/pelle-grassa-disidratata); Coderch e altri, 2003, i lipidi della barriera: https://pubmed.ncbi.nlm.nih.gov/12553851/"
+   },
+   "hashtag": [
+    "#pellegrassa",
+    "#pelledisidratata",
+    "#skincare",
+    "#skincareitalia",
+    "#routineviso"
+   ],
+   "alt": [
+    "Video di 38 secondi in animazione, con voce e sottotitoli. Pelle grassa, che tira? Non è secca. Il sebo sta in superficie. L'acqua, intanto, se ne va da sotto. Secca vuol dire poco sebo. Disidratata vuol dire poca acqua. E può capitare anche a una pelle grassa. Succede con un detergente troppo forte. Col riscaldamento. Con troppi attivi insieme. Serve più acqua, e un detergente più gentile. E la crema. Anche se luccichi. Vuoi sapere che pelle hai davvero? Il test è nel link in bio."
+   ],
+   "note": "Instagram: Reel, con «Mostra anche nel feed». TikTok: attiva «Contenuto generato dall’IA» (voce sintetica). YouTube: carica come Short. Musica: no, il tappeto sonoro è già nel video.",
+   "sofia": "Confermare le tre cause (detergente forte, riscaldamento, troppi attivi insieme) e il consiglio «crema anche se luccichi» come indicazioni generali."
+  }
+ ]
 }
