@@ -19,7 +19,8 @@ const TIPI_EVENTO = new Set(['test_inizio', 'test_fine', 'clic', 'guasto']);
 const PERCORSI = new Set(test.percorsi.map((p) => p.id));
 const BIOTIPI = new Set(biotipi.biotipi.map((b) => b.id));
 // chisiamo (7/11/2026, d-nome): le persone della pagina Chi siamo, con le foto caricate dall'admin
-const DOCUMENTI = new Set(['test', 'biotipi', 'glossario', 'catalogo', 'negozi', 'nozioni', 'chisiamo']);
+// social (8/11/2026): i profili e la pagina skinmatch.it/link, da admin › Social
+const DOCUMENTI = new Set(['test', 'biotipi', 'glossario', 'catalogo', 'negozi', 'nozioni', 'chisiamo', 'social']);
 const STATI_ARTICOLO = new Set(['in_approvazione', 'da_correggere', 'approvato', 'online', 'scartato']);
 const STATI_SEGNALAZIONE = new Set(['aperta', 'in_lavoro', 'dopo', 'fatta', 'scartata']);
 const STATI_MARCA = new Set(['da_studiare', 'da_contattare', 'contattata', 'risposto', 'decisa']);
@@ -258,6 +259,18 @@ async function admin(req, env, url, email) {
       .bind(...set.map(([, v]) => v), email).first().catch((e) => ({ errore: String(e.message || e) }));
     if (!r || r.errore) return json({ errore: /UNIQUE/.test(r?.errore || '') ? 'questa marca c\'è già' : 'non salvata' }, 400);
     return json({ ok: true, id: r.id });
+  }
+
+  if (via === 'social-stato') {
+    // LO STATO DEI POST SOCIAL (8/11/2026): pubblicato, saltato o da pubblicare, segnato dall'admin › Social
+    if (req.method === 'GET') return json({ stati: await tutti('SELECT * FROM social_stato ORDER BY aggiornato_il DESC LIMIT 500') });
+    const { id, stato, link } = corpo || {};
+    if (!/^[a-z0-9-]{3,120}$/.test(id || '')) return json({ errore: 'post sconosciuto' }, 400);
+    if (!['da_pubblicare', 'pubblicato', 'saltato'].includes(stato)) return json({ errore: 'stato sconosciuto' }, 400);
+    const l = typeof link === 'string' && /^https:\/\/\S+$/.test(link) ? link.slice(0, 300) : null;
+    await DB.prepare("INSERT INTO social_stato (id, stato, link, chi, aggiornato_il) VALUES (?1, ?2, ?3, ?4, datetime('now')) ON CONFLICT (id) DO UPDATE SET stato = excluded.stato, link = coalesce(excluded.link, social_stato.link), chi = excluded.chi, aggiornato_il = excluded.aggiornato_il")
+      .bind(id, stato, l, email).run();
+    return json({ ok: true });
   }
 
   if (via === 'revisioni') {

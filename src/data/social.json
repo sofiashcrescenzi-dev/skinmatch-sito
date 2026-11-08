@@ -1,0 +1,86 @@
+{
+ "_nota": "I SOCIAL DI SKINMATCH (8/11/2026, il PO: «creare nell'admin di skinmatch anche tutta l'infrastruttura social… il linktree stessa struttura degli altri, tutti i loghi, background, descrizioni»). Si modifica da admin › Social: i profili (nome, handle, bio, indirizzo) e la pagina skinmatch.it/link. Testi di partenza di Zeno (strategia/social/profili.md).",
+ "profili": {
+  "instagram": {
+   "nome": "Skinmatch · la pelle spiegata",
+   "handle": "skinmatch.it",
+   "bio": "La pelle spiegata: perché tira, perché luccica, cosa serve davvero.\nAttivi, routine, miti. Senza promesse.\nFai il test gratis ↓",
+   "url": "",
+   "categoria": "Sito web di salute e bellezza"
+  },
+  "tiktok": {
+   "nome": "Skinmatch",
+   "handle": "skinmatch.it",
+   "bio": "La pelle spiegata, senza promesse.\nFai il test gratis ↓",
+   "url": "",
+   "categoria": "Salute e bellezza"
+  },
+  "threads": {
+   "nome": "Skinmatch · la pelle spiegata",
+   "handle": "skinmatch.it",
+   "bio": "Skincare spiegata con calma: biotipi, attivi, routine e miti, con le fonti.\nUn test gratuito per capire la tua pelle ↓",
+   "url": "",
+   "categoria": ""
+  },
+  "youtube": {
+   "nome": "Skinmatch · la pelle spiegata",
+   "handle": "skinmatch.it",
+   "bio": "Skinmatch spiega la pelle: perché tira, perché luccica, perché un attivo funziona e un altro irrita, perché l'ordine della routine conta.\n\nOgni video fa vedere quello che a parole non si vede: l'acqua che lascia la barriera, una molecola che entra nel poro, la luce che attraversa il vetro. Frasi brevi, fonti in descrizione, nessuna promessa: i cosmetici non curano, e dove serve un medico lo diciamo.\n\nSu skinmatch.it c'è il test gratuito, senza registrazione: tre minuti di domande su quello che vedi allo specchio, un biotipo e una routine mattina e sera.\n\nNuovi video ogni tre giorni: biotipi, attivi, routine, miti e curiosità.",
+   "url": "",
+   "categoria": ""
+  }
+ },
+ "link": {
+  "titolo": "skinmatch",
+  "frase": "La pelle spiegata. Il test dura tre minuti, è gratis e senza registrazione.",
+  "bottoni": [
+   {
+    "etichetta": "Fai il test della pelle",
+    "url": "/test?percorso=viso",
+    "colore": "pieno",
+    "attivo": true
+   },
+   {
+    "etichetta": "L'ultimo video, spiegato",
+    "url": "@ultimo-video",
+    "colore": "pesca",
+    "attivo": true
+   },
+   {
+    "etichetta": "Il test del cuoio capelluto",
+    "url": "/test?percorso=cute",
+    "colore": "contorno",
+    "attivo": true
+   },
+   {
+    "etichetta": "Che pelle ho? I biotipi",
+    "url": "/biotipi",
+    "colore": "velo",
+    "attivo": true
+   },
+   {
+    "etichetta": "La Rivista",
+    "url": "/rivista",
+    "colore": "contorno",
+    "attivo": true
+   },
+   {
+    "etichetta": "Gli attivi, spiegati",
+    "url": "/glossario",
+    "colore": "contorno",
+    "attivo": true
+   },
+   {
+    "etichetta": "Chi siamo",
+    "url": "/chi-siamo",
+    "colore": "terra",
+    "attivo": true
+   }
+  ],
+  "vetrina": {
+   "mostra": true,
+   "scelti": null
+  },
+  "piede": "Il test non è una diagnosi. Sul sito alcuni link ai negozi sono affiliati: se compri, riceviamo una commissione che non decide le scelte."
+ }
+}

@@ -1,0 +1,4 @@
+{
+ "_nota": "L'INDICE DEI POST SOCIAL DI SKINMATCH: lo scrive il motore dei video (Agoranomos/social/remotion, rendi-piano.mjs) con i post.json di public/social/<data>-<slug>/. Si legge in admin › Social e nella vetrina di /link.",
+ "post": []
+}

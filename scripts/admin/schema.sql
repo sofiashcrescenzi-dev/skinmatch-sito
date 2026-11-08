@@ -87,3 +87,8 @@ CREATE TABLE IF NOT EXISTS revisioni (
 CREATE INDEX IF NOT EXISTS revisioni_chiave ON revisioni (chiave, id);
 -- la firma di un articolo (7/11/2026, d-nome): «redazione» (scritto dalla Redazione) o «sofia» (scritto da Sofia)
 -- ALTER TABLE articoli ADD COLUMN firma TEXT;
+
+-- LO STATO DEI POST SOCIAL (8/11/2026): da admin › Social, «L'ho pubblicato» / «Saltato».
+CREATE TABLE IF NOT EXISTS social_stato (
+  id TEXT PRIMARY KEY, stato TEXT NOT NULL, link TEXT, chi TEXT, aggiornato_il TEXT NOT NULL DEFAULT (datetime('now'))
+);

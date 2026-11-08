@@ -30,7 +30,7 @@ DATI = REPO / 'src' / 'data'
 REDIRECTS = REPO / 'public' / '_redirects'
 LOCK = REPO / '.pubblica.lock'
 FIRMA = '\n\nCo-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>'
-TIPI = ['test', 'biotipi', 'glossario', 'catalogo', 'negozi', 'nozioni', 'chisiamo']
+TIPI = ['test', 'biotipi', 'glossario', 'catalogo', 'negozi', 'nozioni', 'chisiamo', 'social']
 # scritti da scripts/catalogo/aggiorna.py: la selezione, le schede delle pagine prodotto, i clic
 # ⚠️ indirizzi-vecchi.json lo scrive anche aggiorna.py (gli alias degli indirizzi dei prodotti
 # rinominati, 16/10): fuori da questo elenco la pubblicazione del catalogo restava «in attesa»
