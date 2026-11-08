@@ -28,9 +28,14 @@ const KIT: { file: string; nome: string; misura: string; uso: string }[] = [
   { file: 'sfondo-post-1080x1350.png', nome: 'Sfondo per i post, scuro', misura: '1080 × 1350', uso: 'Post e caroselli su cacao' },
   { file: 'sfondo-chiaro-1080x1350.png', nome: 'Sfondo per i post, chiaro', misura: '1080 × 1350', uso: 'Post e caroselli su latte' },
 ];
+// 8/11 sera, il PO: «la voce è un pochino troppo sensuale, rispetto a quello che mi aspettavo, fammi provare 2-3 voci».
+// Tre voci più chiare, da divulgatrice, con la stessa frase del primo video e al loro passo naturale.
 const VOCI = [
-  { file: 'aida.mp3', nome: 'Aida, «Sultry, Deep and Silky»', nota: 'Scelta: profonda, intima, da meditazione; la più lenta delle due.' },
-  { file: 'samanta.mp3', nome: 'Samanta, «Reassuring, Warm and Deep»', nota: 'Riserva: calda e rassicurante, un po’ più svelta.' },
+  { file: 'luna.mp3', nome: 'Luna, «Natural, Measured and Confident»', nota: 'Giovane, misurata, nata per spiegare. 2,8 parole al secondo.' },
+  { file: 'violetta.mp3', nome: 'Violetta, «Warm, Clear and Engaging»', nota: 'Calda e chiara, la voce femminile italiana più usata della libreria. 2,7 parole al secondo.' },
+  { file: 'beatrice.mp3', nome: 'Beatrice, «Warm and Reassuring»', nota: 'Rassicurante e raffinata, la più calma delle tre. 2,5 parole al secondo.' },
+  { file: 'aida.mp3', nome: 'Aida, la voce del primo video', nota: 'Per il PO un po’ troppo sensuale: profonda e intima, 1,8 parole al secondo.' },
+  { file: 'samanta.mp3', nome: 'Samanta, «Reassuring, Warm and Deep»', nota: 'Calda e profonda.' },
 ];
 const NOMI_DIDA: Record<string, string> = { instagram: 'Instagram', tiktok: 'TikTok', threads: 'Threads', youtube_titolo: 'YouTube, titolo', youtube: 'YouTube, descrizione' };
 
@@ -172,7 +177,7 @@ function Voce() {
   return (
     <section className="carta pila" style={{ ['--gap' as string]: '10px' }}>
       <h2 className="titolo-3">La voce dei video</h2>
-      <p className="piccolo">Il PO, 8/11: «una voce calda, sensuale, femminile che ispira tranquillità». La stessa frase, con le due voci della libreria italiana di ElevenLabs.</p>
+      <p className="piccolo">Il PO, 8/11: «una voce calda, femminile, che ispira tranquillità»; dopo il primo video, «un pochino troppo sensuale». Le prime tre sono le voci nuove da provare, con la stessa frase.</p>
       {VOCI.map((v) => (
         <div key={v.file} className="pila" style={{ ['--gap' as string]: '4px' }}>
           <b style={{ fontSize: 15 }}>{v.nome}</b>
