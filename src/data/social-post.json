@@ -2,11 +2,44 @@
  "_nota": "L'INDICE DEI POST SOCIAL DI SKINMATCH: lo scrive il motore dei video (Agoranomos/social/remotion, rendi-piano.mjs) con i post.json di public/social/<data>-<slug>/. Si legge in admin › Social e nella vetrina di /link.",
  "post": [
   {
+   "id": "skinmatch-2026-11-11-presentazione",
+   "data": "2026-11-11",
+   "ora": "18:30",
+   "tipo": "video",
+   "titolo": "Skinmatch: la tua pelle, la tua routine",
+   "slug": "presentazione",
+   "pagina": "/test",
+   "base": "/social/2026-11-11-presentazione",
+   "copertina": "copertina.jpg",
+   "file": [
+    "video.mp4"
+   ],
+   "didascalie": {
+    "instagram": "Quante creme hai comprato a caso?\n\nSkinmatch parte da quello che vedi allo specchio: rispondi a poche domande e ti diciamo quali passaggi ti servono e perché, con un prodotto per ognuno e un’alternativa che fa lo stesso lavoro.\n\nPelle, capelli, integratori: quattro test, da 2 a 6 minuti. Il test non è una diagnosi.\n\nComincia dal link in bio.\n\n#skinmatch #skincare #skincareitalia #routineviso #testpelle",
+    "tiktok": "Quante creme hai comprato a caso? Skinmatch parte dalla tua pelle. Il test è nel link in bio. #skinmatch #skincare #skincareitalia #routineviso #testpelle",
+    "threads": "Quante creme hai comprato a caso? Skinmatch parte da quello che vedi allo specchio: poche domande, i passaggi che ti servono e perché, un prodotto per ognuno e un’alternativa che fa lo stesso lavoro. Quattro test, da 2 a 6 minuti. Non è una diagnosi. skinmatch.it/test",
+    "youtube_titolo": "Skinmatch: la tua pelle, la tua routine",
+    "youtube": "Rispondi su quello che vedi allo specchio: ti diciamo quali passaggi ti servono e perché, con un prodotto per ognuno e un’alternativa che fa lo stesso lavoro. Il test non è una diagnosi.\n\nIl test della pelle, gratis: https://skinmatch.it/test"
+   },
+   "hashtag": [
+    "#skinmatch",
+    "#skincare",
+    "#skincareitalia",
+    "#routineviso",
+    "#testpelle"
+   ],
+   "alt": [
+    "Video di 28 secondi in animazione, con voce e sottotitoli. Quante creme hai comprato… a caso? Skinmatch parte da quello che vedi allo specchio. Ti diciamo quali passaggi ti servono, e perché. Mattina e sera. Per ognuno, un prodotto. E un'alternativa che fa lo stesso lavoro. Pelle, capelli, integratori. Quattro test, da due a sei minuti. La tua pelle. La tua routine. Il test è gratis, nel link in bio."
+   ],
+   "note": "Instagram: Reel, con «Mostra anche nel feed». TikTok: attiva «Contenuto generato dall’IA» (voce sintetica). YouTube: carica come Short. Musica: no, il tappeto sonoro è già nel video.",
+   "sofia": "Rileggere «un prodotto per ogni passaggio e un’alternativa che fa lo stesso lavoro» e la frase «non è una diagnosi» nella didascalia."
+  },
+  {
    "id": "skinmatch-2026-11-12-pelle-grassa-disidratata-carosello",
    "data": "2026-11-12",
    "ora": "18:30",
    "tipo": "carosello",
-   "titolo": "Pelle grassa che tira? Non è secca, è disidratata",
+   "titolo": "Il detergente per la pelle grassa: come leggere l'etichetta",
    "slug": "pelle-grassa-disidratata-carosello",
    "pagina": "/rivista/pelle-grassa-disidratata",
    "base": "/social/2026-11-12-pelle-grassa-disidratata-carosello",
@@ -19,13 +52,12 @@
     "05.png",
     "06.png",
     "07.png",
-    "08.png",
-    "09.png"
+    "08.png"
    ],
    "didascalie": {
-    "instagram": "Pelle grassa che tira? Non è secca: è disidratata, e capita più di quanto pensi.\n\nSecca vuol dire poco sebo. Disidratata vuol dire poca acqua. Una pelle può essere lucida e assetata insieme, soprattutto d'inverno o dopo detergenti troppo forti.\n\nLa trappola: lavarla di più. Toglie ancora acqua.\n\nMandalo a chi dice «io la crema non la metto, sono grassa».\n\nIl test della pelle è nel link in bio: tre minuti, gratis.\n\n#pellegrassa #pelledisidratata #skincare #skincareitalia #routineviso",
-    "threads": "Pelle grassa che tira dopo il lavaggio? Non è secca, è disidratata. Secca vuol dire poco sebo, disidratata poca acqua: possono stare insieme. Lavarla di più peggiora. Detergente delicato, un siero idratante, crema leggera. Il test della pelle: skinmatch.it/test",
-    "tiktok": "Pelle grassa che tira? Non è secca. Ecco la differenza in 30 secondi. Il test è nel link in bio. #pellegrassa #pelledisidratata #skincare #skincareitalia #routineviso"
+    "instagram": "Il detergente che «sgrassa» è spesso quello che ti fa luccicare di più.\n\nUn detergente troppo forte toglie anche l'acqua: la pelle tira, e a metà giornata luccica di nuovo. Nell'etichetta guarda i primi cinque ingredienti: Sodium Lauryl Sulfate e alcol in testa sono i più forti; Coco-Glucoside e Sodium Cocoyl Isethionate i più gentili.\n\nSalvalo per la prossima volta in farmacia.\n\nIl test della pelle è nel link in bio.\n\n#pellegrassa #pelledisidratata #skincare #skincareitalia #routineviso",
+    "threads": "Il detergente che «sgrassa» è spesso quello che fa luccicare di più: toglie anche l'acqua, la pelle tira e poi luccica di nuovo. Nell'INCI guarda i primi cinque ingredienti: Sodium Lauryl Sulfate e alcol in testa sono i più forti, Coco-Glucoside e Sodium Cocoyl Isethionate i più gentili. skinmatch.it/test",
+    "tiktok": "Il detergente per pelle grassa: come leggere l'etichetta in 8 slide. #pellegrassa #pelledisidratata #skincare #skincareitalia #routineviso"
    },
    "hashtag": [
     "#pellegrassa",
@@ -35,18 +67,17 @@
     "#routineviso"
    ],
    "alt": [
-    "Slide 1 di 9. Pelle grassa che tira? Non è secca.",
-    "Slide 2 di 9. Due cose diverse Secca: Poco sebo. Sempre. Disidratata: Poca acqua. Per un periodo.",
-    "Slide 3 di 9. Si può essere grassi e disidratati insieme. Lucidi a metà giornata, tesi dopo il lavaggio.",
-    "Slide 4 di 9. Come riconoscerla Luccica sulla zona T, ma tira e si spella ai lati del naso.",
-    "Slide 5 di 9. Perché succede Detergenti forti, riscaldamento, troppi attivi insieme.",
-    "Slide 6 di 9. Cosa non fare Lavare il viso tre volte al giorno «per togliere l'unto»: toglie ancora acqua.",
-    "Slide 7 di 9. Cosa fare Detergente delicato, un siero idratante (acido ialuronico), crema leggera.",
-    "Slide 8 di 9. Quando chiedere al medico Se tira e brucia per settimane, o si arrossa a chiazze.",
-    "Slide 9 di 9. Che pelle hai davvero? Il test dura tre minuti, gratis e senza registrazione."
+    "Slide 1 di 8. Il detergente che «sgrassa» è quello che ti fa luccicare.",
+    "Slide 2 di 8. Perché succede Un detergente troppo forte toglie anche l'acqua.\nLa pelle tira, e a metà giornata luccica di nuovo.",
+    "Slide 3 di 8. Nell'elenco degli ingredienti Più forte: Sodium Lauryl Sulfate nei primi posti, alcol denat. tra i primi ingredienti Più gentile: Coco-Glucoside, Sodium Cocoyl Isethionate, Cocamidopropyl Betaine",
+    "Slide 4 di 8. Le parole sulla confezione «Purificante» e «astringente» non dicono quanto è delicato.\nGuarda i primi cinque ingredienti: sono quelli che contano.",
+    "Slide 5 di 8. Quanta schiuma serve? Tanta schiuma non vuol dire più pulito.\nUn gel che schiuma poco può lavare benissimo.",
+    "Slide 6 di 8. Come usarlo Acqua tiepida, un minuto di massaggio, si risciacqua.\nMattina e sera, non di più.",
+    "Slide 7 di 8. Quando chiedere al medico Se la pelle brucia con qualunque detergente, o compaiono chiazze rosse che si spellano.",
+    "Slide 8 di 8. Che pelle hai davvero? Il test dura tre minuti, è gratis."
    ],
    "note": "Instagram e Threads: carosello. TikTok: modalità foto, con un brano strumentale tranquillo dall’app.",
-   "sofia": "Confermare le tre cause (detergente forte, riscaldamento, troppi attivi insieme) e il consiglio «crema anche se luccichi» come indicazioni generali."
+   "sofia": "Confermare che i tensioattivi citati come «più delicati» lo sono come indicazione generale, e la slide d'avviso."
   },
   {
    "id": "skinmatch-2026-11-13-pelle-grassa-disidratata",
@@ -76,10 +107,410 @@
     "#routineviso"
    ],
    "alt": [
-    "Video di 38 secondi in animazione, con voce e sottotitoli. Pelle grassa, che tira? Non è secca. Il sebo sta in superficie. L'acqua, intanto, se ne va da sotto. Secca vuol dire poco sebo. Disidratata vuol dire poca acqua. E può capitare anche a una pelle grassa. Succede con un detergente troppo forte. Col riscaldamento. Con troppi attivi insieme. Serve più acqua, e un detergente più gentile. E la crema. Anche se luccichi. Vuoi sapere che pelle hai davvero? Il test è nel link in bio."
+    "Video di 34 secondi in animazione, con voce e sottotitoli. Pelle grassa, che tira? Non è secca. Il sebo sta in superficie. L'acqua, intanto, se ne va da sotto. Secca vuol dire poco sebo. Disidratata vuol dire poca acqua. E può capitare anche a una pelle grassa. Succede con un detergente troppo forte. Col riscaldamento. Con troppi attivi insieme. Serve più acqua, e un detergente più gentile. E la crema. Anche se luccichi. Vuoi sapere che pelle hai davvero? Il test è nel link in bio."
    ],
    "note": "Instagram: Reel, con «Mostra anche nel feed». TikTok: attiva «Contenuto generato dall’IA» (voce sintetica). YouTube: carica come Short. Musica: no, il tappeto sonoro è già nel video.",
-   "sofia": "Confermare le tre cause (detergente forte, riscaldamento, troppi attivi insieme) e il consiglio «crema anche se luccichi» come indicazioni generali."
+   "sofia": "confermare le tre cause (detergente forte, riscaldamento, troppi attivi insieme) e il consiglio «crema anche se luccichi» come indicazioni generali, e la slide 8 su quando chiedere al medico."
+  },
+  {
+   "id": "skinmatch-2026-11-15-niacinamide-vitamina-c-carosello",
+   "data": "2026-11-15",
+   "ora": "18:30",
+   "tipo": "carosello",
+   "titolo": "Le quattro coppie da non mettere la stessa sera",
+   "slug": "niacinamide-vitamina-c-carosello",
+   "pagina": "/rivista/attivi-insieme",
+   "base": "/social/2026-11-15-niacinamide-vitamina-c-carosello",
+   "copertina": "copertina.jpg",
+   "file": [
+    "01.png",
+    "02.png",
+    "03.png",
+    "04.png",
+    "05.png",
+    "06.png",
+    "07.png",
+    "08.png",
+    "09.png"
+   ],
+   "didascalie": {
+    "instagram": "4 coppie da non mettere la stessa sera. Le altre, quasi tutte, vanno bene.\n\nRetinolo e acidi esfolianti. Due esfolianti diversi. Scrub e acido. Vitamina C pura e acidi. Non sono pericolose: irritano. Basta separarle, mattina e sera o sere alterne.\n\nNiacinamide e acido ialuronico, invece, vanno con tutto.\n\nSalvala: è la tabella da tenere vicino allo specchio.\n\nTutte le coppie nella Rivista, link in bio.\n\n#niacinamide #vitaminac #skincare #skincareitalia #mitiskincare",
+    "threads": "4 coppie da non mettere la stessa sera: retinolo e acidi esfolianti, due esfolianti diversi, scrub e acido, vitamina C pura e acidi. Non sono pericolose: irritano. Basta separarle, mattina e sera o sere alterne. Niacinamide e acido ialuronico vanno con tutto. skinmatch.it/rivista/attivi-insieme",
+    "tiktok": "Le 4 coppie skincare da non mettere la stessa sera. Salvale. #niacinamide #vitaminac #skincare #skincareitalia #mitiskincare"
+   },
+   "hashtag": [
+    "#niacinamide",
+    "#vitaminac",
+    "#skincare",
+    "#skincareitalia",
+    "#mitiskincare"
+   ],
+   "alt": [
+    "Slide 1 di 9. 4 coppie da non mettere la stessa sera.",
+    "Slide 2 di 9. 1. Retinolo + acidi esfolianti Insieme irritano molto di più.\nUna sera l'uno, una sera l'altro.",
+    "Slide 3 di 9. 2. Due esfolianti diversi Un AHA e un BHA da due flaconi diversi la stessa sera.\nMeglio un prodotto solo, o sere diverse.",
+    "Slide 4 di 9. 3. Scrub + acido Due modi di esfoliare insieme: la barriera ne soffre.\nScegline uno.",
+    "Slide 5 di 9. 4. Vitamina C pura + acidi Sono tutte e due molto acide: insieme possono pizzicare.\nVitamina C al mattino, acidi la sera.",
+    "Slide 6 di 9. Invece vanno d'accordo Sì, insieme: Niacinamide con tutto, Acido ialuronico con tutto Sì, in momenti diversi: Vitamina C al mattino, Retinolo la sera",
+    "Slide 7 di 9. Dopo acidi e retinolo La pelle è più sensibile al sole.\nProtezione solare ogni mattina, anche d'inverno.",
+    "Slide 8 di 9. Quando chiedere al medico Se usi già una crema o un farmaco prescritti per la pelle: non aggiungere attivi senza chiedere.",
+    "Slide 9 di 9. Tutte le coppie, sì e no Nella Rivista."
+   ],
+   "note": "Instagram e Threads: carosello. TikTok: modalità foto, con un brano strumentale tranquillo dall’app.",
+   "sofia": "Confermare le quattro coppie e il consiglio «sere alterne» come indicazioni generali."
+  },
+  {
+   "id": "skinmatch-2026-11-16-niacinamide-vitamina-c",
+   "data": "2026-11-16",
+   "ora": "11:00",
+   "tipo": "video",
+   "titolo": "Niacinamide e vitamina C si annullano? No",
+   "slug": "niacinamide-vitamina-c",
+   "pagina": "/rivista/attivi-insieme",
+   "base": "/social/2026-11-16-niacinamide-vitamina-c",
+   "copertina": "copertina.jpg",
+   "file": [
+    "video.mp4"
+   ],
+   "didascalie": {
+    "instagram": "Niacinamide e vitamina C si annullano? No, è un mito.\n\nIl timore nasce da prove del 1963: in provetta, con forme pure e scaldate. Sulla pelle, nella stessa routine, vanno d'accordo.\n\nLe coppie da separare davvero sono altre: retinoidi e acidi esfolianti, non la stessa sera.\n\nSalvalo per quando ti chiederanno «ma si possono mettere insieme?».\n\nTutte le coppie nella Rivista, link in bio.\n\n#niacinamide #vitaminac #skincare #skincareitalia #mitiskincare",
+    "tiktok": "Niacinamide e vitamina C insieme? Sì. Da dove viene il mito, in 30 secondi. #niacinamide #vitaminac #skincare #skincareitalia #mitiskincare",
+    "threads": "Niacinamide e vitamina C si annullano? No. Il mito viene da prove del 1963, in provetta, con forme pure e calore. Nella stessa routine vanno bene: vitamina C al mattino sotto la protezione solare, niacinamide quando vuoi. Da separare davvero: retinoidi e acidi esfolianti. skinmatch.it/rivista/attivi-insieme",
+    "youtube_titolo": "Niacinamide e vitamina C insieme: si annullano?",
+    "youtube": "Il timore nasce da prove del 1963: in provetta, con forme pure e scaldate. Sulla pelle, nella stessa routine, vanno d'accordo.\n\nIl test della pelle, gratis: https://skinmatch.it/test\nFonti: Rivista: Quali attivi si possono usare insieme (skinmatch.it/rivista/attivi-insieme); Stephen Ko, farmacista, sul complesso niacinamide-acido ascorbico: https://kindofstephen.com/can-you-use-niacinamide-and-vitamin-c-ascorbic/"
+   },
+   "hashtag": [
+    "#niacinamide",
+    "#vitaminac",
+    "#skincare",
+    "#skincareitalia",
+    "#mitiskincare"
+   ],
+   "alt": [
+    "Video di 29 secondi in animazione, con voce e sottotitoli. Niacinamide e vitamina C… si annullano? È un mito. Nella stessa routine vanno d'accordo. Il timore viene da prove del millenovecentosessantatré. In provetta, con forme pure, e col calore. Sulla pelle è diverso. Ognuna fa il suo lavoro. La vitamina C sta bene al mattino, sotto la protezione solare. La niacinamide, quando vuoi. Tutte le coppie, sì e no, sono nella Rivista. Link in bio."
+   ],
+   "note": "Instagram: Reel, con «Mostra anche nel feed». TikTok: attiva «Contenuto generato dall’IA» (voce sintetica). YouTube: carica come Short. Musica: no, il tappeto sonoro è già nel video.",
+   "sofia": "Confermare «vanno bene nella stessa routine» come indicazione generale; per pelle reattiva, «meglio in momenti diversi»."
+  },
+  {
+   "id": "skinmatch-2026-11-18-sole-finestra-carosello",
+   "data": "2026-11-18",
+   "ora": "18:30",
+   "tipo": "carosello",
+   "titolo": "Quanta protezione solare serve davvero: la regola delle due dita",
+   "slug": "sole-finestra-carosello",
+   "pagina": "/biotipi/macchie",
+   "base": "/social/2026-11-18-sole-finestra-carosello",
+   "copertina": "copertina.jpg",
+   "file": [
+    "01.png",
+    "02.png",
+    "03.png",
+    "04.png",
+    "05.png",
+    "06.png",
+    "07.png",
+    "08.png",
+    "09.png"
+   ],
+   "didascalie": {
+    "instagram": "Metti la protezione solare ogni mattina? Bene. Ma probabilmente ne metti metà di quanta serve.\n\nL'SPF in etichetta si misura con 2 milligrammi per centimetro quadrato. Con meno crema la protezione scende molto, lo scrive anche la Commissione europea. La regola pratica: due strisce lungo indice e medio, per viso e collo.\n\nMandalo a chi mette «un velo, per non lucidare».\n\nFonte: Raccomandazione UE 2006/647/CE. Link in bio.\n\n#protezionesolare #spf #macchie #skincareitalia #losapevi",
+    "threads": "Quanta protezione solare serve? L'SPF si misura con 2 mg per cm²: molto più di quanto si mette di solito, e con meno crema la protezione scende molto. La regola pratica: due strisce lungo indice e medio per viso e collo, per ultima, ogni mattina. Fonte: Raccomandazione UE 2006/647/CE.",
+    "tiktok": "Quanta crema solare serve sul viso? La regola delle due dita. #protezionesolare #spf #macchie #skincareitalia #losapevi"
+   },
+   "hashtag": [
+    "#protezionesolare",
+    "#spf",
+    "#macchie",
+    "#skincareitalia",
+    "#losapevi"
+   ],
+   "alt": [
+    "Slide 1 di 9. Metti la protezione solare. Ma quanta?",
+    "Slide 2 di 9. Il numero sulla confezione L'SPF si misura con 2 milligrammi per centimetro quadrato.\nÈ molto più di quanto si mette di solito.",
+    "Slide 3 di 9. Con meno crema, meno protezione Se ne metti meno, la protezione scende molto.\nLo scrive anche la Commissione europea.",
+    "Slide 4 di 9. La regola delle due dita Due strisce di crema lungo indice e medio.\nÈ la quantità per viso e collo.",
+    "Slide 5 di 9. Come stenderla Sì: Per ultima, sopra la crema, Anche su orecchie e collo No: Mescolata alla crema, Un velo «per non lucidare»",
+    "Slide 6 di 9. Se stai all'aperto La protezione si rimette ogni due ore,\ne dopo il bagno o se sudi.",
+    "Slide 7 di 9. Crema con SPF? Va bene in città, se ne metti la quantità giusta.\nDi solito di crema se ne mette meno.",
+    "Slide 8 di 9. Quando chiedere al medico Una macchia che cambia forma, colore o dimensione va fatta vedere a un dermatologo.",
+    "Slide 9 di 9. La protezione giusta per la tua pelle Il test sceglie texture e passaggi."
+   ],
+   "note": "Instagram e Threads: carosello. TikTok: modalità foto, con un brano strumentale tranquillo dall’app.",
+   "sofia": "Confermare «due dita per viso e collo» come indicazione pratica."
+  },
+  {
+   "id": "skinmatch-2026-11-19-sole-finestra",
+   "data": "2026-11-19",
+   "ora": "11:00",
+   "tipo": "video",
+   "titolo": "Il sole passa dalla finestra",
+   "slug": "sole-finestra",
+   "pagina": "/biotipi/macchie",
+   "base": "/social/2026-11-19-sole-finestra",
+   "copertina": "copertina.jpg",
+   "file": [
+    "video.mp4"
+   ],
+   "didascalie": {
+    "instagram": "Il sole passa dalla finestra. Non quello che scotta: quello che macchia.\n\nIl vetro ferma gli UVB, ma lascia passare gli UVA, che sono fino al 95% degli ultravioletti che ci raggiungono. Passano anche le nuvole.\n\nPer questo la protezione solare va ogni mattina, anche d'inverno, anche alla scrivania vicino alla finestra.\n\nMandalo a chi in macchina guida col sole sulla guancia sinistra.\n\nFonte: Skin Cancer Foundation. Link in bio.\n\n#protezionesolare #spf #macchie #skincareitalia #losapevi",
+    "tiktok": "Il vetro ferma i raggi che scottano, non quelli che macchiano. Lo sapevi? #protezionesolare #spf #macchie #skincareitalia #losapevi",
+    "threads": "Il sole passa dalla finestra. Il vetro ferma gli UVB, quelli che scottano, ma lascia passare gli UVA: fino al 95% degli ultravioletti che ci raggiungono, e passano anche le nuvole. Contano nelle macchie. Per questo la protezione solare va ogni mattina, anche d'inverno. Fonte: Skin Cancer Foundation.",
+    "youtube_titolo": "Il sole passa dalla finestra: UVA e UVB spiegati",
+    "youtube": "Il vetro ferma gli UVB, ma lascia passare gli UVA, che sono fino al 95% degli ultravioletti che ci raggiungono. Passano anche le nuvole.\n\nIl test della pelle, gratis: https://skinmatch.it/test\nFonti: Nozione uva-finestra; Skin Cancer Foundation: https://www.skincancer.org/risk-factors/uv-radiation/"
+   },
+   "hashtag": [
+    "#protezionesolare",
+    "#spf",
+    "#macchie",
+    "#skincareitalia",
+    "#losapevi"
+   ],
+   "alt": [
+    "Video di 29 secondi in animazione, con voce e sottotitoli. Il sole… passa dalla finestra. Il vetro ferma gli UVB, quelli che scottano. Gli UVA, invece, passano. Gli UVA sono fino al novantacinque per cento degli ultravioletti che ci raggiungono. Arrivano più in profondità. E contano nelle macchie. Vale in macchina. In ufficio. Anche con le nuvole. La protezione solare va ogni mattina. Anche d'inverno. Il perché, nel link in bio."
+   ],
+   "note": "Instagram: Reel, con «Mostra anche nel feed». TikTok: attiva «Contenuto generato dall’IA» (voce sintetica). YouTube: carica come Short. Musica: no, il tappeto sonoro è già nel video.",
+   "sofia": "Confermare la frase sulla protezione solare anche al chiuso vicino alle finestre come consiglio generale."
+  },
+  {
+   "id": "skinmatch-2026-11-21-ordine-skincare-carosello",
+   "data": "2026-11-21",
+   "ora": "18:30",
+   "tipo": "carosello",
+   "titolo": "La routine minima: tre prodotti, e quando ne serve un quarto",
+   "slug": "ordine-skincare-carosello",
+   "pagina": "/rivista/ordine-prodotti-skincare",
+   "base": "/social/2026-11-21-ordine-skincare-carosello",
+   "copertina": "copertina.jpg",
+   "file": [
+    "01.png",
+    "02.png",
+    "03.png",
+    "04.png",
+    "05.png",
+    "06.png",
+    "07.png",
+    "08.png",
+    "09.png"
+   ],
+   "didascalie": {
+    "instagram": "Ti bastano tre prodotti: detergente, crema, protezione solare.\n\nIl quarto si aggiunge solo con un motivo: un obiettivo preciso (macchie, imperfezioni, segni del tempo) o una pelle che tira. E sempre uno alla volta, ogni due o tre settimane.\n\nTonico, essenze e maschere sono facoltativi.\n\nMandalo a chi ha dieci flaconi sul lavandino.\n\nQuali tre per la tua pelle? Il test, link in bio.\n\n#skincareroutine #ordineskincare #skincare #skincareitalia #routineviso",
+    "threads": "Ti bastano tre prodotti: detergente, crema, protezione solare. Il quarto solo con un motivo: un obiettivo preciso o una pelle che tira. Un prodotto nuovo ogni due o tre settimane. Tonico, essenze e maschere sono facoltativi. Quali tre per la tua pelle: skinmatch.it/test",
+    "tiktok": "La routine minima: bastano 3 prodotti. Ecco quando ne serve un quarto. #skincareroutine #ordineskincare #skincare #skincareitalia #routineviso"
+   },
+   "hashtag": [
+    "#skincareroutine",
+    "#ordineskincare",
+    "#skincare",
+    "#skincareitalia",
+    "#routineviso"
+   ],
+   "alt": [
+    "Slide 1 di 9. Ti bastano 3 prodotti.",
+    "Slide 2 di 9. 1. Detergente Toglie sebo, trucco e protezione solare.\nDelicato: la pelle non deve tirare.",
+    "Slide 3 di 9. 2. Crema Chiude l'idratazione e protegge la barriera.\nLa texture si sceglie sul sebo.",
+    "Slide 4 di 9. 3. Protezione solare Ogni mattina, per ultima.\nÈ il passaggio che previene di più.",
+    "Slide 5 di 9. Il quarto, solo se serve Hai un obiettivo: Macchie, imperfezioni, segni del tempo:, un siero con un attivo La pelle tira: Un siero idratante, sotto la crema",
+    "Slide 6 di 9. Uno alla volta Un prodotto nuovo ogni due o tre settimane.\nSe irrita, sai cosa è stato.",
+    "Slide 7 di 9. Cosa puoi togliere Tonico, essenza, maschere: facoltativi.\nNon fanno la routine.",
+    "Slide 8 di 9. Quando chiedere al medico Se anche una routine semplice brucia, o la pelle peggiora dopo settimane.",
+    "Slide 9 di 9. Quali tre, per la tua pelle? Il test sceglie i passaggi che ti servono."
+   ],
+   "note": "Instagram e Threads: carosello. TikTok: modalità foto, con un brano strumentale tranquillo dall’app.",
+   "sofia": "Nessun punto clinico delicato; rileggere i «quando aggiungere»."
+  },
+  {
+   "id": "skinmatch-2026-11-22-ordine-skincare",
+   "data": "2026-11-22",
+   "ora": "11:00",
+   "tipo": "video",
+   "titolo": "L'ordine giusto: dal più leggero al più ricco",
+   "slug": "ordine-skincare",
+   "pagina": "/rivista/ordine-prodotti-skincare",
+   "base": "/social/2026-11-22-ordine-skincare",
+   "copertina": "copertina.jpg",
+   "file": [
+    "video.mp4"
+   ],
+   "didascalie": {
+    "instagram": "Crema prima del siero? Il siero resta fuori.\n\nLa regola è una: dal più leggero al più ricco. Mattina: detergente, siero, crema, protezione solare per ultima. Sera: detergente, trattamento a sere alterne, crema.\n\nE per cominciare bastano tre prodotti.\n\nSalvalo e tienilo vicino allo specchio.\n\nLa routine completa nella Rivista, link in bio.\n\n#skincareroutine #ordineskincare #skincare #skincareitalia #routineviso",
+    "tiktok": "In che ordine si mettono i prodotti skincare? Una regola, mattina e sera. #skincareroutine #ordineskincare #skincare #skincareitalia #routineviso",
+    "threads": "In che ordine si mettono i prodotti skincare? Dal più leggero al più ricco. Mattina: detergente, siero, crema, protezione solare per ultima. Sera: detergente, trattamento a sere alterne, crema. Per cominciare ne bastano tre. skinmatch.it/rivista/ordine-prodotti-skincare",
+    "youtube_titolo": "In che ordine si mettono i prodotti skincare",
+    "youtube": "La regola è una: dal più leggero al più ricco. Mattina: detergente, siero, crema, protezione solare per ultima. Sera: detergente, trattamento a sere alterne, crema.\n\nIl test della pelle, gratis: https://skinmatch.it/test\nFonti: Rivista: In che ordine si mettono i prodotti skincare (skinmatch.it/rivista/ordine-prodotti-skincare)"
+   },
+   "hashtag": [
+    "#skincareroutine",
+    "#ordineskincare",
+    "#skincare",
+    "#skincareitalia",
+    "#routineviso"
+   ],
+   "alt": [
+    "Video di 28 secondi in animazione, con voce e sottotitoli. Stai mettendo la crema… prima del siero? Un prodotto denso fa da muro a quello che viene dopo. La regola è una. Dal più leggero al più ricco. La mattina: detergente, siero, crema. E la protezione solare, per ultima. La sera: detergente, il trattamento, a sere alterne… e la crema. Il test ti dà la tua, già in ordine. Link in bio."
+   ],
+   "note": "Instagram: Reel, con «Mostra anche nel feed». TikTok: attiva «Contenuto generato dall’IA» (voce sintetica). YouTube: carica come Short. Musica: no, il tappeto sonoro è già nel video.",
+   "sofia": "Confermare «retinoide sulla pelle asciutta» e «non serve aspettare minuti» come indicazioni generali."
+  },
+  {
+   "id": "skinmatch-2026-11-24-cemento-pelle-carosello",
+   "data": "2026-11-24",
+   "ora": "18:30",
+   "tipo": "carosello",
+   "titolo": "La pelle tira d'inverno: 6 abitudini che crepano la barriera",
+   "slug": "cemento-pelle-carosello",
+   "pagina": "/rivista/ceramidi",
+   "base": "/social/2026-11-24-cemento-pelle-carosello",
+   "copertina": "copertina.jpg",
+   "file": [
+    "01.png",
+    "02.png",
+    "03.png",
+    "04.png",
+    "05.png",
+    "06.png",
+    "07.png",
+    "08.png",
+    "09.png"
+   ],
+   "didascalie": {
+    "instagram": "La pelle tira d'inverno? Spesso la colpa è di sei abitudini.\n\nAcqua calda. Docce lunghe. Riscaldamento. Detergente forte. Scrub. Crema messa troppo tardi. Ognuna crepa un po' la barriera, la malta di grassi tra le cellule, e l'acqua scappa.\n\nLa più facile da cambiare: la crema sulla pelle ancora umida, entro pochi minuti.\n\nSalvalo per stasera.\n\nFonte: American Academy of Dermatology. Link in bio.\n\n#ceramidi #barrieracutanea #pellesecca #skincareitalia #losapevi",
+    "threads": "La pelle tira d'inverno? Sei abitudini crepano la barriera: acqua calda, docce lunghe, riscaldamento, detergente forte, scrub, crema messa troppo tardi. La più facile da cambiare: la crema sulla pelle ancora un po' umida, entro pochi minuti dal lavaggio. Fonte: American Academy of Dermatology.",
+    "tiktok": "Pelle che tira d'inverno: 6 abitudini da cambiare stasera. #ceramidi #barrieracutanea #pellesecca #skincareitalia #losapevi"
+   },
+   "hashtag": [
+    "#ceramidi",
+    "#barrieracutanea",
+    "#pellesecca",
+    "#skincareitalia",
+    "#losapevi"
+   ],
+   "alt": [
+    "Slide 1 di 9. 6 abitudini che crepano la pelle d’inverno.",
+    "Slide 2 di 9. 1. L'acqua calda Scioglie i grassi della barriera.\nMeglio tiepida, sul viso e sotto la doccia.",
+    "Slide 3 di 9. 2. Le docce lunghe Più resti sotto l'acqua, più grassi perde la barriera.\nI dermatologi consigliano cinque-dieci minuti.",
+    "Slide 4 di 9. 3. Il riscaldamento L'aria calda e secca porta via l'acqua.\nUn umidificatore in camera aiuta.",
+    "Slide 5 di 9. 4. Il detergente forte Toglie la malta insieme al sebo.\nD'inverno, uno più delicato.",
+    "Slide 6 di 9. 5. Lo scrub Sfrega dove la pelle è già crepata.\nD'inverno, poco o niente.",
+    "Slide 7 di 9. 6. La crema dopo La crema va sulla pelle ancora un po' umida,\nentro pochi minuti dal lavaggio.",
+    "Slide 8 di 9. Quando chiedere al medico Chiazze rosse che prudono, si spaccano o sanguinano non sono solo pelle secca.",
+    "Slide 9 di 9. Quale crema, quando la pelle tira Ceramidi e barriera: nella Rivista."
+   ],
+   "note": "Instagram e Threads: carosello. TikTok: modalità foto, con un brano strumentale tranquillo dall’app.",
+   "sofia": "Confermare le sei abitudini e la slide d'avviso (chiazze che prudono)."
+  },
+  {
+   "id": "skinmatch-2026-11-25-cemento-pelle",
+   "data": "2026-11-25",
+   "ora": "11:00",
+   "tipo": "video",
+   "titolo": "Il cemento della pelle",
+   "slug": "cemento-pelle",
+   "pagina": "/rivista/ceramidi",
+   "base": "/social/2026-11-25-cemento-pelle",
+   "copertina": "copertina.jpg",
+   "file": [
+    "video.mp4"
+   ],
+   "didascalie": {
+    "instagram": "La tua pelle è un muro: le cellule sono i mattoni, i grassi sono la malta.\n\nQuella malta è fatta di tre parti in quantità simili: ceramidi, colesterolo e acidi grassi. Quando le ceramidi calano, si crepa e l'acqua scappa. È la pelle che tira.\n\nPer questo le creme per pelli secche le rimettono.\n\nSalvalo per quando comprerai la prossima crema.\n\nFonte: Coderch e altri, 2003. Link in bio.\n\n#ceramidi #barrieracutanea #pellesecca #skincareitalia #losapevi",
+    "tiktok": "La tua pelle è un muro di mattoni e malta. Cosa succede quando la malta si crepa. #ceramidi #barrieracutanea #pellesecca #skincareitalia #losapevi",
+    "threads": "La tua pelle è un muro: le cellule sono i mattoni, la barriera è la malta. Una malta di grassi in tre parti simili: ceramidi, colesterolo, acidi grassi. Quando le ceramidi calano, si crepa e l'acqua scappa: la pelle tira. Le creme per pelli secche le rimettono. Fonte: Coderch e altri, 2003.",
+    "youtube_titolo": "Il cemento della pelle: cosa sono le ceramidi",
+    "youtube": "Quella malta è fatta di tre parti in quantità simili: ceramidi, colesterolo e acidi grassi. Quando le ceramidi calano, si crepa e l'acqua scappa. È la pelle che tira.\n\nIl test della pelle, gratis: https://skinmatch.it/test\nFonti: Nozione ceramidi-tre-parti; Coderch e altri, 2003: https://pubmed.ncbi.nlm.nih.gov/12553851/"
+   },
+   "hashtag": [
+    "#ceramidi",
+    "#barrieracutanea",
+    "#pellesecca",
+    "#skincareitalia",
+    "#losapevi"
+   ],
+   "alt": [
+    "Video di 32 secondi in animazione, con voce e sottotitoli. La tua pelle… è un muro. I mattoni sono le cellule. La malta sono i grassi della barriera. Tre parti, in quantità simili. Ceramidi, colesterolo, acidi grassi. Quando le ceramidi calano, la malta si crepa. E l'acqua scappa. Le creme per pelli secche rimettono la malta. Spesso con tutte e tre le parti. Quale crema scegliere, quando la pelle tira? Nella Rivista. Link in bio."
+   ],
+   "note": "Instagram: Reel, con «Mostra anche nel feed». TikTok: attiva «Contenuto generato dall’IA» (voce sintetica). YouTube: carica come Short. Musica: no, il tappeto sonoro è già nel video.",
+   "sofia": "Nessun punto clinico delicato; rileggere «le creme per pelli secche le rimettono»."
+  },
+  {
+   "id": "skinmatch-2026-11-27-retinolo-1969-carosello",
+   "data": "2026-11-27",
+   "ora": "18:30",
+   "tipo": "carosello",
+   "titolo": "Retinolo, retinale, esteri: chi è più forte",
+   "slug": "retinolo-1969-carosello",
+   "pagina": "/rivista/retinolo-come-iniziare",
+   "base": "/social/2026-11-27-retinolo-1969-carosello",
+   "copertina": "copertina.jpg",
+   "file": [
+    "01.png",
+    "02.png",
+    "03.png",
+    "04.png",
+    "05.png",
+    "06.png",
+    "07.png",
+    "08.png",
+    "09.png"
+   ],
+   "didascalie": {
+    "instagram": "Retinolo, retinale, esteri: sono la stessa famiglia, ma non hanno la stessa forza.\n\nDal più delicato: esteri del retinolo (retinyl palmitate), retinolo, retinale. L'acido retinoico è il più forte ed è un farmaco: lo prescrive il medico.\n\nPrima volta? Retinolo a bassa concentrazione, due sere a settimana. In gravidanza e allattamento, niente retinoidi.\n\nSalvala per quando leggi un INCI.\n\nLink in bio.\n\n#retinolo #retinoidi #skincare #skincareitalia #antiage",
+    "threads": "Retinolo, retinale, esteri: stessa famiglia, forza diversa. Dal più delicato: esteri del retinolo (retinyl palmitate), retinolo, retinale. L'acido retinoico è il più forte ed è un farmaco, lo prescrive il medico. Prima volta: retinolo basso, due sere a settimana. In gravidanza e allattamento niente retinoidi.",
+    "tiktok": "Retinolo o retinale? La scala dei retinoidi, dal più delicato al più forte. #retinolo #retinoidi #skincare #skincareitalia #antiage"
+   },
+   "hashtag": [
+    "#retinolo",
+    "#retinoidi",
+    "#skincare",
+    "#skincareitalia",
+    "#antiage"
+   ],
+   "alt": [
+    "Slide 1 di 9. Retinolo, retinale, esteri. Chi è più forte?",
+    "Slide 2 di 9. Una famiglia, quattro gradini Sono tutti derivati della vitamina A.\nCambiano forza e tollerabilità.",
+    "Slide 3 di 9. 1. Esteri del retinolo Retinyl palmitate o acetate nell'INCI.\nI più delicati, e i più lenti.",
+    "Slide 4 di 9. 2. Retinolo Il più conosciuto e il più studiato nei cosmetici.\nSi comincia da qui.",
+    "Slide 5 di 9. 3. Retinale Retinal o retinaldehyde nell'INCI.\nUn gradino sopra il retinolo: per chi lo tollera già.",
+    "Slide 6 di 9. 4. Acido retinoico Il più forte. È un farmaco:\nlo prescrive il medico, non si compra come cosmetico.",
+    "Slide 7 di 9. Come scegliere Prima volta: Retinolo a bassa concentrazione,, due sere a settimana Lo tolleri da mesi: Si può salire:, retinolo più alto o retinale",
+    "Slide 8 di 9. Quando chiedere al medico In gravidanza, se la cerchi o se allatti: niente retinoidi. Chiedi cosa usare nel frattempo.",
+    "Slide 9 di 9. Come iniziare, settimana per settimana Nella Rivista."
+   ],
+   "note": "Instagram e Threads: carosello. TikTok: modalità foto, con un brano strumentale tranquillo dall’app.",
+   "sofia": "Obbligatoria: la scala di forza, la frase sull'acido retinoico come farmaco prescritto, e la slide sulla gravidanza."
+  },
+  {
+   "id": "skinmatch-2026-11-28-retinolo-1969",
+   "data": "2026-11-28",
+   "ora": "11:00",
+   "tipo": "video",
+   "titolo": "1969: la vitamina A contro l'acne",
+   "slug": "retinolo-1969",
+   "pagina": "/rivista/retinolo-come-iniziare",
+   "base": "/social/2026-11-28-retinolo-1969",
+   "copertina": "copertina.jpg",
+   "file": [
+    "video.mp4"
+   ],
+   "didascalie": {
+    "instagram": "Il retinolo che usi la sera ha una data di nascita: 1969.\n\nQuell'anno il dermatologo Albert Kligman pubblicò uno studio su un derivato della vitamina A applicato sulla pelle con l'acne. Da lì sono nati i retinoidi di oggi, compreso il retinolo dei cosmetici, più delicato.\n\nSi comincia piano: due sere a settimana. In gravidanza e allattamento, niente retinoidi.\n\nSalvalo per la prima sera di retinolo.\n\nFonte: Kligman e altri, 1969. Link in bio.\n\n#retinolo #retinoidi #skincare #skincareitalia #antiage",
+    "tiktok": "Il retinolo è nato nel 1969, contro l'acne. Come si comincia oggi. #retinolo #retinoidi #skincare #skincareitalia #antiage",
+    "threads": "1969: il dermatologo Albert Kligman pubblica uno studio su un derivato della vitamina A sulla pelle con l'acne. Da lì nascono i retinoidi, compreso il retinolo dei cosmetici. Oggi si comincia piano: due sere a settimana, poi tre. La sera, con la protezione solare al mattino. In gravidanza e allattamento, niente retinoidi.",
+    "youtube_titolo": "1969: la storia del retinolo, e come iniziare",
+    "youtube": "Quell'anno il dermatologo Albert Kligman pubblicò uno studio su un derivato della vitamina A applicato sulla pelle con l'acne. Da lì sono nati i retinoidi di oggi, compreso il retinolo dei cosmetici, più delicato.\n\nIl test della pelle, gratis: https://skinmatch.it/test\nFonti: Nozione kligman-1969; Kligman e altri, 1969: https://pubmed.ncbi.nlm.nih.gov/4238828/; Rivista: Retinolo, come iniziare (skinmatch.it/rivista/retinolo-come-iniziare)"
+   },
+   "hashtag": [
+    "#retinolo",
+    "#retinoidi",
+    "#skincare",
+    "#skincareitalia",
+    "#antiage"
+   ],
+   "alt": [
+    "Video di 37 secondi in animazione, con voce e sottotitoli. Millenovecentosessantanove. Nasce il retinolo che usi. Un dermatologo, Albert Kligman, studia un derivato della vitamina A sulla pelle con l'acne. Da lì nascono i retinoidi. Accelerano il rinnovamento della pelle. Il retinolo dei cosmetici è più delicato. Si comincia piano: due sere a settimana, poi tre, poi a sere alterne. Si usa la sera, con la protezione solare al mattino. In gravidanza e allattamento, no. Come iniziare senza irritare la pelle? Nella Rivista. Link in bio."
+   ],
+   "note": "Instagram: Reel, con «Mostra anche nel feed». TikTok: attiva «Contenuto generato dall’IA» (voce sintetica). YouTube: carica come Short. Musica: no, il tappeto sonoro è già nel video.",
+   "sofia": "Obbligatoria: «in gravidanza e allattamento niente retinoidi», e che il video parla del retinolo dei cosmetici, non di farmaci. Il nome «tretinoina» compare solo come fatto storico."
   }
  ]
 }
