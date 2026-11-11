@@ -78,8 +78,11 @@
    }
   ],
   "vetrina": {
-   "mostra": true,
-   "scelti": null
+   "mostra": false,
+   "scelti": [
+    "/rivista/caduta-capelli-autunno",
+    "/rivista/forfora-secca-o-grassa"
+   ]
   },
   "piede": "Il test non è una diagnosi. Sul sito alcuni link ai negozi sono affiliati: se compri, riceviamo una commissione che non decide le scelte."
  }
