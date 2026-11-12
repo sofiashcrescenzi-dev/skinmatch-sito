@@ -5,31 +5,39 @@
   {
    "id": "sofia",
    "nome": "dr.ssa Sofia Crescenzi",
-   "ruolo": "Medico estetico · scrive le domande del test e controlla gli articoli",
+   "ruolo": "Medico estetico ·  Founder ",
    "testo": [
-    "Sofia è medico estetico. In studio vede ogni settimana persone che arrivano con una borsa di creme comprate per sentito dire: troppe, a volte forti insieme, quasi mai scelte per la loro pelle.",
-    "Le domande del test sono le sue: le stesse che fa in visita, prima di guardare la pelle da vicino. Ha stabilito quando un profilo va mandato dal medico e quali prodotti non vanno proposti a chi ha la pelle che reagisce. Rilegge gli articoli della Rivista prima che escano.",
-    "Su Skinmatch non consiglia prodotti a suo nome e non compare accanto ai prodotti: il consiglio personale lo dà in studio."
+    "Tutto parte da una domanda: cosa è davvero giusto per la tua pelle?",
+    "Skinmatch nasce da un'esigenza che Sofia, medico estetico e ideatrice del progetto, ha incontrato ogni giorno nel suo studio: aiutare le persone a prendersi cura della propria pelle con maggiore consapevolezza.",
+    "Nel tempo, ha visto arrivare pazienti con beauty case pieni di prodotti, creme acquistate seguendo consigli, tendenze o promesse pubblicitarie. Prodotti spesso validi, ma non necessariamente adatti alla loro pelle. Perché ogni pelle ha una storia, caratteristiche ed esigenze diverse. E trovare la propria strada, tra migliaia di formulazioni e ingredienti, non è sempre semplice.",
+    "Da questa osservazione è nata un'idea: rendere più semplice e accessibile la possibilità di conoscere la propria pelle e individuare una skincare routine davvero adatta alle sue esigenze.",
+    "Così è nato Skinmatch: un progetto che mette insieme conoscenza medica, ricerca e tecnologia per guidare ogni persona in un percorso di scoperta della propria pelle.",
+    "Attraverso test dettagliati, sviluppati a partire dalle domande e dai criteri che Sofia utilizza nella sua attività clinica, Skinmatch aiuta a individuare le caratteristiche della pelle, comprenderne i bisogni e orientarsi tra i prodotti più adatti.",
+    "Non crediamo che servano decine di prodotti per prendersi cura di sé. Crediamo che servano quelli giusti, scelti con consapevolezza.",
+    "**Perché la skincare non dovrebbe essere una ricerca infinita tra prodotti da provare, ma un percorso personale per imparare a conoscere e valorizzare la propria pelle.**",
+    "Skinmatch nasce proprio per questo."
    ],
-   "foto": "",
+   "foto": "/immagini/persona-sofia-b098b7de.png",
    "link": {
-    "testo": "Lo studio di Sofia",
-    "url": ""
+    "testo": "Sofia la puoi trovare qui -->",
+    "url": "https://sofiacrescenzi.it"
    }
   },
   {
    "id": "federico",
    "nome": "Federico",
-   "ruolo": "Fondatore · progetta il sito e il catalogo",
+   "ruolo": "Fondatore · Marketer",
    "testo": [
-    "Federico progetta prodotti digitali. Skinmatch è nato da una domanda semplice: perché trovare una crema adatta online è così difficile, quando le informazioni ci sono tutte?",
-    "Ha costruito il test, il catalogo e il modo in cui scegliamo i prodotti: per ogni scheda cerchiamo l’elenco degli ingredienti dal sito della marca, e quando non c’è lo diciamo.",
-    "Si occupa anche di quello che non si vede: che nessun prodotto salga in cima perché fa guadagnare di più."
+    "## Dalle idee ai prodotti, attraverso la tecnologia.",
+    "Federico arriva dal mondo del marketing, ma grazie all'intelligenza artificiale ha riscoperto una passione che non sapeva di poter trasformare in qualcosa di concreto: progettare prodotti digitali.",
+    "È la mente strategica e tecnologica dietro Skinmatch. Ha raccolto la visione di Sofia, ne ha interpretato le esigenze e le ha trasformate in una piattaforma digitale, curandone ogni aspetto: dall'architettura dei contenuti all'esperienza utente, fino ai dettagli che rendono ogni interazione semplice e intuitiva.",
+    "Oggi lavora in Volkswagen Bank e, nel tempo libero, coltiva la passione per la progettazione e lo sviluppo di nuovi progetti digitali. Tra questi anche Agoranomos, un ecosistema che riunisce più piattaforme tematiche sotto un'unica visione.",
+    "Lo sviluppo è diventato il suo laboratorio creativo: uno spazio in cui sperimentare, imparare e dare forma a nuove idee."
    ],
-   "foto": "",
+   "foto": "/immagini/persona-federico-84b563e6.webp",
    "link": {
-    "testo": "Federico su LinkedIn",
-    "url": ""
+    "testo": "Qui puoi trovare gli altri progetti",
+    "url": "Https://agoranomos.cloud"
    }
   }
  ]
