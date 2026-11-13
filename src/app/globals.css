@@ -185,6 +185,24 @@ img { max-width: 100%; }
 .articolo ol { list-style: decimal; }
 .articolo a { color: var(--terra); text-decoration: underline; text-underline-offset: 3px; }
 .articolo blockquote { border-left: 3px solid var(--pesca); padding-left: 16px; color: var(--grigio); font-style: italic; margin: 0 0 1em; }
+/* LE TABELLE DEGLI ARTICOLI (13/11/2026, src/components/Markdown.tsx). Da tavolo una tabella a righe sottili; sul telefono
+   ogni riga diventa una scheda, con il nome della colonna sopra ogni valore: niente scorrimento di lato. */
+.tabella-articolo { margin: 0.4em 0 1.4em; }
+.tabella-articolo table { width: 100%; border-collapse: collapse; font-size: 15.5px; line-height: 1.5; }
+.tabella-articolo th { text-align: left; font-size: 12.5px; letter-spacing: 0.04em; text-transform: uppercase; color: var(--grigio); font-weight: 700; padding: 0 12px 10px 0; border-bottom: 1px solid var(--riga-forte); vertical-align: bottom; }
+.tabella-articolo td { padding: 12px 12px 12px 0; border-bottom: 1px solid var(--riga); vertical-align: top; }
+.tabella-articolo td:first-child { font-variant-numeric: tabular-nums; color: var(--grigio); width: 1%; white-space: nowrap; }
+.tabella-articolo td:nth-child(2) { font-weight: 700; }
+@media (max-width: 640px) {
+  .tabella-articolo table, .tabella-articolo tbody, .tabella-articolo tr, .tabella-articolo td { display: block; width: auto; }
+  .tabella-articolo thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+  .tabella-articolo tr { background: var(--foglio); border: 1px solid var(--riga); border-radius: var(--raggio-piccolo); padding: 12px 14px; margin-bottom: 10px; }
+  .tabella-articolo td { border: 0; padding: 3px 0; white-space: normal; }
+  .tabella-articolo td:first-child { width: auto; }
+  .tabella-articolo td[data-etichetta]::before { content: attr(data-etichetta); display: block; font-size: 11.5px; letter-spacing: 0.04em; text-transform: uppercase; color: var(--grigio); font-weight: 700; margin-top: 6px; }
+  .tabella-articolo td[data-etichetta="#"]::before { display: none; }
+  .tabella-articolo td:first-child[data-etichetta="#"] { font-size: 13px; }
+}
 
 /* il piede */
 .piede { border-top: 1px solid var(--riga); margin-top: clamp(40px, 8vw, 96px); padding-block: 40px 56px; }
