@@ -53,39 +53,38 @@ export default function Revisioni() {
   const ultima: Record<string, Riga> = {};
   for (const r of [...api.dati.revisioni].reverse()) ultima[r.chiave] = r;
   const biotipi = bozza.dati.ultimo?.dati.biotipi || BIOTIPI;
-  const valide = Object.values(ultima).filter((r) => r.esito === 'approvato').length;
+  // ⚠️ LA REVISIONE SI ATTIVA DA SOLA (13/11/2026, Federico: «revisioni ok ma con attivazione automatica della revisione»).
+  // Tutto quello che va letto (mai rivisto, cambiato dopo la revisione, o rimandato) sale in cima da solo, in una lista
+  // unica: Sofia apre la scheda e trova solo quello. Il resto, gia approvato, sta sotto e chiuso.
+  type Elemento = { chiave: string; titolo: string; contenuto: string; gruppo: string; figli?: React.ReactNode };
+  const elementi: Elemento[] = [
+    { chiave: 'metodo', titolo: 'Il metodo: domande, punti, soglie, limiti e regole dei biotipi', contenuto: contenutoMetodo(VERSIONI_METODO), gruppo: 'Il metodo',
+      figli: <p className="testo" style={{ fontSize: 15 }}>Il test com’è online: le domande e le regole sono in admin › Domande e admin › Biotipi. Versione del test del {VERSIONI_METODO.test || '—'}, dei biotipi del {VERSIONI_METODO.biotipi || '—'}: se una delle due cambia, la revisione decade.</p> },
+    ...biotipi.flatMap((b) => [
+      { chiave: `biotipo:${b.id}`, titolo: b.titolo, contenuto: contenutoBiotipo(b), gruppo: `Biotipi · ${NOMI_AREA[b.area as Area] || b.area}` },
+      ...(b.consiglio_medico ? [{ chiave: `consiglio:${b.id}`, titolo: `${b.titolo} · consiglio del medico`, contenuto: b.consiglio_medico, gruppo: `Biotipi · ${NOMI_AREA[b.area as Area] || b.area}` }] : []),
+    ]),
+    ...ARTICOLI.map((a) => ({ chiave: `articolo:${a.slug}`, titolo: a.titolo, contenuto: contenutoArticolo(a), gruppo: 'Articoli della Rivista',
+      figli: <p className="piccolo">{a.sommario} · <a className="link" href={`/rivista/${a.slug}`} target="_blank" rel="noopener">leggilo sul sito</a></p> })),
+  ];
+  const fatto = (e: Elemento) => { const u = ultima[e.chiave]; return !!u && u.contenuto === e.contenuto && u.esito === 'approvato'; };
+  const daFare = elementi.filter((e) => !fatto(e));
+  const fatti = elementi.filter(fatto);
+  const voce = (e: Elemento) => <Voce key={e.chiave} chiave={e.chiave} titolo={`${e.gruppo} · ${e.titolo}`} contenuto={e.contenuto} ultima={ultima[e.chiave]} poi={api.ricarica}>{e.figli}</Voce>;
+  void area; void setArea;
   return (
     <div className="pila" style={{ ['--gap' as string]: '20px' }}>
-      <Titolo sotto="Sofia legge e approva. Un’approvazione vale per il testo che hai letto: se il testo cambia, decade e torna qui. Sul sito compare con la prossima pubblicazione (il bottone «Pubblica» di qualsiasi scheda), e conta come revisione medica solo quella di Sofia.">Le revisioni</Titolo>
-      <p className="piccolo">{valide} approvazioni nel registro. Prima del lancio servono almeno il metodo e i profili delicati.</p>
-
+      <Titolo sotto="Quello che va letto sale qui in cima da solo: i testi mai rivisti, quelli cambiati dopo la revisione e quelli rimandati. Un’approvazione vale per il testo che hai letto; sul sito compare con la prossima pubblicazione, e conta come revisione medica solo quella di Sofia.">Le revisioni</Titolo>
       <section className="pila" style={{ ['--gap' as string]: '10px' }}>
-        <h2 className="titolo-3">Il metodo</h2>
-        <Voce chiave="metodo" titolo="Domande, punti, soglie, limiti e regole dei biotipi" contenuto={contenutoMetodo(VERSIONI_METODO)} ultima={ultima.metodo} poi={api.ricarica}>
-          <p className="testo" style={{ fontSize: 15 }}>Il test com’è online: le domande e le regole sono in admin › Domande e admin › Biotipi. Versione del test del {VERSIONI_METODO.test || '—'}, dei biotipi del {VERSIONI_METODO.biotipi || '—'}: se una delle due cambia, la revisione decade.</p>
-        </Voce>
+        <h2 className="titolo-3">Da rivedere ora{daFare.length ? ` · ${daFare.length}` : ''}</h2>
+        {!daFare.length ? <Vuoto>Niente da rileggere: è tutto approvato.</Vuoto> : daFare.map(voce)}
       </section>
-
-      <section className="pila" style={{ ['--gap' as string]: '10px' }}>
-        <h2 className="titolo-3">I biotipi e il consiglio del medico</h2>
-        <div className="riga-chip">{(['pelle', 'cute', 'integrazione'] as Area[]).map((a) => <button key={a} type="button" className="chip" aria-pressed={area === a} onClick={() => setArea(a)}>{NOMI_AREA[a]}</button>)}</div>
-        {biotipi.filter((b) => b.area === area).map((b) => (
-          <div key={b.id} className="pila" style={{ ['--gap' as string]: '6px' }}>
-            <Voce chiave={`biotipo:${b.id}`} titolo={b.titolo} contenuto={contenutoBiotipo(b)} ultima={ultima[`biotipo:${b.id}`]} poi={api.ricarica} />
-            {b.consiglio_medico && <Voce chiave={`consiglio:${b.id}`} titolo={`${b.titolo} · consiglio del medico`} contenuto={b.consiglio_medico} ultima={ultima[`consiglio:${b.id}`]} poi={api.ricarica} />}
-          </div>
-        ))}
-      </section>
-
-      <section className="pila" style={{ ['--gap' as string]: '10px' }}>
-        <h2 className="titolo-3">Gli articoli online</h2>
-        {!ARTICOLI.length && <Vuoto>Nessun articolo online.</Vuoto>}
-        {ARTICOLI.map((a) => (
-          <Voce key={a.slug} chiave={`articolo:${a.slug}`} titolo={a.titolo} contenuto={contenutoArticolo(a)} ultima={ultima[`articolo:${a.slug}`]} poi={api.ricarica}>
-            <p className="piccolo">{a.sommario} · <a className="link" href={`/rivista/${a.slug}`} target="_blank" rel="noopener">leggilo sul sito</a></p>
-          </Voce>
-        ))}
-      </section>
+      {!!fatti.length && (
+        <details>
+          <summary className="piccolo" style={{ cursor: 'pointer' }}>Già approvati · {fatti.length}</summary>
+          <div className="pila" style={{ ['--gap' as string]: '8px', marginTop: 10 }}>{fatti.map(voce)}</div>
+        </details>
+      )}
     </div>
   );
 }

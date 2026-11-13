@@ -190,6 +190,34 @@ function Voce() {
 }
 
 type Stato = { id: string; stato: string; link: string | null; chi: string | null; aggiornato_il: string };
+// ⚠️ SALVARE I FILE DAL TELEFONO (13/11/2026, Federico: «serve un modo semplice di scaricare le immagini e i video»).
+// Sul telefono si passa tutto al foglio di condivisione del sistema (una volta sola, tutte le slide insieme): da li
+// «Salva in Foto». Dove la condivisione di file non c'e (il computer), ogni file si scarica con un clic.
+function Salva({ p }: { p: Post }) {
+  const [msg, setMsg] = useState('');
+  const salva = async () => {
+    setMsg('Preparo i file…');
+    try {
+      const file = await Promise.all(p.file.map(async (f) => {
+        const r = await fetch(`${p.base}/${f}`);
+        const b = await r.blob();
+        return new File([b], `${p.slug || p.id}-${f}`, { type: b.type || (f.endsWith('.mp4') ? 'video/mp4' : 'image/png') });
+      }));
+      if (navigator.canShare?.({ files: file })) { await navigator.share({ files: file, title: p.titolo }); setMsg(''); return; }
+      for (const f of file) {
+        const a = document.createElement('a'); a.href = URL.createObjectURL(f); a.download = f.name; document.body.appendChild(a); a.click(); a.remove();
+        await new Promise((r) => setTimeout(r, 300));
+      }
+      setMsg('Scaricati.');
+    } catch (e) { setMsg((e as Error).name === 'AbortError' ? '' : `Non riesco: ${(e as Error).message}`); }
+  };
+  return (
+    <span className="riga-chip">
+      <button type="button" className="bottone" onClick={salva}>{p.file.length > 1 ? `Salva le ${p.file.length} immagini sul telefono` : p.file[0]?.endsWith('.mp4') ? 'Salva il video sul telefono' : 'Salva sul telefono'}</button>
+      {msg && <span className="piccolo" role="status">{msg}</span>}
+    </span>
+  );
+}
 function UnPost({ p, stato, poi }: { p: Post; stato?: Stato; poi: () => void }) {
   const [err, setErr] = useState('');
   const segna = async (s: string) => { setErr(''); try { await invia('/api/admin/social-stato', { id: p.id, stato: s }); poi(); } catch (e) { setErr((e as Error).message); } };
@@ -209,7 +237,8 @@ function UnPost({ p, stato, poi }: { p: Post; stato?: Stato; poi: () => void }) 
           <div className="pila" style={{ ['--gap' as string]: '6px', flex: '1 1 260px', minWidth: 0 }}>
             <span className="piccolo">Esce il {p.data.slice(8, 10)}/{p.data.slice(5, 7)} alle {p.ora} · porta a <a className="link" href={p.pagina} target="_blank" rel="noopener">{p.pagina}</a></span>
             {p.sofia && <p className="avviso" style={{ fontSize: 14 }}><b>Sofia:</b> {p.sofia}</p>}
-            <span className="riga-chip">{p.file.map((f) => <a key={f} className="chip" href={`${p.base}/${f}`} target="_blank" rel="noopener">{f}</a>)}</span>
+            <Salva p={p} />
+            <span className="riga-chip">{p.file.map((f) => <a key={f} className="chip" href={`${p.base}/${f}`} download={`${p.slug || p.id}-${f}`}>⬇ {f}</a>)}</span>
             {p.note && <span className="piccolo">{p.note}</span>}
           </div>
         </div>

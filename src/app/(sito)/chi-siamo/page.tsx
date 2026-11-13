@@ -37,6 +37,9 @@ export default function ChiSiamo() {
         <Foto nome="test-completo" priorita style={{ aspectRatio: '4 / 5', maxHeight: 600 }} sizes="(max-width: 760px) 100vw, 45vw" credito />
       </header>
 
+      {/* le persone in cima, a tutta pagina (13/11/2026, Federico) */}
+      <Persone />
+
       <section className="pila stretto" style={{ ['--gap' as string]: '14px' }}>
         <h2 className="titolo-2">Come è nato</h2>
         <div className="testo pila" style={{ ['--gap' as string]: '12px' }}>
@@ -48,7 +51,6 @@ export default function ChiSiamo() {
         </div>
       </section>
 
-      <Persone />
 
       <section className="pila" style={{ ['--gap' as string]: '18px' }}>
         <h2 className="titolo-2">Cinque regole che non cambiamo</h2>

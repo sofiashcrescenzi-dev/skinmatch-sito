@@ -6,7 +6,8 @@ import Markdown from '@/components/Markdown';
 
 // LA SQUADRA DI SKINMATCH (15/10/2026). ⚠️ Gli orari sono gli stessi di launchd
 // (~/Library/LaunchAgents/com.agoranomos.squadra.*) e del calendario Google: si cambiano insieme.
-const PERSONE = [
+/* le persone della squadra non si mostrano piu (13/11/2026) */
+const _PERSONE = [
   { chi: 'Sofia', ruolo: 'Medico estetico. Decide cosa è giusto per la pelle: domande del test, biotipi, prodotti, testi. Approva in admin.' },
   { chi: 'Federico', ruolo: 'Decide e approva: prodotto, catalogo, merchant, Rivista.' },
   { chi: 'Jarvis', ruolo: 'Lead product (Claude): sito, dati, catalogo e feed, admin. Pubblica quello che approvate.', turni: 'ogni giorno alle 8:40 controlla, alle 8:40 e alle 14:40 pubblica' },
@@ -71,49 +72,47 @@ const ordina = (xs: S[]) => [...xs].sort((a, b) => {
   return g(a) - g(b) || b.creato_il.localeCompare(a.creato_il);
 });
 
+// ⚠️ GLI AVVISI (13/11/2026, Federico: «Squadra non mi serve; chiama alerts solo quando ci sono problematiche e, come su
+// Agoranomos, vanno segnalate le risoluzioni»). Qui solo due cose: i problemi aperti (le segnalazioni gravi e medie
+// non ancora chiuse, i rapporti con un esito diverso da «ok», le pubblicazioni fallite) e le risoluzioni degli ultimi
+// 30 giorni, con la nota di chi ha risolto. Le proposte di contenuto non passano piu di qui.
+const GIORNI = (d: string) => (Date.now() - new Date(d).getTime()) / 864e5;
 export default function Squadra() {
   const api = useApi<{ rapporti: R[]; pubblicazioni: P[]; segnalazioni: S[] }>('/api/admin/squadra');
   const seg = api.dati?.segnalazioni || [];
-  const aperte = seg.filter((s) => s.stato === 'aperta');
-  const decise = seg.filter((s) => s.stato !== 'aperta');
+  const problemi = ordina(seg.filter((s) => ['aperta', 'in_lavoro'].includes(s.stato) && ['grave', 'medio'].includes((s.gravita || 'medio').toLowerCase())));
+  const rapportiStorti = (api.dati?.rapporti || []).filter((r) => r.esito && r.esito !== 'ok' && GIORNI(r.creato_il) <= 14);
+  const fallite = (api.dati?.pubblicazioni || []).filter((p) => /error|fall|ko/i.test(p.stato || '') && GIORNI(p.chiesta_il) <= 14);
+  const risolte = seg.filter((s) => s.stato === 'fatta' && GIORNI(s.aggiornato_il || s.creato_il) <= 30)
+    .sort((a, b) => (b.aggiornato_il || b.creato_il).localeCompare(a.aggiornato_il || a.creato_il));
+  const nProblemi = problemi.length + rapportiStorti.length + fallite.length;
   return (
     <div className="pila" style={{ ['--gap' as string]: '24px' }}>
-      <Titolo sotto="Le proposte della squadra da scegliere, chi lavora su Skinmatch, quando, e cosa ha fatto. Le pubblicazioni sono le richieste partite da «Pubblica»: il Mac le esegue dopo i controlli dei guardiani.">La squadra</Titolo>
+      <Titolo sotto="Solo quando qualcosa non va: i problemi aperti, poi come sono stati risolti. Se è tutto a posto, qui non c'è niente da fare.">Avvisi</Titolo>
       <section className="pila" style={{ ['--gap' as string]: '10px' }}>
-        <h2 className="titolo-3">Da decidere{aperte.length ? ` · ${aperte.length}` : ''}</h2>
-        {!api.caricando && !aperte.length && <Vuoto>Niente da decidere: le proposte nuove di Zeno e Friday arrivano qui.</Vuoto>}
-        <div className="seg-lista">{ordina(aperte).map((s) => <Segnalazione key={s.id} s={s} poi={api.ricarica} />)}</div>
-        {!!decise.length && (
-          <details>
-            <summary className="piccolo" style={{ cursor: 'pointer' }}>Già decise · {decise.length} (si possono cambiare)</summary>
-            <div className="seg-lista" style={{ marginTop: 10 }}>{decise.map((s) => <Segnalazione key={s.id} s={s} poi={api.ricarica} />)}</div>
-          </details>
-        )}
-      </section>
-      <div className="adm-due">
-        {PERSONE.map((p) => (
-          <div key={p.chi} className="carta pila" style={{ ['--gap' as string]: '6px' }}>
-            <b className="titolo-3">{p.chi}</b><span className="piccolo" style={{ fontSize: 14.5 }}>{p.ruolo}</span>{p.turni && <span className="piccolo">⏱ {p.turni}</span>}
-          </div>
-        ))}
-      </div>
-      <section className="pila" style={{ ['--gap' as string]: '8px' }}>
-        <h2 className="titolo-3">Le pubblicazioni</h2>
-        {!(api.dati?.pubblicazioni || []).length ? <Vuoto>Nessuna pubblicazione chiesta dall&apos;admin.</Vuoto> : (
-          <div className="adm-tabella"><table><thead><tr><th>Chiesta</th><th>Da</th><th>Cosa</th><th>Stato</th><th>Esito</th></tr></thead>
-            <tbody>{api.dati!.pubblicazioni.map((p) => <tr key={p.id}><td>{quando(p.chiesta_il)}</td><td>{p.chi}</td><td>{p.cosa}</td><td>{p.stato}{p.fatta_il ? ` · ${quando(p.fatta_il)}` : ''}</td><td className="piccolo">{p.esito || '—'}</td></tr>)}</tbody></table></div>
-        )}
-      </section>
-      <section className="pila" style={{ ['--gap' as string]: '8px' }}>
-        <h2 className="titolo-3">I rapporti</h2>
-        {api.errore && <Vuoto>Non riesco a leggere i rapporti: {api.errore}</Vuoto>}
-        {!api.caricando && !(api.dati?.rapporti || []).length && <Vuoto>Ancora nessun rapporto su Skinmatch.</Vuoto>}
-        {(api.dati?.rapporti || []).map((r) => (
-          <details key={r.id} className="carta">
-            <summary><b>{r.titolo}</b> <span className="piccolo">· {r.agente} · {r.tipo} · {quando(r.creato_il)}{r.esito && r.esito !== 'ok' ? ` · ${r.esito}` : ''}</span><br /><span className="piccolo">{r.sintesi}</span></summary>
+        <h2 className="titolo-3">Da risolvere{nProblemi ? ` · ${nProblemi}` : ''}</h2>
+        {!api.caricando && !nProblemi && <Vuoto>Nessun problema aperto.</Vuoto>}
+        {api.errore && <Vuoto>Non riesco a leggere gli avvisi: {api.errore}</Vuoto>}
+        <div className="seg-lista">{problemi.map((s) => <Segnalazione key={s.id} s={s} poi={api.ricarica} />)}</div>
+        {rapportiStorti.map((r) => (
+          <details key={`r${r.id}`} className="carta">
+            <summary><b>{r.titolo}</b> <span className="piccolo">· {r.agente} · {quando(r.creato_il)} · {r.esito}</span><br /><span className="piccolo">{r.sintesi}</span></summary>
             {r.corpo && <div style={{ marginTop: 10 }}><Markdown testo={r.corpo} /></div>}
           </details>
         ))}
+        {fallite.map((p) => (
+          <div key={`p${p.id}`} className="carta pila" style={{ ['--gap' as string]: '4px' }}>
+            <b>Pubblicazione non riuscita: {p.cosa}</b><span className="piccolo">{quando(p.chiesta_il)} · {p.chi} · {p.esito || p.stato}</span>
+          </div>
+        ))}
+      </section>
+      <section className="pila" style={{ ['--gap' as string]: '10px' }}>
+        <h2 className="titolo-3">Risolti negli ultimi 30 giorni{risolte.length ? ` · ${risolte.length}` : ''}</h2>
+        {!api.caricando && !risolte.length && <Vuoto>Niente di risolto di recente.</Vuoto>}
+        {!!risolte.length && (
+          <div className="adm-tabella"><table><thead><tr><th>Quando</th><th>Problema</th><th>Come è stato risolto</th></tr></thead>
+            <tbody>{risolte.map((s) => <tr key={s.id}><td className="piccolo">{quando(s.aggiornato_il || s.creato_il)}</td><td>{s.titolo}</td><td className="piccolo">{s.nota_po || '—'}</td></tr>)}</tbody></table></div>
+        )}
       </section>
     </div>
   );

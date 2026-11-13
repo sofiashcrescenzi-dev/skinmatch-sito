@@ -32,18 +32,20 @@ export default function Persone() {
     <section id="persone" className="pila" style={{ ['--gap' as string]: '18px' }}>
       {!CHI_SIAMO.pubblica && <p className="avviso">Anteprima: le schede non sono ancora pubbliche, e i testi sono di prova.</p>}
       <h2 className="titolo-2">Le persone</h2>
-      <div className="griglia" style={{ ['--min' as string]: '300px' }}>
+      {/* ⚠️ A TUTTA PAGINA (13/11/2026, Federico: «i box delle persone vanno ampliati a tutta pagina e messi all'inizio»):
+          una persona per riga, la foto grande a sinistra e il testo accanto; sul telefono la foto sopra. */}
+      <div className="pila" style={{ ['--gap' as string]: '18px' }}>
         {CHI_SIAMO.persone.map((p) => (
-          <article key={p.id} id={p.id} className="carta pila persona" style={{ ['--gap' as string]: '12px' }}>
-            <div style={{ display: 'flex', gap: 16, alignItems: 'center' }}>
-              <Ritratto p={p} />
-              <div className="pila" style={{ ['--gap' as string]: '4px', minWidth: 0 }}>
-                <h3 className="titolo-3">{p.nome}</h3>
-                <span className="piccolo">{p.ruolo}</span>
+          <article key={p.id} id={p.id} className="carta persona persona-larga">
+            <Ritratto p={p} lato={168} />
+            <div className="pila" style={{ ['--gap' as string]: '12px', minWidth: 0 }}>
+              <div className="pila" style={{ ['--gap' as string]: '4px' }}>
+                <h3 className="titolo-2">{p.nome}</h3>
+                <span className="piccolo" style={{ fontSize: 15.5 }}>{p.ruolo}</span>
               </div>
+              <div className="testo pila" style={{ ['--gap' as string]: '10px', fontSize: 17, maxWidth: '68ch' }}>{p.testo.map((t) => <p key={t}>{t}</p>)}</div>
+              {p.link.url && p.link.testo && <a className="link" href={p.link.url} target="_blank" rel="noopener">{p.link.testo} →</a>}
             </div>
-            <div className="testo pila" style={{ ['--gap' as string]: '10px', fontSize: 16 }}>{p.testo.map((t) => <p key={t}>{t}</p>)}</div>
-            {p.link.url && p.link.testo && <a className="link" href={p.link.url} target="_blank" rel="noopener">{p.link.testo} →</a>}
           </article>
         ))}
       </div>
