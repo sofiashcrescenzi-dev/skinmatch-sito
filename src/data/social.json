@@ -50,30 +50,30 @@
     "etichetta": "Il test del cuoio capelluto",
     "url": "/test?percorso=cute",
     "colore": "contorno",
-    "attivo": true
+    "attivo": false
    },
    {
     "etichetta": "Che pelle ho? I biotipi",
     "url": "/biotipi",
-    "colore": "velo",
+    "colore": "contorno",
     "attivo": true
    },
    {
-    "etichetta": "La Rivista",
+    "etichetta": "Scopri come prenderti cura di te",
     "url": "/rivista",
-    "colore": "contorno",
+    "colore": "terra",
     "attivo": true
    },
    {
     "etichetta": "Gli attivi, spiegati",
     "url": "/glossario",
     "colore": "contorno",
-    "attivo": true
+    "attivo": false
    },
    {
-    "etichetta": "Chi siamo",
+    "etichetta": "Chi è Skinmatch",
     "url": "/chi-siamo",
-    "colore": "terra",
+    "colore": "pesca",
     "attivo": true
    }
   ],
