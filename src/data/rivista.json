@@ -2,6 +2,50 @@
  "_nota": "Gli articoli pubblicati della Rivista. Li scrive la pubblicazione dell admin dopo il sì di Federico o Sofia.",
  "articoli": [
   {
+   "slug": "attivi-insieme",
+   "titolo": "Quali attivi si possono usare insieme (e quali no)",
+   "sommario": "La niacinamide va con tutto, anche con retinolo e vitamina C. Da separare sono retinoidi e acidi esfolianti: una sera l'uno e una l'altro. La tabella delle coppie, le tre regole e una routine con quattro attivi.",
+   "tipo": "guida",
+   "testo": "**In breve.** Quasi tutti gli attivi si possono usare nella stessa routine: la niacinamide va con tutto, anche con il retinolo e con la vitamina C. Le coppie da non mettere la stessa sera sono quelle che irritano insieme: **retinoidi con acidi esfolianti** (AHA, BHA, PHA) e, all'inizio, **due esfolianti insieme**. Basta separarli: uno la mattina e uno la sera, oppure una sera l'uno e una l'altro.\n\n## La tabella\n\n| Coppia | Insieme? | Come |\n|---|---|---|\n| Niacinamide + retinolo | Sì | Anche nello stesso prodotto: la niacinamide aiuta la pelle a tollerare il retinolo |\n| Niacinamide + vitamina C | Sì | Il divieto viene da vecchie prove di laboratorio, non dai cosmetici di oggi |\n| Niacinamide + acido salicilico | Sì | Coppia classica per pori e imperfezioni |\n| Vitamina C + retinolo | Sì, in momenti diversi | Vitamina C la mattina, retinolo la sera |\n| Vitamina C + protezione solare | Sì, anzi | Al mattino lavorano insieme contro i danni del sole |\n| Retinolo + acidi esfolianti | Non la stessa sera | Sere alterne; se la pelle arrossa, diradali |\n| AHA + BHA | Con prudenza | Esistono prodotti che li uniscono; non sovrapporne due diversi |\n| Esfoliante chimico + scrub | No | Due esfolianti insieme: la barriera ne soffre |\n| Retinolo, acidi + sole | Sempre con protezione | Rendono la pelle più sensibile al sole: protezione solare ogni mattina |\n\n## Le tre regole\n\n**1. Un attivo forte per volta.** I prodotti che irritano di più sono i retinoidi e gli acidi esfolianti. Se li usi tutti e due, separali: una sera l'uno, una l'altro. Se la pelle tira, arrossa o si spella, salta una sera.\n\n**2. Uno nuovo alla volta.** Introduci un attivo per volta e aspetta due o tre settimane prima del successivo. Se qualcosa irrita, sai cosa è stato.\n\n**3. Più non vuol dire meglio.** Due sieri con la stessa funzione non raddoppiano il risultato: raddoppiano il rischio di irritare. Una niacinamide basta.\n\n## Una routine con quattro attivi\n\nUn esempio per una pelle mista che vuole lavorare su pori, macchie e segni del tempo, senza pelle reattiva.\n\n| Momento | Attivo | Prodotto | Prezzo |\n|---|---|---|---|\n| Ogni mattina | Vitamina C | Beauty of Joseon, siero con vitamina C e centella | 11,50 € |\n| Ogni mattina | Niacinamide | Axis-Y Dark Spot Correcting, niacinamide 5% | 18,60 € |\n| Sere dispari | Retinolo | CeraVe Retinol Serum (ha anche niacinamide) | 20,90 € |\n| Sere pari, 2 volte a settimana | Acido salicilico | COSRX, soluzione con BHA per punti neri | 18,40 € |\n| Ogni mattina, per ultima | Protezione solare | COSRX Ultra-Light Invisible Sunscreen SPF 50 | 18,90 € |\n\nPrezzi del negozio al 7/11/2026. La niacinamide del mattino si può anche saltare: il siero al retinolo la contiene già.\n\nPer una pelle che reagisce si parte da meno: un solo attivo, delicato, e si aspetta di vedere come va.\n\n## Chi deve stare attento\n\n- **In gravidanza, se la cerchi o se allatti:** niente retinoidi. Per l'acido salicilico nei prodotti da lasciare sulla pelle, chiedi al medico.\n- **Se usi già una crema o un farmaco prescritti per la pelle:** non aggiungere attivi senza chiedere a chi te li ha prescritti.\n- **Se la pelle arrossa e brucia facilmente:** pochi attivi, uno alla volta, e prima ancora la barriera.\n\n## Domande frequenti\n\n**Niacinamide e vitamina C si annullano?** No. Il timore viene da prove con forme pure e ad alte temperature, lontane da come si usano i cosmetici. Nella stessa routine vanno bene.\n\n**Posso mettere retinolo e acido glicolico insieme?** Non la stessa sera, almeno all'inizio: insieme irritano molto di più. Alternali.\n\n**Quanto aspettare fra un siero e l'altro?** Non serve aspettare: basta che il primo si sia assorbito.\n\n**L'acido ialuronico va con tutto?** Sì: non irrita e si abbina a qualunque attivo. Va chiuso con una crema.\n\n**Ogni quanto si usa l'esfoliante?** All'inizio una o due sere a settimana, poi si vede. Ogni sera è troppo per quasi tutti.\n\n## I tuoi attivi, già in ordine\n\nIl [test della pelle](/test?percorso=viso) sceglie gli attivi adatti alla tua pelle e li mette nella routine al momento giusto, con le cautele se servono. Approfondimenti: [niacinamide](/rivista/niacinamide-percentuale), [retinolo](/rivista/retinolo-come-iniziare), [vitamina C](/rivista/vitamina-c-siero).\n\n*Come abbiamo scelto: un prodotto per attivo, fra quelli del nostro catalogo con l'elenco degli ingredienti. Questa pagina dà indicazioni generali: non sostituisce il parere del medico.*",
+   "immagine": {
+    "file": "rivista-attivi-insieme",
+    "autore": "https://kaboompics.com/",
+    "pagina": "https://www.pexels.com/photo/person-applying-serum-on-her-hand-7321720/",
+    "alt": "Una mano in accappatoio lascia cadere una goccia di siero dal contagocce sul dorso dell'altra mano"
+   },
+   "prodotti": [
+    "lk-123333",
+    "lk-411712",
+    "lk-334455",
+    "lk-194793",
+    "lk-370762",
+    "lk-242876",
+    "lk-521026"
+   ],
+   "biotipi": [
+    "pelle-mista",
+    "imperfezioni",
+    "macchie",
+    "matura",
+    "reattiva"
+   ],
+   "termini": [
+    "niacinamide",
+    "retinoidi",
+    "vitc",
+    "aha-pha",
+    "salicilico",
+    "esfolianti",
+    "ialuronico",
+    "fotosensibilizzante",
+    "spf",
+    "barriera"
+   ],
+   "approfondisce": [],
+   "firma": "sofia",
+   "pubblicato_il": "2026-11-13"
+  },
+  {
    "slug": "acido-salicilico",
    "titolo": "Acido salicilico: per punti neri e pori, quale prodotto scegliere e come usarlo",
    "sommario": "Cosa fa l'acido salicilico, come riconoscerlo nell'INCI, perché in Europa non supera il 2% sul viso, e quale prodotto scegliere per punti neri, pelle mista, imperfezioni da adulti, corpo e cuoio capelluto.",

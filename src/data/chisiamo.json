@@ -1,6 +1,6 @@
 {
  "_nota": "LA PAGINA CHI SIAMO (7/11/2026, voto d-nome): le persone, con foto, testo e un link. Si modifica da admin › Chi siamo; la pubblicazione scrive le foto in public/immagini. Finché «pubblica» è false le schede si vedono solo con /chi-siamo#anteprima: i testi qui sotto sono una storia di prova di Zeno, da riscrivere.",
- "pubblica": false,
+ "pubblica": true,
  "persone": [
   {
    "id": "sofia",
@@ -14,12 +14,12 @@
     "Così è nato Skinmatch: un progetto che mette insieme conoscenza medica, ricerca e tecnologia per guidare ogni persona in un percorso di scoperta della propria pelle.",
     "Attraverso test dettagliati, sviluppati a partire dalle domande e dai criteri che Sofia utilizza nella sua attività clinica, Skinmatch aiuta a individuare le caratteristiche della pelle, comprenderne i bisogni e orientarsi tra i prodotti più adatti.",
     "Non crediamo che servano decine di prodotti per prendersi cura di sé. Crediamo che servano quelli giusti, scelti con consapevolezza.",
-    "**Perché la skincare non dovrebbe essere una ricerca infinita tra prodotti da provare, ma un percorso personale per imparare a conoscere e valorizzare la propria pelle.**",
+    "Perché la skincare non dovrebbe essere una ricerca infinita tra prodotti da provare, ma un percorso personale per imparare a conoscere e valorizzare la propria pelle.",
     "Skinmatch nasce proprio per questo."
    ],
    "foto": "/immagini/persona-sofia-b098b7de.png",
    "link": {
-    "testo": "Sofia la puoi trovare qui -->",
+    "testo": "Sofia la puoi trovare qui",
     "url": "https://sofiacrescenzi.it"
    }
   },
@@ -28,7 +28,7 @@
    "nome": "Federico",
    "ruolo": "Fondatore · Marketer",
    "testo": [
-    "## Dalle idee ai prodotti, attraverso la tecnologia.",
+    "Dalle idee ai prodotti, attraverso la tecnologia.",
     "Federico arriva dal mondo del marketing, ma grazie all'intelligenza artificiale ha riscoperto una passione che non sapeva di poter trasformare in qualcosa di concreto: progettare prodotti digitali.",
     "È la mente strategica e tecnologica dietro Skinmatch. Ha raccolto la visione di Sofia, ne ha interpretato le esigenze e le ha trasformate in una piattaforma digitale, curandone ogni aspetto: dall'architettura dei contenuti all'esperienza utente, fino ai dettagli che rendono ogni interazione semplice e intuitiva.",
     "Oggi lavora in Volkswagen Bank e, nel tempo libero, coltiva la passione per la progettazione e lo sviluppo di nuovi progetti digitali. Tra questi anche Agoranomos, un ecosistema che riunisce più piattaforme tematiche sotto un'unica visione.",
