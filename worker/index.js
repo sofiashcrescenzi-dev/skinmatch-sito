@@ -14,13 +14,17 @@
 import test from '../src/data/test.json';
 import biotipi from '../src/data/biotipi.json';
 
-const TIPI_EVENTO = new Set(['test_inizio', 'test_fine', 'clic', 'guasto']);
+const TIPI_EVENTO = new Set(['test_inizio', 'test_fine', 'clic', 'guasto', 'arrivo']);
+// da dove arriva chi entra (13/11/2026, Federico: «dashboard … dati search console e IA»): solo la famiglia
+// della fonte e la sezione d'ingresso, decise nel telefono (src/components/Arrivi.tsx). Niente indirizzi interi.
+const FONTI = new Set(['chatgpt', 'perplexity', 'gemini', 'claude', 'copilot', 'altra_ia', 'google', 'bing', 'altro_motore', 'instagram', 'tiktok', 'facebook', 'youtube', 'threads', 'pinterest', 'link_in_bio', 'altro_sito', 'diretto']);
+const SEZIONI = new Set(['home', 'test', 'risultato', 'biotipi', 'catalogo', 'rivista', 'glossario', 'integratori', 'chi-siamo', 'link', 'altro']);
 // solo percorsi e biotipi che esistono: nessuno scrive righe a caso nel Traffico (Friday, 15/10)
 const PERCORSI = new Set(test.percorsi.map((p) => p.id));
 const BIOTIPI = new Set(biotipi.biotipi.map((b) => b.id));
 // chisiamo (7/11/2026, d-nome): le persone della pagina Chi siamo, con le foto caricate dall'admin
 // social (8/11/2026): i profili e la pagina skinmatch.it/link, da admin › Social
-const DOCUMENTI = new Set(['test', 'biotipi', 'glossario', 'catalogo', 'negozi', 'nozioni', 'chisiamo', 'social']);
+const DOCUMENTI = new Set(['test', 'biotipi', 'glossario', 'catalogo', 'negozi', 'nozioni', 'chisiamo', 'social', 'cruscotto']);
 const STATI_ARTICOLO = new Set(['in_approvazione', 'da_correggere', 'approvato', 'online', 'scartato']);
 const STATI_SEGNALAZIONE = new Set(['aperta', 'in_lavoro', 'dopo', 'fatta', 'scartata']);
 const STATI_MARCA = new Set(['da_studiare', 'da_contattare', 'contattata', 'risposto', 'decisa']);
@@ -113,6 +117,7 @@ async function evento(req, env) {
     const m = String(e.m || '').replace(/https?:\/\/\S+/g, '').replace(/[^\p{L}\p{N}_.,:;'()\- ]/gu, '').trim().slice(0, 120);
     if (m) righe.push(['guasto', `${pagina} · ${m}`]);
   }
+  if (e.e === 'arrivo' && FONTI.has(e.f)) righe.push(['arrivo', e.f], ['arrivo_pagina', `${e.f}:${SEZIONI.has(e.pg) ? e.pg : 'altro'}`]);
   if (!righe.length) return new Response(null, { status: 400 });
   const st = env.DB.prepare('INSERT INTO eventi_giorno (giorno, tipo, chiave, n) VALUES (?1, ?2, ?3, 1) ON CONFLICT (giorno, tipo, chiave) DO UPDATE SET n = n + 1');
   await env.DB.batch(righe.filter(([, k]) => k).map(([t, k]) => st.bind(g, t, k)));

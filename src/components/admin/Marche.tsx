@@ -48,57 +48,57 @@ function ParereZeno({ m }: { m: M }) {
 const STATI: [string, string][] = [['da_studiare', 'Da studiare'], ['da_contattare', 'Da contattare'], ['contattata', 'Contattata'], ['risposto', 'Ha risposto'], ['decisa', 'Decisa']];
 const nomeStato = (s: string) => STATI.find(([k]) => k === s)?.[1] || s;
 
-function Carta({ m, poi }: { m: M; poi: () => void }) {
-  const [stato, setStato] = useState(m.stato);
+// ⚠️ GESTIONE LEGGERA (13/11/2026, Federico: «Marche: da rifare; lista di brand con email di contatto; trovare nuovi brand
+// potenziali; gestione più leggera»). Una riga per marca: nome, stato che si salva appena cambia, email da copiare o
+// aprire. Il resto (perché, parere di Zeno, note, fonte dell'email) si apre solo se serve.
+function Riga({ m, poi }: { m: M; poi: () => void }) {
   const [note, setNote] = useState(m.note || '');
   const [email, setEmail] = useState(m.email || '');
   const [msg, setMsg] = useState('');
-  const sporco = stato !== m.stato || note !== (m.note || '') || email !== (m.email || '');
-  const salva = async () => {
+  const salva = async (campi: Record<string, string | null>) => {
     setMsg('Salvo…');
-    try { await invia('/api/admin/marche', { id: m.id, campi: { stato, note: note || null, email: email || null } }); setMsg('Salvato.'); poi(); } catch (e) { setMsg((e as Error).message); }
+    try { await invia('/api/admin/marche', { id: m.id, campi }); setMsg('Salvato.'); poi(); } catch (e) { setMsg((e as Error).message); }
   };
   const togli = async () => {
     if (msg !== 'Tocca di nuovo «Togli» per confermare.') { setMsg('Tocca di nuovo «Togli» per confermare.'); return; }
     try { await invia('/api/admin/marche', { id: m.id, togli: true }); poi(); } catch (e) { setMsg((e as Error).message); }
   };
   const copia = async () => {
-    try { await navigator.clipboard.writeText(email); setMsg('Email copiata.'); } catch { setMsg('Copia non riuscita: seleziona l’indirizzo a mano.'); }
+    try { await navigator.clipboard.writeText(m.email || ''); setMsg('Email copiata.'); } catch { setMsg('Copia non riuscita: seleziona l’indirizzo a mano.'); }
   };
+  const c = m.zeno_consiglio ? CONSIGLI[m.zeno_consiglio] : null;
   return (
-    <article className="carta adm-scatola" style={{ gap: 8 }}>
-      <div className="adm-scatola-testa"><b className="titolo-3" style={{ fontSize: 19 }}>{m.marca}</b><span className="piccolo">{nomeStato(m.stato)}</span></div>
-      {m.origine && <span className="piccolo">{m.origine}</span>}
-      {m.perche && <p style={{ fontSize: 15 }}>{m.perche}</p>}
-      <ParereZeno m={m} />
-      <div className="pila" style={{ ['--gap' as string]: '4px' }}>
-        <span className="adm-etichetta">Contatto</span>
+    <details className="adm-marca-riga">
+      <summary>
+        <b>{m.marca}</b>
+        <span className="piccolo" style={{ color: c?.testo, fontWeight: 700 }}>{c?.nome || m.gruppo}</span>
+        <span className="piccolo adm-marca-email">{m.email || 'email da trovare'}</span>
+        <select className="adm-input adm-marca-stato" aria-label={`Stato di ${m.marca}`} value={m.stato} onClick={(e) => e.stopPropagation()} onChange={(e) => salva({ stato: e.target.value })}>{STATI.map(([k, n]) => <option key={k} value={k}>{n}</option>)}</select>
+      </summary>
+      <div className="pila" style={{ ['--gap' as string]: '10px', padding: '4px 0 14px' }}>
+        {m.perche && <p style={{ fontSize: 15 }}>{m.perche}</p>}
+        <ParereZeno m={m} />
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, alignItems: 'center' }}>
-          <input className="adm-input" style={{ flex: '1 1 200px' }} id={`email-${m.id}`} value={email} onChange={(e) => setEmail(e.target.value)} placeholder="email da contattare" aria-label={`Email di ${m.marca}`} />
-          {email && <button type="button" className="chip" onClick={copia}>Copia</button>}
+          <input className="adm-input" style={{ flex: '1 1 220px' }} value={email} onChange={(e) => setEmail(e.target.value)} placeholder="email da contattare" aria-label={`Email di ${m.marca}`} />
+          {email !== (m.email || '') && <button type="button" className="chip" onClick={() => salva({ email: email.trim() || null })}>Salva email</button>}
+          {m.email && <><button type="button" className="chip" onClick={copia}>Copia</button><a className="chip" href={`mailto:${m.email}`}>Scrivi</a></>}
         </div>
-        {(m.email_fonte || m.sito) && (
+        {(m.email_fonte || m.sito || m.contatto_nota) && (
           <span className="piccolo">
-            {m.email_fonte && <>Trovata su <a className="link" href={m.email_fonte} target="_blank" rel="noopener">{m.email_fonte.replace(/^https?:\/\/(www\.)?/, '').slice(0, 48)}</a></>}
+            {m.email_fonte && <>Email trovata su <a className="link" href={m.email_fonte} target="_blank" rel="noopener">{m.email_fonte.replace(/^https?:\/\/(www\.)?/, '').slice(0, 48)}</a></>}
             {m.email_fonte && m.sito ? ' · ' : ''}
             {m.sito && <a className="link" href={m.sito} target="_blank" rel="noopener">Sito</a>}
+            {m.contatto_nota ? ` · ${m.contatto_nota}` : ''}
           </span>
         )}
-        {m.contatto_nota && <span className="piccolo">{m.contatto_nota}</span>}
+        <textarea className="adm-input" rows={2} value={note} onChange={(e) => setNote(e.target.value)} onBlur={() => note !== (m.note || '') && salva({ note: note || null })} placeholder="Note: cosa abbiamo deciso, cosa ci hanno risposto (si salva da sola)" aria-label={`Note su ${m.marca}`} />
+        <div className="adm-scatola-azioni">
+          <button type="button" className="chip" onClick={togli}>Togli</button>
+          {msg && <span className="piccolo" role="status">{msg}</span>}
+          <span className="piccolo">{m.origine ? `${m.origine} · ` : ''}{m.chi ? `${m.chi.split('@')[0]} · ` : ''}{quando(m.aggiornato_il || m.creato_il)}</span>
+        </div>
       </div>
-      <label className="adm-campo"><span className="adm-etichetta">Stato</span>
-        <select className="adm-input" id={`stato-${m.id}`} value={stato} onChange={(e) => setStato(e.target.value)}>{STATI.map(([k, n]) => <option key={k} value={k}>{n}</option>)}</select>
-      </label>
-      <label className="adm-campo"><span className="adm-etichetta">Note</span>
-        <textarea className="adm-input" id={`note-${m.id}`} rows={2} value={note} onChange={(e) => setNote(e.target.value)} placeholder="Le tue note: cosa abbiamo deciso, cosa ci hanno risposto" />
-      </label>
-      <div className="adm-scatola-azioni">
-        <button type="button" className="chip" disabled={!sporco} onClick={salva}>Salva</button>
-        <button type="button" className="chip" onClick={togli}>Togli</button>
-        {msg && <span className="piccolo" role="status">{msg}</span>}
-      </div>
-      <span className="piccolo">{m.chi ? `${m.chi.split('@')[0]} · ` : ''}{quando(m.aggiornato_il || m.creato_il)}</span>
-    </article>
+    </details>
   );
 }
 
@@ -136,13 +136,32 @@ function Nuova({ gruppi, poi }: { gruppi: string[]; poi: () => void }) {
 export default function Marche() {
   const api = useApi<{ marche: M[] }>('/api/admin/marche');
   const [filtro, setFiltro] = useState('');
+  const [q, setQ] = useState('');
+  const [soloEmail, setSoloEmail] = useState(false);
   const tutte = useMemo(() => api.dati?.marche || [], [api.dati]);
   const gruppi = [...new Set(tutte.map((m) => m.gruppo))];
   const [consiglio, setConsiglio] = useState('');
-  const viste = tutte.filter((m) => (!filtro || m.stato === filtro) && (!consiglio || m.zeno_consiglio === consiglio));
+  const w = q.trim().toLowerCase();
+  const viste = tutte.filter((m) => (!filtro || m.stato === filtro) && (!consiglio || m.zeno_consiglio === consiglio) && (!soloEmail || !!m.email) && (!w || `${m.marca} ${m.gruppo} ${m.email || ''}`.toLowerCase().includes(w)));
+  const conEmail = tutte.filter((m) => m.email).length;
+  const copiaTutte = async () => {
+    const righe = viste.filter((m) => m.email).map((m) => `${m.marca}\t${m.email}\t${nomeStato(m.stato)}`).join('\n');
+    try { await navigator.clipboard.writeText(righe); } catch { /* niente */ }
+  };
   return (
-    <div className="pila" style={{ ['--gap' as string]: '24px' }}>
-      <Titolo sotto="Le marche da conoscere meglio: da studiare, da confrontare, da trovare in un negozio. Per ognuna il perché, l'email da contattare con la pagina ufficiale dove l'abbiamo trovata, e a che punto siamo.">Marche da conoscere</Titolo>
+    <div className="pila" style={{ ['--gap' as string]: '18px' }}>
+      <Titolo sotto="Una riga per marca: lo stato si salva appena lo cambi, l’email si copia o si apre con un tocco. Tocca il nome per il perché, il parere di Zeno e le note. Le marche nuove da valutare stanno nel gruppo «Potenziali».">Marche</Titolo>
+      <div className="adm-numeri">
+        <div><span className="piccolo">Marche</span><b>{tutte.length}</b></div>
+        <div><span className="piccolo">Con email</span><b>{conEmail}</b></div>
+        <div><span className="piccolo">Da contattare</span><b>{tutte.filter((m) => m.stato === 'da_contattare').length}</b></div>
+        <div><span className="piccolo">Hanno risposto</span><b>{tutte.filter((m) => m.stato === 'risposto').length}</b></div>
+      </div>
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, alignItems: 'center' }}>
+        <input className="adm-input" style={{ maxWidth: 320 }} type="search" placeholder="Cerca una marca o un’email" value={q} onChange={(e) => setQ(e.target.value)} />
+        <button type="button" className="chip" aria-pressed={soloEmail} onClick={() => setSoloEmail(!soloEmail)}>Solo con email</button>
+        <button type="button" className="chip" onClick={copiaTutte} title="Marca, email e stato delle righe visibili, da incollare in un foglio">Copia la lista</button>
+      </div>
       <div className="riga-chip" role="group" aria-label="Stato">
         <button type="button" className="chip" aria-pressed={!filtro} onClick={() => setFiltro('')}>Tutte · {tutte.length}</button>
         {STATI.map(([k, n]) => { const c = tutte.filter((m) => m.stato === k).length; return c ? <button key={k} type="button" className="chip" aria-pressed={filtro === k} onClick={() => setFiltro(filtro === k ? '' : k)}>{n} · {c}</button> : null; })}
@@ -158,9 +177,9 @@ export default function Marche() {
         const xs = viste.filter((m) => m.gruppo === g);
         if (!xs.length) return null;
         return (
-          <section key={g} className="pila" style={{ ['--gap' as string]: '10px' }}>
+          <section key={g} className="pila" style={{ ['--gap' as string]: '6px' }}>
             <h2 className="titolo-3">{g} · {xs.length}</h2>
-            <div className="adm-scatole">{xs.map((m) => <Carta key={m.id} m={m} poi={api.ricarica} />)}</div>
+            <div className="adm-marche-lista">{xs.map((m) => <Riga key={m.id} m={m} poi={api.ricarica} />)}</div>
           </section>
         );
       })}

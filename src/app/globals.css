@@ -677,3 +677,16 @@ details.carta > summary::-webkit-details-marker { display: none; }
 /* Chi siamo: una persona per riga, a tutta pagina (13/11/2026) */
 .persona-larga { display: grid; grid-template-columns: minmax(0, 1fr); gap: 18px; padding: clamp(18px, 3vw, 32px); }
 @media (min-width: 720px) { .persona-larga { grid-template-columns: 168px minmax(0, 1fr); gap: 28px; align-items: start; } }
+
+/* MARCHE IN LISTA (13/11/2026, «gestione più leggera»): una riga per marca, i dettagli si aprono col nome */
+.adm-marche-lista { border-top: 1px solid var(--riga); }
+.adm-marca-riga { border-bottom: 1px solid var(--riga); }
+.adm-marca-riga > summary { list-style: none; cursor: pointer; display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 2px 12px; align-items: center; padding: 10px 2px; min-height: 52px; }
+.adm-marca-riga > summary::-webkit-details-marker { display: none; }
+.adm-marca-riga > summary b { font-size: 16px; }
+.adm-marca-email { grid-column: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.adm-marca-stato { grid-column: 2; grid-row: 1 / span 3; width: auto; min-width: 0; max-width: 150px; }
+@media (min-width: 760px) {
+  .adm-marca-riga > summary { grid-template-columns: minmax(140px, 1.2fr) minmax(0, .9fr) minmax(0, 1.4fr) 160px; }
+  .adm-marca-riga > summary > * { grid-column: auto; grid-row: auto; }
+}

@@ -6,7 +6,8 @@ export type Evento =
   | { e: 'test_inizio'; p: string }
   | { e: 'test_fine'; p: string; b: string[]; s?: number } // s: i secondi dalla prima risposta al risultato
   | { e: 'clic'; id: string; m: string; da: string }
-  | { e: 'guasto'; m: string; pg: string }; // un errore JavaScript: il messaggio e il percorso, senza query né «#»
+  | { e: 'guasto'; m: string; pg: string }
+  | { e: 'arrivo'; f: string; pg: string }; // la famiglia della fonte (chatgpt, google, instagram…) e la sezione d'ingresso // un errore JavaScript: il messaggio e il percorso, senza query né «#»
 
 export function segna(ev: Evento) {
   try {

@@ -209,6 +209,8 @@ export default function Catalogo() {
   const [scelti, setScelti] = useState<string[]>([]);
   const [verso, setVerso] = useState('');
   const [dettagli, setDettagli] = useState('');
+  // per attivo (13/11/2026, Federico: «catalogo … magari con filtri sugli attivi»): gli attivi letti nelle schede
+  const [attivo, setAttivo] = useState('');
   const d = doc.dati;
   const tutti = useMemo(() => PRODUCTS.filter((p) => p.affiliateUrl !== '#' && !p.isPlaceholder), []);
   // ogni prodotto con le correzioni di adesso (non salvate comprese) e la sua categoria
@@ -228,7 +230,12 @@ export default function Catalogo() {
   };
   const f = DA_SISTEMARE.find((x) => x[0] === fil);
   const w = q.trim().toLowerCase();
-  const visibili = vivi.filter((x) => (!f || f[2](x.q)) && (!w || `${x.p.id} ${x.p.brand} ${x.q.name}`.toLowerCase().includes(w)));
+  const nomeAttivo = (n: string) => n.trim().toLowerCase();
+  const conAttivo = (x: (typeof vivi)[number]) => !attivo || !!x.q.scheda?.attivi.some((a) => nomeAttivo(a.nome) === attivo);
+  const contaAttivi: Record<string, number> = {};
+  vivi.forEach((x) => new Set((x.q.scheda?.attivi || []).map((a) => nomeAttivo(a.nome))).forEach((k) => { if (k) contaAttivi[k] = (contaAttivi[k] || 0) + 1; }));
+  const attivi = Object.entries(contaAttivi).filter(([, n]) => n >= 3).sort((a, b) => b[1] - a[1]);
+  const visibili = vivi.filter((x) => (!f || f[2](x.q)) && conAttivo(x) && (!w || `${x.p.id} ${x.p.brand} ${x.q.name}`.toLowerCase().includes(w)));
   const perMarca: Record<string, typeof vivi> = {};
   visibili.forEach((x) => { (perMarca[x.p.brand] ||= []).push(x); });
   const marche = [...new Set(tutti.map((p) => p.brand))].sort((a, b) => a.localeCompare(b, 'it'));
@@ -277,6 +284,14 @@ export default function Catalogo() {
           <input className="adm-input" style={{ maxWidth: 380 }} type="search" placeholder="Cerca una marca o un prodotto" value={q} onChange={(e) => setQ(e.target.value)} />
           <div className="riga-chip">{DA_SISTEMARE.map(([k, n, fn]) => <button key={k} type="button" className="chip" aria-pressed={fil === k} onClick={() => setFil(fil === k ? '' : k)}>{n} · {vivi.filter((x) => fn(x.q)).length}</button>)}</div>
         </div>
+        {!!attivi.length && (
+          <details open={!!attivo}>
+            <summary className="piccolo" style={{ cursor: 'pointer' }}>Per attivo{attivo ? ` · ${attivo} (${contaAttivi[attivo]})` : ` · ${attivi.length} attivi letti nelle schede`}</summary>
+            <div className="riga-chip" style={{ marginTop: 8 }}>
+              {attivi.slice(0, 40).map(([k, n]) => <button key={k} type="button" className="chip" aria-pressed={attivo === k} onClick={() => { setAttivo(attivo === k ? '' : k); setMarca(''); }}>{k} · {n}</button>)}
+            </div>
+          </details>
+        )}
         {!marca ? (
           <div className="adm-scatole">
             {Object.entries(perMarca).sort((a, b) => a[0].localeCompare(b[0], 'it')).map(([m, xs]) => {

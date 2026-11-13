@@ -1,6 +1,7 @@
 import Header from '@/components/Header';
 import Piede from '@/components/Piede';
 import Guasti from '@/components/Guasti';
+import Arrivi from '@/components/Arrivi';
 import { ARTICOLI, NOZIONI } from '@/lib/dati';
 
 export default function SitoLayout({ children }: { children: React.ReactNode }) {
@@ -11,6 +12,7 @@ export default function SitoLayout({ children }: { children: React.ReactNode }) 
       {children}
       <Piede rivista={rivista} />
       <Guasti />
+      <Arrivi />
     </>
   );
 }

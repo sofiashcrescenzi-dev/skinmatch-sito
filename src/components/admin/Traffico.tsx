@@ -3,7 +3,7 @@
 import { useMemo, useState } from 'react';
 import { TEST, BIOTIPI } from '@/lib/dati';
 import { PRODOTTI, euro } from '@/lib/catalogo';
-import { useApi, Titolo, Vuoto } from './base';
+import { useApi, Titolo, Vuoto, quando } from './base';
 
 // TRAFFICO E TEST FATTI (15/10/2026). I numeri vengono dai conteggi del sito (worker/index.js,
 // tabella eventi_giorno: niente dati personali) e dalle vendite che il Mac scarica ogni mattina
@@ -44,9 +44,18 @@ function Tabella({ titolo, righe, nome, colonna = 'Clic' }: { titolo: string; ri
 }
 
 const GIORNI = [7, 30, 90];
+// le famiglie delle fonti (src/components/Arrivi.tsx, worker FONTI)
+const IA = new Set(['chatgpt', 'perplexity', 'gemini', 'claude', 'copilot', 'altra_ia']);
+const MOTORI = new Set(['google', 'bing', 'altro_motore']);
+const SOCIAL = new Set(['instagram', 'tiktok', 'facebook', 'youtube', 'threads', 'pinterest', 'link_in_bio']);
+const NOMI_FONTE: Record<string, string> = { chatgpt: 'ChatGPT', perplexity: 'Perplexity', gemini: 'Gemini', claude: 'Claude', copilot: 'Copilot', altra_ia: 'Altre IA', google: 'Google', bing: 'Bing', altro_motore: 'Altri motori', instagram: 'Instagram', tiktok: 'TikTok', facebook: 'Facebook', youtube: 'YouTube', threads: 'Threads', pinterest: 'Pinterest', link_in_bio: 'Link in bio', altro_sito: 'Altri siti', diretto: 'Diretto o app' };
+// il documento «cruscotto» (D1, documenti): lo scrive ogni mattina lo script di Skinmatch quando Search Console e PostHog
+// sono collegati con account di Skinmatch. Finché non c'è, la Dashboard dice cosa manca.
+type Cruscotto = { aggiornato?: string; search_console?: { clic: number; impressioni: number; posizione: number; indicizzate?: number; ricerche?: [string, number][]; pagine?: [string, number][] }; posthog?: { visitatori: number; pagine_viste: number; tempo_medio?: string } };
 export default function Traffico({ vista }: { vista: 'traffico' | 'test' }) {
   const [giorni, setGiorni] = useState(30);
   const api = useApi<Dati>(`/api/admin/traffico?giorni=${giorni}`);
+  const cruscotto = useApi<{ ultimo: { dati: Cruscotto } | null }>(vista === 'traffico' ? '/api/admin/documento?tipo=cruscotto' : null);
   const r = api.dati?.righe || [];
   const vendite = api.dati?.vendite || [];
   const nomeProdotto = useMemo(() => (id: string) => { const p = PRODOTTI.find((x) => x.id === id); return p ? `${p.brand} · ${p.name}` : id; }, []);
@@ -81,33 +90,92 @@ export default function Traffico({ vista }: { vista: 'traffico' | 'test' }) {
   }
   const reti: Record<string, { n: number; importo: number; commissione: number }> = {};
   vendite.forEach((v) => { const x = (reti[v.rete] ||= { n: 0, importo: 0, commissione: 0 }); x.n++; x.importo += v.importo || 0; x.commissione += v.commissione || 0; });
+  const stati: Record<string, { n: number; c: number }> = {};
+  vendite.forEach((v) => { const k = /approv|confirm|accett|paid|pagat/i.test(v.stato) ? 'confermate' : /rifiut|declin|reject|annull|cancel/i.test(v.stato) ? 'rifiutate' : 'in attesa'; const x = (stati[k] ||= { n: 0, c: 0 }); x.n++; x.c += v.commissione || 0; });
+  const arrivi = somma(r, 'arrivo'), clic = somma(r, 'clic');
+  const fonti = perChiave(r, 'arrivo');
+  const daIa = fonti.filter(([k]) => IA.has(k)).reduce((t, [, n]) => t + n, 0);
+  const daMotori = fonti.filter(([k]) => MOTORI.has(k)).reduce((t, [, n]) => t + n, 0);
+  const daSocial = fonti.filter(([k]) => SOCIAL.has(k)).reduce((t, [, n]) => t + n, 0);
+  const commissioni = vendite.reduce((t, v) => t + (v.commissione || 0), 0);
+  const pagineIa = perChiave(r.filter((x) => x.tipo === 'arrivo_pagina' && IA.has(x.chiave.split(':')[0])).map((x) => ({ ...x, chiave: `${NOMI_FONTE[x.chiave.split(':')[0]]} → ${x.chiave.split(':')[1]}` })), 'arrivo_pagina');
+  const pc = (n: number, d: number) => (d ? `${Math.round((n / d) * 100)}%` : '—');
+  const sc = cruscotto.dati?.ultimo?.dati?.search_console, ph = cruscotto.dati?.ultimo?.dati?.posthog, agg = cruscotto.dati?.ultimo?.dati?.aggiornato;
   return (
     <div className="pila" style={{ ['--gap' as string]: '24px' }}>
-      <Titolo sotto="I clic dal sito verso i negozi (contati dal sito, senza dati personali) e le vendite che le reti di affiliazione ci attribuiscono (scaricate ogni mattina).">Traffico</Titolo>
+      <Titolo sotto="Chi arriva e da dove (anche dalle IA), cosa clicca verso i negozi e quanto rendono le vendite. I conteggi li fa il sito, senza dati personali; le vendite arrivano ogni mattina dalle reti di affiliazione; Google e PostHog si aggiungono quando sono collegati.">Dashboard</Titolo>
       {scelta}
       {api.errore && <Vuoto>Non riesco a leggere i numeri: {api.errore}</Vuoto>}
       <div className="adm-numeri">
-        <div><span className="piccolo">Clic verso i negozi</span><b>{somma(r, 'clic')}</b></div>
-        <div><span className="piccolo">Test finiti</span><b>{somma(r, 'test_fine')}</b></div>
-        <div><span className="piccolo">Vendite</span><b>{vendite.length}</b></div>
-        <div><span className="piccolo">Commissioni</span><b>{euro(vendite.reduce((s, v) => s + (v.commissione || 0), 0))}</b></div>
+        <div><span className="piccolo">Visite</span><b>{arrivi}</b><span className="piccolo">contate dal 13/11</span></div>
+        <div><span className="piccolo">Dalle IA</span><b>{daIa}</b><span className="piccolo">{pc(daIa, arrivi)} delle visite</span></div>
+        <div><span className="piccolo">Dai motori</span><b>{daMotori}</b><span className="piccolo">{pc(daMotori, arrivi)}</span></div>
+        <div><span className="piccolo">Dai social</span><b>{daSocial}</b><span className="piccolo">{pc(daSocial, arrivi)}</span></div>
+        <div><span className="piccolo">Test finiti</span><b>{somma(r, 'test_fine')}</b><span className="piccolo">{pc(somma(r, 'test_fine'), arrivi)} delle visite</span></div>
+        <div><span className="piccolo">Clic verso i negozi</span><b>{clic}</b><span className="piccolo">{pc(clic, arrivi)} delle visite</span></div>
+        <div><span className="piccolo">Vendite</span><b>{vendite.length}</b><span className="piccolo">{pc(vendite.length, clic)} dei clic</span></div>
+        <div><span className="piccolo">Commissioni</span><b>{euro(commissioni)}</b><span className="piccolo">{clic ? `${euro(commissioni / clic)} per clic` : '—'}</span></div>
       </div>
-      <div className="carta pila"><h2 className="titolo-3">Clic per giorno</h2><Colonne righe={r} tipo="clic" giorni={giorni} da={api.dati?.da || new Date().toISOString().slice(0, 10)} /></div>
+
       <div className="adm-due">
-        <Tabella titolo="Negozi" righe={perChiave(r, 'clic_negozio')} />
-        <Tabella titolo="Pagine da cui si clicca" righe={perChiave(r, 'clic_da')} />
+        <div className="carta pila"><h2 className="titolo-3">Visite per giorno</h2><Colonne righe={r} tipo="arrivo" giorni={giorni} da={api.dati?.da || new Date().toISOString().slice(0, 10)} /></div>
+        <div className="carta pila"><h2 className="titolo-3">Clic per giorno</h2><Colonne righe={r} tipo="clic" giorni={giorni} da={api.dati?.da || new Date().toISOString().slice(0, 10)} /></div>
       </div>
-      <Tabella titolo="Prodotti più cliccati" righe={perChiave(r, 'clic')} nome={nomeProdotto} />
-      <div className="pila" style={{ ['--gap' as string]: '8px' }}>
-        <h2 className="titolo-3">Vendite</h2>
+
+      <section className="pila" style={{ ['--gap' as string]: '12px' }}>
+        <h2 className="titolo-2">Da dove arrivano</h2>
+        <div className="adm-due">
+          <Tabella titolo="Fonti" righe={fonti} nome={(k) => `${NOMI_FONTE[k] || k}${IA.has(k) ? ' · IA' : ''}`} colonna="Visite" />
+          <Tabella titolo="Pagine d’arrivo dalle IA" righe={pagineIa} colonna="Visite" />
+        </div>
+      </section>
+
+      <section className="pila" style={{ ['--gap' as string]: '12px' }}>
+        <h2 className="titolo-2">Google e IA</h2>
+        {sc ? (
+          <>
+            <div className="adm-numeri">
+              <div><span className="piccolo">Clic da Google</span><b>{sc.clic}</b></div>
+              <div><span className="piccolo">Impressioni</span><b>{sc.impressioni}</b></div>
+              <div><span className="piccolo">Posizione media</span><b>{(sc.posizione || 0).toLocaleString('it-IT', { maximumFractionDigits: 1 })}</b></div>
+              <div><span className="piccolo">Pagine indicizzate</span><b>{sc.indicizzate ?? '—'}</b></div>
+            </div>
+            <div className="adm-due">
+              <Tabella titolo="Ricerche" righe={(sc.ricerche || []).map((x: [string, number]) => [x[0], x[1]])} colonna="Clic" />
+              <Tabella titolo="Pagine" righe={(sc.pagine || []).map((x: [string, number]) => [x[0], x[1]])} colonna="Clic" />
+            </div>
+            <p className="piccolo">Aggiornato {quando(agg)}.</p>
+          </>
+        ) : <Vuoto>Search Console non è ancora collegata a Skinmatch: va verificato skinmatch.it su Search Console con un account di Skinmatch e dato l’accesso in lettura, poi i numeri (clic, impressioni, ricerche, pagine indicizzate) arrivano qui ogni mattina. Le visite dalle IA invece si contano già, qui sopra.</Vuoto>}
+        {ph ? (
+          <div className="adm-numeri">
+            <div><span className="piccolo">Visitatori (PostHog)</span><b>{ph.visitatori}</b></div>
+            <div><span className="piccolo">Pagine viste</span><b>{ph.pagine_viste}</b></div>
+            <div><span className="piccolo">Tempo medio</span><b>{ph.tempo_medio || '—'}</b></div>
+          </div>
+        ) : <Vuoto>PostHog non è ancora attivo: quando c’è la chiave del progetto (e il banner dei cookie la consente) qui compaiono visitatori, percorsi e abbandoni del test. Il posto è già pronto.</Vuoto>}
+      </section>
+
+      <section className="pila" style={{ ['--gap' as string]: '12px' }}>
+        <h2 className="titolo-2">Negozi e prodotti</h2>
+        <div className="adm-due">
+          <Tabella titolo="Negozi" righe={perChiave(r, 'clic_negozio')} />
+          <Tabella titolo="Pagine da cui si clicca" righe={perChiave(r, 'clic_da')} />
+        </div>
+        <Tabella titolo="Prodotti più cliccati" righe={perChiave(r, 'clic')} nome={nomeProdotto} />
+      </section>
+
+      <section className="pila" style={{ ['--gap' as string]: '12px' }}>
+        <h2 className="titolo-2">Vendite e commissioni</h2>
         {!vendite.length ? <Vuoto>Nessuna vendita nel periodo. Le reti collegate: Adtraction (canale «SKINMATCH - Content IT»); CJ e Awin si aggiungono quando i programmi approvano Skinmatch.</Vuoto> : (
           <>
+            <div className="adm-numeri">{['confermate', 'in attesa', 'rifiutate'].filter((k) => stati[k]).map((k) => <div key={k}><span className="piccolo">Commissioni {k}</span><b>{euro(stati[k].c)}</b><span className="piccolo">{stati[k].n} vendite</span></div>)}</div>
             <div className="adm-numeri">{Object.entries(reti).map(([k, x]) => <div key={k}><span className="piccolo">{k}</span><b>{euro(x.commissione)}</b><span className="piccolo">{x.n} vendite · {euro(x.importo)}</span></div>)}</div>
             <div className="adm-tabella"><table><thead><tr><th>Data</th><th>Rete</th><th>Negozio</th><th className="num">Ordine</th><th className="num">Commissione</th><th>Stato</th><th>Da dove</th></tr></thead>
               <tbody>{vendite.map((v) => <tr key={v.id}><td>{v.data}</td><td>{v.rete}</td><td>{v.negozio}</td><td className="num">{euro(v.importo || 0)}</td><td className="num">{euro(v.commissione || 0)}</td><td>{v.stato}</td><td className="piccolo">{v.subid || '—'}</td></tr>)}</tbody></table></div>
           </>
         )}
-      </div>
+      </section>
     </div>
   );
 }
