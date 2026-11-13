@@ -1,0 +1,32 @@
+{
+ "id": "skinmatch-2026-12-01-che-pelle-hai",
+ "data": "2026-12-01",
+ "ora": "11:00",
+ "tipo": "video",
+ "titolo": "Che pelle hai? Tre domande",
+ "slug": "che-pelle-hai",
+ "pagina": "/test?percorso=viso",
+ "base": "/social/2026-12-01-che-pelle-hai",
+ "copertina": "copertina.jpg",
+ "file": [
+  "video.mp4"
+ ],
+ "didascalie": {
+  "instagram": "Che pelle hai? Tre domande, le stesse che ci si fa allo specchio.\n\nDopo averla lavata tira? A metà giornata dove luccica? Un prodotto nuovo pizzica?\n\nScrivi nei commenti le tue tre lettere: ti diciamo da dove partire.\n\nIl test vero ha 20 domande e ti dà una routine mattina e sera: link in bio. Non è una diagnosi.\n\n#tipodipelle #skincare #skincareitalia #pellemista #quiz",
+  "tiktok": "Che pelle hai? Rispondi A, B o C e scrivilo nei commenti. #tipodipelle #skincare #skincareitalia #pellemista #quiz",
+  "threads": "Che pelle hai? Tre domande. Dopo averla lavata tira? A metà giornata dove luccica, da nessuna parte, zona T o ovunque? Un prodotto nuovo pizzica? Tira e non luccica: secca. Zona T: mista. Tira ma luccica: grassa e disidratata. Il test completo: skinmatch.it/test",
+  "youtube_titolo": "Che pelle hai? Il test in tre domande",
+  "youtube": "Dopo averla lavata tira? A metà giornata dove luccica? Un prodotto nuovo pizzica?\n\nIl test della pelle, gratis: https://skinmatch.it/test\nFonti: Le domande del test della pelle (src/data/test.json); Rivista: Che tipo di pelle ho? (skinmatch.it/rivista/che-tipo-di-pelle-ho)"
+ },
+ "hashtag": [
+  "#tipodipelle",
+  "#skincare",
+  "#skincareitalia",
+  "#pellemista",
+  "#quiz"
+ ],
+ "alt": [
+  "Video di 41 secondi in animazione, con voce e sottotitoli. Che pelle hai? Tre domande. Dopo averla lavata, la pelle… tira? Non fa niente? Tira, e poi luccica? A metà giornata, dove luccica? Da nessuna parte. Solo sulla zona T. Ovunque. E con un prodotto nuovo… pizzica, o niente? Tira e non luccica: secca. Zona T: mista. Tira, ma luccica: grassa e disidratata. Se pizzica, anche reattiva. Il test vero ha una ventina di domande, e una routine alla fine. Link in bio."
+ ],
+ "note": "Instagram: Reel, con «Mostra anche nel feed». TikTok: attiva «Contenuto generato dall’IA» (voce sintetica). YouTube: carica come Short. Musica: no, il tappeto sonoro è già nel video."
+}

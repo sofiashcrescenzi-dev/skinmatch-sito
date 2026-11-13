@@ -511,6 +511,324 @@
    ],
    "note": "Instagram: Reel, con «Mostra anche nel feed». TikTok: attiva «Contenuto generato dall’IA» (voce sintetica). YouTube: carica come Short. Musica: no, il tappeto sonoro è già nel video.",
    "sofia": "Obbligatoria: «in gravidanza e allattamento niente retinoidi», e che il video parla del retinolo dei cosmetici, non di farmaci. Il nome «tretinoina» compare solo come fatto storico."
+  },
+  {
+   "id": "skinmatch-2026-11-30-che-pelle-hai-carosello",
+   "data": "2026-11-30",
+   "ora": "18:30",
+   "tipo": "carosello",
+   "titolo": "La pelle cambia: 4 momenti in cui rifare il test",
+   "slug": "che-pelle-hai-carosello",
+   "pagina": "/test?percorso=viso",
+   "base": "/social/2026-11-30-che-pelle-hai-carosello",
+   "copertina": "copertina.jpg",
+   "file": [
+    "01.png",
+    "02.png",
+    "03.png",
+    "04.png",
+    "05.png",
+    "06.png",
+    "07.png",
+    "08.png"
+   ],
+   "didascalie": {
+    "instagram": "La tua pelle di oggi non è quella di un anno fa.\n\nCambia con le stagioni, con l'età, con gli ormoni, con un trattamento nuovo. Per questo il tipo di pelle non si scopre una volta per tutte: si ricontrolla.\n\nIl momento più sottovalutato: quando un prodotto che usavi da mesi comincia a dare fastidio.\n\nMandalo a chi usa la stessa crema dal liceo.\n\nIl test è nel link in bio.\n\n#tipodipelle #skincare #skincareitalia #pellemista #quiz",
+    "threads": "La pelle cambia: con le stagioni, con l'età, con gli ormoni, con un trattamento nuovo. Il tipo di pelle non si scopre una volta per tutte, si ricontrolla. Segnale da non ignorare: un prodotto che usavi da mesi comincia a dare fastidio. Il test: skinmatch.it/test",
+    "tiktok": "Il tuo tipo di pelle non è per sempre: 4 momenti in cui ricontrollarlo. #tipodipelle #skincare #skincareitalia #pellemista #quiz"
+   },
+   "hashtag": [
+    "#tipodipelle",
+    "#skincare",
+    "#skincareitalia",
+    "#pellemista",
+    "#quiz"
+   ],
+   "alt": [
+    "Slide 1 di 8. La tua pelle di oggi non è quella di un anno fa.",
+    "Slide 2 di 8. 1. Le stagioni D'inverno tira di più, d'estate luccica di più.\nLa crema può cambiare con il meteo.",
+    "Slide 3 di 8. 2. L'età Con gli anni la pelle diventa più secca e più sottile.\nCambiano texture e attivi.",
+    "Slide 4 di 8. 3. Gli ormoni Gravidanza, ciclo, menopausa cambiano sebo e sensibilità.\nIn gravidanza alcuni attivi si sospendono.",
+    "Slide 5 di 8. 4. Un trattamento nuovo Un farmaco o un trattamento in studio cambiano le regole.\nLa routine va rivista con chi ti segue.",
+    "Slide 6 di 8. Quando rifarlo Ogni tanto: Al cambio di stagione, o dopo un trasloco in un clima diverso Subito: Se la pelle reagisce a prodotti, che usavi da mesi",
+    "Slide 7 di 8. Quando chiedere al medico Se la pelle cambia all'improvviso, senza un motivo, il test non basta: serve una visita.",
+    "Slide 8 di 8. Rifai il test Tre minuti, gratis, senza registrazione."
+   ],
+   "note": "Instagram e Threads: carosello. TikTok: modalità foto, con un brano strumentale tranquillo dall’app.",
+   "sofia": "Confermare i momenti (gravidanza, menopausa, trattamenti) e che rifare il test non sostituisce il medico."
+  },
+  {
+   "id": "skinmatch-2026-12-01-che-pelle-hai",
+   "data": "2026-12-01",
+   "ora": "11:00",
+   "tipo": "video",
+   "titolo": "Che pelle hai? Tre domande",
+   "slug": "che-pelle-hai",
+   "pagina": "/test?percorso=viso",
+   "base": "/social/2026-12-01-che-pelle-hai",
+   "copertina": "copertina.jpg",
+   "file": [
+    "video.mp4"
+   ],
+   "didascalie": {
+    "instagram": "Che pelle hai? Tre domande, le stesse che ci si fa allo specchio.\n\nDopo averla lavata tira? A metà giornata dove luccica? Un prodotto nuovo pizzica?\n\nScrivi nei commenti le tue tre lettere: ti diciamo da dove partire.\n\nIl test vero ha 20 domande e ti dà una routine mattina e sera: link in bio. Non è una diagnosi.\n\n#tipodipelle #skincare #skincareitalia #pellemista #quiz",
+    "tiktok": "Che pelle hai? Rispondi A, B o C e scrivilo nei commenti. #tipodipelle #skincare #skincareitalia #pellemista #quiz",
+    "threads": "Che pelle hai? Tre domande. Dopo averla lavata tira? A metà giornata dove luccica, da nessuna parte, zona T o ovunque? Un prodotto nuovo pizzica? Tira e non luccica: secca. Zona T: mista. Tira ma luccica: grassa e disidratata. Il test completo: skinmatch.it/test",
+    "youtube_titolo": "Che pelle hai? Il test in tre domande",
+    "youtube": "Dopo averla lavata tira? A metà giornata dove luccica? Un prodotto nuovo pizzica?\n\nIl test della pelle, gratis: https://skinmatch.it/test\nFonti: Le domande del test della pelle (src/data/test.json); Rivista: Che tipo di pelle ho? (skinmatch.it/rivista/che-tipo-di-pelle-ho)"
+   },
+   "hashtag": [
+    "#tipodipelle",
+    "#skincare",
+    "#skincareitalia",
+    "#pellemista",
+    "#quiz"
+   ],
+   "alt": [
+    "Video di 41 secondi in animazione, con voce e sottotitoli. Che pelle hai? Tre domande. Dopo averla lavata, la pelle… tira? Non fa niente? Tira, e poi luccica? A metà giornata, dove luccica? Da nessuna parte. Solo sulla zona T. Ovunque. E con un prodotto nuovo… pizzica, o niente? Tira e non luccica: secca. Zona T: mista. Tira, ma luccica: grassa e disidratata. Se pizzica, anche reattiva. Il test vero ha una ventina di domande, e una routine alla fine. Link in bio."
+   ],
+   "note": "Instagram: Reel, con «Mostra anche nel feed». TikTok: attiva «Contenuto generato dall’IA» (voce sintetica). YouTube: carica come Short. Musica: no, il tappeto sonoro è già nel video.",
+   "sofia": "Rileggere le tre rivelazioni (mista, grassa e disidratata, secca) perché non suonino come diagnosi."
+  },
+  {
+   "id": "skinmatch-2026-12-03-comedone-mangione-carosello",
+   "data": "2026-12-03",
+   "ora": "18:30",
+   "tipo": "carosello",
+   "titolo": "Punti neri o filamenti sebacei? Non sono la stessa cosa",
+   "slug": "comedone-mangione-carosello",
+   "pagina": "/rivista/acido-salicilico",
+   "base": "/social/2026-12-03-comedone-mangione-carosello",
+   "copertina": "copertina.jpg",
+   "file": [
+    "01.png",
+    "02.png",
+    "03.png",
+    "04.png",
+    "05.png",
+    "06.png",
+    "07.png",
+    "08.png",
+    "09.png"
+   ],
+   "didascalie": {
+    "instagram": "Quei puntini grigi sul naso forse non sono punti neri.\n\nSono filamenti sebacei: sebo che riempie il poro in modo normale. Piatti, tutti uguali, tornano in qualche settimana. I punti neri invece sono neri, un po' in rilievo, sparsi.\n\nNé gli uni né gli altri si schiacciano. Un acido salicilico, due o tre sere a settimana, li rende meno visibili.\n\nMandalo a chi passa le serate davanti allo specchio con le strisce.\n\nLink in bio.\n\n#puntineri #acidosalicilico #pori #skincareitalia #losapevi",
+    "threads": "Quei puntini grigi sul naso forse non sono punti neri: sono filamenti sebacei, sebo che riempie il poro in modo normale. Piatti, tutti uguali, tornano in qualche settimana. I punti neri sono neri, in rilievo, sparsi. Non si schiacciano. Un acido salicilico due o tre sere a settimana li rende meno visibili.",
+    "tiktok": "Punti neri o filamenti sebacei? Come riconoscerli (e perché tornano). #puntineri #acidosalicilico #pori #skincareitalia #losapevi"
+   },
+   "hashtag": [
+    "#puntineri",
+    "#acidosalicilico",
+    "#pori",
+    "#skincareitalia",
+    "#losapevi"
+   ],
+   "alt": [
+    "Slide 1 di 9. Quelli sul naso forse non sono punti neri.",
+    "Slide 2 di 9. Come distinguerli Filamenti sebacei: Piatti, grigi o beige, tutti uguali, su naso e mento Punti neri: Neri, un po' in rilievo, sparsi, di dimensioni diverse",
+    "Slide 3 di 9. Cosa sono i filamenti Sebo che riempie il poro, in modo normale.\nCe li hanno tutti, soprattutto sul naso.",
+    "Slide 4 di 9. Perché tornano Il poro si riempie di nuovo in qualche settimana.\nNon è sporco, è come funziona la pelle.",
+    "Slide 5 di 9. Le strisce per il naso Li tolgono per qualche giorno, poi tornano.\nE tirano la pelle.",
+    "Slide 6 di 9. Cosa li rende meno visibili Un acido salicilico, due o tre sere a settimana.\nLa niacinamide sul sebo.",
+    "Slide 7 di 9. Mai schiacciare Né i filamenti né i punti neri.\nSi allarga il poro e restano segni.",
+    "Slide 8 di 9. Quando chiedere al medico Se oltre ai punti neri ci sono brufoli profondi, dolorosi, o che lasciano cicatrici.",
+    "Slide 9 di 9. Acido salicilico: quale e come Nella Rivista."
+   ],
+   "note": "Instagram e Threads: carosello. TikTok: modalità foto, con un brano strumentale tranquillo dall’app.",
+   "sofia": "Confermare la descrizione dei filamenti sebacei e il consiglio di non usare strisce e schiacciamenti."
+  },
+  {
+   "id": "skinmatch-2026-12-04-comedone-mangione",
+   "data": "2026-12-04",
+   "ora": "11:00",
+   "tipo": "video",
+   "titolo": "Comedone vuol dire «il mangione»",
+   "slug": "comedone-mangione",
+   "pagina": "/rivista/acido-salicilico",
+   "base": "/social/2026-12-04-comedone-mangione",
+   "copertina": "copertina.jpg",
+   "file": [
+    "video.mp4"
+   ],
+   "didascalie": {
+    "instagram": "Il punto nero, in latino, è «il mangione».\n\nComedo era il nome di vermi che nel Medioevo si credeva mangiassero i cadaveri; il nome passò ai punti neri perché gli somigliano. In realtà sono pori chiusi da sebo e cellule, che in cima si scuriscono all'aria.\n\nL'acido salicilico si scioglie nel sebo ed entra nel poro. E no, non si schiacciano.\n\nMandalo a chi ti ha appena detto «è sporco».\n\nFonte: Treccani. Link in bio.\n\n#puntineri #acidosalicilico #pori #skincareitalia #losapevi",
+    "tiktok": "Comedone vuol dire «il mangione». La storia (vera) del punto nero. #puntineri #acidosalicilico #pori #skincareitalia #losapevi",
+    "threads": "Comedone, il nome medico del punto nero, viene dal latino comedo, «il mangione»: nel Medioevo era un verme. In realtà è un poro chiuso da sebo e cellule, che in cima si scurisce all'aria. Non è sporco. L'acido salicilico si scioglie nel sebo ed entra nel poro. Fonte: Treccani.",
+    "youtube_titolo": "Comedone vuol dire «il mangione»: cos'è un punto nero",
+    "youtube": "Comedo era il nome di vermi che nel Medioevo si credeva mangiassero i cadaveri; il nome passò ai punti neri perché gli somigliano. In realtà sono pori chiusi da sebo e cellule, che in cima si scuriscono all'aria.\n\nIl test della pelle, gratis: https://skinmatch.it/test\nFonti: Nozione comedone-mangione; Treccani: https://www.treccani.it/vocabolario/comedone/; Glossario Skinmatch, acido salicilico (BHA): «si scioglie nel sebo ed entra nei pori»"
+   },
+   "hashtag": [
+    "#puntineri",
+    "#acidosalicilico",
+    "#pori",
+    "#skincareitalia",
+    "#losapevi"
+   ],
+   "alt": [
+    "Video di 33 secondi in animazione, con voce e sottotitoli. Il punto nero, in latino, si chiama… il mangione. Nel Medioevo era il nome di un verme. Poi passò ai punti neri, perché gli somigliano. In realtà è un poro chiuso da sebo e cellule. In cima, all'aria, diventa scuro. L'acido salicilico si scioglie nel sebo. Ed entra nel poro. Due, tre sere a settimana. E non schiacciarli: lasciano segni. Quale prodotto, e come usarlo? Nella Rivista. Link in bio."
+   ],
+   "note": "Instagram: Reel, con «Mostra anche nel feed». TikTok: attiva «Contenuto generato dall’IA» (voce sintetica). YouTube: carica come Short. Musica: no, il tappeto sonoro è già nel video.",
+   "sofia": "Confermare «in gravidanza, per il salicilico da lasciare sulla pelle, chiedi al medico» e il consiglio di non schiacciare."
+  },
+  {
+   "id": "skinmatch-2026-12-06-capelli-al-giorno-carosello",
+   "data": "2026-12-06",
+   "ora": "18:30",
+   "tipo": "carosello",
+   "titolo": "Shampoo vuol dire «massaggia»: 5 errori sul cuoio capelluto",
+   "slug": "capelli-al-giorno-carosello",
+   "pagina": "/test?percorso=cute",
+   "base": "/social/2026-12-06-capelli-al-giorno-carosello",
+   "copertina": "copertina.jpg",
+   "file": [
+    "01.png",
+    "02.png",
+    "03.png",
+    "04.png",
+    "05.png",
+    "06.png",
+    "07.png",
+    "08.png",
+    "09.png"
+   ],
+   "didascalie": {
+    "instagram": "Shampoo vuol dire «massaggia»: viene dall'hindi chāmpo.\n\nE la cute si massaggia con i polpastrelli, non con le unghie. Lo shampoo va sulla cute, il balsamo sulle lunghezze, l'acqua tiepida. E lavarli spesso non li fa ungere di più.\n\nQual è l'errore che fai anche tu? Scrivilo nei commenti.\n\nIl test del cuoio capelluto è nel link in bio.\n\n#cadutacapelli #capelli #cuoiocapelluto #haircare #losapevi",
+    "threads": "Shampoo viene dall'hindi e vuol dire «massaggia». Cinque errori: grattare con le unghie, shampoo sulle lunghezze, balsamo sulle radici, acqua bollente, lavarli poco «per non ungerli». Lavarli spesso non aumenta il sebo. Il test del cuoio capelluto: skinmatch.it/test",
+    "tiktok": "Shampoo vuol dire «massaggia». 5 errori che fai sul cuoio capelluto. #cadutacapelli #capelli #cuoiocapelluto #haircare #losapevi"
+   },
+   "hashtag": [
+    "#cadutacapelli",
+    "#capelli",
+    "#cuoiocapelluto",
+    "#haircare",
+    "#losapevi"
+   ],
+   "alt": [
+    "Slide 1 di 9. Shampoo vuol dire «massaggia».",
+    "Slide 2 di 9. Da dove viene Dall'hindi chāmpo, «massaggia», attraverso l'inglese.\nPrima del detergente, era il gesto: il massaggio della testa.",
+    "Slide 3 di 9. Errore 1: le unghie Si massaggia con i polpastrelli.\nLe unghie graffiano e irritano la cute.",
+    "Slide 4 di 9. Errore 2: lo shampoo sulle lunghezze Lo shampoo va sulla cute.\nSulle lunghezze basta la schiuma che scende.",
+    "Slide 5 di 9. Errore 3: il balsamo sulle radici Il balsamo va dalle lunghezze alle punte.\nSulla cute appesantisce.",
+    "Slide 6 di 9. Errore 4: l'acqua bollente Secca la cute e fa più forfora secca.\nMeglio tiepida.",
+    "Slide 7 di 9. Errore 5: lavarli poco «per non ungerli» Lavarli spesso non aumenta il sebo.\nSe si ungono in fretta, si possono lavare ogni giorno.",
+    "Slide 8 di 9. Quando chiedere al medico Prurito forte, chiazze rosse, squame spesse o capelli che cadono a ciocche: fai vedere la cute.",
+    "Slide 9 di 9. Com'è la tua cute? Il test del cuoio capelluto dura due minuti."
+   ],
+   "note": "Instagram e Threads: carosello. TikTok: modalità foto, con un brano strumentale tranquillo dall’app.",
+   "sofia": "Confermare i cinque errori e l'avviso (prurito forte, chiazze, squame spesse)."
+  },
+  {
+   "id": "skinmatch-2026-12-07-capelli-al-giorno",
+   "data": "2026-12-07",
+   "ora": "11:00",
+   "tipo": "video",
+   "titolo": "50-100 capelli al giorno: è normale",
+   "slug": "capelli-al-giorno",
+   "pagina": "/test?percorso=cute",
+   "base": "/social/2026-12-07-capelli-al-giorno",
+   "copertina": "copertina.jpg",
+   "file": [
+    "video.mp4"
+   ],
+   "didascalie": {
+    "instagram": "Da 50 a 100 capelli al giorno: è normale perderli.\n\nDopo febbre alta, un parto o uno stress forte la caduta aumenta, ma arriva qualche mese dopo. Ha un nome dal 1961, telogen effluvium, e di solito si ferma da sola.\n\nSe dura più di sei mesi o vedi chiazze, parlane col medico.\n\nMandalo a chi conta i capelli nella spazzola ogni mattina.\n\nFonte: American Academy of Dermatology. Link in bio.\n\n#cadutacapelli #capelli #cuoiocapelluto #haircare #losapevi",
+    "tiktok": "Quanti capelli è normale perdere al giorno? Fino a 100. E quando preoccuparsi. #cadutacapelli #capelli #cuoiocapelluto #haircare #losapevi",
+    "threads": "Da 50 a 100 capelli al giorno è normale perderli. Dopo febbre alta, un parto o uno stress forte la caduta aumenta, ma arriva due-tre mesi dopo, non subito: si chiama telogen effluvium e di solito si ferma da sola. Se dura più di sei mesi o vedi chiazze, parlane col medico. Fonte: AAD.",
+    "youtube_titolo": "Quanti capelli è normale perdere al giorno?",
+    "youtube": "Dopo febbre alta, un parto o uno stress forte la caduta aumenta, ma arriva qualche mese dopo. Ha un nome dal 1961, telogen effluvium, e di solito si ferma da sola.\n\nIl test della pelle, gratis: https://skinmatch.it/test\nFonti: Nozioni capelli-al-giorno e telogen-1961; American Academy of Dermatology: https://www.aad.org/public/diseases/hair-loss/insider/shedding; Kligman, 1961: https://pubmed.ncbi.nlm.nih.gov/13756813/"
+   },
+   "hashtag": [
+    "#cadutacapelli",
+    "#capelli",
+    "#cuoiocapelluto",
+    "#haircare",
+    "#losapevi"
+   ],
+   "alt": [
+    "Video di 30 secondi in animazione, con voce e sottotitoli. Perdi capelli ogni giorno? Anche cento è normale. Da cinquanta a cento al giorno. È il ricambio normale. Dopo febbre alta, un parto, uno stress forte… la caduta aumenta. Ma qualche mese dopo, non subito. Nel millenovecentosessantuno ha avuto un nome: telogen effluvium. Di solito si ferma da sola. Se dura più di sei mesi, o vedi chiazze, parlane col medico. Il test del cuoio capelluto dura due minuti. Link in bio."
+   ],
+   "note": "Instagram: Reel, con «Mostra anche nel feed». TikTok: attiva «Contenuto generato dall’IA» (voce sintetica). YouTube: carica come Short. Musica: no, il tappeto sonoro è già nel video.",
+   "sofia": "Obbligatoria: «quando andare dal medico» (più di sei mesi, chiazze, riga che si allarga) e che non è una diagnosi."
+  },
+  {
+   "id": "skinmatch-2026-12-09-siero-giallo-carosello",
+   "data": "2026-12-09",
+   "ora": "18:30",
+   "tipo": "carosello",
+   "titolo": "Le forme della vitamina C: pura o derivata",
+   "slug": "siero-giallo-carosello",
+   "pagina": "/rivista/vitamina-c-siero",
+   "base": "/social/2026-12-09-siero-giallo-carosello",
+   "copertina": "copertina.jpg",
+   "file": [
+    "01.png",
+    "02.png",
+    "03.png",
+    "04.png",
+    "05.png",
+    "06.png",
+    "07.png",
+    "08.png",
+    "09.png"
+   ],
+   "didascalie": {
+    "instagram": "Vitamina C non è una sola. Nell'INCI può avere molti nomi.\n\nLa pura è Ascorbic Acid: la più studiata, ma instabile e può pizzicare. Le derivate (Ascorbyl Glucoside, Sodium Ascorbyl Phosphate, Ethyl Ascorbic Acid) cambiano colore meno in fretta e irritano meno.\n\nPelle reattiva? Parti da una derivata.\n\nSalvalo per quando leggi un'etichetta.\n\nFonte: Telang, 2013. Link in bio.\n\n#vitaminac #siero #skincare #skincareitalia #losapevi",
+    "threads": "La vitamina C non è una sola. La pura, Ascorbic Acid, è la più studiata ma instabile e può pizzicare. Le derivate, come Ascorbyl Glucoside, Sodium Ascorbyl Phosphate ed Ethyl Ascorbic Acid, sono più stabili e più delicate. Pelle reattiva: parti da una derivata. Fonte: Telang, 2013.",
+    "tiktok": "Vitamina C pura o derivata? Come leggere l'etichetta del siero. #vitaminac #siero #skincare #skincareitalia #losapevi"
+   },
+   "hashtag": [
+    "#vitaminac",
+    "#siero",
+    "#skincare",
+    "#skincareitalia",
+    "#losapevi"
+   ],
+   "alt": [
+    "Slide 1 di 9. Vitamina C: non è una sola.",
+    "Slide 2 di 9. Pura o derivata Pura: Ascorbic Acid nell'INCI, più studiata, si ossida Derivata: Nomi più lunghi nell'INCI, più stabile, più delicata",
+    "Slide 3 di 9. La pura: acido ascorbico È la più studiata sulla pelle.\nMa è instabile e può pizzicare.",
+    "Slide 4 di 9. Le derivate Ascorbyl Glucoside, Sodium Ascorbyl Phosphate,\nEthyl Ascorbic Acid, Tetrahexyldecyl Ascorbate.",
+    "Slide 5 di 9. Cosa cambia Le derivate cambiano colore meno in fretta e irritano meno.\nSulla pelle devono diventare vitamina C per lavorare.",
+    "Slide 6 di 9. Come sceglierla Pelle che tollera bene: la pura, in flacone scuro.\nPelle reattiva: una derivata.",
+    "Slide 7 di 9. Quando usarla Al mattino, sotto la protezione solare.\nInsieme proteggono meglio.",
+    "Slide 8 di 9. Quando chiedere al medico Se brucia per più di qualche minuto o lascia rossori, sospendila e chiedi.",
+    "Slide 9 di 9. Quale forma, a che percentuale Nella Rivista."
+   ],
+   "note": "Instagram e Threads: carosello. TikTok: modalità foto, con un brano strumentale tranquillo dall’app.",
+   "sofia": "Rileggere la frase sulla forza relativa delle forme (pura più studiata e più efficace, derivati più stabili e delicati)."
+  },
+  {
+   "id": "skinmatch-2026-12-10-siero-giallo",
+   "data": "2026-12-10",
+   "ora": "11:00",
+   "tipo": "video",
+   "titolo": "Il siero che diventa giallo",
+   "slug": "siero-giallo",
+   "pagina": "/rivista/vitamina-c-siero",
+   "base": "/social/2026-12-10-siero-giallo",
+   "copertina": "copertina.jpg",
+   "file": [
+    "video.mp4"
+   ],
+   "didascalie": {
+    "instagram": "Il tuo siero alla vitamina C è diventato giallo? Non è un caso.\n\nLa vitamina C pura è instabile: con la luce e l'aria si ossida, diventa gialla, poi arancione. Per questo i sieri stanno in flaconi scuri e chiusi. Se è diventato scuro, la vitamina C si è già ossidata.\n\nControlla il tuo flacone e scrivici di che colore è.\n\nFonte: Telang, 2013. Quale forma scegliere nella Rivista, link in bio.\n\n#vitaminac #siero #skincare #skincareitalia #losapevi",
+    "tiktok": "Perché il siero alla vitamina C diventa giallo (e quando è da buttare). #vitaminac #siero #skincare #skincareitalia #losapevi",
+    "threads": "Il siero alla vitamina C diventa giallo? La vitamina C pura è instabile: con luce e aria si ossida, diventa gialla, poi arancione. Per questo sta in flaconi scuri e chiusi. Se è diventato scuro, si è già ossidata. Fonte: Telang, 2013. skinmatch.it/rivista/vitamina-c-siero",
+    "youtube_titolo": "Perché il siero alla vitamina C diventa giallo",
+    "youtube": "La vitamina C pura è instabile: con la luce e l'aria si ossida, diventa gialla, poi arancione. Per questo i sieri stanno in flaconi scuri e chiusi. Se è diventato scuro, la vitamina C si è già ossidata.\n\nIl test della pelle, gratis: https://skinmatch.it/test\nFonti: Nozione vitamina-c-gialla; Telang, 2013: https://pubmed.ncbi.nlm.nih.gov/23741676/; Rivista: Siero alla vitamina C (skinmatch.it/rivista/vitamina-c-siero)"
+   },
+   "hashtag": [
+    "#vitaminac",
+    "#siero",
+    "#skincare",
+    "#skincareitalia",
+    "#losapevi"
+   ],
+   "alt": [
+    "Video di 30 secondi in animazione, con voce e sottotitoli. Il tuo siero alla vitamina C… è diventato giallo? Prima trasparente. Poi giallo. Poi arancione. La vitamina C pura è instabile. Luce e aria la ossidano. Per questo sta in flaconi scuri. Ben chiusi. Lontano dalla luce. Se è diventato scuro, la vitamina C si è già ossidata. Quale forma scegliere, e come usarla? Nella Rivista. Link in bio."
+   ],
+   "note": "Instagram: Reel, con «Mostra anche nel feed». TikTok: attiva «Contenuto generato dall’IA» (voce sintetica). YouTube: carica come Short. Musica: no, il tappeto sonoro è già nel video.",
+   "sofia": "Nessun punto clinico delicato; rileggere la frase «se è diventato scuro, la vitamina C si è già ossidata»."
   }
  ]
 }
