@@ -1,0 +1,779 @@
+{
+ "_nota": "8 personas nuove per il test di Skinmatch (src/data/test.json): per ognuna il bisogno, la fonte, le 1-2 domande da aggiungere o cambiare nel formato di test.json («azione»: nuova, cambia, sostituisce), l'eventuale limite nuovo, il perché e una persona di prova per «persone». Le scelte nuove (barba: incarniti e barba-lunga; eta: meno-18, 55-64, 65-piu; sole; sudore; lavaggi; capelli; fototipo; doppia_detersione) vanno aggiunte a «scelte» e lette dal motore (src/lib/motore.ts): lavoro di Jarvis dopo il sì di Federico e Sofia. Da rileggere con Sofia. Zeno, 13/11/2026.",
+ "personas": [
+  {
+   "id": "rasatura",
+   "nome": "Andrea, 34 anni",
+   "bisogno": "Si rade quasi ogni giorno col rasoio a lame; dopo, bruciore sul collo e peli incarniti sotto il mento. Oggi il test gli chiede solo «quanto spesso ti radi», e le risposte non distinguono l'irritazione dai peli incarniti.",
+   "fonte": "DermNet, Pseudofolliculitis barbae: https://dermnetnz.org/topics/pseudofolliculitis-barbae",
+   "domande": [
+    {
+     "azione": "sostituisce",
+     "id": "barba",
+     "area": "pelle",
+     "testo": "Come ti radi, di solito?",
+     "se": [
+      {
+       "scelta": "genere",
+       "valori": [
+        "uomo"
+       ]
+      }
+     ],
+     "saltabile": true,
+     "opzioni": [
+      {
+       "id": "lama",
+       "testo": "Con il rasoio a lame, quasi ogni giorno",
+       "scelte": {
+        "barba": "mantenimento"
+       }
+      },
+      {
+       "id": "elettrico",
+       "testo": "Con il rasoio elettrico",
+       "scelte": {
+        "barba": "mantenimento"
+       }
+      },
+      {
+       "id": "regolabarba",
+       "testo": "Tengo la barba e la regolo",
+       "scelte": {
+        "barba": "barba-lunga"
+       }
+      },
+      {
+       "id": "no",
+       "testo": "Non mi rado"
+      }
+     ],
+     "aiuto": "Il rasoio a lame toglie anche un velo di pelle: ci aiuta a scegliere detergente e dopobarba."
+    },
+    {
+     "azione": "nuova",
+     "id": "dopo_rasatura",
+     "area": "pelle",
+     "testo": "Dopo la rasatura, cosa noti più spesso?",
+     "se": [
+      {
+       "scelta": "barba",
+       "valori": [
+        "mantenimento"
+       ]
+      }
+     ],
+     "multipla": true,
+     "opzioni": [
+      {
+       "id": "niente",
+       "testo": "Niente di particolare",
+       "esclusiva": true
+      },
+      {
+       "id": "bruciore",
+       "testo": "Bruciore e rossore che passano in qualche ora",
+       "punti": {
+        "re": 1
+       },
+       "scelte": {
+        "barba": "irritazione"
+       }
+      },
+      {
+       "id": "incarniti",
+       "testo": "Brufoletti e peli che crescono sotto la pelle",
+       "punti": {
+        "imp": 1
+       },
+       "scelte": {
+        "barba": "incarniti"
+       }
+      }
+     ],
+     "aiuto": "I peli incarniti si trattano in modo diverso dal bruciore: un esfoliante delicato aiuta i primi, un dopobarba lenitivo il secondo."
+    }
+   ],
+   "perche": "Corregge anche un errore di oggi: nella domanda «barba» gli id delle risposte (no, irritata, ok) non corrispondono ai testi (frequenza). Il valore nuovo «incarniti» porta a un detergente o tonico con acido salicilico o glicolico a bassa percentuale; «barba-lunga» a un detergente per barba. Servono le due scelte nuove nel motore (src/lib/motore.ts) e nel passaggio «barba».",
+   "persona_test": {
+    "nome": "Andrea, 34 anni",
+    "nota": "Rasoio a lame ogni giorno, peli incarniti",
+    "percorso": "viso",
+    "risposte": {
+     "genere": "uomo",
+     "eta": "25-34",
+     "tzona": "poco-lucidi",
+     "guance": "normali",
+     "pori": "naso",
+     "tira": "bene",
+     "spella": "mai",
+     "crema": "assorbe",
+     "nuovo": "niente",
+     "rossore": "breve",
+     "brufoli": "a-volte",
+     "macchie": "qualcuna",
+     "condizioni": [
+      "nessuna"
+     ],
+     "obiettivo": "imperfezioni",
+     "esperienza": "mai",
+     "barba": "lama",
+     "dopo_rasatura": [
+      "incarniti"
+     ],
+     "passi": "tre"
+    },
+    "atteso": {
+     "pelle": "normale",
+     "scelte": {
+      "barba": "incarniti"
+     }
+    }
+   }
+  },
+  {
+   "id": "over-65",
+   "nome": "Giovanna, 68 anni",
+   "bisogno": "Pelle sottile e secca, qualche macchia sul dorso delle mani e sul viso, un neo che le sembra cambiato. Oggi l'età si ferma a «55 o più», e il test non chiede mai di nei o lesioni che non guariscono.",
+   "fonte": "AAD, Melanoma: signs and symptoms (ABCDE): https://www.aad.org/public/diseases/skin-cancer/types/common/melanoma/symptoms",
+   "domande": [
+    {
+     "azione": "cambia",
+     "id": "eta",
+     "nota": "si divide «55 o più» in due",
+     "opzioni_nuove": [
+      {
+       "id": "55-64",
+       "testo": "Da 55 a 64",
+       "punti": {
+        "tem": 4
+       },
+       "scelte": {
+        "eta": "55-64"
+       }
+      },
+      {
+       "id": "65-piu",
+       "testo": "65 o più",
+       "punti": {
+        "tem": 4,
+        "idr": 1
+       },
+       "scelte": {
+        "eta": "65-piu"
+       }
+      }
+     ]
+    },
+    {
+     "azione": "nuova",
+     "id": "nei",
+     "area": "pelle",
+     "testo": "Hai un neo o una macchia che cambia forma o colore, o una ferita sulla pelle che non guarisce da settimane?",
+     "opzioni": [
+      {
+       "id": "no",
+       "testo": "No"
+      },
+      {
+       "id": "si",
+       "testo": "Sì",
+       "limite": "nei"
+      }
+     ],
+     "aiuto": "Non possiamo valutarlo noi: un neo che cambia o una lesione che non guarisce va visto da un dermatologo, a qualunque età."
+    }
+   ],
+   "limite_nuovo": {
+    "id": "nei",
+    "area": "pelle",
+    "titolo": "Un neo che cambia",
+    "testo": "Un neo che cambia forma, colore o dimensione, o una lesione che non guarisce, va fatto vedere a un dermatologo presto. La routine che ti proponiamo non lo sostituisce.",
+    "solo_delicati": false
+   },
+   "perche": "Sopra i 65 anni la pelle è più secca e sottile: texture più ricche, retinoidi solo a bassa percentuale e protezione solare sempre. La domanda sui nei vale per tutte le età ma pesa di più qui: è la prudenza da medico che Sofia chiede. Il valore «65-piu» va gestito nel motore come «55-piu» più idratazione.",
+   "persona_test": {
+    "nome": "Giovanna, 68 anni",
+    "nota": "Pelle secca e sottile, un neo che cambia",
+    "percorso": "viso",
+    "risposte": {
+     "genere": "donna",
+     "eta": "65-piu",
+     "tzona": "opachi",
+     "guance": "opache",
+     "pori": "poco",
+     "tira": "molto",
+     "spella": "spesso",
+     "crema": "beve",
+     "nuovo": "niente",
+     "rossore": "mai",
+     "brufoli": "mai",
+     "macchie": "molte",
+     "nei": "si",
+     "condizioni": [
+      "nessuna"
+     ],
+     "menopausa": "si",
+     "obiettivo": "tempo",
+     "esperienza": "mai",
+     "passi": "tre"
+    },
+    "atteso": {
+     "pelle": "secca-disidratata",
+     "limiti": [
+      "nei"
+     ]
+    }
+   }
+  },
+  {
+   "id": "adolescente",
+   "nome": "Matilde, 16 anni",
+   "bisogno": "Brufoli e punti neri su fronte e mento, prende una terapia del dermatologo. Oggi il test la mette con chi ha 24 anni e può proporle retinoidi, acidi o un integratore.",
+   "fonte": "AAD, Acne: tips for managing: https://www.aad.org/public/diseases/acne/skin-care/tips ; DermNet, Isotretinoin: https://dermnetnz.org/topics/isotretinoin",
+   "domande": [
+    {
+     "azione": "cambia",
+     "id": "eta",
+     "nota": "si divide «meno di 25»",
+     "opzioni_nuove": [
+      {
+       "id": "meno-18",
+       "testo": "Meno di 18",
+       "punti": {
+        "tem": 0
+       },
+       "scelte": {
+        "eta": "meno-18"
+       }
+      },
+      {
+       "id": "18-24",
+       "testo": "Da 18 a 24",
+       "punti": {
+        "tem": 0
+       },
+       "scelte": {
+        "eta": "meno-25"
+       }
+      }
+     ]
+    },
+    {
+     "azione": "nuova",
+     "id": "terapia_acne",
+     "area": "pelle",
+     "testo": "Stai usando una cura per l'acne prescritta dal medico?",
+     "se": [
+      {
+       "punti": "imp",
+       "da": 2
+      }
+     ],
+     "multipla": true,
+     "opzioni": [
+      {
+       "id": "no",
+       "testo": "No",
+       "esclusiva": true
+      },
+      {
+       "id": "creme",
+       "testo": "Sì, creme o gel prescritti (con retinoidi, perossido di benzoile o antibiotico)",
+       "limite": "terapia-acne"
+      },
+      {
+       "id": "bocca",
+       "testo": "Sì, compresse (isotretinoina, antibiotico o pillola)",
+       "limite": "terapia-acne"
+      }
+     ],
+     "aiuto": "Con una cura in corso servono prodotti delicati che la accompagnano: niente acidi o retinoidi in più, perché seccano e irritano."
+    }
+   ],
+   "limite_nuovo": {
+    "id": "terapia-acne",
+    "area": "pelle",
+    "titolo": "Una cura per l'acne in corso",
+    "testo": "Con una cura per l'acne la pelle si secca e si irrita facilmente: ti proponiamo detergente delicato, crema e protezione solare, senza attivi in più. Se qualcosa brucia, chiedi a chi ti segue.",
+    "solo_delicati": true
+   },
+   "perche": "Sotto i 18 anni il percorso integrazione non dovrebbe proporre integratori e il budget va tenuto basso; con una terapia (soprattutto isotretinoina) aggiungere acidi o retinoidi cosmetici è un rischio di irritazione. Il limite nuovo «terapia-acne» vale per tutte le età.",
+   "persona_test": {
+    "nome": "Matilde, 16 anni",
+    "nota": "Acne, gel prescritto dal dermatologo",
+    "percorso": "viso",
+    "risposte": {
+     "genere": "donna",
+     "eta": "meno-18",
+     "tzona": "lucidi",
+     "guance": "normali",
+     "pori": "guance",
+     "tira": "bene",
+     "spella": "a-volte",
+     "crema": "unta",
+     "nuovo": "a-volte",
+     "rossore": "breve",
+     "brufoli": "spesso",
+     "terapia_acne": [
+      "creme"
+     ],
+     "macchie": "qualcuna",
+     "condizioni": [
+      "nessuna"
+     ],
+     "gravidanza": "no",
+     "obiettivo": "imperfezioni",
+     "esperienza": "mai",
+     "passi": "tre"
+    },
+    "atteso": {
+     "pelle": "acneica",
+     "limiti": [
+      "terapia-acne"
+     ]
+    }
+   }
+  },
+  {
+   "id": "cerca-gravidanza",
+   "nome": "Elisa, 33 anni",
+   "bisogno": "Usa il retinolo e sta cercando una gravidanza. Oggi il test chiede solo se è già in gravidanza o allatta, e le lascia il retinolo.",
+   "fonte": "DermNet, Topical retinoids (in gravidanza si evitano): https://dermnetnz.org/topics/topical-retinoids",
+   "domande": [
+    {
+     "azione": "cambia",
+     "id": "gravidanza",
+     "testo": "Sei in gravidanza, stai allattando o la stai cercando?",
+     "opzioni_nuove": [
+      {
+       "id": "no",
+       "testo": "No"
+      },
+      {
+       "id": "cerco",
+       "testo": "Sto cercando una gravidanza",
+       "scelte": {
+        "gravidanza": true
+       }
+      },
+      {
+       "id": "si",
+       "testo": "Sono in gravidanza o allatto",
+       "scelte": {
+        "gravidanza": true
+       },
+       "limite": "gravidanza-integratori"
+      }
+     ],
+     "aiuto": "In questi periodi si evitano alcuni attivi, come i retinoidi: ti mostriamo solo prodotti adatti. Per gli integratori decide il medico."
+    }
+   ],
+   "perche": "Prudenza: molti dermatologi consigliano di sospendere i retinoidi già quando si cerca una gravidanza. Da confermare con Sofia prima di cambiare la domanda. La scelta «gravidanza» resta la stessa, cambia solo chi la attiva.",
+   "persona_test": {
+    "nome": "Elisa, 33 anni",
+    "nota": "Usa il retinolo, cerca una gravidanza",
+    "percorso": "viso",
+    "risposte": {
+     "genere": "donna",
+     "eta": "25-34",
+     "tzona": "poco-lucidi",
+     "guance": "normali",
+     "pori": "naso",
+     "tira": "bene",
+     "spella": "mai",
+     "crema": "assorbe",
+     "nuovo": "niente",
+     "rossore": "mai",
+     "brufoli": "punti-neri",
+     "macchie": "qualcuna",
+     "condizioni": [
+      "nessuna"
+     ],
+     "gravidanza": "cerco",
+     "obiettivo": "tempo",
+     "esperienza": "spesso",
+     "passi": "quattro"
+    },
+    "atteso": {
+     "pelle": "normale",
+     "scelte": {
+      "gravidanza": true
+     },
+     "esclusi": [
+      "retinoidi"
+     ]
+    }
+   }
+  },
+  {
+   "id": "sport-aperto",
+   "nome": "Marco, 29 anni",
+   "bisogno": "Corre e va in bici all'aperto quasi ogni giorno: sole, sudore, vento. La protezione solare normale gli cola negli occhi e il test non sa che passa ore fuori.",
+   "fonte": "AAD, Sunscreen FAQs (resistente all'acqua, riapplicare ogni 2 ore e dopo il sudore): https://www.aad.org/public/everyday-care/sun-protection/shade-clothing-sunscreen/sunscreen-faqs",
+   "domande": [
+    {
+     "azione": "nuova",
+     "id": "sole_giorno",
+     "area": "pelle",
+     "testo": "In un giorno normale, quanto tempo passi all'aperto, al sole?",
+     "opzioni": [
+      {
+       "id": "poco",
+       "testo": "Meno di un'ora",
+       "scelte": {
+        "sole": "poco"
+       }
+      },
+      {
+       "id": "medio",
+       "testo": "Da una a tre ore",
+       "scelte": {
+        "sole": "medio"
+       }
+      },
+      {
+       "id": "tanto",
+       "testo": "Più di tre ore, o faccio sport all'aperto",
+       "punti": {
+        "mac": 1
+       },
+       "scelte": {
+        "sole": "tanto"
+       }
+      }
+     ],
+     "aiuto": "Chi sta molto al sole ha bisogno di una protezione alta e resistente al sudore, e di riapplicarla."
+    },
+    {
+     "azione": "nuova",
+     "id": "sudore",
+     "area": "pelle",
+     "testo": "Sudi molto durante la giornata, per sport o per lavoro?",
+     "opzioni": [
+      {
+       "id": "no",
+       "testo": "Poco"
+      },
+      {
+       "id": "si",
+       "testo": "Sì, spesso",
+       "scelte": {
+        "sudore": true
+       }
+      }
+     ],
+     "aiuto": "Con il sudore servono texture leggere che non colano negli occhi, e una detersione dopo lo sport."
+    }
+   ],
+   "perche": "Oggi il sole è nel percorso integrazione (vitamina D), non nel viso. Con «sole: tanto» il passaggio protezione solare sceglie SPF 50 resistente all'acqua o in stick; con «sudore» texture fluide o gel. Due scelte nuove nel motore.",
+   "persona_test": {
+    "nome": "Marco, 29 anni",
+    "nota": "Sport all'aperto ogni giorno, suda",
+    "percorso": "viso",
+    "risposte": {
+     "genere": "uomo",
+     "eta": "25-34",
+     "tzona": "lucidi",
+     "guance": "normali",
+     "pori": "naso",
+     "tira": "un-po",
+     "spella": "mai",
+     "crema": "assorbe",
+     "nuovo": "niente",
+     "rossore": "breve",
+     "brufoli": "punti-neri",
+     "macchie": "qualcuna",
+     "sole_giorno": "tanto",
+     "sudore": "si",
+     "condizioni": [
+      "nessuna"
+     ],
+     "obiettivo": "idratazione",
+     "esperienza": "mai",
+     "barba": "elettrico",
+     "passi": "tre"
+    },
+    "atteso": {
+     "scelte": {
+      "sole": "tanto",
+      "sudore": true
+     }
+    }
+   }
+  },
+  {
+   "id": "cute-grassa-lunghezze-secche",
+   "nome": "Federica, 38 anni",
+   "bisogno": "Radici unte dopo un giorno, lunghezze colorate e secche. Lava i capelli ogni giorno. Il test oggi sceglie lo shampoo per la cute ma non sa quanto spesso lava né che capelli ha.",
+   "fonte": "AAD, Tips for healthy hair (shampoo sulla cute, balsamo sulle lunghezze): https://www.aad.org/public/everyday-care/hair-scalp-care/hair/healthy-hair-tips",
+   "domande": [
+    {
+     "azione": "nuova",
+     "id": "lavaggi",
+     "area": "cute",
+     "testo": "Quante volte a settimana lavi i capelli?",
+     "opzioni": [
+      {
+       "id": "ogni-giorno",
+       "testo": "Ogni giorno o quasi",
+       "scelte": {
+        "lavaggi": "spessi"
+       }
+      },
+      {
+       "id": "due-tre",
+       "testo": "Due o tre volte",
+       "scelte": {
+        "lavaggi": "medi"
+       }
+      },
+      {
+       "id": "una",
+       "testo": "Una volta o meno",
+       "scelte": {
+        "lavaggi": "rari"
+       }
+      }
+     ],
+     "aiuto": "Chi lava spesso ha bisogno di uno shampoo delicato, anche se la cute è grassa."
+    },
+    {
+     "azione": "nuova",
+     "id": "tipo_capelli",
+     "area": "cute",
+     "testo": "Come sono i tuoi capelli?",
+     "opzioni": [
+      {
+       "id": "lisci-fini",
+       "testo": "Lisci e fini",
+       "scelte": {
+        "capelli": "fini"
+       }
+      },
+      {
+       "id": "mossi",
+       "testo": "Mossi",
+       "scelte": {
+        "capelli": "mossi"
+       }
+      },
+      {
+       "id": "ricci",
+       "testo": "Ricci o crespi",
+       "punti": {
+        "lung": 1
+       },
+       "scelte": {
+        "capelli": "ricci"
+       }
+      }
+     ],
+     "aiuto": "Cambia il balsamo: leggero sui capelli fini, più nutriente su ricci e crespi."
+    }
+   ],
+   "perche": "È la combinazione più comune che il test oggi risolve a metà: dà lo shampoo per la cute grassa e un trattamento, ma non il balsamo giusto per le lunghezze. Con «lavaggi: spessi» lo shampoo diventa delicato per uso frequente; con «capelli» si sceglie la texture del balsamo o della maschera, da mettere solo dalle orecchie in giù.",
+   "persona_test": {
+    "nome": "Federica, 38 anni",
+    "nota": "Cute grassa, lunghezze colorate e secche, lava ogni giorno",
+    "percorso": "cute",
+    "risposte": {
+     "genere": "donna",
+     "eta": "35-44",
+     "cute_unta": "un-giorno",
+     "cute_tira": "bene",
+     "forfora": "no",
+     "caduta": "no",
+     "lunghezze": "crespe",
+     "trattamenti": "colore",
+     "lavaggi": "ogni-giorno",
+     "tipo_capelli": "mossi",
+     "condizioni_cute": [
+      "nessuna"
+     ],
+     "gravidanza": "no"
+    },
+    "atteso": {
+     "cute": "cute-grassa",
+     "tratti": [
+      "capelli-trattati"
+     ]
+    }
+   }
+  },
+  {
+   "id": "fototipo-scuro",
+   "nome": "Kofi, 30 anni",
+   "bisogno": "Pelle scura, segni scuri che restano mesi dopo ogni brufolo. Le solari minerali gli lasciano un velo bianco; gli acidi forti gli lasciano altre macchie. Il test oggi non sa il fototipo.",
+   "fonte": "AAD, Dark spots in skin of color (iperpigmentazione post-infiammatoria): https://www.aad.org/public/everyday-care/skin-care-secrets/routine/fade-dark-spots ; Wikipedia, Fitzpatrick scale: https://en.wikipedia.org/wiki/Fitzpatrick_scale",
+   "domande": [
+    {
+     "azione": "nuova",
+     "id": "fototipo",
+     "area": "pelle",
+     "testo": "Come reagisce la tua pelle al sole, senza protezione?",
+     "opzioni": [
+      {
+       "id": "I-II",
+       "testo": "Si scotta sempre, si abbronza poco o niente",
+       "scelte": {
+        "fototipo": "chiaro"
+       }
+      },
+      {
+       "id": "III-IV",
+       "testo": "A volte si scotta, poi si abbronza",
+       "scelte": {
+        "fototipo": "medio"
+       }
+      },
+      {
+       "id": "V-VI",
+       "testo": "Quasi mai si scotta; la pelle è già scura",
+       "scelte": {
+        "fototipo": "scuro"
+       }
+      }
+     ],
+     "aiuto": "È il fototipo. Ci dice quanto rischi di scottarti e quanto facilmente un brufolo o un'irritazione lasciano una macchia."
+    },
+    {
+     "azione": "nuova",
+     "id": "segni_brufoli",
+     "area": "pelle",
+     "testo": "Dopo un brufolo, resta un segno scuro?",
+     "se": [
+      {
+       "punti": "imp",
+       "da": 1
+      }
+     ],
+     "opzioni": [
+      {
+       "id": "no",
+       "testo": "No, o sparisce in pochi giorni"
+      },
+      {
+       "id": "settimane",
+       "testo": "Sì, per settimane",
+       "punti": {
+        "mac": 1
+       }
+      },
+      {
+       "id": "mesi",
+       "testo": "Sì, per mesi",
+       "punti": {
+        "mac": 2
+       }
+      }
+     ],
+     "aiuto": "Sono macchie post-infiammatorie: si attenuano con attivi delicati e con la protezione solare ogni giorno."
+    }
+   ],
+   "perche": "È l'identità del sito (Fototipi) e oggi non è una domanda. Con «fototipo: scuro» si preferiscono solari che non lasciano il velo bianco (filtri chimici o minerali colorati), attivi delicati per le macchie (niacinamide, azelaico, tranexamico) e si evitano gli esfolianti forti, che rischiano nuove macchie. Con «chiaro» la protezione solare sale in cima.",
+   "persona_test": {
+    "nome": "Kofi, 30 anni",
+    "nota": "Fototipo VI, segni scuri dopo i brufoli",
+    "percorso": "viso",
+    "risposte": {
+     "genere": "uomo",
+     "eta": "25-34",
+     "fototipo": "V-VI",
+     "tzona": "lucidi",
+     "guance": "normali",
+     "pori": "naso",
+     "tira": "bene",
+     "spella": "mai",
+     "crema": "assorbe",
+     "nuovo": "a-volte",
+     "rossore": "mai",
+     "brufoli": "a-volte",
+     "segni_brufoli": "mesi",
+     "macchie": "molte",
+     "condizioni": [
+      "nessuna"
+     ],
+     "obiettivo": "macchie",
+     "esperienza": "a-volte",
+     "barba": "regolabarba",
+     "passi": "quattro"
+    },
+    "atteso": {
+     "tratti": [
+      "macchie"
+     ],
+     "scelte": {
+      "fototipo": "scuro"
+     }
+    }
+   }
+  },
+  {
+   "id": "trucco-quotidiano",
+   "nome": "Chiara, 35 anni",
+   "bisogno": "Fondotinta e mascara waterproof tutti i giorni; la sera un solo detergente non basta e la pelle si chiude. Il test non chiede del trucco.",
+   "fonte": "AAD, How to wash your face (togliere il trucco prima di dormire): https://www.aad.org/public/everyday-care/skin-care-basics/care/face-washing-101",
+   "domande": [
+    {
+     "azione": "nuova",
+     "id": "trucco",
+     "area": "pelle",
+     "testo": "Ti trucchi o usi una protezione solare resistente all'acqua?",
+     "opzioni": [
+      {
+       "id": "no",
+       "testo": "Quasi mai"
+      },
+      {
+       "id": "leggero",
+       "testo": "Un trucco leggero, qualche volta"
+      },
+      {
+       "id": "ogni-giorno",
+       "testo": "Fondotinta o trucco resistente all'acqua, ogni giorno",
+       "scelte": {
+        "doppia_detersione": true
+       }
+      }
+     ],
+     "aiuto": "Il trucco a lunga tenuta e i solari resistenti all'acqua si tolgono meglio in due passaggi: un olio o un balsamo struccante, poi il detergente."
+    }
+   ],
+   "perche": "Aggiunge alla sera il passaggio «struccante» (olio, balsamo o micellare) prima del detergente solo a chi serve. Con la pelle grassa e acneica si sceglie uno struccante non comedogenico. Una scelta nuova e un passaggio nuovo.",
+   "persona_test": {
+    "nome": "Chiara, 35 anni",
+    "nota": "Trucco waterproof ogni giorno, pelle mista",
+    "percorso": "viso",
+    "risposte": {
+     "genere": "donna",
+     "eta": "35-44",
+     "tzona": "lucidi",
+     "guance": "normali",
+     "pori": "naso",
+     "tira": "un-po",
+     "spella": "mai",
+     "crema": "assorbe",
+     "nuovo": "niente",
+     "rossore": "mai",
+     "brufoli": "a-volte",
+     "macchie": "qualcuna",
+     "trucco": "ogni-giorno",
+     "condizioni": [
+      "nessuna"
+     ],
+     "gravidanza": "no",
+     "obiettivo": "pori",
+     "esperienza": "a-volte",
+     "passi": "quattro"
+    },
+    "atteso": {
+     "pelle": "pelle-mista",
+     "scelte": {
+      "doppia_detersione": true
+     }
+    }
+   }
+  }
+ ]
+}

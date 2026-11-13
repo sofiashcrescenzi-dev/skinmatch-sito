@@ -5,6 +5,7 @@ import { TEST, BIOTIPI, CREDITI, type Test, type Domanda, type Opzione, type Per
 import { consiglia, usaDati } from '@/lib/motore';
 import { useDocumento, useApi, invia, BarraSalva, Campo, Testo, Titolo, Vuoto, nuovoId, quando } from './base';
 import Condizioni from './Condizioni';
+import proposte from '@/data/proposte-domande.json';
 
 // L'ARCHITETTURA DEL TEST (15/10/2026): percorsi, domande e risposte con i loro effetti,
 // limiti da consulto, passaggi della routine. In fondo le persone tipo: girano sulla bozza,
@@ -194,6 +195,48 @@ function contesto(t: Test, percorso: string): string {
   return percorso;
 }
 
+// ⚠️ LE PERSONAS NUOVE (13/11/2026, Federico: «Domande: analizzare altre personas per domande più specifiche»). Zeno ha
+// studiato otto bisogni che il test oggi non vede (rasatura, over 65, adolescenti in cura, chi cerca una gravidanza, sport
+// all'aperto, cute grassa e lunghezze secche, pelle scura, trucco) e propone domande, risposte, punti e limiti, con la fonte.
+// Cambiano il metodo: si leggono qui, si decidono con Sofia, e solo allora si portano nel test (non c'è un «applica»).
+type PDomanda = { azione: string; id: string; testo: string; aiuto?: string; multipla?: boolean; se?: unknown; opzioni?: { id: string; testo: string; punti?: Record<string, number>; scelte?: Record<string, unknown>; esclusiva?: boolean; limite?: string }[] };
+type PPersona = { id: string; nome: string; bisogno: string; fonte?: string; perche?: string; domande: PDomanda[] };
+function Proposte() {
+  const ps = (proposte as unknown as { personas: PPersona[] }).personas || [];
+  if (!ps.length) return null;
+  const effetto = (o: NonNullable<PDomanda['opzioni']>[number]) => [
+    ...Object.entries(o.punti || {}).map(([k, v]) => `${k} ${v > 0 ? '+' : ''}${v}`),
+    ...Object.entries(o.scelte || {}).map(([k, v]) => `${k}: ${String(v)}`),
+    ...(o.limite ? [`limite: ${o.limite}`] : []), ...(o.esclusiva ? ['esclude le altre'] : []),
+  ].join(' · ');
+  return (
+    <details className="carta">
+      <summary style={{ cursor: 'pointer' }}><b>Proposte da rileggere · {ps.length} personas nuove</b> <span className="piccolo">· domande più specifiche, da decidere con Sofia</span></summary>
+      <div className="pila" style={{ ['--gap' as string]: '14px', marginTop: 12 }}>
+        <p className="piccolo">Otto bisogni che il test oggi non distingue. Ogni proposta dice cosa cambia (domanda nuova o che sostituisce una di oggi), cosa fa ogni risposta e la fonte. Non sono nel test: quando decidete, si portano nella bozza qui sotto.</p>
+        {ps.map((p) => (
+          <details key={p.id} className="carta" style={{ background: 'var(--velo)' }}>
+            <summary style={{ cursor: 'pointer' }}><b>{p.nome}</b> <span className="piccolo">· {p.domande.map((d) => `${d.id} (${d.azione})`).join(', ')}</span></summary>
+            <div className="pila" style={{ ['--gap' as string]: '10px', marginTop: 10 }}>
+              <p style={{ fontSize: 15 }}>{p.bisogno}</p>
+              {p.domande.map((d) => (
+                <div key={d.id} className="pila" style={{ ['--gap' as string]: '4px' }}>
+                  <span className="adm-etichetta">{d.azione === 'nuova' ? 'Domanda nuova' : d.azione === 'sostituisce' ? `Sostituisce «${d.id}»` : `Cambia «${d.id}»`}{d.multipla ? ' · più risposte' : ''}</span>
+                  <b>{d.testo}</b>
+                  <ul className="piccolo" style={{ margin: 0, paddingLeft: 18 }}>{(d.opzioni || []).map((o) => <li key={o.id}>{o.testo}{effetto(o) ? <span style={{ color: 'var(--muted)' }}> → {effetto(o)}</span> : null}</li>)}</ul>
+                  {d.aiuto && <span className="piccolo">Aiuto: {d.aiuto}</span>}
+                </div>
+              ))}
+              {p.perche && <p className="piccolo">{p.perche}</p>}
+              {p.fonte && <span className="piccolo">Fonte: {p.fonte}</span>}
+            </div>
+          </details>
+        ))}
+      </div>
+    </details>
+  );
+}
+
 function Riscritture({ t, metti }: { t: Test; metti: (x: Test) => void }) {
   const api = useApi<{ riscritture: Riscrittura[] }>('/api/admin/riscritture');
   const [note, setNote] = useState<Record<number, string>>({});
@@ -257,6 +300,7 @@ export default function Domande() {
   return (
     <div className="pila" style={{ ['--gap' as string]: '28px' }}>
       <Titolo sotto="I quattro percorsi, le domande e cosa fa ogni risposta: punti su un asse, una scelta, oppure il consulto. Le persone tipo in fondo girano su questa bozza: se una diventa «diversa», la modifica ha cambiato un risultato. Salva, poi Pubblica.">Le domande del test</Titolo>
+      <Proposte />
       <Riscritture t={t} metti={(x) => doc.setDati(x)} />
       <section className="pila" style={{ ['--gap' as string]: '10px' }}>
         <h2 className="titolo-3">I percorsi</h2>
