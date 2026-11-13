@@ -498,6 +498,318 @@
    "parole": [
     "zona T"
    ]
+  },
+  {
+   "id": "tranexamico",
+   "nome": "Acido tranexamico",
+   "categoria": "ingredienti",
+   "testo": "Un attivo che aiuta ad attenuare le macchie scure, anche quelle ormonali come il melasma. Nei cosmetici si usa di solito tra il 2 e il 5%; è ben tollerato.",
+   "parole": [
+    "acido tranexamico",
+    "tranexamico",
+    "TXA"
+   ],
+   "fonte": "https://dermnetnz.org/topics/tranexamic-acid",
+   "bozza": true
+  },
+  {
+   "id": "squalano",
+   "nome": "Squalano",
+   "categoria": "ingredienti",
+   "testo": "Un olio leggero, simile a un grasso che la pelle produce da sé. Ammorbidisce senza lasciare unto e chiude l'acqua nella pelle.",
+   "parole": [
+    "squalano",
+    "squalane"
+   ],
+   "fonte": "https://en.wikipedia.org/wiki/Squalane",
+   "bozza": true
+  },
+  {
+   "id": "bakuchiol",
+   "nome": "Bakuchiol",
+   "categoria": "ingredienti",
+   "testo": "Un estratto vegetale proposto come alternativa delicata al retinolo. In uno studio di 12 settimane ha dato risultati simili su rughe e macchie, con meno secchezza; le prove sono ancora poche.",
+   "parole": [
+    "bakuchiol"
+   ],
+   "fonte": "https://pubmed.ncbi.nlm.nih.gov/29947134/",
+   "bozza": true
+  },
+  {
+   "id": "arbutina",
+   "nome": "Alfa-arbutina",
+   "categoria": "ingredienti",
+   "testo": "Un attivo che rallenta la produzione di melanina e aiuta sulle macchie. In Europa nelle creme viso è ammessa fino al 2%.",
+   "parole": [
+    "alfa-arbutina",
+    "alpha-arbutin",
+    "arbutina"
+   ],
+   "fonte": "https://en.wikipedia.org/wiki/Arbutin",
+   "bozza": true
+  },
+  {
+   "id": "glicerina",
+   "nome": "Glicerina",
+   "categoria": "ingredienti",
+   "testo": "L'umettante più usato: attira l'acqua negli strati superficiali della pelle. È nei primi posti dell'INCI di quasi ogni crema, ed è un buon segno.",
+   "parole": [
+    "glicerina",
+    "glycerin"
+   ],
+   "fonte": "https://en.wikipedia.org/wiki/Glycerol",
+   "bozza": true
+  },
+  {
+   "id": "tensioattivi",
+   "nome": "Tensioattivi",
+   "categoria": "prodotti",
+   "testo": "Le sostanze che lavano: legano sebo e sporco all'acqua e li portano via. Alcuni sono forti (come i solfati), altri delicati (come i glucosidi).",
+   "parole": [
+    "tensioattivi",
+    "tensioattivo"
+   ],
+   "fonte": "https://en.wikipedia.org/wiki/Surfactant",
+   "bozza": true
+  },
+  {
+   "id": "emollienti",
+   "nome": "Emollienti",
+   "categoria": "prodotti",
+   "testo": "Ingredienti che riempiono gli spazi fra le cellule della superficie e rendono la pelle morbida e liscia: oli, burri, squalano, ceramidi.",
+   "parole": [
+    "emollienti",
+    "emolliente"
+   ],
+   "fonte": "https://en.wikipedia.org/wiki/Moisturizer",
+   "bozza": true
+  },
+  {
+   "id": "umettanti",
+   "nome": "Umettanti",
+   "categoria": "prodotti",
+   "testo": "Ingredienti che attirano e trattengono l'acqua: glicerina, acido ialuronico, urea, pantenolo. Servono soprattutto alla pelle disidratata.",
+   "parole": [
+    "umettanti",
+    "umettante"
+   ],
+   "fonte": "https://en.wikipedia.org/wiki/Moisturizer",
+   "bozza": true
+  },
+  {
+   "id": "occlusivi",
+   "nome": "Occlusivi",
+   "categoria": "prodotti",
+   "testo": "Ingredienti che fanno un velo sulla pelle e rallentano l'evaporazione dell'acqua, come la vaselina e le cere. Utili sulla pelle molto secca, pesanti su quella grassa.",
+   "parole": [
+    "occlusivi",
+    "occlusivo"
+   ],
+   "fonte": "https://en.wikipedia.org/wiki/Moisturizer",
+   "bozza": true
+  },
+  {
+   "id": "filtri-minerali",
+   "nome": "Filtri minerali",
+   "categoria": "prodotti",
+   "testo": "Ossido di zinco e biossido di titanio: filtri solari che riflettono e assorbono la luce. Sono spesso scelti per le pelli sensibili; possono lasciare un velo bianco.",
+   "parole": [
+    "filtri minerali",
+    "filtro minerale",
+    "filtri fisici",
+    "ossido di zinco",
+    "biossido di titanio"
+   ],
+   "fonte": "https://www.aad.org/public/everyday-care/sun-protection/shade-clothing-sunscreen/understand-sunscreen-labels",
+   "bozza": true
+  },
+  {
+   "id": "pa",
+   "nome": "PA (protezione UVA)",
+   "categoria": "prodotti",
+   "testo": "Il sistema giapponese e coreano per la protezione dagli UVA: da PA+ a PA++++, più crocette vuol dire più protezione. In Europa si usa il bollino UVA nel cerchio.",
+   "parole": [
+    "PA++++",
+    "PA+++",
+    "PA++",
+    "PA+"
+   ],
+   "fonte": "https://en.wikipedia.org/wiki/Sunscreen",
+   "bozza": true
+  },
+  {
+   "id": "ph-pelle",
+   "nome": "pH della pelle",
+   "categoria": "pelle",
+   "testo": "La superficie della pelle è leggermente acida, con un pH intorno a 5. Detergenti molto alcalini, come certi saponi, la spostano e possono seccarla.",
+   "parole": [
+    "pH della pelle",
+    "pH cutaneo",
+    "pH fisiologico"
+   ],
+   "fonte": "https://pubmed.ncbi.nlm.nih.gov/18489300/",
+   "bozza": true
+  },
+  {
+   "id": "fototipo",
+   "nome": "Fototipo",
+   "categoria": "pelle",
+   "testo": "Come reagisce la pelle al sole, in sei gradi (scala di Fitzpatrick): dal I, che si scotta sempre e non si abbronza, al VI, che non si scotta quasi mai. Conta per macchie e protezione solare.",
+   "parole": [
+    "fototipo",
+    "fototipi",
+    "scala di Fitzpatrick"
+   ],
+   "fonte": "https://en.wikipedia.org/wiki/Fitzpatrick_scale",
+   "bozza": true
+  },
+  {
+   "id": "melasma",
+   "nome": "Melasma",
+   "categoria": "condizioni",
+   "testo": "Macchie scure e simmetriche su fronte, guance e labbro superiore, legate agli ormoni (gravidanza, pillola) e al sole. Va riconosciuto da un medico; la protezione solare quotidiana è la base.",
+   "parole": [
+    "melasma",
+    "cloasma"
+   ],
+   "fonte": "https://dermnetnz.org/topics/melasma",
+   "bozza": true
+  },
+  {
+   "id": "acne",
+   "nome": "Acne",
+   "categoria": "condizioni",
+   "testo": "Una condizione dei follicoli con punti neri, brufoli e a volte noduli. Quella lieve si gestisce anche con i cosmetici giusti; noduli dolorosi o cicatrici vanno visti da un dermatologo.",
+   "parole": [
+    "acne",
+    "acneica",
+    "acneico"
+   ],
+   "fonte": "https://www.aad.org/public/diseases/acne",
+   "bozza": true
+  },
+  {
+   "id": "cheratosi-pilare",
+   "nome": "Cheratosi pilare",
+   "categoria": "condizioni",
+   "testo": "Piccoli puntini ruvidi su braccia e cosce, la «pelle di gallina» che non va via. È innocua; urea e acidi esfolianti la rendono più liscia.",
+   "parole": [
+    "cheratosi pilare"
+   ],
+   "fonte": "https://dermnetnz.org/topics/keratosis-pilaris",
+   "bozza": true
+  },
+  {
+   "id": "pseudofollicolite",
+   "nome": "Peli incarniti (pseudofollicolite)",
+   "categoria": "condizioni",
+   "testo": "Brufoletti e arrossamenti dove si rade, perché il pelo tagliato rientra nella pelle. Capita di più con la barba riccia; aiutano una rasatura nel verso del pelo ed esfolianti delicati.",
+   "parole": [
+    "peli incarniti",
+    "pelo incarnito",
+    "pseudofollicolite"
+   ],
+   "fonte": "https://dermnetnz.org/topics/pseudofolliculitis-barbae",
+   "bozza": true
+  },
+  {
+   "id": "telogen-effluvium",
+   "nome": "Telogen effluvium",
+   "categoria": "capelli",
+   "testo": "Una caduta diffusa che arriva due o tre mesi dopo uno stress per il corpo: febbre, parto, dieta drastica. Di solito si ferma da sola in qualche mese; se dura, va vista dal medico.",
+   "parole": [
+    "telogen effluvium",
+    "effluvio telogen"
+   ],
+   "fonte": "https://dermnetnz.org/topics/telogen-effluvium",
+   "bozza": true
+  },
+  {
+   "id": "alopecia-androgenetica",
+   "nome": "Alopecia androgenetica",
+   "categoria": "capelli",
+   "testo": "Il diradamento lento e progressivo, sulle tempie e in cima alla testa negli uomini, sulla riga nelle donne. È ereditario; le cure efficaci le prescrive il medico.",
+   "parole": [
+    "alopecia androgenetica",
+    "diradamento"
+   ],
+   "fonte": "https://dermnetnz.org/topics/male-pattern-hair-loss",
+   "bozza": true
+  },
+  {
+   "id": "zinco-piritione",
+   "nome": "Zinco piritione",
+   "categoria": "capelli",
+   "testo": "Un antiforfora usato per decenni negli shampoo. Dal marzo 2022 è vietato nei cosmetici venduti nell'Unione europea; oggi si usano piroctone olamina e altri attivi.",
+   "parole": [
+    "zinco piritione",
+    "zinc pyrithione"
+   ],
+   "fonte": "https://eur-lex.europa.eu/eli/reg/2021/1902/oj",
+   "bozza": true
+  },
+  {
+   "id": "vitamina-d",
+   "nome": "Vitamina D",
+   "categoria": "integrazione",
+   "testo": "Si forma nella pelle con il sole e serve a ossa, muscoli e difese. Chi sta poco all'aperto, soprattutto d'inverno, ne produce poca; quanto integrarne lo dicono le analisi e il medico.",
+   "parole": [
+    "vitamina D",
+    "colecalciferolo",
+    "D3"
+   ],
+   "fonte": "https://ods.od.nih.gov/factsheets/VitaminD-Consumer/",
+   "bozza": true
+  },
+  {
+   "id": "ferro",
+   "nome": "Ferro e ferritina",
+   "categoria": "integrazione",
+   "testo": "Il ferro porta l'ossigeno nel sangue; la ferritina dice quanto ne hai in riserva. Riserve basse possono accompagnare stanchezza e caduta dei capelli: si misurano con le analisi, prima di integrare.",
+   "parole": [
+    "ferro",
+    "ferritina"
+   ],
+   "fonte": "https://ods.od.nih.gov/factsheets/Iron-Consumer/",
+   "bozza": true
+  },
+  {
+   "id": "profumo",
+   "nome": "Profumo (parfum)",
+   "categoria": "prodotti",
+   "testo": "Nell'INCI è una parola sola, «parfum», ma può contenere molte sostanze. Gli allergeni più noti vanno scritti a parte; chi ha la pelle reattiva spesso sta meglio senza.",
+   "parole": [
+    "parfum",
+    "fragrance",
+    "profumo",
+    "allergeni"
+   ],
+   "fonte": "https://eur-lex.europa.eu/eli/reg/2023/1545/oj",
+   "bozza": true
+  },
+  {
+   "id": "pao",
+   "nome": "PAO (dopo l'apertura)",
+   "categoria": "prodotti",
+   "testo": "Il disegno del barattolo aperto con un numero e una M: «12M» vuol dire che il prodotto va usato entro 12 mesi da quando lo apri.",
+   "parole": [
+    "PAO",
+    "periodo dopo l'apertura"
+   ],
+   "fonte": "https://eur-lex.europa.eu/eli/reg/2009/1223/oj",
+   "bozza": true
+  },
+  {
+   "id": "patch-test",
+   "nome": "Prova su una piccola zona",
+   "categoria": "prodotti",
+   "testo": "Prima di usare un prodotto nuovo su tutto il viso, lo si mette due volte al giorno per 7-10 giorni su una zona piccola, come l'interno del gomito. Se arrossa, prude o si gonfia, non si usa.",
+   "parole": [
+    "prova su una piccola zona",
+    "patch test"
+   ],
+   "fonte": "https://www.aad.org/public/everyday-care/skin-care-secrets/prevent-skin-problems/test-skin-care-products",
+   "bozza": true
   }
  ]
 }
