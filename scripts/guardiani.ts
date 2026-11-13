@@ -8,7 +8,7 @@
 //
 // Uso: npx tsx scripts/guardiani.ts  (gira da solo prima di `next build`, vedi package.json)
 
-import { TEST, BIOTIPI, TAG_BIOTIPI, TERMINI, CATALOGO, ARTICOLI, NOZIONI, type Condizione } from '../src/lib/dati';
+import { TEST, BIOTIPI, TAG_BIOTIPI, TERMINI, TERMINI_TUTTI, CATALOGO, ARTICOLI, NOZIONI, type Condizione } from '../src/lib/dati';
 import { PRODOTTI, prodottoPerId, indirizzo } from '../src/lib/catalogo';
 import { consiglia, profiloDi, delicato } from '../src/lib/motore';
 import { PRODUCTS } from '../src/lib/products';
@@ -74,7 +74,7 @@ regola('nozioni troppo lunghe (titolo oltre 60, testo oltre 300 caratteri)', NOZ
 // /glossario#<termine>. Diciannove pause del test puntavano a /glossario/<termine>, che non esiste, e questa regola le
 // dava per buone: chi toccava «Approfondisci» a metà test finiva su una pagina d'errore. Ora ferma la pubblicazione.
 regola('approfondimenti verso pagine che non ci sono', NOZIONI.filter((n) => n.legame && !(
-  (n.legame.startsWith('/glossario#') && TERMINI.some((x) => x.id === n.legame!.slice('/glossario#'.length))) || (/^\/biotipi\/[^/#]+$/.test(n.legame) && BIOTIPI.some((x) => x.id === n.legame!.split('/')[2])))).map((n) => `${n.id}: ${n.legame}`), 'BLOCCA');
+  (n.legame.startsWith('/glossario#') && TERMINI_TUTTI.some((x) => x.id === n.legame!.slice('/glossario#'.length))) || (/^\/biotipi\/[^/#]+$/.test(n.legame) && BIOTIPI.some((x) => x.id === n.legame!.split('/')[2])))).map((n) => `${n.id}: ${n.legame}`), 'BLOCCA');
 
 console.log('La rivista');
 regola('articoli con indirizzi doppi', doppi(ARTICOLI.map((a) => a.slug)), 'BLOCCA');

@@ -119,7 +119,7 @@ export type Biotipo = {
 };
 export type TagBiotipo = { id: string; nome: string; area: Area | 'tutti' };
 
-export type Termine = { id: string; nome: string; categoria: string; testo: string; parole: string[]; video?: string };
+export type Termine = { id: string; nome: string; categoria: string; testo: string; parole: string[]; video?: string; bozza?: boolean; fonte?: string };
 
 export type RegolaProdotti = {
   categoria?: string;
@@ -187,7 +187,10 @@ export const BIOTIPI = (biotipi as unknown as { biotipi: Biotipo[] }).biotipi;
 export const DATA_METODO: string | null = [(test as { _versione?: string })._versione, (biotipi as { _versione?: string })._versione]
   .filter((x): x is string => !!x).sort().pop() || null;
 export const TAG_BIOTIPI = (biotipi as unknown as { tag: TagBiotipo[] }).tag;
-export const TERMINI = (glossario as unknown as { termini: Termine[] }).termini;
+// ⚠️ LE BOZZE NON VANNO ONLINE (13/11/2026): le voci nuove proposte da Zeno entrano con `bozza: true` e restano solo
+// nell'admin finché Sofia non le rilegge e le approva (admin › Glossario, «Approva»). TERMINI_TUTTI è per l'admin.
+export const TERMINI_TUTTI = (glossario as unknown as { termini: Termine[] }).termini;
+export const TERMINI = TERMINI_TUTTI.filter((t) => !t.bozza);
 export const CATALOGO = catalogo as unknown as Catalogo;
 export const ARTICOLI = ((rivista as unknown as { articoli: Articolo[] }).articoli || [])
   .slice()
@@ -202,7 +205,22 @@ export const conAttivo = (p: { scheda?: { attivi: { nome: string }[] } }, a: Att
 // sotto i prodotti che lo hanno»). L'articolo dice quale termine spiega (`approfondisce`, scelto in admin › Rivista):
 // si legge sotto quel termine e nelle pagine dei prodotti con l'attivo di quel termine (attivi.json → termine) o con
 // quel lavoro (caduta, forfora, macchie, pori, barriera), e in quelle dei prodotti che l'articolo cita.
-export const articoliDelTermine = (id: string) => ARTICOLI.filter((a) => a.approfondisce?.includes(id));
+// ⚠️ IL GLOSSARIO PORTA ALLA RIVISTA DA SOLO (13/11/2026, Federico: «glossario: integrare di più e collegarlo agli articoli
+// della Rivista»): prima l'articolo che approfondisce il termine, poi quelli che lo dichiarano nei loro termini, poi quelli
+// che lo nominano nel titolo, nel sommario o nel testo. Così un articolo nuovo compare sotto le sue parole senza lavoro a mano.
+const _parlaDi = (a: Articolo, t: Termine) => {
+  const testo = `${a.titolo} ${a.sommario} ${a.testo}`;
+  return t.parole.some((w) => {
+    const sigla = w.length <= 4 && w === w.toUpperCase();
+    const re = new RegExp(`(^|[^\\p{L}])${w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}($|[^\\p{L}])`, sigla ? 'u' : 'iu');
+    return re.test(testo);
+  });
+};
+export const articoliDelTermine = (id: string) => {
+  const t = TERMINI_TUTTI.find((x) => x.id === id);
+  const peso = (a: Articolo) => (a.approfondisce?.includes(id) ? 3 : a.termini?.includes(id) ? 2 : t && _parlaDi(a, t) ? 1 : 0);
+  return ARTICOLI.map((a) => [a, peso(a)] as const).filter(([, p]) => p > 0).sort((u, v) => v[1] - u[1]).map(([a]) => a);
+};
 export function articoliPerProdotto(p: { id: string; scheda?: { attivi: { nome: string }[]; principale?: { id: string } | null; lavoro?: string[] } }, quanti = 3): Articolo[] {
   const att = ATTIVI.filter((a) => conAttivo(p, a) && a.termine);
   const primo = att.find((a) => a.id === p.scheda?.principale?.id)?.termine;
@@ -252,8 +270,10 @@ export type Nozione = {
   fonte: string;
   fonte_nome: string;
   legame?: string;
+  bozza?: boolean; // proposta, non ancora riletta: solo in admin (13/11/2026)
 };
-export const NOZIONI = (nozioni as unknown as { nozioni: Nozione[] }).nozioni;
+export const NOZIONI_TUTTE = (nozioni as unknown as { nozioni: Nozione[] }).nozioni;
+export const NOZIONI = NOZIONI_TUTTE.filter((n) => !n.bozza);
 // ⚠️ SOLO DA LEGGERE (25/10/2026, Federico: «non devono essere altre scelte multiple o altri lavori da fare»): i quiz sono
 // diventati nozioni, e il tipo «quiz» non c'e piu.
 export const TIPO_NOZIONE: Record<Nozione['tipo'], string> = { 'lo-sapevi': 'Lo sapevi che…', storia: 'Un po\' di storia' };

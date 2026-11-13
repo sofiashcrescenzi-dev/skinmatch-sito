@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { TIPO_NOZIONE, immagine, type Nozione as N } from '@/lib/dati';
+import { TIPO_NOZIONE, TERMINI, immagine, type Nozione as N } from '@/lib/dati';
 import Foto from '@/components/Foto';
 
 // UNA NOZIONE (23/10/2026): la pausa del test e la carta della Rivista, «Lo sapevi che…».
@@ -19,7 +19,8 @@ export default function Nozione({ n, livello = 'h2', nuovaScheda = false }: { n:
       <p>{n.testo}</p>
       <p className="piccolo">
         Fonte: <a className="link" href={n.fonte} target="_blank" rel="noopener nofollow">{n.fonte_nome}</a>
-        {n.legame && <> · <Link className="link" href={n.legame} {...fuori}>Approfondisci</Link></>}
+        {/* un termine ancora in bozza non è nel glossario online: niente link a un'ancora che non c'è (13/11/2026) */}
+        {n.legame && !(n.legame.startsWith('/glossario#') && !TERMINI.some((t) => t.id === n.legame!.slice(11))) && <> · <Link className="link" href={n.legame} {...fuori}>Approfondisci</Link></>}
       </p>
     </article>
   );

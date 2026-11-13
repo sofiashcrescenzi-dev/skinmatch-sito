@@ -44,6 +44,11 @@ function Voce({ chiave, titolo, contenuto, ultima, poi, children }: { chiave: st
 
 export default function Revisioni() {
   const api = useApi<{ revisioni: Riga[] }>('/api/admin/revisioni');
+  // le proposte di glossario e nozioni (13/11/2026): si approvano nelle loro schede, qui si contano
+  const glo = useApi<{ ultimo: { dati: { termini: { bozza?: boolean }[] } } | null }>('/api/admin/documento?tipo=glossario');
+  const noz = useApi<{ ultimo: { dati: { nozioni: { bozza?: boolean }[] } } | null }>('/api/admin/documento?tipo=nozioni');
+  const bozzeGlo = glo.dati?.ultimo?.dati.termini.filter((t) => t.bozza).length || 0;
+  const bozzeNoz = noz.dati?.ultimo?.dati.nozioni.filter((n) => n.bozza).length || 0;
   // i biotipi da rivedere sono quelli dell'ultima versione salvata (anche non ancora online): il consiglio del medico
   // si approva prima di pubblicarlo
   const bozza = useApi<{ ultimo: { dati: { biotipi: Biotipo[] } } | null }>('/api/admin/documento?tipo=biotipi');
@@ -77,6 +82,13 @@ export default function Revisioni() {
       <Titolo sotto="Quello che va letto sale qui in cima da solo: i testi mai rivisti, quelli cambiati dopo la revisione e quelli rimandati. Un’approvazione vale per il testo che hai letto; sul sito compare con la prossima pubblicazione, e conta come revisione medica solo quella di Sofia.">Le revisioni</Titolo>
       <section className="pila" style={{ ['--gap' as string]: '10px' }}>
         <h2 className="titolo-3">Da rivedere ora{daFare.length ? ` · ${daFare.length}` : ''}</h2>
+        {(bozzeGlo > 0 || bozzeNoz > 0) && (
+          <div className="carta" style={{ display: 'flex', flexWrap: 'wrap', gap: 10, alignItems: 'center' }}>
+            <span style={{ flex: '1 1 240px' }}>Proposte nuove, non ancora online: {bozzeGlo > 0 && <><b>{bozzeGlo}</b> voci del glossario</>}{bozzeGlo > 0 && bozzeNoz > 0 ? ' e ' : ''}{bozzeNoz > 0 && <><b>{bozzeNoz}</b> nozioni</>}.</span>
+            {bozzeGlo > 0 && <a className="chip" href="/admin/glossario">Apri il glossario</a>}
+            {bozzeNoz > 0 && <a className="chip" href="/admin/nozioni">Apri le nozioni</a>}
+          </div>
+        )}
         {!daFare.length ? <Vuoto>Niente da rileggere: è tutto approvato.</Vuoto> : daFare.map(voce)}
       </section>
       {!!fatti.length && (

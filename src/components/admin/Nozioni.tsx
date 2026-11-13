@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { NOZIONI, TEST, TIPO_NOZIONE, type Nozione } from '@/lib/dati';
+import { NOZIONI_TUTTE, TEST, TIPO_NOZIONE, type Nozione } from '@/lib/dati';
 import { useDocumento, BarraSalva, Campo, Testo, Titolo, Vuoto, nuovoId } from './base';
 
 // LE NOZIONI (23/10/2026): le pause del test («Lo sapevi che…» e storie, solo da leggere) e la scheda della Rivista.
@@ -10,7 +10,8 @@ type Doc = { nozioni: Nozione[] };
 const TIPI = Object.keys(TIPO_NOZIONE) as Nozione['tipo'][];
 
 export default function Nozioni() {
-  const doc = useDocumento<Doc>('nozioni', { nozioni: NOZIONI });
+  const doc = useDocumento<Doc>('nozioni', { nozioni: NOZIONI_TUTTE });
+  const [soloBozze, setSoloBozze] = useState(false);
   const [q, setQ] = useState('');
   const g = doc.dati;
   if (doc.errore) return <Vuoto>Non riesco a leggere le nozioni: {doc.errore}</Vuoto>;
@@ -18,6 +19,7 @@ export default function Nozioni() {
   const metti = (i: number, n: Nozione) => doc.setDati({ nozioni: g.nozioni.map((x, j) => (j === i ? n : x)) });
   const cerca = q.trim().toLowerCase();
   const domanda = (id: string) => TEST.domande.find((d) => d.id === id)?.testo || id;
+  const bozze = g.nozioni.filter((n) => n.bozza).length;
   return (
     <div className="pila" style={{ ['--gap' as string]: '20px' }}>
       <Titolo sotto="Compaiono nel test dopo la domanda scelta, se dall'ultima pausa sono passate almeno due domande, e tutte insieme in /rivista/lo-sapevi-che. Testo breve, un fatto solo, sempre con la fonte: niente marche, niente promesse.">Le nozioni ({g.nozioni.length})</Titolo>
@@ -27,11 +29,19 @@ export default function Nozioni() {
           const titolo = prompt('Il titolo della nozione nuova'); if (!titolo) return;
           doc.setDati({ nozioni: [{ id: nuovoId(titolo, g.nozioni.map((n) => n.id)), tipo: 'lo-sapevi', dopo: TEST.domande[0].id, titolo, testo: '', fonte: '', fonte_nome: '' }, ...g.nozioni] });
         }}>+ nozione</button>
+        {bozze > 0 && <button type="button" className="chip" aria-pressed={soloBozze} onClick={() => setSoloBozze(!soloBozze)}>Da rileggere · {bozze}</button>}
       </div>
-      {g.nozioni.map((n, i) => (!cerca || `${n.titolo} ${n.testo} ${n.dopo}`.toLowerCase().includes(cerca)) && (
+      {bozze > 0 && <p className="piccolo">Le nozioni «da rileggere» sono proposte: nel test e nella Rivista non compaiono finché non le approvi.</p>}
+      {g.nozioni.map((n, i) => (!cerca || `${n.titolo} ${n.testo} ${n.dopo}`.toLowerCase().includes(cerca)) && (!soloBozze || n.bozza) && (
         <details key={n.id} className="carta" open={!n.testo}>
-          <summary><b>{n.titolo}</b> <span className="piccolo">· {TIPO_NOZIONE[n.tipo]} · dopo «{domanda(n.dopo)}»</span></summary>
+          <summary><b>{n.titolo}</b> <span className="piccolo">· {TIPO_NOZIONE[n.tipo]} · dopo «{domanda(n.dopo)}»</span>{n.bozza && <span className="piccolo" style={{ color: 'var(--attenzione)', fontWeight: 700 }}> · da rileggere</span>}</summary>
           <div className="pila" style={{ ['--gap' as string]: '10px', marginTop: 10 }}>
+            {n.bozza && (
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, alignItems: 'center', background: 'var(--attenzione-tenue)', borderRadius: 10, padding: '8px 12px' }}>
+                <span className="piccolo" style={{ flex: '1 1 220px' }}>Proposta da Zeno, con la fonte qui sotto. Non è online.</span>
+                <button type="button" className="chip" onClick={() => metti(i, { ...n, bozza: undefined })}>Approva</button>
+              </div>
+            )}
             <div className="adm-due">
               <Campo etichetta="Tipo"><select className="adm-input" value={n.tipo} onChange={(e) => metti(i, { ...n, tipo: e.target.value as Nozione['tipo'] })}>{TIPI.map((t) => <option key={t} value={t}>{TIPO_NOZIONE[t]}</option>)}</select></Campo>
               <Campo etichetta="Dopo la domanda"><select className="adm-input" value={n.dopo} onChange={(e) => metti(i, { ...n, dopo: e.target.value })}>{TEST.domande.map((d) => <option key={d.id} value={d.id}>{d.testo}</option>)}</select></Campo>
