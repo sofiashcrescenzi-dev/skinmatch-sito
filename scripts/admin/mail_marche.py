@@ -96,8 +96,16 @@ def scelte(args):
         righe = [m for m in righe if (m.get('stato') or '') not in GIA_SCRITTE]
     if args.gruppo:
         righe = [m for m in righe if m['gruppo'] == args.gruppo]
-    righe = [m for m in righe if primo_indirizzo(m['email'])]
-    return righe[: args.max] if args.max else righe
+    # niente PEC (una mail normale verso una PEC di solito torna indietro: Bioderma) e un indirizzo una volta sola
+    # (Cantabria Labs e Heliocare scrivono allo stesso servizio clienti): 14/11/2026
+    visti, tenute = set(), []
+    for m in righe:
+        a = (primo_indirizzo(m['email']) or '').lower()
+        if not a or re.search(r'@(pec\.|legalmail\.|postacert\.)|\.pec\.', a) or a in visti:
+            continue
+        visti.add(a)
+        tenute.append(m)
+    return tenute[: args.max] if args.max else tenute
 
 
 def entra_imap(da, pw):
