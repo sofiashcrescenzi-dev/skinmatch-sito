@@ -45,6 +45,68 @@ function ParereZeno({ m }: { m: M }) {
     </section>
   );
 }
+// ⚠️ LA MAIL AI BRAND (14/11/2026, Federico: «preparare una mail da mandare ai vari brand… capire come puoi mandarmele tu
+// nella maniera più veloce dalla mia mail»). «Scrivi» apre la posta di chi guarda con la mail già pronta: italiano per le
+// marche italiane, inglese per le altre; per quelle già nel catalogo dice che ci sono già. Sofia compare solo come chi
+// rivede il metodo: un medico non promuove prodotti (vedi chi-siamo/page.tsx), e l'ordine nel test non si compra.
+const italiana = (m: M) => /\.it(\/|$)|\/it([-/]|$)/i.test(m.sito || '') || /\.it$/i.test(m.email || '') || /itali/i.test(m.origine || '');
+function mailPer(m: Pick<M, 'marca' | 'gruppo' | 'sito' | 'email' | 'origine'>) {
+  const gia = m.gruppo === 'Nel catalogo';
+  if (italiana(m as M)) return {
+    oggetto: `${m.marca} e Skinmatch: una collaborazione`,
+    corpo: [
+      'Buongiorno,', '',
+      'sono Federico Greco di Skinmatch (skinmatch.it). Abbiamo costruito un test della pelle gratuito: in circa tre minuti propone una routine su misura, con i prodotti adatti al biotipo e i passaggi nell’ordine giusto. Il metodo lo rivede la dr.ssa Sofia Crescenzi, medico estetico.', '',
+      gia ? `I prodotti ${m.marca} sono già nel nostro catalogo: compaiono nelle routine quando sono adatti alla pelle di chi fa il test, con l’INCI letto attivo per attivo.`
+        : `Ci piacerebbe avere anche i prodotti ${m.marca} nel nostro catalogo: compaiono nelle routine solo quando sono adatti alla pelle di chi fa il test, con l’INCI letto attivo per attivo.`, '',
+      'Vi scrivo per capire se possiamo collaborare. Per esempio:',
+      '- schede più complete (INCI, percentuali degli attivi, formati), così i prodotti arrivano alle persone giuste;',
+      '- campioni da provare per gli articoli della nostra Rivista;',
+      '- un programma di affiliazione, diretto o su una rete come Awin o Adtraction.', '',
+      'Per chiarezza: nel test l’ordine dei prodotti non si compra, dipende solo dalla pelle di chi risponde.', '',
+      'Se non è il contatto giusto, mi può indicare a chi scrivere?', '',
+      'Grazie e buona giornata,', 'Federico Greco', 'Skinmatch · skinmatch.it',
+    ].join('\n'),
+  };
+  return {
+    oggetto: `${m.marca} x Skinmatch: a collaboration`,
+    corpo: [
+      'Hello,', '',
+      'I’m Federico Greco from Skinmatch (skinmatch.it), an Italian skincare platform. We built a free skin test: in about three minutes it suggests a personal routine, with products suited to the skin type and the steps in the right order. The method is reviewed by Dr Sofia Crescenzi, an aesthetic physician.', '',
+      gia ? `${m.marca} products are already in our catalogue: they appear in routines when they suit the person taking the test, with the INCI read active by active.`
+        : `We would like to include ${m.marca} products in our catalogue: they appear in routines only when they suit the person taking the test, with the INCI read active by active.`, '',
+      'We’d love to explore a collaboration, for example:',
+      '- fuller product data (INCI, active percentages, sizes), so your products reach the right people;',
+      '- samples to try for articles in our magazine;',
+      '- an affiliate programme, direct or through a network such as Awin or Adtraction.', '',
+      'To be clear: the order of products in the test can’t be bought; it depends only on the user’s skin.', '',
+      'If you’re not the right contact, could you point me to the right person?', '',
+      'Thank you,', 'Federico Greco', 'Skinmatch · skinmatch.it',
+    ].join('\n'),
+  };
+}
+const mailto = (m: M) => { const x = mailPer(m); return `mailto:${m.email}?subject=${encodeURIComponent(x.oggetto)}&body=${encodeURIComponent(x.corpo)}`; };
+function LaMail() {
+  const [msg, setMsg] = useState('');
+  const esempi: [string, M][] = [['Italiano', { marca: 'NomeMarca', gruppo: 'Nel catalogo', sito: 'https://x.it', email: null, origine: null } as M], ['English', { marca: 'BrandName', gruppo: 'Potenziali', sito: 'https://x.com', email: null, origine: null } as M]];
+  const copia = async (m: M) => { const x = mailPer(m); try { await navigator.clipboard.writeText(`${x.oggetto}\n\n${x.corpo}`); setMsg('Testo copiato.'); } catch { setMsg('Copia non riuscita.'); } };
+  return (
+    <details className="carta">
+      <summary style={{ cursor: 'pointer' }}><b>La mail ai brand</b> <span className="piccolo">· «Scrivi» la apre già pronta, col nome della marca</span></summary>
+      <div className="pila" style={{ ['--gap' as string]: '12px', marginTop: 12 }}>
+        <p className="piccolo">Italiano per le marche con sito o email italiani, inglese per le altre. Alle marche già nel catalogo dice che ci sono già; alle altre che vorremmo averle. Dopo l’invio, «Contattata» segna lo stato e la data.</p>
+        {esempi.map(([n, m]) => { const x = mailPer(m); return (
+          <div key={n} className="pila" style={{ ['--gap' as string]: '6px' }}>
+            <span className="adm-etichetta">{n}</span>
+            <pre style={{ whiteSpace: 'pre-wrap', fontFamily: 'inherit', fontSize: 14.5, lineHeight: 1.5, background: 'var(--velo)', borderRadius: 12, padding: '12px 14px', margin: 0 }}><b>{x.oggetto}</b>{'\n\n'}{x.corpo}</pre>
+            <div><button type="button" className="chip" onClick={() => copia(m)}>Copia il testo</button></div>
+          </div>
+        ); })}
+        {msg && <span className="piccolo" role="status">{msg}</span>}
+      </div>
+    </details>
+  );
+}
 const STATI: [string, string][] = [['da_studiare', 'Da studiare'], ['da_contattare', 'Da contattare'], ['contattata', 'Contattata'], ['risposto', 'Ha risposto'], ['decisa', 'Decisa']];
 const nomeStato = (s: string) => STATI.find(([k]) => k === s)?.[1] || s;
 
@@ -81,7 +143,8 @@ function Riga({ m, poi }: { m: M; poi: () => void }) {
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, alignItems: 'center' }}>
           <input className="adm-input" style={{ flex: '1 1 220px' }} value={email} onChange={(e) => setEmail(e.target.value)} placeholder="email da contattare" aria-label={`Email di ${m.marca}`} />
           {email !== (m.email || '') && <button type="button" className="chip" onClick={() => salva({ email: email.trim() || null })}>Salva email</button>}
-          {m.email && <><button type="button" className="chip" onClick={copia}>Copia</button><a className="chip" href={`mailto:${m.email}`}>Scrivi</a></>}
+          {m.email && <><button type="button" className="chip" onClick={copia}>Copia</button><a className="chip" href={mailto(m)} title="Apre la posta con la mail ai brand già pronta">Scrivi</a>
+            {m.stato !== 'contattata' && m.stato !== 'risposto' && <button type="button" className="chip" onClick={() => salva({ stato: 'contattata', note: `${note ? note + '\n' : ''}Scritta il ${new Date().toLocaleDateString('it-IT')}.` })}>Contattata</button>}</>}
         </div>
         {(m.email_fonte || m.sito || m.contatto_nota) && (
           <span className="piccolo">
@@ -170,6 +233,7 @@ export default function Marche() {
         <span className="piccolo" style={{ alignSelf: 'center' }}>Zeno consiglia:</span>
         {Object.entries(CONSIGLI).map(([k, c]) => { const n = tutte.filter((m) => m.zeno_consiglio === k).length; return n ? <button key={k} type="button" className="chip" aria-pressed={consiglio === k} onClick={() => setConsiglio(consiglio === k ? '' : k)}>{c.nome} · {n}</button> : null; })}
       </div>
+      <LaMail />
       <Nuova gruppi={gruppi} poi={api.ricarica} />
       {api.errore && <Vuoto>Non riesco a leggere le marche: {api.errore}</Vuoto>}
       {!api.caricando && !tutte.length && <Vuoto>Ancora nessuna marca.</Vuoto>}
