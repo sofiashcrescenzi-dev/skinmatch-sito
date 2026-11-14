@@ -171,9 +171,9 @@
    "attivo": true,
    "spedizione": {
     "costo": null,
-    "gratis_da": null,
+    "gratis_da": 60,
     "tempi": "",
-    "nota": "Da verificare: il sito non si lascia leggere in automatico e il feed non riporta la spedizione."
+    "nota": "Consegna espressa gratis da 60 € (striscia della home, 14/11/2026); sotto i 60 € il costo si vede alla cassa."
    },
    "codici": [],
    "nota": "Awin, programma 62723 (50 ml IT), 6-12% dall'API Awin (14/11/2026); approva solo il 42% delle vendite. Profumeria di nicchia e cosmesi: da qui Institut Esthederm, Bakel e Dermalogica, che avevamo deciso e non trovavamo, più alcune K-beauty. Prodotti scelti uno per uno (FEED_CINQUANTAML)."
