@@ -138,22 +138,27 @@ def main():
         return
 
     accesso, da, pw = segreti()
-    c, smtp_host = entra_imap(accesso, pw)
     if args.azione == 'prova':
-        bozze = cartella_bozze(c)
-        c.logout()
+        # IMAP serve solo per le bozze; l'invio passa da SMTP (14/11/2026: IMAP era spento sull'account)
+        try:
+            c, smtp_host = entra_imap(accesso, pw)
+            bozze = cartella_bozze(c)
+            c.logout()
+            stato_imap = f'IMAP ok, cartella delle bozze «{bozze}»'
+        except SystemExit as e:
+            smtp_host, stato_imap = SERVER[0][1], f'IMAP no: {e}'
         with smtplib.SMTP_SSL(smtp_host, 465, context=ssl.create_default_context()) as s:
             s.login(accesso, pw)
-        print(f'Zoho ok: IMAP e SMTP entrano ({smtp_host}), si scrive come {da}, cartella delle bozze «{bozze}». Nessuna mail mandata.')
+        print(f'Zoho: SMTP ok ({smtp_host}), si scrive come {da}. {stato_imap}. Nessuna mail mandata.')
         return
 
     righe = scelte(args)
     if not righe:
-        c.logout()
         print('Nessuna marca da scrivere con questi filtri.')
         return
 
     if args.azione == 'bozze':
+        c, _ = entra_imap(accesso, pw)
         bozze = cartella_bozze(c)
         for m in righe:
             c.append(bozze, '(\\Draft)', imaplib.Time2Internaldate(time.time()), messaggio(m, da).as_bytes())
@@ -162,11 +167,10 @@ def main():
         print(f'{len(righe)} bozze in «{bozze}». Si rileggono e si mandano da Zoho; poi «Contattata» in admin › Marche.')
         return
 
-    c.logout()
     if not args.si or not args.marche:
         sys.exit('«invia» manda davvero: servono --marche con gli id scelti e --si (il sì di Federico).')
     oggi = date.today().strftime('%d/%m/%Y')
-    with smtplib.SMTP_SSL(smtp_host, 465, context=ssl.create_default_context()) as s:
+    with smtplib.SMTP_SSL(SERVER[0][1], 465, context=ssl.create_default_context()) as s:
         s.login(accesso, pw)
         for i, m in enumerate(righe):
             if i:
