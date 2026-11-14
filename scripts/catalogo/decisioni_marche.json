@@ -1881,6 +1881,30 @@
    "decisione": "no",
    "nota": "Federico, 30/10, pagina del punto: di profumeria, soprattutto corpo e snellenti",
    "linee": []
+  },
+  {
+   "marca": "Swisscare",
+   "segmento": "Naturale e clean",
+   "proposta": "selezione",
+   "decisione": "si",
+   "nota": "Nahrin, Adtraction 11%. 14/11/2026, Federico: «analizziamo i nuovi affiliati… prendiamo tutto quello che ci può interessare»: prodotti scelti uno per uno da Claude (decisioni_negozi.json); mai «caduta dei capelli»: nessuna prova pubblicata (come Nioxin)",
+   "linee": [],
+   "prodotti_uno_per_uno": true,
+   "senza_bisogni": [
+    "caduta"
+   ]
+  },
+  {
+   "marca": "Cocunat",
+   "segmento": "Naturale e clean",
+   "proposta": "selezione",
+   "decisione": "si",
+   "nota": "Cocunat, Adtraction 10%. 14/11/2026, Federico: «analizziamo i nuovi affiliati… prendiamo tutto quello che ci può interessare»: prodotti scelti uno per uno da Claude (decisioni_negozi.json); mai «caduta dei capelli»: nessuna prova pubblicata (come Nioxin)",
+   "linee": [],
+   "prodotti_uno_per_uno": true,
+   "senza_bisogni": [
+    "caduta"
+   ]
   }
  ]
 }

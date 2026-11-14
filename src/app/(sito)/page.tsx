@@ -49,7 +49,7 @@ const ROUTINE: [string, string, string, string][] = [
   ['creme', 'Crema', 'mattina e sera', 'Chiude l’idratazione e protegge la barriera; la texture si sceglie sul sebo.'],
   ['solari', 'Protezione solare', 'ogni mattina, per ultima', 'Il passaggio che previene di più macchie e segni del tempo, tutto l’anno.'],
 ];
-const ALTRO = ['shampoo', 'capelli', 'barba', 'integratori', 'cerotti'];
+const ALTRO = ['maschere', 'occhi', 'cerotti', 'shampoo', 'capelli', 'barba', 'integratori'];
 const IN_HOME = ['niacinamide', 'retinoidi', 'vitamina-c', 'aha-pha', 'salicilico', 'azelaico', 'ialuronico', 'ceramidi'];
 
 export default function Home() {

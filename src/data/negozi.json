@@ -102,6 +102,36 @@
    },
    "codici": [],
    "nota": "Awin, programma 113792 (Clubfarma IT), 7% dall'API Awin (30/10/2026). Il feed Awin è fermo al 05/06/2026: i prezzi si leggono sulle pagine del negozio una volta al mese (scripts/catalogo/prezzi_pagine.py, Federico 30/10) e valgono 40 giorni; senza prezzo controllato il prodotto non va sul sito. Entra solo con i prodotti scelti uno per uno; nel confronto con gli altri negozi conta anche la spedizione."
+  },
+  {
+   "id": "nahrin",
+   "nome": "Nahrin",
+   "rete": "Adtraction",
+   "commissione": 11,
+   "attivo": true,
+   "spedizione": {
+    "costo": null,
+    "gratis_da": null,
+    "tempi": "",
+    "nota": "Da verificare sul sito del negozio."
+   },
+   "codici": [],
+   "nota": "Approvato su Adtraction per il canale di Skinmatch (14/11/2026), 11%. Monomarca Swisscare: entrano solo i prodotti scelti uno per uno (decisioni_negozi.json)."
+  },
+  {
+   "id": "cocunat",
+   "nome": "Cocunat",
+   "rete": "Adtraction",
+   "commissione": 10,
+   "attivo": true,
+   "spedizione": {
+    "costo": null,
+    "gratis_da": null,
+    "tempi": "",
+    "nota": "Da verificare sul sito del negozio."
+   },
+   "codici": [],
+   "nota": "Approvato su Adtraction per il canale di Skinmatch (14/11/2026), 10%. Monomarca: entrano solo i prodotti scelti uno per uno (decisioni_negozi.json)."
   }
  ]
 }

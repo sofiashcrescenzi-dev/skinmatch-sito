@@ -190,6 +190,114 @@ def beautycos(file=None):
         }
 
 
+# NAHRIN E COCUNAT (14/11/2026, Federico: «analizziamo i nuovi affiliati partendo da skinmatch. Prendiamo tutto quello
+# che ci può interessare»). Due negozi monomarca su Adtraction, approvati per il canale di Skinmatch: Nahrin (Swisscare,
+# erboristeria svizzera, 11%) e Cocunat (clean beauty spagnola, 10%). Come le altre marche aperte dopo il 15/10 entrano
+# solo i prodotti scelti uno per uno (decisioni_negozi.json): le scelte le ha fatte Claude su mandato del PO.
+_NH_PELLE = {'UPPERSKIN': 'Upperskin', 'URBAN AGE': 'Urban Age', 'URBAN HYDRA': 'Urban Hydra', 'RINOVA DERM': 'Rinova Derm',
+             'TRATTAMENTI': None, 'SOLARI E BENESSERE ESTIVO': None, 'BENESSERE PELLE UNGHIE CAPELLI': None, 'CAPELLI': None}
+_SIGLE = {'AHA', 'BHA', 'PHA', 'SPF', 'UV', 'UVA', 'UVB', 'C'}
+
+
+# i nomi dei prodotti scelti, scritti perché dicano cosa sono («The Glow», «Savior» non lo dicono): il test e il
+# catalogo riconoscono il passaggio dal nome (traduci.PASSAGGI)
+_TITOLI_NUOVI = {
+ "nh-580": "Crema detergente viso",
+ "nh-899": "Struccante 3 in 1",
+ "nh-581": "Upperskin tonico viso",
+ "nh-592": "Upperskin siero viso",
+ "nh-591": "Upperskin siero illuminante",
+ "nh-584": "Upperskin crema viso",
+ "nh-583": "Upperskin maschera viso in stick",
+ "nh-589": "Maschera viso anti-age",
+ "nh-586": "Peeling viso",
+ "nh-700": "Rinova Derm crema viso",
+ "nh-701": "Rinova Derm contorno occhi",
+ "nh-703": "Rinova Derm Hilift siero viso",
+ "nh-721": "Urban Age Helix crema viso",
+ "nh-596": "Urban Age Baume crema viso",
+ "nh-588": "Urban Age siero viso booster rigenerante",
+ "nh-656": "Urban Age siero SPF 50+",
+ "nh-590": "Urban Hydra siero all'acido ialuronico",
+ "nh-582": "Urban Hydra 24h crema viso",
+ "nh-657": "Crema solare SPF 30",
+ "nh-655": "Crema solare SPF 50+",
+ "nh-531": "Shampoo Soft",
+ "nh-533": "Shampoo Balance",
+ "nh-534": "Balsamo per capelli",
+ "nh-538": "Hair Activator lozione per capelli",
+ "nh-539": "Micro-Kap fiale per capelli",
+ "nh-186": "Hair & Nails integratore",
+ "nh-187": "Nahroderm integratore",
+ "nh-170": "Integratore Collagen Complex",
+ "cn-41955065397413": "Schiuma detergente Detox",
+ "cn-41955158589605": "Pamper Gel detergente viso",
+ "cn-41955149185189": "Latte detergente totale",
+ "cn-52847487779162": "Acqua micellare 3 in 1",
+ "cn-41955159605413": "Crema idratante anti-età",
+ "cn-41955190964389": "Crema idratante per pelli miste e grasse",
+ "cn-41955070509221": "The Absolute crema anti-età",
+ "cn-41955113762981": "The Cure olio viso con bakuchiol",
+ "cn-42146594324645": "The Real C Clinical siero alla vitamina C, 30 perle",
+ "cn-42112827424933": "The Real C Clinical siero alla vitamina C, 60 perle",
+ "cn-47904968409434": "Clinical Retinal 0.1 siero notte",
+ "cn-48332437094746": "Esfoliante notte Clinical AHA Complex 10%",
+ "cn-52088939217242": "Clinical Exosomes siero",
+ "cn-49980836381018": "Clinical Molecular Therapy crema rassodante viso",
+ "cn-41955100524709": "Contorno occhi alla caffeina",
+ "cn-47301188845914": "The Architect contorno occhi",
+ "cn-48269393330522": "The Lift siero contorno occhi",
+ "cn-41955059859621": "Wondermask maschera viso",
+ "cn-41955092463781": "Shampoo Pure",
+ "cn-41955103703205": "Shampoo Rich",
+ "cn-41955066020005": "Balsamo Pure per capelli",
+ "cn-41955058876581": "Balsamo Rich per capelli"
+}
+
+
+def _adtraction_xml(negozio, prefisso, nome_feed, file=None):
+    import xml.etree.ElementTree as ET
+    sorgente = file or segreto(nome_feed)
+    if not sorgente:
+        raise SystemExit(f'Manca il feed di {negozio}: {nome_feed} in ~/.skinmatch-segreti.env, oppure --file')
+    for p in ET.fromstring(_testo(sorgente)).findall('product'):
+        if (p.findtext('Instock') or '').lower() not in ('yes', 'true', '1', 'in stock'):
+            continue
+        prezzo, pieno = _prezzo(p.findtext('Price')), _prezzo(p.findtext('OriginalPrice'))
+        yield p, {
+            'negozio': negozio, 'id': p.findtext('SKU'), 'descrizione': pulito(p.findtext('Description')), 'prezzo': prezzo,
+            'prezzo_pieno': pieno if pieno and prezzo and pieno > prezzo else None, 'gtin': (p.findtext('Ean') or '').strip() or None,
+            'immagine': p.findtext('ImageUrl'), 'link': canale_skinmatch(p.findtext('TrackingUrl')), 'misura_feed': None, 'prefisso': prefisso,
+            'categoria_negozio': (p.findtext('Category') or '').strip(), 'url_negozio': p.findtext('ProductUrl'),
+        }
+
+
+def nahrin(file=None):
+    """Nahrin (Adtraction, XML): solo le linee viso, i solari, i trattamenti, i capelli e gli integratori per pelle e
+    capelli; condimenti, casa, tisane e il resto non sono per Skinmatch. I nomi sono generici («Crema viso»): davanti
+    va la linea («Rinova Derm Crema viso»), se il nome non la dice già."""
+    for p, r in _adtraction_xml('Nahrin', 'nh', 'FEED_NAHRIN', file):
+        cat = r['categoria_negozio'].upper()
+        if cat not in _NH_PELLE:
+            continue
+        nome = pulito(p.findtext('Name')).replace('®', '')
+        linea = _NH_PELLE[cat]
+        if linea and linea.lower() not in nome.lower():
+            nome = f'{linea} {nome[:1].lower() + nome[1:]}'
+        yield {**r, 'titolo': _TITOLI_NUOVI.get(f"nh-{r['id']}") or corretto(nome), 'marca': 'Swisscare'}
+
+
+def cocunat(file=None):
+    """Cocunat (Adtraction, XML, senza categorie): i titoli in maiuscolo si scrivono normali, le sigle restano."""
+    for p, r in _adtraction_xml('Cocunat', 'cn', 'FEED_COCUNAT', file):
+        nome = pulito(p.findtext('Name'))
+        if nome.isupper():
+            nome = ' '.join(w if w in _SIGLE or not w.isalpha() else w.capitalize() for w in nome.split())
+        if re.search(r'gift ?card', nome, re.I):
+            continue
+        yield {**r, 'titolo': _TITOLI_NUOVI.get(f"cn-{r['id']}") or corretto(nome), 'marca': 'Cocunat'}
+
+
 # Astonfarma (23/10/2026, Federico: «aggiungili pure ma manteniamo un alto livello di dettaglio»): farmacia
 # generalista su Awin, unita a Skinmatch (programma 29949). Il feed lo scarica la chiave di Agoranomos; il link si
 # rifà con l'ID publisher di Skinmatch (AWIN_PUBLISHER_ID), così la vendita è di Skinmatch. Entrano solo le marche

@@ -49,6 +49,22 @@
    "descrizione": "Retinoidi, acidi e trattamenti della sera, da introdurre piano."
   },
   {
+   "id": "maschere",
+   "nome": "Maschere viso",
+   "regola": {
+    "categoria": "maschere"
+   },
+   "descrizione": "Un passaggio in più, una o due volte a settimana: maschere all’argilla per il sebo, idratanti e da notte. Non sostituiscono la crema."
+  },
+  {
+   "id": "occhi",
+   "nome": "Contorno occhi e patch",
+   "regola": {
+    "categoria": "occhi"
+   },
+   "descrizione": "Creme e sieri per la pelle sottile intorno agli occhi, e patch da tenere qualche minuto su occhiaie e borse."
+  },
+  {
    "id": "cerotti",
    "nome": "Cerotti per brufoli",
    "regola": {

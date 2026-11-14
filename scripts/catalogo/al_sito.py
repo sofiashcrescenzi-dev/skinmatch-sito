@@ -28,7 +28,9 @@ R = Path(__file__).resolve().parents[2]
 QUANTI = {'si': 5, 'selezione': 4, 'alternativa': 3}
 # i passaggi delle schede che il sito usa, con la categoria del catalogo (src/data/catalogo.json)
 CATEGORIA = {'detergente': 'detergenti', 'siero': 'sieri', 'esfoliante': 'attivi', 'crema': 'creme', 'spf': 'creme',
-             'shampoo': 'shampoo', 'trattamento cute': 'capelli', 'balsamo e maschera capelli': 'capelli', 'barba': 'barba', 'integratore': 'integratori', 'cerotti': 'cerotti'}
+             'shampoo': 'shampoo', 'trattamento cute': 'capelli', 'balsamo e maschera capelli': 'capelli', 'barba': 'barba', 'integratore': 'integratori', 'cerotti': 'cerotti',
+             # 14/11/2026: le maschere e il contorno occhi (con le patch) entrano nel catalogo, non nella routine del test
+             'maschera': 'maschere', 'contorno occhi': 'occhi'}
 BISOGNO = {'idratazione': 'idratazione', 'imperfezioni': 'acne-sebo', 'macchie': 'macchie-luminosita', 'tempo': 'anti-age',
            'calmare': 'rossori-sensibilita', 'barriera': 'barriera-cutanea', 'pori': 'pori-dilatati'}
 # i nomi delle marche come le scrive la marca, non come arrivano dal feed
@@ -141,7 +143,7 @@ TIPI = [('contorno-occhi', r'contorno (?:occhi|degli occhi)|eye (?:cream|serum|g
 DEBOLI = {'gel', 'schiuma', 'spray', 'stick'}  # perdono contro un tipo vero («gel detergente» → detergente)
 RIPIEGO = {'detergente': 'detergente', 'siero': 'siero', 'crema': 'crema', 'spf': 'protezione-solare', 'esfoliante': 'esfoliante',
            'shampoo': 'shampoo', 'trattamento cute': 'trattamento', 'balsamo e maschera capelli': 'balsamo', 'barba': 'barba',
-           'integratore': 'integratore', 'cerotti': 'cerotti'}
+           'integratore': 'integratore', 'cerotti': 'cerotti', 'maschera': 'maschera', 'contorno occhi': 'contorno-occhi'}
 VUOTE = set('con il lo la le i gli di da del dello della delle dei degli per e ed o a ad al allo alla ai agli alle in nel nella su sul sulla '
             'the of and for with to un una uno che non x n no all dell nell sull dall l d c'.split())
 GENERICHE = set('viso pelle pelli corpo tutti tutte tipi tipo formula trattamento uso quotidiano quotidiana giorno notte occhi capelli spf pa '
@@ -663,7 +665,7 @@ def main(candidati=None):
     # lo stesso titolo per più prodotti della stessa marca (5 «Vinoperfect»): si aggiunge il tipo, così la carta li
     # distingue anche prima del sottotitolo (Friday, 16/10)
     TIPO_BREVE = {'detergente': 'Detergente', 'tonico': 'Tonico', 'siero': 'Siero', 'crema': 'Crema', 'spf': 'Solare', 'esfoliante': 'Esfoliante',
-                  'shampoo': 'Shampoo', 'trattamento cute': 'Lozione', 'balsamo e maschera capelli': 'Balsamo', 'barba': 'Barba', 'integratore': 'Integratore', 'cerotti': 'Cerotti'}
+                  'shampoo': 'Shampoo', 'trattamento cute': 'Lozione', 'balsamo e maschera capelli': 'Balsamo', 'barba': 'Barba', 'integratore': 'Integratore', 'cerotti': 'Cerotti', 'maschera': 'Maschera', 'contorno occhi': 'Contorno occhi'}
     doppi = Counter((p['brand'], p['name']) for p in prodotti)
     for p in prodotti:
         tb = TIPO_BREVE.get(p['scheda']['passaggio'])
@@ -706,7 +708,7 @@ def da_arricchire(neg='liki24', quanti=400):
     # va arricchito come gli altri (16/10)
     schede = {s['id']: s for f in [R / 'feeds-out' / f'schede-{neg}.json'] + [R / 'feeds-out' / f"schede-{n['id']}.json" for n in NEGOZI if n['id'] != neg and n['attivo']]
               if f.exists() for s in json.loads(f.read_text())}
-    ordine_cat = {'sieri': 0, 'attivi': 0, 'creme': 1, 'detergenti': 2, 'shampoo': 3, 'capelli': 3, 'barba': 4, 'integratori': 5}
+    ordine_cat = {'sieri': 0, 'attivi': 0, 'creme': 1, 'detergenti': 2, 'shampoo': 3, 'capelli': 3, 'barba': 4, 'integratori': 5, 'maschere': 5, 'occhi': 5}
     lista = []
     for p in prodotti:
         s = schede.get(p['id'])

@@ -17,7 +17,7 @@ const PELLE = ['secca', 'grassa', 'mista', 'normale', 'sensibile'];
 const BISOGNI = ['idratazione', 'anti-age', 'acne-sebo', 'macchie-luminosita', 'rossori-sensibilita', 'barriera-cutanea', 'pori-dilatati', 'protezione-solare'];
 const CAPELLI = ['caduta', 'forfora', 'secchi-crespi', 'mantenimento'];
 const CUTE = ['grasso', 'secco', 'normale', 'sensibile'];
-const TIPI_FEED = ['detergenti', 'sieri', 'creme', 'attivi', 'cerotti', 'shampoo', 'capelli', 'barba', 'integratori'];
+const TIPI_FEED = ['detergenti', 'sieri', 'creme', 'attivi', 'cerotti', 'maschere', 'occhi', 'shampoo', 'capelli', 'barba', 'integratori'];
 // i campi che diventano correzioni del catalogo; gli altri (inci, profumo, texture, misura) li usa la
 // pipeline delle schede al giro successivo (scripts/catalogo/schede.py --arricchisci)
 const CAMPI_ARRICCHIBILI = ['skinTypes', 'concerns', 'hairConcerns', 'scalpTypes', 'pregnancySafe', 'sensitiveSafe', 'description', 'name', 'tier'];
@@ -176,7 +176,7 @@ function EditorProdotto({ p, m, cambia }: { p: Product; m: Modifica; cambia: (m:
       </div>
       <Campo etichetta="Sottotitolo (che cos'è e cosa fa)" aiuto={`Automatico: ${p.subtitle || '—'}`}><Testo valore={m.sottotitolo} placeholder={p.subtitle} cambia={(x) => v('sottotitolo', x || undefined)} /></Campo>
       <Campo etichetta="Descrizione" aiuto={`Dal feed: ${p.description}`}><Testo lungo valore={m.description} placeholder={p.description} cambia={(x) => v('description', x || undefined)} /></Campo>
-      {['detergenti', 'sieri', 'creme', 'attivi', 'barba', 'integratori', 'cerotti'].includes(p.category) && (<>
+      {['detergenti', 'sieri', 'creme', 'attivi', 'barba', 'integratori', 'cerotti', 'maschere', 'occhi'].includes(p.category) && (<>
         <Campo etichetta={`Tipi di pelle${m.skinTypes ? '' : ' (dal feed)'}`}><Scegli valori={PELLE} scelti={m.skinTypes || p.skinTypes} cambia={(x) => v('skinTypes', x)} /></Campo>
         <Campo etichetta={`Per cosa lavora${m.concerns ? '' : ' (dal feed)'}`}><Scegli valori={BISOGNI} scelti={m.concerns || p.concerns} cambia={(x) => v('concerns', x)} /></Campo>
       </>)}

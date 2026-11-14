@@ -30,7 +30,11 @@ export type Category =
   | 'barba'
   | 'capelli'
   | 'integratori'
-  | 'cerotti';
+  | 'cerotti'
+  // le maschere e il contorno occhi (14/11/2026, Federico: «aggiungiamo una parte relativa a trattamenti secondari tipo
+  // le patch, maschere»): nel catalogo, non nella routine del test
+  | 'maschere'
+  | 'occhi';
 export type Tier = 'base' | 'top' | 'premium';
 
 export type SkinType = 'secca' | 'grassa' | 'mista' | 'normale' | 'sensibile';
@@ -71,6 +75,8 @@ export const CATEGORY_LABELS: Record<Category, string> = {
   capelli: 'Prodotti Capelli',
   integratori: 'Integratori',
   cerotti: 'Cerotti per brufoli',
+  maschere: 'Maschere viso',
+  occhi: 'Contorno occhi e patch',
 };
 
 export const TIER_LABELS: Record<Tier, string> = {

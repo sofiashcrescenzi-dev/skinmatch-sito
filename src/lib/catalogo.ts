@@ -53,7 +53,7 @@ export { euro, negozio } from './formato';
 
 // I prodotti da mostrare nella pagina di un biotipo: quelli che rispondono ai suoi bisogni,
 // al massimo due per categoria, così la pagina mostra una routine e non sei creme uguali.
-const CATEGORIE_AREA: Record<string, string[]> = { pelle: ['detergenti', 'sieri', 'creme', 'attivi', 'barba', 'cerotti'], cute: ['shampoo', 'capelli'], integrazione: ['integratori'] };
+const CATEGORIE_AREA: Record<string, string[]> = { pelle: ['detergenti', 'sieri', 'creme', 'attivi', 'barba', 'cerotti', 'maschere', 'occhi'], cute: ['shampoo', 'capelli'], integrazione: ['integratori'] };
 type ConBisogni = { id?: string; area: string; bisogni: { pelle?: string[]; concerns?: string[]; capelli?: string[]; cute?: string[] } };
 
 // ⚠️ I PROFILI DELICATI (7/11/2026, b-delicati; Federico: «non possiamo selezionarli noi manualmente uno ad uno»). Per le
@@ -77,7 +77,7 @@ const voto = (p: Product, b: ConBisogni) => {
 export function prodottiPer(b: ConBisogni, quanti = 6): Prodotto[] {
   const per: Record<string, number> = {};
   const delicato = eDelicato(b);
-  return PRODOTTI.filter((p) => CATEGORIE_AREA[b.area]?.includes(p.category) && p.category !== 'cerotti')
+  return PRODOTTI.filter((p) => CATEGORIE_AREA[b.area]?.includes(p.category) && !['cerotti', 'maschere', 'occhi'].includes(p.category))
     // un profilo delicato: solo i prodotti della sua regola, prima i più adatti; gli altri biotipi mai un prodotto
     // che i dati marcano «non per pelli sensibili» se il biotipo lo è
     .filter((p) => (delicato ? delicatoPer(p, b.id!) !== undefined : !(b.bisogni.pelle?.includes('sensibile') && p.sensitiveSafe === false)))

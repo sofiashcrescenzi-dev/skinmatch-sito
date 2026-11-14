@@ -36,8 +36,10 @@ const PASSAGGIO: Record<string, [string, string]> = {
   barba: ['Barba', 'sulla barba e sulla pelle sotto, dopo la detersione o la rasatura'],
   integratore: ['Integratore', 'ogni giorno, come indicato sulla confezione'],
   cerotti: ['Cerotto per brufoli', 'sul brufolo pulito e asciutto, la notte o di giorno sotto il trucco'],
+  maschera: ['Maschera', 'sulla pelle pulita, una o due volte a settimana, per il tempo indicato sulla confezione'],
+  'contorno occhi': ['Contorno occhi', 'una piccola quantità picchiettata intorno all’occhio, dopo il siero; le patch sulla pelle pulita, per il tempo indicato'],
 };
-const SU_PELLE = new Set(['detergente', 'siero', 'crema', 'spf', 'esfoliante', 'barba', 'cerotti']);
+const SU_PELLE = new Set(['detergente', 'siero', 'crema', 'spf', 'esfoliante', 'barba', 'cerotti', 'maschera', 'contorno occhi']);
 const CUTE: Record<string, string> = { normale: 'normale', grasso: 'grassa', secco: 'secca', sensibile: 'sensibile' };
 const FORZA = ['', 'delicato', 'medio', 'forte'];
 const FORZA_NOTA = ['', 'va bene anche se non hai mai usato prodotti con attivi', 'meglio se la pelle è già abituata a qualche attivo', 'da introdurre piano, solo se usi già attivi'];

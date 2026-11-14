@@ -43,8 +43,8 @@ PASSAGGI = [
     ('crema', r'crema|cream|gel-crema|emulsione|fluido|balsamo|baume|lozione|latte|gel\b'),
 ]
 # i passaggi che il test usa oggi (src/data/test.json): il resto va nel catalogo ma non nella routine
-PASSAGGIO_TEST = {'detergente': 'detergenti', 'tonico': 'sieri', 'siero': 'sieri', 'esfoliante': 'attivi', 'crema': 'creme', 'contorno occhi': 'creme',
-                  'maschera': 'creme', 'spf': 'creme', 'shampoo': 'shampoo', 'trattamento cute': 'capelli', 'balsamo e maschera capelli': 'capelli',
+PASSAGGIO_TEST = {'detergente': 'detergenti', 'tonico': 'sieri', 'siero': 'sieri', 'esfoliante': 'attivi', 'crema': 'creme', 'contorno occhi': 'occhi',
+                  'maschera': 'maschere', 'spf': 'creme', 'shampoo': 'shampoo', 'trattamento cute': 'capelli', 'balsamo e maschera capelli': 'capelli',
                   'barba': 'barba', 'integratore': 'integratori', 'cerotti': 'cerotti'}
 
 

@@ -85,7 +85,7 @@ export const LAVORO: Record<string, string> = {
 };
 const PASSAGGIO_BREVE: Record<string, string> = {
   detergente: 'detergente', siero: 'siero', crema: 'crema', spf: 'protezione solare', esfoliante: 'esfoliante', shampoo: 'shampoo',
-  'trattamento cute': 'trattamento per la cute', 'balsamo e maschera capelli': 'balsamo o maschera', integratore: 'integratore', cerotti: 'cerotti', barba: 'barba',
+  'trattamento cute': 'trattamento per la cute', 'balsamo e maschera capelli': 'balsamo o maschera', integratore: 'integratore', cerotti: 'cerotti', barba: 'barba', maschera: 'maschera', 'contorno occhi': 'contorno occhi',
 };
 const pc = (n: number | null | undefined) => (n ? `${String(n).replace('.', ',')}%` : null);
 const misuraDi = (p: Product) => {
