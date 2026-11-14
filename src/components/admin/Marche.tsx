@@ -1,6 +1,7 @@
 'use client';
 
 import { useMemo, useState } from 'react';
+import MAIL from '@/data/mail-marche.json';
 import { useApi, invia, Titolo, Vuoto, quando } from './base';
 
 // LE MARCHE DA CONOSCERE (16/10/2026, Federico: «serve una parte su admin dove segnamo i brand che dobbiamo
@@ -50,40 +51,12 @@ function ParereZeno({ m }: { m: M }) {
 // marche italiane, inglese per le altre; per quelle già nel catalogo dice che ci sono già. Sofia compare solo come chi
 // rivede il metodo: un medico non promuove prodotti (vedi chi-siamo/page.tsx), e l'ordine nel test non si compra.
 const italiana = (m: M) => /\.it(\/|$)|\/it([-/]|$)/i.test(m.sito || '') || /\.it$/i.test(m.email || '') || /itali/i.test(m.origine || '');
+// il testo sta in src/data/mail-marche.json, letto anche da scripts/admin/mail_marche.py (bozze e invio da Zoho)
 function mailPer(m: Pick<M, 'marca' | 'gruppo' | 'sito' | 'email' | 'origine'>) {
-  const gia = m.gruppo === 'Nel catalogo';
-  if (italiana(m as M)) return {
-    oggetto: `${m.marca} e Skinmatch: una collaborazione`,
-    corpo: [
-      'Buongiorno,', '',
-      'sono Federico Greco di Skinmatch (skinmatch.it). Abbiamo costruito un test della pelle gratuito: in circa tre minuti propone una routine su misura, con i prodotti adatti al biotipo e i passaggi nell’ordine giusto. Il metodo lo rivede la dr.ssa Sofia Crescenzi, medico estetico.', '',
-      gia ? `I prodotti ${m.marca} sono già nel nostro catalogo: compaiono nelle routine quando sono adatti alla pelle di chi fa il test, con l’INCI letto attivo per attivo.`
-        : `Ci piacerebbe avere anche i prodotti ${m.marca} nel nostro catalogo: compaiono nelle routine solo quando sono adatti alla pelle di chi fa il test, con l’INCI letto attivo per attivo.`, '',
-      'Vi scrivo per capire se possiamo collaborare. Per esempio:',
-      '- schede più complete (INCI, percentuali degli attivi, formati), così i prodotti arrivano alle persone giuste;',
-      '- campioni da provare per gli articoli della nostra Rivista;',
-      '- un programma di affiliazione, diretto o su una rete come Awin o Adtraction.', '',
-      'Per chiarezza: nel test l’ordine dei prodotti non si compra, dipende solo dalla pelle di chi risponde.', '',
-      'Se non è il contatto giusto, mi può indicare a chi scrivere?', '',
-      'Grazie e buona giornata,', 'Federico Greco', 'Skinmatch · skinmatch.it',
-    ].join('\n'),
-  };
-  return {
-    oggetto: `${m.marca} x Skinmatch: a collaboration`,
-    corpo: [
-      'Hello,', '',
-      'I’m Federico Greco from Skinmatch (skinmatch.it), an Italian skincare platform. We built a free skin test: in about three minutes it suggests a personal routine, with products suited to the skin type and the steps in the right order. The method is reviewed by Dr Sofia Crescenzi, an aesthetic physician.', '',
-      gia ? `${m.marca} products are already in our catalogue: they appear in routines when they suit the person taking the test, with the INCI read active by active.`
-        : `We would like to include ${m.marca} products in our catalogue: they appear in routines only when they suit the person taking the test, with the INCI read active by active.`, '',
-      'We’d love to explore a collaboration, for example:',
-      '- fuller product data (INCI, active percentages, sizes), so your products reach the right people;',
-      '- samples to try for articles in our magazine;',
-      '- an affiliate programme, direct or through a network such as Awin or Adtraction.', '',
-      'To be clear: the order of products in the test can’t be bought; it depends only on the user’s skin.', '',
-      'If you’re not the right contact, could you point me to the right person?', '',
-      'Thank you,', 'Federico Greco', 'Skinmatch · skinmatch.it',
-    ].join('\n'),
-  };
+  const t = italiana(m as M) ? MAIL.it : MAIL.en;
+  const metti = (x: string) => x.split('{marca}').join(m.marca);
+  const catalogo = metti(m.gruppo === 'Nel catalogo' ? t.gia : t.nuova);
+  return { oggetto: metti(t.oggetto), corpo: t.righe.map((r) => (r === '{catalogo}' ? catalogo : metti(r))).join('\n') };
 }
 const mailto = (m: M) => { const x = mailPer(m); return `mailto:${m.email}?subject=${encodeURIComponent(x.oggetto)}&body=${encodeURIComponent(x.corpo)}`; };
 function LaMail() {

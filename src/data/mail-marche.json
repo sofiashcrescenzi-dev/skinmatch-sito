@@ -1,0 +1,53 @@
+{
+ "_nota": "LA MAIL AI MARCHI (14/11/2026): un testo solo, letto dall'admin (Marche.tsx: «Scrivi», «Copia il testo») e da scripts/admin/mail_marche.py (bozze e invio dalla casella Zoho). {marca} diventa il nome della marca; la riga {catalogo} diventa «gia» per le marche già nel catalogo, «nuova» per le altre. Italiano per le marche con sito o email italiani, inglese per le altre.",
+ "it": {
+  "oggetto": "{marca} e Skinmatch: una collaborazione",
+  "gia": "I prodotti {marca} sono già nel nostro catalogo: compaiono nelle routine quando sono adatti alla pelle di chi fa il test, con l’INCI letto attivo per attivo.",
+  "nuova": "Ci piacerebbe avere anche i prodotti {marca} nel nostro catalogo: compaiono nelle routine solo quando sono adatti alla pelle di chi fa il test, con l’INCI letto attivo per attivo.",
+  "righe": [
+   "Buongiorno,",
+   "",
+   "sono Federico Greco di Skinmatch (skinmatch.it). Abbiamo costruito un test della pelle gratuito: in circa tre minuti propone una routine su misura, con i prodotti adatti al biotipo e i passaggi nell’ordine giusto. Il metodo lo rivede la dr.ssa Sofia Crescenzi, medico estetico.",
+   "",
+   "{catalogo}",
+   "",
+   "Vi scrivo per capire se possiamo collaborare. Per esempio:",
+   "- schede più complete (INCI, percentuali degli attivi, formati), così i prodotti arrivano alle persone giuste;",
+   "- campioni da provare per gli articoli della nostra Rivista;",
+   "- un programma di affiliazione, diretto o su una rete come Awin o Adtraction.",
+   "",
+   "Per chiarezza: nel test l’ordine dei prodotti non si compra, dipende solo dalla pelle di chi risponde.",
+   "",
+   "Se non è il contatto giusto, mi può indicare a chi scrivere?",
+   "",
+   "Grazie e buona giornata,",
+   "Federico Greco",
+   "Skinmatch · skinmatch.it"
+  ]
+ },
+ "en": {
+  "oggetto": "{marca} x Skinmatch: a collaboration",
+  "gia": "{marca} products are already in our catalogue: they appear in routines when they suit the person taking the test, with the INCI read active by active.",
+  "nuova": "We would like to include {marca} products in our catalogue: they appear in routines only when they suit the person taking the test, with the INCI read active by active.",
+  "righe": [
+   "Hello,",
+   "",
+   "I’m Federico Greco from Skinmatch (skinmatch.it), an Italian skincare platform. We built a free skin test: in about three minutes it suggests a personal routine, with products suited to the skin type and the steps in the right order. The method is reviewed by Dr Sofia Crescenzi, an aesthetic physician.",
+   "",
+   "{catalogo}",
+   "",
+   "We’d love to explore a collaboration, for example:",
+   "- fuller product data (INCI, active percentages, sizes), so your products reach the right people;",
+   "- samples to try for articles in our magazine;",
+   "- an affiliate programme, direct or through a network such as Awin or Adtraction.",
+   "",
+   "To be clear: the order of products in the test can’t be bought; it depends only on the user’s skin.",
+   "",
+   "If you’re not the right contact, could you point me to the right person?",
+   "",
+   "Thank you,",
+   "Federico Greco",
+   "Skinmatch · skinmatch.it"
+  ]
+ }
+}
