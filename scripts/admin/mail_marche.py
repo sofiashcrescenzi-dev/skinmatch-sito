@@ -4,8 +4,9 @@ skinmatch@agoranomos.cloud su zoho mail»).
 Il testo è uno solo, src/data/mail-marche.json (lo stesso dell'admin › Marche). Gli indirizzi stanno in D1
 `marche_studio`. La casella e la password per le app si leggono da ~/.skinmatch-segreti.env, mai stampate:
 
-    ZOHO_MAIL=skinmatch@agoranomos.cloud
-    ZOHO_PASSWORD_APP=...        # Zoho › Account › Sicurezza › Password specifiche per app
+    ZOHO_LOGIN=indirizzo-principale@agoranomos.cloud   # la casella vera: con questo si entra in IMAP/SMTP
+    ZOHO_MAIL=skinmatch@agoranomos.cloud               # il mittente: può essere un alias della casella
+    ZOHO_PASSWORD_APP=...        # Zoho › Account › Sicurezza › Password specifiche per app, dell'account principale
 
     python3 scripts/admin/mail_marche.py prova                  # entra in IMAP e SMTP, non manda niente
     python3 scripts/admin/mail_marche.py elenco [--gruppo G]    # chi riceverebbe la mail, con la lingua
@@ -51,7 +52,8 @@ def segreti():
                 env[m.group(1)] = m.group(2).strip().strip('"\'')
     if not env.get('ZOHO_MAIL') or not env.get('ZOHO_PASSWORD_APP'):
         sys.exit('Mancano ZOHO_MAIL e ZOHO_PASSWORD_APP in ~/.skinmatch-segreti.env (vedi il commento in testa).')
-    return env['ZOHO_MAIL'], env['ZOHO_PASSWORD_APP']
+    # skinmatch@agoranomos.cloud è un alias (14/11/2026): si entra con la casella principale, si scrive come l'alias
+    return env.get('ZOHO_LOGIN') or env['ZOHO_MAIL'], env['ZOHO_MAIL'], env['ZOHO_PASSWORD_APP']
 
 
 # stessa regola dell'admin (Marche.tsx, italiana): sito o email italiani, oppure origine italiana
@@ -135,14 +137,14 @@ def main():
         print(f'{len(righe)} marche.')
         return
 
-    da, pw = segreti()
-    c, smtp_host = entra_imap(da, pw)
+    accesso, da, pw = segreti()
+    c, smtp_host = entra_imap(accesso, pw)
     if args.azione == 'prova':
         bozze = cartella_bozze(c)
         c.logout()
         with smtplib.SMTP_SSL(smtp_host, 465, context=ssl.create_default_context()) as s:
-            s.login(da, pw)
-        print(f'Zoho ok: IMAP e SMTP entrano ({smtp_host}), cartella delle bozze «{bozze}». Nessuna mail mandata.')
+            s.login(accesso, pw)
+        print(f'Zoho ok: IMAP e SMTP entrano ({smtp_host}), si scrive come {da}, cartella delle bozze «{bozze}». Nessuna mail mandata.')
         return
 
     righe = scelte(args)
@@ -165,7 +167,7 @@ def main():
         sys.exit('«invia» manda davvero: servono --marche con gli id scelti e --si (il sì di Federico).')
     oggi = date.today().strftime('%d/%m/%Y')
     with smtplib.SMTP_SSL(smtp_host, 465, context=ssl.create_default_context()) as s:
-        s.login(da, pw)
+        s.login(accesso, pw)
         for i, m in enumerate(righe):
             if i:
                 time.sleep(PAUSA)
