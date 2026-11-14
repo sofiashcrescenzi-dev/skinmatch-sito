@@ -425,6 +425,52 @@ def clubfarma(file=None):
         yield x
 
 
+# KIEHL'S, YESSTYLE E 50 ML (14/11/2026, Federico: «ho fatto l'api di awin, analizza quello che ha senso inserire…
+# vedi 50 ml e kiehl's»). Da qui i feed Awin si scaricano con la chiave di Skinmatch (AWIN_FEED_KEY, Create-a-Feed),
+# non più con quella di Agoranomos: FEED_<NEGOZIO> in ~/.skinmatch-segreti.env. Come Stylevana: entrano solo le marche
+# decise e i prodotti scelti uno per uno (decisioni_negozi.json).
+def kiehls(file=None):
+    """Il negozio ufficiale di Kiehl's (Awin 22230): titoli in italiano senza la marca, «Ultra Facial Cream Crema Viso…»."""
+    for x in _awin("Kiehl's", 'kh', 22230, 'FEED_KIEHLS', file, lambda t: t if t.lower().startswith('kiehl') else "Kiehl's " + t):
+        x['marca'] = "Kiehl's"
+        yield x
+
+
+# ⚠️ YesStyle scrive metà dei titoli in spagnolo anche nel feed italiano («Tónico con propóleo Full Fit Propolis Synergy
+# Toner»): le parole del tipo di prodotto si riportano in italiano, il nome della linea (in inglese) resta com'è.
+_SPAGNOLO = [(r'\bkit de pruebas\b', 'Kit prova'), (r'\bespuma limpiadora\b', 'Schiuma detergente'), (r'\baceite limpiador\b', 'Olio detergente'),
+             (r'\bb[aá]lsamo limpiador\b', 'Balsamo detergente'), (r'\bgel limpiador\b', 'Gel detergente'), (r'\blimpiador(a)?\b', 'Detergente'),
+             (r'\bcrema (para|de) (los )?ojos\b', 'Crema contorno occhi'), (r'\bcontorno de ojos\b', 'Contorno occhi'), (r'\bprotector solar\b', 'Protezione solare'),
+             (r'\bmascarilla(s)?\b', 'Maschera'), (r'\bparches\b', 'Patch'), (r'\bt[oó]nico\b', 'Tonico'), (r'\bs[eé]rum\b', 'Siero'), (r'\besencia\b', 'Essenza'),
+             (r'\bampolla\b', 'Fiala'), (r'\bexfoliante\b', 'Esfoliante'), (r'\bloci[oó]n\b', 'Lozione'), (r'\bbruma\b', 'Spray'), (r'\bpara hombres\b', 'uomo'),
+             (r'\bhidratante\b', 'idratante'), (r'\bcalmante\b', 'lenitivo'), (r'\bcon\b', 'con'), (r'\bde\b', 'di'), (r'\bpara\b', 'per')]
+
+
+def _yesstyle(t):
+    t = _trattini(t)
+    for rx, it in _SPAGNOLO:
+        t = re.sub(rx, it, t, flags=re.I)
+    return t
+
+
+def yesstyle(file=None):
+    """Il catalogo bellezza di YesStyle (Awin 25699, feed 101597): K-beauty e J-beauty; secondo prezzo accanto a Stylevana."""
+    return _awin('YesStyle', 'ys', 25699, 'FEED_YESSTYLE', file, _yesstyle)
+
+
+# 50 ml scrive «Marca - Nome 30 ml - Descrizione in italiano»; Esthederm è la marca che abbiamo deciso come «Institut
+# Esthederm». Approva il 42% delle vendite (API Awin, 14/11/2026): per questo resta dietro agli altri negozi a parità
+# di prezzo (al_sito, regola del 10%).
+_MARCHE_50ML = {'esthederm': 'Institut Esthederm'}
+
+
+def cinquantaml(file=None):
+    """Il catalogo di 50 ml (Awin 62723): profumeria di nicchia e cosmesi; da qui Esthederm, Bakel, Dermalogica, K-beauty."""
+    for x in _awin('50 ml', 'fm', 62723, 'FEED_CINQUANTAML', file, _trattini):
+        x['marca'] = _MARCHE_50ML.get(x['marca'].lower(), x['marca'])
+        yield x
+
+
 # ── arricchimento ──────────────────────────────────────────────────────────────
 _OBF = None
 

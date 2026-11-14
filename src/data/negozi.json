@@ -132,6 +132,51 @@
    },
    "codici": [],
    "nota": "Approvato su Adtraction per il canale di Skinmatch (14/11/2026), 10%. Monomarca: entrano solo i prodotti scelti uno per uno (decisioni_negozi.json)."
+  },
+  {
+   "id": "kiehls",
+   "nome": "Kiehl's",
+   "rete": "Awin",
+   "commissione": 13,
+   "attivo": true,
+   "spedizione": {
+    "costo": null,
+    "gratis_da": 49,
+    "tempi": "",
+    "nota": "Gratis sopra i 49 € secondo più siti di codici sconto (14/11/2026): il sito di Kiehl's non si lascia leggere in automatico, da verificare a mano."
+   },
+   "codici": [],
+   "nota": "Awin, programma 22230 (Kiehl's IT), 13,23% dall'API Awin (14/11/2026); approva il 96% delle vendite. Negozio ufficiale: le linee decise per Kiehl's (Retinol Skin-Renewing, Clearly Corrective, Ultra Facial, Calendula, Better Screen), prodotti scelti uno per uno. Feed con la chiave di Skinmatch (FEED_KIEHLS)."
+  },
+  {
+   "id": "yesstyle",
+   "nome": "YesStyle",
+   "rete": "Awin",
+   "commissione": 5,
+   "attivo": true,
+   "spedizione": {
+    "costo": 4.7,
+    "gratis_da": 45,
+    "tempi": "",
+    "nota": "4,70 € dal feed Awin; gratis sopra i 45 € (striscia del sito italiano, 14/11/2026). La tassa UE sui piccoli pacchi la paga YesStyle."
+   },
+   "codici": [],
+   "nota": "Awin, programma 25699 (YesStyle IT), 5-10% dall'API Awin (14/11/2026); approva l'86% delle vendite. K-beauty e J-beauty: secondo prezzo accanto a Stylevana, solo le marche decise e i prodotti scelti uno per uno. Metà dei titoli è in spagnolo: fonti.yesstyle() riporta in italiano le parole del tipo di prodotto. Feed bellezza 101597 (FEED_YESSTYLE)."
+  },
+  {
+   "id": "cinquantaml",
+   "nome": "50 ml",
+   "rete": "Awin",
+   "commissione": 6,
+   "attivo": true,
+   "spedizione": {
+    "costo": null,
+    "gratis_da": null,
+    "tempi": "",
+    "nota": "Da verificare: il sito non si lascia leggere in automatico e il feed non riporta la spedizione."
+   },
+   "codici": [],
+   "nota": "Awin, programma 62723 (50 ml IT), 6-12% dall'API Awin (14/11/2026); approva solo il 42% delle vendite. Profumeria di nicchia e cosmesi: da qui Institut Esthederm, Bakel e Dermalogica, che avevamo deciso e non trovavamo, più alcune K-beauty. Prodotti scelti uno per uno (FEED_CINQUANTAML)."
   }
  ]
 }
