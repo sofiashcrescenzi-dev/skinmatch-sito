@@ -611,6 +611,33 @@ details.carta > summary::-webkit-details-marker { display: none; }
 .gi-numeri dt { font-size: 11.5px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--grigio); }
 .gi-numeri dd { margin: 2px 0 0; font-family: var(--font-titolo); font-size: clamp(19px, 2.4vw, 23px); font-variant-numeric: tabular-nums; }
 @media (prefers-reduced-motion: reduce) { .gi-bolla { transition: none; } }
+/* LA GIORNATA CHE PASSA (14/11/2026, Federico: «miglioriamo la qualità dell'animazione sulla routine»). Giornata.tsx mette
+   «gi-attesa» al montaggio e «gi-via» quando la fascia si vede: il cielo si accende da sinistra, un sole la attraversa ad
+   arco e a sera diventa luna; i prodotti entrano quando il sole arriva al loro momento (--d), il numero dopo la foto.
+   Senza JavaScript o con «riduci il movimento» non c'è nessuna delle due classi: tutto resta fermo e visibile. */
+.gi-sole { position: absolute; inset: 0; pointer-events: none; z-index: 0; opacity: 0; }
+.gi-sole i { position: absolute; left: 0; top: 16px; width: 34px; height: 34px; margin-left: -17px; border-radius: 50%;
+  background: radial-gradient(circle at 50% 50%, #fff8f1 0 32%, var(--f2) 34% 100%); box-shadow: 0 0 0 9px rgba(235, 195, 166, .28), 0 0 38px 12px rgba(235, 195, 166, .5); }
+.gi-sole i::after { content: ''; position: absolute; inset: 0; border-radius: 50%; background: var(--latte); box-shadow: inset -9px -2px 0 0 var(--grigio-chiaro, #d9c8be), 0 0 26px 6px rgba(250, 246, 244, .35); opacity: 0; }
+.gi-attesa .gi-cielo { clip-path: inset(0 100% 0 0); }
+.gi-attesa .gi-quando, .gi-attesa .gi-bolla, .gi-attesa .gi-settimana li, .gi-attesa .gi-ore { opacity: 0; }
+.gi-via .gi-cielo { animation: gi-alba var(--sole) cubic-bezier(.45, 0, .2, 1) both; }
+.gi-via .gi-sole { animation: gi-sole-x var(--sole) cubic-bezier(.45, 0, .2, 1) both; }
+.gi-via .gi-sole i { animation: gi-sole-y var(--sole) cubic-bezier(.37, 0, .63, 1) both; }
+.gi-via .gi-sole i::after { animation: gi-luna var(--sole) linear both; }
+.gi-via .gi-ore { animation: gi-su .5s cubic-bezier(.16, 1, .3, 1) both; }
+.gi-via .gi-quando { animation: gi-su .5s cubic-bezier(.16, 1, .3, 1) both; animation-delay: var(--d, 0ms); }
+.gi-via .gi-bolla { animation: gi-entra .55s cubic-bezier(.34, 1.4, .64, 1) backwards; animation-delay: var(--d, 0ms); }
+.gi-via .gi-bolla b { animation: gi-pop .32s cubic-bezier(.34, 1.6, .64, 1) backwards; animation-delay: calc(var(--d, 0ms) + 240ms); }
+.gi-via .gi-settimana li { animation: gi-su .45s cubic-bezier(.16, 1, .3, 1) both; animation-delay: var(--d, 0ms); }
+@keyframes gi-alba { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0 0 0 0); } }
+@keyframes gi-sole-x { 0% { opacity: 0; transform: translateX(0); } 7%, 90% { opacity: 1; } 100% { opacity: 0; transform: translateX(100%); } }
+@keyframes gi-sole-y { 0% { transform: translateY(46px); } 50% { transform: translateY(0); } 100% { transform: translateY(40px); } }
+@keyframes gi-luna { 0%, 62% { opacity: 0; } 84%, 100% { opacity: 1; } }
+@keyframes gi-su { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+@keyframes gi-entra { from { opacity: 0; transform: translateY(14px) scale(.6); } to { opacity: 1; transform: none; } }
+@keyframes gi-pop { from { transform: scale(0); } to { transform: scale(1); } }
+@media (prefers-reduced-motion: reduce) { .gi-sole { display: none; } }
 
 .gruppo-titolo { font-size: clamp(22px, 3vw, 28px); padding-top: 14px; border-top: 1px solid var(--riga-forte); }
 .passo { scroll-margin-top: 90px; border-radius: var(--raggio); }
