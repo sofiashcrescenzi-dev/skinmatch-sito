@@ -110,10 +110,10 @@
    "commissione": 11,
    "attivo": true,
    "spedizione": {
-    "costo": null,
+    "costo": 9.5,
     "gratis_da": null,
-    "tempi": "",
-    "nota": "Da verificare sul sito del negozio."
+    "tempi": "entro 7 giorni lavorativi",
+    "nota": "Corriere nazionale: 9,50 € con un prodotto da 31 €, poi scende con la spesa (7,50 € a 62 €, 5,50 € a 93 €) fino a 3 € da circa 120 € (è il costo di gestione). Mai gratis. Stima dal carrello del sito, 14/11/2026."
    },
    "codici": [],
    "nota": "Approvato su Adtraction per il canale di Skinmatch (14/11/2026), 11%. Monomarca Swisscare: entrano solo i prodotti scelti uno per uno (decisioni_negozi.json)."
@@ -126,9 +126,9 @@
    "attivo": true,
    "spedizione": {
     "costo": null,
-    "gratis_da": null,
-    "tempi": "",
-    "nota": "Da verificare sul sito del negozio."
+    "gratis_da": 49,
+    "tempi": "2-3 giorni",
+    "nota": "Gratis sopra i 49 € (spedizione standard in Europa, Italia in 2-3 giorni); sotto i 49 € il costo si vede solo alla cassa. Pagina «Consegne e resi» del sito, 14/11/2026."
    },
    "codici": [],
    "nota": "Approvato su Adtraction per il canale di Skinmatch (14/11/2026), 10%. Monomarca: entrano solo i prodotti scelti uno per uno (decisioni_negozi.json)."
