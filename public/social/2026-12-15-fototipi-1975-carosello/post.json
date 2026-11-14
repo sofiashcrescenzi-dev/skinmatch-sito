@@ -1,0 +1,46 @@
+{
+ "id": "skinmatch-2026-12-15-fototipi-1975-carosello",
+ "data": "2026-12-15",
+ "ora": "18:30",
+ "tipo": "carosello",
+ "titolo": "I sei fototipi, uno per slide",
+ "slug": "fototipi-1975-carosello",
+ "pagina": "/test?percorso=viso",
+ "base": "/social/2026-12-15-fototipi-1975-carosello",
+ "copertina": "copertina.jpg",
+ "file": [
+  "01.png",
+  "02.png",
+  "03.png",
+  "04.png",
+  "05.png",
+  "06.png",
+  "07.png",
+  "08.png",
+  "09.png"
+ ],
+ "didascalie": {
+  "instagram": "Sei fototipi, uno per slide: come reagisce la tua pelle al sole.\n\nI: si scotta sempre. II: si scotta facilmente. III: a volte si scotta, poi si abbronza. IV: si scotta poco. V: raramente. VI: quasi mai. La protezione solare serve a tutti, e un neo che cambia va visto da un dermatologo.\n\nSalvalo e mandalo a chi va in montagna a Natale.\n\n#fototipo #skincare #skincareitalia #protezionesolare #macchie",
+  "tiktok": "I sei fototipi, uno per slide. Tu quale sei? Il test nel link in bio. #fototipo #skincare #skincareitalia #protezionesolare #macchie",
+  "threads": "I sei fototipi: I si scotta sempre; II facilmente; III a volte, poi si abbronza; IV poco; V raramente; VI quasi mai. La protezione solare serve a tutti. Un neo che cambia va visto da un dermatologo. skinmatch.it/test"
+ },
+ "hashtag": [
+  "#fototipo",
+  "#skincare",
+  "#skincareitalia",
+  "#protezionesolare",
+  "#macchie"
+ ],
+ "alt": [
+  "Slide 1 di 9. Sei fototipi. Tu quale sei?",
+  "Slide 2 di 9. Fototipo I Si scotta sempre, non si abbronza.",
+  "Slide 3 di 9. Fototipo II Si scotta facilmente, si abbronza poco.",
+  "Slide 4 di 9. Fototipo III A volte si scotta, poi si abbronza.",
+  "Slide 5 di 9. Fototipo IV Si scotta poco, si abbronza bene.",
+  "Slide 6 di 9. Fototipo V Si scotta raramente, si abbronza molto.",
+  "Slide 7 di 9. Fototipo VI Non si scotta quasi mai.",
+  "Slide 8 di 9. Vale per tutti La protezione solare serve a ogni fototipo. Un neo che cambia va visto da un dermatologo.",
+  "Slide 9 di 9. La tua pelle, la tua routine Il test dura tre minuti, è gratis."
+ ],
+ "note": "Instagram e Threads: carosello. TikTok: modalità foto, con un brano strumentale tranquillo dall’app."
+}
