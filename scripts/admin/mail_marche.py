@@ -10,7 +10,7 @@ Il testo è uno solo, src/data/mail-marche.json (lo stesso dell'admin › Marche
 
     python3 scripts/admin/mail_marche.py prova                  # entra in IMAP e SMTP, non manda niente
     python3 scripts/admin/mail_marche.py elenco [--gruppo G]    # chi riceverebbe la mail, con la lingua
-    python3 scripts/admin/mail_marche.py bozze  [--gruppo G] [--marche 3,7] [--max 25]
+    python3 scripts/admin/mail_marche.py bozze  [--gruppo G] [--marche 3,7] [--max 25] [--sostituisci]
         # mette le mail nella cartella Bozze di Zoho: Federico le rilegge e le manda da lì
     python3 scripts/admin/mail_marche.py invia  --marche 3,7 [--max 25] --si
         # le manda davvero (solo col sì di Federico) e segna «Contattata» con la data, come il pulsante dell'admin
@@ -136,6 +136,7 @@ def main():
     a.add_argument('--marche')
     a.add_argument('--max', type=int, default=25)
     a.add_argument('--si', action='store_true', help='per «invia»: il sì di Federico')
+    a.add_argument('--sostituisci', action='store_true', help='per «bozze»: prima toglie la bozza vecchia mandata dall\'alias allo stesso indirizzo')
     args = a.parse_args()
 
     if args.azione == 'elenco':
@@ -168,11 +169,19 @@ def main():
     if args.azione == 'bozze':
         c, _ = entra_imap(accesso, pw)
         bozze = cartella_bozze(c)
+        c.select(bozze)
+        tolte = 0
         for m in righe:
+            if args.sostituisci:
+                # solo le bozze scritte dall'alias a quell'indirizzo: le altre (di Federico, di PadelMate) non si toccano
+                _, trovate = c.search(None, 'FROM', da, 'TO', primo_indirizzo(m['email']))
+                for n in (trovate[0].split() if trovate and trovate[0] else []):
+                    c.store(n, '+FLAGS', '\\Deleted'); tolte += 1
+                c.expunge()
             c.append(bozze, '(\\Draft)', imaplib.Time2Internaldate(time.time()), messaggio(m, da).as_bytes())
             print(f"bozza: {m['marca']} → {primo_indirizzo(m['email'])}")
         c.logout()
-        print(f'{len(righe)} bozze in «{bozze}». Si rileggono e si mandano da Zoho; poi «Contattata» in admin › Marche.')
+        print(f'{len(righe)} bozze in «{bozze}»{f", {tolte} vecchie tolte" if args.sostituisci else ""}. Si rileggono e si mandano da Zoho; poi «Contattata» in admin › Marche.')
         return
 
     if not args.si or not args.marche:
