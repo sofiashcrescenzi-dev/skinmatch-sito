@@ -11,6 +11,7 @@ import Foto from '@/components/Foto';
 import FotoProdotto, { tonoProdotto } from '@/components/FotoProdotto';
 import Campione from '@/components/Campione';
 import Giornata from '@/components/Giornata';
+import GuardaRoutine from '@/components/GuardaRoutine';
 import ConsiglioMedico from '@/components/ConsiglioMedico';
 import { percheSimile } from '@/lib/simili';
 import { BISOGNI } from '@/lib/integratori';
@@ -203,6 +204,8 @@ export default function Risultato({ r, azioni, condiviso, metodoCambiato }: { r:
       })}
 
       {g.passi.length > 0 && <Giornata g={g} />}
+      {/* GUARDA LA TUA ROUTINE (15/11/2026): il video della giornata, coi prodotti della persona; il player si scarica solo al tocco */}
+      {g.passi.length > 0 && <GuardaRoutine g={g} biotipo={r.aree.find((a) => a.biotipo)?.biotipo?.titolo} />}
 
       {/* IL BUDGET (7/11/2026, voto d-budget): la routine resta dentro la cifra scelta; se non ci sta, lo diciamo */}
       {r.budget && (

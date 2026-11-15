@@ -735,3 +735,10 @@ details.carta > summary::-webkit-details-marker { display: none; }
   .adm-marca-riga > summary { grid-template-columns: minmax(140px, 1.2fr) minmax(0, .9fr) minmax(0, 1.4fr) 160px; }
   .adm-marca-riga > summary > * { grid-column: auto; grid-row: auto; }
 }
+
+/* GUARDA LA TUA ROUTINE (15/11/2026): il video della giornata nel risultato; lo schermo è un telefono verticale, mai più largo di 380 px */
+.gr { display: grid; gap: 16px; }
+.gr .bottone { justify-self: start; }
+.gr-schermo, .gr-attesa { width: min(380px, 100%); margin: 0 auto; }
+.gr-attesa { aspect-ratio: 9 / 16; border-radius: 24px; background: var(--velo); display: grid; place-items: center; color: var(--terra); font-weight: 600; }
+

@@ -13,9 +13,11 @@
     "guardiani": "tsx scripts/guardiani.ts"
   },
   "dependencies": {
+    "@remotion/player": "4.0.539",
     "next": "^16.3.5",
     "react": "^19.3.0",
-    "react-dom": "^19.3.0"
+    "react-dom": "^19.3.0",
+    "remotion": "4.0.539"
   },
   "devDependencies": {
     "@types/node": "^20",
