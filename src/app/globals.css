@@ -742,3 +742,11 @@ details.carta > summary::-webkit-details-marker { display: none; }
 .gr-schermo, .gr-attesa { width: min(380px, 100%); margin: 0 auto; }
 .gr-attesa { aspect-ratio: 9 / 16; border-radius: 24px; background: var(--velo); display: grid; place-items: center; color: var(--terra); font-weight: 600; }
 
+
+/* IL TEST CON I DISEGNI E LE ICONE (15/11/2026): il disegno animato sopra la domanda (Remotion, test-disegni/) e le
+   icone su percorsi e risposte. Il riquadro d'attesa ha lo stesso formato del disegno: niente salti mentre arriva. */
+.disegno-domanda { width: 100%; }
+.disegno-attesa { width: 100%; aspect-ratio: 960 / 400; border-radius: var(--raggio); background: var(--velo); }
+.con-icona { display: inline-flex; align-items: center; gap: 10px; }
+.opzione svg { flex-shrink: 0; color: var(--terra); }
+.opzione[aria-pressed='true'] svg { color: var(--latte); }

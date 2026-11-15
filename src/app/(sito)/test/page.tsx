@@ -10,6 +10,28 @@ import Foto from '@/components/Foto';
 import { segna } from '@/lib/eventi';
 import { Luna } from '@/components/Inviti';
 import Nozione from '@/components/Nozione';
+import dynamic from 'next/dynamic';
+import Icona, { type NomeIcona } from '@/components/Icona';
+
+// IL DISEGNO ANIMATO SOPRA OGNI DOMANDA (15/11/2026, Federico: «un bel disegno animato sopra ogni domanda del test
+// correlato alla domanda»): Remotion, caricato a parte dopo la pagina; mentre arriva, un riquadro dello stesso formato.
+const DisegnoDomanda = dynamic(() => import('@/components/test-disegni/Lettore'), {
+  ssr: false,
+  loading: () => <div className="disegno-attesa" aria-hidden="true" />,
+});
+
+// LE ICONE NEL TEST (15/11/2026, Federico: «abbiamo tante icone carine ma non le usiamo mai, direi di iniziare anche sul
+// test»): una sui percorsi e una sulle risposte dove l'icona dice la stessa cosa del testo. Dove non c'è un disegno che
+// aiuta (età, budget, sì/no), niente icona: un'icona a caso confonde.
+const ICONA_PERCORSO: Record<string, NomeIcona> = { viso: 'specchio', cute: 'capelli', integrazione: 'capsula', completo: 'segno' };
+const ICONA_RISPOSTA: Record<string, Record<string, NomeIcona>> = {
+  tzona: { opachi: 'barriera', 'poco-lucidi': 'spunta', lucidi: 'luminosita' },
+  guance: { opache: 'barriera', normali: 'spunta', lucide: 'luminosita' },
+  obiettivo: { idratazione: 'goccia', imperfezioni: 'imperfezioni', pori: 'cerca', macchie: 'luminosita', tempo: 'orologio', calmare: 'sensibile' },
+  evitare: { profumo: 'flacone', alcol: 'laboratorio', oli: 'foglia', niente: 'spunta' },
+  sonno: { bene: 'luna', risvegli: 'orologio', addormentarsi: 'occhio' },
+  aperto: { 'ogni-giorno': 'sole', weekend: 'calendario', 'quasi-mai': 'luna' },
+};
 
 // IL TEST (quattro percorsi: viso, cute e capelli, integrazione, tutto insieme).
 // ⚠️ Le risposte restano su questo telefono (localStorage): al sito arriva solo il conteggio
@@ -95,7 +117,7 @@ export default function TestPage() {
               onClick={() => setS({ ...VUOTO, percorso: p.id, inizio: Date.now() })}>
               <Foto nome={p.immagine} sizes="(max-width: 760px) 100vw, 25vw" />
               <span className="corpo">
-                <span className="titolo-3">{p.nome}</span>
+                <span className="titolo-3 con-icona">{ICONA_PERCORSO[p.id] && <Icona nome={ICONA_PERCORSO[p.id]} size={22} />}{p.nome}</span>
                 <span className="piccolo">{p.descrizione}</span>
                 <Luna>Circa {p.minuti} {p.minuti === 1 ? 'minuto' : 'minuti'}</Luna>
               </span>
@@ -163,6 +185,7 @@ export default function TestPage() {
         {/* niente «3 di 20» (Federico, 16/10): solo la barra */}
         <div className="barra" role="progressbar" aria-label="Avanzamento del test" aria-valuemin={0} aria-valuemax={100} aria-valuenow={Math.round(((passo + 1) / domande.length) * 100)}><i style={{ transform: `scaleX(${1 - (passo + 1) / domande.length})` }} /></div>
       </div>
+      <div className="disegno-domanda"><DisegnoDomanda nome={d.id} /></div>
       <div key={d.id} className="pila entra" style={{ ['--gap' as string]: '8px' }}>
         <h1 className="titolo-2"><ConTermini testo={d.testo} /></h1>
         {d.aiuto && <p className="piccolo">{d.aiuto}</p>}
@@ -171,6 +194,7 @@ export default function TestPage() {
         {d.opzioni.map((o) => (
           <button key={o.id} type="button" className={`opzione${d.multipla ? ' multipla' : ''}`} aria-pressed={scelte.includes(o.id)} onClick={() => tocca(o.id)}>
             <span className="segno" aria-hidden="true" />
+            {ICONA_RISPOSTA[d.id]?.[o.id] && <Icona nome={ICONA_RISPOSTA[d.id][o.id]} size={22} />}
             <span>{o.testo}</span>
           </button>
         ))}
