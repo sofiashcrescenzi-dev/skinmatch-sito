@@ -5,6 +5,7 @@ import { CATALOGO, ATTIVI, conAttivo } from '@/lib/dati';
 import { PRODOTTI, inCategoria, type Prodotto } from '@/lib/catalogo';
 import { SENZA, type Senza } from '@/lib/products';
 import SchedaProdotto from '@/components/SchedaProdotto';
+import Icona from '@/components/Icona';
 import CLIC from '@/data/clic.json';
 
 // Il catalogo per informarsi da soli (Federico, 15/10: «tutti i filtri che funzionano con i tag e
@@ -68,9 +69,12 @@ const PER_COSA: Record<Area, [string, string, (p: Prodotto) => boolean][]> = {
   ],
 };
 const BISOGNO = new Map(Object.values(PER_COSA).flat().map((x) => [x[0], x]));
-// i bottoni delle selezioni: il tipo di marca e i due pubblici; gravidanza sta con i «Senza»
-const TIPI = ['farmacia', 'medicale', 'k-beauty', 'alta-cosmesi', 'qualita-prezzo', 'premium', 'uomo', 'vegani'];
-const NOME_CORTO: Record<string, string> = { uomo: 'Per lui', 'qualita-prezzo': 'Qualità/prezzo', medicale: 'Medicale', farmacia: 'Da farmacia', gravidanza: 'In gravidanza' };
+// ⚠️ I TIPI (16/11/2026, Federico: «i filtri come alta cosmesi: elimina quelli che non servono e riempi quelli che ne
+// hanno»). Sono le famiglie di marche (segmento in scripts/catalogo/decisioni_marche.json): ogni marca ne ha una, e
+// adesso nessuna resta senza. Fuori dai bottoni «Premium», che ripeteva alta cosmesi e medicale (per il prezzo c'è
+// l'ordine), e «Per lui», 30 prodotti sparsi: le loro pagine restano. Gravidanza sta con i «Senza».
+const TIPI = ['farmacia', 'medicale', 'alta-cosmesi', 'salone', 'k-beauty', 'j-beauty', 'naturali', 'attivi-essenziali', 'qualita-prezzo', 'vegani'];
+const NOME_CORTO: Record<string, string> = { 'qualita-prezzo': 'Qualità/prezzo', medicale: 'Medicale', farmacia: 'Da farmacia', gravidanza: 'In gravidanza' };
 type Filtri = { area: Area | ''; categoria: string; tag: string[]; senza: string[]; attivo: string; pelle: string; problema: string; marca: string; q: string; ordina: string };
 const VUOTE = new Set('a ad al alla allo ai agli con col da dal dalla dei del della delle di e ed gli i il in la le lo l per su un una uno che mi serve cerco vorrei qualcosa'.split(' '));
 const norma = (s: string) => s.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
@@ -80,6 +84,7 @@ const VUOTI: Filtri = { area: '', categoria: '', tag: [], senza: [], attivo: '',
 export default function Catalogo({ categoria: c0 = '', tag: t0 = '' }: { categoria?: string; tag?: string }) {
   const [f, setF] = useState<Filtri>({ ...VUOTI, area: areaDi(c0), categoria: c0, tag: t0 ? [t0] : [] });
   const [quanti, setQuanti] = useState(PASSO);
+  const [aperti, setAperti] = useState(false);
   const cambia = (x: Partial<Filtri>) => { setF((v) => ({ ...v, ...x })); setQuanti(PASSO); };
   // i filtri dall'indirizzo, all'apertura (?categoria=sieri&tag=k-beauty&attivo=niacinamide&ordina=prezzo)
   useEffect(() => {
@@ -153,86 +158,113 @@ export default function Catalogo({ categoria: c0 = '', tag: t0 = '' }: { categor
     if (!x || id === t0 || !(f.tag.includes(id) || conta('tag', (p) => p.tag.includes(id)))) return null;
     return (
       <button key={id} type="button" className="chip" aria-pressed={f.tag.includes(id)} title={x.descrizione}
-        onClick={() => cambia({ tag: f.tag.includes(id) ? f.tag.filter((y) => y !== id) : [...f.tag, id] })}>{NOME_CORTO[id] || x.nome}</button>
+        onClick={() => cambia({ tag: f.tag.includes(id) ? f.tag.filter((y) => y !== id) : [...f.tag, id] })}>{NOME_CORTO[id] || x.nome} <span className="conta">{conta('tag', (p) => p.tag.includes(id))}</span></button>
     );
   };
   // le selezioni senza un bottone loro (SkinCeuticals, Per pelli sensibili, Senza profumo/alcol) arrivate da un vecchio link
   const altre = f.tag.filter((t) => t !== t0 && t !== 'gravidanza' && !TIPI.includes(t));
 
+  // ⚠️ I FILTRI CHIUSI (16/11/2026, Federico: «in catalogo alla ricerca i filtri dopo il titolo e il testo vanno nascosti,
+  // perché da mobile occupano tutta la visibilità»). Sotto il titolo restano la ricerca e il bottone «Filtri» col numero
+  // di quelli attivi; i filtri attivi si vedono come bottoni da togliere. Il pannello si apre col bottone.
+  const nFiltri = attivi - (f.q ? 1 : 0);
+  const scelti: [string, () => void][] = [
+    ...(!c0 && f.categoria ? [[cat?.nome || f.categoria, () => cambia({ categoria: '' })] as [string, () => void]] : !c0 && area ? [[AREE.find(([x]) => x === area)![1], () => scegliArea('')] as [string, () => void]] : []),
+    ...(pro ? [[pro[1], () => cambia({ problema: '' })] as [string, () => void]] : []),
+    ...(f.pelle ? [[`Pelle ${(PELLI.find(([v]) => v === f.pelle)?.[1] || f.pelle).toLowerCase()}`, () => cambia({ pelle: '' })] as [string, () => void]] : []),
+    ...(att ? [[att.nome, () => cambia({ attivo: '' })] as [string, () => void]] : []),
+    ...(f.marca ? [[f.marca, () => cambia({ marca: '' })] as [string, () => void]] : []),
+    ...f.senza.map((x) => [SENZA.find(([k]) => k === x)?.[1] || x, () => cambia({ senza: f.senza.filter((y) => y !== x) })] as [string, () => void]),
+    ...f.tag.filter((t) => t !== t0).map((t) => [NOME_CORTO[t] || CATALOGO.tag.find((x) => x.id === t)?.nome || t, () => cambia({ tag: f.tag.filter((y) => y !== t) })] as [string, () => void]),
+  ];
+
   return (
     <div className="pila" style={{ ['--gap' as string]: '18px' }}>
       <div className="pila" style={{ ['--gap' as string]: '12px' }}>
-        {!c0 && (
-          <div className="riga-chip aree" role="group" aria-label="Area">
-            <button type="button" className="chip" aria-pressed={!area} onClick={() => scegliArea('')}>Tutto</button>
-            {AREE.map(([a, nome]) => <button key={a} type="button" className="chip" aria-pressed={area === a} onClick={() => scegliArea(area === a ? '' : a)}>{nome}</button>)}
-          </div>
-        )}
-        {!c0 && area && areaCat.length > 1 && (
-          <div className="riga-chip" role="group" aria-label="Categoria">
-            <button type="button" className="chip tenue-filtro" aria-pressed={!f.categoria} onClick={() => cambia({ categoria: '' })}>Tutti</button>
-            {CATALOGO.categorie.filter((x) => areaCat.includes(x.id) && conta('categoria', (p) => inCategoria(p, x))).map((x) => (
-              <button key={x.id} type="button" className="chip tenue-filtro" aria-pressed={f.categoria === x.id} onClick={() => cambia({ categoria: f.categoria === x.id ? '' : x.id, problema: '' })}>{x.nome}</button>
-            ))}
-          </div>
-        )}
-        {area && (
-          <div className="gruppo-filtro"><span>Per cosa</span>
-            <div className="riga-chip" role="group" aria-label="Per cosa">
-              {PER_COSA[area].map(([v, n, fn]) => [v, n, conta('problema', fn)] as const).filter(([v, , c]) => c || v === f.problema).map(([v, n, c]) => (
-                <button key={v} type="button" className="chip" aria-pressed={f.problema === v} onClick={() => cambia({ problema: f.problema === v ? '' : v })}>{n} <span className="conta">{c}</span></button>
-              ))}
-            </div>
-          </div>
-        )}
-        <div className="filtri">
-          <label className="campo-filtro cerca-filtro"><span>Cerca</span>
+        <div className="cerca-riga">
+          <label className="campo-filtro cerca-filtro"><span className="vh">Cerca</span>
             <input type="search" value={f.q} onChange={(e) => cambia({ q: e.target.value })} placeholder="Marca, prodotto o attivo" />
           </label>
-          {area === 'viso' && (
-            <label className="campo-filtro"><span>La tua pelle</span>
-              <select value={f.pelle} onChange={(e) => cambia({ pelle: e.target.value })}>
-                <option value="">Ogni pelle</option>
-                {PELLI.map(([v, n]) => [v, n, conta('pelle', (p) => !!p.skinTypes?.includes(v as never))] as const).filter(([v, , c]) => c || v === f.pelle).map(([v, n, c]) => <option key={v} value={v}>{n} ({c})</option>)}
-              </select>
-            </label>
-          )}
-          {area !== 'integratori' && (
-            <label className="campo-filtro"><span>Attivo</span>
-              <select value={f.attivo} onChange={(e) => cambia({ attivo: e.target.value })}>
-                <option value="">Tutti gli attivi</option>
-                {ATTIVI.map((a) => [a, conta('attivo', (p) => conAttivo(p, a))] as const).filter(([a, n]) => n || a.id === f.attivo).map(([a, n]) => <option key={a.id} value={a.id}>{a.nome} ({n})</option>)}
-              </select>
-            </label>
-          )}
-          <label className="campo-filtro"><span>Marca</span>
-            <select value={f.marca} onChange={(e) => cambia({ marca: e.target.value })}>
-              <option value="">Tutte le marche</option>
-              {marche.map((m) => <option key={m} value={m}>{m}</option>)}
-            </select>
-          </label>
-          <label className="campo-filtro"><span>Ordina</span>
-            <select value={f.ordina} onChange={(e) => cambia({ ordina: e.target.value })}>
-              {ORDINI.map(([v, n]) => <option key={v} value={v}>{n}</option>)}
-            </select>
-          </label>
+          <button type="button" className="bottone-filtri" aria-expanded={aperti} aria-controls="pannello-filtri" onClick={() => setAperti(!aperti)}>
+            <Icona nome="filtri" size={18} />Filtri{nFiltri > 0 && <span className="quanti">{nFiltri}</span>}
+          </button>
         </div>
-        {area !== 'integratori' && (
-          <div className="gruppo-filtro"><span>Senza</span>
-            <div className="riga-chip" role="group" aria-label="Senza">
-              {SENZA.filter(([k]) => f.senza.includes(k) || conta('senza', (p) => !!p.scheda?.senza?.includes(k))).map(([k, nome]) => (
-                <button key={k} type="button" className="chip" aria-pressed={f.senza.includes(k)}
-                  onClick={() => cambia({ senza: f.senza.includes(k) ? f.senza.filter((y) => y !== k) : [...f.senza, k] })}>{nome.replace(/^Senza /, '')}</button>
-              ))}
-              {tagChip('gravidanza')}
-            </div>
+        {!aperti && scelti.length > 0 && (
+          <div className="riga-chip" aria-label="Filtri attivi">
+            {scelti.map(([n, togli]) => <button key={n} type="button" className="chip" aria-pressed onClick={togli}>{n} <span aria-hidden="true">×</span><span className="vh"> (togli)</span></button>)}
           </div>
         )}
-        <div className="gruppo-filtro"><span>Tipo</span>
-          <div className="riga-chip" role="group" aria-label="Tipo di prodotto">
-            {TIPI.map(tagChip)}
-            {altre.map((t) => <button key={t} type="button" className="chip" aria-pressed onClick={() => cambia({ tag: f.tag.filter((y) => y !== t) })}>{CATALOGO.tag.find((x) => x.id === t)?.nome || t} ×</button>)}
+        <div id="pannello-filtri" className="pannello-filtri pila" hidden={!aperti} style={{ ['--gap' as string]: '14px' }}>
+          {!c0 && (
+            <div className="riga-chip aree" role="group" aria-label="Area">
+              <button type="button" className="chip" aria-pressed={!area} onClick={() => scegliArea('')}>Tutto</button>
+              {AREE.map(([a, nome]) => <button key={a} type="button" className="chip" aria-pressed={area === a} onClick={() => scegliArea(area === a ? '' : a)}>{nome}</button>)}
+            </div>
+          )}
+          {!c0 && area && areaCat.length > 1 && (
+            <div className="riga-chip" role="group" aria-label="Categoria">
+              <button type="button" className="chip tenue-filtro" aria-pressed={!f.categoria} onClick={() => cambia({ categoria: '' })}>Tutti</button>
+              {CATALOGO.categorie.filter((x) => areaCat.includes(x.id) && conta('categoria', (p) => inCategoria(p, x))).map((x) => (
+                <button key={x.id} type="button" className="chip tenue-filtro" aria-pressed={f.categoria === x.id} onClick={() => cambia({ categoria: f.categoria === x.id ? '' : x.id, problema: '' })}>{x.nome}</button>
+              ))}
+            </div>
+          )}
+          {area && (
+            <div className="gruppo-filtro"><span>Per cosa</span>
+              <div className="riga-chip" role="group" aria-label="Per cosa">
+                {PER_COSA[area].map(([v, n, fn]) => [v, n, conta('problema', fn)] as const).filter(([v, , c]) => c || v === f.problema).map(([v, n, c]) => (
+                  <button key={v} type="button" className="chip" aria-pressed={f.problema === v} onClick={() => cambia({ problema: f.problema === v ? '' : v })}>{n} <span className="conta">{c}</span></button>
+                ))}
+              </div>
+            </div>
+          )}
+          <div className="filtri">
+            {area === 'viso' && (
+              <label className="campo-filtro"><span>La tua pelle</span>
+                <select value={f.pelle} onChange={(e) => cambia({ pelle: e.target.value })}>
+                  <option value="">Ogni pelle</option>
+                  {PELLI.map(([v, n]) => [v, n, conta('pelle', (p) => !!p.skinTypes?.includes(v as never))] as const).filter(([v, , c]) => c || v === f.pelle).map(([v, n, c]) => <option key={v} value={v}>{n} ({c})</option>)}
+                </select>
+              </label>
+            )}
+            {area !== 'integratori' && (
+              <label className="campo-filtro"><span>Attivo</span>
+                <select value={f.attivo} onChange={(e) => cambia({ attivo: e.target.value })}>
+                  <option value="">Tutti gli attivi</option>
+                  {ATTIVI.map((a) => [a, conta('attivo', (p) => conAttivo(p, a))] as const).filter(([a, n]) => n || a.id === f.attivo).map(([a, n]) => <option key={a.id} value={a.id}>{a.nome} ({n})</option>)}
+                </select>
+              </label>
+            )}
+            <label className="campo-filtro"><span>Marca</span>
+              <select value={f.marca} onChange={(e) => cambia({ marca: e.target.value })}>
+                <option value="">Tutte le marche</option>
+                {marche.map((m) => <option key={m} value={m}>{m}</option>)}
+              </select>
+            </label>
+            <label className="campo-filtro"><span>Ordina</span>
+              <select value={f.ordina} onChange={(e) => cambia({ ordina: e.target.value })}>
+                {ORDINI.map(([v, n]) => <option key={v} value={v}>{n}</option>)}
+              </select>
+            </label>
           </div>
+          {area !== 'integratori' && (
+            <div className="gruppo-filtro"><span>Senza</span>
+              <div className="riga-chip" role="group" aria-label="Senza">
+                {SENZA.filter(([k]) => f.senza.includes(k) || conta('senza', (p) => !!p.scheda?.senza?.includes(k))).map(([k, nome]) => (
+                  <button key={k} type="button" className="chip" aria-pressed={f.senza.includes(k)}
+                    onClick={() => cambia({ senza: f.senza.includes(k) ? f.senza.filter((y) => y !== k) : [...f.senza, k] })}>{nome.replace(/^Senza /, '')}</button>
+                ))}
+                {tagChip('gravidanza')}
+              </div>
+            </div>
+          )}
+          <div className="gruppo-filtro"><span>Tipo</span>
+            <div className="riga-chip" role="group" aria-label="Tipo di prodotto">
+              {TIPI.map(tagChip)}
+              {altre.map((t) => <button key={t} type="button" className="chip" aria-pressed onClick={() => cambia({ tag: f.tag.filter((y) => y !== t) })}>{CATALOGO.tag.find((x) => x.id === t)?.nome || t} ×</button>)}
+            </div>
+          </div>
+          <div><button type="button" className="bottone" onClick={() => setAperti(false)}>Mostra {lista.length} prodotti</button></div>
         </div>
         <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '6px 16px' }}>
           <span className="piccolo" role="status">{lista.length} prodotti{f.ordina === 'scelti' && !Object.keys(clic).length ? ' · i clic si contano da pochi giorni: per ora l’ordine segue gli attivi' : ''}</span>

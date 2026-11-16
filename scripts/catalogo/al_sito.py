@@ -114,7 +114,15 @@ def prodotto(s):
         out['sensitiveSafe'] = True
     elif p.get('reattiva') == 0:
         out['sensitiveSafe'] = False
+    # ⚠️ LE MARCHE VEGANE (16/11/2026): quando la marca dichiara vegana tutta la linea («vegana» in decisioni_marche.json,
+    # con la fonte e le eccezioni), ogni suo prodotto è vegano, anche i cosmetici. Le eccezioni si scrivono per nome.
+    vg = MARCHE_VEGANE.get(k(s['marca']))
+    if vg and not any(t.lower() in f"{s['titolo']} {tit[0]}".lower() for t in vg.get('tranne', [])):
+        out['scheda']['vegano'] = True
     return out
+
+
+MARCHE_VEGANE = {k(x['marca']): x['vegana'] for x in json.loads((Path(__file__).parent / 'decisioni_marche.json').read_text())['marche'] if x.get('vegana')}
 
 
 def descrizione(s):

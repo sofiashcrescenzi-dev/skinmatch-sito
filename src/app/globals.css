@@ -817,3 +817,13 @@ details.carta > summary::-webkit-details-marker { display: none; }
 .altro-test { text-decoration: none; color: var(--testo); transition: transform 0.2s ease, box-shadow 0.2s ease; }
 @media (hover: hover) { .altro-test:hover { transform: translateY(-2px); box-shadow: 0 10px 30px -14px var(--ombra); } }
 .test-tre { grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr)); }
+
+/* I filtri chiusi dietro un bottone (16/11/2026, components/Catalogo.tsx): dal telefono si vede subito la lista */
+.vh { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+.cerca-riga { display: flex; gap: 8px; align-items: stretch; max-width: 640px; }
+.cerca-riga .cerca-filtro { flex: 1; max-width: none; }
+.bottone-filtri { display: inline-flex; align-items: center; gap: 8px; min-height: 46px; padding: 0 16px; border-radius: var(--raggio-piccolo); border: 1px solid var(--riga-forte); background: var(--foglio); color: var(--testo); font: inherit; font-size: 15px; font-weight: 700; cursor: pointer; white-space: nowrap; }
+.bottone-filtri[aria-expanded='true'] { background: var(--testo); color: var(--fondo); border-color: var(--testo); }
+.bottone-filtri .quanti { display: inline-grid; place-items: center; min-width: 22px; height: 22px; padding: 0 6px; border-radius: 999px; background: var(--terra); color: var(--latte); font-size: 12.5px; font-variant-numeric: tabular-nums; }
+.pannello-filtri { background: var(--foglio); border: 1px solid var(--riga); border-radius: var(--raggio); padding: clamp(14px, 3vw, 22px); }
+.pannello-filtri[hidden] { display: none; }

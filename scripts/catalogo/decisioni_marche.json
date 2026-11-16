@@ -32,7 +32,14 @@
     "Calm Down",
     "Jelly Joy",
     "C-Glow"
-   ]
+   ],
+   "vegana": {
+    "fonte": "https://geekandgorgeous.com/pages/why-gg",
+    "nota": "tutti vegani tranne Calm Down (acido lattobionico dal lattosio)",
+    "tranne": [
+     "Calm Down"
+    ]
+   }
   },
   {
    "marca": "Revox",
@@ -60,7 +67,7 @@
   },
   {
    "marca": "Biokap",
-   "segmento": "Capelli",
+   "segmento": "Dermocosmesi da farmacia",
    "proposta": "no",
    "decisione": "selezione",
    "nota": "valutiamo magari c'è qualcosa che ha senso tenere, togli tutto che riguarda tinta e decolorazione",
@@ -68,7 +75,7 @@
   },
   {
    "marca": "Bioscalin",
-   "segmento": "Capelli",
+   "segmento": "Dermocosmesi da farmacia",
    "proposta": "si",
    "decisione": "si",
    "nota": "",
@@ -82,7 +89,7 @@
   },
   {
    "marca": "Crescina",
-   "segmento": "Capelli",
+   "segmento": "Dermocosmesi da farmacia",
    "proposta": "si",
    "decisione": "si",
    "nota": "",
@@ -95,7 +102,7 @@
   },
   {
    "marca": "Kerastase",
-   "segmento": "Capelli",
+   "segmento": "Premium e lusso",
    "proposta": "no",
    "decisione": "selezione",
    "nota": "valutiamo magari c'è qualcosa che ha senso tenere, togli tutto che riguarda tinta e decolorazione",
@@ -103,7 +110,7 @@
   },
   {
    "marca": "Klorane",
-   "segmento": "Capelli",
+   "segmento": "Dermocosmesi da farmacia",
    "proposta": "si",
    "decisione": "si",
    "nota": "",
@@ -120,7 +127,7 @@
   },
   {
    "marca": "Lazartigue",
-   "segmento": "Capelli",
+   "segmento": "Premium e lusso",
    "proposta": "selezione",
    "decisione": "selezione",
    "nota": "valutiamo magari c'è qualcosa che ha senso tenere, togli tutto che riguarda tinta e decolorazione",
@@ -132,7 +139,7 @@
   },
   {
    "marca": "Moroccanoil",
-   "segmento": "Capelli",
+   "segmento": "Professionale da salone",
    "proposta": "selezione",
    "decisione": "selezione",
    "nota": "il Treatment è styling e resta fuori dal test; il resto come deciso (decisione 22, 25/10)",
@@ -149,7 +156,7 @@
   },
   {
    "marca": "Nioxin",
-   "segmento": "Capelli",
+   "segmento": "Professionale da salone",
    "proposta": "selezione",
    "decisione": "selezione",
    "nota": "solo gli shampoo, per capelli fini, senza promesse sulla caduta: prove deboli (decisione 22, 25/10)",
@@ -173,7 +180,7 @@
   },
   {
    "marca": "Olaplex",
-   "segmento": "Capelli",
+   "segmento": "Professionale da salone",
    "proposta": "si",
    "decisione": "si",
    "nota": "",
@@ -187,7 +194,7 @@
   },
   {
    "marca": "Phyto",
-   "segmento": "Capelli",
+   "segmento": "Dermocosmesi da farmacia",
    "proposta": "selezione",
    "decisione": "selezione",
    "nota": "valutiamo magari c'è qualcosa che ha senso tenere, togli tutto che riguarda tinta e decolorazione",
@@ -200,7 +207,7 @@
   },
   {
    "marca": "Rene Furterer",
-   "segmento": "Capelli",
+   "segmento": "Dermocosmesi da farmacia",
    "proposta": "si",
    "decisione": "si",
    "nota": "",
@@ -240,7 +247,7 @@
   },
   {
    "marca": "Annemarie Börlind",
-   "segmento": "Dermocosmesi da farmacia",
+   "segmento": "Naturale e clean",
    "proposta": "si",
    "decisione": "si",
    "nota": "intera, partendo da Aquanature e ZZ Sensitive (decisione 20, 25/10; Öko-Test 01/2024 «sehr gut»)",
@@ -901,7 +908,11 @@
    "nota": "solo i prodotti scelti da Zeno (decisione 19, 25/10); niente solari senza etichetta UE",
    "linee": [
     "Dark Spot Correcting Glow Serum"
-   ]
+   ],
+   "vegana": {
+    "fonte": "https://www.axis-y.com/pages/about-us",
+    "nota": "la marca dichiara vegani tutti i prodotti"
+   }
   },
   {
    "marca": "Banila Co",
@@ -996,7 +1007,7 @@
   },
   {
    "marca": "Hada Labo Tokyo",
-   "segmento": "K-beauty",
+   "segmento": "J-beauty",
    "proposta": "si",
    "decisione": "selezione",
    "nota": "solo i prodotti scelti da Zeno (decisione 19, 25/10); niente solari senza etichetta UE",
@@ -1663,7 +1674,7 @@
   },
   {
    "marca": "Acnemy",
-   "segmento": "Trattamenti mirati",
+   "segmento": "Dermocosmesi da farmacia",
    "proposta": "si",
    "decisione": "si",
    "nota": "cerotti idrocolloidali per brufoli (Federico, 15/10)",
@@ -1728,7 +1739,7 @@
   },
   {
    "marca": "Kao",
-   "segmento": "K-beauty",
+   "segmento": "J-beauty",
    "proposta": "si",
    "decisione": "selezione",
    "nota": "Federico, 30/10, pagina del punto: Stylevana; solo Curél e Bioré UV",
@@ -1740,7 +1751,7 @@
   },
   {
    "marca": "Rohto Mentholatum",
-   "segmento": "K-beauty",
+   "segmento": "J-beauty",
    "proposta": "si",
    "decisione": "selezione",
    "nota": "Federico, 30/10, pagina del punto: Stylevana; solo Melano CC e Skin Aqua (Hada Labo è già a parte)",
@@ -1904,7 +1915,12 @@
    "prodotti_uno_per_uno": true,
    "senza_bisogni": [
     "caduta"
-   ]
+   ],
+   "vegana": {
+    "fonte": "https://www1.cocunat.com/en-US/",
+    "nota": "la marca dichiara vegana e cruelty free tutta la linea"
+   }
   }
- ]
+ ],
+ "_nota_segmenti_1611": "16/11/2026 (Federico: «i filtri come alta cosmesi: elimina quelli che non servono e riempi quelli che ne hanno»): le marche capelli da farmacia e Acnemy in «Dermocosmesi da farmacia»; Kérastase e Lazartigue in «Premium e lusso»; Olaplex, Moroccanoil e Nioxin in «Professionale da salone»; Kao, Rohto e Hada Labo (giapponesi) in «J-beauty», non più K-beauty; Annemarie Börlind in «Naturale e clean». «vegana»: la marca dichiara vegana tutta la linea (con la fonte e le eccezioni): vale per ogni suo prodotto (al_sito.py)."
 }

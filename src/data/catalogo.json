@@ -167,24 +167,42 @@
      "Avène",
      "Beauty of Joseon",
      "Bioderma",
-     "COSRX",
      "CeraVe",
+     "Cetaphil",
+     "COSRX",
      "Ducray",
-     "Geek&Gorgeous",
+     "Geek & Gorgeous",
+     "Hada Labo Tokyo",
+     "Illiyoon",
      "ISDIN",
+     "Isntree",
+     "Kao",
      "La Roche-Posay",
+     "Purederm",
      "Round Lab",
-     "SKIN1004",
-     "SVR",
+     "Sebamed",
+     "Skin1004",
      "Skincyclopedia",
+     "SVR",
      "The Ordinary",
+     "Topicrem",
      "Torriden",
      "Vichy"
     ]
    },
-   "descrizione": "Prodotti che costano poco e funzionano: dermocosmesi da farmacia e K-beauty essenziale.",
+   "descrizione": "Prodotti che costano poco e funzionano: dermocosmesi da farmacia, attivi essenziali e K-beauty e J-beauty di base.",
    "home": false,
    "immagine": "detergenti"
+  },
+  {
+   "id": "attivi-essenziali",
+   "nome": "Attivi essenziali",
+   "regola": {
+    "segmento": [
+     "Attivi a buon prezzo"
+    ]
+   },
+   "descrizione": "Formule semplici con un attivo dichiarato in percentuale (niacinamide, retinale, acidi), a prezzi bassi: per chi sa già cosa cerca."
   },
   {
    "id": "k-beauty",
@@ -197,6 +215,16 @@
    "descrizione": "La cosmetica coreana: texture leggere, idratazione a strati, protezioni solari piacevoli da mettere.",
    "home": true,
    "immagine": "kbeauty"
+  },
+  {
+   "id": "j-beauty",
+   "nome": "J-beauty",
+   "regola": {
+    "segmento": [
+     "J-beauty"
+    ]
+   },
+   "descrizione": "La cosmetica giapponese: detergenti delicati, idratazione con acido ialuronico e protezioni solari leggere."
   },
   {
    "id": "farmacia",
@@ -263,6 +291,26 @@
     "vegano": true
    },
    "descrizione": "Prodotti dichiarati vegani dal produttore, senza ingredienti di origine animale."
+  },
+  {
+   "id": "salone",
+   "nome": "Da salone",
+   "regola": {
+    "segmento": [
+     "Professionale da salone"
+    ]
+   },
+   "descrizione": "Le marche dei parrucchieri: trattamenti per capelli rovinati, trattati o sottili, da usare anche a casa."
+  },
+  {
+   "id": "naturali",
+   "nome": "Naturali",
+   "regola": {
+    "segmento": [
+     "Naturale e clean"
+    ]
+   },
+   "descrizione": "Marche che puntano su ingredienti di origine naturale. Nella scheda trovi l’elenco completo, perché «naturale» non vuol dire per forza delicato."
   }
  ],
  "modifiche": {
