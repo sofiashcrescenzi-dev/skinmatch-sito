@@ -5,34 +5,34 @@
    "nome": "Skinmatch · la pelle spiegata",
    "handle": "skinmatch.it",
    "bio": "Instagram\n\nLa skincare giusta parte da te.\nTest gratis per pelle, capelli e integratori.\nRoutine su misura, attivi spiegati senza promesse.\n↓ Trova il tuo match",
-   "url": "",
+   "url": "https://www.instagram.com/skinmatch.it/",
    "categoria": "Sito web di salute e bellezza"
   },
   "tiktok": {
    "nome": "Skinmatch",
    "handle": "skinmatch.it",
    "bio": "La pelle spiegata, senza promesse.\nFai il test gratis ↓",
-   "url": "",
+   "url": "https://www.tiktok.com/@skinmatch.it",
    "categoria": "Salute e bellezza"
   },
   "threads": {
    "nome": "Skinmatch · la pelle spiegata",
    "handle": "skinmatch.it",
    "bio": "Skincare spiegata con calma: biotipi, attivi, routine e miti, con le fonti.\nUn test gratuito per capire la tua pelle ↓",
-   "url": "",
+   "url": "https://www.threads.com/@skinmatch.it",
    "categoria": ""
   },
   "youtube": {
    "nome": "Skinmatch · la pelle spiegata",
    "handle": "skinmatch.it",
    "bio": "Skinmatch spiega la pelle: perché tira, perché luccica, perché un attivo funziona e un altro irrita, perché l'ordine della routine conta.\n\nOgni video fa vedere quello che a parole non si vede: l'acqua che lascia la barriera, una molecola che entra nel poro, la luce che attraversa il vetro. Frasi brevi, fonti in descrizione, nessuna promessa: i cosmetici non curano, e dove serve un medico lo diciamo.\n\nSu skinmatch.it c'è il test gratuito, senza registrazione: tre minuti di domande su quello che vedi allo specchio, un biotipo e una routine mattina e sera.\n\nNuovi video ogni tre giorni: biotipi, attivi, routine, miti e curiosità.",
-   "url": "",
+   "url": "https://www.youtube.com/@Skinmatch-it",
    "categoria": ""
   }
  },
  "link": {
   "titolo": "skinmatch",
-  "frase": "La pelle spiegata. Il test dura tre minuti, è gratis e senza registrazione.",
+  "frase": "La pelle spiegata. ",
   "bottoni": [
    {
     "etichetta": "Fai il test della pelle",
@@ -67,13 +67,13 @@
    {
     "etichetta": "Gli attivi, spiegati",
     "url": "/glossario",
-    "colore": "contorno",
-    "attivo": false
+    "colore": "velo",
+    "attivo": true
    },
    {
     "etichetta": "Chi è Skinmatch",
     "url": "/chi-siamo",
-    "colore": "pesca",
+    "colore": "velo",
     "attivo": true
    }
   ],
