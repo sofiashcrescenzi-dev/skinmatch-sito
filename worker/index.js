@@ -176,19 +176,19 @@ async function accesso(req, env) {
 const SITO_GSC = 'sc-domain:skinmatch.it';
 const API_GSC = `https://searchconsole.googleapis.com/webmasters/v3/sites/${encodeURIComponent(SITO_GSC)}`;
 let gettoneGoogle = null;
-const b64u = (s) => btoa(s).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+const a64u = (s) => btoa(s).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
 async function accessoGoogle(env) {
   if (gettoneGoogle && gettoneGoogle.scade > Date.now() + 60e3) return gettoneGoogle.valore;
   const k = JSON.parse(env.GSC_CHIAVE);
   const ora = Math.floor(Date.now() / 1000);
-  const testa = b64u(JSON.stringify({ alg: 'RS256', typ: 'JWT' }));
-  const corpo = b64u(JSON.stringify({ iss: k.client_email, scope: 'https://www.googleapis.com/auth/webmasters.readonly', aud: 'https://oauth2.googleapis.com/token', iat: ora, exp: ora + 3600 }));
+  const testa = a64u(JSON.stringify({ alg: 'RS256', typ: 'JWT' }));
+  const corpo = a64u(JSON.stringify({ iss: k.client_email, scope: 'https://www.googleapis.com/auth/webmasters.readonly', aud: 'https://oauth2.googleapis.com/token', iat: ora, exp: ora + 3600 }));
   const der = Uint8Array.from(atob(k.private_key.replace(/-----[^-]+-----/g, '').replace(/\s+/g, '')), (c) => c.charCodeAt(0));
   const chiave = await crypto.subtle.importKey('pkcs8', der, { name: 'RSASSA-PKCS1-v1_5', hash: 'SHA-256' }, false, ['sign']);
   const firma = new Uint8Array(await crypto.subtle.sign('RSASSA-PKCS1-v1_5', chiave, new TextEncoder().encode(`${testa}.${corpo}`)));
   const r = await fetch('https://oauth2.googleapis.com/token', {
     method: 'POST', headers: { 'content-type': 'application/x-www-form-urlencoded' },
-    body: `grant_type=${encodeURIComponent('urn:ietf:params:oauth:grant-type:jwt-bearer')}&assertion=${testa}.${corpo}.${b64u(String.fromCharCode(...firma))}`,
+    body: `grant_type=${encodeURIComponent('urn:ietf:params:oauth:grant-type:jwt-bearer')}&assertion=${testa}.${corpo}.${a64u(String.fromCharCode(...firma))}`,
   });
   const t = await r.json();
   if (!t.access_token) throw new Error(`Google non dà l'accesso: ${t.error_description || t.error || r.status}`);
