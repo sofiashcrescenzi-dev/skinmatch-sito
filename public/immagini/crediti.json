@@ -406,22 +406,6 @@
   "originale": "media/foto/capelli.jpg"
  },
  {
-  "nome": "integratori",
-  "alt": "Un flacone bianco senza etichetta e alcune capsule rosa",
-  "autore": "Supplements On Demand",
-  "autore_pagina": "https://www.pexels.com/@supliful",
-  "pagina": "https://www.pexels.com/photo/pills-lying-next-to-white-bottle-13779115/",
-  "pexels_id": 13779115,
-  "licenza": "Licenza Pexels (uso libero, citazione gradita)",
-  "uso": [
-   "catalogo: categoria integratori"
-  ],
-  "fuoco": "45% 50%",
-  "larghezza": 1600,
-  "altezza": 1600,
-  "originale": "media/foto/integratori.jpg"
- },
- {
   "nome": "kbeauty",
   "alt": "Una maschera in tessuto tenuta in alto davanti a una tenda",
   "autore": "Anna Shvets",
@@ -1808,5 +1792,117 @@
   "larghezza": 1600,
   "altezza": 1067,
   "originale": "media/foto/rivista-attivi-insieme.jpg"
+ },
+ {
+  "nome": "biotipo-riposo",
+  "alt": "Una ragazza dorme in un letto bianco, nella luce del mattino",
+  "autore": "cottonbro studio",
+  "autore_pagina": "https://www.pexels.com/@cottonbro",
+  "pagina": "https://www.pexels.com/photo/woman-girl-bed-bedroom-4045549/",
+  "pexels_id": 4045549,
+  "licenza": "Licenza Pexels (uso libero, citazione gradita)",
+  "uso": [
+   "biotipo:riposo"
+  ],
+  "fuoco": "50% 45%",
+  "larghezza": 1600,
+  "altezza": 2400,
+  "originale": "media/foto/biotipo-riposo.jpg"
+ },
+ {
+  "nome": "biotipo-calma",
+  "alt": "Una mano tiene una tazza di tisana su un tavolo di legno, accanto alla finestra",
+  "autore": "hello aesthe",
+  "autore_pagina": "https://www.pexels.com/photo/cozy-moment-with-tea-by-the-window-31146888/",
+  "pagina": "https://www.pexels.com/photo/cozy-moment-with-tea-by-the-window-31146888/",
+  "pexels_id": 31146888,
+  "licenza": "Licenza Pexels (uso libero, citazione gradita)",
+  "uso": [
+   "biotipo:calma"
+  ],
+  "fuoco": "50% 55%",
+  "larghezza": 1600,
+  "altezza": 2400,
+  "originale": "media/foto/biotipo-calma.jpg"
+ },
+ {
+  "nome": "biotipo-difese",
+  "alt": "Fette di arance, pompelmi e limoni viste dall'alto",
+  "autore": "Lena Khrupina",
+  "autore_pagina": "https://www.pexels.com/photo/top-view-photo-of-sliced-citrus-fruits-2683373/",
+  "pagina": "https://www.pexels.com/photo/top-view-photo-of-sliced-citrus-fruits-2683373/",
+  "pexels_id": 2683373,
+  "licenza": "Licenza Pexels (uso libero, citazione gradita)",
+  "uso": [
+   "biotipo:difese"
+  ],
+  "fuoco": "50% 50%",
+  "larghezza": 1600,
+  "altezza": 2400,
+  "originale": "media/foto/biotipo-difese.jpg"
+ },
+ {
+  "nome": "biotipo-energia",
+  "alt": "Una mano si allunga verso il sole che entra da una finestra aperta",
+  "autore": "Ánh Đặng",
+  "autore_pagina": "https://www.pexels.com/photo/person-stretching-hand-in-window-to-sun-16398476/",
+  "pagina": "https://www.pexels.com/photo/person-stretching-hand-in-window-to-sun-16398476/",
+  "pexels_id": 16398476,
+  "licenza": "Licenza Pexels (uso libero, citazione gradita)",
+  "uso": [
+   "biotipo:energia"
+  ],
+  "fuoco": "50% 45%",
+  "larghezza": 1600,
+  "altezza": 2400,
+  "originale": "media/foto/biotipo-energia.jpg"
+ },
+ {
+  "nome": "biotipo-vitamina-d",
+  "alt": "Una ragazza con gli occhi chiusi e il viso al sole, tra il verde",
+  "autore": "Zeyneb Alishova",
+  "autore_pagina": "https://www.pexels.com/photo/woman-delighting-in-sun-with-eyes-closed-18168159/",
+  "pagina": "https://www.pexels.com/photo/woman-delighting-in-sun-with-eyes-closed-18168159/",
+  "pexels_id": 18168159,
+  "licenza": "Licenza Pexels (uso libero, citazione gradita)",
+  "uso": [
+   "biotipo:vitamina-d"
+  ],
+  "fuoco": "45% 35%",
+  "larghezza": 1600,
+  "altezza": 2400,
+  "originale": "media/foto/biotipo-vitamina-d.jpg"
+ },
+ {
+  "nome": "biotipo-omega-3",
+  "alt": "Un trancio di salmone fresco sulla carta da cucina, con limone e prezzemolo",
+  "autore": "Lalada",
+  "autore_pagina": "https://www.pexels.com/photo/salmon-on-a-tray-in-kitchen-19001608/",
+  "pagina": "https://www.pexels.com/photo/salmon-on-a-tray-in-kitchen-19001608/",
+  "pexels_id": 19001608,
+  "licenza": "Licenza Pexels (uso libero, citazione gradita)",
+  "uso": [
+   "biotipo:omega-3"
+  ],
+  "fuoco": "45% 55%",
+  "larghezza": 1600,
+  "altezza": 2400,
+  "originale": "media/foto/biotipo-omega-3.jpg"
+ },
+ {
+  "nome": "integratori",
+  "alt": "Un bicchiere d'acqua e due mezzi limoni su un tavolo di legno, nella luce del mattino",
+  "autore": "Arina Krasnikova",
+  "autore_pagina": "https://www.pexels.com/@arina-krasnikova",
+  "pagina": "https://www.pexels.com/photo/sliced-lemon-beside-a-drinking-glass-6653641/",
+  "pexels_id": 6653641,
+  "licenza": "Licenza Pexels (uso libero, citazione gradita)",
+  "uso": [
+   "catalogo: categoria integratori"
+  ],
+  "fuoco": "45% 50%",
+  "larghezza": 1600,
+  "altezza": 1600,
+  "originale": "media/foto/integratori.jpg"
  }
 ]
