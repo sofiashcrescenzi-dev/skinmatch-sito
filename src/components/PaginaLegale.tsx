@@ -1,7 +1,7 @@
 import Markdown from '@/components/Markdown';
 import { aggiornato, completo } from '@/lib/legale';
 
-export default function PaginaLegale({ titolo, testo }: { titolo: string; testo: string }) {
+export default function PaginaLegale({ titolo, testo, children }: { titolo: string; testo: string; children?: React.ReactNode }) {
   return (
     <main className="contenitore stretto sezione pila" style={{ ['--gap' as string]: '20px' }}>
       <header className="pila" style={{ ['--gap' as string]: '10px' }}>
@@ -11,6 +11,7 @@ export default function PaginaLegale({ titolo, testo }: { titolo: string; testo:
         {!completo() && <p className="avviso">Alcuni dati di chi pubblica il sito sono ancora da completare.</p>}
       </header>
       <Markdown testo={testo} semplice />
+      {children}
     </main>
   );
 }

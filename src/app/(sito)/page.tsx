@@ -1,5 +1,6 @@
 import Link from 'next/link';
-import { TEST, BIOTIPI, CATALOGO, ARTICOLI, TERMINI, ATTIVI, conAttivo, fotoDi, immagine } from '@/lib/dati';
+import { TEST, BIOTIPI, CATALOGO, ARTICOLI, TERMINI, ATTIVI, conAttivo, fotoDi, immagine, PERCORSI_SCELTA } from '@/lib/dati';
+import { RisultatiSalvati } from '@/components/RisultatiSalvati';
 import { nelGruppo, PRODOTTI } from '@/lib/catalogo';
 import Foto from '@/components/Foto';
 import { Invito, Stendi } from '@/components/Inviti';
@@ -31,11 +32,11 @@ const NEL_RISULTATO: [string, string][] = [
   ['Le cautele', 'Cosa introdurre piano e quando chiedere al medico, prima dei prodotti.'],
 ];
 
-// ⚠️ I QUATTRO TEST SUBITO SOTTO L'APERTURA (Federico, 30/10/2026: «sotto la hero metti i 4 test, strutturati in
-// maniera differente e più bella»). Il completo in grande, gli altri tre in fila; di ognuno quanto dura, quante domande
-// fa al massimo e cosa ne esce. Il tono di fondo è un fototipo diverso per test.
+// ⚠️ I TEST SUBITO SOTTO L'APERTURA (Federico, 30/10/2026: «sotto la hero metti i test, strutturati in maniera
+// differente e più bella»). Dal 16/11/2026 sono tre, alla pari, uno per interesse («togliere il test completo, spingere
+// sul poter fare i vari test in base al proprio interesse»): di ognuno quanto dura, quante domande fa al massimo e cosa
+// ne esce. Sopra, i risultati già salvati su questo telefono. Il tono di fondo è un fototipo diverso per test.
 const ESCE: Record<string, string> = {
-  completo: 'Tutta la giornata, dalla detersione al cuoio capelluto.',
   viso: 'Il tuo profilo e una routine da tre a cinque passaggi, mattina e sera.',
   cute: 'Il profilo della tua cute, lo shampoo e il trattamento.',
   integrazione: 'Al massimo tre integratori, ognuno con l\'indicazione autorizzata in Europa. Se non te ne serve nessuno, te lo diciamo.',
@@ -70,7 +71,7 @@ export default function Home() {
                 e del catalogo. Un blocco suo, con cosa si fa e cosa se ne ricava. */}
             <div className="test-primo">
               <Invito href="/test?percorso=viso" scuro>Fai il test della pelle</Invito>
-              <span className="test-primo-sotto">{TEST.percorsi.find((p) => p.id === 'viso')?.minuti ?? 3} minuti · Gratis, senza registrazione · <a href="#i-test" style={{ color: 'inherit' }}>o scegli fra quattro test</a></span>
+              <span className="test-primo-sotto">{TEST.percorsi.find((p) => p.id === 'viso')?.minuti ?? 3} minuti · Gratis, senza registrazione · <a href="#i-test" style={{ color: 'inherit' }}>o scegli fra tre test</a></span>
             </div>
           </div>
           <div className="mezze" role="img" aria-label="Pelle vera, luce naturale, nelle due mezzelune del segno di Skinmatch">
@@ -88,17 +89,17 @@ export default function Home() {
         <div className="contenitore sezione pila" style={{ ['--gap' as string]: 'clamp(20px, 4vw, 32px)' }}>
           <div className="pila" style={{ ['--gap' as string]: '8px' }}>
             <span className="etichetta">Da dove partire</span>
-            <h2 id="test-titolo" className="titolo-2">Quattro test, una routine</h2>
-            <p className="intro">Da 2 a 6 minuti. Puoi farne uno solo.</p>
+            <h2 id="test-titolo" className="titolo-2">Tre test, uno per ogni interesse</h2>
+            <p className="intro">Parti da quello che ti interessa: la pelle del viso, la cute e i capelli, o l’integrazione. Due o tre minuti ciascuno; puoi salvare i risultati e fare gli altri quando vuoi.</p>
           </div>
-          <div className="test-griglia">
-            {/* la pelle per prima e più grande: è l'azione principale (voto l-home); il completo in fondo */}
-            {['viso', 'cute', 'integrazione', 'completo'].map((id) => TEST.percorsi.find((x) => x.id === id)).filter((p): p is (typeof TEST.percorsi)[number] => !!p).map((p, i) => (
-              <Link key={p.id} href={`/test?percorso=${p.id}`} className={`test-carta${i === 0 ? ' test-grande' : ''}`} style={{ ['--tono' as string]: `var(--f${i + 1})` }}>
-                <span className="test-foto"><Foto nome={p.immagine} sizes={i === 0 ? '(max-width: 760px) 100vw, 40vw' : '(max-width: 760px) 100vw, 25vw'} /></span>
+          <RisultatiSalvati compatto />
+          <div className="test-griglia test-tre">
+            {PERCORSI_SCELTA.map((p, i) => (
+              <Link key={p.id} href={`/test?percorso=${p.id}`} className="test-carta" style={{ ['--tono' as string]: `var(--f${i + 1})` }}>
+                <span className="test-foto"><Foto nome={p.immagine} sizes="(max-width: 760px) 100vw, 33vw" /></span>
                 <span className="test-corpo">
                   <span className="test-dati"><b>{p.minuti} min</b><span>fino a {massimoDomande(p)} domande</span></span>
-                  <span className="titolo-3">{p.id === 'completo' ? 'Il test completo' : p.id === 'viso' ? 'Il test della tua pelle' : p.titolo}</span>
+                  <span className="titolo-3">{p.id === 'viso' ? 'Il test della tua pelle' : p.titolo}</span>
                   {/* solo la prima frase: «Ne esce» sta sotto, e la descrizione lo ripeteva */}
                   <span className="piccolo">{p.descrizione.split(/\.\s+Ne escon?o?\b/)[0].replace(/\.?$/, '.')}</span>
                   <span className="test-esce"><b>Ne esce</b> {ESCE[p.id] || 'Il tuo biotipo e una routine.'}</span>

@@ -795,3 +795,25 @@ details.carta > summary::-webkit-details-marker { display: none; }
 .vis-quote { display: flex; gap: 2px; height: 12px; }
 .vis-quote i { display: block; border-radius: 4px; min-width: 4px; }
 .vis-sitemap { font-size: 13.5px; }
+
+/* I filtri del catalogo per area (16/11/2026, components/Catalogo.tsx): un'etichetta per gruppo, i bottoni sotto */
+.gruppo-filtro { display: grid; gap: 6px; }
+.gruppo-filtro > span { font-size: 12px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--grigio); }
+.riga-chip.aree .chip { font-size: 14px; padding: 8px 16px; }
+.chip.tenue-filtro { background: var(--velo); border-color: transparent; }
+.chip.tenue-filtro[aria-pressed='true'] { background: var(--testo); color: var(--fondo); }
+.chip .conta { font-weight: 500; opacity: 0.6; font-variant-numeric: tabular-nums; }
+
+/* I risultati salvati su questo telefono (16/11/2026, components/RisultatiSalvati.tsx) */
+.salvati { border-color: var(--riga-forte); }
+.salvati-lista { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.salvati-lista li { display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: center; justify-content: space-between; padding: 10px 0; border-top: 1px solid var(--riga); }
+.salvati-lista li:first-child { border-top: 0; padding-top: 0; }
+.salvati-testo { display: grid; gap: 2px; min-width: 0; }
+.salvati-testo b { font-family: var(--font-titolo); font-size: 18px; line-height: 1.25; }
+.salvati-azioni { display: flex; gap: 14px; align-items: center; }
+.salvato-nota { display: inline-flex; align-items: center; gap: 6px; font-size: 14.5px; font-weight: 600; color: var(--bene); min-height: 48px; }
+.salvato-nota .link { color: var(--terra); }
+.altro-test { text-decoration: none; color: var(--testo); transition: transform 0.2s ease, box-shadow 0.2s ease; }
+@media (hover: hover) { .altro-test:hover { transform: translateY(-2px); box-shadow: 0 10px 30px -14px var(--ombra); } }
+.test-tre { grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr)); }

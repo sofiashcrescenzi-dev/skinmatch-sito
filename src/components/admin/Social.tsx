@@ -12,7 +12,7 @@ import { useDocumento, useApi, invia, BarraSalva, Campo, Testo, Titolo, Vuoto, q
 
 const PAGINE: [string, string][] = [
   ['Il test della pelle', '/test?percorso=viso'], ['Il test del cuoio capelluto', '/test?percorso=cute'], ['Il giro integrativo', '/test?percorso=integrazione'],
-  ['Il test completo', '/test?percorso=completo'], ['L’ultimo video, spiegato (cambia da solo)', '@ultimo-video'], ['I biotipi', '/biotipi'], ['La Rivista', '/rivista'],
+  ['I tre test', '/test'], ['L’ultimo video, spiegato (cambia da solo)', '@ultimo-video'], ['I biotipi', '/biotipi'], ['La Rivista', '/rivista'],
   ['Gli attivi (glossario)', '/glossario'], ['Il catalogo', '/catalogo'], ['Gli integratori', '/integratori'], ['Chi siamo', '/chi-siamo'], ['La home', '/'],
 ];
 const KIT: { file: string; nome: string; misura: string; uso: string }[] = [

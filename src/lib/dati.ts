@@ -240,6 +240,11 @@ export const NOMI_AREA: Record<Area, string> = { pelle: 'Pelle', cute: 'Cute e c
 
 export const biotipoPerId = (id: string) => BIOTIPI.find((b) => b.id === id);
 export const percorsoPerId = (id: string) => TEST.percorsi.find((p) => p.id === id);
+// ⚠️ IL TEST COMPLETO NON SI SCEGLIE PIÙ (16/11/2026, Federico: «togliere il test completo, spingere sul poter fare i vari
+// test in base al proprio interesse»). Resta nei dati solo perché i risultati già condivisi (/risultato#<codice>) si
+// devono ancora aprire; ovunque si sceglie un test si usano questi tre, e /test?percorso=completo porta alla scelta.
+export const PERCORSI_SCELTA = TEST.percorsi.filter((p) => p.id !== 'completo');
+export const percorsoDaScegliere = (id: string | null | undefined) => (id ? PERCORSI_SCELTA.find((p) => p.id === id) : undefined);
 export const domandaPerId = (id: string) => TEST.domande.find((d) => d.id === id);
 export const terminePerId = (id: string) => TERMINI.find((t) => t.id === id);
 

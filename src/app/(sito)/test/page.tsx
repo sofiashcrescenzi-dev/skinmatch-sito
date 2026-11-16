@@ -1,7 +1,8 @@
 'use client';
 
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { TEST, NOZIONI, percorsoPerId, type Nozione as N } from '@/lib/dati';
+import { NOZIONI, percorsoPerId, PERCORSI_SCELTA, type Nozione as N } from '@/lib/dati';
+import { RisultatiSalvati } from '@/components/RisultatiSalvati';
 import { consiglia, domandeDi, type Risposte } from '@/lib/motore';
 import { ConTermini } from '@/components/Termini';
 import { useRouter } from 'next/navigation';
@@ -37,7 +38,8 @@ const ICONA_RISPOSTA: Record<string, Record<string, NomeIcona>> = {
 // ⚠️ Le risposte restano su questo telefono (localStorage): al sito arriva solo il conteggio
 // di test iniziati e finiti, senza le risposte (tappa 9 delle «Tappe di Skinmatch»).
 const CHIAVE = 'skinmatch-test-2';
-const VECCHI: Record<string, string> = { capelli: 'cute', completa: 'completo' };
+// il completo non si sceglie più (16/11/2026): i suoi link portano alla scelta dei tre test
+const VECCHI: Record<string, string> = { capelli: 'cute', completa: '', completo: '' };
 type Stato = { percorso: string | null; risposte: Risposte; passo: number; fine: boolean; inizio?: number | null; pausa?: string | null; ultima?: number };
 
 // ⚠️ LE PAUSE (23/10/2026, Federico: «i funnel più interattivi, una nozione ogni 4-5 domande o a ogni tipo di
@@ -74,7 +76,7 @@ export default function TestPage() {
     try { const x = JSON.parse(localStorage.getItem(CHIAVE) || 'null'); if (x && typeof x === 'object') st = { ...VUOTO, ...x }; } catch { /* niente */ }
     const u = new URLSearchParams(window.location.search);
     const q = u.get('percorso');
-    const id = q ? VECCHI[q] || q : null;
+    const id = q ? (q in VECCHI ? VECCHI[q] || null : q) : null;
     // «Rifai il test» e «Prova un altro test» arrivano con ?nuovo=1: si riparte da capo
     if (u.get('nuovo')) st = { ...VUOTO, percorso: id && percorsoPerId(id) ? id : null, inizio: Date.now() };
     else if (id && percorsoPerId(id) && (id !== st.percorso || st.fine)) st = { ...VUOTO, percorso: id, inizio: Date.now() };
@@ -107,12 +109,13 @@ export default function TestPage() {
       <main className="contenitore sezione pila" style={{ ['--gap' as string]: 'clamp(24px, 4vw, 40px)' }}>
         <header className="pila" style={{ ['--gap' as string]: '12px' }}>
           <span className="etichetta">Il test</span>
-          <h1 className="sopratitolo">Da dove partiamo?</h1>
+          <h1 className="sopratitolo">Cosa vuoi scoprire?</h1>
+          <p className="intro">Tre test, uno per interesse: scegli da dove partire e fai gli altri quando vuoi. Domande su quello che vedi allo specchio, non su come pensi di essere; ne escono il tuo profilo e i prodotti giusti, ognuno con un&apos;alternativa simile, di solito più economica. Non è una diagnosi.</p>
           {ultimo && <a href={`/risultato#${ultimo}`} className="link">Rivedi il tuo ultimo risultato</a>}
-          <p className="intro">Domande su quello che vedi allo specchio, non su come pensi di essere. Ne escono il tuo biotipo e i prodotti giusti, ognuno con un&apos;alternativa simile, di solito più economica. Non è una diagnosi.</p>
         </header>
+        <RisultatiSalvati />
         <div className="griglia" style={{ ['--min' as string]: '250px' }}>
-          {TEST.percorsi.map((p) => (
+          {PERCORSI_SCELTA.map((p) => (
             <button key={p.id} type="button" className="carta-foto con-luna" style={{ textAlign: 'left', font: 'inherit', cursor: 'pointer', padding: 0 }}
               onClick={() => setS({ ...VUOTO, percorso: p.id, inizio: Date.now() })}>
               <Foto nome={p.immagine} sizes="(max-width: 760px) 100vw, 25vw" />

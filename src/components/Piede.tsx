@@ -16,7 +16,7 @@ export default function Piede({ rivista }: { rivista: boolean }) {
             <Link href="/test?percorso=viso">Test della pelle</Link>
             <Link href="/test?percorso=cute">Test di cute e capelli</Link>
             <Link href="/test?percorso=integrazione">Test dell&apos;integrazione</Link>
-            <Link href="/test?percorso=completo">Test completo</Link>
+            <Link href="/test">I tuoi risultati</Link>
           </nav>
           <nav className="pila piccolo" style={{ ['--gap' as string]: '6px' }} aria-label="Le pagine">
             <Link href="/biotipi">I biotipi</Link>
@@ -28,7 +28,7 @@ export default function Piede({ rivista }: { rivista: boolean }) {
           <nav className="pila piccolo" style={{ ['--gap' as string]: '6px' }} aria-label="Skinmatch">
             <Link href="/chi-siamo">Chi siamo</Link>
             <Link href="/privacy">Privacy</Link>
-            <Link href="/cookie">Cookie</Link>
+            <Link href="/cookie">Cookie e dati salvati</Link>
             <Link href="/note-legali">Note legali</Link>
           </nav>
         </div>

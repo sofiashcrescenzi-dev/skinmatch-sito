@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'Il test della pelle, della cute e dell\'integrazione',
-  description: 'Quattro test con domande su quello che vedi allo specchio: viso, cute e capelli, integrazione, oppure tutto insieme. Ne escono il tuo biotipo e una routine con prodotti veri.',
+  description: 'Tre test, uno per interesse: la pelle del viso, la cute e i capelli, l’integrazione. Domande su quello che vedi allo specchio; ne escono il tuo profilo e una routine con prodotti veri, e puoi salvare i risultati.',
   alternates: { canonical: '/test' },
 };
 

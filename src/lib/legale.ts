@@ -24,7 +24,7 @@ ${v(LEGALE.titolare)}, ${v(LEGALE.indirizzo)}${LEGALE.partita_iva ? `, partita I
 
 ## Le risposte al test restano sul tuo telefono
 
-Le risposte che dai al test (compresi i dati sulla salute, come una condizione diagnosticata o una gravidanza) vengono elaborate **solo dal tuo browser** e salvate nella sua memoria locale, per farti ritrovare il risultato. Non arrivano ai nostri server e non le vediamo. Puoi cancellarle quando vuoi rifacendo il test o cancellando i dati del sito dalle impostazioni del browser.
+Le risposte che dai al test (compresi i dati sulla salute, come una condizione diagnosticata o una gravidanza) vengono elaborate **solo dal tuo browser** e salvate nella sua memoria locale, per farti ritrovare il risultato; se tocchi «Salva il risultato», il risultato resta lì finché non lo togli. Non arrivano ai nostri server e non le vediamo. Puoi cancellarle quando vuoi rifacendo il test o cancellando i dati del sito dalle impostazioni del browser.
 
 ## Quali dati trattiamo
 
@@ -67,22 +67,37 @@ Se il sito cambia il modo in cui tratta i dati, questa pagina si aggiorna e la d
 `;
 
 export const COOKIE = () => `
-**Skinmatch non usa cookie di profilazione né cookie di statistica**, e per questo non ti chiede il consenso con un banner.
+**Skinmatch non usa cookie di profilazione né cookie di statistica.** Usa solo strumenti tecnici, che servono a far funzionare quello che chiedi: per questo non ti chiede il consenso con un banner.
 
-## Cosa usa il sito
+## Cosa salva il sito su questo telefono
 
-- **La memoria locale del browser** per ricordare le risposte del test e il risultato su questo dispositivo. Serve solo al servizio che hai chiesto (fare il test) e non esce dal tuo telefono: è uno strumento tecnico, esente dal consenso (art. 122 del Codice privacy e Linee guida del Garante del 10 giugno 2021).
-- **Cookie tecnici di Cloudflare**, quando servono a distinguere le persone dai programmi automatici e a proteggere il sito.
+Non sono cookie ma la memoria del browser, e restano sul tuo dispositivo: a noi non arrivano.
+
+- **I risultati che salvi** (memoria locale, «skinmatch-risultati»). Quando tocchi «Salva il risultato», il telefono tiene un risultato per test, con la data, per fartelo rivedere in «I tuoi risultati». Resta finché non lo togli.
+- **Le risposte del test** (memoria locale, «skinmatch-test-2»). Le risposte del test in corso o dell'ultimo fatto, per riprendere da dove eri. Comprendono anche dati sulla salute, se li indichi: per questo non escono mai dal browser.
+- **Le curiosità già lette** (memoria locale, «skinmatch-nozioni-viste»). Per non mostrarti due volte lo stesso «Lo sapevi che».
+- **La visita già contata** (memoria della sessione, «sm-arrivo»). Un segno che si cancella quando chiudi la scheda, perché la stessa visita non si conti due volte. Il sito riceve solo la famiglia della fonte (un motore di ricerca, un social, un'IA) e la sezione d'ingresso, senza sapere chi sei.
+- **La ricarica dopo un errore** (memoria della sessione, «skinmatch-ricaricata»). L'ora dell'ultima ricarica automatica, perché non si ripeta di continuo.
+
+Al sito arrivano solo dei conteggi: test iniziati e finiti, clic verso i negozi, errori delle pagine. Mai le risposte, mai chi sei.
+
+## Cookie tecnici
+
+- **Cloudflare**, che ospita e protegge il sito, può usare cookie tecnici di breve durata per distinguere le persone dai programmi automatici.
 - **Nell'area riservata**, un cookie di accesso per chi gestisce il sito.
 - **I caratteri tipografici** sono serviti dal sito stesso: il tuo browser non contatta Google per caricarli.
 
-## Cookie di terze parti
+## Cookie dei negozi
 
 Quando tocchi «Vedi su…» e passi a un negozio, il negozio e la rete di affiliazione possono usare i loro cookie, anche per riconoscere che sei arrivato da Skinmatch e riconoscerci una commissione se compri. Li trovi descritti nelle cookie policy di quei siti. Le immagini dei prodotti arrivano dai server dei negozi, che non installano cookie attraverso Skinmatch.
 
+## Perché non c'è un banner
+
+Gli strumenti tecnici, che servono a darti un servizio che hai chiesto, non hanno bisogno del consenso (art. 122 del Codice privacy e Linee guida del Garante del 10 giugno 2021). Se un giorno aggiungessimo statistiche o altri strumenti che lo richiedono, te lo chiederemo prima, con «Accetta» e «Rifiuta» sullo stesso piano.
+
 ## Come gestirli
 
-Puoi cancellare la memoria locale e i cookie dalle impostazioni del browser (in genere: Impostazioni → Privacy → Dati dei siti). Cancellandoli perdi solo il risultato del test salvato, che puoi rifare quando vuoi.
+Qui sotto vedi cosa c'è adesso in questo browser e puoi cancellarlo con un tasto. Puoi farlo anche dalle impostazioni del browser (in genere: Impostazioni → Privacy → Dati dei siti). Cancellando perdi solo i risultati salvati e le risposte del test, che puoi rifare quando vuoi.
 
 Per tutto il resto vale l'[informativa privacy](/privacy).
 `;
