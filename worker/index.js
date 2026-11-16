@@ -167,12 +167,130 @@ async function accesso(req, env) {
 }
 
 // ── 3. le API dell'admin ──────────────────────────────────────────────────────
+// ── VISIBILITÀ SU GOOGLE (15/11/2026, Federico: «una dashboard ben fatta sull'admin … visibilità 24h 7gg 30gg») ──
+// Il Worker legge Search Console in diretta con l'account di servizio di Skinmatch (skinmatch123@gmail.com, niente
+// di Agoranomos): la chiave è il segreto GSC_CHIAVE del Worker (wrangler secret put), mai nel codice. Solo lettura.
+// Le date di Search Console sono in ora del Pacifico; le 24 ore sono le ultime 24 ore con i dati orari (hourly_all),
+// 7 e 30 giorni sono giorni interi fino a oggi (dataState all, i dati freschi compresi). Ogni periodo ha il suo
+// confronto col periodo prima. La risposta resta in cache 30 minuti («Aggiorna» la rifà).
+const SITO_GSC = 'sc-domain:skinmatch.it';
+const API_GSC = `https://searchconsole.googleapis.com/webmasters/v3/sites/${encodeURIComponent(SITO_GSC)}`;
+let gettoneGoogle = null;
+const b64u = (s) => btoa(s).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+async function accessoGoogle(env) {
+  if (gettoneGoogle && gettoneGoogle.scade > Date.now() + 60e3) return gettoneGoogle.valore;
+  const k = JSON.parse(env.GSC_CHIAVE);
+  const ora = Math.floor(Date.now() / 1000);
+  const testa = b64u(JSON.stringify({ alg: 'RS256', typ: 'JWT' }));
+  const corpo = b64u(JSON.stringify({ iss: k.client_email, scope: 'https://www.googleapis.com/auth/webmasters.readonly', aud: 'https://oauth2.googleapis.com/token', iat: ora, exp: ora + 3600 }));
+  const der = Uint8Array.from(atob(k.private_key.replace(/-----[^-]+-----/g, '').replace(/\s+/g, '')), (c) => c.charCodeAt(0));
+  const chiave = await crypto.subtle.importKey('pkcs8', der, { name: 'RSASSA-PKCS1-v1_5', hash: 'SHA-256' }, false, ['sign']);
+  const firma = new Uint8Array(await crypto.subtle.sign('RSASSA-PKCS1-v1_5', chiave, new TextEncoder().encode(`${testa}.${corpo}`)));
+  const r = await fetch('https://oauth2.googleapis.com/token', {
+    method: 'POST', headers: { 'content-type': 'application/x-www-form-urlencoded' },
+    body: `grant_type=${encodeURIComponent('urn:ietf:params:oauth:grant-type:jwt-bearer')}&assertion=${testa}.${corpo}.${b64u(String.fromCharCode(...firma))}`,
+  });
+  const t = await r.json();
+  if (!t.access_token) throw new Error(`Google non dà l'accesso: ${t.error_description || t.error || r.status}`);
+  gettoneGoogle = { valore: t.access_token, scade: Date.now() + (t.expires_in || 3600) * 1000 };
+  return gettoneGoogle.valore;
+}
+async function gsc(env, percorso, corpo) {
+  const r = await fetch(API_GSC + percorso, {
+    method: corpo ? 'POST' : 'GET',
+    headers: { authorization: `Bearer ${await accessoGoogle(env)}`, ...(corpo ? { 'content-type': 'application/json' } : {}) },
+    body: corpo ? JSON.stringify(corpo) : undefined,
+  });
+  const d = await r.json();
+  if (!r.ok) throw new Error(`Search Console: ${d.error?.message || r.status}`);
+  return d;
+}
+const giornoPT = () => new Intl.DateTimeFormat('en-CA', { timeZone: 'America/Los_Angeles' }).format(new Date());
+const piuGiorni = (iso, n) => new Date(Date.parse(`${iso}T12:00:00Z`) + n * 864e5).toISOString().slice(0, 10);
+// somma righe di Search Console: clic e impressioni si sommano, la posizione si media pesata sulle impressioni
+function somma(righe) {
+  const t = { impressioni: 0, clic: 0, pos: 0 };
+  for (const r of righe) { t.impressioni += r.impressions; t.clic += r.clicks; t.pos += r.position * r.impressions; }
+  return { impressioni: t.impressioni, clic: t.clic, ctr: t.impressioni ? t.clic / t.impressioni : 0, posizione: t.impressioni ? t.pos / t.impressioni : null };
+}
+function perChiave(righe, i, n = 25) {
+  const m = new Map();
+  for (const r of righe) { const k = r.keys[i]; if (!m.has(k)) m.set(k, []); m.get(k).push(r); }
+  return [...m].map(([k, rr]) => ({ k, ...somma(rr) })).sort((a, b) => b.impressioni - a.impressioni || b.clic - a.clic).slice(0, n);
+}
+async function visibilita(env, periodo) {
+  const oggiPT = giornoPT();
+  const sitemap = (await gsc(env, '/sitemaps')).sitemap || [];
+  const out = { periodo, aggiornato: new Date().toISOString(), sitemap: sitemap.map((x) => ({
+    indirizzo: x.path, inviata: x.lastSubmitted || null, letta: x.lastDownloaded || null, in_attesa: !!x.isPending,
+    errori: +x.errors || 0, avvisi: +x.warnings || 0, indirizzi: (x.contents || []).reduce((t, c) => t + (+c.submitted || 0), 0) || null,
+  })) };
+  if (periodo === '24h') {
+    const base = { startDate: piuGiorni(oggiPT, -3), endDate: oggiPT, dataState: 'hourly_all', rowLimit: 25000 };
+    const [ore, oreQ, oreP, oreD] = await Promise.all([
+      gsc(env, '/searchAnalytics/query', { ...base, dimensions: ['hour'] }),
+      gsc(env, '/searchAnalytics/query', { ...base, dimensions: ['hour', 'query'] }),
+      gsc(env, '/searchAnalytics/query', { ...base, dimensions: ['hour', 'page'] }),
+      gsc(env, '/searchAnalytics/query', { ...base, dimensions: ['hour', 'device'] }),
+    ]);
+    const adesso = Date.now(), dentro = (r, da, a) => { const t = Date.parse(r.keys[0]); return t > adesso - a * 36e5 && t <= adesso - da * 36e5; };
+    const ultime = (d) => (d.rows || []).filter((r) => dentro(r, 0, 24));
+    out.totali = somma(ultime(ore));
+    out.prima = somma((ore.rows || []).filter((r) => dentro(r, 24, 48)));
+    const perOra = new Map((ore.rows || []).map((r) => [Math.floor(Date.parse(r.keys[0]) / 36e5), r]));
+    const ultimaOra = Math.floor(adesso / 36e5);
+    out.serie = Array.from({ length: 24 }, (_, i) => {
+      const h = ultimaOra - 23 + i, r = perOra.get(h);
+      return { t: new Date(h * 36e5).toISOString(), impressioni: r?.impressions || 0, clic: r?.clicks || 0 };
+    });
+    out.ricerche = perChiave(ultime(oreQ), 1);
+    out.pagine = perChiave(ultime(oreP), 1);
+    out.pagine_viste = new Set(ultime(oreP).filter((r) => r.impressions > 0).map((r) => r.keys[1])).size;
+    out.dispositivi = perChiave(ultime(oreD), 1, 5);
+    return out;
+  }
+  const n = periodo === '7g' ? 7 : 30, da = piuGiorni(oggiPT, -(n - 1));
+  const base = { startDate: da, endDate: oggiPT, dataState: 'all', rowLimit: 25000 };
+  const [giorni, q, p, d] = await Promise.all([
+    gsc(env, '/searchAnalytics/query', { ...base, startDate: piuGiorni(oggiPT, -(2 * n - 1)), dimensions: ['date'] }),
+    gsc(env, '/searchAnalytics/query', { ...base, dimensions: ['query'], rowLimit: 100 }),
+    gsc(env, '/searchAnalytics/query', { ...base, dimensions: ['page'] }),
+    gsc(env, '/searchAnalytics/query', { ...base, dimensions: ['device'] }),
+  ]);
+  const righe = giorni.rows || [];
+  out.totali = somma(righe.filter((r) => r.keys[0] >= da));
+  out.prima = somma(righe.filter((r) => r.keys[0] < da));
+  const perGiorno = new Map(righe.map((r) => [r.keys[0], r]));
+  out.serie = Array.from({ length: n }, (_, i) => { const g = piuGiorni(da, i), r = perGiorno.get(g); return { t: g, impressioni: r?.impressions || 0, clic: r?.clicks || 0 }; });
+  out.ricerche = perChiave(q.rows || [], 0);
+  out.pagine = perChiave(p.rows || [], 0);
+  out.pagine_viste = (p.rows || []).filter((r) => r.impressions > 0).length;
+  out.dispositivi = perChiave(d.rows || [], 0, 5);
+  return out;
+}
+
 async function admin(req, env, url, email) {
   const DB = env.DB, q = url.searchParams, via = url.pathname.slice('/api/admin/'.length);
   const corpo = req.method === 'POST' ? await req.json() : null;
   const tutti = async (sql, ...v) => (await DB.prepare(sql).bind(...v).all()).results;
 
   if (via === 'chi') return json({ email });
+
+  if (via === 'google') {
+    const periodo = ['24h', '7g', '30g'].includes(q.get('periodo')) ? q.get('periodo') : '7g';
+    if (!env.GSC_CHIAVE) return json({ collegato: false });
+    // la cache sta sotto /api/admin/, dove ogni richiesta da fuori passa da Access: nessuno la legge senza entrare
+    const chiave = new Request(`https://skinmatch.it/api/admin/__cache/google/${periodo}`);
+    const cache = caches.default;
+    if (q.get('aggiorna') !== '1') { const c = await cache.match(chiave); if (c) return json(await c.json()); }
+    try {
+      const dati = { collegato: true, ...(await visibilita(env, periodo)) };
+      await cache.put(chiave, new Response(JSON.stringify(dati), { headers: { 'content-type': 'application/json', 'cache-control': 'max-age=1800' } }));
+      return json(dati);
+    } catch (e) {
+      return json({ collegato: true, errore: String(e.message || e).slice(0, 300) }, 502);
+    }
+  }
 
   if (via === 'traffico') {
     const giorni = Math.min(365, Math.max(1, +q.get('giorni') || 30));

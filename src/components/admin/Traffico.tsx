@@ -3,7 +3,8 @@
 import { useMemo, useState } from 'react';
 import { TEST, BIOTIPI } from '@/lib/dati';
 import { PRODOTTI, euro } from '@/lib/catalogo';
-import { useApi, Titolo, Vuoto, quando } from './base';
+import { useApi, Titolo, Vuoto } from './base';
+import Visibilita from './Visibilita';
 
 // TRAFFICO E TEST FATTI (15/10/2026). I numeri vengono dai conteggi del sito (worker/index.js,
 // tabella eventi_giorno: niente dati personali) e dalle vendite che il Mac scarica ogni mattina
@@ -100,10 +101,10 @@ export default function Traffico({ vista }: { vista: 'traffico' | 'test' }) {
   const commissioni = vendite.reduce((t, v) => t + (v.commissione || 0), 0);
   const pagineIa = perChiave(r.filter((x) => x.tipo === 'arrivo_pagina' && IA.has(x.chiave.split(':')[0])).map((x) => ({ ...x, chiave: `${NOMI_FONTE[x.chiave.split(':')[0]]} → ${x.chiave.split(':')[1]}` })), 'arrivo_pagina');
   const pc = (n: number, d: number) => (d ? `${Math.round((n / d) * 100)}%` : '—');
-  const sc = cruscotto.dati?.ultimo?.dati?.search_console, ph = cruscotto.dati?.ultimo?.dati?.posthog, agg = cruscotto.dati?.ultimo?.dati?.aggiornato;
+  const ph = cruscotto.dati?.ultimo?.dati?.posthog;
   return (
     <div className="pila" style={{ ['--gap' as string]: '24px' }}>
-      <Titolo sotto="Chi arriva e da dove (anche dalle IA), cosa clicca verso i negozi e quanto rendono le vendite. I conteggi li fa il sito, senza dati personali; le vendite arrivano ogni mattina dalle reti di affiliazione; Google e PostHog si aggiungono quando sono collegati.">Dashboard</Titolo>
+      <Titolo sotto="Chi arriva e da dove (anche dalle IA), cosa clicca verso i negozi e quanto rendono le vendite. I conteggi li fa il sito, senza dati personali; le vendite arrivano ogni mattina dalle reti di affiliazione; Google arriva in diretta da Search Console; PostHog si aggiunge quando è collegato.">Dashboard</Titolo>
       {scelta}
       {api.errore && <Vuoto>Non riesco a leggere i numeri: {api.errore}</Vuoto>}
       <div className="adm-numeri">
@@ -130,23 +131,11 @@ export default function Traffico({ vista }: { vista: 'traffico' | 'test' }) {
         </div>
       </section>
 
+      {/* la visibilità su Google, in diretta da Search Console (15/11/2026): vedi Visibilita.tsx */}
+      <Visibilita />
+
       <section className="pila" style={{ ['--gap' as string]: '12px' }}>
-        <h2 className="titolo-2">Google e IA</h2>
-        {sc ? (
-          <>
-            <div className="adm-numeri">
-              <div><span className="piccolo">Clic da Google</span><b>{sc.clic}</b></div>
-              <div><span className="piccolo">Impressioni</span><b>{sc.impressioni}</b></div>
-              <div><span className="piccolo">Posizione media</span><b>{(sc.posizione || 0).toLocaleString('it-IT', { maximumFractionDigits: 1 })}</b></div>
-              <div><span className="piccolo">Pagine indicizzate</span><b>{sc.indicizzate ?? '—'}</b></div>
-            </div>
-            <div className="adm-due">
-              <Tabella titolo="Ricerche" righe={(sc.ricerche || []).map((x: [string, number]) => [x[0], x[1]])} colonna="Clic" />
-              <Tabella titolo="Pagine" righe={(sc.pagine || []).map((x: [string, number]) => [x[0], x[1]])} colonna="Clic" />
-            </div>
-            <p className="piccolo">Aggiornato {quando(agg)}.</p>
-          </>
-        ) : <Vuoto>Search Console non è ancora collegata a Skinmatch: va verificato skinmatch.it su Search Console con un account di Skinmatch e dato l’accesso in lettura, poi i numeri (clic, impressioni, ricerche, pagine indicizzate) arrivano qui ogni mattina. Le visite dalle IA invece si contano già, qui sopra.</Vuoto>}
+        <h2 className="titolo-2">PostHog</h2>
         {ph ? (
           <div className="adm-numeri">
             <div><span className="piccolo">Visitatori (PostHog)</span><b>{ph.visitatori}</b></div>

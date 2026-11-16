@@ -750,3 +750,48 @@ details.carta > summary::-webkit-details-marker { display: none; }
 .con-icona { display: inline-flex; align-items: center; gap: 10px; }
 .opzione svg { flex-shrink: 0; color: var(--terra); }
 .opzione[aria-pressed='true'] svg { color: var(--latte); }
+
+/* ============================================================
+   ADMIN · VISIBILITÀ SU GOOGLE (15/11/2026, components/admin/Visibilita.tsx)
+   ============================================================ */
+.vis-testa { display: flex; flex-wrap: wrap; gap: 12px 24px; align-items: end; justify-content: space-between; }
+.vis-testa .piccolo { max-width: 62ch; }
+.chip.tenue-azione { background: transparent; border-style: dashed; }
+.chip:disabled { opacity: 0.55; cursor: progress; }
+.vis-numeri > div { gap: 4px; align-content: start; }
+.vis-delta { font-size: 12.5px; font-weight: 600; color: var(--grigio); line-height: 1.35; }
+.vis-delta.vis-meglio { color: var(--bene); }
+.vis-delta.vis-peggio { color: var(--attenzione); }
+.vis-prima { font-weight: 400; color: var(--grigio); }
+.vis-attesa > div { min-height: 84px; background: linear-gradient(90deg, var(--velo), var(--foglio), var(--velo)); background-size: 200% 100%; animation: vis-onda 1.4s ease-in-out infinite; }
+@keyframes vis-onda { from { background-position: 100% 0; } to { background-position: -100% 0; } }
+@media (prefers-reduced-motion: reduce) { .vis-attesa > div { animation: none; } }
+.vis-avviso { border-color: var(--riga-forte); background: var(--pesca-tenue); }
+.vis-avviso .piccolo { max-width: 75ch; font-size: 14.5px; }
+.vis-grafico { margin: 0; display: grid; gap: 10px; }
+.vis-grafico figcaption { display: flex; flex-wrap: wrap; gap: 4px 12px; align-items: baseline; justify-content: space-between; }
+.vis-barre { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); gap: 2px; height: clamp(96px, 16vw, 140px); align-items: end; border-bottom: 1px solid var(--riga-forte); }
+.vis-barre > span { height: 100%; display: flex; align-items: flex-end; outline: none; border-radius: 4px 4px 0 0; }
+.vis-barre > span:focus-visible { box-shadow: 0 0 0 2px var(--testo); }
+.vis-barre > span.su { background: var(--velo); }
+.vis-barre i { display: block; width: 100%; background: var(--tono); border-radius: 4px 4px 0 0; transition: height 0.35s cubic-bezier(0.2, 0, 0, 1); }
+.vis-barre i.zero { height: 2px !important; background: var(--riga); border-radius: 1px; }
+.vis-assi { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); gap: 2px; font-size: 11.5px; line-height: 1.25; color: var(--grigio); font-variant-numeric: tabular-nums; }
+.vis-assi span { white-space: pre; text-align: center; overflow: visible; display: flex; justify-content: center; }
+.vis-tabelle { align-items: start; }
+.vis-testo { min-width: 14ch; overflow-wrap: break-word; }
+.vis-url { overflow-wrap: anywhere; }
+.vis-tabelle > div { container-type: inline-size; }
+/* sotto i 520 px ogni riga è una scheda: la ricerca (o la pagina) intera in alto, i quattro numeri sotto con l'etichetta */
+@container (max-width: 520px) {
+  .vis-tab thead { display: none; }
+  .vis-tab tr { display: grid; grid-template-columns: minmax(0, 1.4fr) repeat(3, minmax(0, 1fr)); gap: 6px 10px; padding: 12px 14px; border-bottom: 1px solid var(--riga); }
+  .vis-tab tr:last-child { border-bottom: 0; }
+  .vis-tab td { padding: 0; border: 0; min-width: 0; }
+  .vis-tab td.vis-testo { grid-column: 1 / -1; font-weight: 600; }
+  .vis-tab td.num { text-align: left; font-size: 14px; }
+  .vis-tab td.num::before { content: attr(data-l); display: block; font-size: 11px; font-weight: 600; color: var(--grigio); }
+}
+.vis-quote { display: flex; gap: 2px; height: 12px; }
+.vis-quote i { display: block; border-radius: 4px; min-width: 4px; }
+.vis-sitemap { font-size: 13.5px; }
