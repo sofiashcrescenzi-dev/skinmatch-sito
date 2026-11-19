@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { SOCIAL, POST, RETI, STILI, LIMITI, candidati, type Social as Doc, type Rete, type Stile, type Bottone, type Post } from '@/lib/social';
+import { ARTICOLI } from '@/lib/dati';
 import { useDocumento, useApi, invia, BarraSalva, Campo, Testo, Titolo, Vuoto, quando } from './base';
 
 // I SOCIAL DI SKINMATCH (8/11/2026, il PO: «creare nell'admin di skinmatch anche tutta l'infrastruttura social. quindi
@@ -15,6 +16,10 @@ const PAGINE: [string, string][] = [
   ['I tre test', '/test'], ['L’ultimo video, spiegato (cambia da solo)', '@ultimo-video'], ['I biotipi', '/biotipi'], ['La Rivista', '/rivista'],
   ['Gli attivi (glossario)', '/glossario'], ['Il catalogo', '/catalogo'], ['Gli integratori', '/integratori'], ['Chi siamo', '/chi-siamo'], ['La home', '/'],
 ];
+// ⚠️ GLI ARTICOLI NEI BOTTONI (19/11/2026, Federico: «sul linktree di Skinmatch non fa mettere gli articoli»): prima
+// c'erano solo le pagine fisse e un articolo andava scritto a mano dopo «Un'altra pagina…». Ora ci sono tutti.
+const ARTICOLI_LINK: [string, string][] = ARTICOLI.map((a) => [a.titolo, `/rivista/${a.slug}`]);
+const NOTE: [string, string][] = [...PAGINE, ...ARTICOLI_LINK];
 const KIT: { file: string; nome: string; misura: string; uso: string }[] = [
   { file: 'avatar-1080.png', nome: 'Foto profilo', misura: '1080 × 1080', uso: 'Instagram, TikTok, Threads: il segno su cacao, leggibile anche a 110 px' },
   { file: 'youtube-avatar-800.png', nome: 'Foto del canale YouTube', misura: '800 × 800', uso: 'YouTube › Personalizza canale › Branding' },
@@ -80,7 +85,8 @@ function PaginaLink({ d, cambia }: { d: Doc; cambia: (l: Doc['link']) => void })
   const sposta = (i: number, dd: number) => { const b = [...l.bottoni]; const [x] = b.splice(i, 1); b.splice(i + dd, 0, x); cambia({ ...l, bottoni: b }); };
   const tutti = candidati();
   const scelti = l.vetrina.scelti || tutti.slice(0, 4).map((x) => x.href);
-  const setScelti = (s: string[] | null) => cambia({ ...l, vetrina: { ...l.vetrina, scelti: s } });
+  // scegliere gli articoli accende il riquadro: prima si potevano scegliere con «si vedono» spento, e non comparivano
+  const setScelti = (s: string[] | null) => cambia({ ...l, vetrina: { ...l.vetrina, scelti: s, mostra: s && s.length ? true : l.vetrina.mostra } });
   return (
     <section className="carta pila" style={{ ['--gap' as string]: '12px' }}>
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, justifyContent: 'space-between', alignItems: 'baseline' }}>
@@ -125,13 +131,14 @@ function PaginaLink({ d, cambia }: { d: Doc; cambia: (l: Doc['link']) => void })
           <div className="adm-due">
             <Campo etichetta="Testo del bottone"><Testo valore={b.etichetta} cambia={(v) => metti(i, { etichetta: v })} /></Campo>
             <Campo etichetta="Porta a">
-              <select className="adm-input" value={PAGINE.some(([, u]) => u === b.url) ? b.url : 'altro'} onChange={(e) => metti(i, { url: e.target.value === 'altro' ? '/' : e.target.value })}>
-                {PAGINE.map(([n, u]) => <option key={u} value={u}>{n}</option>)}
-                <option value="altro">Un’altra pagina…</option>
+              <select className="adm-input" value={NOTE.some(([, u]) => u === b.url) ? b.url : 'altro'} onChange={(e) => metti(i, { url: e.target.value === 'altro' ? '/' : e.target.value })}>
+                <optgroup label="Le pagine">{PAGINE.map(([n, u]) => <option key={u} value={u}>{n}</option>)}</optgroup>
+                <optgroup label="Gli articoli della Rivista">{ARTICOLI_LINK.map(([n, u]) => <option key={u} value={u}>{n}</option>)}</optgroup>
+                <option value="altro">Un’altra pagina o un indirizzo esterno…</option>
               </select>
             </Campo>
           </div>
-          {!PAGINE.some(([, u]) => u === b.url) && <Campo etichetta="Indirizzo" aiuto="Una pagina del sito (/rivista/…) o un indirizzo https://"><Testo valore={b.url} cambia={(v) => metti(i, { url: v.trim() })} /></Campo>}
+          {!NOTE.some(([, u]) => u === b.url) && <Campo etichetta="Indirizzo" aiuto="Una pagina del sito (/rivista/…) o un indirizzo https://"><Testo valore={b.url} cambia={(v) => metti(i, { url: v.trim() })} /></Campo>}
           <div className="riga-chip" role="radiogroup" aria-label="Colore del bottone">
             {(Object.keys(STILI) as Stile[]).map((k) => (
               <button key={k} type="button" role="radio" aria-checked={b.colore === k} onClick={() => metti(i, { colore: k })}

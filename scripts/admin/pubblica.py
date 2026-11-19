@@ -9,8 +9,9 @@ pubblicazioni, stato in_coda), oppure con --approvati se ci sono articoli approv
 2. scrive src/data/*.json dall'ultima versione salvata nell'admin (test, biotipi, glossario,
    catalogo) e gli articoli approvati in src/data/rivista.json;
 3. i biotipi, le categorie o i filtri tolti non lasciano 404: rinvio 301 in public/_redirects;
-4. i guardiani (scripts/guardiani.ts): se fermano (struttura rotta, prodotti non sicuri), niente va online e
-   l'admin lo dice; gli avvisi (le persone tipo, dal 23/10) vanno online e restano nell'esito, da guardare dopo;
+4. i guardiani (scripts/guardiani.ts): dal 19/11/2026 non fermano più niente (Federico): quello che fermerebbero va
+   online lo stesso, finisce nell'esito come «DA CONTROLLARE» e in una segnalazione di admin › Squadra; gli avvisi
+   (le persone tipo, dal 23/10) vanno nell'esito come prima;
 5. build, commit «Redazione Skinmatch», push, deploy, IndexNow; poi segna tutto come pubblicato.
 
 ⚠️ Chi modifica a mano src/data/*.json nel repository li vede riscritti qui: si passa dall'admin.
@@ -214,10 +215,21 @@ def pubblica(coda, ids):
         if esporta_revisioni():
             fatto.append('revisioni')
         g = run('npx', 'tsx', 'scripts/guardiani.ts', ok=False)
-        if g.returncode:
-            raise RuntimeError('I guardiani hanno fermato la pubblicazione:\n' + '\n'.join(l for l in g.stdout.splitlines() if '✗' in l)[:1200])
+        # ⚠️ I GUARDIANI NON FERMANO PIÙ LE PUBBLICAZIONI DALL'ADMIN (19/11/2026, Federico: «le modifiche devono andare
+        # online, che posso fare io da admin; poi tu al massimo fai il controllo dopo e lo tieni come alert da
+        # controllare, non che me lo blocchi prima»). Quello che prima fermava ora va nell'esito come «DA CONTROLLARE»
+        # e diventa una segnalazione in admin › Squadra, per chi controlla dopo. Si ferma solo ciò che non può andare
+        # online per forza: un build che non compila.
+        fermi = [l.strip() for l in g.stdout.splitlines() if '✗' in l]
+        if g.returncode and fermi:
+            try:
+                sql(f"INSERT INTO segnalazioni (agente, gravita, titolo, dettaglio, proposta) VALUES ('guardiani', 'alta', "
+                    f"{L('Da controllare dopo la pubblicazione: ' + fermi[0][:120])}, {L(chr(10).join(fermi)[:3000])}, "
+                    f"{L('È già online: correggere in admin o dirlo a Claude.')})")
+            except Exception as e:                                    # noqa: BLE001
+                print('segnalazione non scritta:', e)
         # gli avvisi non fermano (23/10/2026): vanno nell'esito, e gli agenti li guardano dopo
-        avvisi = [l.strip() for l in g.stdout.splitlines() if 'AVVISA' in l and ': 0,' not in l]
+        avvisi = [f'DA CONTROLLARE {l}' for l in fermi] + [l.strip() for l in g.stdout.splitlines() if 'AVVISA' in l and ': 0,' not in l]
         run('npx', 'next', 'build')
         run('git', 'add', 'src/data', 'public', 'media')
         if run('git', 'diff', '--cached', '--quiet', ok=False).returncode:
