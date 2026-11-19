@@ -13,6 +13,7 @@ import { Luna } from '@/components/Inviti';
 import Nozione from '@/components/Nozione';
 import dynamic from 'next/dynamic';
 import Icona, { type NomeIcona } from '@/components/Icona';
+import DomandeTest from '@/components/DomandeTest';
 
 // IL DISEGNO ANIMATO SOPRA OGNI DOMANDA (15/11/2026, Federico: «un bel disegno animato sopra ogni domanda del test
 // correlato alla domanda»): Remotion, caricato a parte dopo la pagina; mentre arriva, un riquadro dello stesso formato.
@@ -101,19 +102,20 @@ export default function TestPage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [risultato]);
 
-  if (!pronto) return <main className="contenitore sezione" style={{ minHeight: '100svh' }} />;
-
-  // la scelta del percorso
-  if (!percorso) {
+  // la scelta del percorso. ⚠️ ANCHE PRIMA DI LEGGERE IL TELEFONO (19/11/2026, voto r-test): prima la pagina usciva vuota
+  // finché non leggeva localStorage, e Google trovava un <main> senza titolo né testo. Ora l'HTML porta la scelta, l'h1 e
+  // le domande; chi aveva un test a metà ci torna appena la pagina parte.
+  if (!pronto || !percorso) {
     return (
       <main className="contenitore sezione pila" style={{ ['--gap' as string]: 'clamp(24px, 4vw, 40px)' }}>
         <header className="pila" style={{ ['--gap' as string]: '12px' }}>
-          <span className="etichetta">Il test</span>
-          <h1 className="sopratitolo">Cosa vuoi scoprire?</h1>
-          <p className="intro">Tre test, uno per interesse: scegli da dove partire e fai gli altri quando vuoi. Domande su quello che vedi allo specchio, non su come pensi di essere; ne escono il tuo profilo e i prodotti giusti, ognuno con un&apos;alternativa simile, di solito più economica. Non è una diagnosi.</p>
+          <span className="etichetta">Il test della pelle, gratis</span>
+          <h1 className="sopratitolo">Che tipo di pelle hai?</h1>
+          <p className="intro">Tre test, uno per interesse: la pelle del viso, cute e capelli, gli integratori. Scegli da dove partire e fai gli altri quando vuoi. Domande su quello che vedi allo specchio, non su come pensi di essere; ne escono il tuo profilo e i prodotti giusti, ognuno con un&apos;alternativa simile, di solito più economica. Non è una diagnosi.</p>
           {ultimo && <a href={`/risultato#${ultimo}`} className="link">Rivedi il tuo ultimo risultato</a>}
         </header>
-        <RisultatiSalvati />
+        {pronto && <RisultatiSalvati />}
+        <h2 className="titolo-3">Cosa vuoi scoprire?</h2>
         <div className="griglia" style={{ ['--min' as string]: '250px' }}>
           {PERCORSI_SCELTA.map((p) => (
             <button key={p.id} type="button" className="carta-foto con-luna" style={{ textAlign: 'left', font: 'inherit', cursor: 'pointer', padding: 0 }}
@@ -127,6 +129,7 @@ export default function TestPage() {
             </button>
           ))}
         </div>
+        <DomandeTest />
       </main>
     );
   }

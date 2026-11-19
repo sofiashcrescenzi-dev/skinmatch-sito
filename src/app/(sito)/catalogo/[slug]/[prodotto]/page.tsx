@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import { paginaMarca, ingredienti } from '@/lib/percorsi';
 import { notFound } from 'next/navigation';
 import { BIOTIPI, CATALOGO, articoliPerProdotto } from '@/lib/dati';
 import { PRODOTTI, prodottoPerId, biotipiPer, categoriaDi, indirizzo, euro, negozio, type Prodotto } from '@/lib/catalogo';
@@ -137,11 +138,12 @@ export default async function ProdottoPage({ params }: { params: Promise<{ slug:
       <header className="p-testa">
         <div className="p-foto"><FotoProdotto src={p.image} alt={`${p.brand} ${p.name}`} variante="pagina" tono={tonoProdotto(cat.id)} priorita /></div>
         <div className="pila" style={{ ['--gap' as string]: '14px' }}>
-          <span className="etichetta">{p.brand}{pas ? ` · ${pas[0]}` : ''}</span>
+          {/* la marca porta alla sua pagina e gli attivi alla loro (19/11/2026, voti r-marche e r-ingredienti) */}
+          <span className="etichetta">{paginaMarca(p.brand) ? <Link href={paginaMarca(p.brand)!}>{p.brand}</Link> : p.brand}{pas ? ` · ${pas[0]}` : ''}</span>
           <h1 className="titolo-2" style={{ fontSize: 'clamp(28px, 4.4vw, 44px)' }}>{p.name}</h1>
           {p.subtitle && <p className="p-sottotitolo">{p.subtitle}</p>}
           {s?.attivi.length ? (
-            <div className="riga-chip">{s.attivi.slice(0, 6).map((a) => <span key={a.nome} className="chip tenue">{a.nome}{a.perc ? <b>{perc(a.perc)}</b> : null}</span>)}</div>
+            <div className="riga-chip">{s.attivi.slice(0, 6).map((a) => { const g = ingredienti().find((x) => x.nomi.includes(a.nome)); const dentro = <>{a.nome}{a.perc ? <b>{perc(a.perc)}</b> : null}</>; return g ? <Link key={a.nome} href={`/ingredienti/${g.id}`} className="chip tenue">{dentro}</Link> : <span key={a.nome} className="chip tenue">{dentro}</span>; })}</div>
           ) : null}
           <div><Campione href={p.affiliateUrl} prezzo={minimo} da_prezzo={!!x?.formati.length} dove={dove} id={p.id} da={`prodotto-${p.slug}`} /></div>
           <InfoNegozio negozio={dove} prezzo={minimo} />
@@ -241,7 +243,7 @@ export default async function ProdottoPage({ params }: { params: Promise<{ slug:
 
       {biotipi.length > 0 && (
         <section className="pila p-sez" aria-labelledby="biotipi">
-          <h2 id="biotipi" className="titolo-3">I biotipi a cui risponde</h2>
+          <h2 id="biotipi" className="titolo-3">Per quali tipi di pelle è</h2>
           <div className="riga-chip">{biotipi.slice(0, 8).map((b) => <Link key={b.id} href={`/biotipi/${b.id}`} className="chip">{b.titolo}</Link>)}</div>
           {biotipi.length > 8 && <p className="piccolo">E altri {biotipi.length - 8}: il test dice quale è il tuo.</p>}
         </section>
@@ -258,7 +260,7 @@ export default async function ProdottoPage({ params }: { params: Promise<{ slug:
 
       <section className="carta pila p-fine" style={{ ['--gap' as string]: '12px' }}>
         <h2 className="titolo-3">Va bene per la tua pelle?</h2>
-        <p className="piccolo" style={{ maxWidth: '52ch' }}>Il test parte da quello che vedi allo specchio e ti dà il biotipo e una routine, con i prodotti adatti.</p>
+        <p className="piccolo" style={{ maxWidth: '52ch' }}>Il test parte da quello che vedi allo specchio, ti dice che tipo di pelle hai e ti dà una routine con i prodotti adatti.</p>
         <div className="riga-inviti"><Invito href="/test">Fai il test</Invito><Stendi href={`/catalogo/${cat.id}`}>Gli altri della categoria</Stendi></div>
       </section>
 

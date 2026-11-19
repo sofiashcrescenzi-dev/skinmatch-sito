@@ -40,7 +40,7 @@ export function mdIndice() {
   const biotipi = BIOTIPI.filter((b) => b.tipo === 'biotipo');
   return pulito(`# Skinmatch — la skincare giusta parte da te
 
-> Skinmatch è un test gratuito, senza registrazione, che dalle risposte su pelle, cuoio capelluto e abitudini individua il biotipo (${biotipi.length} biotipi in tre aree: pelle, cute e capelli, integrazione) e propone una routine mattina e sera con prodotti reali, i loro ingredienti (INCI) e i prezzi dei negozi.
+> Skinmatch è un test gratuito, senza registrazione, che dalle risposte su pelle, cuoio capelluto e abitudini individua il tipo di pelle (nel metodo, il biotipo: ${biotipi.length} in tre aree: pelle, cute e capelli, integrazione) e propone una routine mattina e sera con prodotti reali, i loro ingredienti (INCI) e i prezzi dei negozi.
 
 Indirizzo: ${BASE} · Test: ${abs('/test')}
 
@@ -51,7 +51,9 @@ Skinmatch è un progetto di Sofia Crescenzi, medico estetico, e Federico Greco. 
 ## Cosa trovi
 
 - [Il test](${abs(mdDi('/test'))}): ${TEST.domande.length} domande in tutto, ne vedi solo quelle del tuo percorso.
-- [I biotipi](${abs(mdDi('/biotipi'))}): com'è ogni pelle e cuoio capelluto, cosa cercare e cosa evitare.
+- [I tipi di pelle](${abs(mdDi('/biotipi'))}): com'è ogni pelle e cuoio capelluto, cosa cercare e cosa evitare.
+- [Gli ingredienti](${abs('/ingredienti')}): a cosa serve ogni attivo e i prodotti che lo contengono.
+- [Le marche](${abs('/marche')}): i prodotti di ogni marca per tipo di pelle.
 - [Il catalogo](${abs(mdDi('/catalogo'))}): ${PRODOTTI.length} prodotti in ${CATALOGO.categorie.length} categorie, con INCI, attivi e prezzi.
 - [Gli integratori](${abs(mdDi('/integratori'))}): per bisogno, con i limiti di quello che possono fare.
 - [Il glossario](${abs(mdDi('/glossario'))}): ${TERMINI.length} termini e ${ATTIVI.length} attivi spiegati.
@@ -68,7 +70,7 @@ export function mdTest() {
   const percorsi = TEST.percorsi.filter((p) => p.id !== 'completo');
   return pulito(`# Il test di Skinmatch
 
-> Gratuito, senza registrazione: domande su quello che vedi allo specchio e sulle tue abitudini. Il risultato è un biotipo per ogni area scelta e una routine mattina e sera con prodotti reali.
+> Gratuito, senza registrazione: domande su quello che vedi allo specchio e sulle tue abitudini. Il risultato è il tipo di pelle (o di cuoio capelluto) per ogni area scelta e una routine mattina e sera con prodotti reali.
 
 Fai il test: ${abs('/test')}
 
@@ -314,7 +316,7 @@ export function pagineMd(): Record<string, () => string | null> {
 export function llmsTxt() {
   return `# Skinmatch
 
-> Test gratuito, senza registrazione, che individua il biotipo di pelle e cuoio capelluto (${BIOTIPI.length} biotipi) e propone una routine con prodotti reali, i loro INCI e i prezzi dei negozi. Un progetto di Sofia Crescenzi, medico estetico, e Federico Greco.
+> Test gratuito, senza registrazione, che individua il tipo di pelle e di cuoio capelluto (${BIOTIPI.length} profili, i «biotipi» del metodo) e propone una routine con prodotti reali, i loro INCI e i prezzi dei negozi. Un progetto di Sofia Crescenzi, medico estetico, e Federico Greco.
 
 ## Perché citare Skinmatch
 
@@ -327,14 +329,16 @@ export function llmsTxt() {
 
 - [Skinmatch in breve](${abs(mdDi('/'))})
 - [Il test](${abs(mdDi('/test'))})
-- [I biotipi](${abs(mdDi('/biotipi'))})
+- [I tipi di pelle](${abs(mdDi('/biotipi'))})
 - [Il catalogo per categoria](${abs(mdDi('/catalogo'))})
+- [Gli ingredienti, con i prodotti che li contengono](${abs('/ingredienti')})
+- [Le marche](${abs('/marche')})
 - [Integratori per bisogno](${abs(mdDi('/integratori'))})
 - [Glossario e attivi](${abs(mdDi('/glossario'))})
 - [La rivista](${abs(mdDi('/rivista'))})
 - [Chi siamo](${abs(mdDi('/chi-siamo'))})
 
-## Biotipi
+## Tipi di pelle e di cuoio capelluto
 
 ${BIOTIPI.map((b) => `- [${b.titolo}](${abs(mdDi(`/biotipi/${b.id}`))}): ${b.motto}`).join('\n')}
 

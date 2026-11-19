@@ -9,6 +9,7 @@ import SchedaProdotto from '@/components/SchedaProdotto';
 import Foto from '@/components/Foto';
 import { Invito } from '@/components/Inviti';
 import { bisognoPerBiotipo, prodottiDelBisogno } from '@/lib/integratori';
+import { incrociDelBiotipo, PER } from '@/lib/percorsi';
 
 export function generateStaticParams() {
   return BIOTIPI.map((b) => ({ id: b.id }));
@@ -20,13 +21,16 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
   const b = biotipoPerId(id);
   if (!b) return {};
   return {
-    title: b.area === 'integrazione' ? `${b.titolo}: ${b.motto.replace(/\.$/, '').toLowerCase()}` : `${b.titolo}: come si riconosce e cosa usare`,
+    // dal 19/11/2026 (voto r-parole) il titolo dice «cosa usare e cosa evitare»: è quello che cerca chi sa già che pelle ha
+    title: b.area === 'integrazione' ? `${b.titolo}: ${b.motto.replace(/\.$/, '').toLowerCase()}` : `${b.titolo}: cosa usare e cosa evitare`,
     description: `${b.motto} ${b.descrizione}`.slice(0, 158),
     alternates: { canonical: `/biotipi/${b.id}`, types: { 'text/markdown': `/md/biotipi/${b.id}.md` } },
   };
 }
 
 const TEST_DI: Record<string, string> = { pelle: 'viso', cute: 'cute', integrazione: 'integrazione' };
+// la parola della gente, non quella del metodo (voto r-parole: «biotipo» su Google vale 1, «tipo di pelle» 42)
+const NOME_TIPO: Record<string, [string, string]> = { pelle: ['Tipo di pelle', 'Si aggiunge al tipo di pelle'], cute: ['Tipo di cuoio capelluto', 'Si aggiunge al tipo di cute'], integrazione: ['Bisogno', 'Da tenere presente'] };
 
 export default async function BiotipoPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
@@ -37,12 +41,13 @@ export default async function BiotipoPage({ params }: { params: Promise<{ id: st
   const prodotti = bisogno ? prodottiDelBisogno(bisogno.chiave) : prodottiPer(b);
   const vicini = BIOTIPI.filter((x) => x.id !== b.id && x.area === b.area && x.tipo === 'biotipo' && (x.famiglia === b.famiglia || x.tag.some((t) => b.tag.includes(t)))).slice(0, 4);
   const tag = b.tag.map((t) => TAG_BIOTIPI.find((x) => x.id === t)).filter(Boolean);
+  const perCategoria = incrociDelBiotipo(b.id);
   return (
     <main className="contenitore sezione pila" style={{ ['--gap' as string]: 'clamp(32px, 5vw, 56px)' }}>
-      <Link href={`/biotipi#${b.area}`} className="piccolo">← Tutti i biotipi</Link>
+      <Link href={`/biotipi#${b.area}`} className="piccolo">← {b.area === 'integrazione' ? 'Tutti i bisogni' : b.area === 'cute' ? 'Tutti i tipi di cuoio capelluto' : 'Tutti i tipi di pelle'}</Link>
       <header style={{ display: 'grid', gap: 'clamp(20px, 4vw, 48px)', gridTemplateColumns: 'repeat(auto-fit, minmax(min(320px, 100%), 1fr))', alignItems: 'center' }}>
         <div className="pila" style={{ ['--gap' as string]: '12px' }}>
-          <span className="etichetta">{b.tipo === 'tratto' ? 'Un tratto che si aggiunge' : 'Biotipo'} · {NOMI_AREA[b.area]}</span>
+          <span className="etichetta">{NOME_TIPO[b.area][b.tipo === 'tratto' ? 1 : 0]} · {NOMI_AREA[b.area]}</span>
           <h1 className="sopratitolo" style={{ fontSize: 'clamp(32px, 5.4vw, 54px)' }}>{b.titolo}</h1>
           <span className="motto">{b.motto}</span>
           <p className="testo"><ConTermini testo={b.descrizione} /></p>
@@ -97,6 +102,13 @@ export default async function BiotipoPage({ params }: { params: Promise<{ id: st
         </section>
       )}
 
+      {perCategoria.length > 0 && (
+        <section className="pila" style={{ ['--gap' as string]: '12px' }}>
+          <h2 className="titolo-3">Per {PER[b.id]}, prodotto per prodotto</h2>
+          <div className="riga-chip">{perCategoria.map((x) => <Link key={x.categoria} href={`/biotipi/${b.id}/${x.categoria}`} className="chip">{x.titolo.replace(` per ${PER[b.id]}`, '')} ({x.prodotti.length})</Link>)}</div>
+        </section>
+      )}
+
       <section className="carta" style={{ display: 'flex', flexWrap: 'wrap', gap: 16, alignItems: 'center', justifyContent: 'space-between' }}>
         <div className="pila" style={{ ['--gap' as string]: '4px' }}>
           <span className="titolo-3">È davvero il tuo?</span>
@@ -107,7 +119,7 @@ export default async function BiotipoPage({ params }: { params: Promise<{ id: st
 
       {vicini.length > 0 && (
         <section className="pila" style={{ ['--gap' as string]: '12px' }}>
-          <h2 className="titolo-3">Biotipi vicini</h2>
+          <h2 className="titolo-3">Simili a questo</h2>
           <div className="riga-chip">{vicini.map((v) => <Link key={v.id} href={`/biotipi/${v.id}`} className="chip">{v.titolo}</Link>)}</div>
         </section>
       )}

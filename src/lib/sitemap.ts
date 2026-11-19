@@ -7,6 +7,7 @@
 import { BIOTIPI, CATALOGO, ARTICOLI } from '@/lib/dati';
 import { nelGruppo, PRODOTTI, indirizzo } from '@/lib/catalogo';
 import { completo } from '@/lib/legale';
+import { incroci, ingredienti, marche } from '@/lib/percorsi';
 
 export const BASE = 'https://skinmatch.it';
 
@@ -17,10 +18,16 @@ export const FILE: Record<string, () => Voce[]> = {
     ...['', '/test', '/biotipi', '/integratori', '/glossario', '/chi-siamo', ...(completo() ? ['/privacy', '/cookie', '/note-legali'] : [])]
       .map((p) => ({ url: `${BASE}${p}` })),
     ...BIOTIPI.map((b) => ({ url: `${BASE}/biotipi/${b.id}` })),
+    // dal 19/11/2026: le pagine che rispondono alle ricerche (lib/percorsi.ts)
+    { url: `${BASE}/ingredienti` },
+    ...ingredienti().map((a) => ({ url: `${BASE}/ingredienti/${a.id}` })),
   ],
   'catalogo.xml': () => [
     { url: `${BASE}/catalogo` },
     ...[...CATALOGO.categorie, ...CATALOGO.tag].filter((g) => nelGruppo(g.id).length).map((g) => ({ url: `${BASE}/catalogo/${g.id}` })),
+    ...incroci().map((x) => ({ url: `${BASE}/biotipi/${x.biotipo}/${x.categoria}` })),
+    { url: `${BASE}/marche` },
+    ...marche().map((m) => ({ url: `${BASE}/marche/${m.slug}` })),
   ],
   'schede.xml': () => PRODOTTI.flatMap((p) => {
     const u = indirizzo(p);

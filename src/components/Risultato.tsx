@@ -197,7 +197,7 @@ export default function Risultato({ r, azioni, condiviso, metodoCambiato }: { r:
                   <div className="riga-chip">{a.tratti.map((t) => <Link key={t.id} href={`/biotipi/${t.id}`} className="chip">{t.titolo}</Link>)}</div>
                 </div>
               )}
-              <Stendi href={`/biotipi/${a.biotipo.id}`}>Tutto su questo biotipo</Stendi>
+              <Stendi href={`/biotipi/${a.biotipo.id}`}>Cosa usare e cosa evitare</Stendi>
             </div>
           </article>
         );

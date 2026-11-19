@@ -16,7 +16,7 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: { params: Promise<{ biotipo: string }> }): Promise<Metadata> {
   const { biotipo } = await params;
   const b = BIOTIPI.find((x) => x.id === biotipo)!;
-  const io = b.area === 'integrazione' ? 'Il mio profilo' : 'Il mio biotipo';
+  const io = b.area === 'integrazione' ? 'Il mio profilo' : b.area === 'cute' ? 'Il mio cuoio capelluto' : 'La mia pelle';
   const titolo = `${io}: ${b.titolo}`;
   const descrizione = `«${b.motto}» E il tuo? Fai il test di Skinmatch: domande su quello che vedi allo specchio, una routine con un’alternativa che costa meno per ogni prodotto.`;
   // l'impronta del file nell'indirizzo: WhatsApp e le altre app tengono l'anteprima di un'immagine già vista, e una carta

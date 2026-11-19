@@ -129,6 +129,15 @@ async function nonTrovata(req, env, url) {
     const cat = await env.ASSETS.fetch(new Request(new URL(`/catalogo/${m[1]}`, url)));
     return new Response(null, { status: 301, headers: { location: cat.ok ? `/catalogo/${m[1]}` : '/catalogo', 'cache-control': 'public, max-age=3600' } });
   }
+  // LE PAGINE CHE NASCONO DAI PRODOTTI (19/11/2026, lib/percorsi.ts): «crema viso per pelle mista» esiste finché ha almeno
+  // 4 prodotti, un ingrediente finché qualcuno lo contiene, una marca finché ne ha 10. Quando sparisce, si va alla pagina
+  // madre (il tipo di pelle, l'elenco degli ingredienti o delle marche), mai al 404.
+  const madre = url.pathname.match(/^\/biotipi\/([a-z0-9-]+)\/[^/]+\/?$/) ? `/biotipi/${url.pathname.split('/')[2]}`
+    : /^\/ingredienti\/[^/]+\/?$/.test(url.pathname) ? '/ingredienti' : /^\/marche\/[^/]+\/?$/.test(url.pathname) ? '/marche' : null;
+  if (madre) {
+    const ok = (await env.ASSETS.fetch(new Request(new URL(madre, url)))).ok;
+    return new Response(null, { status: 301, headers: { location: ok ? madre : madre.startsWith('/biotipi') ? '/biotipi' : '/', 'cache-control': 'public, max-age=3600' } });
+  }
   const p = await env.ASSETS.fetch(new Request(new URL('/404', url)));
   return new Response(req.method === 'HEAD' ? null : p.body, { status: 404, headers: { 'content-type': 'text/html; charset=utf-8', 'cache-control': 'public, max-age=300' } });
 }

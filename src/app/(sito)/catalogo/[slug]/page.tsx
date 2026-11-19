@@ -6,6 +6,7 @@ import { nelGruppo } from '@/lib/catalogo';
 import Catalogo from '@/components/Catalogo';
 import Foto from '@/components/Foto';
 import { Stendi } from '@/components/Inviti';
+import { incrociDellaCategoria, PER } from '@/lib/percorsi';
 
 // Una categoria (/catalogo/sieri) o un filtro (/catalogo/k-beauty): lo stesso indirizzo corto,
 // i guardiani controllano che una categoria e un filtro non abbiano lo stesso nome.
@@ -25,13 +26,16 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
   const g = gruppo(slug);
   if (!g) return {};
-  return { title: g.tipo === 'categoria' ? `${g.nome}: quali scegliere per il tuo biotipo` : `${g.nome}: i prodotti scelti da Skinmatch`, description: g.descrizione, alternates: { canonical: `/catalogo/${slug}`, types: { 'text/markdown': `/md/catalogo/${slug}.md` } } };
+  // dal 19/11/2026 «per il tuo tipo di pelle» (voto r-parole)
+  const per = ['shampoo', 'capelli'].includes(slug) ? 'per il tuo cuoio capelluto' : slug === 'integratori' ? 'per quello che ti serve' : 'per il tuo tipo di pelle';
+  return { title: g.tipo === 'categoria' ? `${g.nome}: quali scegliere ${per}` : `${g.nome}: i prodotti scelti da Skinmatch`, description: g.descrizione, alternates: { canonical: `/catalogo/${slug}`, types: { 'text/markdown': `/md/catalogo/${slug}.md` } } };
 }
 
 export default async function GruppoPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const g = gruppo(slug);
   if (!g) notFound();
+  const perTipo = g.tipo === 'categoria' ? incrociDellaCategoria(g.id) : [];
   return (
     <main className="contenitore sezione pila" style={{ ['--gap' as string]: 'clamp(28px, 5vw, 48px)' }}>
       <Link href="/catalogo" className="piccolo">← Tutto il catalogo</Link>
@@ -44,6 +48,12 @@ export default async function GruppoPage({ params }: { params: Promise<{ slug: s
         </div>
         {g.immagine && <Foto nome={g.immagine} riserva={g.tipo === 'categoria' ? `/images/cat-${g.id}.jpg` : g.id === 'k-beauty' ? '/images/kbeauty-mask.jpg' : undefined} priorita style={{ aspectRatio: '3 / 2' }} sizes="(max-width: 760px) 100vw, 45vw" />}
       </header>
+      {perTipo.length > 0 && (
+        <nav className="pila" style={{ ['--gap' as string]: '10px' }} aria-label="Per tipo di pelle">
+          <span className="titolo-3">Per tipo di {['shampoo', 'capelli'].includes(g.id) ? 'cuoio capelluto' : 'pelle'}</span>
+          <div className="riga-chip">{perTipo.map((x) => <Link key={x.biotipo} href={`/biotipi/${x.biotipo}/${g.id}`} className="chip">{PER[x.biotipo].replace(/^./, (c) => c.toUpperCase())} ({x.prodotti.length})</Link>)}</div>
+        </nav>
+      )}
       <Catalogo categoria={g.tipo === 'categoria' ? g.id : ''} tag={g.tipo === 'tag' ? g.id : ''} />
     </main>
   );

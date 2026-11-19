@@ -52,7 +52,7 @@ export default function GlossarioPage() {
           </section>
         );
       })}
-      <p className="piccolo">Manca una parola? Il glossario cresce con la <Link className="link" href="/biotipi">guida ai biotipi</Link> e con il test.</p>
+      <p className="piccolo">Manca una parola? Il glossario cresce con la <Link className="link" href="/biotipi">guida ai tipi di pelle</Link> e con il test.</p>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
         '@context': 'https://schema.org', '@type': 'DefinedTermSet', name: 'Il glossario di Skinmatch', inLanguage: 'it', url: 'https://skinmatch.it/glossario',
         hasDefinedTerm: TERMINI.map((t) => ({ '@type': 'DefinedTerm', name: t.nome, description: t.testo, url: `https://skinmatch.it/glossario#${t.id}` })),

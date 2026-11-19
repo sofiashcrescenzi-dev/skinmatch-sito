@@ -20,7 +20,7 @@ export default function Header({ rivista }: { rivista: boolean }) {
     return () => window.removeEventListener('scroll', guarda);
   }, []);
   const voci = [
-    { nome: 'Biotipi', href: '/biotipi' },
+    { nome: 'Tipi di pelle', href: '/biotipi' },
     { nome: 'Catalogo', href: '/catalogo' },
     { nome: 'Integratori', href: '/integratori' },
     { nome: 'Glossario', href: '/glossario' },

@@ -92,6 +92,22 @@ export function prodottiPer(b: ConBisogni, quanti = 6): Prodotto[] {
     .map((x) => x.p);
 }
 
+// I PRODOTTI DI UNA CATEGORIA PER UN TIPO DI PELLE (19/11/2026, voto r-incroci; Federico: «fai tutte le modifiche»): le
+// pagine /biotipi/<id>/<categoria>, «Crema viso per pelle mista». Stesse regole di prodottiPer (punteggio sui bisogni,
+// profili delicati, niente prodotti che pizzicano), ma una categoria sola e tutti quelli che passano, prima i più adatti.
+export function prodottiPerCategoria(b: ConBisogni, categoria: string, quanti = 24): Prodotto[] {
+  const c = CATALOGO.categorie.find((x) => x.id === categoria);
+  if (!c) return [];
+  const delicato = eDelicato(b);
+  return PRODOTTI.filter((p) => inCategoria(p, c))
+    .filter((p) => (delicato ? delicatoPer(p, b.id!) !== undefined : !(b.bisogni.pelle?.includes('sensibile') && p.sensitiveSafe === false)))
+    .map((p) => ({ p, v: voto(p, b) + (delicato ? delicatoPer(p, b.id!)! : 0) }))
+    .filter((x) => (delicato ? voto(x.p, b) >= 1 || delicatoPer(x.p, b.id!)! >= 4 : x.v >= 2))
+    .sort((a, b2) => b2.v - a.v || a.p.price - b2.p.price)
+    .slice(0, quanti)
+    .map((x) => x.p);
+}
+
 // I biotipi a cui un prodotto risponde (la sua pagina): stessa area, il tipo di pelle o di cute e
 // almeno un bisogno in comune; mai un prodotto che pizzica a un biotipo che reagisce. Prima i più vicini.
 export function biotipiPer<B extends ConBisogni & { id: string; tipo: string }>(p: Product, biotipi: B[]): B[] {

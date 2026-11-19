@@ -20,8 +20,10 @@ export default function Piede({ rivista }: { rivista: boolean }) {
             <Link href="/test">I tuoi risultati</Link>
           </nav>
           <nav className="pila piccolo" style={{ ['--gap' as string]: '6px' }} aria-label="Le pagine">
-            <Link href="/biotipi">I biotipi</Link>
+            <Link href="/biotipi">Tipi di pelle</Link>
             <Link href="/catalogo">Il catalogo</Link>
+            <Link href="/ingredienti">Gli ingredienti</Link>
+            <Link href="/marche">Le marche</Link>
             <Link href="/catalogo/k-beauty">K-beauty</Link>
             <Link href="/glossario">Il glossario</Link>
             {rivista && <Link href="/rivista">La Rivista</Link>}

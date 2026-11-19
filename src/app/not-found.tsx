@@ -42,7 +42,7 @@ export default function NonTrovata() {
           </div>
           <div className="pila" style={{ ['--gap' as string]: '10px' }}>
             <h2 className="titolo-3">Per capire</h2>
-            <Stendi href="/biotipi">I biotipi della pelle e della cute</Stendi>
+            <Stendi href="/biotipi">I tipi di pelle e di cuoio capelluto</Stendi>
             <Stendi href="/glossario">Le parole della pelle, spiegate</Stendi>
             {rivista && <Stendi href="/rivista">La Rivista</Stendi>}
           </div>

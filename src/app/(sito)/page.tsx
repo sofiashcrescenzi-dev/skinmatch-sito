@@ -282,10 +282,10 @@ export default function Home() {
       <section className="contenitore sezione pila" style={{ ['--gap' as string]: 'clamp(20px, 4vw, 36px)', paddingTop: 0 }}>
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: 12, alignItems: 'end', justifyContent: 'space-between' }}>
           <div className="pila" style={{ ['--gap' as string]: '8px' }}>
-            <span className="etichetta">I biotipi</span>
+            <span className="etichetta">Tipi di pelle</span>
             <h2 className="titolo-2">Quale pelle hai?</h2>
           </div>
-          <Link href="/biotipi" className="link">Tutti i biotipi, anche di cute e integrazione</Link>
+          <Link href="/biotipi" className="link">Tutti i tipi di pelle, anche di cuoio capelluto e integrazione</Link>
         </div>
         <div className="griglia" style={{ ['--min' as string]: '220px' }}>
           {pelle.map((b) => (

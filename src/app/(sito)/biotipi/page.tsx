@@ -4,14 +4,15 @@ import { BIOTIPI, NOMI_AREA, type Area, fotoDi } from '@/lib/dati';
 import Foto from '@/components/Foto';
 
 export const metadata: Metadata = {
-  title: 'I biotipi di pelle, cuoio capelluto e integrazione',
-  description: 'Seborroica, secca, mista, disidratata, reattiva, acneica; cuoio capelluto grasso, secco, con forfora o caduta: come si riconosce ogni biotipo, cosa cercare in un prodotto e cosa evitare.',
+  // dal 19/11/2026 «tipi di pelle» (voto r-parole): «biotipo» non lo cerca nessuno; l'indirizzo resta /biotipi
+  title: 'Tipi di pelle e di cuoio capelluto: come riconoscerli e cosa usare',
+  description: 'Pelle grassa, secca, mista, sensibile, acneica, con macchie o rughe; capelli grassi, forfora, caduta: come si riconosce ogni tipo, cosa cercare in un prodotto e cosa evitare.',
   alternates: { canonical: '/biotipi', types: { 'text/markdown': '/md/biotipi.md' } },
 };
 
 const INTRO: Record<Area, string> = {
-  pelle: 'Quanto sebo produce la pelle, quanta acqua trattiene, quanto reagisce: dalla combinazione nasce il biotipo. I tratti si aggiungono sopra, perché una pelle seborroica può anche avere macchie, per esempio.',
-  cute: 'Il cuoio capelluto è pelle, e ha i suoi biotipi: si sceglie lo shampoo su di lui, non sulle lunghezze.',
+  pelle: 'Quanto sebo produce la pelle, quanta acqua trattiene, quanto reagisce: dalla combinazione nasce il tipo di pelle. I tratti si aggiungono sopra, perché una pelle grassa può anche avere macchie, per esempio.',
+  cute: 'Il cuoio capelluto è pelle, e ha i suoi tipi: si sceglie lo shampoo su di lui, non sulle lunghezze.',
   integrazione: 'Per pelle, capelli e unghie dall\'interno: un profilo per ogni obiettivo, compreso «nessun integratore».',
 };
 
@@ -19,9 +20,9 @@ export default function BiotipiPage() {
   return (
     <main className="contenitore sezione pila" style={{ ['--gap' as string]: 'clamp(36px, 6vw, 64px)' }}>
       <header className="pila" style={{ ['--gap' as string]: '12px' }}>
-        <span className="etichetta">I biotipi</span>
-        <h1 className="sopratitolo">Ogni pelle ha le sue regole</h1>
-        <p className="intro">Come si riconosce ogni biotipo, cosa cercare in un prodotto e cosa evitare. Non sai qual è il tuo? <Link href="/test" className="link">Fai il test</Link>: sono domande su quello che vedi allo specchio.</p>
+        <span className="etichetta">Ogni pelle ha le sue regole</span>
+        <h1 className="sopratitolo">Tipi di pelle e di cuoio capelluto</h1>
+        <p className="intro">Come si riconosce ogni tipo, cosa cercare in un prodotto e cosa evitare. Nel metodo di Skinmatch li chiamiamo biotipi. Non sai qual è il tuo? <Link href="/test" className="link">Fai il test</Link>: sono domande su quello che vedi allo specchio.</p>
       </header>
       {(['pelle', 'cute', 'integrazione'] as Area[]).map((area) => {
         const base = BIOTIPI.filter((b) => b.area === area && b.tipo === 'biotipo');

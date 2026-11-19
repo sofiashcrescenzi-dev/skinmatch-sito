@@ -65,7 +65,7 @@ export default function PaginaRisultato() {
         <Copia messaggio={m.testo} indirizzo={indirizzo} />
         <Link href={`/test?percorso=${percorso.id}&nuovo=1`} className="bottone secondario"><Icona nome="aggiorna" size={18} />Rifai il test</Link>
       </>) : (<>
-        <Invito href={`/test?percorso=${percorso.id}&nuovo=1`}>Scopri il tuo biotipo</Invito>
+        <Invito href={`/test?percorso=${percorso.id}&nuovo=1`}>Scopri il tuo tipo di pelle</Invito>
         <Condividi titolo={m.titolo} messaggio={m.testo} indirizzo={indirizzo} testo="Condividi" />
         <Copia messaggio={m.testo} indirizzo={indirizzo} />
       </>)}

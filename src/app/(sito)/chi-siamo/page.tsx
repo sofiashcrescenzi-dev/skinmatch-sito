@@ -89,7 +89,7 @@ export default function ChiSiamo() {
       <section className="carta" style={{ display: 'flex', flexWrap: 'wrap', gap: 16, alignItems: 'center', justifyContent: 'space-between' }}>
         <div className="pila" style={{ ['--gap' as string]: '4px' }}>
           <span className="titolo-3">Il modo migliore per conoscerci</span>
-          <span className="piccolo">Tre minuti di domande, un biotipo, una routine.</span>
+          <span className="piccolo">Tre minuti di domande, il tuo tipo di pelle, una routine.</span>
         </div>
         <Invito href="/test">Fai il test</Invito>
       </section>
