@@ -266,7 +266,7 @@
    "id": "seborroica-disidratata",
    "area": "pelle",
    "tipo": "biotipo",
-   "titolo": "Pelle seborroica disidratata",
+   "titolo": "Pelle grassa e disidratata",
    "motto": "Lucida e assetata insieme.",
    "famiglia": "pelle-grassa",
    "tag": [
@@ -333,7 +333,7 @@
    "id": "seborroica-idratata",
    "area": "pelle",
    "tipo": "biotipo",
-   "titolo": "Pelle seborroica",
+   "titolo": "Pelle grassa (seborroica)",
    "motto": "Luminosa per natura, da tenere in equilibrio.",
    "famiglia": "pelle-grassa",
    "tag": [
@@ -696,7 +696,7 @@
    "id": "normale",
    "area": "pelle",
    "tipo": "biotipo",
-   "titolo": "Pelle normale-equilibrata",
+   "titolo": "Pelle normale",
    "motto": "In equilibrio: da mantenere, non da correggere.",
    "famiglia": "pelle-normale",
    "tag": [
@@ -734,7 +734,7 @@
    "id": "macchie",
    "area": "pelle",
    "tipo": "tratto",
-   "titolo": "Con tendenza a macchie e discromie",
+   "titolo": "Macchie sul viso e discromie",
    "motto": "Il sole lascia il segno: la protezione lo ferma.",
    "famiglia": "pelle-macchie",
    "tag": [
@@ -784,7 +784,7 @@
    "id": "rosacea",
    "area": "pelle",
    "tipo": "tratto",
-   "titolo": "Rossori o rosacea, indicati da te",
+   "titolo": "Rosacea e couperose, indicate da te",
    "motto": "Rossori da calmare, mai da sfidare.",
    "famiglia": "pelle-sensibile",
    "tag": [
@@ -836,7 +836,7 @@
    "id": "matura",
    "area": "pelle",
    "tipo": "tratto",
-   "titolo": "Con segni di invecchiamento cutaneo",
+   "titolo": "Rughe e pelle matura",
    "motto": "Il tempo si vede: gli attivi giusti lo rallentano.",
    "famiglia": "pelle-matura",
    "tag": [
@@ -885,7 +885,7 @@
    "id": "menopausa",
    "area": "pelle",
    "tipo": "tratto",
-   "titolo": "In perimenopausa o menopausa",
+   "titolo": "Pelle in menopausa e perimenopausa",
    "motto": "Una pelle che cambia regole.",
    "famiglia": "pelle-matura",
    "tag": [
@@ -939,7 +939,7 @@
    "id": "reattiva",
    "area": "pelle",
    "tipo": "tratto",
-   "titolo": "Con pelle reattiva",
+   "titolo": "Pelle sensibile e reattiva",
    "motto": "Formule semplici, una novità alla volta.",
    "famiglia": "pelle-sensibile",
    "tag": [
@@ -985,7 +985,7 @@
    "id": "imperfezioni",
    "area": "pelle",
    "tipo": "tratto",
-   "titolo": "Con imperfezioni",
+   "titolo": "Brufoli e punti neri",
    "motto": "Punti neri e brufoli: si lavora sui pori, non contro la pelle.",
    "famiglia": "pelle-grassa",
    "tag": [
@@ -1088,7 +1088,7 @@
    "id": "seborroico",
    "area": "cute",
    "tipo": "biotipo",
-   "titolo": "Cuoio capelluto seborroico",
+   "titolo": "Forfora grassa e cuoio capelluto seborroico",
    "motto": "Sebo in eccesso e scaglie untuose: la cute va riequilibrata.",
    "famiglia": "cute-grassa",
    "tag": [
@@ -1141,7 +1141,7 @@
    "id": "diradamento",
    "area": "cute",
    "tipo": "biotipo",
-   "titolo": "Cute con tendenza al diradamento",
+   "titolo": "Diradamento dei capelli",
    "motto": "Prima si guarda, più si conserva.",
    "famiglia": "cute-caduta",
    "tag": [
@@ -1197,7 +1197,7 @@
    "id": "caduta-reattiva",
    "area": "cute",
    "tipo": "biotipo",
-   "titolo": "Caduta reattiva (temporanea)",
+   "titolo": "Caduta dei capelli temporanea",
    "motto": "Una caduta che ha una data d'inizio, e di solito una fine.",
    "famiglia": "cute-caduta",
    "tag": [
@@ -1247,7 +1247,7 @@
    "id": "secco-desquamante",
    "area": "cute",
    "tipo": "biotipo",
-   "titolo": "Cuoio capelluto secco e desquamante",
+   "titolo": "Forfora secca",
    "motto": "Scagliette bianche e prurito: serve delicatezza.",
    "famiglia": "cute-secca",
    "tag": [
@@ -1340,7 +1340,7 @@
    "id": "cute-grassa",
    "area": "cute",
    "tipo": "biotipo",
-   "titolo": "Cuoio capelluto grasso",
+   "titolo": "Capelli grassi",
    "motto": "Radici che si appesantiscono in fretta.",
    "famiglia": "cute-grassa",
    "tag": [
@@ -1469,7 +1469,7 @@
    "id": "cute-sensibile",
    "area": "cute",
    "tipo": "tratto",
-   "titolo": "Con cuoio capelluto sensibile",
+   "titolo": "Cuoio capelluto sensibile e prurito",
    "motto": "Prude, brucia, reagisce: meno prodotti, più delicati.",
    "famiglia": "cute-equilibrata",
    "tag": [
@@ -1511,7 +1511,7 @@
    "id": "capelli-trattati",
    "area": "cute",
    "tipo": "tratto",
-   "titolo": "Con capelli colorati o stressati dal calore",
+   "titolo": "Capelli colorati o stressati dal calore",
    "motto": "Colore e calore: le lunghezze vanno ricostruite.",
    "famiglia": "capelli-secchi",
    "tag": [
@@ -1562,7 +1562,7 @@
    "id": "sostegno-capelli",
    "area": "integrazione",
    "tipo": "biotipo",
-   "titolo": "Sostegno per i capelli",
+   "titolo": "Integratori per capelli",
    "motto": "Dall'interno, per capelli che cadono o si indeboliscono.",
    "famiglia": "cute-caduta",
    "tag": [
@@ -1606,7 +1606,7 @@
    "id": "pelle-idratazione",
    "area": "integrazione",
    "tipo": "biotipo",
-   "titolo": "Idratazione dall'interno",
+   "titolo": "Integratori per la pelle",
    "motto": "Per una pelle secca o spenta.",
    "famiglia": "pelle-secca",
    "tag": [
@@ -1650,7 +1650,7 @@
    "id": "tono-collagene",
    "area": "integrazione",
    "tipo": "biotipo",
-   "titolo": "Tono ed elasticità",
+   "titolo": "Collagene e vitamina C",
    "motto": "Per sostenere la pelle che perde tono.",
    "famiglia": "pelle-matura",
    "tag": [
@@ -1777,7 +1777,7 @@
    "id": "imperfezioni-interno",
    "area": "integrazione",
    "tipo": "biotipo",
-   "titolo": "Imperfezioni dall'interno",
+   "titolo": "Imperfezioni dall’interno: zinco e vitamina A",
    "motto": "Per una pelle con brufoli che vanno e vengono.",
    "famiglia": "pelle-grassa",
    "tag": [
@@ -1879,7 +1879,7 @@
    "id": "riposo",
    "area": "integrazione",
    "tipo": "biotipo",
-   "titolo": "Per prendere sonno",
+   "titolo": "Melatonina, per prendere sonno",
    "motto": "Quando la sera il sonno tarda ad arrivare.",
    "famiglia": "integratori",
    "tag": [
@@ -1962,7 +1962,7 @@
    "id": "calma",
    "area": "integrazione",
    "tipo": "biotipo",
-   "titolo": "Nei periodi di stress",
+   "titolo": "Magnesio, nei periodi di stress",
    "motto": "Per le settimane in cui sei sotto pressione.",
    "famiglia": "integratori",
    "tag": [

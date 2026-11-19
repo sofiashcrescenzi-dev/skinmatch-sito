@@ -3,7 +3,7 @@
  "categorie": [
   {
    "id": "detergenti",
-   "nome": "Detergenti",
+   "nome": "Detergente viso e struccanti",
    "regola": {
     "categoria": "detergenti"
    },
@@ -12,7 +12,7 @@
   },
   {
    "id": "sieri",
-   "nome": "Sieri",
+   "nome": "Siero viso",
    "regola": {
     "categoria": "sieri"
    },
@@ -21,7 +21,7 @@
   },
   {
    "id": "creme",
-   "nome": "Creme",
+   "nome": "Crema viso",
    "regola": {
     "categoria": "creme",
     "senza_bisogno": "protezione-solare"
@@ -31,7 +31,7 @@
   },
   {
    "id": "solari",
-   "nome": "Protezione solare",
+   "nome": "Crema solare viso",
    "regola": {
     "categoria": "creme",
     "con_bisogno": "protezione-solare"
@@ -41,7 +41,7 @@
   },
   {
    "id": "attivi",
-   "nome": "Trattamenti mirati",
+   "nome": "Retinolo, acidi e trattamenti mirati",
    "regola": {
     "categoria": "attivi"
    },
@@ -84,7 +84,7 @@
   },
   {
    "id": "capelli",
-   "nome": "Trattamenti per i capelli",
+   "nome": "Anticaduta e trattamenti per capelli",
    "regola": {
     "categoria": "capelli"
    },
