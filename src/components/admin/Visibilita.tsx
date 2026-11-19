@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { useApi, Vuoto, quando } from './base';
+import { Colonne as Grafico } from './grafici';
 
 // VISIBILITÀ SU GOOGLE (15/11/2026, Federico: «una dashboard ben fatta sull'admin, nella stessa pagina in cui adesso ci
 // sono le ricerche. Visibilità 24h 7gg 30gg»). I numeri vengono da Search Console in diretta (/api/admin/google, nel
@@ -59,29 +60,13 @@ function Confronto({ ora, prima, tipo, periodo }: { ora: number | null; prima: n
 }
 
 // Un grafico a colonne per una misura sola (impressioni o clic): due misure con scale diverse non stanno su un asse.
+// Dal 19/11/2026 col modulo comune dei grafici (grafici.tsx, gemello di Agoranomos).
 function Colonne({ serie, chiave, titolo, periodo, tono }: { serie: Punto[]; chiave: 'impressioni' | 'clic'; titolo: string; periodo: Periodo; tono: string }) {
-  const [su, setSu] = useState<number | null>(null);
-  const v = serie.map((p) => p[chiave]);
-  const max = Math.max(...v, 0);
-  const ogni = periodo === '24h' ? 6 : periodo === '7g' ? 1 : 7;
+  const dati = serie.map((p) => ({ k: p.t, etichetta: etichetta(p.t, periodo), lunga: etichetta(p.t, periodo, true), v: p[chiave] }));
   return (
-    <figure className="carta vis-grafico" style={{ ['--tono' as string]: tono }}>
-      <figcaption>
-        <b>{titolo}</b>
-        <span className="piccolo" aria-live="polite">{su != null ? `${etichetta(serie[su].t, periodo, true)}: ${intero(v[su])}` : max ? `massimo ${intero(max)} ${periodo === '24h' ? 'in un’ora' : 'in un giorno'}` : 'ancora a zero'}</span>
-      </figcaption>
-      <div className="vis-barre" role="img" aria-label={`${titolo}, ${periodo === '24h' ? 'ora per ora' : 'giorno per giorno'}: totale ${intero(v.reduce((a, b) => a + b, 0))}`} onMouseLeave={() => setSu(null)}>
-        {serie.map((p, i) => (
-          <span key={p.t} className={su === i ? 'su' : undefined} onMouseEnter={() => setSu(i)} onFocus={() => setSu(i)} onBlur={() => setSu(null)} tabIndex={0}
-            aria-label={`${etichetta(p.t, periodo, true)}: ${intero(v[i])}`}>
-            <i style={{ height: max ? `${(v[i] / max) * 100}%` : 0 }} className={v[i] ? undefined : 'zero'} />
-          </span>
-        ))}
-      </div>
-      <div className="vis-assi" aria-hidden="true">
-        {serie.map((p, i) => <span key={p.t}>{i % ogni === 0 ? etichetta(p.t, periodo) : ''}</span>)}
-      </div>
-    </figure>
+    <div className="carta">
+      <Grafico titolo={titolo} dati={dati} serie={[{ chiave: 'v', nome: titolo.toLowerCase(), colore: tono }]} formato={intero} ogni={periodo === '24h' ? 6 : periodo === '7g' ? 1 : 7} />
+    </div>
   );
 }
 

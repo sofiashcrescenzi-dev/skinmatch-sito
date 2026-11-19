@@ -827,3 +827,33 @@ details.carta > summary::-webkit-details-marker { display: none; }
 .bottone-filtri .quanti { display: inline-grid; place-items: center; min-width: 22px; height: 22px; padding: 0 6px; border-radius: 999px; background: var(--terra); color: var(--latte); font-size: 12.5px; font-variant-numeric: tabular-nums; }
 .pannello-filtri { background: var(--foglio); border: 1px solid var(--riga); border-radius: var(--raggio); padding: clamp(14px, 3vw, 22px); }
 .pannello-filtri[hidden] { display: none; }
+
+/* ============================================================
+   ADMIN · I GRAFICI (19/11/2026, components/admin/grafici.tsx; gemello di quelli di Agoranomos)
+   ============================================================ */
+.graf { margin: 0; display: grid; gap: 10px; min-width: 0; }
+.graf figcaption { display: flex; flex-wrap: wrap; gap: 4px 12px; justify-content: space-between; align-items: baseline; font-size: 14px; }
+.graf-legenda { display: flex; flex-wrap: wrap; gap: 4px 14px; font-size: 12.5px; color: var(--grigio); }
+.graf-q { display: inline-block; width: 8px; height: 8px; border-radius: 2px; margin-right: 6px; }
+.graf-max { position: absolute; top: -2px; right: 0; font-size: 11.5px; color: var(--grigio); font-variant-numeric: tabular-nums; }
+.graf-colonne { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); gap: 2px; align-items: end; padding-top: 16px; border-bottom: 1px solid var(--riga-forte); }
+.graf-colonne > div { height: 100%; display: flex; align-items: flex-end; justify-content: center; gap: 1px; border-radius: 4px 4px 0 0; outline: none; }
+.graf-colonne > div.impilata { flex-direction: column-reverse; justify-content: flex-start; align-items: center; gap: 0; }
+.graf-colonne > div:hover, .graf-colonne > div:focus-visible { background: var(--velo); }
+.graf-colonne > div:focus-visible { box-shadow: 0 0 0 2px var(--testo); }
+.graf-colonne i { display: block; flex: 1; max-width: 28px; border-radius: 4px 4px 0 0; transition: height 0.35s cubic-bezier(0.2, 0, 0, 1); }
+.graf-colonne > div.impilata i { flex: none; width: min(100%, 56px); max-width: none; border-radius: 0; }
+.graf-colonne > div.impilata i:last-child { border-radius: 4px 4px 0 0; }
+.graf-colonne > div.impilata i + i { border-bottom: 1px solid var(--foglio); }
+.graf-colonne i.zero { height: 2px; background: var(--riga); border-radius: 1px; }
+.graf-asse { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); gap: 2px; margin-top: 6px; font-size: 11.5px; color: var(--grigio); font-variant-numeric: tabular-nums; }
+.graf-asse span { text-align: center; white-space: pre; display: flex; justify-content: center; }
+.graf-barre { position: relative; display: grid; gap: 4px; }
+.graf-barre > div:not(.graf-riquadro) { position: relative; display: flex; justify-content: space-between; gap: 10px; padding: 6px 8px; border-radius: 6px; font-size: 13.5px; outline: none; }
+.graf-barre > div:not(.graf-riquadro):hover, .graf-barre > div:not(.graf-riquadro):focus-visible { background: var(--velo); }
+.graf-barre > div:focus-visible { box-shadow: 0 0 0 2px var(--testo); }
+.graf-barre i { position: absolute; left: 0; top: 3px; bottom: 3px; opacity: 0.22; border-radius: 4px; }
+.graf-barre span { position: relative; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.graf-barre b { position: relative; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.graf-riquadro { position: absolute; z-index: 5; pointer-events: none; background: var(--cacao); color: var(--latte); border-radius: 10px; padding: 8px 11px; box-shadow: 0 8px 22px -8px var(--ombra); font-size: 12.5px; line-height: 1.45; white-space: nowrap; max-width: min(320px, 90vw); }
+.graf-riquadro b { font-weight: 700; }

@@ -4,6 +4,7 @@ import { useMemo, useState } from 'react';
 import { TEST, BIOTIPI } from '@/lib/dati';
 import { PRODOTTI, euro } from '@/lib/catalogo';
 import { useApi, Titolo, Vuoto } from './base';
+import { Colonne as Grafico, Barre } from './grafici';
 import Visibilita from './Visibilita';
 
 // TRAFFICO E TEST FATTI (15/10/2026). I numeri vengono dai conteggi del sito (worker/index.js,
@@ -20,28 +21,20 @@ const perChiave = (r: Riga[], tipo: string) => {
   return Object.entries(o).sort((a, b) => b[1] - a[1]);
 };
 
-function Colonne({ righe, tipo, giorni, da }: { righe: Riga[]; tipo: string; giorni: number; da: string }) {
-  const g = Array.from({ length: giorni }, (_, i) => new Date(new Date(da).getTime() + i * 864e5).toISOString().slice(0, 10));
-  const v = g.map((d) => righe.filter((x) => x.tipo === tipo && x.giorno === d).reduce((s, x) => s + x.n, 0));
-  const mx = Math.max(1, ...v);
-  return (
-    <div className="pila" style={{ ['--gap' as string]: '4px' }}>
-      <div className="adm-colonne" role="img" aria-label={`${tipo} per giorno`}>{v.map((n, i) => <i key={i} title={`${g[i]}: ${n}`} style={{ height: `${(n / mx) * 100}%` }} />)}</div>
-      <div className="piccolo" style={{ display: 'flex', flexWrap: 'wrap', gap: '2px 10px', justifyContent: 'space-between' }}><span>{g[0]}</span><span>massimo {mx} al giorno</span><span>{g[g.length - 1]}</span></div>
-    </div>
-  );
+// le colonne per giorno, col dato al passaggio (19/11/2026: components/admin/grafici.tsx, gemello di Agoranomos)
+function Colonne({ righe, tipo, giorni, da, nome = tipo, colore = 'var(--f4)' }: { righe: Riga[]; tipo: string; giorni: number; da: string; nome?: string; colore?: string }) {
+  const dati = Array.from({ length: giorni }, (_, i) => {
+    const g = new Date(new Date(da).getTime() + i * 864e5);
+    const k = g.toISOString().slice(0, 10);
+    return { k, etichetta: g.toLocaleDateString('it-IT', { day: 'numeric', month: 'short' }), lunga: g.toLocaleDateString('it-IT', { weekday: 'long', day: 'numeric', month: 'long' }),
+      v: righe.filter((x) => x.tipo === tipo && x.giorno === k).reduce((s, x) => s + x.n, 0) };
+  });
+  return <Grafico dati={dati} serie={[{ chiave: 'v', nome, colore }]} />;
 }
 
+// le classifiche a barre (19/11/2026): il numero si legge accanto, e al passaggio anche la quota sul totale
 function Tabella({ titolo, righe, nome, colonna = 'Clic' }: { titolo: string; righe: [string, number][]; nome?: (k: string) => string; colonna?: string }) {
-  return (
-    <div className="pila" style={{ ['--gap' as string]: '8px' }}>
-      <h2 className="titolo-3">{titolo}</h2>
-      {!righe.length ? <Vuoto>Ancora niente.</Vuoto> : (
-        <div className="adm-tabella"><table><thead><tr><th>{titolo.split(' ')[0]}</th><th className="num">{colonna}</th></tr></thead>
-          <tbody>{righe.slice(0, 15).map(([k, n]) => <tr key={k}><td>{nome ? nome(k) : k}</td><td className="num">{n}</td></tr>)}</tbody></table></div>
-      )}
-    </div>
-  );
+  return <Barre titolo={titolo} righe={righe.slice(0, 15).map(([k, n]) => ({ k, nome: nome ? nome(k) : k, valore: n, sotto: colonna.toLowerCase() }))} />;
 }
 
 const GIORNI = [7, 30, 90];
@@ -80,7 +73,7 @@ export default function Traffico({ vista }: { vista: 'traffico' | 'test' }) {
           <div><span className="piccolo">Arrivati al risultato</span><b>{somma(r, 'test_fine')}</b></div>
           <div><span className="piccolo">Completati</span><b>{somma(r, 'test_inizio') ? Math.round((somma(r, 'test_fine') / somma(r, 'test_inizio')) * 100) : 0}%</b></div>
         </div>
-        <div className="carta pila"><h2 className="titolo-3">Risultati per giorno</h2><Colonne righe={r} tipo="test_fine" giorni={giorni} da={api.dati?.da || new Date().toISOString().slice(0, 10)} /></div>
+        <div className="carta pila"> <h2 className="titolo-3">Risultati per giorno</h2><Colonne nome="test finiti" righe={r} tipo="test_fine" giorni={giorni} da={api.dati?.da || new Date().toISOString().slice(0, 10)} /></div>
         <div className="adm-tabella"><table><thead><tr><th>Percorso</th><th className="num">Iniziati</th><th className="num">Finiti</th><th className="num">Completati</th><th className="num">Tempo medio</th><th className="num">Sul sito</th></tr></thead>
           <tbody>{TEST.percorsi.map((p) => { const i = iniziati.find(([k]) => k === p.id)?.[1] || 0, f = finiti[p.id] || 0; return <tr key={p.id}><td>{p.nome}</td><td className="num">{i}</td><td className="num">{f}</td><td className="num">{i ? Math.round((f / i) * 100) : 0}%</td><td className="num">{tempo(p.id)}</td><td className="num">circa {p.minuti} min</td></tr>; })}</tbody></table></div>
         <Tabella titolo="Biotipi usciti" righe={perChiave(r, 'biotipo')} nome={(k) => BIOTIPI.find((b) => b.id === k)?.titolo || k} colonna="Volte" />
@@ -119,8 +112,8 @@ export default function Traffico({ vista }: { vista: 'traffico' | 'test' }) {
       </div>
 
       <div className="adm-due">
-        <div className="carta pila"><h2 className="titolo-3">Visite per giorno</h2><Colonne righe={r} tipo="arrivo" giorni={giorni} da={api.dati?.da || new Date().toISOString().slice(0, 10)} /></div>
-        <div className="carta pila"><h2 className="titolo-3">Clic per giorno</h2><Colonne righe={r} tipo="clic" giorni={giorni} da={api.dati?.da || new Date().toISOString().slice(0, 10)} /></div>
+        <div className="carta pila"><h2 className="titolo-3">Visite per giorno</h2><Colonne nome="visite" righe={r} tipo="arrivo" giorni={giorni} da={api.dati?.da || new Date().toISOString().slice(0, 10)} /></div>
+        <div className="carta pila"><h2 className="titolo-3">Clic per giorno</h2><Colonne nome="clic verso i negozi" colore="var(--cacao)" righe={r} tipo="clic" giorni={giorni} da={api.dati?.da || new Date().toISOString().slice(0, 10)} /></div>
       </div>
 
       <section className="pila" style={{ ['--gap' as string]: '12px' }}>
