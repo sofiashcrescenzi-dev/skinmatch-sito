@@ -40,9 +40,9 @@ const STRUMENTI = [
       biotipo: { type: 'string', description: 'Id del biotipo (es. pelle-mista, atopica, cute-grassa)' },
       attivo: { type: 'string', description: 'Un attivo o un ingrediente INCI' },
       categoria: { type: 'string', description: 'detergenti, sieri, creme, solari, attivi, maschere, occhi, cerotti, shampoo, capelli, barba, integratori' },
-      senza: { type: 'array', items: { type: 'string', enum: ['profumo', 'alcol', 'oli_essenziali'] } },
+      senza: { type: 'array', items: { type: 'string', enum: ['profumo', 'alcol', 'oli_essenziali'] }, description: 'Ingredienti da escludere: solo i prodotti il cui INCI ne dimostra l\'assenza' },
       prezzo_max: { type: 'number', description: 'Prezzo massimo in euro' },
-      limite: { type: 'integer', minimum: 1, maximum: 20, default: 8 },
+      limite: { type: 'integer', minimum: 1, maximum: 20, default: 8, description: 'Quanti prodotti restituire (da 1 a 20)' },
     } },
     annotations: SOLO_LETTURA,
   },
@@ -55,13 +55,13 @@ const STRUMENTI = [
   {
     name: 'elenca_biotipi', title: 'Elenca i biotipi',
     description: 'Tutti i biotipi di Skinmatch con id, titolo e motto, per area: pelle, cute (cuoio capelluto e capelli), integrazione.',
-    inputSchema: { type: 'object', properties: { area: { type: 'string', enum: ['pelle', 'cute', 'integrazione'] } } },
+    inputSchema: { type: 'object', properties: { area: { type: 'string', enum: ['pelle', 'cute', 'integrazione'], description: 'Solo i biotipi di un\'area: pelle del viso, cute (cuoio capelluto e capelli) o integrazione' } } },
     annotations: SOLO_LETTURA,
   },
   {
     name: 'biotipi_da_segni', title: 'Biotipi vicini a una descrizione',
     description: 'Dai segni descritti da una persona (es. «pelle che tira dopo la doccia e si arrossa col freddo») stima i biotipi più vicini confrontando le parole con le caratteristiche di ogni biotipo. È una stima, non il test: per un risultato vero manda la persona a https://skinmatch.it/test.',
-    inputSchema: { type: 'object', properties: { descrizione: { type: 'string' }, area: { type: 'string', enum: ['pelle', 'cute', 'integrazione'] } }, required: ['descrizione'] },
+    inputSchema: { type: 'object', properties: { descrizione: { type: 'string', description: 'Come appare la pelle o il cuoio capelluto, con parole semplici (es. «lucida sul naso, tira sulle guance»)' }, area: { type: 'string', enum: ['pelle', 'cute', 'integrazione'], description: 'L\'area da considerare; senza, tutte' } }, required: ['descrizione'] },
     annotations: SOLO_LETTURA,
   },
   {
@@ -73,7 +73,7 @@ const STRUMENTI = [
   {
     name: 'articoli', title: 'Articoli della rivista',
     description: 'Gli articoli della rivista di Skinmatch (guide e approfondimenti, alcuni firmati da Sofia Crescenzi, medico estetico), filtrabili per testo, biotipo o termine.',
-    inputSchema: { type: 'object', properties: { testo: { type: 'string' }, biotipo: { type: 'string' }, termine: { type: 'string' } } },
+    inputSchema: { type: 'object', properties: { testo: { type: 'string', description: 'Parole da cercare nel titolo, nel sommario o nel testo' }, biotipo: { type: 'string', description: 'Id del biotipo (es. pelle-mista): gli articoli che ne parlano' }, termine: { type: 'string', description: 'Id di un termine del glossario (es. niacinamide, ceramidi): gli articoli che lo approfondiscono' } } },
     annotations: SOLO_LETTURA,
   },
   {
