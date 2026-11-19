@@ -42,7 +42,16 @@ const VOCI = [
   { file: 'violetta.mp3', nome: 'Violetta, «Warm, Clear and Engaging»', nota: 'Calda e chiara, la voce femminile italiana più usata della libreria. 2,7 parole al secondo.' },
   { file: 'luna.mp3', nome: 'Luna, «Natural, Measured and Confident»', nota: 'Giovane, misurata, nata per spiegare. 2,8 parole al secondo.' },
 ];
-const NOMI_DIDA: Record<string, string> = { instagram: 'Instagram', tiktok: 'TikTok', threads: 'Threads', youtube_titolo: 'YouTube, titolo', youtube: 'YouTube, descrizione' };
+// ⚠️ UNA DIDASCALIA SOLA (19/11/2026, Federico: «togliere le caption su Threads, uniformare caption TikTok e Instagram,
+// anche YouTube, ma mettermi comunque il titolo per YT a parte; per i caroselli eliminare YouTube oltre che Threads»).
+// La didascalia di Instagram vale per TikTok e YouTube; il titolo YouTube a parte, solo nei video.
+const didascalieDi = (p: Post): [string, string, number][] => {
+  const d = p.didascalie as Record<string, string>;
+  const una = d.instagram || d.tiktok || '';
+  const out: [string, string, number][] = [[p.tipo === 'video' ? 'Instagram, TikTok e YouTube' : 'Instagram e TikTok', una, 2200]];
+  if (p.tipo === 'video' && d.youtube_titolo) out.push(['YouTube, titolo', d.youtube_titolo, 100]);
+  return out.filter(([, t]) => t);
+};
 
 function Copia({ testo, etichetta = 'Copia' }: { testo: string; etichetta?: string }) {
   const [fatto, setFatto] = useState(false);
@@ -249,9 +258,9 @@ function UnPost({ p, stato, poi }: { p: Post; stato?: Stato; poi: () => void }) 
             {p.note && <span className="piccolo">{p.note}</span>}
           </div>
         </div>
-        {Object.entries(p.didascalie).map(([k, t]) => (
-          <div key={k} className="pila" style={{ ['--gap' as string]: '4px' }}>
-            <div className="riga-chip"><b className="piccolo">{NOMI_DIDA[k] || k}</b><span className="piccolo">{[...t].length} caratteri</span><Copia testo={t} /></div>
+        {didascalieDi(p).map(([nome, t, lim]) => (
+          <div key={nome} className="pila" style={{ ['--gap' as string]: '4px' }}>
+            <div className="riga-chip"><b className="piccolo">{nome}</b><span className="piccolo" style={{ color: [...t].length > lim ? 'var(--attenzione)' : undefined }}>{[...t].length}/{lim} caratteri</span><Copia testo={t} /></div>
             <p className="testo" style={{ fontSize: 14.5, whiteSpace: 'pre-line', background: 'var(--velo)', borderRadius: 12, padding: '10px 12px' }}>{t}</p>
           </div>
         ))}
