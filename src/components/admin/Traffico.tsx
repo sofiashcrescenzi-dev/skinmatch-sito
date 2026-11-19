@@ -6,6 +6,7 @@ import { PRODOTTI, euro } from '@/lib/catalogo';
 import { useApi, Titolo, Vuoto } from './base';
 import { Colonne as Grafico, Barre } from './grafici';
 import Visibilita from './Visibilita';
+import AssistentiIA from './AssistentiIA';
 
 // TRAFFICO E TEST FATTI (15/10/2026). I numeri vengono dai conteggi del sito (worker/index.js,
 // tabella eventi_giorno: niente dati personali) e dalle vendite che il Mac scarica ogni mattina
@@ -126,6 +127,8 @@ export default function Traffico({ vista }: { vista: 'traffico' | 'test' }) {
 
       {/* la visibilità su Google, in diretta da Search Console (15/11/2026): vedi Visibilita.tsx */}
       <Visibilita />
+      {/* gli assistenti IA e il server MCP (19/11/2026): vedi AssistentiIA.tsx */}
+      <AssistentiIA />
 
       <section className="pila" style={{ ['--gap' as string]: '12px' }}>
         <h2 className="titolo-2">PostHog</h2>

@@ -61,6 +61,9 @@ async function servi(req, env, ctx) {
   // il server MCP e la sua descrizione (worker/mcp.js)
   if (p === '/mcp' || p === '/mcp/') return mcp(req, env, ctx);
   if (p === '/.well-known/mcp.json' || p === '/.well-known/mcp/server-card.json') return schedaServer();
+  // la prova che il dominio è nostro per il registro ufficiale dei server MCP (registry.modelcontextprotocol.io):
+  // la chiave pubblica sta nella variabile MCP_REGISTRY_AUTH di wrangler.jsonc, la privata solo sul Mac
+  if (p === '/.well-known/mcp-registry-auth' && env.MCP_REGISTRY_AUTH) return new Response(env.MCP_REGISTRY_AUTH, { headers: { 'content-type': 'text/plain; charset=utf-8' } });
   if (p === '/api/evento') return evento(req, env);
   if (p.startsWith('/api/admin/') || p === '/admin' || p.startsWith('/admin/')) {
     const chi = await accesso(req, env);
@@ -75,9 +78,40 @@ async function servi(req, env, ctx) {
     const h = new Headers(r.headers); h.set('x-robots-tag', 'noindex'); h.set('cache-control', 'no-store');
     return new Response(r.body, { status: r.status, headers: h });
   }
+  contaIa(req, env, ctx, p);
   const r = await env.ASSETS.fetch(req);
   if (r.status !== 404) return r;
   return nonTrovata(req, env, url);
+}
+
+// ⚠️ LE VISITE DEGLI ASSISTENTI (19/11/2026, Federico: «tracciamo le chiamate e citazioni sull'admin»). Il Worker passa
+// prima su tutte le pagine (wrangler.jsonc, run_worker_first) e conta, per giorno, chi è un robot delle IA: chi apre la
+// pagina MENTRE risponde a una persona («utente»: è una citazione), chi la legge per la ricerca dell'assistente
+// («ricerca») e chi per addestrare i modelli («addestramento»). Solo il nome del robot e la sezione del sito: niente IP,
+// niente indirizzi interi. In admin › Visibilità › Assistenti IA, con le chiamate al server MCP.
+const ROBOT_IA = [
+  [/ChatGPT-User/i, 'ChatGPT', 'utente'], [/OAI-SearchBot/i, 'ChatGPT', 'ricerca'], [/GPTBot/i, 'OpenAI', 'addestramento'],
+  [/Claude-User/i, 'Claude', 'utente'], [/Claude-SearchBot/i, 'Claude', 'ricerca'], [/ClaudeBot|anthropic-ai/i, 'Anthropic', 'addestramento'],
+  [/Perplexity-User/i, 'Perplexity', 'utente'], [/PerplexityBot/i, 'Perplexity', 'ricerca'],
+  [/MistralAI-User/i, 'Mistral', 'utente'], [/DuckAssistBot/i, 'DuckDuckGo', 'utente'],
+  [/meta-externalfetcher/i, 'Meta AI', 'utente'], [/meta-externalagent/i, 'Meta AI', 'addestramento'],
+  [/Google-CloudVertexBot|Gemini/i, 'Gemini', 'ricerca'], [/Amazonbot/i, 'Amazon', 'ricerca'], [/Applebot/i, 'Apple', 'ricerca'],
+  [/Bytespider/i, 'ByteDance', 'addestramento'], [/CCBot/i, 'Common Crawl', 'addestramento'], [/cohere-ai/i, 'Cohere', 'addestramento'],
+];
+function sezioneDi(p) {
+  if (p === '/' || p === '') return 'home';
+  if (p === '/llms.txt' || p === '/llms-full.txt') return 'llms.txt';
+  if (p.startsWith('/md/')) return 'markdown';
+  return p.split('/')[1] || 'home';
+}
+function contaIa(req, env, ctx, p) {
+  if (!env.DB || !ctx || req.method !== 'GET') return;
+  const ua = req.headers.get('user-agent') || '';
+  const r = ROBOT_IA.find(([re]) => re.test(ua));
+  if (!r) return;
+  const giorno = new Date().toISOString().slice(0, 10);
+  ctx.waitUntil(env.DB.prepare('INSERT INTO ia_visite (giorno, robot, tipo, sezione, n) VALUES (?1, ?2, ?3, ?4, 1) ON CONFLICT (giorno, robot, tipo, sezione) DO UPDATE SET n = n + 1')
+    .bind(giorno, r[1], r[2], sezioneDi(p)).run().catch(() => {}));
 }
 
 // ── 4. le pagine che non ci sono ─────────────────────────────────────────────
@@ -294,6 +328,21 @@ async function admin(req, env, url, email) {
     } catch (e) {
       return json({ collegato: true, errore: String(e.message || e).slice(0, 300) }, 502);
     }
+  }
+
+  if (via === 'ia') {
+    // GLI ASSISTENTI (19/11/2026): le visite dei robot delle IA (ia_visite, contate dal Worker) e le chiamate al server MCP
+    const giorni = { '7g': 7, '30g': 30, '90g': 90 }[q.get('periodo')] || 30;
+    const da = new Date(Date.now() - giorni * 864e5).toISOString().slice(0, 10);
+    const vuoto = () => [];
+    const [perRobot, perSezione, perGiorno, mcpStrumenti, mcpGiorni] = await Promise.all([
+      tutti('SELECT robot, tipo, SUM(n) AS n FROM ia_visite WHERE giorno >= ?1 GROUP BY robot, tipo ORDER BY n DESC', da).catch(vuoto),
+      tutti("SELECT sezione, SUM(CASE WHEN tipo = 'utente' THEN n ELSE 0 END) AS citazioni, SUM(n) AS tutte FROM ia_visite WHERE giorno >= ?1 GROUP BY sezione ORDER BY citazioni DESC, tutte DESC", da).catch(vuoto),
+      tutti("SELECT giorno, SUM(CASE WHEN tipo = 'utente' THEN n ELSE 0 END) AS citazioni, SUM(CASE WHEN tipo <> 'utente' THEN n ELSE 0 END) AS letture FROM ia_visite WHERE giorno >= ?1 GROUP BY giorno ORDER BY giorno", da).catch(vuoto),
+      tutti("SELECT strumento, SUM(n) AS n FROM mcp_chiamate WHERE giorno >= ?1 AND strumento <> 'initialize' GROUP BY strumento ORDER BY n DESC", da).catch(vuoto),
+      tutti("SELECT giorno, SUM(CASE WHEN strumento = 'initialize' THEN n ELSE 0 END) AS collegamenti, SUM(CASE WHEN strumento <> 'initialize' THEN n ELSE 0 END) AS chiamate FROM mcp_chiamate WHERE giorno >= ?1 GROUP BY giorno ORDER BY giorno", da).catch(vuoto),
+    ]);
+    return json({ giorni, da, perRobot, perSezione, perGiorno, mcpStrumenti, mcpGiorni });
   }
 
   if (via === 'traffico') {

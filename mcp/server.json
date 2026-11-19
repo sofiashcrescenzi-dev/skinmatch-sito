@@ -1,0 +1,10 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "it.skinmatch/skinmatch",
+  "title": "Skinmatch",
+  "description": "Italian skincare: skin types, products with prices, INCI ingredients and a dermatology magazine",
+  "version": "1.0.0",
+  "websiteUrl": "https://skinmatch.it",
+  "icons": [{ "src": "https://skinmatch.it/brand/segno.svg", "mimeType": "image/svg+xml" }],
+  "remotes": [{ "type": "streamable-http", "url": "https://skinmatch.it/mcp" }]
+}

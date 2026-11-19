@@ -102,3 +102,7 @@ CREATE TABLE IF NOT EXISTS social_video (piattaforma TEXT, id TEXT, account TEXT
 
 -- IL SERVER MCP (19/11/2026, worker/mcp.js su /mcp): quante chiamate al giorno per strumento, senza dati delle persone
 CREATE TABLE IF NOT EXISTS mcp_chiamate (giorno TEXT NOT NULL, strumento TEXT NOT NULL, n INTEGER NOT NULL DEFAULT 0, PRIMARY KEY (giorno, strumento));
+
+-- LE VISITE DEGLI ASSISTENTI (19/11/2026, contaIa in worker/index.js): per giorno, robot delle IA, tipo (utente = apre la
+-- pagina mentre risponde a una persona, cioè una citazione; ricerca; addestramento) e sezione del sito. Niente IP.
+CREATE TABLE IF NOT EXISTS ia_visite (giorno TEXT NOT NULL, robot TEXT NOT NULL, tipo TEXT NOT NULL, sezione TEXT NOT NULL, n INTEGER NOT NULL DEFAULT 0, PRIMARY KEY (giorno, robot, tipo, sezione));

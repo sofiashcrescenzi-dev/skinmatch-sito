@@ -20,7 +20,9 @@
     // pagina non trovata -> il Worker: un prodotto uscito dal catalogo rinvia (301) alla sua categoria,
     // il resto riceve out/404.html con lo stato 404 (worker/index.js, «pagine sparite mai 404»)
     "not_found_handling": "none",
-    "run_worker_first": ["/api/*", "/admin", "/admin/*", "/mcp", "/mcp/", "/.well-known/mcp.json", "/.well-known/mcp/*"]
+    // dal 19/11/2026 il Worker passa prima su tutte le pagine per contare le visite degli assistenti (contaIa in worker/index.js);
+    // non sui file statici (script, foto, caratteri), che non dicono niente
+    "run_worker_first": ["/*", "!/_next/*", "!/immagini/*", "!/images/*", "!/brand/*", "!/social/*", "!/condividi/*", "!/media/*", "!/*.png", "!/*.ico", "!/*.svg", "!/*.webp", "!/*.jpg", "!/*.woff2"]
   },
   "d1_databases": [
     { "binding": "DB", "database_name": "skinmatch-dati", "database_id": "b261e5c4-e4a2-4961-b573-36d9f8861312" }
@@ -34,7 +36,10 @@
     // Cloudflare Access attivo dal 16/10: team fragrant-dawn-e18a (fragrant-dawn-e18a.cloudflareaccess.com),
     // applicazione «Admin Skinmatch» su skinmatch.it/admin e skinmatch.it/api/admin, codice via email.
     "ACCESS_TEAM": "fragrant-dawn-e18a",
-    "ACCESS_AUD": "f21555928e4812dd6b7791cc40a9bc23949ff25ea86e1859ea6e2d47f28b0d19"
+    "ACCESS_AUD": "f21555928e4812dd6b7791cc40a9bc23949ff25ea86e1859ea6e2d47f28b0d19",
+    // Chiave pubblica per il registro MCP ufficiale (registry.modelcontextprotocol.io), servita su
+    // /.well-known/mcp-registry-auth. La privata è in ~/.skinmatch-segreti.env (MCP_REGISTRY_KEY), mai qui.
+    "MCP_REGISTRY_AUTH": "v=MCPv1; k=ed25519; p=YvKKZL2jCzMv66eFX8WTVqOG6atd3uZ2R+vCvEmLAGo="
   },
   "observability": { "enabled": true }
 }
