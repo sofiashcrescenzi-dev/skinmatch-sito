@@ -81,8 +81,15 @@ img { max-width: 100%; }
 .sm-nav-link { font-size: 14px; font-weight: 500; color: var(--latte); text-decoration: none; padding: 7px 12px; border-radius: 999px; transition: background 0.2s ease; white-space: nowrap; }
 .sm-nav-link:hover, .sm-nav-link[aria-current='page'] { background: rgba(250, 246, 244, 0.12); }
 .sm-nav-cta { display: inline-flex; align-items: center; font-size: 13.5px; font-weight: 700; color: var(--cacao); background: var(--f2); border-radius: 999px; padding: 9px 16px; text-decoration: none; white-space: nowrap; margin-left: auto; }
-.sm-nav-burger { display: none; background: none; border: none; cursor: pointer; flex-direction: column; gap: 5px; padding: 10px 8px; margin-left: 4px; }
-.sm-nav-burger span { display: block; width: 18px; height: 1.5px; background: var(--latte); transition: transform 0.3s ease; }
+.sm-nav-burger { display: none; align-items: center; justify-content: center; background: none; border: none; cursor: pointer; min-width: 44px; min-height: 44px; padding: 10px; margin-left: 2px; color: var(--latte); }
+/* il segno del menu: i fototipi che diventano la X (19/11/2026) */
+.glifo { width: 22px; height: 16px; flex: none; display: block; overflow: visible; }
+.glifo g { transition: transform .26s cubic-bezier(.2,.7,.3,1), opacity .18s ease; transform-box: fill-box; transform-origin: center; }
+.glifo .x { opacity: 0; transform: scale(.6) rotate(-45deg); }
+.glifo .x path { fill: none; stroke: currentColor; stroke-width: 2.3; stroke-linecap: round; }
+[aria-expanded="true"] > .glifo .g { opacity: 0; transform: scale(.6); }
+[aria-expanded="true"] > .glifo .x { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) { .glifo g { transition: none; } }
 .sm-nav-menu { margin-top: 8px; background: rgba(250, 246, 244, 0.74); -webkit-backdrop-filter: blur(20px) saturate(170%); backdrop-filter: blur(20px) saturate(170%); border: 1px solid rgba(255, 255, 255, 0.6); border-radius: 22px; box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7), 0 12px 36px rgba(46, 28, 21, 0.2); padding: 8px; display: flex; flex-direction: column; }
 @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) { .sm-nav-menu { background: var(--foglio); } }
 .sm-nav-menu a { font-size: 19px; font-weight: 500; color: var(--testo); text-decoration: none; padding: 12px 18px; border-radius: 14px; }

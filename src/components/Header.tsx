@@ -38,9 +38,13 @@ export default function Header({ rivista }: { rivista: boolean }) {
             {voci.map((v) => <Link key={v.href} href={v.href} className="sm-nav-link" aria-current={attivo(v.href)}>{v.nome}</Link>)}
           </div>
           <Link href="/test" className="sm-nav-cta">Fai il test</Link>
+          {/* Il segno del menu (19/11/2026, Federico: «le icone degli hamburger menu sono bruttine, trova delle icone più
+              coese con i siti»): tre righe nei toni dei fototipi, dalla più chiara alla più scura; aperto, la X. */}
           <button className="sm-nav-burger" onClick={() => setAperto((x) => !x)} aria-label={aperto ? 'Chiudi il menu' : 'Apri il menu'} aria-expanded={aperto}>
-            <span style={{ transform: aperto ? 'translateY(3.25px) rotate(45deg)' : 'none' }} />
-            <span style={{ transform: aperto ? 'translateY(-3.25px) rotate(-45deg)' : 'none' }} />
+            <svg className="glifo" viewBox="0 0 22 16" aria-hidden="true">
+              <g className="g" strokeLinecap="round" strokeWidth="2.6"><path d="M2 3 H20" stroke="var(--f1)" /><path d="M2 8 H15" stroke="var(--f3)" /><path d="M2 13 H10" stroke="var(--f4)" /></g>
+              <g className="x"><path d="M5 2 L17 14 M17 2 L5 14" /></g>
+            </svg>
           </button>
         </nav>
         {aperto && (
