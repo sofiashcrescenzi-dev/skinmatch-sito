@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { SOCIAL, RETI } from '@/lib/social';
 
 // Il piede: le pagine, e le due frasi che servono sempre (tappa 9): non è una diagnosi,
 // e i link verso i negozi sono di affiliazione.
@@ -32,6 +33,15 @@ export default function Piede({ rivista }: { rivista: boolean }) {
             <Link href="/note-legali">Note legali</Link>
           </nav>
         </div>
+        {/* LE ICONE SOCIAL (19/11/2026, Federico: «su tutti i siti devono essere presenti le icone social»): i profili
+            sono quelli di admin › Social (documento «social»), quindi cambiano lì. rel="me": i profili sono di questo sito. */}
+        <nav aria-label="Skinmatch sui social" className="piede-social">
+          {RETI.filter((r) => SOCIAL.profili[r.k]?.url).map((r) => (
+            <a key={r.k} href={SOCIAL.profili[r.k].url} target="_blank" rel="me noopener" aria-label={`Skinmatch su ${r.nome}`} title={r.nome}>
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d={r.d} /></svg>
+            </a>
+          ))}
+        </nav>
         <div className="pila piccolo" style={{ ['--gap' as string]: '6px', maxWidth: '78ch' }}>
           <p>Skinmatch non fa diagnosi: il test aiuta a scegliere i cosmetici, non sostituisce il parere di un medico. Se qualcosa ti preoccupa, parlane con un dermatologo.</p>
           <p>Alcuni link verso i negozi sono di affiliazione: se compri, Skinmatch riceve una piccola commissione, a te non costa nulla in più.</p>

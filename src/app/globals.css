@@ -857,3 +857,8 @@ details.carta > summary::-webkit-details-marker { display: none; }
 .graf-barre b { position: relative; font-variant-numeric: tabular-nums; white-space: nowrap; }
 .graf-riquadro { position: absolute; z-index: 5; pointer-events: none; background: var(--cacao); color: var(--latte); border-radius: 10px; padding: 8px 11px; box-shadow: 0 8px 22px -8px var(--ombra); font-size: 12.5px; line-height: 1.45; white-space: nowrap; max-width: min(320px, 90vw); }
 .graf-riquadro b { font-weight: 700; }
+
+/* Le icone social nel piede (19/11/2026, components/Piede.tsx): bersagli da 44 px */
+.piede-social { display: flex; flex-wrap: wrap; gap: 4px; margin: 0 -10px; }
+.piede-social a { display: inline-grid; place-items: center; width: 44px; height: 44px; color: inherit; border-radius: 999px; }
+.piede-social a:hover { background: var(--velo); }
