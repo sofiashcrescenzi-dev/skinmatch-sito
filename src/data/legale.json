@@ -1,8 +1,9 @@
 {
- "_nota": "I dati di chi pubblica Skinmatch, usati da privacy, cookie, note legali e chi siamo. Finché un campo è vuoto la pagina lo mostra «da completare» e resta fuori dall'indice di Google.",
- "titolare": "",
- "indirizzo": "",
+ "_nota": "I dati di chi pubblica Skinmatch, usati da privacy, cookie, note legali e chi siamo. Finché un campo è vuoto la pagina lo mostra «da completare» e resta fuori dall'indice di Google. Dal 19/11/2026, per il momento (Federico): Sofia Crescenzi e Federico Greco col codice fiscale di Federico; la partita IVA arriverà con la società.",
+ "titolare": "Sofia Crescenzi e Federico Greco",
+ "codice_fiscale": "GRCFRC95A08A662U",
+ "indirizzo": "via Melchiorre Gioia 63, Milano",
  "partita_iva": "",
- "email": "",
- "aggiornato_il": "2026-10-15"
+ "email": "skinmatch@agoranomos.cloud",
+ "aggiornato_il": "2026-11-19"
 }

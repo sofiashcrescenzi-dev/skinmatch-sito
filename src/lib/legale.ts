@@ -8,7 +8,9 @@
 
 import legale from '@/data/legale.json';
 
-export const LEGALE = legale as { titolare: string; indirizzo: string; partita_iva: string; email: string; aggiornato_il: string };
+export const LEGALE = legale as { titolare: string; codice_fiscale?: string; indirizzo: string; partita_iva: string; email: string; aggiornato_il: string };
+// Chi pubblica, con i suoi codici: la partita IVA se c'è, se no il codice fiscale (19/11/2026, per il momento due persone).
+const codici = () => (LEGALE.partita_iva ? ` (partita IVA ${LEGALE.partita_iva})` : LEGALE.codice_fiscale ? ` (codice fiscale ${LEGALE.codice_fiscale})` : '');
 export const MANCA = '**[da completare]**';
 export const completo = () => !!(LEGALE.titolare && LEGALE.indirizzo && LEGALE.email);
 const v = (x: string) => x || MANCA;
@@ -20,7 +22,7 @@ Questa informativa spiega quali dati personali tratta skinmatch.it, perché e co
 
 ## Chi è il titolare
 
-${v(LEGALE.titolare)}, ${v(LEGALE.indirizzo)}${LEGALE.partita_iva ? `, partita IVA ${LEGALE.partita_iva}` : ''}. Per qualsiasi domanda sui tuoi dati: ${email()}.
+${v(LEGALE.titolare)}${codici()}, ${v(LEGALE.indirizzo)}. Per qualsiasi domanda sui tuoi dati: ${email()}.
 
 ## Le risposte al test restano sul tuo telefono
 
@@ -105,7 +107,7 @@ Per tutto il resto vale l'[informativa privacy](/privacy).
 export const NOTE = () => `
 ## Chi pubblica il sito
 
-skinmatch.it è pubblicato da ${v(LEGALE.titolare)}, ${v(LEGALE.indirizzo)}${LEGALE.partita_iva ? `, partita IVA ${LEGALE.partita_iva}` : ''}. Contatti: ${email()}.
+skinmatch.it è pubblicato da ${v(LEGALE.titolare)}${codici()}, ${v(LEGALE.indirizzo)}. Contatti: ${email()}.
 
 ## Non è una diagnosi
 
