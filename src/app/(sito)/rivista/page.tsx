@@ -7,7 +7,7 @@ import SchedeRivista from '@/components/SchedeRivista';
 export const metadata: Metadata = {
   title: 'La Rivista: guide, novità e confronti sulla skincare',
   description: 'Gli articoli di Skinmatch: come riconoscere la propria pelle, come scegliere un prodotto, cosa c\'è di nuovo tra ingredienti e lanci. Sempre con i prodotti giusti.',
-  alternates: { canonical: '/rivista' },
+  alternates: { canonical: '/rivista', types: { 'text/markdown': '/md/rivista.md' } },
   robots: ARTICOLI.length ? undefined : { index: false, follow: true },
 };
 

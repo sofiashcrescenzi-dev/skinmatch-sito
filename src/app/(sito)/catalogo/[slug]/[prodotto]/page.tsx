@@ -92,7 +92,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   return {
     title: titoloDi(p),
     description: descr.slice(0, 158),
-    alternates: { canonical: `/catalogo/${slug}/${prodotto}` },
+    alternates: { canonical: `/catalogo/${slug}/${prodotto}`, types: { 'text/markdown': `/md/catalogo/${slug}/${prodotto}.md` } },
     openGraph: { images: p.image ? [p.image] : undefined },
   };
 }

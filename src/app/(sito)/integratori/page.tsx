@@ -10,7 +10,7 @@ import { Invito } from '@/components/Inviti';
 export const metadata: Metadata = {
   title: 'Integratori per bisogno: sonno, energia, difese, vitamina D, omega-3, pelle e capelli',
   description: 'Sonno, stanchezza, difese, vitamina D, omega-3, B12, e poi capelli, pelle e unghie: quali sostanze hanno un\'indicazione autorizzata in UE e quali integratori le contengono.',
-  alternates: { canonical: '/integratori' },
+  alternates: { canonical: '/integratori', types: { 'text/markdown': '/md/integratori.md' } },
 };
 
 export default function Integratori() {

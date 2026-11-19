@@ -20,7 +20,7 @@
     // pagina non trovata -> il Worker: un prodotto uscito dal catalogo rinvia (301) alla sua categoria,
     // il resto riceve out/404.html con lo stato 404 (worker/index.js, «pagine sparite mai 404»)
     "not_found_handling": "none",
-    "run_worker_first": ["/api/*", "/admin", "/admin/*"]
+    "run_worker_first": ["/api/*", "/admin", "/admin/*", "/mcp", "/mcp/", "/.well-known/mcp.json", "/.well-known/mcp/*"]
   },
   "d1_databases": [
     { "binding": "DB", "database_name": "skinmatch-dati", "database_id": "b261e5c4-e4a2-4961-b573-36d9f8861312" }

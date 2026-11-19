@@ -22,7 +22,7 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
   return {
     title: b.area === 'integrazione' ? `${b.titolo}: ${b.motto.replace(/\.$/, '').toLowerCase()}` : `${b.titolo}: come si riconosce e cosa usare`,
     description: `${b.motto} ${b.descrizione}`.slice(0, 158),
-    alternates: { canonical: `/biotipi/${b.id}` },
+    alternates: { canonical: `/biotipi/${b.id}`, types: { 'text/markdown': `/md/biotipi/${b.id}.md` } },
   };
 }
 

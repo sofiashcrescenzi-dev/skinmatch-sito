@@ -8,7 +8,7 @@ import Cerca from './Cerca';
 export const metadata: Metadata = {
   title: 'Il glossario della pelle: ingredienti, biotipi, condizioni',
   description: 'Barriera cutanea, sebo, niacinamide, retinoidi, acido salicilico, SPF, forfora, biotina: le parole della skincare spiegate in due righe, senza promesse.',
-  alternates: { canonical: '/glossario' },
+  alternates: { canonical: '/glossario', types: { 'text/markdown': '/md/glossario.md' } },
 };
 
 const GRUPPI: [string, string][] = [

@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   metadataBase: new URL('https://skinmatch.it'),
   title: { default: 'Skinmatch — Il test della pelle, della cute e dell\'integrazione', template: '%s | Skinmatch' },
   description: 'Un test con domande su quello che vedi allo specchio: riconosce il tuo biotipo e ti consiglia i prodotti giusti, ognuno con un\'alternativa simile, di solito più economica.',
-  alternates: { canonical: '/' },
+  alternates: { canonical: '/', types: { 'text/markdown': '/md/index.md' } },
   openGraph: { type: 'website', locale: 'it_IT', siteName: 'Skinmatch' },
 };
 

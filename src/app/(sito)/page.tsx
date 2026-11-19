@@ -55,8 +55,27 @@ const IN_HOME = ['niacinamide', 'retinoidi', 'vitamina-c', 'aha-pha', 'salicilic
 
 export default function Home() {
   const pelle = BIOTIPI.filter((b) => b.area === 'pelle' && b.tipo === 'biotipo').slice(0, 6);
+  // ⚠️ CHI È SKINMATCH, PER I MOTORI E GLI ASSISTENTI (19/11/2026): l'organizzazione coi fondatori e i profili, il sito
+  // con la sua versione per le IA (/llms.txt) e il server MCP. Le persone sono quelle delle pagine legali e di «chi siamo».
+  const datiStrutturati = [
+    {
+      '@context': 'https://schema.org', '@type': 'Organization', '@id': 'https://skinmatch.it/#organizzazione', name: 'Skinmatch', url: 'https://skinmatch.it',
+      logo: 'https://skinmatch.it/apple-icon.png', email: 'skinmatch@agoranomos.cloud',
+      description: 'Test gratuito per pelle, cuoio capelluto e integrazione: individua il biotipo e propone una routine con prodotti reali, i loro INCI e i prezzi dei negozi.',
+      founder: [
+        { '@type': 'Person', name: 'Sofia Crescenzi', jobTitle: 'Medico estetico', url: 'https://sofiacrescenzi.it' },
+        { '@type': 'Person', name: 'Federico Greco' },
+      ],
+      sameAs: ['https://www.instagram.com/skinmatch.it/', 'https://www.tiktok.com/@skinmatch.it', 'https://www.threads.com/@skinmatch.it', 'https://www.youtube.com/@Skinmatch-it'],
+    },
+    {
+      '@context': 'https://schema.org', '@type': 'WebSite', '@id': 'https://skinmatch.it/#sito', name: 'Skinmatch', url: 'https://skinmatch.it', inLanguage: 'it-IT',
+      publisher: { '@id': 'https://skinmatch.it/#organizzazione' },
+    },
+  ];
   return (
     <main>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(datiStrutturati) }} />
       {/* L'apertura di Fototipi: fondo cacao, la foto tagliata nelle due mezzelune del segno, la scala dei fototipi */}
       <section className="apertura-scura" style={{ marginTop: -84, paddingTop: 84 }}>
         <div className="contenitore" style={{ display: 'grid', gap: 'clamp(28px, 5vw, 64px)', gridTemplateColumns: 'repeat(auto-fit, minmax(min(340px, 100%), 1fr))', alignItems: 'center', paddingBlock: 'clamp(28px, 5vw, 64px) clamp(40px, 6vw, 80px)' }}>

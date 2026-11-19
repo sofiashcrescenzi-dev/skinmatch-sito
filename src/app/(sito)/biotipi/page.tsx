@@ -6,7 +6,7 @@ import Foto from '@/components/Foto';
 export const metadata: Metadata = {
   title: 'I biotipi di pelle, cuoio capelluto e integrazione',
   description: 'Seborroica, secca, mista, disidratata, reattiva, acneica; cuoio capelluto grasso, secco, con forfora o caduta: come si riconosce ogni biotipo, cosa cercare in un prodotto e cosa evitare.',
-  alternates: { canonical: '/biotipi' },
+  alternates: { canonical: '/biotipi', types: { 'text/markdown': '/md/biotipi.md' } },
 };
 
 const INTRO: Record<Area, string> = {

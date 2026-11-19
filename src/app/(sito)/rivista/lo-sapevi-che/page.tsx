@@ -9,7 +9,7 @@ import SchedeRivista from '@/components/SchedeRivista';
 export const metadata: Metadata = {
   title: 'Lo sapevi che: curiosità e storie su pelle, capelli e integratori',
   description: 'Perché il sole passa dalla finestra, da dove viene la parola shampoo, chi scoprì la melatonina: le curiosità dei test di Skinmatch, ognuna con la sua fonte.',
-  alternates: { canonical: '/rivista/lo-sapevi-che' },
+  alternates: { canonical: '/rivista/lo-sapevi-che', types: { 'text/markdown': '/md/rivista/lo-sapevi-che.md' } },
 };
 
 const AREE: Area[] = ['pelle', 'cute', 'integrazione'];

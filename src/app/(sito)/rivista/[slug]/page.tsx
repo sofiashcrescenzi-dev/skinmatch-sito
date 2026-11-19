@@ -19,7 +19,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
   const a = ARTICOLI.find((x) => x.slug === slug);
   if (!a) return { robots: { index: false } };
-  return { title: a.titolo, description: a.sommario, alternates: { canonical: `/rivista/${a.slug}` }, openGraph: { type: 'article', title: a.titolo, description: a.sommario, images: a.immagine?.file ? [`/immagini/${a.immagine.file}-1600.webp`] : undefined } };
+  return { title: a.titolo, description: a.sommario, alternates: { canonical: `/rivista/${a.slug}`, types: { 'text/markdown': `/md/rivista/${a.slug}.md` } }, openGraph: { type: 'article', title: a.titolo, description: a.sommario, images: a.immagine?.file ? [`/immagini/${a.immagine.file}-1600.webp`] : undefined } };
 }
 
 export default async function ArticoloPage({ params }: { params: Promise<{ slug: string }> }) {

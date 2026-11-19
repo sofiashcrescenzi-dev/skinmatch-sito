@@ -99,3 +99,6 @@ CREATE TABLE IF NOT EXISTS social_profili (giorno TEXT, piattaforma TEXT, accoun
   like_totali INTEGER, video INTEGER, visualizzazioni INTEGER, aggiornato TEXT, PRIMARY KEY (giorno, piattaforma, account));
 CREATE TABLE IF NOT EXISTS social_video (piattaforma TEXT, id TEXT, account TEXT, titolo TEXT, creato TEXT, durata INTEGER,
   visualizzazioni INTEGER, mi_piace INTEGER, commenti INTEGER, condivisioni INTEGER, link TEXT, aggiornato TEXT, PRIMARY KEY (piattaforma, id));
+
+-- IL SERVER MCP (19/11/2026, worker/mcp.js su /mcp): quante chiamate al giorno per strumento, senza dati delle persone
+CREATE TABLE IF NOT EXISTS mcp_chiamate (giorno TEXT NOT NULL, strumento TEXT NOT NULL, n INTEGER NOT NULL DEFAULT 0, PRIMARY KEY (giorno, strumento));

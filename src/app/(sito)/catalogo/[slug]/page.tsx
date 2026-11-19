@@ -25,7 +25,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
   const g = gruppo(slug);
   if (!g) return {};
-  return { title: g.tipo === 'categoria' ? `${g.nome}: quali scegliere per il tuo biotipo` : `${g.nome}: i prodotti scelti da Skinmatch`, description: g.descrizione, alternates: { canonical: `/catalogo/${slug}` } };
+  return { title: g.tipo === 'categoria' ? `${g.nome}: quali scegliere per il tuo biotipo` : `${g.nome}: i prodotti scelti da Skinmatch`, description: g.descrizione, alternates: { canonical: `/catalogo/${slug}`, types: { 'text/markdown': `/md/catalogo/${slug}.md` } } };
 }
 
 export default async function GruppoPage({ params }: { params: Promise<{ slug: string }> }) {

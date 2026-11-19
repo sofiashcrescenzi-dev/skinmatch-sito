@@ -11,6 +11,7 @@
 // percorso skinmatch.it/admin*; poi ACCESS_TEAM (il nome del team) e ACCESS_AUD (l'«Application
 // Audience tag») vanno in wrangler.jsonc, vars. Istruzioni in DEPLOY.md.
 
+import { mcp, schedaServer } from './mcp.js';
 import test from '../src/data/test.json';
 import biotipi from '../src/data/biotipi.json';
 
@@ -49,14 +50,17 @@ function sicura(r) {
 }
 
 export default {
-  async fetch(req, env) {
-    return sicura(await servi(req, env));
+  async fetch(req, env, ctx) {
+    return sicura(await servi(req, env, ctx));
   },
 };
 
-async function servi(req, env) {
+async function servi(req, env, ctx) {
   const url = new URL(req.url);
   const p = url.pathname;
+  // il server MCP e la sua descrizione (worker/mcp.js)
+  if (p === '/mcp' || p === '/mcp/') return mcp(req, env, ctx);
+  if (p === '/.well-known/mcp.json' || p === '/.well-known/mcp/server-card.json') return schedaServer();
   if (p === '/api/evento') return evento(req, env);
   if (p.startsWith('/api/admin/') || p === '/admin' || p.startsWith('/admin/')) {
     const chi = await accesso(req, env);

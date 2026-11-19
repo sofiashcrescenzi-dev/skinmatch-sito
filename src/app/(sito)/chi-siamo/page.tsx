@@ -14,7 +14,7 @@ import { CHI_SIAMO } from '@/lib/dati';
 export const metadata: Metadata = {
   title: 'Chi siamo: perché esiste Skinmatch e come sceglie i prodotti',
   description: 'Skinmatch è nato dalla domanda che i medici si sentono fare ogni giorno: «e io, che crema uso?». Le nostre regole, come scegliamo i prodotti e come guadagniamo.',
-  alternates: { canonical: '/chi-siamo' },
+  alternates: { canonical: '/chi-siamo', types: { 'text/markdown': '/md/chi-siamo.md' } },
 };
 
 const REGOLE: [string, string][] = [

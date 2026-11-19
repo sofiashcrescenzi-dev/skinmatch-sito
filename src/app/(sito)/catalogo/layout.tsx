@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   // che riceve il modello del layout principale.
   title: { default: 'Il catalogo: detergenti, sieri, creme, solari, shampoo, integratori', template: '%s | Skinmatch' },
   description: 'I prodotti che Skinmatch consiglia, per categoria e per filtro: premium, buona qualità/prezzo, K-beauty, da farmacia, per pelli sensibili, senza ingredienti di attenzione in gravidanza.',
-  alternates: { canonical: '/catalogo' },
+  alternates: { canonical: '/catalogo', types: { 'text/markdown': '/md/catalogo.md' } },
 };
 
 export default function CatalogoLayout({ children }: { children: React.ReactNode }) {
