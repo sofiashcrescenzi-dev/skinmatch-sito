@@ -443,14 +443,29 @@ _SPAGNOLO = [(r'\bkit de pruebas\b', 'Kit prova'), (r'\bespuma limpiadora\b', 'S
              (r'\bcrema (para|de) (los )?ojos\b', 'Crema contorno occhi'), (r'\bcontorno de ojos\b', 'Contorno occhi'), (r'\bprotector solar\b', 'Protezione solare'),
              (r'\bmascarilla(s)?\b', 'Maschera'), (r'\bparches\b', 'Patch'), (r'\bt[oó]nico\b', 'Tonico'), (r'\bs[eé]rum\b', 'Siero'), (r'\besencia\b', 'Essenza'),
              (r'\bampolla\b', 'Fiala'), (r'\bexfoliante\b', 'Esfoliante'), (r'\bloci[oó]n\b', 'Lozione'), (r'\bbruma\b', 'Spray'), (r'\bpara hombres\b', 'uomo'),
-             (r'\bhidratante\b', 'idratante'), (r'\bcalmante\b', 'lenitivo'), (r'\bcon\b', 'con'), (r'\bde\b', 'di'), (r'\bpara\b', 'per')]
+             (r'\bhidratante\b', 'idratante'), (r'\bcalmante\b', 'lenitivo'),
+             # ⚠️ 19/11/2026: online restavano «Ojeras», «Acné», «Siero aclarante», «Crema per el Contorno occhi con colágeno».
+             # Prima le frasi, poi le parole; «en»/«el»/«y» solo da sole, perché sono anche pezzi di nomi.
+             (r'\b(?:para |de )?(?:las )?ojeras\b', 'occhiaie'), (r'\bcuero cabelludo\b', 'cuoio capelluto'), (r'\bt[eé] verde\b', 'tè verde'),
+             (r'\bt[eé] negro\b', 'tè nero'), (r'\bjalea real\b', 'pappa reale'), (r'\bjugo de abedul\b', 'succo di betulla'),
+             (r'\b[aá]cido hialur[oó]nico\b', 'acido ialuronico'), (r'\bcentella asi[aá]tica\b', 'centella asiatica'), (r'\bb[aá]lsamo labial\b', 'balsamo labbra'),
+             (r'\ben barra\b', 'in stick'), (r'\ben tubo\b', 'in tubo'), (r'\ben gel\b', 'in gel'), (r'\bcrema facial\b', 'crema viso'), (r'\bfacial\b', 'viso'),
+             (r'\bacn[eé]\b', 'acne'), (r'\baclarante\b', 'schiarente'), (r'\biluminador(a)?\b', 'illuminante'), (r'\bantimanchas\b', 'antimacchie'),
+             (r'\bantiarrugas\b', 'antirughe'), (r'\bcapilar\b', 'per capelli'), (r'\bcol[aá]geno\b', 'collagene'), (r'\bceramidas\b', 'ceramidi'),
+             (r'\bniacinamida\b', 'niacinamide'), (r'\bprop[oó]leo\b', 'propoli'), (r'\bcaracol\b', 'lumaca'), (r'\barroz\b', 'riso'), (r'\baceite\b', 'olio'),
+             (r'\bagua\b', 'acqua'), (r'\bespuma\b', 'schiuma'), (r'\bmanchas\b', 'macchie'), (r'\bmanos\b', 'mani'), (r'\bojos\b', 'occhi'),
+             (r'\bparche(s)?\b', 'patch'), (r'\bhoja(s)?\b', 'foglio'), (r'\bmiel\b', 'miele'), (r'\barcilla\b', 'argilla'), (r'\bch?amp[uú]\b', 'shampoo'),
+             (r'\bcorporal\b', 'corpo'), (r'\btama[nñ]o\b', 'formato'), (r'\bjugo\b', 'succo'), (r'\babedul\b', 'betulla'), (r'\bsin\b', 'senza'),
+             (r'\bt[eé]\b', 'tè'), (r'\bb[aá]lsamo\b', 'balsamo'), (r'\bdoble\b', 'doppio'),
+             (r'\bcon\b', 'con'), (r'\bdel\b', 'del'), (r'\bde\b', 'di'), (r'\bpara\b', 'per'), (r'(?<=\s)el(?=\s)', 'il'), (r'(?<=\s)y(?=\s)', 'e'),
+             (r'(?<=\s)en(?=\s)', 'in'), (r'\bper il\b', 'per'), (r'\bdi il\b', 'del')]
 
 
 def _yesstyle(t):
     t = _trattini(t)
     for rx, it in _SPAGNOLO:
         t = re.sub(rx, it, t, flags=re.I)
-    return t
+    return t[:1].upper() + t[1:]          # «patch Contorno occhi…»: la parola tradotta in testa resta maiuscola
 
 
 def yesstyle(file=None):
