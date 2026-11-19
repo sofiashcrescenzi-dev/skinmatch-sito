@@ -161,6 +161,10 @@ export type Modifica = {
   categoria?: string; // la categoria del catalogo scelta a mano in admin: vince sulla regola
   sottotitolo?: string;
   nota?: string;
+  // LA RECENSIONE DEL MEDICO (20/11/2026, Federico: «sui prodotti testati uscirà nella scheda un piccolo riquadro come
+  // "recensione del medico" di Sofia Crescenzi e dentro ci sarà il suo commento al brand ed al prodotto»). La scrive
+  // Sofia in admin › Catalogo, solo sui prodotti che ha provato; la scheda dice che il prodotto è arrivato dal marchio.
+  recensione_medico?: { prodotto: string; marca?: string; data?: string };
 };
 export type Catalogo = { categorie: CategoriaCatalogo[]; tag: TagCatalogo[]; modifiche: Record<string, Modifica> };
 

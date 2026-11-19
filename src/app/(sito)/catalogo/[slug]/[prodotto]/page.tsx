@@ -2,7 +2,8 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { paginaMarca, ingredienti } from '@/lib/percorsi';
 import { notFound } from 'next/navigation';
-import { BIOTIPI, CATALOGO, articoliPerProdotto } from '@/lib/dati';
+import { BIOTIPI, CATALOGO, CHI_SIAMO, articoliPerProdotto, dataLunga } from '@/lib/dati';
+import { Ritratto } from '@/components/Persone';
 import { PRODOTTI, prodottoPerId, biotipiPer, categoriaDi, indirizzo, euro, negozio, type Prodotto } from '@/lib/catalogo';
 import { estesa, type SchedaEstesa } from '@/lib/schede';
 import { ConTermini } from '@/components/Termini';
@@ -129,6 +130,9 @@ export default async function ProdottoPage({ params }: { params: Promise<{ slug:
   const url = `https://skinmatch.it/catalogo/${slug}/${prodotto}`;
   const letture = articoliPerProdotto(p);
 
+  // la recensione del medico (20/11/2026): vedi Modifica.recensione_medico in lib/dati.ts
+  const rm = CATALOGO.modifiche[p.id]?.recensione_medico;
+  const sofia = CHI_SIAMO.persone.find((x) => x.id === 'sofia');
   return (
     <main className="contenitore sezione pila" style={{ ['--gap' as string]: 'clamp(36px, 6vw, 64px)' }}>
       <nav className="piccolo briciole" aria-label="Dove sei">
@@ -154,6 +158,21 @@ export default async function ProdottoPage({ params }: { params: Promise<{ slug:
           <p className="piccolo" style={{ maxWidth: '52ch' }}>{dove ? `Si compra su ${dove}. ` : ''}Il link è di affiliazione: se compri, Skinmatch riceve una piccola commissione. Il prezzo per te non cambia e non decide cosa consigliamo.</p>
         </div>
       </header>
+
+      {rm?.prodotto && sofia && (
+        <section className="recensione-medico pila" aria-labelledby="recensione" style={{ ['--gap' as string]: '10px' }}>
+          <div className="recensione-testa">
+            <span className="firma-foto"><Ritratto p={sofia} lato={56} /></span>
+            <div>
+              <h2 id="recensione" className="titolo-3">La recensione del medico</h2>
+              <span className="piccolo">{sofia.nome}, medico estetico{rm.data ? ` · provato il ${dataLunga(rm.data)}` : ''}</span>
+            </div>
+          </div>
+          <p className="testo">{rm.prodotto}</p>
+          {rm.marca && <p className="testo"><b>Sul marchio {p.brand}.</b> {rm.marca}</p>}
+          <p className="piccolo">Il prodotto ci è stato inviato da {p.brand} per provarlo. La recensione non è pagata e non cambia dove compare nelle routine.</p>
+        </section>
+      )}
 
       <section className="pila p-sez" aria-labelledby="scheda">
         <h2 id="scheda" className="titolo-3">La scheda</h2>
@@ -266,6 +285,7 @@ export default async function ProdottoPage({ params }: { params: Promise<{ slug:
 
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify([{
         '@context': 'https://schema.org', '@type': 'Product', name: p.name, brand: { '@type': 'Brand', name: p.brand }, url,
+        ...(rm?.prodotto ? { review: { '@type': 'Review', author: { '@type': 'Person', name: 'Sofia Crescenzi', jobTitle: 'Medico estetico', url: 'https://sofiacrescenzi.it' }, reviewBody: rm.prodotto, ...(rm.data ? { datePublished: rm.data } : {}) } } : {}),
         ...(p.image ? { image: p.image } : {}), description: p.description,
         offers: { '@type': 'Offer', price: minimo.toFixed(2), priceCurrency: 'EUR', availability: 'https://schema.org/InStock', url },
       }, {

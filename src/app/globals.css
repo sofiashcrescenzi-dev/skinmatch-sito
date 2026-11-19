@@ -893,3 +893,9 @@ details.carta > summary::-webkit-details-marker { display: none; }
 @keyframes apre-sale { from { opacity: 0; transform: translateY(16px); } }
 @keyframes apre-ritratto { from { opacity: 0; transform: scale(.7) rotate(-10deg); } }
 @keyframes apre-meta { from { clip-path: inset(0 50% 0 50% round 16px); opacity: .4; } to { clip-path: inset(0 0 0 0 round 0); opacity: 1; } }
+
+/* LA RECENSIONE DEL MEDICO (20/11/2026): il riquadro di Sofia sui prodotti provati, vicino alla testa della scheda */
+.recensione-medico { padding: clamp(16px, 2.6vw, 24px); border-radius: var(--raggio); background: var(--bene-tenue); border-left: 4px solid var(--bene); max-width: 760px; }
+.recensione-medico .recensione-testa { display: flex; align-items: center; gap: 14px; }
+.recensione-medico .testo { margin: 0; font-size: 16px; }
+.recensione-medico .ritratto { max-width: none; aspect-ratio: 1 / 1; object-position: 50% 22%; box-shadow: 0 0 0 2px var(--latte), 0 0 0 3px var(--bene); }

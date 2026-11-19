@@ -176,6 +176,15 @@ function EditorProdotto({ p, m, cambia }: { p: Product; m: Modifica; cambia: (m:
       </div>
       <Campo etichetta="Sottotitolo (che cos'è e cosa fa)" aiuto={`Automatico: ${p.subtitle || '—'}`}><Testo valore={m.sottotitolo} placeholder={p.subtitle} cambia={(x) => v('sottotitolo', x || undefined)} /></Campo>
       <Campo etichetta="Descrizione" aiuto={`Dal feed: ${p.description}`}><Testo lungo valore={m.description} placeholder={p.description} cambia={(x) => v('description', x || undefined)} /></Campo>
+      {/* la recensione del medico (20/11/2026): solo sui prodotti che Sofia ha provato; vuota, il riquadro non c'è */}
+      <details className="carta" open={!!m.recensione_medico?.prodotto}>
+        <summary><b>La recensione del medico</b> <span className="piccolo">· la scrive Sofia, solo sui prodotti provati</span></summary>
+        <div className="pila" style={{ ['--gap' as string]: '10px', marginTop: 10 }}>
+          <Campo etichetta="Il commento al prodotto" aiuto="Com'è andata: texture, tollerabilità, per chi lo consiglia e per chi no. Senza promesse di risultato."><Testo lungo valore={m.recensione_medico?.prodotto} cambia={(x) => v('recensione_medico', x ? { ...(m.recensione_medico || {}), prodotto: x } : undefined)} /></Campo>
+          <Campo etichetta="Il commento al marchio" aiuto="Facoltativo: cosa pensa della marca (formule, trasparenza dell'INCI)."><Testo lungo valore={m.recensione_medico?.marca} cambia={(x) => m.recensione_medico?.prodotto && v('recensione_medico', { ...m.recensione_medico, marca: x || undefined })} /></Campo>
+          <Campo etichetta="Provato il"><input className="adm-input" type="date" value={m.recensione_medico?.data || ''} onChange={(e) => m.recensione_medico?.prodotto && v('recensione_medico', { ...m.recensione_medico, data: e.target.value || undefined })} /></Campo>
+        </div>
+      </details>
       {['detergenti', 'sieri', 'creme', 'attivi', 'barba', 'integratori', 'cerotti', 'maschere', 'occhi'].includes(p.category) && (<>
         <Campo etichetta={`Tipi di pelle${m.skinTypes ? '' : ' (dal feed)'}`}><Scegli valori={PELLE} scelti={m.skinTypes || p.skinTypes} cambia={(x) => v('skinTypes', x)} /></Campo>
         <Campo etichetta={`Per cosa lavora${m.concerns ? '' : ' (dal feed)'}`}><Scegli valori={BISOGNI} scelti={m.concerns || p.concerns} cambia={(x) => v('concerns', x)} /></Campo>
