@@ -241,7 +241,9 @@ export default function Catalogo() {
   const marche = [...new Set(tutti.map((p) => p.brand))].sort((a, b) => a.localeCompare(b, 'it'));
   const segmenti = [...new Set(tutti.map((p) => p.segment).filter(Boolean) as string[])].sort();
   const marchePer = (r: RegolaProdotti) => [...new Set(vivi.filter((x) => !x.m.nascosto && rispetta(x.q, r, d.categorie)).map((x) => x.p.brand))];
-  const contaGruppo = (g: Gruppo) => ('immagine' in g ? vivi.filter((x) => x.cat?.id === g.id && !x.m.nascosto).length : vivi.filter((x) => !x.m.nascosto && ((rispetta(x.q, g.regola, d.categorie) && Object.keys(g.regola).length > 0) || x.m.tag_piu?.includes(g.id)) && !x.m.tag_meno?.includes(g.id)).length);
+  // ⚠️ CATEGORIA O FILTRO LO DICE IL TIPO, NON L'IMMAGINE (16/11/2026): i filtri con un'immagine (quelli della home:
+  // Medicale, Alta cosmesi, K-beauty, Da farmacia…) si contavano come categorie e risultavano a 0 prodotti.
+  const contaGruppo = (g: Gruppo, tipo: 'categorie' | 'tag') => (tipo === 'categorie' ? vivi.filter((x) => x.cat?.id === g.id && !x.m.nascosto).length : vivi.filter((x) => !x.m.nascosto && ((rispetta(x.q, g.regola, d.categorie) && Object.keys(g.regola).length > 0) || x.m.tag_piu?.includes(g.id)) && !x.m.tag_meno?.includes(g.id)).length);
   const proposte = (arr.dati?.arricchimenti || []).filter((a) => a.stato === 'proposto');
   const approva = async (a: Arr, si: boolean) => {
     await invia('/api/admin/arricchimenti', { id: a.id, stato: si ? 'approvato' : 'scartato' });
@@ -269,13 +271,13 @@ export default function Catalogo() {
       <section className="pila" style={{ ['--gap' as string]: '12px' }}>
         <h2 className="titolo-3">Le categorie</h2>
         <p className="piccolo">Una per tipo di prodotto: ognuna è una pagina (/catalogo/sieri) e ogni prodotto sta in una sola. Chi entra da solo lo decide la regola; gli altri li associ dalla marca.</p>
-        <Gruppi d={d} set={doc.setDati} tipo="categorie" conta={contaGruppo} marchePer={marchePer} segmenti={segmenti} />
+        <Gruppi d={d} set={doc.setDati} tipo="categorie" conta={(g) => contaGruppo(g, 'categorie')} marchePer={marchePer} segmenti={segmenti} />
       </section>
 
       <section className="pila" style={{ ['--gap' as string]: '12px' }}>
         <h2 className="titolo-3">I filtri</h2>
         <p className="piccolo">Le selezioni che attraversano le categorie (K-beauty, Da farmacia, Anche in gravidanza…): ognuno è una pagina e un bottone del catalogo. Un prodotto può averne tanti.</p>
-        <Gruppi d={d} set={doc.setDati} tipo="tag" conta={contaGruppo} marchePer={marchePer} segmenti={segmenti} />
+        <Gruppi d={d} set={doc.setDati} tipo="tag" conta={(g) => contaGruppo(g, 'tag')} marchePer={marchePer} segmenti={segmenti} />
       </section>
 
       <section className="pila" style={{ ['--gap' as string]: '12px' }}>

@@ -112,16 +112,6 @@
  ],
  "tag": [
   {
-   "id": "premium",
-   "nome": "Premium",
-   "regola": {
-    "fascia": [
-     "premium"
-    ]
-   },
-   "descrizione": "Le formule di fascia alta: marchi di ricerca e di lusso, quando valgono il prezzo."
-  },
-  {
    "id": "medicale",
    "nome": "Dermocosmesi medicale",
    "regola": {
@@ -144,16 +134,6 @@
    "descrizione": "Marchi di profumeria e alta cosmesi: texture curate, profumo, esperienza d’uso. Nella scheda trovi cosa contengono davvero.",
    "home": true,
    "immagine": "sieri"
-  },
-  {
-   "id": "skinceuticals",
-   "nome": "SkinCeuticals",
-   "regola": {
-    "marca": [
-     "SkinCeuticals"
-    ]
-   },
-   "descrizione": "La linea di ricerca sugli antiossidanti, usata anche negli studi di medicina estetica."
   },
   {
    "id": "qualita-prezzo",
@@ -239,50 +219,12 @@
    "immagine": "pelle-sensibile"
   },
   {
-   "id": "pelli-sensibili",
-   "nome": "Per pelli sensibili",
-   "regola": {
-    "sensibili": true
-   },
-   "descrizione": "Formule che vanno bene anche quando la pelle reagisce."
-  },
-  {
    "id": "gravidanza",
    "nome": "Gravidanza: senza ingredienti di attenzione",
    "regola": {
     "gravidanza": true
    },
    "descrizione": "Nell’elenco completo degli ingredienti non troviamo quelli della nostra lista di attenzione per la gravidanza e l’allattamento. Non è un via libera: chiedi comunque al tuo medico."
-  },
-  {
-   "id": "uomo",
-   "nome": "Per lui",
-   "regola": {
-    "genere": [
-     "uomo"
-    ]
-   },
-   "descrizione": "Pensati per la pelle maschile e per la barba."
-  },
-  {
-   "id": "senza-profumo",
-   "nome": "Senza profumo",
-   "regola": {
-    "senza": [
-     "profumo"
-    ]
-   },
-   "descrizione": "Prodotti con l’elenco degli ingredienti (INCI) verificato, senza profumo: la scelta più tranquilla per le pelli che si irritano facilmente."
-  },
-  {
-   "id": "senza-alcol",
-   "nome": "Senza alcol",
-   "regola": {
-    "senza": [
-     "alcol"
-    ]
-   },
-   "descrizione": "Prodotti con l’INCI verificato, senza alcol aggiunto: per chi ha la pelle secca o reattiva e lo preferisce evitare."
   },
   {
    "id": "vegani",

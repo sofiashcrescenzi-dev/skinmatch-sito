@@ -70,9 +70,10 @@ const PER_COSA: Record<Area, [string, string, (p: Prodotto) => boolean][]> = {
 };
 const BISOGNO = new Map(Object.values(PER_COSA).flat().map((x) => [x[0], x]));
 // ⚠️ I TIPI (16/11/2026, Federico: «i filtri come alta cosmesi: elimina quelli che non servono e riempi quelli che ne
-// hanno»). Sono le famiglie di marche (segmento in scripts/catalogo/decisioni_marche.json): ogni marca ne ha una, e
-// adesso nessuna resta senza. Fuori dai bottoni «Premium», che ripeteva alta cosmesi e medicale (per il prezzo c'è
-// l'ordine), e «Per lui», 30 prodotti sparsi: le loro pagine restano. Gravidanza sta con i «Senza».
+// hanno… rifacciamo una classificazione dei filtri ben fatta»). Sono le famiglie di marche (segmento in
+// scripts/catalogo/decisioni_marche.json): ogni marca ne ha una. Eliminati Premium (ripeteva alta cosmesi e medicale),
+// SkinCeuticals (una marca), Per pelli sensibili, Senza profumo e Senza alcol (doppioni di Pelle e Senza), Per lui
+// (30 prodotti sparsi): rinvii 301 in public/_redirects e i vecchi link ?tag= diventano il filtro che li sostituisce.
 const TIPI = ['farmacia', 'medicale', 'alta-cosmesi', 'salone', 'k-beauty', 'j-beauty', 'naturali', 'attivi-essenziali', 'qualita-prezzo', 'vegani'];
 const NOME_CORTO: Record<string, string> = { 'qualita-prezzo': 'Qualità/prezzo', medicale: 'Medicale', farmacia: 'Da farmacia', gravidanza: 'In gravidanza' };
 type Filtri = { area: Area | ''; categoria: string; tag: string[]; senza: string[]; attivo: string; pelle: string; problema: string; marca: string; q: string; ordina: string };
@@ -89,7 +90,14 @@ export default function Catalogo({ categoria: c0 = '', tag: t0 = '' }: { categor
   // i filtri dall'indirizzo, all'apertura (?categoria=sieri&tag=k-beauty&attivo=niacinamide&ordina=prezzo)
   useEffect(() => {
     const u = new URLSearchParams(window.location.search);
-    const t = u.getAll('tag');
+    // i filtri tolti il 16/11/2026 arrivano ancora dai vecchi link: diventano il filtro che li sostituisce
+    const vecchi = u.getAll('tag');
+    const t = vecchi.filter((x) => CATALOGO.tag.some((g) => g.id === x));
+    if (vecchi.includes('premium')) t.push('alta-cosmesi');
+    if (vecchi.includes('senza-profumo')) u.append('senza', 'profumo');
+    if (vecchi.includes('senza-alcol')) u.append('senza', 'alcol');
+    if (vecchi.includes('skinceuticals') && !u.get('marca')) u.set('marca', 'SkinCeuticals');
+    if (vecchi.includes('pelli-sensibili') && !u.get('pelle')) { u.set('pelle', 'sensibile'); if (!u.get('area')) u.set('area', 'viso'); }
     if (u.get('kbeauty') === '1') t.push('k-beauty');
     // «problema=sole» dei vecchi link è la categoria dei solari
     const categoria = c0 || u.get('categoria') || (u.get('problema') === 'sole' ? 'solari' : '');
@@ -161,8 +169,6 @@ export default function Catalogo({ categoria: c0 = '', tag: t0 = '' }: { categor
         onClick={() => cambia({ tag: f.tag.includes(id) ? f.tag.filter((y) => y !== id) : [...f.tag, id] })}>{NOME_CORTO[id] || x.nome} <span className="conta">{conta('tag', (p) => p.tag.includes(id))}</span></button>
     );
   };
-  // le selezioni senza un bottone loro (SkinCeuticals, Per pelli sensibili, Senza profumo/alcol) arrivate da un vecchio link
-  const altre = f.tag.filter((t) => t !== t0 && t !== 'gravidanza' && !TIPI.includes(t));
 
   // ⚠️ I FILTRI CHIUSI (16/11/2026, Federico: «in catalogo alla ricerca i filtri dopo il titolo e il testo vanno nascosti,
   // perché da mobile occupano tutta la visibilità»). Sotto il titolo restano la ricerca e il bottone «Filtri» col numero
@@ -261,7 +267,6 @@ export default function Catalogo({ categoria: c0 = '', tag: t0 = '' }: { categor
           <div className="gruppo-filtro"><span>Tipo</span>
             <div className="riga-chip" role="group" aria-label="Tipo di prodotto">
               {TIPI.map(tagChip)}
-              {altre.map((t) => <button key={t} type="button" className="chip" aria-pressed onClick={() => cambia({ tag: f.tag.filter((y) => y !== t) })}>{CATALOGO.tag.find((x) => x.id === t)?.nome || t} ×</button>)}
             </div>
           </div>
           <div><button type="button" className="bottone" onClick={() => setAperti(false)}>Mostra {lista.length} prodotti</button></div>

@@ -1,3 +1,11 @@
 # Pagine spostate o tolte: mai un 404 (le aggiunge anche scripts/admin/pubblica.py)
 /biotipi/seborroica-secca /biotipi/seborroica-disidratata 301
 /biotipi/idratata-mista /biotipi/pelle-mista 301
+
+# 16/11/2026: filtri tolti nel riordino dei tipi (Federico: «rifacciamo una classificazione dei filtri ben fatta»): ognuno porta al filtro che lo sostituisce
+/catalogo/premium /catalogo/alta-cosmesi 301
+/catalogo/skinceuticals /catalogo?marca=SkinCeuticals 301
+/catalogo/pelli-sensibili /catalogo?area=viso&pelle=sensibile 301
+/catalogo/senza-profumo /catalogo?senza=profumo 301
+/catalogo/senza-alcol /catalogo?senza=alcol 301
+/catalogo/uomo /catalogo/barba 301
