@@ -1938,5 +1938,39 @@
   "larghezza": 1600,
   "altezza": 1067,
   "originale": "media/foto/rivista-creme-idratanti-ceramidi-forfora.jpg"
+ },
+ {
+  "nome": "rivista-macchie-scure-viso",
+  "alt": "Una ragazza con i capelli ramati e il viso pieno di lentiggini, all'ombra di un cappello di paglia, guarda in camera",
+  "autore": "RDNE Stock project",
+  "autore_pagina": "https://www.pexels.com/@rdne",
+  "pagina": "https://www.pexels.com/photo/close-up-shot-of-woman-wearing-a-brown-sun-hat-8760679/",
+  "pexels_id": 8760679,
+  "licenza": "Licenza Pexels (uso libero, citazione gradita)",
+  "uso": [
+   "rivista: copertina dell'articolo macchie-scure-viso",
+   "social"
+  ],
+  "fuoco": "52% 40%",
+  "larghezza": 1600,
+  "altezza": 1067,
+  "originale": "media/foto/rivista-macchie-scure-viso.jpg"
+ },
+ {
+  "nome": "rivista-peptidi-viso",
+  "alt": "Una donna sui sessant'anni, in pigiama davanti allo specchio del bagno, versa qualche goccia di siero sul palmo della mano",
+  "autore": "Ron Lach",
+  "autore_pagina": "https://www.pexels.com/@ron-lach",
+  "pagina": "https://www.pexels.com/photo/woman-using-cosmetic-serum-in-bathroom-10222458/",
+  "pexels_id": 10222458,
+  "licenza": "Licenza Pexels (uso libero, citazione gradita)",
+  "uso": [
+   "rivista: copertina dell'articolo peptidi-viso",
+   "social"
+  ],
+  "fuoco": "25% 40%",
+  "larghezza": 1600,
+  "altezza": 1065,
+  "originale": "media/foto/rivista-peptidi-viso.jpg"
  }
 ]
