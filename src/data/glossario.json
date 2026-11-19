@@ -509,8 +509,7 @@
     "tranexamico",
     "TXA"
    ],
-   "fonte": "https://dermnetnz.org/topics/tranexamic-acid",
-   "bozza": true
+   "fonte": "https://dermnetnz.org/topics/tranexamic-acid"
   },
   {
    "id": "squalano",
@@ -557,8 +556,7 @@
     "glicerina",
     "glycerin"
    ],
-   "fonte": "https://en.wikipedia.org/wiki/Glycerol",
-   "bozza": true
+   "fonte": "https://en.wikipedia.org/wiki/Glycerol"
   },
   {
    "id": "tensioattivi",
@@ -569,8 +567,7 @@
     "tensioattivi",
     "tensioattivo"
    ],
-   "fonte": "https://en.wikipedia.org/wiki/Surfactant",
-   "bozza": true
+   "fonte": "https://en.wikipedia.org/wiki/Surfactant"
   },
   {
    "id": "emollienti",
@@ -581,8 +578,7 @@
     "emollienti",
     "emolliente"
    ],
-   "fonte": "https://en.wikipedia.org/wiki/Moisturizer",
-   "bozza": true
+   "fonte": "https://en.wikipedia.org/wiki/Moisturizer"
   },
   {
    "id": "umettanti",
@@ -593,8 +589,7 @@
     "umettanti",
     "umettante"
    ],
-   "fonte": "https://en.wikipedia.org/wiki/Moisturizer",
-   "bozza": true
+   "fonte": "https://en.wikipedia.org/wiki/Moisturizer"
   },
   {
    "id": "occlusivi",
@@ -605,8 +600,7 @@
     "occlusivi",
     "occlusivo"
    ],
-   "fonte": "https://en.wikipedia.org/wiki/Moisturizer",
-   "bozza": true
+   "fonte": "https://en.wikipedia.org/wiki/Moisturizer"
   },
   {
    "id": "filtri-minerali",
@@ -620,8 +614,7 @@
     "ossido di zinco",
     "biossido di titanio"
    ],
-   "fonte": "https://www.aad.org/public/everyday-care/sun-protection/shade-clothing-sunscreen/understand-sunscreen-labels",
-   "bozza": true
+   "fonte": "https://www.aad.org/public/everyday-care/sun-protection/shade-clothing-sunscreen/understand-sunscreen-labels"
   },
   {
    "id": "pa",
@@ -634,8 +627,7 @@
     "PA++",
     "PA+"
    ],
-   "fonte": "https://en.wikipedia.org/wiki/Sunscreen",
-   "bozza": true
+   "fonte": "https://en.wikipedia.org/wiki/Sunscreen"
   },
   {
    "id": "ph-pelle",
@@ -647,8 +639,7 @@
     "pH cutaneo",
     "pH fisiologico"
    ],
-   "fonte": "https://pubmed.ncbi.nlm.nih.gov/18489300/",
-   "bozza": true
+   "fonte": "https://pubmed.ncbi.nlm.nih.gov/18489300/"
   },
   {
    "id": "fototipo",
@@ -660,8 +651,7 @@
     "fototipi",
     "scala di Fitzpatrick"
    ],
-   "fonte": "https://en.wikipedia.org/wiki/Fitzpatrick_scale",
-   "bozza": true
+   "fonte": "https://en.wikipedia.org/wiki/Fitzpatrick_scale"
   },
   {
    "id": "melasma",
@@ -685,8 +675,7 @@
     "acneica",
     "acneico"
    ],
-   "fonte": "https://www.aad.org/public/diseases/acne",
-   "bozza": true
+   "fonte": "https://www.aad.org/public/diseases/acne"
   },
   {
    "id": "cheratosi-pilare",
@@ -696,8 +685,7 @@
    "parole": [
     "cheratosi pilare"
    ],
-   "fonte": "https://dermnetnz.org/topics/keratosis-pilaris",
-   "bozza": true
+   "fonte": "https://dermnetnz.org/topics/keratosis-pilaris"
   },
   {
    "id": "pseudofollicolite",
@@ -709,8 +697,7 @@
     "pelo incarnito",
     "pseudofollicolite"
    ],
-   "fonte": "https://dermnetnz.org/topics/pseudofolliculitis-barbae",
-   "bozza": true
+   "fonte": "https://dermnetnz.org/topics/pseudofolliculitis-barbae"
   },
   {
    "id": "telogen-effluvium",
@@ -733,8 +720,7 @@
     "alopecia androgenetica",
     "diradamento"
    ],
-   "fonte": "https://dermnetnz.org/topics/male-pattern-hair-loss",
-   "bozza": true
+   "fonte": "https://dermnetnz.org/topics/male-pattern-hair-loss"
   },
   {
    "id": "zinco-piritione",
@@ -745,8 +731,7 @@
     "zinco piritione",
     "zinc pyrithione"
    ],
-   "fonte": "https://eur-lex.europa.eu/eli/reg/2021/1902/oj",
-   "bozza": true
+   "fonte": "https://eur-lex.europa.eu/eli/reg/2021/1902/oj"
   },
   {
    "id": "vitamina-d",
@@ -758,8 +743,7 @@
     "colecalciferolo",
     "D3"
    ],
-   "fonte": "https://ods.od.nih.gov/factsheets/VitaminD-Consumer/",
-   "bozza": true
+   "fonte": "https://ods.od.nih.gov/factsheets/VitaminD-Consumer/"
   },
   {
    "id": "ferro",
@@ -770,46 +754,7 @@
     "ferro",
     "ferritina"
    ],
-   "fonte": "https://ods.od.nih.gov/factsheets/Iron-Consumer/",
-   "bozza": true
-  },
-  {
-   "id": "profumo",
-   "nome": "Profumo (parfum)",
-   "categoria": "prodotti",
-   "testo": "Nell'INCI è una parola sola, «parfum», ma può contenere molte sostanze. Gli allergeni più noti vanno scritti a parte; chi ha la pelle reattiva spesso sta meglio senza.",
-   "parole": [
-    "parfum",
-    "fragrance",
-    "profumo",
-    "allergeni"
-   ],
-   "fonte": "https://eur-lex.europa.eu/eli/reg/2023/1545/oj",
-   "bozza": true
-  },
-  {
-   "id": "pao",
-   "nome": "PAO (dopo l'apertura)",
-   "categoria": "prodotti",
-   "testo": "Il disegno del barattolo aperto con un numero e una M: «12M» vuol dire che il prodotto va usato entro 12 mesi da quando lo apri.",
-   "parole": [
-    "PAO",
-    "periodo dopo l'apertura"
-   ],
-   "fonte": "https://eur-lex.europa.eu/eli/reg/2009/1223/oj",
-   "bozza": true
-  },
-  {
-   "id": "patch-test",
-   "nome": "Prova su una piccola zona",
-   "categoria": "prodotti",
-   "testo": "Prima di usare un prodotto nuovo su tutto il viso, lo si mette due volte al giorno per 7-10 giorni su una zona piccola, come l'interno del gomito. Se arrossa, prude o si gonfia, non si usa.",
-   "parole": [
-    "prova su una piccola zona",
-    "patch test"
-   ],
-   "fonte": "https://www.aad.org/public/everyday-care/skin-care-secrets/prevent-skin-problems/test-skin-care-products",
-   "bozza": true
+   "fonte": "https://ods.od.nih.gov/factsheets/Iron-Consumer/"
   }
  ]
 }
