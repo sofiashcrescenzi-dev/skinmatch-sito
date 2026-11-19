@@ -114,8 +114,12 @@ img { max-width: 100%; }
 .testo { font-size: 16.5px; line-height: 1.7; max-width: 68ch; }
 .testo p + p { margin-top: 0.9em; }
 .piccolo { font-size: 13.5px; color: var(--grigio); line-height: 1.5; }
-.griglia { display: grid; gap: clamp(12px, 2vw, 20px); grid-template-columns: repeat(auto-fill, minmax(min(var(--min, 260px), 100%), 1fr)); }
-.pila { display: grid; gap: var(--gap, 16px); }
+.griglia { display: grid; gap: clamp(12px, 2vw, 20px); grid-template-columns: repeat(auto-fill, minmax(min(var(--min, 260px), 100%), 1fr)); align-content: start; }
+/* ⚠️ LE RIGHE NON SI ALLUNGANO (19/11/2026, Federico: «risolvere questi stretch che ogni tanto capitano in giro»).
+   Una griglia senza align-content, dentro un contenitore più alto di lei (l'admin è alto quanto lo schermo), divide lo
+   spazio in più fra le righe: con l'elenco delle nozioni vuoto la barra «Cerca · + nozione» diventava alta 220 px e
+   il campo e il bottone si stiravano. Le colonne del sito partono dall'alto e restano alte quanto il contenuto. */
+.pila { display: grid; gap: var(--gap, 16px); align-content: start; }
 .riga-chip { display: flex; flex-wrap: wrap; gap: 6px; }
 .chip { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 600; padding: 6px 12px; border-radius: 999px; border: 1px solid var(--riga); background: var(--foglio); color: var(--testo); text-decoration: none; cursor: pointer; line-height: 1.2; }
 .chip[aria-pressed='true'], .chip.attivo { background: var(--testo); color: var(--fondo); border-color: var(--testo); }
@@ -262,7 +266,7 @@ textarea.adm-input { resize: vertical; line-height: 1.5; }
 .adm-colonne i { display: block; background: var(--pesca); border-radius: 3px 3px 0 0; min-height: 2px; }
 details.carta > summary { cursor: pointer; list-style: none; }
 details.carta > summary::-webkit-details-marker { display: none; }
-.adm-due { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr)); }
+.adm-due { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr)); align-content: start; }
 
 /* ============================================================
    FOTOTIPI: i pezzi della direzione
@@ -499,7 +503,7 @@ details.carta > summary::-webkit-details-marker { display: none; }
 /* il risultato del test: azioni in alto, carte dei prodotti due per riga larghe come i riquadri sopra */
 .azioni-risultato { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
 .azioni-risultato .bottone { gap: 8px; }
-.griglia-due { display: grid; gap: clamp(12px, 2vw, 20px); grid-template-columns: repeat(auto-fill, minmax(min(100%, max(320px, calc((100% - 20px) / 2))), 1fr)); }
+.griglia-due { display: grid; align-content: start; gap: clamp(12px, 2vw, 20px); grid-template-columns: repeat(auto-fill, minmax(min(100%, max(320px, calc((100% - 20px) / 2))), 1fr)); }
 .famiglia-foto .corpo { display: flex; flex-direction: column; gap: 8px; }
 .famiglia-foto .corpo .stendi { margin-top: auto; align-self: flex-start; }
 .adm-scatola-testa .piccolo { white-space: nowrap; }
