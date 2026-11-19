@@ -15,7 +15,7 @@ const DOMINIO = 'skinmatch.it';
 const server = JSON.parse(readFileSync(new URL('../../mcp/server.json', import.meta.url), 'utf8'));
 
 if (process.argv.includes('--controlla')) {
-  const r = await fetch(`${REGISTRO}/v0/servers?search=${encodeURIComponent(server.name)}`);
+  const r = await fetch(`${REGISTRO}/v0.1/servers?version=latest&search=${encodeURIComponent(server.name)}`);
   const j = await r.json();
   for (const s of j.servers || []) console.log(s.server?.name, s.server?.version, s._meta?.['io.modelcontextprotocol.registry/official']?.status || '');
   if (!(j.servers || []).length) console.log('non ancora nel registro');
@@ -30,14 +30,14 @@ const chiave = createPrivateKey({ key: Buffer.concat([Buffer.from('302e020100300
 
 const ora = new Date().toISOString().replace(/\.\d{3}Z$/, 'Z');
 const firma = sign(null, Buffer.from(ora), chiave).toString('hex');
-const login = await fetch(`${REGISTRO}/v0/auth/http`, {
+const login = await fetch(`${REGISTRO}/v0.1/auth/http`, {
   method: 'POST', headers: { 'content-type': 'application/json' },
   body: JSON.stringify({ domain: DOMINIO, timestamp: ora, signed_timestamp: firma }),
 });
 if (!login.ok) throw new Error(`accesso al registro: ${login.status} ${await login.text()}`);
 const { registry_token: token } = await login.json();
 
-const pub = await fetch(`${REGISTRO}/v0/publish`, {
+const pub = await fetch(`${REGISTRO}/v0.1/publish`, {
   method: 'POST', headers: { 'content-type': 'application/json', authorization: `Bearer ${token}` },
   body: JSON.stringify(server),
 });
