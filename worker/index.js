@@ -396,6 +396,20 @@ async function admin(req, env, url, email) {
     return json({ ok: true });
   }
 
+  if (via === 'social-numeri') {
+    // I NUMERI DI TIKTOK (19/11/2026, il PO: «mettiamo anche skinmatch, ma lo mandiamo sull'admin suo»): li scrive il Mac
+    // (scripts/admin/social_tiktok.py, dall'API ufficiale, ogni 6 ore). Qui l'ultimo giorno di ogni profilo, i 90 giorni
+    // di storico e gli ultimi video. Prima del primo giro le tabelle non ci sono: liste vuote, non un errore.
+    const vuoto = () => [];
+    const [profili, storico, video] = await Promise.all([
+      tutti(`SELECT * FROM social_profili p WHERE p.giorno = (SELECT MAX(r.giorno) FROM social_profili r
+               WHERE r.piattaforma = p.piattaforma AND r.account = p.account)`).catch(vuoto),
+      tutti("SELECT giorno, piattaforma, account, follower, visualizzazioni FROM social_profili WHERE giorno >= date('now', '-90 day') ORDER BY giorno").catch(vuoto),
+      tutti('SELECT * FROM social_video ORDER BY creato DESC LIMIT 60').catch(vuoto),
+    ]);
+    return json({ profili, storico, video });
+  }
+
   if (via === 'revisioni') {
     // IL REGISTRO DELLE REVISIONI (7/11/2026, voto l-revisione): si aggiunge, non si cambia. L'ultima riga per chiave vale.
     if (req.method === 'GET') return json({ revisioni: await tutti('SELECT * FROM revisioni ORDER BY id DESC LIMIT 1000') });

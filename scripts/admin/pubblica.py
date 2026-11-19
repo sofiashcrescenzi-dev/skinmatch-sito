@@ -137,10 +137,26 @@ def rinvii(vecchi, nuovi, base, verso):
     return tolti
 
 
+SOCIAL_ULTIMO = Path.home() / '.skinmatch-tiktok.ultimo'
+
+
+def numeri_social():
+    """I numeri di TikTok (scripts/admin/social_tiktok.py, 19/11/2026) al massimo ogni 6 ore. Passano da qui perche
+    questo giro parte ogni 15 minuti da launchd e non si aggiungono plist nuovi. Un errore non ferma le pubblicazioni."""
+    try:
+        if SOCIAL_ULTIMO.exists() and dt.datetime.now().timestamp() - SOCIAL_ULTIMO.stat().st_mtime < 6 * 3600:
+            return
+        SOCIAL_ULTIMO.touch()
+        subprocess.run([sys.executable, str(Path(__file__).with_name('social_tiktok.py'))], timeout=300, check=False)
+    except Exception as e:  # noqa: BLE001
+        print('numeri social:', e)
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('--approvati', action='store_true', help='pubblica anche senza richiesta se ci sono articoli approvati')
     a = ap.parse_args()
+    numeri_social()
 
     coda = sql("SELECT id, chi, cosa FROM pubblicazioni WHERE stato = 'in_coda' ORDER BY id")
     approvati = sql("SELECT * FROM articoli WHERE stato = 'approvato' ORDER BY id")

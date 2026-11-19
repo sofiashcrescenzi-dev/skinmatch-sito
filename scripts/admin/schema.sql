@@ -92,3 +92,10 @@ CREATE INDEX IF NOT EXISTS revisioni_chiave ON revisioni (chiave, id);
 CREATE TABLE IF NOT EXISTS social_stato (
   id TEXT PRIMARY KEY, stato TEXT NOT NULL, link TEXT, chi TEXT, aggiornato_il TEXT NOT NULL DEFAULT (datetime('now'))
 );
+
+-- I NUMERI DI TIKTOK (19/11/2026, scripts/admin/social_tiktok.py, ogni 6 ore da pubblica.py): una riga al giorno per
+-- profilo (le visualizzazioni sono la somma di tutti i video pubblici) e l'ultimo stato di ogni video. In admin › Social › I numeri.
+CREATE TABLE IF NOT EXISTS social_profili (giorno TEXT, piattaforma TEXT, account TEXT, follower INTEGER, seguiti INTEGER,
+  like_totali INTEGER, video INTEGER, visualizzazioni INTEGER, aggiornato TEXT, PRIMARY KEY (giorno, piattaforma, account));
+CREATE TABLE IF NOT EXISTS social_video (piattaforma TEXT, id TEXT, account TEXT, titolo TEXT, creato TEXT, durata INTEGER,
+  visualizzazioni INTEGER, mi_piace INTEGER, commenti INTEGER, condivisioni INTEGER, link TEXT, aggiornato TEXT, PRIMARY KEY (piattaforma, id));

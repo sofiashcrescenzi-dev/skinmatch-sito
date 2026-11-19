@@ -289,9 +289,63 @@ function Piano() {
   );
 }
 
+// I NUMERI DI TIKTOK (19/11/2026): dall'API ufficiale, scritti dal Mac ogni 6 ore (scripts/admin/social_tiktok.py).
+// Le visualizzazioni del periodo sono la crescita del totale da 30 giorni fa; finché lo storico non ci arriva, quelle dei
+// video usciti negli ultimi 30 giorni.
+type ProfiloSocial = { giorno: string; piattaforma: string; account: string; follower: number; like_totali: number; video: number; visualizzazioni: number; aggiornato: string };
+type VideoSocial = { id: string; account: string; titolo: string; creato: string; visualizzazioni: number; mi_piace: number; commenti: number; condivisioni: number; link: string };
+const cifra = (n: number | null | undefined) => (n == null ? '—' : Number(n).toLocaleString('it-IT'));
+
+function Numeri() {
+  const api = useApi<{ profili: ProfiloSocial[]; storico: { giorno: string; account: string; visualizzazioni: number }[]; video: VideoSocial[] }>('/api/admin/social-numeri');
+  if (api.errore) return <Vuoto>Non riesco a leggere i numeri: {api.errore}</Vuoto>;
+  if (!api.dati) return <Vuoto>Carico…</Vuoto>;
+  const { profili, storico, video } = api.dati;
+  if (!profili.length) return <Vuoto>Nessun profilo collegato ancora: i numeri arrivano dopo il primo giro del Mac.</Vuoto>;
+  const inizio = new Date(Date.now() - 30 * 864e5).toISOString().slice(0, 10);
+  return (
+    <section className="pila" style={{ ['--gap' as string]: '14px' }}>
+      {profili.map((p) => {
+        const prima = [...storico].reverse().find((s) => s.account === p.account && s.giorno <= inizio);
+        const recenti = video.filter((v) => v.account === p.account && v.creato >= inizio);
+        const viste30 = prima ? Math.max(0, p.visualizzazioni - prima.visualizzazioni) : recenti.reduce((t, v) => t + (v.visualizzazioni || 0), 0);
+        return (
+          <div key={p.piattaforma + p.account} className="pila" style={{ ['--gap' as string]: '8px' }}>
+            <h2 className="titolo-3">TikTok · @{p.account}</h2>
+            <div className="adm-numeri">
+              <div><span className="piccolo">Follower</span><b>{cifra(p.follower)}</b></div>
+              <div><span className="piccolo">Visualizzazioni, 30 giorni</span><b>{cifra(viste30)}</b><span className="piccolo">{prima ? 'crescita di tutti i video' : `${recenti.length} video usciti nel periodo`}</span></div>
+              <div><span className="piccolo">Visualizzazioni in tutto</span><b>{cifra(p.visualizzazioni)}</b></div>
+              <div><span className="piccolo">Mi piace</span><b>{cifra(p.like_totali)}</b></div>
+              <div><span className="piccolo">Video</span><b>{cifra(p.video)}</b></div>
+            </div>
+            <p className="piccolo">Aggiornato {quando(p.aggiornato)} · dall’API di TikTok, ogni 6 ore.</p>
+          </div>
+        );
+      })}
+      {video.length > 0 && (
+        <div className="pila" style={{ ['--gap' as string]: '6px' }}>
+          <h3 className="titolo-3">I video</h3>
+          <div className="adm-tabella">
+            <table style={{ minWidth: 520 }}>
+              <thead><tr><th>Video</th><th>Uscito</th><th className="num">Viste</th><th className="num">Mi piace</th><th className="num">Commenti</th><th className="num">Condivisioni</th></tr></thead>
+              <tbody>{video.map((v) => (
+                <tr key={v.id}>
+                  <td style={{ maxWidth: 280 }}>{v.link ? <a className="link" href={v.link} target="_blank" rel="noopener noreferrer">{v.titolo || 'senza titolo'}</a> : (v.titolo || 'senza titolo')}</td>
+                  <td>{quando(v.creato)}</td><td className="num">{cifra(v.visualizzazioni)}</td><td className="num">{cifra(v.mi_piace)}</td>
+                  <td className="num">{cifra(v.commenti)}</td><td className="num">{cifra(v.condivisioni)}</td>
+                </tr>))}</tbody>
+            </table>
+          </div>
+        </div>
+      )}
+    </section>
+  );
+}
+
 export default function Social() {
   const doc = useDocumento<Doc>('social', SOCIAL);
-  const [parte, setParte] = useState<'profili' | 'link' | 'kit' | 'piano'>('piano');
+  const [parte, setParte] = useState<'profili' | 'link' | 'kit' | 'piano' | 'numeri'>('piano');
   const d = doc.dati;
   if (doc.errore) return <Vuoto>Non riesco a leggere i social: {doc.errore}</Vuoto>;
   if (!d) return <Vuoto>Carico…</Vuoto>;
@@ -300,9 +354,10 @@ export default function Social() {
     <div className="pila" style={{ ['--gap' as string]: '20px' }}>
       <Titolo sotto="I profili di Instagram, TikTok, Threads e YouTube, la pagina skinmatch.it/link, il kit delle immagini, la voce e il piano dei post con le didascalie da copiare.">I social</Titolo>
       <div className="riga-chip">
-        {([['piano', 'Il piano'], ['profili', 'I profili'], ['link', 'La pagina dei link'], ['kit', 'Kit e voce']] as const).map(([k, n]) => <button key={k} type="button" className="chip" aria-pressed={parte === k} onClick={() => setParte(k)}>{n}</button>)}
+        {([['piano', 'Il piano'], ['numeri', 'I numeri'], ['profili', 'I profili'], ['link', 'La pagina dei link'], ['kit', 'Kit e voce']] as const).map(([k, n]) => <button key={k} type="button" className="chip" aria-pressed={parte === k} onClick={() => setParte(k)}>{n}</button>)}
       </div>
       {parte === 'piano' && <Piano />}
+      {parte === 'numeri' && <Numeri />}
       {parte === 'profili' && <Profili d={d} metti={metti} />}
       {parte === 'link' && <PaginaLink d={d} cambia={(l) => doc.setDati({ ...d, link: l })} />}
       {parte === 'kit' && <><Kit /><Voce /></>}
