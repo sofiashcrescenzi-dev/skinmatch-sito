@@ -1904,5 +1904,39 @@
   "larghezza": 1600,
   "altezza": 1600,
   "originale": "media/foto/integratori.jpg"
+ },
+ {
+  "nome": "rivista-acidi-esfolianti-aha-pha",
+  "alt": "Una ragazza con l'asciugamano tra i capelli passa un dischetto di cotone sulla guancia, il viso tagliato all'altezza del naso",
+  "autore": "Sora Shimazaki",
+  "autore_pagina": "https://www.pexels.com/@sora-shimazaki",
+  "pagina": "https://www.pexels.com/photo/crop-ethnic-woman-cleaning-face-with-cotton-pad-5938272/",
+  "pexels_id": 5938272,
+  "licenza": "Licenza Pexels (uso libero, citazione gradita)",
+  "uso": [
+   "rivista: copertina dell'articolo acidi-esfolianti-aha-pha",
+   "social"
+  ],
+  "fuoco": "35% 40%",
+  "larghezza": 1600,
+  "altezza": 1066,
+  "originale": "media/foto/rivista-acidi-esfolianti-aha-pha.jpg"
+ },
+ {
+  "nome": "rivista-creme-idratanti-ceramidi-forfora",
+  "alt": "Una donna avvolta in una coperta di lana bianca apre un vasetto di crema e la prende con le dita, il viso fuori dall'inquadratura",
+  "autore": "Karolina Grabowska (Kaboompics)",
+  "autore_pagina": "https://www.pexels.com/@karola-g",
+  "pagina": "https://www.pexels.com/photo/arms-of-a-young-woman-using-moisturizer-6633622/",
+  "pexels_id": 6633622,
+  "licenza": "Licenza Pexels (uso libero, citazione gradita)",
+  "uso": [
+   "rivista: copertina dell'articolo creme-idratanti-ceramidi-forfora",
+   "social"
+  ],
+  "fuoco": "50% 55%",
+  "larghezza": 1600,
+  "altezza": 1067,
+  "originale": "media/foto/rivista-creme-idratanti-ceramidi-forfora.jpg"
  }
 ]
