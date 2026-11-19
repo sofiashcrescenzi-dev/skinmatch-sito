@@ -20,8 +20,8 @@ export default function Firma({ firma, rev, pubblicato }: { firma?: 'redazione' 
   return (
     <div className="firma">
       {sito
-        ? <a href={sito} target="_blank" rel="noopener" aria-label={`${sofia.nome}, il suo sito`}><Ritratto p={sofia} lato={40} /></a>
-        : <Ritratto p={sofia} lato={40} />}
+        ? <a className="firma-foto" href={sito} target="_blank" rel="noopener" aria-label={`${sofia.nome}, il suo sito`}><Ritratto p={sofia} lato={60} /></a>
+        : <span className="firma-foto"><Ritratto p={sofia} lato={60} /></span>}
       <span className="piccolo">
         {firma === 'sofia' ? <>Redatto da {nome}</> : <>Redazione Skinmatch con {nome}</>}, medico estetico
         {rev ? ` · controllato il ${dataLunga(rev.data)}` : ` · ${dataLunga(pubblicato)}`}

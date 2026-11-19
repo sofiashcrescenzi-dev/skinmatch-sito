@@ -32,13 +32,13 @@ export default async function ArticoloPage({ params }: { params: Promise<{ slug:
     <main className="contenitore sezione pila" style={{ ['--gap' as string]: 'clamp(28px, 5vw, 48px)' }}>
       <div className="lettura" aria-hidden="true" />
       <Link href="/rivista" className="piccolo">← La Rivista</Link>
-      <header className="pila stretto" style={{ ['--gap' as string]: '14px' }}>
+      <header className="pila stretto apre" style={{ ['--gap' as string]: '14px' }}>
         <span className="etichetta">{a.tipo}</span>
         <h1 className="sopratitolo" style={{ fontSize: 'clamp(30px, 5vw, 50px)' }}>{a.titolo}</h1>
         <p className="intro">{a.sommario}</p>
         <Firma firma={a.firma} rev={revisione(`articolo:${a.slug}`)} pubblicato={a.pubblicato_il} />
       </header>
-      {a.immagine?.file && <Foto nome={a.immagine.file} priorita style={{ aspectRatio: '16 / 9' }} sizes="(max-width: 1180px) 100vw, 1180px" credito />}
+      {a.immagine?.file && <div className="apre-foto"><Foto nome={a.immagine.file} priorita style={{ aspectRatio: '16 / 9' }} sizes="(max-width: 1180px) 100vw, 1180px" credito /></div>}
       <div className="stretto"><Markdown testo={a.testo} /></div>
       <svg className="segno-fine" viewBox="0 -74.79 84 81" aria-hidden="true"><path d="M37.23,-74.79A37.23,37.23 0 0 0 37.23,-0.34Z" fill="var(--f5)" /><path className="meta-b" d="M41.54,-68.91A37.23,37.23 0 0 1 41.54,5.54Z" fill="var(--f4)" /></svg>
       {prodotti.length > 0 && (
