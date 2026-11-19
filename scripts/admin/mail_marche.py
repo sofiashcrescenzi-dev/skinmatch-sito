@@ -93,17 +93,34 @@ def scelte(args):
         ids = {int(x) for x in args.marche.split(',')}
         righe = [m for m in righe if m['id'] in ids]
     else:
-        righe = [m for m in righe if (m.get('stato') or '') not in GIA_SCRITTE]
+        # ⚠️ SOLO LE MARCHE DA CONTATTARE (20/11/2026): prima entravano tutte quelle con un'email non ancora scritte,
+        # anche quelle «da studiare» o che lo studio di Zeno consiglia di non contattare
+        righe = [m for m in righe if (m.get('stato') or '') == 'da_contattare']
     if args.gruppo:
         righe = [m for m in righe if m['gruppo'] == args.gruppo]
     # niente PEC (una mail normale verso una PEC di solito torna indietro: Bioderma) e un indirizzo una volta sola
     # (Cantabria Labs e Heliocare scrivono allo stesso servizio clienti): 14/11/2026
-    visti, tenute = set(), []
+    # ⚠️ PIU MARCHE, UN INDIRIZZO (20/11/2026): La Roche-Posay, CeraVe, Vichy e SkinCeuticals scrivono tutte alla stampa
+    # di L'Oréal Italia. Una mail sola, che le nomina tutte: «CeraVe, La Roche-Posay, SkinCeuticals e Vichy».
+    per, ordine = {}, []
     for m in righe:
         a = (primo_indirizzo(m['email']) or '').lower()
-        if not a or re.search(r'@(pec\.|legalmail\.|postacert\.)|\.pec\.', a) or a in visti:
+        if not a or re.search(r'@(pec\.|legalmail\.|postacert\.)|\.pec\.', a):
             continue
-        visti.add(a)
+        if a not in per:
+            per[a] = []
+            ordine.append(a)
+        per[a].append(m)
+    tenute = []
+    for a in ordine:
+        gruppo = per[a]
+        m = dict(gruppo[0])
+        m['_ids'] = [int(x['id']) for x in gruppo]
+        if len(gruppo) > 1:
+            nomi = sorted({x['marca'] for x in gruppo})
+            m['marca'] = ', '.join(nomi[:-1]) + ' e ' + nomi[-1]
+            if any(x['gruppo'] == 'Nel catalogo' for x in gruppo):
+                m['gruppo'] = 'Nel catalogo'
         tenute.append(m)
     return tenute[: args.max] if args.max else tenute
 
@@ -194,7 +211,8 @@ def main():
                 time.sleep(PAUSA)
             s.send_message(messaggio(m, da))
             nota = ((m.get('note') or '') + '\n' if m.get('note') else '') + f'Scritta il {oggi} da {da}.'
-            sql(f"UPDATE marche_studio SET stato='contattata', note={L(nota)}, aggiornato_il=datetime('now') WHERE id={int(m['id'])}")
+            for i_m in m.get('_ids') or [int(m['id'])]:   # tutte le marche dello stesso indirizzo
+                sql(f"UPDATE marche_studio SET stato='contattata', note={L(nota)}, aggiornato_il=datetime('now') WHERE id={i_m}")
             print(f"mandata: {m['marca']} → {primo_indirizzo(m['email'])}")
     print(f'{len(righe)} mail mandate e segnate «Contattata».')
 
