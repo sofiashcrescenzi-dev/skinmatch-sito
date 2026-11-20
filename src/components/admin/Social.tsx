@@ -293,11 +293,13 @@ function Piano() {
 // Le visualizzazioni del periodo sono la crescita del totale da 30 giorni fa; finché lo storico non ci arriva, quelle dei
 // video usciti negli ultimi 30 giorni.
 type ProfiloSocial = { giorno: string; piattaforma: string; account: string; follower: number; like_totali: number; video: number; visualizzazioni: number; aggiornato: string };
+// le piattaforme lette dall'API (TikTok dal 19/11, Instagram dal 20/11/2026: scripts/admin/social_instagram.py)
+const PIATTAFORMA_API: Record<string, string> = { tiktok: 'TikTok', instagram: 'Instagram' };
 type VideoSocial = { id: string; account: string; titolo: string; creato: string; visualizzazioni: number; mi_piace: number; commenti: number; condivisioni: number; link: string };
 const cifra = (n: number | null | undefined) => (n == null ? '—' : Number(n).toLocaleString('it-IT'));
 
 function Numeri() {
-  const api = useApi<{ profili: ProfiloSocial[]; storico: { giorno: string; account: string; visualizzazioni: number }[]; video: VideoSocial[] }>('/api/admin/social-numeri');
+  const api = useApi<{ profili: ProfiloSocial[]; storico: { giorno: string; piattaforma?: string; account: string; visualizzazioni: number }[]; video: (VideoSocial & { piattaforma?: string })[] }>('/api/admin/social-numeri');
   if (api.errore) return <Vuoto>Non riesco a leggere i numeri: {api.errore}</Vuoto>;
   if (!api.dati) return <Vuoto>Carico…</Vuoto>;
   const { profili, storico, video } = api.dati;
@@ -306,26 +308,28 @@ function Numeri() {
   return (
     <section className="pila" style={{ ['--gap' as string]: '14px' }}>
       {profili.map((p) => {
-        const prima = [...storico].reverse().find((s) => s.account === p.account && s.giorno <= inizio);
-        const recenti = video.filter((v) => v.account === p.account && v.creato >= inizio);
+        const prima = [...storico].reverse().find((s) => s.account === p.account && (s.piattaforma ?? p.piattaforma) === p.piattaforma && s.giorno <= inizio);
+        const recenti = video.filter((v) => v.account === p.account && (v.piattaforma ?? p.piattaforma) === p.piattaforma && v.creato >= inizio);
+        const nome = PIATTAFORMA_API[p.piattaforma] || p.piattaforma;
+        const pezzi = p.piattaforma === 'instagram' ? 'post' : 'video';
         const viste30 = prima ? Math.max(0, p.visualizzazioni - prima.visualizzazioni) : recenti.reduce((t, v) => t + (v.visualizzazioni || 0), 0);
         return (
           <div key={p.piattaforma + p.account} className="pila" style={{ ['--gap' as string]: '8px' }}>
-            <h2 className="titolo-3">TikTok · @{p.account}</h2>
+            <h2 className="titolo-3">{nome} · @{p.account}</h2>
             <div className="adm-numeri">
               <div><span className="piccolo">Follower</span><b>{cifra(p.follower)}</b></div>
-              <div><span className="piccolo">Visualizzazioni, 30 giorni</span><b>{cifra(viste30)}</b><span className="piccolo">{prima ? 'crescita di tutti i video' : `${recenti.length} video usciti nel periodo`}</span></div>
+              <div><span className="piccolo">Visualizzazioni, 30 giorni</span><b>{cifra(viste30)}</b><span className="piccolo">{prima ? `crescita di tutti i ${pezzi}` : `${recenti.length} ${pezzi} usciti nel periodo`}</span></div>
               <div><span className="piccolo">Visualizzazioni in tutto</span><b>{cifra(p.visualizzazioni)}</b></div>
               <div><span className="piccolo">Mi piace</span><b>{cifra(p.like_totali)}</b></div>
-              <div><span className="piccolo">Video</span><b>{cifra(p.video)}</b></div>
+              <div><span className="piccolo">{pezzi === 'post' ? 'Post' : 'Video'}</span><b>{cifra(p.video)}</b></div>
             </div>
-            <p className="piccolo">Aggiornato {quando(p.aggiornato)} · dall’API di TikTok, ogni 6 ore.</p>
+            <p className="piccolo">Aggiornato {quando(p.aggiornato)} · dall’API di {nome}, ogni 6 ore.</p>
           </div>
         );
       })}
       {video.length > 0 && (
         <div className="pila" style={{ ['--gap' as string]: '6px' }}>
-          <h3 className="titolo-3">I video</h3>
+          <h3 className="titolo-3">I video e i post</h3>
           <div className="adm-tabella">
             <table style={{ minWidth: 520 }}>
               <thead><tr><th>Video</th><th>Uscito</th><th className="num">Viste</th><th className="num">Mi piace</th><th className="num">Commenti</th><th className="num">Condivisioni</th></tr></thead>

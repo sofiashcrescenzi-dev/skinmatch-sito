@@ -35,7 +35,7 @@ from d1 import sql, L  # noqa: E402
 FILE_TOKEN = os.path.expanduser('~/.skinmatch-instagram.json')
 FB = 'https://graph.facebook.com/v22.0'
 MAX_POST = 100
-IDS = {}          # username → id del profilo Instagram, si riempie la prima volta da «salva» (pagina dei token)
+IDS = {'skinmatch.it': '17841442038763741'}   # username → id del profilo Instagram (pagina dei token dell'app)
 
 
 def _get(percorso, tok, **q):
@@ -66,6 +66,14 @@ def salva(ig_id=None):
     tok = subprocess.run(['pbpaste'], capture_output=True, text=True).stdout.strip()
     if not tok or len(tok) < 40 or ' ' in tok:
         sys.exit('Negli appunti non c\'e un token: tocca «Copia» nella finestra del token e riprova.')
+    if not ig_id:
+        for i in IDS.values():
+            try:
+                _get(i, tok, fields='id')
+                ig_id = i
+                break
+            except RuntimeError:
+                continue
     if not ig_id:
         # i profili Instagram che il token vede, attraverso le risorse dell'utente di sistema
         try:
