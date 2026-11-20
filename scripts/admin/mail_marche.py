@@ -204,12 +204,27 @@ def main():
     if not args.si or not args.marche:
         sys.exit('«invia» manda davvero: servono --marche con gli id scelti e --si (il sì di Federico).')
     oggi = date.today().strftime('%d/%m/%Y')
-    with smtplib.SMTP_SSL(SERVER[0][1], 465, context=ssl.create_default_context()) as s:
-        s.login(accesso, pw)
+
+    # ⚠️ UNA CONNESSIONE PER MAIL (20/11/2026): tenendone aperta una sola per tutto l'invio, dopo 24 mail in 18 minuti
+    # Zoho l'ha chiusa («Connection unexpectedly closed») e le altre non sono partite. Ora si entra per ogni mail,
+    # e se la connessione cade si riprova una volta dopo un minuto.
+    def manda(msg):
+        for tentativo in (1, 2):
+            try:
+                with smtplib.SMTP_SSL(SERVER[0][1], 465, context=ssl.create_default_context(), timeout=60) as s:
+                    s.login(accesso, pw)
+                    s.send_message(msg)
+                return
+            except (smtplib.SMTPServerDisconnected, smtplib.SMTPConnectError, OSError):
+                if tentativo == 2:
+                    raise
+                time.sleep(60)
+
+    if True:
         for i, m in enumerate(righe):
             if i:
                 time.sleep(PAUSA)
-            s.send_message(messaggio(m, da))
+            manda(messaggio(m, da))
             nota = ((m.get('note') or '') + '\n' if m.get('note') else '') + f'Scritta il {oggi} da {da}.'
             for i_m in m.get('_ids') or [int(m['id'])]:   # tutte le marche dello stesso indirizzo
                 sql(f"UPDATE marche_studio SET stato='contattata', note={L(nota)}, aggiornato_il=datetime('now') WHERE id={i_m}")
