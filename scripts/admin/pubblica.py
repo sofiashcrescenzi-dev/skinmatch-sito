@@ -141,13 +141,15 @@ SOCIAL_ULTIMO = Path.home() / '.skinmatch-tiktok.ultimo'
 
 
 def numeri_social():
-    """I numeri di TikTok (scripts/admin/social_tiktok.py, 19/11/2026) al massimo ogni 6 ore. Passano da qui perche
+    """I numeri di TikTok e Instagram (scripts/admin/social_tiktok.py e social_instagram.py) al massimo ogni 6 ore. Passano da qui perche
     questo giro parte ogni 15 minuti da launchd e non si aggiungono plist nuovi. Un errore non ferma le pubblicazioni."""
     try:
         if SOCIAL_ULTIMO.exists() and dt.datetime.now().timestamp() - SOCIAL_ULTIMO.stat().st_mtime < 6 * 3600:
             return
         SOCIAL_ULTIMO.touch()
         subprocess.run([sys.executable, str(Path(__file__).with_name('social_tiktok.py'))], timeout=300, check=False)
+        # e Instagram (20/11/2026, social_instagram.py): stesso giro, stesso intervallo
+        subprocess.run([sys.executable, str(Path(__file__).with_name('social_instagram.py'))], timeout=300, check=False)
     except Exception as e:  # noqa: BLE001
         print('numeri social:', e)
 
