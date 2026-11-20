@@ -316,6 +316,21 @@ async function visibilita(env, periodo) {
   return out;
 }
 
+// Il flusso «Redazione» su GitHub (repository di Sofia): un repository_dispatch «pubblica». Token fine-grained con
+// «Contents: Read and write» sul solo skinmatch-sito, nel segreto GITHUB_DISPATCH (wrangler secret put). Un errore non
+// ferma niente: la richiesta resta in coda e la recupera il prossimo «Pubblica» o il giro del mattino.
+async function chiamaRedazione(env) {
+  if (!env.GITHUB_DISPATCH) return false;
+  try {
+    const r = await fetch('https://api.github.com/repos/sofiashcrescenzi-dev/skinmatch-sito/dispatches', {
+      method: 'POST',
+      headers: { Authorization: `Bearer ${env.GITHUB_DISPATCH}`, Accept: 'application/vnd.github+json', 'User-Agent': 'skinmatch-admin', 'Content-Type': 'application/json' },
+      body: JSON.stringify({ event_type: 'pubblica' }),
+    });
+    return r.status === 204;
+  } catch { return false; }
+}
+
 async function admin(req, env, url, email) {
   const DB = env.DB, q = url.searchParams, via = url.pathname.slice('/api/admin/'.length);
   const corpo = req.method === 'POST' ? await req.json() : null;
@@ -384,8 +399,14 @@ async function admin(req, env, url, email) {
     if (req.method === 'GET') return json({ pubblicazioni: await tutti('SELECT * FROM pubblicazioni ORDER BY id DESC LIMIT 15') });
     const cosa = breve(corpo?.cosa || 'tutto', 200);
     const aperta = await DB.prepare("SELECT id FROM pubblicazioni WHERE stato = 'in_coda' LIMIT 1").first();
-    if (aperta) return json({ ok: true, id: aperta.id, gia: true });
+    // ⚠️ LA PUBBLICAZIONE PARTE SU GITHUB, NON PIÙ DAL MAC (20/11/2026, Federico: «skinmatch staccalo dal mac»): oltre a
+    // mettere in coda, si chiama il flusso «Redazione» (.github/workflows/redazione.yml) con un repository_dispatch. Anche
+    // quando c'è già una richiesta in coda: se la chiamata di prima non fosse partita, questa la recupera (GitHub tiene
+    // un giro solo in attesa). Senza il segreto GITHUB_DISPATCH resta la coda, come prima.
+    const avvia = () => chiamaRedazione(env);
+    if (aperta) { await avvia(); return json({ ok: true, id: aperta.id, gia: true }); }
     const r = await DB.prepare('INSERT INTO pubblicazioni (chi, cosa) VALUES (?1, ?2) RETURNING id').bind(email, cosa).first();
+    await avvia();
     return json({ ok: true, id: r.id });
   }
 

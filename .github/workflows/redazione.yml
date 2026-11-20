@@ -1,0 +1,118 @@
+# LA REDAZIONE DI SKINMATCH SU GITHUB, NON PIÙ SUL MAC (20/11/2026)
+#
+# ⚠️ PERCHÉ. Federico, 20/11/2026: «skinmatch staccalo dal mac allora e vai su github». Fino a oggi il Mac di Federico
+# pubblicava ogni 15 minuti (launchd skinmatch-pubblica): Mac spento = sito fermo, e Sofia non poteva pubblicare da sola.
+#
+# COSA FA. Un flusso solo, tre occasioni:
+#   - «Pubblica» nell'admin → il Worker manda un repository_dispatch «pubblica» → scripts/admin/pubblica.py;
+#   - ogni mattina alle 8 (ora italiana d'inverno) → gli articoli approvati da Sofia, se ce ne sono;
+#   - ogni 6 ore → i numeri di TikTok e Instagram (admin › Social).
+# Si lancia anche a mano: Actions › Redazione › Run workflow, col compito (pubblica, approvati, social).
+#
+# COSA RESTA SUL MAC (per ora). Il catalogo del mattino (scripts/catalogo/aggiorna.py, nel turno di Jarvis) e i prezzi
+# letti dalle pagine: lavorano su 660 MB di feed e cache in feeds-out/, che non sono nel repository. Il Mac registra e
+# spinge i file del catalogo nuovo e poi chiama questo flusso (repository_dispatch «pubblica»). Se il Mac è spento il
+# sito pubblica lo stesso; resta solo il catalogo del giorno prima.
+#
+# I MINUTI. Repository privato: 2.000 minuti gratis al mese. Misurato il 20/11: circa 80 pubblicazioni al mese da
+# 5-7 minuti, i numeri dei social (4 al giorno, 1 minuto) e il controllo degli approvati (1 al giorno, 1 minuto):
+# sui 650-700 minuti. Una coda sola (concurrency): chi preme «Pubblica» mentre un giro è in corso finisce nel giro
+# dopo, che pubblica tutto quello che è in coda.
+#
+# I SEGRETI (Settings › Secrets and variables › Actions), mai nel repository:
+#   SKINMATCH_SEGRETI     il contenuto di ~/.skinmatch-segreti.env (feed, reti, chiavi delle app)
+#   SKINMATCH_INSTAGRAM   il contenuto di ~/.skinmatch-instagram.json (token che non scade)
+#   CLOUDFLARE_API_TOKEN  un token dell'account Cloudflare di Sofia con D1 Edit e Workers Scripts Edit
+# I token di TikTok si rinnovano da soli e stanno su D1 (tabella chiavi), non in un segreto.
+name: Redazione
+
+on:
+  repository_dispatch:
+    types: [pubblica]
+  schedule:
+    - cron: '0 7 * * *'       # gli articoli approvati
+    - cron: '15 */6 * * *'    # i numeri dei social
+  workflow_dispatch:
+    inputs:
+      compito:
+        description: 'pubblica · approvati · social'
+        required: true
+        default: pubblica
+
+concurrency:
+  group: redazione
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  redazione:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      CLOUDFLARE_ACCOUNT_ID: 7fca2fe0c2f889d868a70e712cdcef85   # l'account di Sofia (lo stesso di scripts/admin/d1.py)
+      SKINMATCH_CI: '1'
+    steps:
+      - name: Il compito di questo giro
+        id: c
+        run: |
+          case "${{ github.event_name }}:${{ github.event.schedule }}" in
+            repository_dispatch:*) c=pubblica ;;
+            "schedule:0 7 * * *") c=approvati ;;
+            "schedule:15 */6 * * *") c=social ;;
+            *) c="${{ github.event.inputs.compito }}" ;;
+          esac
+          echo "compito=$c" >> "$GITHUB_OUTPUT"
+          echo "Compito: $c"
+
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: I segreti nei file che gli script leggono
+        env:
+          SEGRETI: ${{ secrets.SKINMATCH_SEGRETI }}
+          INSTAGRAM: ${{ secrets.SKINMATCH_INSTAGRAM }}
+        run: |
+          umask 077
+          printf '%s\n' "$SEGRETI" > "$HOME/.skinmatch-segreti.env"
+          if [ -n "$INSTAGRAM" ]; then printf '%s\n' "$INSTAGRAM" > "$HOME/.skinmatch-instagram.json"; fi
+          git config user.name 'Redazione Skinmatch'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+
+      - name: Wrangler (database e pubblicazione)
+        run: npm i -g wrangler@4 --no-audit --no-fund --silent
+
+      - name: Ci sono articoli approvati?
+        id: a
+        if: steps.c.outputs.compito == 'approvati'
+        run: |
+          n=$(python3 -c "import sys; sys.path.insert(0, 'scripts/admin'); from d1 import sql; print(len(sql(\"SELECT id FROM articoli WHERE stato = 'approvato'\")))")
+          echo "Articoli approvati: $n"
+          echo "ci=$([ "$n" -gt 0 ] && echo si || echo no)" >> "$GITHUB_OUTPUT"
+
+      - uses: actions/setup-node@v4
+        if: steps.c.outputs.compito == 'pubblica' || steps.a.outputs.ci == 'si'
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Le dipendenze del sito
+        if: steps.c.outputs.compito == 'pubblica' || steps.a.outputs.ci == 'si'
+        run: npm ci --no-audit --no-fund
+
+      - name: Pubblica quello che è in coda
+        if: steps.c.outputs.compito == 'pubblica'
+        run: python3 scripts/admin/pubblica.py
+
+      - name: Pubblica gli articoli approvati
+        if: steps.a.outputs.ci == 'si'
+        run: python3 scripts/admin/pubblica.py --approvati
+
+      - name: I numeri dei social
+        if: steps.c.outputs.compito == 'social'
+        run: |
+          python3 scripts/admin/social_tiktok.py || echo "TikTok: errore"
+          python3 scripts/admin/social_instagram.py || echo "Instagram: errore"

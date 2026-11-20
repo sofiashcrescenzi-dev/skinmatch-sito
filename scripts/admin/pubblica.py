@@ -143,6 +143,9 @@ SOCIAL_ULTIMO = Path.home() / '.skinmatch-tiktok.ultimo'
 def numeri_social():
     """I numeri di TikTok e Instagram (scripts/admin/social_tiktok.py e social_instagram.py) al massimo ogni 6 ore. Passano da qui perche
     questo giro parte ogni 15 minuti da launchd e non si aggiungono plist nuovi. Un errore non ferma le pubblicazioni."""
+    # su GitHub i numeri hanno un giro loro, ogni 6 ore (.github/workflows/redazione.yml, compito «social»)
+    if os.environ.get('SKINMATCH_CI'):
+        return
     try:
         if SOCIAL_ULTIMO.exists() and dt.datetime.now().timestamp() - SOCIAL_ULTIMO.stat().st_mtime < 6 * 3600:
             return

@@ -56,20 +56,35 @@ def _segreti():
     return d['TIKTOK_CLIENT_KEY'], d['TIKTOK_CLIENT_SECRET']
 
 
+# ⚠️ I TOKEN STANNO SU D1, NON IN UN FILE DEL MAC (20/11/2026, Skinmatch staccato dal Mac): TikTok cambia il token di
+# rinnovo a ogni rinnovo, e il giro su GitHub (.github/workflows/redazione.yml) non ha un disco che resta. La riga
+# `chiavi` di nome 'tiktok' tiene lo stesso JSON che prima stava in ~/.skinmatch-tiktok.json; il file, se c'è ancora,
+# la semina la prima volta e poi resta solo come copia. Mai stampati.
+def _sql():
+    sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+    from d1 import sql, L
+    return sql, L
+
+
 def _leggi_token():
-    if not os.path.exists(FILE_TOKEN):
-        return {'app': 'Skinmatch dati, sandbox «Dati del profilo»', 'account': {}}
-    with open(FILE_TOKEN) as f:
-        return json.load(f)
+    sql, L = _sql()
+    sql("CREATE TABLE IF NOT EXISTS chiavi (nome TEXT PRIMARY KEY, valore TEXT, aggiornato TEXT)")
+    r = sql("SELECT valore FROM chiavi WHERE nome = 'tiktok'")
+    if r and r[0].get('valore'):
+        return json.loads(r[0]['valore'])
+    if os.path.exists(FILE_TOKEN):
+        with open(FILE_TOKEN) as f:
+            tutto = json.load(f)
+        _scrivi_token(tutto)
+        return tutto
+    return {'app': 'Skinmatch dati, sandbox «Dati del profilo»', 'account': {}}
 
 
 def _scrivi_token(tutto):
-    tmp = FILE_TOKEN + '.nuovo'
-    fd = os.open(tmp, os.O_WRONLY | os.O_CREAT | os.O_TRUNC, 0o600)
-    with os.fdopen(fd, 'w') as f:
-        json.dump(tutto, f, indent=1)
-    os.chmod(tmp, 0o600)
-    os.replace(tmp, FILE_TOKEN)
+    sql, L = _sql()
+    sql("CREATE TABLE IF NOT EXISTS chiavi (nome TEXT PRIMARY KEY, valore TEXT, aggiornato TEXT)")
+    sql(f"INSERT INTO chiavi (nome, valore, aggiornato) VALUES ('tiktok', {L(json.dumps(tutto))}, datetime('now')) "
+        "ON CONFLICT (nome) DO UPDATE SET valore = excluded.valore, aggiornato = excluded.aggiornato")
 
 
 def _chiama(url, corpo=None, token=None, forma=False):

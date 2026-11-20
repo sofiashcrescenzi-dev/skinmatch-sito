@@ -71,7 +71,19 @@ dopo = impronta()
 if prima != dopo:
     sys.path.insert(0, str(R / 'scripts' / 'admin'))
     from d1 import sql
+    # ⚠️ DAL 20/11/2026 LA PUBBLICAZIONE GIRA SU GITHUB (.github/workflows/redazione.yml), che non vede i file di questo
+    # Mac: il catalogo nuovo si registra e si spinge qui (solo i file che genera il catalogo, più le foto nuove), poi
+    # si mette in coda e si chiama il flusso, che pubblica come per «Pubblica» dall'admin.
+    git = lambda *a: subprocess.run(['git', *a], cwd=R, capture_output=True, text=True)
+    git('add', '--', *[f for f in ('src/data/prodotti.json', 'src/data/schede.json', 'src/data/clic.json', 'src/data/indirizzi-vecchi.json') if (R / f).exists()], 'public/immagini', 'media')
+    if git('diff', '--cached', '--quiet').returncode:
+        git('commit', '-q', '-m', 'Catalogo e foto aggiornati\n\nRedazione Skinmatch\n\nCo-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>')
+        git('pull', '--rebase', '--autostash', '--quiet')
+        p = git('push', '--quiet')
+        print('catalogo spinto su GitHub' if not p.returncode else f'push non riuscito: {p.stderr[-300:]}')
     sql("INSERT INTO pubblicazioni (chi, cosa) VALUES ('jarvis', 'catalogo aggiornato dal feed')")
-    print('catalogo cambiato: pubblicazione in coda')
+    d = subprocess.run(['gh', 'api', '-X', 'POST', 'repos/sofiashcrescenzi-dev/skinmatch-sito/dispatches', '-f', 'event_type=pubblica'],
+                       capture_output=True, text=True)
+    print('catalogo cambiato: pubblicazione in coda' + (' e flusso avviato' if not d.returncode else f' (flusso non avviato: {d.stderr[-200:]})'))
 else:
     print('catalogo invariato')
