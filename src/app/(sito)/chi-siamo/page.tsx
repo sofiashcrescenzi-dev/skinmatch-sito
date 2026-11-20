@@ -72,6 +72,10 @@ export default function ChiSiamo() {
           <p>Prima guardiamo la tua pelle: escludiamo i prodotti che non vanno bene per quello che hai indicato, per esempio quelli troppo forti se la pelle reagisce, o quelli con ingredienti della nostra lista di attenzione in gravidanza.</p>
           <p>Fra quelli che restano, la <strong>prima scelta</strong> è la più completa: quella con più attivi utili per te o della fascia più alta. L’<strong>alternativa</strong> fa lo stesso lavoro, con una formula più semplice, e di solito costa meno.</p>
           <p>Quando compri attraverso i nostri link riceviamo una piccola commissione. <strong>Non entra mai nella scelta</strong>: un prodotto non sale perché ci fa guadagnare di più.</p>
+          {/* ⚠️ IL CONFLITTO D'INTERESSI DETTO IN CHIARO (20/11/2026, Federico, revisione privacy punto 6: «Sì»). Sofia è un
+              medico e partecipa ai ricavi del sito: il codice deontologico chiede di dichiararlo. Il parere dell'Ordine lo chiede
+              Sofia; questa riga resta comunque. */}
+          <p>Sofia, medico estetico, è socia di Skinmatch insieme a Federico: le commissioni vanno al progetto, e la scelta dei prodotti segue le regole scritte qui sopra, uguali per tutti i marchi. Lo diciamo perché un medico che partecipa ai ricavi di un sito ha un interesse da dichiarare.</p>
           <p>Ogni prodotto del catalogo ha una scheda con le stesse informazioni: per quale pelle è, per cosa lavora, se va bene in gravidanza e sulle pelli sensibili, in che fascia di prezzo sta. Le leggiamo dalle schede dei produttori e dagli ingredienti (l&apos;INCI), non dalle pubblicità. Il test incrocia la scheda con il tuo biotipo e sceglie il più adatto per ogni passaggio della routine.</p>
           <p>Il catalogo copre la dermocosmesi da farmacia, la cosmetica coreana, i marchi di ricerca e quelli di fascia alta, perché ogni biotipo trovi qualcosa in ogni budget. Quando un prodotto non va più bene, lo togliamo.</p>
         </div>

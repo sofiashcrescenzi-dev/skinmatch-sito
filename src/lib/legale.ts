@@ -9,8 +9,9 @@
 import legale from '@/data/legale.json';
 
 export const LEGALE = legale as { titolare: string; codice_fiscale?: string; indirizzo: string; partita_iva: string; email: string; aggiornato_il: string };
-// Chi pubblica, con i suoi codici: la partita IVA se c'è, se no il codice fiscale (19/11/2026, per il momento due persone).
-const codici = () => (LEGALE.partita_iva ? ` (partita IVA ${LEGALE.partita_iva})` : LEGALE.codice_fiscale ? ` (codice fiscale ${LEGALE.codice_fiscale})` : '');
+// ⚠️ SOLO LA PARTITA IVA, MAI IL CODICE FISCALE (20/11/2026, Federico, dalla revisione privacy: «ok allora togli codice
+// fiscale»). Nessuna legge chiede di pubblicarlo e facilita i furti d'identità; la partita IVA arriva con la società.
+const codici = () => (LEGALE.partita_iva ? ` (partita IVA ${LEGALE.partita_iva})` : '');
 export const MANCA = '**[da completare]**';
 export const completo = () => !!(LEGALE.titolare && LEGALE.indirizzo && LEGALE.email);
 const v = (x: string) => x || MANCA;
