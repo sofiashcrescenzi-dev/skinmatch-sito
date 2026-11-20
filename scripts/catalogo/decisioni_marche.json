@@ -197,7 +197,7 @@
    "segmento": "Dermocosmesi da farmacia",
    "proposta": "selezione",
    "decisione": "selezione",
-   "nota": "valutiamo magari c'è qualcosa che ha senso tenere, togli tutto che riguarda tinta e decolorazione",
+   "nota": "valutiamo magari c'è qualcosa che ha senso tenere, togli tutto che riguarda tinta e decolorazione · 20/11/2026: fuori gli integratori Phytocyane (segnalati all'Antitrust), restano lozioni e shampoo",
    "linee": [
     "Phytocyane",
     "Phytophanere",
@@ -1063,7 +1063,7 @@
    "segmento": "K-beauty",
    "proposta": "no",
    "decisione": "si",
-   "nota": "Beautycos, 16/10. Federico: «anche per le labbra, poi integreremo anche qualcosa relativo alle labbra e il make up»",
+   "nota": "Beautycos, 16/10. Federico: «anche per le labbra, poi integreremo anche qualcosa relativo alle labbra e il make up» · 20/11/2026, studio di Zeno: solo Water Bank e la Lip Sleeping Mask, niente campioncini (esclusi.json)",
    "linee": [],
    "prodotti_uno_per_uno": true
   },
@@ -1920,6 +1920,57 @@
     "fonte": "https://www1.cocunat.com/en-US/",
     "nota": "la marca dichiara vegana e cruelty free tutta la linea"
    }
+  },
+  {
+   "marca": "Novexpert",
+   "segmento": "Medicale premium",
+   "proposta": "selezione",
+   "decisione": "selezione",
+   "nota": "20/11/2026, studio di Zeno approvato da Federico («fai tutto»): da Liki24 le linee alla vitamina C, all'acido ialuronico e al magnesio, con le percentuali",
+   "linee": [
+    "Vitamina C",
+    "Ialuronico",
+    "Magnesio"
+   ]
+  },
+  {
+   "marca": "Etat Pur",
+   "segmento": "Attivi a buon prezzo",
+   "proposta": "selezione",
+   "decisione": "selezione",
+   "nota": "20/11/2026, studio di Zeno approvato da Federico: da Liki24 i flaconi da 15 ml con un attivo solo (e la percentuale), gruppo NAOS",
+   "linee": [
+    "15 ml",
+    "15ml"
+   ]
+  },
+  {
+   "marca": "Aveeno",
+   "segmento": "Dermocosmesi da farmacia",
+   "proposta": "selezione",
+   "decisione": "selezione",
+   "nota": "20/11/2026, studio di Zeno approvato da Federico: Dermexa e la crema all'avena per pelle secca e atopica; niente linea bambini",
+   "linee": [
+    "Dermexa",
+    "Crema gel idratante alla farina d'avena"
+   ],
+   "escludi": [
+    [
+     "Baby",
+     "linea per bambini: Skinmatch è per adulti"
+    ]
+   ]
+  },
+  {
+   "marca": "Aestura",
+   "segmento": "K-beauty",
+   "proposta": "selezione",
+   "decisione": "selezione",
+   "nota": "20/11/2026, studio di Zeno approvato da Federico: solo Atobarrier 365 (Liki24, Stylevana)",
+   "linee": [
+    "Atobarrier 365",
+    "Atobarrier365"
+   ]
   }
  ],
  "_nota_segmenti_1611": "16/11/2026 (Federico: «i filtri come alta cosmesi: elimina quelli che non servono e riempi quelli che ne hanno»): le marche capelli da farmacia e Acnemy in «Dermocosmesi da farmacia»; Kérastase e Lazartigue in «Premium e lusso»; Olaplex, Moroccanoil e Nioxin in «Professionale da salone»; Kao, Rohto e Hada Labo (giapponesi) in «J-beauty», non più K-beauty; Annemarie Börlind in «Naturale e clean». «vegana»: la marca dichiara vegana tutta la linea (con la fonte e le eccezioni): vale per ogni suo prodotto (al_sito.py)."
