@@ -32,7 +32,7 @@ Le risposte che dai al test (compresi i dati sulla salute, come una condizione d
 ## Quali dati trattiamo
 
 - **Dati tecnici di navigazione.** Il sito è ospitato da Cloudflare, che per farlo funzionare e proteggerlo dagli attacchi tratta l'indirizzo IP e i dati tecnici della richiesta (browser, pagina, ora). Non li usiamo per sapere chi sei.
-- **Conteggi d'uso, anonimi.** Contiamo quanti test vengono iniziati e finiti, quali biotipi escono e quanti clic portano ai negozi, sommati per giorno. Il conteggio non contiene indirizzi IP, identificativi o cookie e non permette di risalire a una persona: non è un dato personale.
+- **Conteggi d'uso, anonimi.** Contiamo quanti test vengono iniziati e finiti, quali biotipi escono e quanti clic portano ai negozi, sommati per giorno. All'ingresso contiamo anche da che tipo di fonte arriva la visita (un motore di ricerca, un social, un altro sito, diretto) e la sezione in cui entra, mai l'indirizzo completo della pagina di provenienza: per riconoscere le app (Instagram, TikTok) il browser legge il proprio user agent, che non ci viene mandato. Per non contare due volte la stessa visita il browser tiene un segno nella memoria della scheda (sessionStorage), che si cancella quando la chiudi. Il conteggio non contiene indirizzi IP, identificativi o cookie e non permette di risalire a una persona: non è un dato personale.
 - **Le email che ci scrivi.** Se ci contatti, usiamo il tuo indirizzo e quello che ci scrivi solo per risponderti.
 - **L'area riservata.** Chi gestisce il sito entra nell'area riservata con il proprio indirizzo email, verificato da Cloudflare.
 
@@ -45,12 +45,13 @@ Le risposte che dai al test (compresi i dati sulla salute, come una condizione d
 ## A chi arrivano i dati
 
 - **Cloudflare, Inc.**, che ospita il sito, il database dei conteggi e protegge l'area riservata, come responsabile del trattamento. Cloudflare può trattare dati anche negli Stati Uniti: il trasferimento avviene nel quadro dell'EU-US Data Privacy Framework e delle clausole contrattuali standard della Commissione europea.
-- **I negozi.** Le immagini dei prodotti vengono caricate dai server dei negozi (per esempio Notino), che ricevono il tuo indirizzo IP come per qualsiasi immagine sul web.
+- **Zoho**, che gestisce la casella email con cui ti rispondiamo, come responsabile del trattamento, con i dati nell'Unione europea.
+- **I negozi.** Le immagini dei prodotti vengono caricate dai server dei negozi (per esempio Liki24), che ricevono il tuo indirizzo IP come per qualsiasi immagine sul web.
 - Nessuno riceve i tuoi dati per fini di marketing.
 
 ## Quando vai su un negozio
 
-I link verso i prodotti portano al sito del negozio o di una rete di affiliazione (oggi Adtraction, per Liki24). Da quel momento i tuoi dati li tratta il negozio, con la sua informativa e i suoi cookie, compresi quelli che servono a riconoscere che sei arrivato da Skinmatch. Leggi le informative di quei siti prima di comprare.
+I link verso i prodotti portano al sito del negozio o di una rete di affiliazione (oggi Adtraction e Awin). Da quel momento i tuoi dati li tratta il negozio, con la sua informativa e i suoi cookie, compresi quelli che servono a riconoscere che sei arrivato da Skinmatch. Leggi le informative di quei siti prima di comprare.
 
 ## Per quanto tempo
 
