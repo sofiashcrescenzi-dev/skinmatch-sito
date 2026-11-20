@@ -43,7 +43,7 @@ const GIORNI = [7, 30, 90];
 const IA = new Set(['chatgpt', 'perplexity', 'gemini', 'claude', 'copilot', 'altra_ia']);
 const MOTORI = new Set(['google', 'bing', 'altro_motore']);
 const SOCIAL = new Set(['instagram', 'tiktok', 'facebook', 'youtube', 'threads', 'pinterest', 'link_in_bio']);
-const NOMI_FONTE: Record<string, string> = { chatgpt: 'ChatGPT', perplexity: 'Perplexity', gemini: 'Gemini', claude: 'Claude', copilot: 'Copilot', altra_ia: 'Altre IA', google: 'Google', bing: 'Bing', altro_motore: 'Altri motori', instagram: 'Instagram', tiktok: 'TikTok', facebook: 'Facebook', youtube: 'YouTube', threads: 'Threads', pinterest: 'Pinterest', link_in_bio: 'Link in bio', altro_sito: 'Altri siti', diretto: 'Diretto o app' };
+const NOMI_FONTE: Record<string, string> = { chatgpt: 'ChatGPT', perplexity: 'Perplexity', gemini: 'Gemini', claude: 'Claude', copilot: 'Copilot', altra_ia: 'Altre IA', google: 'Google', bing: 'Bing', altro_motore: 'Altri motori', instagram: 'Instagram', tiktok: 'TikTok', facebook: 'Facebook', youtube: 'YouTube', threads: 'Threads', pinterest: 'Pinterest', link_in_bio: 'Link in bio', altro_sito: 'Altri siti (link da altre pagine web)', diretto: 'Diretto o app (indirizzo scritto, preferiti, app senza nome)' };
 // il documento «cruscotto» (D1, documenti): lo scrive ogni mattina lo script di Skinmatch quando Search Console e PostHog
 // sono collegati con account di Skinmatch. Finché non c'è, la Dashboard dice cosa manca.
 type Cruscotto = { aggiornato?: string; search_console?: { clic: number; impressioni: number; posizione: number; indicizzate?: number; ricerche?: [string, number][]; pagine?: [string, number][] }; posthog?: { visitatori: number; pagine_viste: number; tempo_medio?: string } };
@@ -91,6 +91,9 @@ export default function Traffico({ vista }: { vista: 'traffico' | 'test' }) {
   const fonti = perChiave(r, 'arrivo');
   const daIa = fonti.filter(([k]) => IA.has(k)).reduce((t, [, n]) => t + n, 0);
   const daMotori = fonti.filter(([k]) => MOTORI.has(k)).reduce((t, [, n]) => t + n, 0);
+  const perMotore = (k: string) => fonti.find(([x]) => x === k)?.[1] || 0;
+  const nomeMotori = `Motori di ricerca (Google ${perMotore('google')}, Bing ${perMotore('bing')}${perMotore('altro_motore') ? `, altri ${perMotore('altro_motore')}` : ''})`;
+  const fontiVista = ([...fonti.filter(([k]) => !MOTORI.has(k)), ...(daMotori ? [['motori', daMotori]] : [])] as [string, number][]).sort((x, y) => y[1] - x[1]);
   const daSocial = fonti.filter(([k]) => SOCIAL.has(k)).reduce((t, [, n]) => t + n, 0);
   const commissioni = vendite.reduce((t, v) => t + (v.commissione || 0), 0);
   const pagineIa = perChiave(r.filter((x) => x.tipo === 'arrivo_pagina' && IA.has(x.chiave.split(':')[0])).map((x) => ({ ...x, chiave: `${NOMI_FONTE[x.chiave.split(':')[0]]} → ${x.chiave.split(':')[1]}` })), 'arrivo_pagina');
@@ -120,7 +123,9 @@ export default function Traffico({ vista }: { vista: 'traffico' | 'test' }) {
       <section className="pila" style={{ ['--gap' as string]: '12px' }}>
         <h2 className="titolo-2">Da dove arrivano</h2>
         <div className="adm-due">
-          <Tabella titolo="Fonti" righe={fonti} nome={(k) => `${NOMI_FONTE[k] || k}${IA.has(k) ? ' · IA' : ''}`} colonna="Visite" />
+          {/* ⚠️ I MOTORI IN UNA RIGA (20/11/2026, Federico: «Google forse rappresenterei Search engine nel caso sia bing»):
+              Google, Bing e gli altri motori diventano «Motori di ricerca», col dettaglio nel nome. */}
+          <Tabella titolo="Fonti" righe={fontiVista} nome={(k) => k === 'motori' ? nomeMotori : `${NOMI_FONTE[k] || k}${IA.has(k) ? ' · IA' : ''}`} colonna="Visite" />
           <Tabella titolo="Pagine d’arrivo dalle IA" righe={pagineIa} colonna="Visite" />
         </div>
       </section>

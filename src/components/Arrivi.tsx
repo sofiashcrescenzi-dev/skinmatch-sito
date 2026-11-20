@@ -32,10 +32,21 @@ function fonte(): string {
   if (utm === 'perplexity') return 'perplexity';
   // dalla pagina /link: utm_source è la piattaforma (instagram, tiktok…), utm_medium=linkinbio
   if (q.get('utm_medium') === 'linkinbio') return ['instagram', 'tiktok', 'facebook', 'youtube', 'threads', 'pinterest'].includes(utm) ? utm : 'link_in_bio';
-  if (!document.referrer) return 'diretto';
   let host = '';
-  try { host = new URL(document.referrer).hostname.toLowerCase(); } catch { return 'diretto'; }
-  if (host === location.hostname) return '';
+  if (document.referrer) {
+    try { host = new URL(document.referrer).hostname.toLowerCase(); } catch { host = ''; }
+  }
+  if (host && host === location.hostname) return '';
+  // ⚠️ LE APP SI RICONOSCONO DALLO USER AGENT (20/11/2026, Federico: «su skinmatch facebook rappresenta tiktok?»). Il
+  // browser dentro TikTok non manda il referrer (le visite finivano in «Diretto o app»), quello di Instagram passa
+  // spesso da l.facebook.com (finivano in «Facebook»). Il nome dell'app sta nello user agent: vale prima del referrer.
+  const ua = navigator.userAgent || '';
+  if (/musical_ly|BytedanceWebview|TikTok|trill_\d/i.test(ua)) return 'tiktok';
+  if (/Instagram/i.test(ua)) return 'instagram';
+  if (/Barcelona/.test(ua)) return 'threads';
+  if (/FBAN|FBAV|FB_IAB|FBIOS/.test(ua)) return 'facebook';
+  if (/Pinterest/i.test(ua)) return 'pinterest';
+  if (!host) return 'diretto';
   for (const [re, f] of FAMIGLIE) if (re.test(host)) return f;
   return 'altro_sito';
 }
