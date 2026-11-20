@@ -2,6 +2,8 @@
 // ricerca, come un blocco di testo»). Una frase della pagina, non una scatola: «Cerco ______», e il campo è
 // la riga su cui si scrive. Porta al catalogo con ?q=, dove la ricerca capisce la frase (components/Catalogo).
 // ⚠️ UN MODULO VERO, SENZA JAVASCRIPT: action="/catalogo" e method="get" bastano.
+import ScriveEsempi from '@/components/ScriveEsempi';
+
 const ESEMPI = ['niacinamide', 'crema per pelle secca', 'solare per pelle sensibile', 'retinolo', 'shampoo antiforfora'];
 
 // ⚠️ SENZA IL NUMERO DEI PRODOTTI IN HOME (7/11/2026, voto l-home): «fra 854 prodotti» è il linguaggio di un comparatore
@@ -17,6 +19,7 @@ export default function RicercaCentrale({ quanti }: { quanti?: number }) {
           <span key={e}>{i ? ', ' : ''}<a href={`/catalogo?q=${encodeURIComponent(e)}`}>{e}</a></span>
         ))}.
       </p>
+      <ScriveEsempi id="rc-q" esempi={ESEMPI} />
     </form>
   );
 }

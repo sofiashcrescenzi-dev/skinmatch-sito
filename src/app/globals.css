@@ -899,3 +899,31 @@ details.carta > summary::-webkit-details-marker { display: none; }
 .recensione-medico .recensione-testa { display: flex; align-items: center; gap: 14px; }
 .recensione-medico .testo { margin: 0; font-size: 16px; }
 .recensione-medico .ritratto { max-width: none; aspect-ratio: 1 / 1; object-position: 50% 22%; box-shadow: 0 0 0 2px var(--latte), 0 0 0 3px var(--bene); }
+
+
+/* ── LUCCICHIO (20/11/2026) ──────────────────────────────────────────────────────────────────────────────────────
+   ⚠️ PERCHÉ. Federico: «facciamo un po' di polish e luccichio […] skin match lo vedo un po' "statico". Ovviamente
+   sempre occhio alle performance». Tre livelli, tutti nel linguaggio del marchio (mezzelune, i sei fototipi):
+   - le sezioni AFFIORANO mentre si scorre: titoli e carte salgono di 18 px e si accendono. Solo CSS, legato allo
+     scorrimento (animation-timeline: view()): niente JavaScript, niente osservatori; dove il browser non lo sa fare
+     tutto è già fermo e visibile (@supports);
+   - le due metà del viso RESPIRANO piano (9 s, un 3% di scala): lo strato di fondo che rende viva la home;
+   - le carte rispondono al tocco: la foto si avvicina appena, la barra dei fototipi sotto «Come funziona» si stende.
+   Solo transform e opacity (il compositore, niente ricalcolo dell'impaginazione); con «riduci movimento» niente. */
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    .sito-pagine .titolo-2,
+    .sito-pagine .test-carta,
+    .sito-pagine .carta-foto,
+    .sito-pagine .griglia > li,
+    .sito-pagine .griglia > .carta { animation: affiora linear both; animation-timeline: view(); animation-range: entry 0% entry 60%; }
+  }
+  .mezze > span img { animation: respiro 9s ease-in-out 1.2s infinite alternate; transform-origin: 50% 40%; }
+  .mezze > span:nth-child(2) img { animation-delay: 2.4s; }
+  @media (hover: hover) {
+    .test-foto img, .carta-foto .foto img { transition: transform .5s var(--curva); }
+    .test-carta:hover .test-foto img, .carta-foto:hover .foto img { transform: scale(1.04); }
+  }
+}
+@keyframes affiora { from { opacity: 0; transform: translateY(18px); } }
+@keyframes respiro { from { transform: scale(1); } to { transform: scale(1.03); } }

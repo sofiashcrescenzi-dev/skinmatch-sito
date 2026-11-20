@@ -9,7 +9,9 @@ export default function SitoLayout({ children }: { children: React.ReactNode }) 
   return (
     <>
       <Header rivista={rivista} />
-      {children}
+      {/* .sito-pagine (20/11/2026): il movimento delle pagine pubbliche (globals.css, «Luccichio») non tocca l'admin, che
+          usa le stesse classi. display: contents: per l'impaginazione non c'è nessuna scatola in più. */}
+      <div className="sito-pagine" style={{ display: 'contents' }}>{children}</div>
       <Piede rivista={rivista} />
       <Guasti />
       <Arrivi />
