@@ -83,7 +83,10 @@ function Profili({ d, metti }: { d: Doc; metti: (r: Rete, k: string, v: string) 
         <Campo etichetta="Categoria del profilo"><Testo valore={p.categoria} cambia={(v) => metti(rete, 'categoria', v)} /></Campo>
       </div>
       <div className="riga-chip"><span className="piccolo">Il link da mettere nella bio: <b>{bio}</b></span><Copia testo={bio} etichetta="Copia il link" /></div>
+      {/* ⚠️ LA VOCE SINTETICA SI DICHIARA SU OGNI RETE (20/11/2026, revisione privacy punto 10): non solo su TikTok. */}
       {rete === 'tiktok' && <p className="piccolo">Su TikTok, per ogni video con la voce sintetica: «Contenuto generato dall’IA» attivo.</p>}
+      {rete === 'instagram' && <p className="piccolo">Su Instagram, per ogni video con la voce sintetica: Impostazioni avanzate › «Etichetta IA» attiva.</p>}
+      {rete === 'youtube' && <p className="piccolo">Su YouTube, per ogni video con la voce sintetica: «Contenuti alterati o sintetici» › Sì.</p>}
     </section>
   );
 }
