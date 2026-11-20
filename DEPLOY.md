@@ -1,78 +1,53 @@
 # Deploy e infrastruttura — skinmatch.it
 
-Documento operativo: com'è ospitato il sito, come si aggiorna, com'è messo il DNS,
-e i passaggi per portare `skinmatch.it` online (stesso schema già usato per
-sofiacrescenzi.it).
+Documento operativo: com'è ospitato il sito, come si aggiorna e dove sta ogni cosa. Serve a chiunque debba riprendere
+il sito senza di noi. Chi entra dove e di chi è ogni account sta nel documento delle utenze condiviso fra Sofia e Federico, fuori dal
+repository; le password mai nel repository.
 
-Ultimo aggiornamento: 2026-10-15
+Ultimo aggiornamento: 2026-11-20 (riscritto: la versione di settembre diceva il dominio ancora da collegare).
 
 ---
 
 ## 1. In breve
 
-- Il sito è un'app **Next.js** esportata come **sito statico** (`next build` con
-  `output: 'export'` → cartella `out/`).
-- È ospitato su **Cloudflare** come **Worker "solo asset"** (nome Worker:
-  `skinmatch-sito`), configurato da `wrangler.jsonc`.
-- URL tecnico sempre attivo: `skinmatch-sito.sofiashcrescenzi.workers.dev`
-- Deploy: manuale via `npx wrangler deploy` dopo `npm run build` (nessun
-  auto-deploy da GitHub configurato per questo repo, a differenza di
-  sofiacrescenzi-sito).
-- Dominio `skinmatch.it`: registrato su **Aruba** (2026-09), **solo dominio,
-  nessuna casella email attiva**. Al 2026-09-21 è ancora sui nameserver Aruba
-  e mostra la pagina di parcheggio — non ancora collegato al sito.
+- Il sito è un'app **Next.js** esportata come **sito statico** (`next build` con `output: 'export'` → `out/`).
+- È ospitato su **Cloudflare** come Worker `skinmatch-sito` (asset statici + un Worker piccolo su `/api/*` e
+  `/admin*`), configurato da `wrangler.jsonc`, sull'account Cloudflare di Sofia.
+- Dominio **skinmatch.it**: registrato su **Aruba**, nameserver di **Cloudflare** (hunts/eloise.ns.cloudflare.com),
+  collegato al Worker. Indirizzo tecnico sempre attivo: `skinmatch-sito.sofiashcrescenzi.workers.dev`.
+- Database **D1 `skinmatch-dati`** (admin, conteggi, social, pubblicazioni), sempre sull'account di Sofia.
+- Codice su GitHub: `sofiashcrescenzi-dev/skinmatch-sito` (privato).
 
----
+## 2. Come si aggiorna il sito
 
-## 2. Come aggiornare il sito
+- **Ogni push su `main` va online da solo** in 2-5 minuti (build e deploy di Cloudflare collegati al repository).
+- **Le modifiche fatte nell'admin** vanno online col bottone «Pubblica»: mette una riga `in_coda` nella tabella D1
+  `pubblicazioni`; il Mac di Federico la prende entro 15 minuti (`scripts/admin/pubblica.py`, launchd
+  `com.agoranomos.squadra.skinmatch-pubblica`), scrive `src/data/*.json`, fa build, guardiani, commit, push e deploy.
+- Dopo un push di codice che tocca i dati dell'admin, si mette in coda anche una pubblicazione.
+- Mai cambiare a mano `src/data/*.json`: la pubblicazione li riscrive dall'admin.
 
-1. Modifica i file nel repo.
-2. `npm run build` (genera `out/`)
-3. `npx wrangler deploy`
-4. `git add -A && git commit -m "..." && git push`
+## 2b. Il catalogo
 
----
+Dal 15/10/2026 il catalogo nasce dai feed dei negozi (Liki24 per primo, poi Farmaself, Beautycos e gli altri di
+`src/data/negozi.json`) con la pipeline `scripts/catalogo/` (fonti → inci → traduci → schede → al_sito), ogni mattina
+sul Mac. I feed sono in `~/.skinmatch-segreti.env` (`FEED_<NEGOZIO>`). Gli script CJ di `scripts/feeds/` (Notino,
+Marionnaud, QVC) sono del prototipo e non si usano più.
 
-## 2b. Catalogo dai feed di affiliazione (CJ)
+## 3. Dominio e DNS — stato
 
-Strumenti solo locali; credenziali in `~/.secrets/cj-affiliate.env` (token, CID,
-PID), mai nel repo né su Cloudflare.
+- [x] Dominio registrato su Aruba
+- [x] Zona su Cloudflare, nameserver cambiati su Aruba
+- [x] `skinmatch.it` collegato al Worker, certificato attivo
+- [x] Search Console verificata (account Google di Skinmatch), sitemap inviata
+- [ ] Privacy WHOIS su Aruba: la richiesta di nascondere i dati del titolare non risulta confermata, da controllare
+- [ ] Posta sul dominio: Google Workspace su skinmatch.it, quando si attiva
 
-1. `node scripts/feeds/cj-candidates.mjs` → scarica i prodotti delle marche scelte
-   da Notino.it / Marionnaud IT / QVC IT in `feeds-out/` (ignorata da git).
-2. Selezione e tag a mano → `src/lib/products-feed.ts`.
-3. `npx tsx scripts/quiz/coverage.ts` → verifica che ogni prodotto sia
-   raggiungibile dal test (`--alt` per vedere anche quelli solo come alternativa).
-4. Quando un merchant approva l'account: `node scripts/feeds/cj-sync-links.mjs`
-   sostituisce i link `linkPending` con quelli tracciati; poi build e deploy.
+## 4. Accessi
 
-## 3. Migrazione dominio — stato dei passaggi
-
-### Fatto
-- [x] Dominio `skinmatch.it` registrato su Aruba
-- [x] Repo GitHub (`sofiashcrescenzi-dev/skinmatch-sito`), Worker Cloudflare
-      `skinmatch-sito` creato e pubblicato su `workers.dev`
-
-### Da fare (in corso)
-- [ ] Aggiungere `skinmatch.it` come sito su Cloudflare (piano Free)
-- [ ] Cambiare i nameserver su Aruba con quelli assegnati da Cloudflare
-- [ ] Attendere l'attivazione della zona (di solito minuti, a volte alcune ore)
-- [ ] Collegare `skinmatch.it` (apex) al Worker `skinmatch-sito` come Custom Domain
-- [ ] `www.skinmatch.it`: CNAME verso l'apex + redirect 301 (stesso schema di
-      sofiacrescenzi.it)
-- [ ] SSL/TLS: modalità Full (strict)
-- [ ] Verificare/risolvere la privacy WHOIS (dati del titolare visibili
-      pubblicamente — richiesta ad Aruba inoltrata ma non confermata risolta)
-- [ ] Google Search Console: verifica proprietà + invio sitemap (dopo che il
-      sito è raggiungibile sul dominio definitivo)
-
----
-
-## 4. Sicurezza / accessi
-
-- **GitHub**: repo `sofiashcrescenzi-dev/skinmatch-sito`.
-- **Cloudflare**: account condiviso con sofiacrescenzi-sito (Workers & Pages).
-- **Aruba**: pannello `admin.aruba.it` — gestisce dominio e nameserver.
+Il documento delle utenze dice, per ogni servizio, a cosa serve, con quale account si entra, di chi è e dove sta
+l'accesso. In sintesi: GitHub, Cloudflare e Aruba sono di Sofia; le chiavi dei programmi stanno sul Mac di Federico in
+`~/.skinmatch-segreti.env` (e nei file `~/.skinmatch-*.json`), mai nel repository.
 
 ---
 
