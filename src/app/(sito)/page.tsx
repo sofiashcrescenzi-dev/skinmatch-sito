@@ -6,6 +6,7 @@ import Foto from '@/components/Foto';
 import { Invito, Stendi } from '@/components/Inviti';
 import { ConTermini } from '@/components/Termini';
 import RicercaCentrale from '@/components/RicercaCentrale';
+import Icona, { type NomeIcona } from '@/components/Icona';
 import { BISOGNI } from '@/lib/integratori';
 import { domandeDi } from '@/lib/motore';
 import { CHI_SIAMO } from '@/lib/dati';
@@ -25,11 +26,14 @@ const PASSI = [
   ['Leggi la tua pelle', 'Ti diamo un profilo con un nome semplice e ti mostriamo le risposte che lo hanno deciso.'],
   ['Ricevi la routine', 'Mattina e sera, un passaggio alla volta: a cosa serve, il prodotto scelto per te e un’alternativa.'],
 ];
-const NEL_RISULTATO: [string, string][] = [
-  ['Il tuo profilo, spiegato', 'Un nome semplice e le risposte che lo hanno deciso.'],
-  ['La routine in ordine', 'Ogni passaggio all’ora in cui si usa, con il motivo per cui c’è.'],
-  ['Una scelta e un’alternativa', 'Per ogni passaggio, il prodotto che risponde meglio a quello che hai indicato e un altro che fa lo stesso lavoro, di solito a un prezzo più basso.'],
-  ['Le cautele', 'Cosa introdurre piano e quando chiedere al medico, prima dei prodotti.'],
+// ⚠️ LE ICONE (20/11/2026, Federico: «aggiungerei qui delle icone»): dalla famiglia di Skinmatch (components/Icona),
+// in un tondo coi toni dei fototipi, uno per carta. Specchio = il profilo (si risponde su quello che si vede allo
+// specchio), orologio = la routine all'ora giusta, confronta = scelta e alternativa, scudo = le cautele.
+const NEL_RISULTATO: [NomeIcona, string, string][] = [
+  ['specchio', 'Il tuo profilo, spiegato', 'Un nome semplice e le risposte che lo hanno deciso.'],
+  ['orologio', 'La routine in ordine', 'Ogni passaggio all’ora in cui si usa, con il motivo per cui c’è.'],
+  ['confronta', 'Una scelta e un’alternativa', 'Per ogni passaggio, il prodotto che risponde meglio a quello che hai indicato e un altro che fa lo stesso lavoro, di solito a un prezzo più basso.'],
+  ['barriera', 'Le cautele', 'Cosa introdurre piano e quando chiedere al medico, prima dei prodotti.'],
 ];
 
 // ⚠️ I TEST SUBITO SOTTO L'APERTURA (Federico, 30/10/2026: «sotto la hero metti i test, strutturati in maniera
@@ -155,7 +159,7 @@ export default function Home() {
         </ol>
         <h3 className="titolo-3">Cosa trovi nel risultato</h3>
         <ul className="griglia" style={{ ['--min' as string]: '240px', listStyle: 'none', padding: 0, margin: 0 }}>
-          {NEL_RISULTATO.map(([t, d]) => <li key={t} className="carta pila" style={{ ['--gap' as string]: '6px' }}><b>{t}</b><span className="piccolo" style={{ fontSize: 15 }}>{d}</span></li>)}
+          {NEL_RISULTATO.map(([icona, t, d], i) => <li key={t} className="carta pila" style={{ ['--gap' as string]: '6px' }}><span className="tondo-icona" style={{ ['--tono' as string]: `var(--f${i + 1})` }}><Icona nome={icona} size={22} /></span><b>{t}</b><span className="piccolo" style={{ fontSize: 15 }}>{d}</span></li>)}
         </ul>
         <p className="avviso" style={{ maxWidth: '72ch' }}>Il test non è una diagnosi. Se una risposta fa pensare a qualcosa da far vedere a un medico, il risultato lo dice per primo.</p>
       </section>

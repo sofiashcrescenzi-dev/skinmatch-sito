@@ -927,3 +927,6 @@ details.carta > summary::-webkit-details-marker { display: none; }
 }
 @keyframes affiora { from { opacity: 0; transform: translateY(18px); } }
 @keyframes respiro { from { transform: scale(1); } to { transform: scale(1.03); } }
+
+/* Il tondo delle icone nelle carte (20/11/2026, «Cosa trovi nel risultato»): tono del fototipo, segno color cacao. */
+.tondo-icona { display: inline-grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; background: var(--tono, var(--f2)); color: var(--cacao); margin-bottom: 6px; }
