@@ -1,0 +1,2251 @@
+[
+ {
+  "id": "caso-secca-1",
+  "titolo": "Pelle secca",
+  "chi": "donna · 25-34 anni · 3 passaggi · mai usato attivi · obiettivo: idratazione",
+  "prima": {
+   "biotipo": "Pelle secca e disidratata",
+   "tratti": [],
+   "passi": [
+    {
+     "passo": "Detersione",
+     "top": {
+      "marca": "Darphin",
+      "nome": "Intral Detergente",
+      "prezzo": 30.2,
+      "negozio": "Liki24",
+      "compat": 99,
+      "lavoro": "idratazione"
+     },
+     "alt": {
+      "marca": "Cetaphil",
+      "nome": "Lozione detergente",
+      "prezzo": 17.8,
+      "negozio": "Liki24",
+      "compat": 99,
+      "lavoro": "pori"
+     }
+    },
+    {
+     "passo": "Crema",
+     "top": {
+      "marca": "Cantabria Labs",
+      "nome": "Biretix Isorepair",
+      "prezzo": 21.2,
+      "negozio": "Liki24",
+      "compat": 100,
+      "lavoro": "idratazione"
+     },
+     "alt": {
+      "marca": "Skincyclopedia",
+      "nome": "Crema viso con acido ialuronico e ceramidi HC",
+      "prezzo": 7.5,
+      "negozio": "Liki24",
+      "compat": 100,
+      "lavoro": "barriera"
+     }
+    },
+    {
+     "passo": "Protezione solare",
+     "top": {
+      "marca": "La Roche-Posay",
+      "nome": "Hyalu B5 Solare",
+      "prezzo": 42.9,
+      "negozio": "Liki24",
+      "compat": 94,
+      "lavoro": "idratazione"
+     },
+     "alt": {
+      "marca": "Skincyclopedia",
+      "nome": "Crema viso SPF 50, Complesso idratante",
+      "prezzo": 9.4,
+      "negozio": "Liki24",
+      "compat": 100,
+      "lavoro": "idratazione"
+     }
+    }
+   ],
+   "vuoti": []
+  },
+  "dopo": {
+   "biotipo": "Pelle secca e disidratata",
+   "tratti": [],
+   "passi": [
+    {
+     "passo": "Detersione",
+     "top": {
+      "marca": "Darphin",
+      "nome": "Intral Detergente",
+      "prezzo": 30.2,
+      "negozio": "Liki24",
+      "compat": 100,
+      "lavoro": "idratazione"
+     },
+     "alt": {
+      "marca": "Round Lab",
+      "nome": "Birch Juice Detergente",
+      "prezzo": 14,
+      "negozio": "50 ml",
+      "compat": 92,
+      "lavoro": "idratazione"
+     }
+    },
+    {
+     "passo": "Crema",
+     "top": {
+      "marca": "Medik8",
+      "nome": "Idratazione",
+      "prezzo": 65.6,
+      "negozio": "Liki24",
+      "compat": 100,
+      "lavoro": "idratazione"
+     },
+     "alt": {
+      "marca": "NeoStrata",
+      "nome": "Restore Ultra",
+      "prezzo": 37.5,
+      "negozio": "Beautycos",
+      "compat": 83,
+      "lavoro": "calmare, idratazione"
+     }
+    },
+    {
+     "passo": "Protezione solare",
+     "top": {
+      "marca": "La Roche-Posay",
+      "nome": "Hyalu B5 Solare",
+      "prezzo": 42.9,
+      "negozio": "Liki24",
+      "compat": 99,
+      "lavoro": "idratazione"
+     },
+     "alt": {
+      "marca": "Abib",
+      "nome": "Sedum Hyaluron Sunscreen Watery Tube",
+      "prezzo": 17.5,
+      "negozio": "Stylevana",
+      "compat": 100,
+      "lavoro": "idratazione"
+     }
+    }
+   ],
+   "vuoti": []
+  }
+ },
+ {
+  "id": "caso-grassa-1",
+  "titolo": "Pelle grassa",
+  "chi": "donna · 25-34 anni · 3 passaggi · mai usato attivi · obiettivo: pori",
+  "prima": {
+   "biotipo": "Pelle grassa (seborroica)",
+   "tratti": [],
+   "passi": [
+    {
+     "passo": "Detersione",
+     "top": {
+      "marca": "Filorga",
+      "nome": "Skin Prep",
+      "prezzo": 24.5,
+      "negozio": "Liki24",
+      "compat": 94,
+      "lavoro": "idratazione, imperfezioni, macchie, pori, tempo"
+     },
+     "alt": {
+      "marca": "ISDIN",
+      "nome": "Acniben 1",
+      "prezzo": 12.8,
+      "negozio": "Liki24",
+      "compat": 94,
+      "lavoro": "imperfezioni"
+     }
+    },
+    {
+     "passo": "Crema",
+     "top": {
+      "marca": "Murad",
+      "nome": "Clarifying Water Gel",
+      "prezzo": 46.75,
+      "negozio": "Beautycos",
+      "compat": 100,
+      "lavoro": "imperfezioni, pori"
+     },
+     "alt": {
+      "marca": "Cantabria Labs",
+      "nome": "Biretix Tri-Active",
+      "prezzo": 16.8,
+      "negozio": "Liki24",
+      "compat": 100,
+      "lavoro": "imperfezioni"
+     }
+    },
+    {
+     "passo": "Protezione solare",
+     "top": {
+      "marca": "Vichy",
+      "nome": "Liftactiv Collagen Specialist 16 Solare",
+      "prezzo": 43.1,
+      "negozio": "Liki24",
+      "compat": 100,
+      "lavoro": "tempo"
+     },
+     "alt": {
+      "marca": "SVR",
+      "nome": "Sebiaclear Solare",
+      "prezzo": 14,
+      "negozio": "Liki24",
+      "compat": 100,
+      "lavoro": "imperfezioni"
+     }
+    }
+   ],
+   "vuoti": []
+  },
+  "dopo": {
+   "biotipo": "Pelle grassa (seborroica)",
+   "tratti": [],
+   "passi": [
+    {
+     "passo": "Detersione",
+     "top": {
+      "marca": "Murad",
+      "nome": "AHA/BHA Exfoliating",
+      "prezzo": 19.95,
+      "negozio": "Beautycos",
+      "compat": 95,
+      "lavoro": "imperfezioni, pori"
+     },
+     "alt": {
+      "marca": "CeraVe",
+      "nome": "L’Oréal",
+      "prezzo": 12.9,
+      "negozio": "Liki24",
+      "compat": 100,
+      "lavoro": "imperfezioni"
+     }
+    },
+    {
+     "passo": "Crema",
+     "top": {
+      "marca": "Murad",
+      "nome": "Clarifying Water Gel",
+      "prezzo": 46.75,
+      "negozio": "Beautycos",
+      "compat": 100,
+      "lavoro": "imperfezioni, pori"
+     },
+     "alt": {
+      "marca": "Cantabria Labs",
+      "nome": "Biretix Tri-Active",
+      "prezzo": 16.8,
+      "negozio": "Liki24",
+      "compat": 100,
+      "lavoro": "imperfezioni"
+     }
+    },
+    {
+     "passo": "Protezione solare",
+     "top": {
+      "marca": "Heliocare",
+      "nome": "Acnimat",
+      "prezzo": 20.5,
+      "negozio": "Liki24",
+      "compat": 100,
+      "lavoro": "pori"
+     },
+     "alt": {
+      "marca": "SVR",
+      "nome": "Sebiaclear Solare",
+      "prezzo": 14,
+      "negozio": "Liki24",
+      "compat": 100,
+      "lavoro": "imperfezioni"
+     }
+    }
+   ],
+   "vuoti": []
+  }
+ },
+ {
+  "id": "caso-grassa-4",
+  "titolo": "Pelle grassa, uomo con la barba",
+  "chi": "uomo · 45-54 anni · 4 passaggi · usa già gli attivi · fino a 50 € · obiettivo: pori · si rade e la pelle si irrita",
+  "prima": {
+   "biotipo": "Pelle grassa (seborroica)",
+   "tratti": [
+    "Rughe e pelle matura"
+   ],
+   "passi": [
+    {
+     "passo": "Detersione",
+     "top": {
+      "marca": "Filorga",
+      "nome": "Skin Prep",
+      "prezzo": 24.5,
+      "negozio": "Liki24",
+      "compat": 100,
+      "lavoro": "idratazione, imperfezioni, macchie, pori, tempo"
+     },
+     "alt": {
+      "marca": "Pyunkang Yul",
+      "nome": "Calming Low",
+      "prezzo": 7.12,
+      "negozio": "Stylevana",
+      "compat": 94,
+      "lavoro": "imperfezioni, pori"
+     }
+    },
+    {
+     "passo": "Siero",
+     "top": {
+      "marca": "Sesderma",
+      "nome": "Reti Age 5",
+      "prezzo": 59.1,
+      "negozio": "Liki24",
+      "compat": 100,
+      "lavoro": "tempo"
+     },
+     "alt": {
+      "marca": "Skincyclopedia",
+      "nome": "Matrixyl 3000 Siero",
+      "prezzo": 8.5,
+      "negozio": "Liki24",
+      "compat": 96,
+      "lavoro": "tempo"
+     }
+    },
+    {
+     "passo": "Crema",
+     "top": {
+      "marca": "Filorga",
+      "nome": "Global-Repair",
+      "prezzo": 74.9,
+      "negozio": "Liki24",
+      "compat": 100,
+      "lavoro": "tempo"
+     },
+     "alt": {
+      "marca": "Rilastil",
+      "nome": "Acnestil Crema",
+      "prezzo": 10.7,
+      "negozio": "Liki24",
+      "compat": 100,
+      "lavoro": "imperfezioni"
+     }
+    },
+    {
+     "passo": "Protezione solare",
+     "top": {
+      "marca": "Vichy",
+      "nome": "Liftactiv Collagen Specialist 16 Solare",
+      "prezzo": 43.1,
+      "negozio": "Liki24",
+      "compat": 100,
+      "lavoro": "tempo"
+     },
+     "alt": {
+      "marca": "SVR",
+      "nome": "Sebiaclear Solare",
+      "prezzo": 14,
+      "negozio": "Liki24",
+      "compat": 100,
+      "lavoro": "imperfezioni"
+     }
+    },
+    {
+     "passo": "Barba",
+     "top": {
+      "marca": "Clinique",
+      "nome": "For Men DA",
+      "prezzo": 24.9,
+      "negozio": "Liki24",
+      "compat": 74,
+      "lavoro": "barba"
+     },
+     "alt": {
+      "marca": "Rilastil",
+      "nome": "Man",
+      "prezzo": 11.17,
+      "negozio": "Farmaself",
+      "compat": 74,
+      "lavoro": "barba"
+     }
+    }
+   ],
+   "vuoti": []
+  },
+  "dopo": {
+   "biotipo": "Pelle grassa (seborroica)",
+   "tratti": [
+    "Rughe e pelle matura"
+   ],
+   "passi": [
+    {
+     "passo": "Detersione",
+     "top": {
+      "marca": "Murad",
+      "nome": "AHA/BHA Exfoliating",
+      "prezzo": 19.95,
+      "negozio": "Beautycos",
+      "compat": 99,
+      "lavoro": "imperfezioni, pori"
+     },
+     "alt": {
+      "marca": "Dear, Klairs",
+      "nome": "Gentle Black",
+      "prezzo": 6.8,
+      "negozio": "Stylevana",
+      "compat": 77,
+      "lavoro": "idratazione, imperfezioni"
+     }
+    },
+    {
+     "passo": "Siero",
+     "top": {
+      "marca": "ISDIN",
+      "nome": "Clear Tone-Unifying Corrector",
+      "prezzo": 78.6,
+      "negozio": "Liki24",
+      "compat": 96,
+      "lavoro": "imperfezioni, pori"
+     },
+     "alt": {
+      "marca": "Skincyclopedia",
+      "nome": "Matrixyl 3000 Siero",
+      "prezzo": 8.5,
+      "negozio": "Liki24",
+      "compat": 73,
+      "lavoro": "tempo"
+     }
+    },
+    {
+     "passo": "Crema",
+     "top": {
+      "marca": "Cantabria Labs",
+      "nome": "Biretix Tri-Active",
+      "prezzo": 16.8,
+      "negozio": "Liki24",
+      "compat": 100,
+      "lavoro": "imperfezioni"
+     },
+     "alt": {
+      "marca": "Rilastil",
+      "nome": "Acnestil Crema",
+      "prezzo": 10.7,
+      "negozio": "Liki24",
+      "compat": 100,
+      "lavoro": "imperfezioni"
+     }
+    },
+    {
+     "passo": "Protezione solare",
+     "top": {
+      "marca": "Heliocare",
+      "nome": "Acnimat",
+      "prezzo": 20.5,
+      "negozio": "Liki24",
+      "compat": 100,
+      "lavoro": "pori"
+     },
+     "alt": {
+      "marca": "I'm From",
+      "nome": "Apricot Clear Solare",
+      "prezzo": 10.99,
+      "negozio": "Stylevana",
+      "compat": 83,
+      "lavoro": "idratazione, imperfezioni"
+     }
+    },
+    {
+     "passo": "Barba",
+     "top": {
+      "marca": "Clinique",
+      "nome": "For Men DA",
+      "prezzo": 24.9,
+      "negozio": "Liki24",
+      "compat": 74,
+      "lavoro": "barba"
+     },
+     "alt": {
+      "marca": "Rilastil",
+      "nome": "Man",
+      "prezzo": 11.17,
+      "negozio": "Farmaself",
+      "compat": 74,
+      "lavoro": "barba"
+     }
+    }
+   ],
+   "vuoti": []
+  }
+ },
+ {
+  "id": "caso-mista-1",
+  "titolo": "Pelle mista",
+  "chi": "donna · 25-34 anni · 3 passaggi · mai usato attivi · obiettivo: pori",
+  "prima": {
+   "biotipo": "Pelle mista",
+   "tratti": [
+    "Brufoli e punti neri"
+   ],
+   "passi": [
+    {
+     "passo": "Detersione",
+     "top": {
+      "marca": "Filorga",
+      "nome": "Skin Prep",
+      "prezzo": 24.5,
+      "negozio": "Liki24",
+      "compat": 100,
+      "lavoro": "idratazione, imperfezioni, macchie, pori, tempo"
+     },
+     "alt": {
+      "marca": "ISDIN",
+      "nome": "Acniben 1",
+      "prezzo": 12.8,
+      "negozio": "Liki24",
+      "compat": 100,
+      "lavoro": "imperfezioni"
+     }
+    },
+    {
+     "passo": "Crema",
+     "top": {
+      "marca": "Filorga",
+      "nome": "Global-Repair",
+      "prezzo": 74.9,
+      "negozio": "Liki24",
+      "compat": 100,
+      "lavoro": "tempo"
+     },
+     "alt": {
+      "marca": "Rilastil",
+      "nome": "Acnestil Crema",
+      "prezzo": 10.7,
+      "negozio": "Liki24",
+      "compat": 100,
+      "lavoro": "imperfezioni"
+     }
+    },
+    {
+     "passo": "Protezione solare",
+     "top": {
+      "marca": "Vichy",
+      "nome": "Liftactiv Collagen Specialist 16 Solare",
+      "prezzo": 43.1,
+      "negozio": "Liki24",
+      "compat": 100,
+      "lavoro": "tempo"
+     },
+     "alt": {
+      "marca": "SVR",
+      "nome": "Sebiaclear Solare",
+      "prezzo": 14,
+      "negozio": "Liki24",
+      "compat": 100,
+      "lavoro": "imperfezioni"
+     }
+    },
+    {
+     "passo": "Al bisogno: cerotti per i brufoli",
+     "top": {
+      "marca": "Acnemy",
+      "nome": "Zitless",
+      "prezzo": 17.2,
+      "negozio": "Liki24",
+      "compat": 100,
+      "lavoro": "cerotti"
+     },
+     "alt": {
+      "marca": "CeraVe",
+      "nome": "Cerotti controllo imperfezioni 22 pezzi",
+      "prezzo": 13.2,
+      "negozio": "Liki24",
+      "compat": 88,
+      "lavoro": "cerotti"
+     }
+    }
+   ],
+   "vuoti": []
+  },
+  "dopo": {
+   "biotipo": "Pelle mista",
+   "tratti": [
+    "Brufoli e punti neri"
+   ],
+   "passi": [
+    {
+     "passo": "Detersione",
+     "top": {
+      "marca": "ISDIN",
+      "nome": "Acniben 1",
+      "prezzo": 12.8,
+      "negozio": "Liki24",
+      "compat": 100,
+      "lavoro": "imperfezioni"
+     },
+     "alt": {
+      "marca": "Skincyclopedia",
+      "nome": "AHA&PHA",
+      "prezzo": 7.2,
+      "negozio": "Liki24",
+      "compat": 87,
+      "lavoro": "imperfezioni"
+     }
+    },
+    {
+     "passo": "Crema",
+     "top": {
+      "marca": "Murad",
+      "nome": "Clarifying Water Gel",
+      "prezzo": 46.75,
+      "negozio": "Beautycos",
+      "compat": 100,
+      "lavoro": "imperfezioni, pori"
+     },
+     "alt": {
+      "marca": "Cantabria Labs",
+      "nome": "Biretix Tri-Active",
+      "prezzo": 16.8,
+      "negozio": "Liki24",
+      "compat": 100,
+      "lavoro": "imperfezioni"
+     }
+    },
+    {
+     "passo": "Protezione solare",
+     "top": {
+      "marca": "ISDIN",
+      "nome": "Fotoultra Active Unify",
+      "prezzo": 35.2,
+      "negozio": "Liki24",
+      "compat": 100,
+      "lavoro": "pori"
+     },
+     "alt": {
+      "marca": "Skincyclopedia",
+      "nome": "Crema solare minerale per il viso SPF 50",
+      "prezzo": 11.3,
+      "negozio": "Liki24",
+      "compat": 100,
+      "lavoro": "pori"
+     }
+    },
+    {
+     "passo": "Al bisogno: cerotti per i brufoli",
+     "top": {
+      "marca": "Acnemy",
+      "nome": "Zitless",
+      "prezzo": 17.2,
+      "negozio": "Liki24",
+      "compat": 82,
+      "lavoro": "cerotti"
+     },
+     "alt": {
+      "marca": "CeraVe",
+      "nome": "Cerotti controllo imperfezioni 22 pezzi",
+      "prezzo": 13.2,
+      "negozio": "Liki24",
+      "compat": 71,
+      "lavoro": "cerotti"
+     }
+    }
+   ],
+   "vuoti": []
+  }
+ },
+ {
+  "id": "caso-normale-2",
+  "titolo": "Pelle normale",
+  "chi": "donna · 35-44 anni · 5 passaggi · attivi a volte · fino a 100 € · obiettivo: idratazione",
+  "prima": {
+   "biotipo": "Pelle normale",
+   "tratti": [],
+   "passi": [
+    {
+     "passo": "Detersione",
+     "top": {
+      "marca": "Darphin",
+      "nome": "Intral Detergente",
+      "prezzo": 30.2,
+      "negozio": "Liki24",
+      "compat": 95,
+      "lavoro": "idratazione"
+     },
+     "alt": {
+      "marca": "A-Derma",
+      "nome": "Biology Detergente",
+      "prezzo": 8.7,
+      "negozio": "Liki24",
+      "compat": 87,
+      "lavoro": "idratazione"
+     }
+    },
+    {
+     "passo": "Siero",
+     "top": {
+      "marca": "Murad",
+      "nome": "Cellular Hydration Siero",
+      "prezzo": 66.95,
+      "negozio": "Beautycos",
+      "compat": 85,
+      "lavoro": "idratazione"
+     },
+     "alt": {
+      "marca": "CeraVe",
+      "nome": "Siero idratante con acido ialuronico per pelli normali-secche",
+      "prezzo": 15,
+      "negozio": "Liki24",
+      "compat": 85,
+      "lavoro": "idratazione"
+     }
+    },
+    {
+     "passo": "Crema",
+     "top": {
+      "marca": "ISDIN",
+      "nome": "Crema idratante con acido ialuronico per pelli sensibili ceutics",
+      "prezzo": 42.2,
+      "negozio": "Liki24",
+      "compat": 95,
+      "lavoro": "calmare, idratazione"
+     },
+     "alt": {
+      "marca": "Goodal",
+      "nome": "Heartleaf PDRN Hyaluron",
+      "prezzo": 18.5,
+      "negozio": "Stylevana",
+      "compat": 90,
+      "lavoro": "idratazione"
+     }
+    },
+    {
+     "passo": "Protezione solare",
+     "top": {
+      "marca": "La Roche-Posay",
+      "nome": "Hyalu B5 Solare",
+      "prezzo": 42.9,
+      "negozio": "Liki24",
+      "compat": 90,
+      "lavoro": "idratazione"
+     },
+     "alt": {
+      "marca": "Skincyclopedia",
+      "nome": "Crema viso SPF 50, Complesso idratante",
+      "prezzo": 9.4,
+      "negozio": "Liki24",
+      "compat": 90,
+      "lavoro": "idratazione"
+     }
+    }
+   ],
+   "vuoti": []
+  },
+  "dopo": {
+   "biotipo": "Pelle normale",
+   "tratti": [],
+   "passi": [
+    {
+     "passo": "Detersione",
+     "top": {
+      "marca": "Darphin",
+      "nome": "Intral Detergente",
+      "prezzo": 30.2,
+      "negozio": "Liki24",
+      "compat": 92,
+      "lavoro": "idratazione"
+     },
+     "alt": {
+      "marca": "A-Derma",
+      "nome": "Biology Detergente",
+      "prezzo": 8.7,
+      "negozio": "Liki24",
+      "compat": 90,
+      "lavoro": "idratazione"
+     }
+    },
+    {
+     "passo": "Siero",
+     "top": {
+      "marca": "Murad",
+      "nome": "Cellular Hydration Siero",
+      "prezzo": 66.95,
+      "negozio": "Beautycos",
+      "compat": 82,
+      "lavoro": "idratazione"
+     },
+     "alt": {
+      "marca": "CeraVe",
+      "nome": "Siero idratante con acido ialuronico per pelli normali-secche",
+      "prezzo": 15,
+      "negozio": "Liki24",
+      "compat": 88,
+      "lavoro": "idratazione"
+     }
+    },
+    {
+     "passo": "Crema",
+     "top": {
+      "marca": "Medik8",
+      "nome": "Idratazione",
+      "prezzo": 65.6,
+      "negozio": "Liki24",
+      "compat": 92,
+      "lavoro": "idratazione"
+     },
+     "alt": {
+      "marca": "NeoStrata",
+      "nome": "Restore Ultra",
+      "prezzo": 37.5,
+      "negozio": "Beautycos",
+      "compat": 75,
+      "lavoro": "calmare, idratazione"
+     }
+    },
+    {
+     "passo": "Protezione solare",
+     "top": {
+      "marca": "Eucerin",
+      "nome": "Epigenetic Hyaluron-Filler",
+      "prezzo": 50.3,
+      "negozio": "Liki24",
+      "compat": 90,
+      "lavoro": "idratazione"
+     },
+     "alt": {
+      "marca": "Eucerin",
+      "nome": "Filler",
+      "prezzo": 32.7,
+      "negozio": "Liki24",
+      "compat": 90,
+      "lavoro": "idratazione"
+     }
+    }
+   ],
+   "vuoti": []
+  }
+ },
+ {
+  "id": "caso-acneica-1",
+  "titolo": "Acne",
+  "chi": "donna · 25-34 anni · 3 passaggi · mai usato attivi · obiettivo: imperfezioni",
+  "prima": {
+   "biotipo": "Pelle a tendenza acneica",
+   "tratti": [
+    "Macchie sul viso e discromie"
+   ],
+   "passi": [
+    {
+     "passo": "Detersione",
+     "top": {
+      "marca": "Filorga",
+      "nome": "Skin Prep",
+      "prezzo": 24.5,
+      "negozio": "Liki24",
+      "compat": 100,
+      "lavoro": "idratazione, imperfezioni, macchie, pori, tempo"
+     },
+     "alt": {
+      "marca": "ISDIN",
+      "nome": "Acniben 1",
+      "prezzo": 12.8,
+      "negozio": "Liki24",
+      "compat": 100,
+      "lavoro": "imperfezioni"
+     }
+    },
+    {
+     "passo": "Crema",
+     "top": {
+      "marca": "Filorga",
+      "nome": "Global-Repair",
+      "prezzo": 74.9,
+      "negozio": "Liki24",
+      "compat": 100,
+      "lavoro": "tempo"
+     },
+     "alt": {
+      "marca": "Rilastil",
+      "nome": "Acnestil Crema",
+      "prezzo": 10.7,
+      "negozio": "Liki24",
+      "compat": 100,
+      "lavoro": "imperfezioni"
+     }
+    },
+    {
+     "passo": "Protezione solare",
+     "top": {
+      "marca": "Vichy",
+      "nome": "Liftactiv Collagen Specialist 16 Solare",
+      "prezzo": 43.1,
+      "negozio": "Liki24",
+      "compat": 100,
+      "lavoro": "tempo"
+     },
+     "alt": {
+      "marca": "SVR",
+      "nome": "Sebiaclear Solare",
+      "prezzo": 14,
+      "negozio": "Liki24",
+      "compat": 100,
+      "lavoro": "imperfezioni"
+     }
+    },
+    {
+     "passo": "Al bisogno: cerotti per i brufoli",
+     "top": {
+      "marca": "Acnemy",
+      "nome": "Zitless",
+      "prezzo": 17.2,
+      "negozio": "Liki24",
+      "compat": 100,
+      "lavoro": "cerotti"
+     },
+     "alt": {
+      "marca": "Beplain",
+      "nome": "Cicaterol Spot",
+      "prezzo": 3.43,
+      "negozio": "YesStyle",
+      "compat": 97,
+      "lavoro": "cerotti"
+     }
+    }
+   ],
+   "vuoti": []
+  },
+  "dopo": {
+   "biotipo": "Pelle a tendenza acneica",
+   "tratti": [
+    "Macchie sul viso e discromie"
+   ],
+   "passi": [
+    {
+     "passo": "Detersione",
+     "top": {
+      "marca": "ISDIN",
+      "nome": "Acniben 1",
+      "prezzo": 12.8,
+      "negozio": "Liki24",
+      "compat": 100,
+      "lavoro": "imperfezioni"
+     },
+     "alt": {
+      "marca": "Skincyclopedia",
+      "nome": "AHA&PHA",
+      "prezzo": 7.2,
+      "negozio": "Liki24",
+      "compat": 100,
+      "lavoro": "imperfezioni"
+     }
+    },
+    {
+     "passo": "Crema",
+     "top": {
+      "marca": "Lierac",
+      "nome": "Sebologie",
+      "prezzo": 65.9,
+      "negozio": "Liki24",
+      "compat": 100,
+      "lavoro": "imperfezioni"
+     },
+     "alt": {
+      "marca": "SVR",
+      "nome": "Sebiaclear Crema",
+      "prezzo": 12.4,
+      "negozio": "Liki24",
+      "compat": 100,
+      "lavoro": "imperfezioni, pori"
+     }
+    },
+    {
+     "passo": "Protezione solare",
+     "top": {
+      "marca": "Sesderma",
+      "nome": "Azelac RU",
+      "prezzo": 30.4,
+      "negozio": "Liki24",
+      "compat": 100,
+      "lavoro": "imperfezioni, macchie"
+     },
+     "alt": {
+      "marca": "Rilastil",
+      "nome": "Sebo-Normalizzante",
+      "prezzo": 21.9,
+      "negozio": "Liki24",
+      "compat": 100,
+      "lavoro": "imperfezioni"
+     }
+    },
+    {
+     "passo": "Al bisogno: cerotti per i brufoli",
+     "top": {
+      "marca": "Acnemy",
+      "nome": "Zitless",
+      "prezzo": 17.2,
+      "negozio": "Liki24",
+      "compat": 79,
+      "lavoro": "cerotti"
+     },
+     "alt": {
+      "marca": "Beplain",
+      "nome": "Cicaterol Spot",
+      "prezzo": 3.43,
+      "negozio": "YesStyle",
+      "compat": 75,
+      "lavoro": "cerotti"
+     }
+    }
+   ],
+   "vuoti": []
+  }
+ },
+ {
+  "id": "caso-grassa_disidratata-2",
+  "titolo": "Grassa ma disidratata",
+  "chi": "donna · 35-44 anni · 5 passaggi · attivi a volte · fino a 100 € · obiettivo: idratazione",
+  "prima": {
+   "biotipo": "Pelle grassa e disidratata",
+   "tratti": [
+    "Brufoli e punti neri"
+   ],
+   "passi": [
+    {
+     "passo": "Detersione",
+     "top": {
+      "marca": "Darphin",
+      "nome": "Intral Detergente",
+      "prezzo": 30.2,
+      "negozio": "Liki24",
+      "compat": 99,
+      "lavoro": "idratazione"
+     },
+     "alt": {
+      "marca": "A-Derma",
+      "nome": "Biology Detergente",
+      "prezzo": 8.7,
+      "negozio": "Liki24",
+      "compat": 87,
+      "lavoro": "idratazione"
+     }
+    },
+    {
+     "passo": "Siero",
+     "top": {
+      "marca": "Numbuzin",
+      "nome": "N.1 Pantothenic B5 Active",
+      "prezzo": 20.53,
+      "negozio": "YesStyle",
+      "compat": 100,
+      "lavoro": "calmare"
+     },
+     "alt": {
+      "marca": "Pyunkang Yul",
+      "nome": "Calming Moisture",
+      "prezzo": 8.45,
+      "negozio": "Stylevana",
+      "compat": 100,
+      "lavoro": "tempo"
+     }
+    },
+    {
+     "passo": "Crema",
+     "top": {
+      "marca": "ISDIN",
+      "nome": "Crema idratante con acido ialuronico per pelli sensibili ceutics",
+      "prezzo": 42.2,
+      "negozio": "Liki24",
+      "compat": 100,
+      "lavoro": "calmare, idratazione"
+     },
+     "alt": {
+      "marca": "Goodal",
+      "nome": "Heartleaf PDRN Hyaluron",
+      "prezzo": 18.5,
+      "negozio": "Stylevana",
+      "compat": 100,
+      "lavoro": "idratazione"
+     }
+    },
+    {
+     "passo": "Protezione solare",
+     "top": {
+      "marca": "La Roche-Posay",
+      "nome": "Hyalu B5 Solare",
+      "prezzo": 42.9,
+      "negozio": "Liki24",
+      "compat": 100,
+      "lavoro": "idratazione"
+     },
+     "alt": {
+      "marca": "Noreva",
+      "nome": "Sensidiane AR+ Solare",
+      "prezzo": 24.1,
+      "negozio": "Liki24",
+      "compat": 100,
+      "lavoro": "calmare"
+     }
+    },
+    {
+     "passo": "Al bisogno: cerotti per i brufoli",
+     "top": {
+      "marca": "Acnemy",
+      "nome": "Zitless",
+      "prezzo": 17.2,
+      "negozio": "Liki24",
+      "compat": 96,
+      "lavoro": "cerotti"
+     },
+     "alt": null
+    }
+   ],
+   "vuoti": []
+  },
+  "dopo": {
+   "biotipo": "Pelle grassa e disidratata",
+   "tratti": [
+    "Brufoli e punti neri"
+   ],
+   "passi": [
+    {
+     "passo": "Detersione",
+     "top": {
+      "marca": "Filorga",
+      "nome": "Skin Prep",
+      "prezzo": 24.5,
+      "negozio": "Liki24",
+      "compat": 100,
+      "lavoro": "idratazione, imperfezioni, macchie, pori, tempo"
+     },
+     "alt": {
+      "marca": "ISDIN",
+      "nome": "Acniben 1",
+      "prezzo": 12.8,
+      "negozio": "Liki24",
+      "compat": 94,
+      "lavoro": "imperfezioni"
+     }
+    },
+    {
+     "passo": "Siero",
+     "top": {
+      "marca": "ISDIN",
+      "nome": "Siero con acido ialuronico concentrato ceutics",
+      "prezzo": 46.4,
+      "negozio": "Liki24",
+      "compat": 96,
+      "lavoro": "idratazione"
+     },
+     "alt": {
+      "marca": "Pyunkang Yul",
+      "nome": "Siero illuminante per la cura delle imperfezioni (P)",
+      "prezzo": 20.5,
+      "negozio": "Liki24",
+      "compat": 92,
+      "lavoro": "imperfezioni, macchie"
+     }
+    },
+    {
+     "passo": "Crema",
+     "top": {
+      "marca": "ISDIN",
+      "nome": "Crema idratante all'acido ialuronico per pelli grasse ceutics",
+      "prezzo": 42.2,
+      "negozio": "Liki24",
+      "compat": 100,
+      "lavoro": "idratazione"
+     },
+     "alt": {
+      "marca": "BioNike",
+      "nome": "Hydra Plus Gel-Crema",
+      "prezzo": 21.2,
+      "negozio": "Liki24",
+      "compat": 100,
+      "lavoro": "idratazione, imperfezioni"
+     }
+    },
+    {
+     "passo": "Protezione solare",
+     "top": {
+      "marca": "La Roche-Posay",
+      "nome": "Hyalu B5 Solare",
+      "prezzo": 42.9,
+      "negozio": "Liki24",
+      "compat": 100,
+      "lavoro": "idratazione"
+     },
+     "alt": {
+      "marca": "I'm From",
+      "nome": "Apricot Clear Solare",
+      "prezzo": 10.99,
+      "negozio": "Stylevana",
+      "compat": 98,
+      "lavoro": "idratazione, imperfezioni"
+     }
+    },
+    {
+     "passo": "Al bisogno: cerotti per i brufoli",
+     "top": {
+      "marca": "Acnemy",
+      "nome": "Zitless",
+      "prezzo": 17.2,
+      "negozio": "Liki24",
+      "compat": 74,
+      "lavoro": "cerotti"
+     },
+     "alt": {
+      "marca": "CeraVe",
+      "nome": "Cerotti controllo imperfezioni 22 pezzi",
+      "prezzo": 13.2,
+      "negozio": "Liki24",
+      "compat": 62,
+      "lavoro": "cerotti"
+     }
+    }
+   ],
+   "vuoti": []
+  }
+ },
+ {
+  "id": "caso-macchie-1",
+  "titolo": "Macchie",
+  "chi": "donna · 25-34 anni · 3 passaggi · mai usato attivi · obiettivo: macchie",
+  "prima": {
+   "biotipo": "Pelle normale",
+   "tratti": [
+    "Macchie sul viso e discromie"
+   ],
+   "passi": [
+    {
+     "passo": "Detersione",
+     "top": {
+      "marca": "Murad",
+      "nome": "Essential",
+      "prezzo": 17.5,
+      "negozio": "Beautycos",
+      "compat": 99,
+      "lavoro": "macchie"
+     },
+     "alt": {
+      "marca": "Shiseido",
+      "nome": "Senka Perfect Whip Yuzu Vit C Poreless Glow Face Wash",
+      "prezzo": 8.29,
+      "negozio": "YesStyle",
+      "compat": 86,
+      "lavoro": "imperfezioni, pori"
+     }
+    },
+    {
+     "passo": "Crema",
+     "top": {
+      "marca": "Institut Esthederm",
+      "nome": "Excellage Crema",
+      "prezzo": 127.6,
+      "negozio": "Liki24",
+      "compat": 100,
+      "lavoro": "macchie"
+     },
+     "alt": {
+      "marca": "Dear, Klairs",
+      "nome": "Toning Barrier",
+      "prezzo": 16.81,
+      "negozio": "YesStyle",
+      "compat": 100,
+      "lavoro": "macchie"
+     }
+    },
+    {
+     "passo": "Protezione solare",
+     "top": {
+      "marca": "ISDIN",
+      "nome": "Active Unify Fusion",
+      "prezzo": 39.8,
+      "negozio": "Liki24",
+      "compat": 100,
+      "lavoro": "macchie"
+     },
+     "alt": {
+      "marca": "Beplain",
+      "nome": "Lemon C Glutathione Tone Up Sunscreen",
+      "prezzo": 16.8,
+      "negozio": "Stylevana",
+      "compat": 100,
+      "lavoro": "macchie"
+     }
+    }
+   ],
+   "vuoti": []
+  },
+  "dopo": {
+   "biotipo": "Pelle normale",
+   "tratti": [
+    "Macchie sul viso e discromie"
+   ],
+   "passi": [
+    {
+     "passo": "Detersione",
+     "top": {
+      "marca": "Medik8",
+      "nome": "Lipid",
+      "prezzo": 36.25,
+      "negozio": "Beautycos",
+      "compat": 93,
+      "lavoro": "macchie"
+     },
+     "alt": {
+      "marca": "Goodal",
+      "nome": "Green Tangerine Vita C Toning Detergente",
+      "prezzo": 14,
+      "negozio": "Stylevana",
+      "compat": 92,
+      "lavoro": "macchie"
+     }
+    },
+    {
+     "passo": "Crema",
+     "top": {
+      "marca": "Caudalie",
+      "nome": "Vinoperfect Crema",
+      "prezzo": 43.4,
+      "negozio": "Liki24",
+      "compat": 98,
+      "lavoro": "macchie"
+     },
+     "alt": {
+      "marca": "Topicrem",
+      "nome": "Mela Crema da notte anti-macchie con esfoliazione delicata",
+      "prezzo": 26.5,
+      "negozio": "Liki24",
+      "compat": 84,
+      "lavoro": "macchie"
+     }
+    },
+    {
+     "passo": "Protezione solare",
+     "top": {
+      "marca": "ISDIN",
+      "nome": "Active Unify Fusion",
+      "prezzo": 39.8,
+      "negozio": "Liki24",
+      "compat": 100,
+      "lavoro": "macchie"
+     },
+     "alt": {
+      "marca": "Heliocare",
+      "nome": "Age Active 360",
+      "prezzo": 19.4,
+      "negozio": "Liki24",
+      "compat": 100,
+      "lavoro": "macchie"
+     }
+    }
+   ],
+   "vuoti": []
+  }
+ },
+ {
+  "id": "caso-matura-8",
+  "titolo": "Pelle matura, in menopausa",
+  "chi": "donna · 55 anni o più · 5 passaggi · usa già gli attivi · fino a 150 € · obiettivo: segni del tempo · in menopausa",
+  "prima": {
+   "biotipo": "Pelle secca e disidratata",
+   "tratti": [
+    "Macchie sul viso e discromie",
+    "Rughe e pelle matura",
+    "Pelle in menopausa e perimenopausa"
+   ],
+   "passi": [
+    {
+     "passo": "Detersione",
+     "top": {
+      "marca": "Darphin",
+      "nome": "Crema detergente rivitalizzante",
+      "prezzo": 35.4,
+      "negozio": "Liki24",
+      "compat": 91,
+      "lavoro": "tempo"
+     },
+     "alt": null
+    },
+    {
+     "passo": "Siero",
+     "top": {
+      "marca": "Sesderma",
+      "nome": "Hidraderm Hyal 5",
+      "prezzo": 49,
+      "negozio": "Liki24",
+      "compat": 100,
+      "lavoro": "idratazione"
+     },
+     "alt": {
+      "marca": "Sesderma",
+      "nome": "Hidraderm Hyal",
+      "prezzo": 31.8,
+      "negozio": "Liki24",
+      "compat": 96,
+      "lavoro": "idratazione"
+     }
+    },
+    {
+     "passo": "Crema",
+     "top": {
+      "marca": "Murad",
+      "nome": "Resurgence Retinol Youth Renewal Night",
+      "prezzo": 66.75,
+      "negozio": "Beautycos",
+      "compat": 100,
+      "lavoro": "tempo"
+     },
+     "alt": {
+      "marca": "SVR",
+      "nome": "Topialyse Crema",
+      "prezzo": 6.2,
+      "negozio": "Liki24",
+      "compat": 100,
+      "lavoro": "barriera, calmare"
+     }
+    },
+    {
+     "passo": "Protezione solare",
+     "top": {
+      "marca": "NeoStrata",
+      "nome": "Skin Active Repair Matrix Support Anti-Ageing",
+      "prezzo": 56.1,
+      "negozio": "Liki24",
+      "compat": 100,
+      "lavoro": "tempo"
+     },
+     "alt": {
+      "marca": "Uriage",
+      "nome": "Age Lift Solare",
+      "prezzo": 30.1,
+      "negozio": "Liki24",
+      "compat": 100,
+      "lavoro": "tempo"
+     }
+    },
+    {
+     "passo": "Trattamento della sera",
+     "top": {
+      "marca": "Geek & Gorgeous",
+      "nome": "Smooth Out",
+      "prezzo": 42,
+      "negozio": "Liki24",
+      "compat": 93,
+      "lavoro": "calmare, idratazione, tempo"
+     },
+     "alt": null
+    }
+   ],
+   "vuoti": []
+  },
+  "dopo": {
+   "biotipo": "Pelle secca e disidratata",
+   "tratti": [
+    "Macchie sul viso e discromie",
+    "Rughe e pelle matura",
+    "Pelle in menopausa e perimenopausa"
+   ],
+   "passi": [
+    {
+     "passo": "Detersione",
+     "top": {
+      "marca": "SkinCeuticals",
+      "nome": "Renewal Detergente",
+      "prezzo": 55,
+      "negozio": "Liki24",
+      "compat": 86,
+      "lavoro": "tempo"
+     },
+     "alt": {
+      "marca": "Filorga",
+      "nome": "Skin Prep",
+      "prezzo": 24.5,
+      "negozio": "Liki24",
+      "compat": 71,
+      "lavoro": "idratazione, imperfezioni, macchie, pori, tempo"
+     }
+    },
+    {
+     "passo": "Siero",
+     "top": {
+      "marca": "Sesderma",
+      "nome": "Reti Age 5",
+      "prezzo": 59.1,
+      "negozio": "Liki24",
+      "compat": 96,
+      "lavoro": "tempo"
+     },
+     "alt": {
+      "marca": "Geek & Gorgeous",
+      "nome": "A-Game 10, Geek&Gorgeus",
+      "prezzo": 27.9,
+      "negozio": "Liki24",
+      "compat": 90,
+      "lavoro": "tempo"
+     }
+    },
+    {
+     "passo": "Crema",
+     "top": {
+      "marca": "Filorga",
+      "nome": "Time Filler 5XP",
+      "prezzo": 51.3,
+      "negozio": "Liki24",
+      "compat": 100,
+      "lavoro": "tempo"
+     },
+     "alt": {
+      "marca": "Eucerin",
+      "nome": "Hyaluron Filler + Elasticity Crema",
+      "prezzo": 35.6,
+      "negozio": "Liki24",
+      "compat": 96,
+      "lavoro": "tempo"
+     }
+    },
+    {
+     "passo": "Protezione solare",
+     "top": {
+      "marca": "NeoStrata",
+      "nome": "Skin Active Repair Matrix Support Anti-Ageing",
+      "prezzo": 56.1,
+      "negozio": "Liki24",
+      "compat": 100,
+      "lavoro": "tempo"
+     },
+     "alt": {
+      "marca": "Rilastil",
+      "nome": "Age Repair Crema Protettiva Antirughe SPF50+",
+      "prezzo": 17.6,
+      "negozio": "Liki24",
+      "compat": 86,
+      "lavoro": "tempo"
+     }
+    },
+    {
+     "passo": "Trattamento della sera",
+     "top": {
+      "marca": "Filorga",
+      "nome": "Sleep & Peel",
+      "prezzo": 37.6,
+      "negozio": "Liki24",
+      "compat": 96,
+      "lavoro": "tempo"
+     },
+     "alt": null
+    }
+   ],
+   "vuoti": []
+  }
+ },
+ {
+  "id": "caso-sensibile-2",
+  "titolo": "Pelle sensibile",
+  "chi": "donna · 35-44 anni · 5 passaggi · attivi a volte · fino a 100 € · obiettivo: calmare",
+  "prima": {
+   "biotipo": "Pelle normale",
+   "tratti": [
+    "Pelle sensibile e reattiva"
+   ],
+   "passi": [
+    {
+     "passo": "Detersione",
+     "top": {
+      "marca": "Bakel",
+      "nome": "B5 Gel, Gel Viso Detergente Per Pelli Sensibili",
+      "prezzo": 39,
+      "negozio": "50 ml",
+      "compat": 100,
+      "lavoro": "calmare"
+     },
+     "alt": {
+      "marca": "Round Lab",
+      "nome": "Soybean Cleanser",
+      "prezzo": 9.09,
+      "negozio": "Stylevana",
+      "compat": 100,
+      "lavoro": "barriera"
+     }
+    },
+    {
+     "passo": "Siero",
+     "top": {
+      "marca": "Bakel",
+      "nome": "Relief-Therapist Case & Refill Refillable",
+      "prezzo": 149,
+      "negozio": "50 ml",
+      "compat": 95,
+      "lavoro": "calmare"
+     },
+     "alt": {
+      "marca": "Darphin",
+      "nome": "Intral Siero",
+      "prezzo": 59.1,
+      "negozio": "Liki24",
+      "compat": 90,
+      "lavoro": "calmare, tempo"
+     }
+    },
+    {
+     "passo": "Crema",
+     "top": {
+      "marca": "Bakel",
+      "nome": "Relief-Therapist",
+      "prezzo": 149,
+      "negozio": "50 ml",
+      "compat": 100,
+      "lavoro": "calmare"
+     },
+     "alt": {
+      "marca": "Numbuzin",
+      "nome": "N.5+ Glutathione Vitamin Dark Spot",
+      "prezzo": 4.09,
+      "negozio": "Stylevana",
+      "compat": 100,
+      "lavoro": "macchie"
+     }
+    },
+    {
+     "passo": "Protezione solare",
+     "top": {
+      "marca": "Abib",
+      "nome": "Quick Sunstick Protection Bar",
+      "prezzo": 30,
+      "negozio": "50 ml",
+      "compat": 100,
+      "lavoro": "tempo"
+     },
+     "alt": {
+      "marca": "COSRX",
+      "nome": "PA++++ Ultra-Light Invisible Sunscreen",
+      "prezzo": 12,
+      "negozio": "YesStyle",
+      "compat": 92,
+      "lavoro": "pori"
+     }
+    }
+   ],
+   "vuoti": []
+  },
+  "dopo": {
+   "biotipo": "Pelle normale",
+   "tratti": [
+    "Pelle sensibile e reattiva"
+   ],
+   "passi": [
+    {
+     "passo": "Detersione",
+     "top": {
+      "marca": "Bakel",
+      "nome": "B5 Gel, Gel Viso Detergente Per Pelli Sensibili",
+      "prezzo": 39,
+      "negozio": "50 ml",
+      "compat": 100,
+      "lavoro": "calmare"
+     },
+     "alt": {
+      "marca": "Geek & Gorgeous",
+      "nome": "Jelly Joker",
+      "prezzo": 12.2,
+      "negozio": "Liki24",
+      "compat": 100,
+      "lavoro": "calmare"
+     }
+    },
+    {
+     "passo": "Siero",
+     "top": {
+      "marca": "Bakel",
+      "nome": "Relief-Therapist Case & Refill Refillable",
+      "prezzo": 149,
+      "negozio": "50 ml",
+      "compat": 100,
+      "lavoro": "calmare"
+     },
+     "alt": {
+      "marca": "Darphin",
+      "nome": "Intral Siero",
+      "prezzo": 59.1,
+      "negozio": "Liki24",
+      "compat": 100,
+      "lavoro": "calmare, tempo"
+     }
+    },
+    {
+     "passo": "Crema",
+     "top": {
+      "marca": "BioNike",
+      "nome": "Procutase CicaPlus",
+      "prezzo": 14.3,
+      "negozio": "Liki24",
+      "compat": 100,
+      "lavoro": "calmare"
+     },
+     "alt": {
+      "marca": "Skincyclopedia",
+      "nome": "Crema viso con acido ialuronico e ceramidi HC",
+      "prezzo": 7.5,
+      "negozio": "Liki24",
+      "compat": 100,
+      "lavoro": "barriera"
+     }
+    },
+    {
+     "passo": "Protezione solare",
+     "top": {
+      "marca": "d'Alba",
+      "nome": "Waterfull Mild",
+      "prezzo": 18.99,
+      "negozio": "Stylevana",
+      "compat": 100,
+      "lavoro": "calmare"
+     },
+     "alt": {
+      "marca": "Uriage",
+      "nome": "Bariéderm Solare",
+      "prezzo": 12.4,
+      "negozio": "Liki24",
+      "compat": 100,
+      "lavoro": "calmare"
+     }
+    }
+   ],
+   "vuoti": []
+  }
+ },
+ {
+  "id": "caso-rosacea-2",
+  "titolo": "Rosacea",
+  "chi": "donna · 35-44 anni · 5 passaggi · attivi a volte · fino a 100 € · obiettivo: calmare",
+  "prima": {
+   "biotipo": "Pelle normale",
+   "tratti": [
+    "Rosacea e couperose, indicate da te",
+    "Pelle sensibile e reattiva",
+    "Brufoli e punti neri"
+   ],
+   "passi": [
+    {
+     "passo": "Detersione",
+     "top": {
+      "marca": "Bakel",
+      "nome": "B5 Gel, Gel Viso Detergente Per Pelli Sensibili",
+      "prezzo": 39,
+      "negozio": "50 ml",
+      "compat": 100,
+      "lavoro": "calmare"
+     },
+     "alt": {
+      "marca": "Pyunkang Yul",
+      "nome": "Pore Deep",
+      "prezzo": 7.12,
+      "negozio": "Stylevana",
+      "compat": 100,
+      "lavoro": "calmare"
+     }
+    },
+    {
+     "passo": "Siero",
+     "top": {
+      "marca": "Bakel",
+      "nome": "Relief-Therapist Case & Refill Refillable",
+      "prezzo": 149,
+      "negozio": "50 ml",
+      "compat": 95,
+      "lavoro": "calmare"
+     },
+     "alt": {
+      "marca": "Darphin",
+      "nome": "Intral Siero",
+      "prezzo": 59.1,
+      "negozio": "Liki24",
+      "compat": 90,
+      "lavoro": "calmare, tempo"
+     }
+    },
+    {
+     "passo": "Crema",
+     "top": {
+      "marca": "Bakel",
+      "nome": "Relief-Therapist",
+      "prezzo": 149,
+      "negozio": "50 ml",
+      "compat": 100,
+      "lavoro": "calmare"
+     },
+     "alt": {
+      "marca": "Numbuzin",
+      "nome": "N.5+ Glutathione Vitamin Dark Spot",
+      "prezzo": 4.09,
+      "negozio": "Stylevana",
+      "compat": 100,
+      "lavoro": "macchie"
+     }
+    },
+    {
+     "passo": "Protezione solare",
+     "top": {
+      "marca": "Abib",
+      "nome": "Quick Sunstick Protection Bar",
+      "prezzo": 30,
+      "negozio": "50 ml",
+      "compat": 100,
+      "lavoro": "tempo"
+     },
+     "alt": {
+      "marca": "COSRX",
+      "nome": "PA++++ Ultra-Light Invisible Sunscreen",
+      "prezzo": 12,
+      "negozio": "YesStyle",
+      "compat": 100,
+      "lavoro": "pori"
+     }
+    },
+    {
+     "passo": "Al bisogno: cerotti per i brufoli",
+     "top": {
+      "marca": "Abib",
+      "nome": "Clear Spot",
+      "prezzo": 16.8,
+      "negozio": "Stylevana",
+      "compat": 100,
+      "lavoro": "cerotti"
+     },
+     "alt": {
+      "marca": "Pyunkang Yul",
+      "nome": "Calming Clear Spot (Intensive Care), 165",
+      "prezzo": 8.9,
+      "negozio": "Stylevana",
+      "compat": 90,
+      "lavoro": "cerotti"
+     }
+    }
+   ],
+   "vuoti": []
+  },
+  "dopo": {
+   "biotipo": "Pelle normale",
+   "tratti": [
+    "Rosacea e couperose, indicate da te",
+    "Pelle sensibile e reattiva",
+    "Brufoli e punti neri"
+   ],
+   "passi": [
+    {
+     "passo": "Detersione",
+     "top": {
+      "marca": "Bakel",
+      "nome": "B5 Gel, Gel Viso Detergente Per Pelli Sensibili",
+      "prezzo": 39,
+      "negozio": "50 ml",
+      "compat": 100,
+      "lavoro": "calmare"
+     },
+     "alt": {
+      "marca": "La Roche-Posay",
+      "nome": "Toleriane",
+      "prezzo": 22.6,
+      "negozio": "Liki24",
+      "compat": 100,
+      "lavoro": "calmare, imperfezioni"
+     }
+    },
+    {
+     "passo": "Siero",
+     "top": {
+      "marca": "Numbuzin",
+      "nome": "N.1 Pantothenic B5 Active",
+      "prezzo": 20.53,
+      "negozio": "YesStyle",
+      "compat": 100,
+      "lavoro": "calmare"
+     },
+     "alt": {
+      "marca": "Skincyclopedia",
+      "nome": "Siero viso con complesso di ceramidi al 3% e avena colloidale",
+      "prezzo": 7.8,
+      "negozio": "Liki24",
+      "compat": 100,
+      "lavoro": "barriera"
+     }
+    },
+    {
+     "passo": "Crema",
+     "top": {
+      "marca": "Rovectin",
+      "nome": "Cica Care Blemish Clearing",
+      "prezzo": 16.81,
+      "negozio": "YesStyle",
+      "compat": 100,
+      "lavoro": "calmare"
+     },
+     "alt": {
+      "marca": "Skincyclopedia",
+      "nome": "Crema viso con acido ialuronico e ceramidi HC",
+      "prezzo": 7.5,
+      "negozio": "Liki24",
+      "compat": 100,
+      "lavoro": "barriera"
+     }
+    },
+    {
+     "passo": "Protezione solare",
+     "top": {
+      "marca": "d'Alba",
+      "nome": "Waterfull Mild",
+      "prezzo": 18.99,
+      "negozio": "Stylevana",
+      "compat": 100,
+      "lavoro": "calmare"
+     },
+     "alt": {
+      "marca": "Uriage",
+      "nome": "Bariéderm Solare",
+      "prezzo": 12.4,
+      "negozio": "Liki24",
+      "compat": 100,
+      "lavoro": "calmare"
+     }
+    },
+    {
+     "passo": "Al bisogno: cerotti per i brufoli",
+     "top": {
+      "marca": "Abib",
+      "nome": "Clear Spot",
+      "prezzo": 16.8,
+      "negozio": "Stylevana",
+      "compat": 83,
+      "lavoro": "cerotti"
+     },
+     "alt": {
+      "marca": "Pyunkang Yul",
+      "nome": "Calming Clear Spot (Intensive Care), 165",
+      "prezzo": 8.9,
+      "negozio": "Stylevana",
+      "compat": 67,
+      "lavoro": "cerotti"
+     }
+    }
+   ],
+   "vuoti": []
+  }
+ },
+ {
+  "id": "caso-dermatite-2",
+  "titolo": "Dermatite atopica",
+  "chi": "donna · 35-44 anni · 5 passaggi · attivi a volte · fino a 100 € · obiettivo: calmare",
+  "prima": {
+   "biotipo": "Dermatite atopica, indicata da te",
+   "tratti": [
+    "Pelle sensibile e reattiva"
+   ],
+   "passi": [
+    {
+     "passo": "Detersione",
+     "top": {
+      "marca": "Bakel",
+      "nome": "B5 Gel, Gel Viso Detergente Per Pelli Sensibili",
+      "prezzo": 39,
+      "negozio": "50 ml",
+      "compat": 100,
+      "lavoro": "calmare"
+     },
+     "alt": {
+      "marca": "Round Lab",
+      "nome": "Soybean Cleanser",
+      "prezzo": 9.09,
+      "negozio": "Stylevana",
+      "compat": 100,
+      "lavoro": "barriera"
+     }
+    },
+    {
+     "passo": "Siero",
+     "top": {
+      "marca": "Bakel",
+      "nome": "Relief-Therapist Case & Refill Refillable",
+      "prezzo": 149,
+      "negozio": "50 ml",
+      "compat": 95,
+      "lavoro": "calmare"
+     },
+     "alt": {
+      "marca": "Darphin",
+      "nome": "Intral Siero",
+      "prezzo": 59.1,
+      "negozio": "Liki24",
+      "compat": 90,
+      "lavoro": "calmare, tempo"
+     }
+    },
+    {
+     "passo": "Crema",
+     "top": {
+      "marca": "Bakel",
+      "nome": "Relief-Therapist",
+      "prezzo": 149,
+      "negozio": "50 ml",
+      "compat": 100,
+      "lavoro": "calmare"
+     },
+     "alt": {
+      "marca": "Numbuzin",
+      "nome": "N.5+ Glutathione Vitamin Dark Spot",
+      "prezzo": 4.09,
+      "negozio": "Stylevana",
+      "compat": 100,
+      "lavoro": "macchie"
+     }
+    },
+    {
+     "passo": "Protezione solare",
+     "top": {
+      "marca": "Abib",
+      "nome": "Quick Sunstick Protection Bar",
+      "prezzo": 30,
+      "negozio": "50 ml",
+      "compat": 100,
+      "lavoro": "tempo"
+     },
+     "alt": {
+      "marca": "COSRX",
+      "nome": "PA++++ Ultra-Light Invisible Sunscreen",
+      "prezzo": 12,
+      "negozio": "YesStyle",
+      "compat": 92,
+      "lavoro": "pori"
+     }
+    }
+   ],
+   "vuoti": []
+  },
+  "dopo": {
+   "biotipo": "Dermatite atopica, indicata da te",
+   "tratti": [
+    "Pelle sensibile e reattiva"
+   ],
+   "passi": [
+    {
+     "passo": "Detersione",
+     "top": {
+      "marca": "Pyunkang Yul",
+      "nome": "Balsamo detergente Deep Clear Cleansing Balm",
+      "prezzo": 11.49,
+      "negozio": "YesStyle",
+      "compat": 100,
+      "lavoro": "barriera"
+     },
+     "alt": null
+    },
+    {
+     "passo": "Siero",
+     "top": {
+      "marca": "Bakel",
+      "nome": "Relief-Therapist Case & Refill Refillable",
+      "prezzo": 149,
+      "negozio": "50 ml",
+      "compat": 100,
+      "lavoro": "calmare"
+     },
+     "alt": {
+      "marca": "Darphin",
+      "nome": "Intral Siero",
+      "prezzo": 59.1,
+      "negozio": "Liki24",
+      "compat": 100,
+      "lavoro": "calmare, tempo"
+     }
+    },
+    {
+     "passo": "Crema",
+     "top": {
+      "marca": "Cetaphil",
+      "nome": "Crema idratante per pelli sensibili, secche o molto secche",
+      "prezzo": 13.9,
+      "negozio": "Liki24",
+      "compat": 100,
+      "lavoro": "calmare, idratazione"
+     },
+     "alt": null
+    },
+    {
+     "passo": "Protezione solare",
+     "top": {
+      "marca": "d'Alba",
+      "nome": "Waterfull Mild",
+      "prezzo": 18.99,
+      "negozio": "Stylevana",
+      "compat": 100,
+      "lavoro": "calmare"
+     },
+     "alt": {
+      "marca": "Uriage",
+      "nome": "Bariéderm Solare",
+      "prezzo": 12.4,
+      "negozio": "Liki24",
+      "compat": 100,
+      "lavoro": "calmare"
+     }
+    }
+   ],
+   "vuoti": []
+  }
+ },
+ {
+  "id": "caso-psoriasi-2",
+  "titolo": "Psoriasi",
+  "chi": "donna · 35-44 anni · 5 passaggi · attivi a volte · fino a 100 € · obiettivo: calmare",
+  "prima": {
+   "biotipo": "Psoriasi, indicata da te",
+   "tratti": [],
+   "passi": [
+    {
+     "passo": "Detersione",
+     "top": {
+      "marca": "Bakel",
+      "nome": "B5 Gel, Gel Viso Detergente Per Pelli Sensibili",
+      "prezzo": 39,
+      "negozio": "50 ml",
+      "compat": 100,
+      "lavoro": "calmare"
+     },
+     "alt": {
+      "marca": "Round Lab",
+      "nome": "Soybean Cleanser",
+      "prezzo": 9.09,
+      "negozio": "Stylevana",
+      "compat": 100,
+      "lavoro": "barriera"
+     }
+    },
+    {
+     "passo": "Siero",
+     "top": {
+      "marca": "Bakel",
+      "nome": "Relief-Therapist Case & Refill Refillable",
+      "prezzo": 149,
+      "negozio": "50 ml",
+      "compat": 95,
+      "lavoro": "calmare"
+     },
+     "alt": {
+      "marca": "Darphin",
+      "nome": "Intral Siero",
+      "prezzo": 59.1,
+      "negozio": "Liki24",
+      "compat": 90,
+      "lavoro": "calmare, tempo"
+     }
+    },
+    {
+     "passo": "Crema",
+     "top": {
+      "marca": "Bakel",
+      "nome": "Relief-Therapist",
+      "prezzo": 149,
+      "negozio": "50 ml",
+      "compat": 100,
+      "lavoro": "calmare"
+     },
+     "alt": {
+      "marca": "Numbuzin",
+      "nome": "N.5+ Glutathione Vitamin Dark Spot",
+      "prezzo": 4.09,
+      "negozio": "Stylevana",
+      "compat": 100,
+      "lavoro": "macchie"
+     }
+    },
+    {
+     "passo": "Protezione solare",
+     "top": {
+      "marca": "Abib",
+      "nome": "Quick Sunstick Protection Bar",
+      "prezzo": 30,
+      "negozio": "50 ml",
+      "compat": 100,
+      "lavoro": "tempo"
+     },
+     "alt": {
+      "marca": "COSRX",
+      "nome": "PA++++ Ultra-Light Invisible Sunscreen",
+      "prezzo": 12,
+      "negozio": "YesStyle",
+      "compat": 92,
+      "lavoro": "pori"
+     }
+    }
+   ],
+   "vuoti": []
+  },
+  "dopo": {
+   "biotipo": "Psoriasi, indicata da te",
+   "tratti": [],
+   "passi": [
+    {
+     "passo": "Detersione",
+     "top": {
+      "marca": "Pyunkang Yul",
+      "nome": "Balsamo detergente Deep Clear Cleansing Balm",
+      "prezzo": 11.49,
+      "negozio": "YesStyle",
+      "compat": 100,
+      "lavoro": "barriera"
+     },
+     "alt": null
+    },
+    {
+     "passo": "Siero",
+     "top": {
+      "marca": "Bakel",
+      "nome": "Relief-Therapist Case & Refill Refillable",
+      "prezzo": 149,
+      "negozio": "50 ml",
+      "compat": 100,
+      "lavoro": "calmare"
+     },
+     "alt": {
+      "marca": "Darphin",
+      "nome": "Intral Siero",
+      "prezzo": 59.1,
+      "negozio": "Liki24",
+      "compat": 100,
+      "lavoro": "calmare, tempo"
+     }
+    },
+    {
+     "passo": "Crema",
+     "top": {
+      "marca": "Cetaphil",
+      "nome": "Crema idratante per pelli sensibili, secche o molto secche",
+      "prezzo": 13.9,
+      "negozio": "Liki24",
+      "compat": 100,
+      "lavoro": "calmare, idratazione"
+     },
+     "alt": null
+    },
+    {
+     "passo": "Protezione solare",
+     "top": {
+      "marca": "d'Alba",
+      "nome": "Waterfull Mild",
+      "prezzo": 18.99,
+      "negozio": "Stylevana",
+      "compat": 100,
+      "lavoro": "calmare"
+     },
+     "alt": {
+      "marca": "Uriage",
+      "nome": "Bariéderm Solare",
+      "prezzo": 12.4,
+      "negozio": "Liki24",
+      "compat": 100,
+      "lavoro": "calmare"
+     }
+    }
+   ],
+   "vuoti": []
+  }
+ }
+]

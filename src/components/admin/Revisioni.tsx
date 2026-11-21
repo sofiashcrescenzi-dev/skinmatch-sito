@@ -2,45 +2,14 @@
 
 import { useState } from 'react';
 import { ARTICOLI, BIOTIPI, NOMI_AREA, VERSIONI_METODO, contenutoArticolo, contenutoBiotipo, contenutoMetodo, type Area, type Biotipo } from '@/lib/dati';
-import { useApi, invia, Titolo, Vuoto, quando } from './base';
+import { useApi, Titolo, Vuoto } from './base';
+import Giro2111 from './Giro2111';
+import { Voce, type Riga } from './VoceRevisione';
 
 // IL REGISTRO DELLE REVISIONI (7/11/2026, voto l-revisione: «per profili, regole e articoli: chi ha rivisto, quando,
 // cosa»). Sofia legge e approva; ogni approvazione porta il testo letto, e la pubblicazione la mette sul sito solo se il
 // testo online è ancora quello (scripts/admin/pubblica.py, esporta_revisioni). «Rivisto da … il …», il consiglio del
 // medico e la firma degli articoli compaiono solo così. Conta come revisione medica solo quella di Sofia.
-type Riga = { id: number; chiave: string; contenuto: string; esito: 'approvato' | 'da_cambiare'; nota: string | null; chi: string; creato_il: string };
-
-function Voce({ chiave, titolo, contenuto, ultima, poi, children }: { chiave: string; titolo: string; contenuto: string; ultima?: Riga; poi: () => void; children?: React.ReactNode }) {
-  const [nota, setNota] = useState('');
-  const [err, setErr] = useState('');
-  const cambiato = !!ultima && ultima.contenuto !== contenuto;
-  const stato = !ultima ? 'Da rivedere'
-    : cambiato ? `Il testo è cambiato dopo la revisione del ${quando(ultima.creato_il)}: va riletto`
-      : ultima.esito === 'approvato' ? `Approvato da ${ultima.chi.split('@')[0]} il ${quando(ultima.creato_il)}`
-        : `Da cambiare (${ultima.chi.split('@')[0]}, ${quando(ultima.creato_il)})${ultima.nota ? `: ${ultima.nota}` : ''}`;
-  const ok = !!ultima && !cambiato && ultima.esito === 'approvato';
-  const decidi = async (esito: Riga['esito']) => {
-    setErr('');
-    try { await invia('/api/admin/revisioni', { chiave, contenuto, esito, nota }); setNota(''); poi(); } catch (e) { setErr((e as Error).message); }
-  };
-  return (
-    <details className="carta">
-      <summary style={{ display: 'flex', gap: 10, flexWrap: 'wrap', justifyContent: 'space-between' }}>
-        <b>{titolo}</b>
-        <span className="chip tenue" style={{ color: ok ? 'var(--bene)' : cambiato || ultima?.esito === 'da_cambiare' ? 'var(--attenzione)' : undefined }}>{stato}</span>
-      </summary>
-      <div className="pila" style={{ ['--gap' as string]: '10px', marginTop: 10 }}>
-        {children || <p className="testo" style={{ whiteSpace: 'pre-line', fontSize: 15 }}>{contenuto}</p>}
-        <input className="adm-input" value={nota} onChange={(e) => setNota(e.target.value)} placeholder="Una nota (obbligatoria se va cambiato)" />
-        <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
-          <button type="button" className="bottone" onClick={() => decidi('approvato')}>L’ho letto: approvo</button>
-          <button type="button" className="bottone secondario" disabled={!nota.trim()} onClick={() => decidi('da_cambiare')}>Va cambiato</button>
-        </div>
-        {err && <p className="piccolo" style={{ color: 'var(--attenzione)' }}>{err}</p>}
-      </div>
-    </details>
-  );
-}
 
 export default function Revisioni() {
   const api = useApi<{ revisioni: Riga[] }>('/api/admin/revisioni');
@@ -80,8 +49,9 @@ export default function Revisioni() {
   return (
     <div className="pila" style={{ ['--gap' as string]: '20px' }}>
       <Titolo sotto="Quello che va letto sale qui in cima da solo: i testi mai rivisti, quelli cambiati dopo la revisione e quelli rimandati. Un’approvazione vale per il testo che hai letto; sul sito compare con la prossima pubblicazione, e conta come revisione medica solo quella di Sofia.">Le revisioni</Titolo>
+      <Giro2111 ultima={ultima} poi={api.ricarica} />
       <section className="pila" style={{ ['--gap' as string]: '10px' }}>
-        <h2 className="titolo-3">Da rivedere ora{daFare.length ? ` · ${daFare.length}` : ''}</h2>
+        <h2 className="titolo-3">Profili, regole e articoli da rivedere{daFare.length ? ` · ${daFare.length}` : ''}</h2>
         {(bozzeGlo > 0 || bozzeNoz > 0) && (
           <div className="carta" style={{ display: 'flex', flexWrap: 'wrap', gap: 10, alignItems: 'center' }}>
             <span style={{ flex: '1 1 240px' }}>Proposte nuove, non ancora online: {bozzeGlo > 0 && <><b>{bozzeGlo}</b> voci del glossario</>}{bozzeGlo > 0 && bozzeNoz > 0 ? ' e ' : ''}{bozzeNoz > 0 && <><b>{bozzeNoz}</b> nozioni</>}.</span>
