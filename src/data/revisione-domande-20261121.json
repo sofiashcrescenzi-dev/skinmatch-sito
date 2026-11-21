@@ -1,0 +1,1390 @@
+{
+ "_nota": "Revisione di tutte le domande del test (Zeno, 21/11/2026), dopo la segnalazione di Sofia sulla voce che cambia tra prima e terza persona. Non tocca test.json: si applica a mano da skinmatch.it/admin/domande. Gli id delle domande e delle opzioni e le «scelte» non cambiano; cambiano solo testo, aiuto, ordine e passaggio. «testo_prima» è il file pubblicato (7/11): dove c'era già una riscrittura approvata in bozza, «testo_nuovo» la riprende (lo dicono le note). Le cose che cambiano le scelte sono in «da_decidere».",
+ "regola_voce": {
+  "in_breve": "Il test dà del tu a chi ha la pelle in esame. Le risposte sono le parole che quella persona dice di sé.",
+  "domande": "Sempre col tu, al presente, con un momento preciso quando serve («A metà giornata…», «Dopo lo shampoo…»). Chiedono cosa vedi o senti, non come ti giudichi. Una cosa per domanda.",
+  "risposte": "Parla chi fa il test. Due forme sole: (a) una risposta breve che completa la domanda e concorda con il suo soggetto («Lucidi», «Quasi mai», «Qualche punto nero», «Fino a 50 €»); (b) una frase in prima persona («Mi tira un po'», «Mangio di tutto»). Mai una frase con soggetto in terza persona («La pelle tira», «La crema resta»). Dentro una domanda tutte le risposte hanno la stessa forma e si escludono a vicenda; «Sì» e «No» in testa quando la domanda è sì/no. Niente aggettivi al maschile o al femminile riferiti a chi risponde («stanco»): si gira la frase.",
+  "aiuti": "Col tu a chi risponde e col noi per Skinmatch («ti proponiamo», «ti mostriamo»), al presente, mai al futuro. Dicono perché chiediamo o come guardare, in una o due frasi. Sulla salute usano «può», «di solito», «potrebbe» (come ha corretto Sofia), mai «indica» o «è»; dove serve un medico lo dicono, e lo chiamano sempre «il medico» o «il dermatologo», senza alternare a caso.",
+  "routine_per_altri": "Il test parla sempre a chi ha la pelle in esame, anche quando lo fa un'altra persona. Chi lo fa per altri risponde per lei: lo diciamo una volta nell'aiuto della prima domanda e nella frase del primo passaggio, poi il test resta uguale («Sei in gravidanza?» vale per la persona della routine). Per questo la prima domanda diventa «Sei una donna o un uomo?».",
+  "parole": "I termini sono quelli del glossario (zona T, sebo, barriera, retinoidi): nel titolo diventano un link, quindi si scrivono come nel glossario. Parole di tutti i giorni: «mettere» e non «applicare», «guardare» e non «osservare»."
+ },
+ "macro_passaggi": {
+  "viso": [
+   {
+    "id": "inizio",
+    "nome": "Per iniziare",
+    "frase": "Due domande su di te. Se fai il test per un'altra persona, rispondi per lei: da qui in poi ogni domanda parla della sua pelle.",
+    "domande": [
+     "genere",
+     "eta"
+    ]
+   },
+   {
+    "id": "specchio",
+    "nome": "Allo specchio",
+    "frase": "Quello che vedi, a metà giornata e con luce naturale. Senza trucco, se puoi.",
+    "domande": [
+     "tzona",
+     "guance",
+     "pori",
+     "brufoli",
+     "macchie"
+    ]
+   },
+   {
+    "id": "sensazioni",
+    "nome": "Come la senti",
+    "frase": "Come risponde la pelle all'acqua, alla crema, ai prodotti nuovi, al caldo e al freddo.",
+    "domande": [
+     "tira",
+     "spella",
+     "crema",
+     "nuovo",
+     "rossore"
+    ]
+   },
+   {
+    "id": "salute",
+    "nome": "Da sapere prima",
+    "frase": "Le situazioni in cui alcuni attivi vanno evitati. Se rispondi sì, ti proponiamo solo prodotti adatti.",
+    "domande": [
+     "condizioni",
+     "gravidanza",
+     "menopausa"
+    ]
+   },
+   {
+    "id": "routine",
+    "nome": "La tua routine",
+    "frase": "Cosa vuoi ottenere e come vuoi usarla: da qui escono i prodotti.",
+    "domande": [
+     "obiettivo",
+     "esperienza",
+     "barba",
+     "passi",
+     "evitare",
+     "budget"
+    ]
+   }
+  ],
+  "cute": [
+   {
+    "id": "inizio",
+    "nome": "Per iniziare",
+    "frase": "Due domande su di te. Se fai il test per un'altra persona, rispondi per lei: da qui in poi ogni domanda parla della sua pelle.",
+    "domande": [
+     "genere",
+     "eta"
+    ]
+   },
+   {
+    "id": "cute",
+    "nome": "Il cuoio capelluto",
+    "frase": "Le radici, la sensazione dopo lo shampoo, la forfora.",
+    "domande": [
+     "cute_unta",
+     "cute_tira",
+     "forfora"
+    ]
+   },
+   {
+    "id": "capelli",
+    "nome": "I capelli",
+    "frase": "Quanti ne perdi, come stanno lunghezze e punte, cosa li mette alla prova.",
+    "domande": [
+     "caduta",
+     "lunghezze",
+     "trattamenti"
+    ]
+   },
+   {
+    "id": "salute",
+    "nome": "Da sapere prima",
+    "frase": "Le situazioni in cui alcuni prodotti vanno evitati o scelti con il medico.",
+    "domande": [
+     "condizioni_cute",
+     "gravidanza"
+    ]
+   },
+   {
+    "id": "routine",
+    "nome": "La tua routine",
+    "frase": "Cosa preferisci evitare e quanto vuoi spendere.",
+    "domande": [
+     "evitare",
+     "budget"
+    ]
+   }
+  ],
+  "integrazione": [
+   {
+    "id": "inizio",
+    "nome": "Per iniziare",
+    "frase": "Due domande su di te. Se fai il test per un'altra persona, rispondi per lei: da qui in poi ogni domanda parla della sua pelle.",
+    "domande": [
+     "genere",
+     "eta"
+    ]
+   },
+   {
+    "id": "come-stai",
+    "nome": "Come stai",
+    "frase": "Le ultime settimane: sonno, energia, tensione, raffreddori.",
+    "domande": [
+     "sonno",
+     "stanchezza",
+     "stress",
+     "raffreddori"
+    ]
+   },
+   {
+    "id": "abitudini",
+    "nome": "Come vivi e mangi",
+    "frase": "Quello che mangi e quanto stai alla luce del giorno: da qui arrivano molte vitamine.",
+    "domande": [
+     "dieta",
+     "frutta",
+     "pesce",
+     "aperto"
+    ]
+   },
+   {
+    "id": "salute",
+    "nome": "Prima di consigliarti",
+    "frase": "Cosa vorresti in più e le situazioni in cui un integratore va scelto con il medico.",
+    "domande": [
+     "int_obiettivo",
+     "farmaci",
+     "gravidanza",
+     "menopausa"
+    ]
+   }
+  ],
+  "completo": [
+   {
+    "id": "inizio",
+    "nome": "Per iniziare",
+    "frase": "Due domande su di te. Se fai il test per un'altra persona, rispondi per lei: da qui in poi ogni domanda parla della sua pelle.",
+    "domande": [
+     "genere",
+     "eta"
+    ]
+   },
+   {
+    "id": "specchio",
+    "nome": "Il viso allo specchio",
+    "frase": "Quello che vedi, a metà giornata e con luce naturale. Senza trucco, se puoi.",
+    "domande": [
+     "tzona",
+     "guance",
+     "pori",
+     "brufoli",
+     "macchie"
+    ]
+   },
+   {
+    "id": "sensazioni",
+    "nome": "Il viso, come lo senti",
+    "frase": "Come risponde la pelle all'acqua, alla crema, ai prodotti nuovi, al caldo e al freddo.",
+    "domande": [
+     "tira",
+     "spella",
+     "crema",
+     "nuovo",
+     "rossore"
+    ]
+   },
+   {
+    "id": "cute",
+    "nome": "Cute e capelli",
+    "frase": "Le radici, la forfora, la caduta, lunghezze e punte.",
+    "domande": [
+     "cute_unta",
+     "cute_tira",
+     "forfora",
+     "caduta",
+     "lunghezze",
+     "trattamenti"
+    ]
+   },
+   {
+    "id": "salute",
+    "nome": "Da sapere prima",
+    "frase": "Le situazioni in cui alcuni attivi e gli integratori vanno evitati o scelti con il medico.",
+    "domande": [
+     "condizioni",
+     "condizioni_cute",
+     "gravidanza",
+     "menopausa",
+     "farmaci"
+    ]
+   },
+   {
+    "id": "routine",
+    "nome": "La tua routine",
+    "frase": "Cosa vuoi ottenere e come vuoi usarla: da qui escono i prodotti, e un integratore solo se lo chiedi.",
+    "domande": [
+     "obiettivo",
+     "esperienza",
+     "barba",
+     "passi",
+     "int_obiettivo",
+     "dieta",
+     "evitare",
+     "budget"
+    ]
+   }
+  ]
+ },
+ "conto": {
+  "domande": 38,
+  "cambiate": 35,
+  "invariate": [
+   "stress",
+   "frutta",
+   "pesce"
+  ]
+ },
+ "domande": [
+  {
+   "id": "genere",
+   "cambiata": true,
+   "testo_prima": "Per chi stai costruendo la routine?",
+   "testo_nuovo": "Sei una donna o un uomo?",
+   "aiuto_prima": "Alcuni prodotti sono formulati in modo diverso per la pelle maschile e per quella femminile: usiamo questa risposta solo per questo.",
+   "aiuto_nuovo": "Se fai il test per un'altra persona, rispondi per lei: da qui in poi ogni domanda parla della sua pelle. Questa risposta ci serve per alcune formule pensate per la donna o per l'uomo e per sapere quali domande farti, come quelle sulla barba o sulla gravidanza.",
+   "opzioni": [
+    {
+     "id": "donna",
+     "testo_prima": "Per una donna",
+     "testo_nuovo": "Donna"
+    },
+    {
+     "id": "uomo",
+     "testo_prima": "Per un uomo",
+     "testo_nuovo": "Uomo"
+    },
+    {
+     "id": "altro",
+     "testo_prima": "Preferisco non indicarlo",
+     "testo_nuovo": "Preferisco non dirlo"
+    }
+   ],
+   "note": "Oggi la domanda «Per chi stai costruendo la routine?» fa pensare a un'altra persona, ma subito dopo il test chiede «Sei in gravidanza?» e «Ti radi?» col tu. Regola: il test parla sempre a chi ha la pelle in esame; chi lo fa per altri risponde per quella persona, e lo diciamo una volta sola qui e nella frase del primo passaggio. L'aiuto ora dice anche a cosa serve davvero la risposta (apre le domande su barba, gravidanza, menopausa). La versione «Per chi è la routine?» era stata scartata."
+  },
+  {
+   "id": "eta",
+   "cambiata": true,
+   "testo_prima": "In quale fascia d'età rientri?",
+   "testo_nuovo": "In quale fascia d'età rientri?",
+   "aiuto_prima": "Con l'età cambiano la produzione di sebo, l'idratazione e il rinnovamento della pelle: ci aiuta a scegliere gli attivi e la loro intensità.",
+   "aiuto_nuovo": "Con gli anni la pelle produce meno sebo e si rinnova più lentamente. L'età orienta la scelta degli attivi e la loro concentrazione.",
+   "opzioni": [
+    {
+     "id": "meno-25",
+     "testo_prima": "Meno di 25",
+     "testo_nuovo": "Meno di 25 anni"
+    },
+    {
+     "id": "25-34",
+     "testo_prima": "Da 25 a 34",
+     "testo_nuovo": "Da 25 a 34 anni"
+    },
+    {
+     "id": "35-44",
+     "testo_prima": "Da 35 a 44",
+     "testo_nuovo": "Da 35 a 44 anni"
+    },
+    {
+     "id": "45-54",
+     "testo_prima": "Da 45 a 54",
+     "testo_nuovo": "Da 45 a 54 anni"
+    },
+    {
+     "id": "55-piu",
+     "testo_prima": "55 o più",
+     "testo_nuovo": "55 anni o più"
+    }
+   ],
+   "note": "Aiuto: quello già approvato in bozza (riscrittura 5). Opzioni: «anni» in tutte, perché da sole («Meno di 25») non si leggono bene sul telefono."
+  },
+  {
+   "id": "tzona",
+   "cambiata": true,
+   "testo_prima": "A metà giornata, come appaiono naso e fronte (la cosiddetta zona T)?",
+   "testo_nuovo": "A metà giornata, come sono fronte e naso, la zona T?",
+   "aiuto_prima": "Osservali allo specchio con la luce del giorno, lontano dal sole diretto e senza trucco. Ci dice quanto sebo produce la pelle.",
+   "aiuto_nuovo": "Guardali allo specchio con luce naturale, lontano dal sole diretto e senza trucco. La risposta ci dice quanto sebo produce la pelle.",
+   "opzioni": [
+    {
+     "id": "opachi",
+     "testo_prima": "Secca",
+     "testo_nuovo": "Secchi, opachi"
+    },
+    {
+     "id": "poco-lucidi",
+     "testo_prima": "Normale, non noto particolarità",
+     "testo_nuovo": "Normali, né secchi né lucidi"
+    },
+    {
+     "id": "lucidi",
+     "testo_prima": "Lucida",
+     "testo_nuovo": "Lucidi"
+    }
+   ],
+   "note": "La domanda parla di naso e fronte (maschile plurale), le risposte di «zona T» (femminile singolare: «Secca», «Lucida»): non concordano. Ora tutte e tre rispondono a «come sono fronte e naso». Testo: quello approvato in bozza (riscrittura 6) con «la zona T» in coda, perché è un termine del glossario e nel titolo diventa un link."
+  },
+  {
+   "id": "guance",
+   "cambiata": true,
+   "testo_prima": "Le guance invece?",
+   "testo_nuovo": "E le guance, a metà giornata?",
+   "aiuto_prima": "Confrontala con la zona T: più grassa al centro, normale o secca ai lati.",
+   "aiuto_nuovo": "Se la zona T è lucida e le guance no, la pelle potrebbe essere mista.",
+   "opzioni": [
+    {
+     "id": "opache",
+     "testo_prima": "Secche",
+     "testo_nuovo": "Secche, opache"
+    },
+    {
+     "id": "normali",
+     "testo_prima": "Anche in questo caso normali",
+     "testo_nuovo": "Normali, né secche né lucide"
+    },
+    {
+     "id": "lucide",
+     "testo_prima": "Lucide",
+     "testo_nuovo": "Lucide"
+    }
+   ],
+   "note": "«Le guance invece?» si capisce solo dopo la domanda prima, e l'aiuto di oggi («Confrontala») è al singolare. «Anche in questo caso normali» suona da modulo. Risposte parallele a quelle di fronte e naso. Aiuto: quello approvato con la correzione di Sofia («potrebbe essere mista»)."
+  },
+  {
+   "id": "pori",
+   "cambiata": true,
+   "testo_prima": "Quanto sono visibili i pori?",
+   "testo_nuovo": "Allo specchio, dove ti vedi dei pori?",
+   "aiuto_prima": "Guardati allo specchio con luce naturale. I pori dilatati accompagnano spesso una pelle che produce più sebo.",
+   "aiuto_nuovo": "Con luce naturale, da una trentina di centimetri. I pori dilatati vanno spesso insieme a una pelle che produce più sebo.",
+   "opzioni": [
+    {
+     "id": "poco",
+     "testo_prima": "Quasi per niente",
+     "testo_nuovo": "Quasi da nessuna parte"
+    },
+    {
+     "id": "naso",
+     "testo_prima": "Solo sul naso",
+     "testo_nuovo": "Solo sul naso"
+    },
+    {
+     "id": "guance",
+     "testo_prima": "Sul naso e anche sulle guance",
+     "testo_nuovo": "Sul naso e sulle guance"
+    },
+    {
+     "id": "non-so",
+     "testo_prima": "Non so",
+     "testo_nuovo": "Non so"
+    }
+   ],
+   "note": "Testo: la versione di Sofia (nota alla riscrittura 11). Opzioni: quelle approvate (12, 13). L'aiuto non ripete più «allo specchio», che ora sta nella domanda."
+  },
+  {
+   "id": "tira",
+   "cambiata": true,
+   "testo_prima": "Dopo aver lavato il viso, prima di applicare qualsiasi prodotto, come senti la tua pelle?",
+   "testo_nuovo": "Dopo aver lavato il viso, prima di mettere qualsiasi prodotto, come senti la pelle?",
+   "aiuto_prima": null,
+   "aiuto_nuovo": "Aspetta due minuti prima di rispondere. La sensazione che tira può essere uno dei segni più affidabili di pelle secca.",
+   "opzioni": [
+    {
+     "id": "bene",
+     "testo_prima": "Normale, a mio agio",
+     "testo_nuovo": "Bene, a mio agio"
+    },
+    {
+     "id": "poco",
+     "testo_prima": "Un po' secca, tira",
+     "testo_nuovo": "Mi tira un po'"
+    },
+    {
+     "id": "molto",
+     "testo_prima": "Molto secca, a volte brucia",
+     "testo_nuovo": "Mi tira molto, a volte brucia"
+    }
+   ],
+   "note": "Il caso tipico segnalato da Sofia: «Normale, a mio agio» è in prima persona, «Un po' secca, tira» parla della pelle in terza. Ora le tre risposte sono in prima persona, stesso significato. Aiuto: manca nel file pubblicato, rimesso quello approvato con la correzione di Sofia (riscrittura 19). «Applicare» diventa «mettere», più parlato."
+  },
+  {
+   "id": "spella",
+   "cambiata": true,
+   "testo_prima": "Ti capita di avere zone che si desquamano o che al tatto risultano ruvide?",
+   "testo_nuovo": "Nelle ultime settimane, la pelle si è spellata o era ruvida in qualche punto?",
+   "aiuto_prima": "Pensa alle ultime settimane. La desquamazione indica una barriera cutanea che trattiene poca acqua.",
+   "aiuto_nuovo": "Se la pelle si spella o è ruvida, può voler dire che la barriera cutanea trattiene poca acqua.",
+   "opzioni": [
+    {
+     "id": "mai",
+     "testo_prima": "No, mai",
+     "testo_nuovo": "No, mai"
+    },
+    {
+     "id": "a-volte",
+     "testo_prima": "Ogni tanto",
+     "testo_nuovo": "Ogni tanto"
+    },
+    {
+     "id": "spesso",
+     "testo_prima": "Spesso",
+     "testo_nuovo": "Spesso"
+    },
+    {
+     "id": "non-so",
+     "testo_prima": "Non so",
+     "testo_nuovo": "Non so"
+    }
+   ],
+   "note": "Testo: quello approvato (riscrittura 20), che porta il «nelle ultime settimane» dentro la domanda. L'aiuto perde il «Pensa alle ultime settimane» ripetuto e dice «può voler dire», non «indica»: è un segno, non una diagnosi."
+  },
+  {
+   "id": "crema",
+   "cambiata": true,
+   "testo_prima": "Dopo aver applicato una crema idratante, come si comporta la pelle?",
+   "testo_nuovo": "Dopo la crema idratante, come senti la pelle?",
+   "aiuto_prima": "Ci dice se alla pelle mancano acqua, grassi o nessuno dei due.",
+   "aiuto_nuovo": "Ci aiuta a capire se alla pelle mancano acqua, grassi o nessuno dei due.",
+   "opzioni": [
+    {
+     "id": "assorbe",
+     "testo_prima": "La assorbe gradualmente e resta confortevole",
+     "testo_nuovo": "A mio agio: la crema si assorbe piano"
+    },
+    {
+     "id": "beve",
+     "testo_prima": "La assorbe subito, ma dopo poco torna a tirare",
+     "testo_nuovo": "Bene per poco, poi mi torna a tirare"
+    },
+    {
+     "id": "unta",
+     "testo_prima": "La crema resta in superficie e la pelle appare unta",
+     "testo_nuovo": "Unta: la crema resta in superficie"
+    },
+    {
+     "id": "non-so",
+     "testo_prima": "Non so",
+     "testo_nuovo": "Non so"
+    }
+   ],
+   "note": "Oggi soggetto ballerino: «La assorbe» (la pelle), «La crema resta» (la crema). Ora la domanda chiede una sensazione, come quella sulla detersione, e ogni risposta comincia da quello che senti. Il significato delle tre risposte resta lo stesso (assorbe piano, beve e poi tira, resta unta)."
+  },
+  {
+   "id": "nuovo",
+   "cambiata": true,
+   "testo_prima": "Quando provi un prodotto nuovo, come reagisce di solito la pelle?",
+   "testo_nuovo": "Quando provi un prodotto nuovo, cosa succede di solito?",
+   "aiuto_prima": "Se la pelle più reattiva può suggerire la necessità di formule più delicate.",
+   "aiuto_nuovo": "Una pelle reattiva può avere bisogno di formule più delicate.",
+   "opzioni": [
+    {
+     "id": "niente",
+     "testo_prima": "Nessuna reazione",
+     "testo_nuovo": "Niente, nessuna reazione"
+    },
+    {
+     "id": "a-volte",
+     "testo_prima": "A volte si arrossa leggermente",
+     "testo_nuovo": "A volte un leggero rossore"
+    },
+    {
+     "id": "spesso",
+     "testo_prima": "Spesso si arrossa o pizzica",
+     "testo_nuovo": "Spesso rossore o pizzicore"
+    },
+    {
+     "id": "non-so",
+     "testo_prima": "Non so",
+     "testo_nuovo": "Non so"
+    }
+   ],
+   "note": "Risposte in terza persona («si arrossa») trasformate in frasi brevi senza soggetto, la forma ammessa dalla regola. L'aiuto di oggi è una frase rotta («Se la pelle più reattiva può suggerire…»): rimesso quello approvato (riscrittura 27)."
+  },
+  {
+   "id": "rossore",
+   "cambiata": true,
+   "testo_prima": "Ti capita che il viso si arrossi, con il caldo o il freddo?",
+   "testo_nuovo": "Ti capita di avere il viso rosso, per esempio con il caldo o il freddo?",
+   "aiuto_prima": "Rossori frequenti o che durano a lungo possono indicare una pelle sensibile o una rosacea.",
+   "aiuto_nuovo": "Rossori frequenti o che durano a lungo possono indicare una pelle sensibile, oppure una rosacea da far vedere a un medico.",
+   "opzioni": [
+    {
+     "id": "mai",
+     "testo_prima": "No, mai",
+     "testo_nuovo": "No, mai"
+    },
+    {
+     "id": "breve",
+     "testo_prima": "Ogni tanto, e passa in pochi minuti",
+     "testo_nuovo": "Ogni tanto, e passa in pochi minuti"
+    },
+    {
+     "id": "ore",
+     "testo_prima": "Spesso, ma passa presto",
+     "testo_nuovo": "Spesso, e passa in pochi minuti"
+    },
+    {
+     "id": "sempre",
+     "testo_prima": "Quasi sempre, e dura anche ore",
+     "testo_nuovo": "Quasi sempre, e dura anche ore"
+    }
+   ],
+   "note": "La domanda chiedeva solo del caldo e del freddo, ma l'ultima risposta (rossore quasi costante) non dipende da quelli: «per esempio» la apre. Opzione «ore»: oggi «Spesso, ma passa presto» si confonde con «Ogni tanto, e passa in pochi minuti»; messo il testo approvato (riscrittura 28), che le distingue solo per la frequenza. L'aiuto ora dice di far vedere la rosacea a un medico, come il limite «rossore»."
+  },
+  {
+   "id": "brufoli",
+   "cambiata": true,
+   "testo_prima": "Con quale frequenza compaiono punti neri o brufoli?",
+   "testo_nuovo": "Negli ultimi tre mesi, ti sono venuti punti neri o brufoli?",
+   "aiuto_prima": "Pensa agli ultimi tre mesi. Se i brufoli sono grossi, profondi e dolorosi, chiedi un parere di un dermatologo.",
+   "aiuto_nuovo": "Se i brufoli sono grossi, profondi e dolorosi, è bene chiedere il parere di un dermatologo.",
+   "opzioni": [
+    {
+     "id": "mai",
+     "testo_prima": "Quasi mai",
+     "testo_nuovo": "Quasi mai"
+    },
+    {
+     "id": "punti-neri",
+     "testo_prima": "Ho qualche punto nero",
+     "testo_nuovo": "Qualche punto nero"
+    },
+    {
+     "id": "a-volte",
+     "testo_prima": "Ho qualche brufolo ogni tanto",
+     "testo_nuovo": "Qualche brufolo ogni tanto"
+    },
+    {
+     "id": "spesso",
+     "testo_prima": "Ho sia tanti brufoli che punti neri",
+     "testo_nuovo": "Spesso, brufoli e punti neri"
+    },
+    {
+     "id": "noduli",
+     "testo_prima": "Ho brufoli grossi, profondi e dolorosi",
+     "testo_nuovo": "Brufoli grossi, profondi e dolorosi"
+    }
+   ],
+   "note": "Testo e aiuto: quelli approvati (29, 30). Risposte: oggi metà cominciano con «Ho» e metà no; ora tutte frasi brevi della stessa forma. «Ho sia tanti brufoli che punti neri» diventa «Spesso, brufoli e punti neri»: stessa cosa, più leggibile."
+  },
+  {
+   "id": "macchie",
+   "cambiata": true,
+   "testo_prima": "Hai macchie scure sul viso?",
+   "testo_nuovo": "Hai macchie scure sul viso?",
+   "aiuto_prima": "Possono essere i segni lasciati dai brufoli o macchie dovute al sole e all'età. Ci servono per scegliere attivi che uniformano il colorito.",
+   "aiuto_nuovo": "Possono essere segni lasciati dai brufoli o macchie dovute al sole e all'età. La risposta orienta la scelta degli attivi che uniformano il colorito.",
+   "opzioni": [
+    {
+     "id": "no",
+     "testo_prima": "No",
+     "testo_nuovo": "No"
+    },
+    {
+     "id": "qualcuna",
+     "testo_prima": "Qualcuna, piccola",
+     "testo_nuovo": "Qualcuna, piccola"
+    },
+    {
+     "id": "molte",
+     "testo_prima": "Molte, e tendono a scurirsi con il sole",
+     "testo_nuovo": "Molte, e con il sole si scuriscono"
+    }
+   ],
+   "note": "Aiuto: quello approvato (31). Una sola opzione ritoccata nell'ordine delle parole. Resta il problema che «molte» unisce due cose (quante e come reagiscono al sole): vedi «da decidere»."
+  },
+  {
+   "id": "condizioni",
+   "cambiata": true,
+   "testo_prima": "Un medico ti ha diagnosticato una di queste condizioni della pelle?",
+   "testo_nuovo": "Un medico ti ha mai diagnosticato una di queste condizioni della pelle?",
+   "aiuto_prima": "In questi casi ti proponiamo solo prodotti delicati, da affiancare alle indicazioni del dermatologo. Puoi sceglierne più di una.",
+   "aiuto_nuovo": "Puoi sceglierne più di una. In questi casi ti proponiamo solo prodotti delicati, da usare insieme alle indicazioni del medico che ti segue.",
+   "opzioni": [
+    {
+     "id": "dermatite",
+     "testo_prima": "Dermatite atopica",
+     "testo_nuovo": "Dermatite atopica"
+    },
+    {
+     "id": "rosacea",
+     "testo_prima": "Rosacea",
+     "testo_nuovo": "Rosacea"
+    },
+    {
+     "id": "psoriasi",
+     "testo_prima": "Psoriasi",
+     "testo_nuovo": "Psoriasi"
+    },
+    {
+     "id": "nessuna",
+     "testo_prima": "Nessuna di queste",
+     "testo_nuovo": "Nessuna di queste"
+    }
+   ],
+   "note": "La domanda dice «un medico», l'aiuto «il dermatologo»: ora entrambi parlano del medico. «Mai» chiarisce che conta una diagnosi anche passata. «Puoi sceglierne più di una» va in testa, come nelle altre domande a scelta multipla."
+  },
+  {
+   "id": "gravidanza",
+   "cambiata": true,
+   "testo_prima": "Sei in gravidanza o stai allattando?",
+   "testo_nuovo": "Sei in gravidanza o stai allattando?",
+   "aiuto_prima": "Alcuni attivi, come i retinoidi, sono sconsigliati in questo periodo: in quel caso ti mostriamo solo prodotti adatti.",
+   "aiuto_nuovo": "In questo periodo alcuni attivi, come i retinoidi, sono sconsigliati, e gli integratori li sceglie il medico o l'ostetrica. Se rispondi sì, ti proponiamo solo prodotti adatti.",
+   "opzioni": [
+    {
+     "id": "no",
+     "testo_prima": "No",
+     "testo_nuovo": "No"
+    },
+    {
+     "id": "si",
+     "testo_prima": "Sì",
+     "testo_nuovo": "Sì"
+    }
+   ],
+   "note": "La stessa domanda compare nel test del viso, della cute e degli integratori, ma l'aiuto di oggi parla solo dei retinoidi. Ora vale per tutti e tre i percorsi e dice la stessa cosa del limite «gravidanza-integratori»."
+  },
+  {
+   "id": "menopausa",
+   "cambiata": true,
+   "testo_prima": "Sei in perimenopausa o in menopausa?",
+   "testo_nuovo": "Sei in perimenopausa o in menopausa?",
+   "aiuto_prima": "Cicli irregolari, vampate o assenza di ciclo da almeno un anno. In questa fase la pelle tende a diventare più secca e sottile.",
+   "aiuto_nuovo": "In perimenopausa i cicli diventano irregolari e possono comparire vampate; la menopausa è l'assenza di ciclo da almeno dodici mesi. In questa fase la pelle tende a diventare più secca e sottile.",
+   "opzioni": [
+    {
+     "id": "no",
+     "testo_prima": "No",
+     "testo_nuovo": "No"
+    },
+    {
+     "id": "si",
+     "testo_prima": "Sì",
+     "testo_nuovo": "Sì"
+    }
+   ],
+   "note": "Aiuto: quello approvato (33). Manca un «Non lo so», utile proprio in perimenopausa: vedi «da decidere»."
+  },
+  {
+   "id": "obiettivo",
+   "cambiata": true,
+   "testo_prima": "Quale aspetto della pelle vorresti migliorare per primo?",
+   "testo_nuovo": "Cosa vorresti migliorare per primo?",
+   "aiuto_prima": "Scegline uno solo: la routine metterà al centro questo obiettivo.",
+   "aiuto_nuovo": "Scegline uno solo: la routine metterà al centro questo.",
+   "opzioni": [
+    {
+     "id": "idratazione",
+     "testo_prima": "Idratazione e comfort",
+     "testo_nuovo": "Idratazione e comfort"
+    },
+    {
+     "id": "imperfezioni",
+     "testo_prima": "Brufoli e punti neri",
+     "testo_nuovo": "Brufoli e punti neri"
+    },
+    {
+     "id": "pori",
+     "testo_prima": "I pori",
+     "testo_nuovo": "I pori"
+    },
+    {
+     "id": "macchie",
+     "testo_prima": "Macchie e luminosità",
+     "testo_nuovo": "Macchie e luminosità"
+    },
+    {
+     "id": "tempo",
+     "testo_prima": "I segni del tempo",
+     "testo_nuovo": "I segni del tempo"
+    },
+    {
+     "id": "calmare",
+     "testo_prima": "Rossori e fastidi",
+     "testo_nuovo": "Rossori e fastidi"
+    }
+   ],
+   "note": "Più corta e diretta. La parola «pelle» è già nel nome del passaggio. Le opzioni restano com'erano: due proposte senza articolo sono già state scartate (34, 35)."
+  },
+  {
+   "id": "esperienza",
+   "cambiata": true,
+   "testo_prima": "Hai già usato prodotti con retinolo o acidi esfolianti, come l'acido glicolico o il salicilico?",
+   "testo_nuovo": "Hai già usato prodotti con retinolo o acidi esfolianti, come l'acido glicolico o il salicilico?",
+   "aiuto_prima": "Sono attivi efficaci ma impegnativi: se non li hai mai usati, partiamo da formule più leggere.",
+   "aiuto_nuovo": "Sono attivi efficaci, ma la pelle deve abituarsi. Se non li usi con regolarità, partiamo da formule più leggere. Se non lo sai, puoi saltare la domanda.",
+   "opzioni": [
+    {
+     "id": "mai",
+     "testo_prima": "No, mai",
+     "testo_nuovo": "No, mai"
+    },
+    {
+     "id": "a-volte",
+     "testo_prima": "Qualche volta",
+     "testo_nuovo": "Qualche volta"
+    },
+    {
+     "id": "spesso",
+     "testo_prima": "Sì, li uso regolarmente",
+     "testo_nuovo": "Sì, li uso regolarmente"
+    }
+   ],
+   "note": "Aiuto: quello approvato (36), più un'indicazione per chi non sa cosa contengono i suoi prodotti, visto che la domanda si può saltare."
+  },
+  {
+   "id": "barba",
+   "cambiata": true,
+   "testo_prima": "Con quale frequenza ti radi?",
+   "testo_nuovo": "Con quale frequenza ti radi?",
+   "aiuto_prima": "La rasatura frequente sollecita la pelle: ci aiuta a scegliere prodotti che la proteggono.",
+   "aiuto_nuovo": "Radersi spesso sollecita la pelle: la risposta orienta la scelta dei prodotti che la proteggono.",
+   "opzioni": [
+    {
+     "id": "no",
+     "testo_prima": "Ogni giorno o quasi",
+     "testo_nuovo": "Ogni giorno o quasi"
+    },
+    {
+     "id": "irritata",
+     "testo_prima": "Almeno una volta a settimana",
+     "testo_nuovo": "Almeno una volta a settimana"
+    },
+    {
+     "id": "ok",
+     "testo_prima": "Senza regolarità, e a volte la pelle si irrita",
+     "testo_nuovo": "Senza regolarità, e a volte ho irritazioni"
+    }
+   ],
+   "note": "Solo forma: «la pelle si irrita» passa in prima persona. Il problema vero è nelle scelte: gli id non corrispondono ai testi («no» = ogni giorno, «irritata» = una volta a settimana) e chi si rade ogni giorno con irritazione non ha una risposta. Vedi «da decidere»."
+  },
+  {
+   "id": "passi",
+   "cambiata": true,
+   "testo_prima": "Quanto tempo vuoi dedicare alla routine ogni giorno?",
+   "testo_nuovo": "Quanti prodotti vuoi usare nella routine?",
+   "aiuto_prima": "Più passaggi permettono di seguire più esigenze, ma una routine semplice e costante funziona meglio di una complessa che si abbandona.",
+   "aiuto_nuovo": "Più passaggi seguono più esigenze, ma una routine semplice che porti avanti ogni giorno funziona meglio di una lunga che abbandoni.",
+   "opzioni": [
+    {
+     "id": "tre",
+     "testo_prima": "L'essenziale: 3 prodotti, mattina e sera",
+     "testo_nuovo": "3 prodotti, l'essenziale"
+    },
+    {
+     "id": "quattro",
+     "testo_prima": "Una routine completa: 4 prodotti",
+     "testo_nuovo": "4 prodotti, una routine completa"
+    },
+    {
+     "id": "cinque",
+     "testo_prima": "Anche 5, se servono",
+     "testo_nuovo": "5 prodotti, se servono"
+    }
+   ],
+   "note": "Oggi la domanda chiede il tempo, le risposte contano i prodotti. Testo e opzioni: quelli approvati (37-40). Aiuto più corto."
+  },
+  {
+   "id": "cute_unta",
+   "cambiata": true,
+   "testo_prima": "Quanto tempo dopo lo shampoo le radici iniziano ad apparire unte?",
+   "testo_nuovo": "Dopo lo shampoo, quando le radici cominciano a sembrare unte?",
+   "aiuto_prima": "Ci dice quanto sebo produce il cuoio capelluto, e quindi quale shampoo ti serve.",
+   "aiuto_nuovo": "Le radici che si ungono presto di solito indicano un cuoio capelluto che produce più sebo. La risposta orienta la scelta dello shampoo.",
+   "opzioni": [
+    {
+     "id": "un-giorno",
+     "testo_prima": "Già il giorno dopo",
+     "testo_nuovo": "Già il giorno dopo"
+    },
+    {
+     "id": "due-giorni",
+     "testo_prima": "Dopo due giorni",
+     "testo_nuovo": "Dopo due giorni"
+    },
+    {
+     "id": "tre-quattro",
+     "testo_prima": "Dopo tre o quattro giorni",
+     "testo_nuovo": "Dopo tre o quattro giorni"
+    },
+    {
+     "id": "mai",
+     "testo_prima": "Restano pulite anche per una settimana",
+     "testo_nuovo": "Restano pulite anche per una settimana"
+    }
+   ],
+   "note": "Testo e aiuto: quelli approvati (41, 42). Chi lava i capelli ogni giorno non sa rispondere: vedi «da decidere»."
+  },
+  {
+   "id": "cute_tira",
+   "cambiata": true,
+   "testo_prima": "Dopo lo shampoo, come senti il cuoio capelluto?",
+   "testo_nuovo": "Dopo lo shampoo, come senti il cuoio capelluto?",
+   "aiuto_prima": "Tensione o prurito ricorrenti indicano un cuoio capelluto secco o sensibile.",
+   "aiuto_nuovo": "Tensione o prurito ricorrenti indicano un cuoio capelluto secco o sensibile.",
+   "opzioni": [
+    {
+     "id": "bene",
+     "testo_prima": "Bene, nessun fastidio",
+     "testo_nuovo": "Bene, nessun fastidio"
+    },
+    {
+     "id": "tira",
+     "testo_prima": "Tira un po'",
+     "testo_nuovo": "Mi tira un po'"
+    },
+    {
+     "id": "brucia",
+     "testo_prima": "Prude o dà fastidio spesso",
+     "testo_nuovo": "Spesso mi prude o mi dà fastidio"
+    },
+    {
+     "id": "non-so",
+     "testo_prima": "Non so",
+     "testo_nuovo": "Non so"
+    }
+   ],
+   "note": "Stesso caso della pelle del viso: «Bene, nessun fastidio» parla di te, «Tira un po'» del cuoio capelluto. Ora tutte in prima persona, come nella domanda sulla detersione del viso. «Spesso» va in testa, perché la domanda è su un momento preciso (dopo lo shampoo). L'aiuto resta: la variante proposta è stata scartata (43)."
+  },
+  {
+   "id": "forfora",
+   "cambiata": true,
+   "testo_prima": "Noti forfora sul cuoio capelluto o sulle spalle?",
+   "testo_nuovo": "Noti forfora sul cuoio capelluto o sulle spalle?",
+   "aiuto_prima": "Conta il tipo di scaglie: quelle secche e quelle grasse si trattano in modo diverso.",
+   "aiuto_nuovo": "Conta il tipo di scaglie: quelle secche e quelle grasse si trattano in modo diverso.",
+   "opzioni": [
+    {
+     "id": "no",
+     "testo_prima": "No",
+     "testo_nuovo": "No"
+    },
+    {
+     "id": "secca",
+     "testo_prima": "Sì, scaglie bianche e sottili che cadono sulle spalle",
+     "testo_nuovo": "Sì, scaglie bianche e sottili, che cadono sulle spalle"
+    },
+    {
+     "id": "grassa",
+     "testo_prima": "Sì, scaglie giallastre e untuose, che restano attaccate alla cute",
+     "testo_nuovo": "Sì, scaglie giallastre e untuose, attaccate alla cute"
+    },
+    {
+     "id": "placche",
+     "testo_prima": "Placche spesse e arrossate, anche oltre l'attaccatura",
+     "testo_nuovo": "Placche spesse e arrossate, anche oltre l'attaccatura"
+    }
+   ],
+   "note": "Solo punteggiatura e una forma più corta. «Placche» resta senza «Sì»: la proposta di aggiungerlo è stata scartata (44)."
+  },
+  {
+   "id": "caduta",
+   "cambiata": true,
+   "testo_prima": "Ritieni di star perdendo capelli in questo periodo?",
+   "testo_nuovo": "In questo periodo perdi più capelli del solito?",
+   "aiuto_prima": "Perderne fino a un centinaio al giorno è normale. Una caduta a chiazze, o che dura da mesi, va valutata da un dermatologo.",
+   "aiuto_nuovo": "Perderne fino a un centinaio al giorno è normale. Una caduta a chiazze, o che dura da mesi, va vista da un dermatologo.",
+   "opzioni": [
+    {
+     "id": "normale",
+     "testo_prima": "No, non sto perdendo capelli",
+     "testo_nuovo": "No"
+    },
+    {
+     "id": "acuta",
+     "testo_prima": "Più del solito da qualche settimana, su tutta la testa",
+     "testo_nuovo": "Sì, da qualche settimana, su tutta la testa"
+    },
+    {
+     "id": "progressiva",
+     "testo_prima": "Da mesi, si stanno diradando visibilmente",
+     "testo_nuovo": "Sì, da mesi, e si stanno diradando"
+    },
+    {
+     "id": "chiazze",
+     "testo_prima": "Ho zone senza capelli, a chiazze",
+     "testo_nuovo": "Ho zone senza capelli, a chiazze"
+    }
+   ],
+   "note": "Testo: quello approvato (45). Oggi «No, non sto perdendo capelli» contraddice l'aiuto (perderne cento al giorno è normale). Con la domanda nuova basta «No». Le altre risposte cominciano con «Sì» perché rispondono alla stessa domanda."
+  },
+  {
+   "id": "lunghezze",
+   "cambiata": true,
+   "testo_prima": "Come descriveresti le lunghezze e le punte?",
+   "testo_nuovo": "Come sono lunghezze e punte?",
+   "aiuto_prima": "Ci serve per scegliere balsamo e maschera adatti.",
+   "aiuto_nuovo": "La risposta orienta la scelta di balsamo e maschera.",
+   "opzioni": [
+    {
+     "id": "morbide",
+     "testo_prima": "Morbide e lucide",
+     "testo_nuovo": "Morbide e lucide"
+    },
+    {
+     "id": "punte",
+     "testo_prima": "Un po' secche sulle punte",
+     "testo_nuovo": "Un po' secche sulle punte"
+    },
+    {
+     "id": "crespe",
+     "testo_prima": "Opache e crespe, si spezzano facilmente",
+     "testo_nuovo": "Opache e crespe, si spezzano facilmente"
+    }
+   ],
+   "note": "Testo e aiuto: quelli approvati (47, 48). Chi ha i capelli molto corti non ha una risposta: vedi «da decidere»."
+  },
+  {
+   "id": "trattamenti",
+   "cambiata": true,
+   "testo_prima": "Fai trattamenti che sollecitano i capelli?",
+   "testo_nuovo": "Colori i capelli o usi spesso piastra e phon caldo?",
+   "aiuto_prima": "Colorazioni, decolorazioni e calore frequente indeboliscono la fibra. Puoi sceglierne più di uno.",
+   "aiuto_nuovo": "Colore e calore, se frequenti, indeboliscono la fibra del capello. Puoi segnarli tutti e due.",
+   "opzioni": [
+    {
+     "id": "nessuno",
+     "testo_prima": "No",
+     "testo_nuovo": "No, nessuno dei due"
+    },
+    {
+     "id": "colore",
+     "testo_prima": "Colore o decolorazione",
+     "testo_nuovo": "Colore o decolorazione"
+    },
+    {
+     "id": "calore",
+     "testo_prima": "Piastra o phon molto caldo quasi ogni giorno",
+     "testo_nuovo": "Piastra o phon molto caldo, quasi ogni giorno"
+    }
+   ],
+   "note": "Testo, aiuto e «nessuno»: quelli approvati (49-51). «Fai trattamenti che sollecitano i capelli?» era una domanda da tecnico."
+  },
+  {
+   "id": "condizioni_cute",
+   "cambiata": true,
+   "testo_prima": "Un medico ti ha diagnosticato una di queste condizioni del cuoio capelluto?",
+   "testo_nuovo": "Un medico ti ha mai diagnosticato una di queste condizioni del cuoio capelluto?",
+   "aiuto_prima": "In questi casi ti proponiamo prodotti specifici e delicati, da affiancare alle indicazioni del medico.",
+   "aiuto_nuovo": "Puoi sceglierne più di una. In questi casi ti proponiamo solo prodotti adatti, da usare insieme alle indicazioni del medico che ti segue.",
+   "opzioni": [
+    {
+     "id": "nessuna",
+     "testo_prima": "Nessuna",
+     "testo_nuovo": "Nessuna di queste"
+    },
+    {
+     "id": "seborroica",
+     "testo_prima": "Dermatite seborroica",
+     "testo_nuovo": "Dermatite seborroica"
+    },
+    {
+     "id": "psoriasi",
+     "testo_prima": "Psoriasi del cuoio capelluto",
+     "testo_nuovo": "Psoriasi del cuoio capelluto"
+    }
+   ],
+   "note": "Parallela alla domanda sulla pelle: stesso testo, stesso aiuto, stessa «Nessuna di queste». Da spostare in admin come ultima opzione, come nella domanda sulla pelle (l'ordine delle opzioni non tocca il motore). «Specifici e delicati» diventa «adatti»: con la dermatite seborroica il motore non si limita ai delicati (limite con solo_delicati false)."
+  },
+  {
+   "id": "int_obiettivo",
+   "cambiata": true,
+   "testo_prima": "Oltre a quanto indicato finora, vorresti un integratore per pelle, capelli o unghie?",
+   "testo_nuovo": "Oltre a questo, vorresti un integratore per pelle, capelli o unghie?",
+   "aiuto_prima": "Scegli l'aspetto più importante per te in questo momento, oppure rispondi di no.",
+   "aiuto_nuovo": "Puoi sceglierne più di uno, oppure rispondere di no. In tutto ti proponiamo al massimo tre integratori.",
+   "opzioni": [
+    {
+     "id": "capelli",
+     "testo_prima": "Capelli che cadono o deboli",
+     "testo_nuovo": "Capelli che cadono o deboli"
+    },
+    {
+     "id": "pelle-secca",
+     "testo_prima": "Pelle secca o spenta",
+     "testo_nuovo": "Pelle secca o spenta"
+    },
+    {
+     "id": "tono",
+     "testo_prima": "Tono ed elasticità della pelle",
+     "testo_nuovo": "Tono ed elasticità della pelle"
+    },
+    {
+     "id": "sole",
+     "testo_prima": "Preparare la pelle al sole",
+     "testo_nuovo": "Preparare la pelle al sole"
+    },
+    {
+     "id": "unghie",
+     "testo_prima": "Unghie fragili",
+     "testo_nuovo": "Unghie fragili"
+    },
+    {
+     "id": "imperfezioni",
+     "testo_prima": "Imperfezioni",
+     "testo_nuovo": "Imperfezioni"
+    },
+    {
+     "id": "nessuno",
+     "testo_prima": "No, va bene così",
+     "testo_nuovo": "No, va bene così"
+    }
+   ],
+   "note": "La domanda è a scelta multipla, ma l'aiuto dice «scegli l'aspetto più importante»: si contraddicono. Ora l'aiuto dice come funziona davvero (fino a tre integratori, il limite del motore). «Oltre a quanto indicato finora» diventa più parlato. Due opzioni («Preparare la pelle al sole», «Imperfezioni») vanno controllate con Sofia sulle indicazioni autorizzate: vedi «da decidere»."
+  },
+  {
+   "id": "dieta",
+   "cambiata": true,
+   "testo_prima": "Che tipo di alimentazione segui?",
+   "testo_nuovo": "Che tipo di alimentazione segui?",
+   "aiuto_prima": "Chi non mangia carne o pesce può avere bisogno di alcuni nutrienti in più, come la vitamina B12.",
+   "aiuto_nuovo": "Chi non mangia carne o pesce può avere bisogno di alcuni nutrienti in più, come la vitamina B12.",
+   "opzioni": [
+    {
+     "id": "onnivora",
+     "testo_prima": "Mangio un po' di tutto",
+     "testo_nuovo": "Mangio di tutto"
+    },
+    {
+     "id": "vegetariana",
+     "testo_prima": "Vegetariana",
+     "testo_nuovo": "Vegetariana, senza carne né pesce"
+    },
+    {
+     "id": "vegana",
+     "testo_prima": "Vegana",
+     "testo_nuovo": "Vegana, senza alimenti di origine animale"
+    }
+   ],
+   "note": "Opzioni: quelle approvate (57-59). Testo e aiuto restano: le varianti sono state scartate (55, 56)."
+  },
+  {
+   "id": "farmaci",
+   "cambiata": true,
+   "testo_prima": "Assumi farmaci tutti i giorni?",
+   "testo_nuovo": "Assumi farmaci tutti i giorni?",
+   "aiuto_prima": "Per esempio per la pressione, la tiroide, la coagulazione o la pillola. Alcuni integratori possono interferire: in quel caso ti ricorderemo di sentire il medico o il farmacista.",
+   "aiuto_nuovo": "Per esempio per la pressione, la tiroide, la coagulazione, o la pillola anticoncezionale. Alcuni integratori interferiscono con i farmaci: se rispondi sì, ti ricordiamo di chiedere al medico o al farmacista.",
+   "opzioni": [
+    {
+     "id": "no",
+     "testo_prima": "No",
+     "testo_nuovo": "No"
+    },
+    {
+     "id": "si",
+     "testo_prima": "Sì",
+     "testo_nuovo": "Sì"
+    }
+   ],
+   "note": "Aiuto: quello approvato (61). Il testo resta («Prendi» era stato scartato)."
+  },
+  {
+   "id": "evitare",
+   "cambiata": true,
+   "testo_prima": "Ci sono ingredienti che preferisci evitare?",
+   "testo_nuovo": "Ci sono ingredienti che preferisci evitare?",
+   "aiuto_prima": "Ti mostreremo per primi i prodotti che non li contengono. Puoi sceglierne più di uno.",
+   "aiuto_nuovo": "Ti mostriamo per primi i prodotti che non li contengono. Puoi sceglierne più di uno.",
+   "opzioni": [
+    {
+     "id": "profumo",
+     "testo_prima": "Il profumo",
+     "testo_nuovo": "Il profumo"
+    },
+    {
+     "id": "alcol",
+     "testo_prima": "L'alcol",
+     "testo_nuovo": "L'alcol"
+    },
+    {
+     "id": "oli",
+     "testo_prima": "Gli oli essenziali",
+     "testo_nuovo": "Gli oli essenziali"
+    },
+    {
+     "id": "niente",
+     "testo_prima": "Niente in particolare",
+     "testo_nuovo": "Niente in particolare"
+    }
+   ],
+   "note": "Solo il tempo del verbo: nel resto del test parliamo al presente («ti proponiamo», «ti mostriamo»), qui c'era un futuro."
+  },
+  {
+   "id": "sonno",
+   "cambiata": true,
+   "testo_prima": "Come stai dormendo nelle ultime settimane?",
+   "testo_nuovo": "Come stai dormendo nelle ultime settimane?",
+   "aiuto_prima": "Il sonno incide sull'energia e anche sull'aspetto della pelle. Se i disturbi durano da tempo, è bene parlarne con il medico.",
+   "aiuto_nuovo": "Il sonno incide sull'energia e sull'aspetto della pelle. Se dormi male da tempo, parlane con il medico.",
+   "opzioni": [
+    {
+     "id": "bene",
+     "testo_prima": "Bene: mi addormento facilmente e al risveglio sono in forma",
+     "testo_nuovo": "Bene: mi addormento facilmente e al risveglio sono in forma"
+    },
+    {
+     "id": "risvegli",
+     "testo_prima": "Ogni tanto non mi addormento o mi sveglio durante la notte",
+     "testo_nuovo": "A volte fatico ad addormentarmi o mi sveglio di notte"
+    },
+    {
+     "id": "addormentarsi",
+     "testo_prima": "Non riesco a dormire e la mattina mi sveglio stanco",
+     "testo_nuovo": "Dormo male quasi sempre e la mattina mi alzo senza energie"
+    }
+   ],
+   "note": "Aiuto e «risvegli»: approvati (64, 66). «Mi sveglio stanco» è al maschile e risponde per metà delle persone: ora la frase vale per tutti. Il testo è diverso da quello scartato (67)."
+  },
+  {
+   "id": "stanchezza",
+   "cambiata": true,
+   "testo_prima": "Come ti senti a metà pomeriggio, in termini di energia?",
+   "testo_nuovo": "A metà pomeriggio, quanta energia hai?",
+   "aiuto_prima": "Se la stanchezza dura da settimane senza un motivo, parlane con il medico: un esame del sangue dice più di un test.",
+   "aiuto_nuovo": "Se la stanchezza dura da settimane senza un motivo, parlane con il medico: un esame del sangue dice più di un test.",
+   "opzioni": [
+    {
+     "id": "piena",
+     "testo_prima": "Con la stessa energia del mattino",
+     "testo_nuovo": "Tanta quanta la mattina"
+    },
+    {
+     "id": "calo",
+     "testo_prima": "Con un calo, che poi passa",
+     "testo_nuovo": "Un po' meno, poi passa"
+    },
+    {
+     "id": "scarica",
+     "testo_prima": "Senza energie, quasi ogni giorno",
+     "testo_nuovo": "Pochissima, quasi ogni giorno"
+    }
+   ],
+   "note": "Testo e «scarica»: approvati (68, 71). Con la domanda nuova le altre due risposte («Con la stessa energia del mattino», «Con un calo») non completano più la frase: le riscrivo nella stessa forma di «Pochissima», con parole diverse da quelle scartate (69, 70)."
+  },
+  {
+   "id": "stress",
+   "cambiata": false,
+   "testo_prima": "Con quale frequenza ti senti sotto pressione o con i nervi tesi?",
+   "testo_nuovo": "Con quale frequenza ti senti sotto pressione o con i nervi tesi?",
+   "aiuto_prima": "Pensa alle ultime settimane. Se ansia o umore basso durano da tempo, il primo passo è parlarne con il medico.",
+   "aiuto_nuovo": "Pensa alle ultime settimane. Se ansia o umore basso durano da tempo, il primo passo è parlarne con il medico.",
+   "opzioni": [
+    {
+     "id": "raramente",
+     "testo_prima": "Raramente",
+     "testo_nuovo": "Raramente"
+    },
+    {
+     "id": "periodi",
+     "testo_prima": "In certi periodi",
+     "testo_nuovo": "In certi periodi"
+    },
+    {
+     "id": "spesso",
+     "testo_prima": "Quasi sempre",
+     "testo_nuovo": "Quasi sempre"
+    }
+   ],
+   "note": "Già coerente: domanda col tu, risposte di frequenza della stessa forma, aiuto prudente."
+  },
+  {
+   "id": "raffreddori",
+   "cambiata": true,
+   "testo_prima": "Quante volte all'anno ti capita di prendere raffreddore o influenza?",
+   "testo_nuovo": "Quante volte all'anno prendi il raffreddore o l'influenza?",
+   "aiuto_prima": "Ci aiuta a capire se ha senso un sostegno per le difese.",
+   "aiuto_nuovo": "Ci aiuta a capire se ha senso un sostegno per le difese.",
+   "opzioni": [
+    {
+     "id": "raro",
+     "testo_prima": "Quasi mai, al massimo una volta",
+     "testo_nuovo": "Quasi mai, al massimo una volta"
+    },
+    {
+     "id": "qualche",
+     "testo_prima": "Due o tre volte",
+     "testo_nuovo": "Due o tre volte"
+    },
+    {
+     "id": "spesso",
+     "testo_prima": "Quattro o più",
+     "testo_nuovo": "Quattro o più"
+    }
+   ],
+   "note": "Più parlata («ti capita di prendere» diventa «prendi»)."
+  },
+  {
+   "id": "frutta",
+   "cambiata": false,
+   "testo_prima": "Quante porzioni di frutta e verdura mangi, in media, al giorno?",
+   "testo_nuovo": "Quante porzioni di frutta e verdura mangi, in media, al giorno?",
+   "aiuto_prima": "Una porzione è un frutto, una ciotola di insalata o un piatto di verdure cotte. Sono la principale fonte di vitamina C.",
+   "aiuto_nuovo": "Una porzione è un frutto, una ciotola di insalata o un piatto di verdure cotte. Sono la principale fonte di vitamina C.",
+   "opzioni": [
+    {
+     "id": "cinque",
+     "testo_prima": "Cinque o più",
+     "testo_nuovo": "Cinque o più"
+    },
+    {
+     "id": "qualche",
+     "testo_prima": "Due, tre o quattro",
+     "testo_nuovo": "Due, tre o quattro"
+    },
+    {
+     "id": "poche",
+     "testo_prima": "Una, o nessuna",
+     "testo_nuovo": "Una, o nessuna"
+    }
+   ],
+   "note": "Già coerente."
+  },
+  {
+   "id": "aperto",
+   "cambiata": true,
+   "testo_prima": "Quanto tempo trascorri all'aperto, alla luce del giorno?",
+   "testo_nuovo": "Quanto tempo trascorri all'aperto, alla luce del giorno?",
+   "aiuto_prima": "La vitamina D si forma nella pelle con il sole: chi sta molto al chiuso, soprattutto d'inverno, ne produce poca.",
+   "aiuto_nuovo": "La vitamina D si forma nella pelle con il sole: chi sta molto al chiuso, soprattutto d'inverno, di solito ne produce meno. Se pensi di averne poca, la misura un esame del sangue.",
+   "opzioni": [
+    {
+     "id": "ogni-giorno",
+     "testo_prima": "Almeno mezz'ora, quasi ogni giorno",
+     "testo_nuovo": "Almeno mezz'ora, quasi ogni giorno"
+    },
+    {
+     "id": "weekend",
+     "testo_prima": "Solo nel fine settimana",
+     "testo_nuovo": "Solo nel fine settimana"
+    },
+    {
+     "id": "quasi-mai",
+     "testo_prima": "Quasi mai, soprattutto d'inverno",
+     "testo_nuovo": "Quasi mai, soprattutto d'inverno"
+    }
+   ],
+   "note": "Aiuto più prudente («di solito ne produce meno») e con il rimando all'esame, come nell'aiuto sulla stanchezza."
+  },
+  {
+   "id": "pesce",
+   "cambiata": false,
+   "testo_prima": "Quanto spesso mangi pesce grasso, come salmone, sgombro o sardine?",
+   "testo_nuovo": "Quanto spesso mangi pesce grasso, come salmone, sgombro o sardine?",
+   "aiuto_prima": "È la fonte principale degli omega-3 EPA e DHA.",
+   "aiuto_nuovo": "È la fonte principale degli omega-3 EPA e DHA.",
+   "opzioni": [
+    {
+     "id": "spesso",
+     "testo_prima": "Due volte a settimana o più",
+     "testo_nuovo": "Due volte a settimana o più"
+    },
+    {
+     "id": "a-volte",
+     "testo_prima": "Ogni tanto",
+     "testo_nuovo": "Ogni tanto"
+    },
+    {
+     "id": "mai",
+     "testo_prima": "Quasi mai",
+     "testo_nuovo": "Quasi mai"
+    }
+   ],
+   "note": "Già coerente."
+  },
+  {
+   "id": "budget",
+   "cambiata": true,
+   "testo_prima": "Quanto vuoi spendere per iniziare?",
+   "testo_nuovo": "Quanto vuoi spendere per iniziare?",
+   "aiuto_prima": "Il totale della routine. Se scegli una cifra, restiamo dentro: dove serve, al posto della prima scelta entra l’alternativa.",
+   "aiuto_nuovo": "È il totale della routine. Se scegli una cifra, restiamo dentro: dove serve, al posto della prima scelta mettiamo l'alternativa che costa meno.",
+   "opzioni": [
+    {
+     "id": "fino-50",
+     "testo_prima": "Fino a 50 €",
+     "testo_nuovo": "Fino a 50 €"
+    },
+    {
+     "id": "fino-100",
+     "testo_prima": "Fino a 100 €",
+     "testo_nuovo": "Fino a 100 €"
+    },
+    {
+     "id": "fino-150",
+     "testo_prima": "Fino a 150 €",
+     "testo_nuovo": "Fino a 150 €"
+    },
+    {
+     "id": "fino-250",
+     "testo_prima": "Fino a 250 €",
+     "testo_nuovo": "Fino a 250 €"
+    },
+    {
+     "id": "consigliami",
+     "testo_prima": "Consigliami tu",
+     "testo_nuovo": "Consigliami tu"
+    }
+   ],
+   "note": "Aiuto più chiaro: «entra l'alternativa» non dice che è quella più economica."
+  }
+ ],
+ "da_decidere": [
+  {
+   "id": "barba",
+   "proposta": "Rifare le opzioni: «Ogni giorno o quasi, senza problemi» (mantenimento), «Ogni giorno o quasi, e a volte mi irrito o ho peli incarniti» (irritazione), «Ogni tanto, senza problemi» (mantenimento), «Ogni tanto, e a volte mi irrito» (irritazione), «Porto la barba o non mi rado» (no). Oppure adottare la domanda «Come ti radi, di solito?» della persona Andrea in src/data/proposte-domande.json.",
+   "perche": "Oggi gli id non c'entrano coi testi (id «no» = «Ogni giorno o quasi», id «irritata» = «Almeno una volta a settimana», id «ok» = «a volte la pelle si irrita») e la domanda mescola la frequenza con l'irritazione: chi si rade ogni giorno e si irrita non ha una risposta, e chi porta la barba non ce l'ha proprio (il valore «no» esiste nelle scelte ma nessuna opzione lo dà). La persona di prova Luca risponde «irritata» pensando all'irritazione, ma il motore gli dà mantenimento. Cambia le scelte: decide Sofia."
+  },
+  {
+   "id": "cute_unta",
+   "proposta": "Aggiungere un'opzione «Li lavo ogni giorno, non saprei» con punti cs 2 (o senza punti, come i «Non so»).",
+   "perche": "Chi lava i capelli tutti i giorni (molti, soprattutto chi fa sport) non vede mai quando le radici si ungono e oggi deve tirare a indovinare. Lavare ogni giorno di solito va insieme a una cute che si unge presto: quanti punti dare lo decide Sofia."
+  },
+  {
+   "id": "int_obiettivo",
+   "proposta": "Rivedere con Sofia «Preparare la pelle al sole» e «Imperfezioni»: tenerle solo se c'è un integratore in catalogo con un'indicazione autorizzata (Reg. UE 432/2012) che le copre, se no toglierle o riscriverle sull'indicazione vera (per esempio «Pelle normale» per lo zinco o la biotina).",
+   "perche": "Per «preparare la pelle al sole» e per le «imperfezioni» non esistono indicazioni autorizzate in Europa: l'opzione promette quello che l'etichetta non può dire. Il percorso dice «ognuno con l'indicazione autorizzata in Europa» e deve restare vero."
+  },
+  {
+   "id": "menopausa",
+   "proposta": "Aggiungere «Non lo so» (nessuna scelta, nessun punto).",
+   "perche": "La perimenopausa spesso non si riconosce da sole: chi ha cicli un po' irregolari a 45 anni oggi deve scegliere tra sì e no senza saperlo."
+  },
+  {
+   "id": "macchie",
+   "proposta": "Dividere «Molte, e con il sole si scuriscono» in due opzioni: «Molte» (mac 2) e «Molte, e con il sole si scuriscono» (mac 2, più un eventuale segnale per il melasma), oppure togliere la parte sul sole.",
+   "perche": "Un'opzione che chiede due cose insieme: chi ha molte macchie che non cambiano col sole non sa cosa scegliere. Il glossario ha già «melasma», che è proprio la macchia che si scurisce col sole."
+  },
+  {
+   "id": "lunghezze",
+   "proposta": "Aggiungere «Ho i capelli molto corti» (lung 0, nessuna scelta).",
+   "perche": "Nel test della cute la domanda arriva anche agli uomini con i capelli rasati o cortissimi, che non hanno lunghezze né punte da descrivere."
+  },
+  {
+   "id": "brufoli",
+   "proposta": "Cambiare «Spesso, brufoli e punti neri» in «Spesso brufoli, con o senza punti neri» (stessi punti).",
+   "perche": "Oggi chi ha brufoli frequenti ma pochi punti neri non si ritrova né in «Qualche brufolo ogni tanto» né in «sia tanti brufoli che punti neri». Il significato si allarga un poco, per questo lo metto qui e non nelle riscritture."
+  },
+  {
+   "id": "completo",
+   "proposta": "Decidere se il test completo deve fare anche le domande su sonno, energia, stress, raffreddori, frutta, sole e pesce, oppure dire chiaro nella descrizione che l'integratore riguarda solo pelle, capelli e unghie. E rimettere il completo come quarta scheda nella scelta del test (oggi è escluso in src/lib/dati.ts, PERCORSI_SCELTA, e in test/page.tsx i vecchi link al completo portano alla scelta).",
+   "perche": "La descrizione promette «pelle, cute e integrazione in un solo giro», ma delle domande sugli integratori ci sono solo int_obiettivo, dieta e farmaci: chi lo fa crede di aver fatto anche il giro integrativo. La seconda parte è codice: la fa Jarvis."
+  },
+  {
+   "id": "tzona",
+   "proposta": "Valutare un quarto livello «Molto lucidi, li tampono durante il giorno» (sebo 3), che esisteva in una versione precedente (riscrittura 8 sull'opzione «molto-lucidi»).",
+   "perche": "Con tre livelli una pelle mista e una molto grassa rispondono allo stesso modo su fronte e naso; il motore distingue sebo alto solo sommando altre risposte."
+  }
+ ]
+}

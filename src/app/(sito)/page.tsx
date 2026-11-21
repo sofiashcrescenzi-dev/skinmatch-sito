@@ -6,6 +6,8 @@ import Foto from '@/components/Foto';
 import { Invito, Stendi } from '@/components/Inviti';
 import { ConTermini } from '@/components/Termini';
 import RicercaCentrale from '@/components/RicercaCentrale';
+import ScaffaleVivo from '@/components/ScaffaleVivo';
+import ComeFunziona from '@/components/ComeFunziona';
 import Icona, { type NomeIcona } from '@/components/Icona';
 import { BISOGNI } from '@/lib/integratori';
 import { domandeDi } from '@/lib/motore';
@@ -21,11 +23,7 @@ const massimoDomande = (p: (typeof TEST.percorsi)[number]) => {
 
 // ⚠️ LA HOME SULLA ROUTINE, NON SUL CATALOGO (7/11/2026, voto l-home; testi di Zeno, strategia/testi-lancio.md §1).
 // Il PO: «manteniamo una parte abbastanza importante sul cerca prodotto, magari non subito nell'hero ma sotto».
-const PASSI = [
-  ['Rispondi su quello che vedi', 'Com’è la fronte a metà giornata, se la pelle tira dopo averla lavata, se arrossa. Nessuna foto, nessuna email.'],
-  ['Leggi la tua pelle', 'Ti diamo un profilo con un nome semplice e ti mostriamo le risposte che lo hanno deciso.'],
-  ['Ricevi la routine', 'Mattina e sera, un passaggio alla volta: a cosa serve, il prodotto scelto per te e un’alternativa.'],
-];
+// i tre passaggi di «Come funziona» stanno in components/ComeFunziona (21/11/2026: animati)
 // ⚠️ LE ICONE (20/11/2026, Federico: «aggiungerei qui delle icone»): dalla famiglia di Skinmatch (components/Icona),
 // in un tondo coi toni dei fototipi, uno per carta. Specchio = il profilo (si risponde su quello che si vede allo
 // specchio), orologio = la routine all'ora giusta, confronta = scelta e alternativa, scudo = le cautele.
@@ -44,6 +42,7 @@ const ESCE: Record<string, string> = {
   viso: 'Il tuo profilo e una routine da tre a cinque passaggi, mattina e sera.',
   cute: 'Il profilo della tua cute, lo shampoo e il trattamento.',
   integrazione: 'Al massimo tre integratori, ognuno con l\'indicazione autorizzata in Europa. Se non te ne serve nessuno, te lo diciamo.',
+  completo: 'Il tuo profilo e tutta la giornata: la routine del viso, lo shampoo e il trattamento per la cute.',
 };
 
 // La routine in ordine: a cosa serve ogni passaggio e quando si usa, con i suoi prodotti.
@@ -112,17 +111,17 @@ export default function Home() {
         <div className="contenitore sezione pila" style={{ ['--gap' as string]: 'clamp(20px, 4vw, 32px)' }}>
           <div className="pila" style={{ ['--gap' as string]: '8px' }}>
             <span className="etichetta">Da dove partire</span>
-            <h2 id="test-titolo" className="titolo-2">Tre test, uno per ogni interesse</h2>
-            <p className="intro">Parti da quello che ti interessa: la pelle del viso, la cute e i capelli, o l’integrazione. Due o tre minuti ciascuno; puoi salvare i risultati e fare gli altri quando vuoi.</p>
+            <h2 id="test-titolo" className="titolo-2">Il test completo, o uno per ogni interesse</h2>
+            <p className="intro">Il completo copre la pelle del viso e la cute in un giro solo. Oppure parti da quello che ti interessa: il viso, la cute e i capelli, o l’integrazione. Puoi salvare i risultati e fare gli altri quando vuoi.</p>
           </div>
           <RisultatiSalvati compatto />
           <div className="test-griglia test-tre">
             {PERCORSI_SCELTA.map((p, i) => (
-              <Link key={p.id} href={`/test?percorso=${p.id}`} className="test-carta" style={{ ['--tono' as string]: `var(--f${i + 1})` }}>
-                <span className="test-foto"><Foto nome={p.immagine} sizes="(max-width: 760px) 100vw, 33vw" /></span>
+              <Link key={p.id} href={`/test?percorso=${p.id}`} className={`test-carta${p.id === 'completo' ? ' test-grande' : ''}`} style={{ ['--tono' as string]: `var(--f${p.id === 'completo' ? 4 : i})` }}>
+                <span className="test-foto"><Foto nome={p.immagine} sizes={p.id === 'completo' ? '(max-width: 760px) 100vw, 55vw' : '(max-width: 760px) 100vw, 33vw'} /></span>
                 <span className="test-corpo">
                   <span className="test-dati"><b>{p.minuti} min</b><span>fino a {massimoDomande(p)} domande</span></span>
-                  <span className="titolo-3">{p.id === 'viso' ? 'Il test della tua pelle' : p.titolo}</span>
+                  <span className="titolo-3">{p.id === 'viso' ? 'Il test della tua pelle' : p.id === 'completo' ? 'Il test completo: pelle e cute' : p.titolo}</span>
                   {/* solo la prima frase: «Ne esce» sta sotto, e la descrizione lo ripeteva */}
                   <span className="piccolo">{p.descrizione.split(/\.\s+Ne escon?o?\b/)[0].replace(/\.?$/, '.')}</span>
                   <span className="test-esce"><b>Ne esce</b> {ESCE[p.id] || 'Il tuo biotipo e una routine.'}</span>
@@ -143,20 +142,13 @@ export default function Home() {
           <RicercaCentrale />
           <Link href="/catalogo" className="cerca-tutto">Oppure guarda tutto il catalogo →</Link>
           <span className="piccolo">Il catalogo è piccolo di proposito: entra solo quello che sappiamo descrivere bene.</span>
+          <ScaffaleVivo />
         </div>
       </section>
 
       <section className="contenitore sezione pila" style={{ ['--gap' as string]: 'clamp(20px, 4vw, 36px)' }}>
         <h2 className="titolo-2">Come funziona</h2>
-        <ol className="griglia" style={{ ['--min' as string]: '240px', listStyle: 'none', padding: 0, margin: 0 }}>
-          {PASSI.map(([t, d], i) => (
-            <li key={t} className="pila" style={{ ['--gap' as string]: '8px' }}>
-              <span className="titolo" style={{ fontSize: 44, lineHeight: 1, color: 'var(--terra)' }}>{i + 1}</span>
-              <span className="titolo-3">{t}</span>
-              <span className="piccolo" style={{ fontSize: 15 }}>{d}</span>
-            </li>
-          ))}
-        </ol>
+        <ComeFunziona />
         <h3 className="titolo-3">Cosa trovi nel risultato</h3>
         <ul className="griglia" style={{ ['--min' as string]: '240px', listStyle: 'none', padding: 0, margin: 0 }}>
           {NEL_RISULTATO.map(([icona, t, d], i) => <li key={t} className="carta pila" style={{ ['--gap' as string]: '6px' }}><span className="tondo-icona" style={{ ['--tono' as string]: `var(--f${i + 1})` }}><Icona nome={icona} size={22} /></span><b>{t}</b><span className="piccolo" style={{ fontSize: 15 }}>{d}</span></li>)}

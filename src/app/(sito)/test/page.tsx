@@ -111,7 +111,7 @@ export default function TestPage() {
         <header className="pila" style={{ ['--gap' as string]: '12px' }}>
           <span className="etichetta">Il test della pelle, gratis</span>
           <h1 className="sopratitolo">Che tipo di pelle hai?</h1>
-          <p className="intro">Tre test, uno per interesse: la pelle del viso, cute e capelli, gli integratori. Scegli da dove partire e fai gli altri quando vuoi. Domande su quello che vedi allo specchio, non su come pensi di essere; ne escono il tuo profilo e i prodotti giusti, ognuno con un&apos;alternativa simile, di solito più economica. Non è una diagnosi.</p>
+          <p className="intro">Il test completo, per pelle e cute insieme, o un test per interesse: la pelle del viso, cute e capelli, gli integratori. Scegli da dove partire e fai gli altri quando vuoi. Domande su quello che vedi allo specchio, non su come pensi di essere; ne escono il tuo profilo e i prodotti giusti, ognuno con un&apos;alternativa simile, di solito più economica. Non è una diagnosi.</p>
           {ultimo && <a href={`/risultato#${ultimo}`} className="link">Rivedi il tuo ultimo risultato</a>}
         </header>
         {pronto && <RisultatiSalvati />}

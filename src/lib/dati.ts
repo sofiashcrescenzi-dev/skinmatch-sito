@@ -247,7 +247,9 @@ export const percorsoPerId = (id: string) => TEST.percorsi.find((p) => p.id === 
 // ⚠️ IL TEST COMPLETO NON SI SCEGLIE PIÙ (16/11/2026, Federico: «togliere il test completo, spingere sul poter fare i vari
 // test in base al proprio interesse»). Resta nei dati solo perché i risultati già condivisi (/risultato#<codice>) si
 // devono ancora aprire; ovunque si sceglie un test si usano questi tre, e /test?percorso=completo porta alla scelta.
-export const PERCORSI_SCELTA = TEST.percorsi.filter((p) => p.id !== 'completo');
+// ⚠️ 21/11/2026, Federico: «rimettiamo il test completo che copre tutte le parti». Torna fra quelli che si scelgono, per primo
+// (in home in grande, sopra i tre per interesse).
+export const PERCORSI_SCELTA = [...TEST.percorsi.filter((p) => p.id === 'completo'), ...TEST.percorsi.filter((p) => p.id !== 'completo')];
 export const percorsoDaScegliere = (id: string | null | undefined) => (id ? PERCORSI_SCELTA.find((p) => p.id === id) : undefined);
 export const domandaPerId = (id: string) => TEST.domande.find((d) => d.id === id);
 export const terminePerId = (id: string) => TERMINI.find((t) => t.id === id);
