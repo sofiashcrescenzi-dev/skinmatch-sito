@@ -1,54 +1,54 @@
 [
  {
   "nome": "home",
-  "alt": "Due volti accostati guancia a guancia: una pelle chiara con lentiggini e una pelle scura",
-  "autore": "Angela Roma",
-  "autore_pagina": "https://www.pexels.com/@angela-roma",
-  "pagina": "https://www.pexels.com/photo/woman-with-freckled-face-near-black-model-7479659/",
-  "pexels_id": 7479659,
+  "alt": "Due volti accostati guancia a guancia: una ragazza che sorride col piercing al naso e una donna con le lentiggini e gli occhi azzurri",
+  "autore": "Anna Tarazevich",
+  "autore_pagina": "https://www.pexels.com/@anntarazevich",
+  "pagina": "https://www.pexels.com/photo/close-up-photo-of-two-women-standing-cheek-to-cheek-5697436/",
+  "pexels_id": 5697436,
   "licenza": "Licenza Pexels (uso libero, citazione gradita)",
   "uso": [
    "home: apertura",
    "condivisione predefinita",
    "social"
   ],
-  "fuoco": "50% 35%",
+  "fuoco": "50% 30%",
   "larghezza": 1600,
   "altezza": 2400,
   "originale": "media/foto/home.jpg"
  },
  {
   "nome": "test-viso",
-  "alt": "Una ragazza con i capelli ricci si guarda la pelle del viso allo specchio del bagno",
-  "autore": "Andrea Piacquadio",
-  "autore_pagina": "https://www.pexels.com/@olly",
-  "pagina": "https://www.pexels.com/photo/woman-in-white-tank-top-in-front-of-mirror-3974100/",
-  "pexels_id": 3974100,
+  "alt": "Una ragazza con lo chignon si guarda la pelle del viso allo specchio del bagno, la mano sulla guancia",
+  "autore": "Miriam Alonso",
+  "autore_pagina": "https://www.pexels.com/@miriam-alonso",
+  "pagina": "https://www.pexels.com/photo/woman-looking-in-the-mirror-with-hand-on-face-7622579/",
+  "pexels_id": 7622579,
   "licenza": "Licenza Pexels (uso libero, citazione gradita)",
   "uso": [
    "home: percorsi del test",
    "test: percorso viso"
   ],
-  "fuoco": "68% 45%",
+  "fuoco": "62% 35%",
   "larghezza": 1600,
-  "altezza": 1120,
+  "altezza": 1067,
   "originale": "media/foto/test-viso.jpg"
  },
  {
   "nome": "test-cute",
-  "alt": "Due mani sollevano i capelli ricci e scuri, vista da dietro",
-  "autore": "PNW Production",
-  "autore_pagina": "https://www.pexels.com/@pnw-prod",
-  "pagina": "https://www.pexels.com/photo/person-wearing-accessories-on-her-wrist-8377213/",
-  "pexels_id": 8377213,
+  "alt": "Una ragazza vista di spalle, con lo chignon e una ciocca rossa, intreccia le mani sulla nuca",
+  "autore": "Miriam Alonso",
+  "autore_pagina": "https://www.pexels.com/@miriam-alonso",
+  "pagina": "https://www.pexels.com/photo/unrecognizable-woman-stretching-neck-7593063/",
+  "pexels_id": 7593063,
   "licenza": "Licenza Pexels (uso libero, citazione gradita)",
   "uso": [
    "home: percorsi del test",
    "test: percorso cute"
   ],
-  "fuoco": "45% 60%",
+  "fuoco": "45% 40%",
   "larghezza": 1600,
-  "altezza": 1064,
+  "altezza": 1067,
   "originale": "media/foto/test-cute.jpg"
  },
  {
@@ -70,17 +70,17 @@
  },
  {
   "nome": "test-completo",
-  "alt": "Una coppia in accappatoio, sorridente, in bagno",
-  "autore": "Diva Plavalaguna",
-  "autore_pagina": "https://www.pexels.com/@diva-plavalaguna",
-  "pagina": "https://www.pexels.com/photo/smiling-couple-wearing-bathrobes-5710567/",
-  "pexels_id": 5710567,
+  "alt": "Una coppia in accappatoio, seduta sul pavimento del bagno, si scatta un selfie ridendo",
+  "autore": "Vlada Karpovich",
+  "autore_pagina": "https://www.pexels.com/@vlada-karpovich",
+  "pagina": "https://www.pexels.com/photo/woman-wearing-bathrobe-taking-selfie-with-a-man-6634893/",
+  "pexels_id": 6634893,
   "licenza": "Licenza Pexels (uso libero, citazione gradita)",
   "uso": [
    "home: percorsi del test",
    "test: percorso completo"
   ],
-  "fuoco": "40% 40%",
+  "fuoco": "45% 40%",
   "larghezza": 1600,
   "altezza": 1067,
   "originale": "media/foto/test-completo.jpg"
@@ -151,16 +151,16 @@
  },
  {
   "nome": "pelle-normale",
-  "alt": "Ritratto di una donna con la pelle uniforme, su fondo grigio",
-  "autore": "Ansey Photography",
-  "autore_pagina": "https://www.pexels.com/@ansey",
-  "pagina": "https://www.pexels.com/photo/portrait-of-a-woman-on-white-background-15716139/",
-  "pexels_id": 15716139,
+  "alt": "Primo piano di una ragazza con i capelli castani mossi e la pelle uniforme, senza trucco, che sorride appena",
+  "autore": "Ron Lach",
+  "autore_pagina": "https://www.pexels.com/@ron-lach",
+  "pagina": "https://www.pexels.com/photo/close-up-shot-of-a-pretty-woman-9256869/",
+  "pexels_id": 9256869,
   "licenza": "Licenza Pexels (uso libero, citazione gradita)",
   "uso": [
    "biotipi: famiglia pelle-normale"
   ],
-  "fuoco": "45% 40%",
+  "fuoco": "40% 40%",
   "larghezza": 1600,
   "altezza": 2400,
   "originale": "media/foto/pelle-normale.jpg"
@@ -263,16 +263,16 @@
  },
  {
   "nome": "cute-equilibrata",
-  "alt": "Un ragazzo con i capelli afro e una camicia a quadri",
-  "autore": "cottonbro studio",
-  "autore_pagina": "https://www.pexels.com/@cottonbro",
-  "pagina": "https://www.pexels.com/photo/portrait-of-a-man-7223488/",
-  "pexels_id": 7223488,
+  "alt": "Un ragazzo con i capelli castani mossi e la camicia chiara, appoggiato a una porta di legno",
+  "autore": "Esra Erdem",
+  "autore_pagina": "https://www.pexels.com/@esrakorkmaz",
+  "pagina": "https://www.pexels.com/photo/man-standing-and-leaning-on-doorway-in-shirt-25957040/",
+  "pexels_id": 25957040,
   "licenza": "Licenza Pexels (uso libero, citazione gradita)",
   "uso": [
    "biotipi: famiglia cute-equilibrata"
   ],
-  "fuoco": "50% 30%",
+  "fuoco": "50% 40%",
   "larghezza": 1600,
   "altezza": 2400,
   "originale": "media/foto/cute-equilibrata.jpg"
@@ -440,16 +440,16 @@
  },
  {
   "nome": "rivista",
-  "alt": "Una donna con i capelli ricci legge un libro sul divano",
-  "autore": "Andrea Piacquadio",
-  "autore_pagina": "https://www.pexels.com/@olly",
-  "pagina": "https://www.pexels.com/photo/woman-in-white-dress-shirt-holding-book-3967047/",
-  "pexels_id": 3967047,
+  "alt": "Una donna con i capelli ricci legge un libro sul divano, sotto una coperta",
+  "autore": "kaboompics",
+  "autore_pagina": "https://www.pexels.com/@karola-g",
+  "pagina": "https://www.pexels.com/photo/woman-in-white-sweater-lying-on-couch-6632980/",
+  "pexels_id": 6632980,
   "licenza": "Licenza Pexels (uso libero, citazione gradita)",
   "uso": [
    "rivista: apertura"
   ],
-  "fuoco": "55% 35%",
+  "fuoco": "30% 55%",
   "larghezza": 1600,
   "altezza": 1067,
   "originale": "media/foto/rivista.jpg"
@@ -490,17 +490,17 @@
  },
  {
   "nome": "rivista-pelle-grassa-disidratata",
-  "alt": "Una ragazza si tampona la guancia con un asciugamano",
-  "autore": "Ron Lach",
-  "autore_pagina": "https://www.pexels.com/@ron-lach",
-  "pagina": "https://www.pexels.com/photo/woman-using-face-towel-on-her-face-9253759/",
-  "pexels_id": 9253759,
+  "alt": "Una ragazza in accappatoio con un asciugamano avvolto sui capelli e la pelle del viso al naturale",
+  "autore": "Miriam Alonso",
+  "autore_pagina": "https://www.pexels.com/@miriam-alonso",
+  "pagina": "https://www.pexels.com/photo/woman-in-bathrobe-7622892/",
+  "pexels_id": 7622892,
   "licenza": "Licenza Pexels (uso libero, citazione gradita)",
   "uso": [
    "rivista: copertina dell'articolo pelle-grassa-disidratata",
    "social"
   ],
-  "fuoco": "60% 40%",
+  "fuoco": "50% 30%",
   "larghezza": 1600,
   "altezza": 2400,
   "originale": "media/foto/rivista-pelle-grassa-disidratata.jpg"
@@ -540,34 +540,34 @@
  },
  {
   "nome": "biotipo-atopica",
-  "alt": "Una ragazza stende la crema sull'avambraccio, seduta, con il vasetto accanto",
-  "autore": "https://kaboompics.com/",
-  "autore_pagina": "https://www.pexels.com/@karola-g",
-  "pagina": "https://www.pexels.com/photo/a-person-putting-hand-cream-7281625/",
-  "pexels_id": 7281625,
+  "alt": "Una ragazza con i capelli rossi stende la crema sull'avambraccio, seduta, con un asciugamano sulle gambe",
+  "autore": "Yan Krukau",
+  "autore_pagina": "https://www.pexels.com/@yankrukov",
+  "pagina": "https://www.pexels.com/photo/photo-of-a-woman-rubbing-cream-on-her-arm-7020263/",
+  "pexels_id": 7020263,
   "licenza": "Licenza Pexels (uso libero, citazione gradita)",
   "uso": [
    "biotipo:atopica"
   ],
-  "fuoco": "45% 50%",
+  "fuoco": "55% 45%",
   "larghezza": 1600,
   "altezza": 2400,
   "originale": "media/foto/biotipo-atopica.jpg"
  },
  {
   "nome": "biotipo-caduta-reattiva",
-  "alt": "Una mano tiene un ciuffo di capelli caduti accanto al pettine",
-  "autore": "Towfiqu barbhuiya",
-  "autore_pagina": "https://www.pexels.com/@towfiqu-barbhuiya-3440682",
-  "pagina": "https://www.pexels.com/photo/close-up-photo-of-a-person-holding-hair-9755382/",
-  "pexels_id": 9755382,
+  "alt": "Una ragazza si pettina i capelli rossi con un pettine di legno",
+  "autore": "Beyzanur K.",
+  "autore_pagina": "https://www.pexels.com/@thefullonmonet",
+  "pagina": "https://www.pexels.com/photo/woman-combing-vibrant-red-hair-with-wooden-comb-28994389/",
+  "pexels_id": 28994389,
   "licenza": "Licenza Pexels (uso libero, citazione gradita)",
   "uso": [
    "biotipo:caduta-reattiva"
   ],
-  "fuoco": "70% 50%",
+  "fuoco": "40% 45%",
   "larghezza": 1600,
-  "altezza": 1068,
+  "altezza": 1067,
   "originale": "media/foto/biotipo-caduta-reattiva.jpg"
  },
  {
@@ -604,32 +604,32 @@
  },
  {
   "nome": "biotipo-cute-grassa",
-  "alt": "Un uomo con la barba si fa sciacquare i capelli al lavatesta del barbiere",
-  "autore": "Gustavo Fring",
-  "autore_pagina": "https://www.pexels.com/@gustavo-fring",
-  "pagina": "https://www.pexels.com/photo/washing-man-hair-7447134/",
-  "pexels_id": 7447134,
+  "alt": "Un barbiere lava i capelli a un uomo con la barba, al lavatesta",
+  "autore": "Pavel Danilyuk",
+  "autore_pagina": "https://www.pexels.com/@pavel-danilyuk",
+  "pagina": "https://www.pexels.com/photo/a-barber-shampooing-a-client-7518730/",
+  "pexels_id": 7518730,
   "licenza": "Licenza Pexels (uso libero, citazione gradita)",
   "uso": [
    "biotipo:cute-grassa"
   ],
-  "fuoco": "70% 55%",
+  "fuoco": "45% 50%",
   "larghezza": 1600,
-  "altezza": 1067,
+  "altezza": 1068,
   "originale": "media/foto/biotipo-cute-grassa.jpg"
  },
  {
   "nome": "biotipo-cute-secca",
-  "alt": "Una donna con le treccine versa qualche goccia d'olio da un contagocce sul palmo",
-  "autore": "Tima Miroshnichenko",
-  "autore_pagina": "https://www.pexels.com/@tima-miroshnichenko",
-  "pagina": "https://www.pexels.com/photo/a-woman-applying-oil-on-her-wrist-7608363/",
-  "pexels_id": 7608363,
+  "alt": "Una donna in accappatoio si tocca le punte dei capelli davanti a uno specchio, con un flacone d'olio sul tavolo",
+  "autore": "kaboompics",
+  "autore_pagina": "https://www.pexels.com/@karola-g",
+  "pagina": "https://www.pexels.com/photo/woman-applying-a-product-to-her-hair-7320795/",
+  "pexels_id": 7320795,
   "licenza": "Licenza Pexels (uso libero, citazione gradita)",
   "uso": [
    "biotipo:cute-secca"
   ],
-  "fuoco": "35% 35%",
+  "fuoco": "60% 35%",
   "larghezza": 1600,
   "altezza": 1067,
   "originale": "media/foto/biotipo-cute-secca.jpg"
@@ -668,18 +668,18 @@
  },
  {
   "nome": "biotipo-disidratata-sensibile",
-  "alt": "Una donna si sciacqua il viso con l'acqua del lavandino",
-  "autore": "PNW Production",
-  "autore_pagina": "https://www.pexels.com/@pnw-prod",
-  "pagina": "https://www.pexels.com/photo/a-woman-brushing-her-teeth-8091055/",
-  "pexels_id": 8091055,
+  "alt": "Una donna si sciacqua il viso con l'acqua del rubinetto, china sul lavandino",
+  "autore": "kaboompics",
+  "autore_pagina": "https://www.pexels.com/@karola-g",
+  "pagina": "https://www.pexels.com/photo/woman-washing-face-under-tap-water-5240606/",
+  "pexels_id": 5240606,
   "licenza": "Licenza Pexels (uso libero, citazione gradita)",
   "uso": [
    "biotipo:disidratata-sensibile"
   ],
-  "fuoco": "50% 35%",
+  "fuoco": "45% 45%",
   "larghezza": 1600,
-  "altezza": 2405,
+  "altezza": 2400,
   "originale": "media/foto/biotipo-disidratata-sensibile.jpg"
  },
  {
@@ -764,16 +764,16 @@
  },
  {
   "nome": "biotipo-matura",
-  "alt": "Ritratto all'aperto di una donna anziana che sorride, la pelle segnata dagli anni",
-  "autore": "Daneswara Eka",
-  "autore_pagina": "https://www.pexels.com/@daneswara-eka-2157956675",
-  "pagina": "https://www.pexels.com/photo/smiling-elderly-woman-portrait-in-natural-light-36495983/",
-  "pexels_id": 36495983,
+  "alt": "Una donna anziana con i capelli bianchi sorride all'aperto, con un mazzo di ravanelli in mano",
+  "autore": "Gustavo Fring",
+  "autore_pagina": "https://www.pexels.com/@gustavo-fring",
+  "pagina": "https://www.pexels.com/photo/woman-in-black-shirt-holding-radish-4894582/",
+  "pexels_id": 4894582,
   "licenza": "Licenza Pexels (uso libero, citazione gradita)",
   "uso": [
    "biotipo:matura"
   ],
-  "fuoco": "50% 35%",
+  "fuoco": "50% 30%",
   "larghezza": 1600,
   "altezza": 2400,
   "originale": "media/foto/biotipo-matura.jpg"
@@ -796,32 +796,32 @@
  },
  {
   "nome": "biotipo-normale",
-  "alt": "Una ragazza con i capelli ricci sorride a occhi chiusi nella luce del sole",
-  "autore": "Darina Belonogova",
-  "autore_pagina": "https://www.pexels.com/@darina-belonogova",
-  "pagina": "https://www.pexels.com/photo/face-of-smiling-woman-with-curly-hair-9166750/",
-  "pexels_id": 9166750,
+  "alt": "Una ragazza con i capelli ricci e il cappello sorride a occhi chiusi nella luce del sole",
+  "autore": "Olena Bohovyk",
+  "autore_pagina": "https://www.pexels.com/@olenkabohovyk",
+  "pagina": "https://www.pexels.com/photo/a-pretty-woman-wearing-a-hat-and-a-brown-shirt-10182314/",
+  "pexels_id": 10182314,
   "licenza": "Licenza Pexels (uso libero, citazione gradita)",
   "uso": [
    "biotipo:normale"
   ],
-  "fuoco": "50% 35%",
+  "fuoco": "50% 40%",
   "larghezza": 1600,
   "altezza": 2400,
   "originale": "media/foto/biotipo-normale.jpg"
  },
  {
   "nome": "biotipo-normale-disidratata",
-  "alt": "Una donna con i capelli ricci beve un bicchiere d'acqua nella luce del pomeriggio",
-  "autore": "cottonbro studio",
-  "autore_pagina": "https://www.pexels.com/@cottonbro",
-  "pagina": "https://www.pexels.com/photo/a-woman-drinking-a-glass-of-water-6603396/",
-  "pexels_id": 6603396,
+  "alt": "Una ragazza con i capelli lunghi beve un bicchiere d'acqua nella luce della finestra",
+  "autore": "Andrea Piacquadio",
+  "autore_pagina": "https://www.pexels.com/@olly",
+  "pagina": "https://www.pexels.com/photo/woman-drinking-water-3794165/",
+  "pexels_id": 3794165,
   "licenza": "Licenza Pexels (uso libero, citazione gradita)",
   "uso": [
    "biotipo:normale-disidratata"
   ],
-  "fuoco": "45% 35%",
+  "fuoco": "40% 40%",
   "larghezza": 1600,
   "altezza": 1067,
   "originale": "media/foto/biotipo-normale-disidratata.jpg"
@@ -957,17 +957,17 @@
  {
   "nome": "biotipo-seborroica-idratata",
   "alt": "Una donna di profilo con la pelle luminosa, il mento appoggiato alla mano",
-  "autore": "Jacquelin Perez",
-  "autore_pagina": "https://www.pexels.com/@jacquelin-perez-15364603",
-  "pagina": "https://www.pexels.com/photo/face-of-woman-6343595/",
-  "pexels_id": 6343595,
+  "autore": "Alexander Krivitskiy",
+  "autore_pagina": "https://www.pexels.com/@Krivitskiy",
+  "pagina": "https://www.pexels.com/photo/shirtless-beautiful-woman-posing-14933923/",
+  "pexels_id": 14933923,
   "licenza": "Licenza Pexels (uso libero, citazione gradita)",
   "uso": [
    "biotipo:seborroica-idratata"
   ],
-  "fuoco": "40% 40%",
+  "fuoco": "45% 35%",
   "larghezza": 1600,
-  "altezza": 2844,
+  "altezza": 2165,
   "originale": "media/foto/biotipo-seborroica-idratata.jpg"
  },
  {
@@ -1004,16 +1004,16 @@
  },
  {
   "nome": "biotipo-secca-disidratata",
-  "alt": "Una donna con l'asciugamano in testa si stende la crema sul viso, all'aperto davanti al bosco",
-  "autore": "cottonbro studio",
-  "autore_pagina": "https://www.pexels.com/@cottonbro",
-  "pagina": "https://www.pexels.com/photo/woman-in-white-robe-applying-beauty-product-on-her-face-6635917/",
-  "pexels_id": 6635917,
+  "alt": "Una donna con l'asciugamano in testa si stende la crema sul viso davanti a uno specchio a mano",
+  "autore": "Antoni Shkraba",
+  "autore_pagina": "https://www.pexels.com/@shkrabaanthony",
+  "pagina": "https://www.pexels.com/photo/woman-looking-in-the-mirror-and-applying-a-face-cream-5205675/",
+  "pexels_id": 5205675,
   "licenza": "Licenza Pexels (uso libero, citazione gradita)",
   "uso": [
    "biotipo:secca-disidratata"
   ],
-  "fuoco": "50% 35%",
+  "fuoco": "50% 30%",
   "larghezza": 1600,
   "altezza": 2400,
   "originale": "media/foto/biotipo-secca-disidratata.jpg"
@@ -1068,18 +1068,18 @@
  },
  {
   "nome": "biotipo-unghie-fragili",
-  "alt": "Una mano con le unghie naturali e corte, appoggiata su un fondo grigio",
-  "autore": "Kindel Media",
-  "autore_pagina": "https://www.pexels.com/@kindelmedia",
-  "pagina": "https://www.pexels.com/photo/a-close-up-shot-of-a-hand-of-a-person-7298896/",
-  "pexels_id": 7298896,
+  "alt": "Due mani con le unghie naturali appoggiate su un lenzuolo bianco",
+  "autore": "cottonbro studio",
+  "autore_pagina": "https://www.pexels.com/@cottonbro",
+  "pagina": "https://www.pexels.com/photo/photo-of-a-woman-s-hands-6941115/",
+  "pexels_id": 6941115,
   "licenza": "Licenza Pexels (uso libero, citazione gradita)",
   "uso": [
    "biotipo:unghie-fragili"
   ],
-  "fuoco": "55% 50%",
+  "fuoco": "60% 45%",
   "larghezza": 1600,
-  "altezza": 901,
+  "altezza": 1067,
   "originale": "media/foto/biotipo-unghie-fragili.jpg"
  },
  {
@@ -1117,35 +1117,35 @@
  },
  {
   "nome": "rivista-niacinamide-percentuale",
-  "alt": "Un ragazzo con i dreadlocks raccolti si mette qualche goccia di siero sulla fronte col contagocce",
-  "autore": "RDNE Stock project",
-  "autore_pagina": "https://www.pexels.com/@rdne",
-  "pagina": "https://www.pexels.com/photo/man-with-dreadlocks-and-necklace-applying-skin-serum-12322962/",
-  "pexels_id": 12322962,
+  "alt": "Un uomo con la barba corta, allo specchio del bagno, si tocca il collo e tiene un flacone di siero col contagocce",
+  "autore": "doTERRA International, LLC",
+  "autore_pagina": "https://www.pexels.com/@doterra-international-llc-2204678",
+  "pagina": "https://www.pexels.com/photo/a-man-in-a-bathroom-13005889/",
+  "pexels_id": 13005889,
   "licenza": "Licenza Pexels (uso libero, citazione gradita)",
   "uso": [
    "rivista: copertina dell'articolo niacinamide-percentuale",
    "social"
   ],
-  "fuoco": "62% 35%",
+  "fuoco": "70% 45%",
   "larghezza": 1600,
-  "altezza": 1066,
+  "altezza": 1067,
   "originale": "media/foto/rivista-niacinamide-percentuale.jpg"
  },
  {
   "nome": "nozione-sebo-palmi",
-  "alt": "Due mani aperte con i palmi in su, su fondo scuro",
-  "autore": "Luis Quintero",
-  "autore_pagina": "https://www.pexels.com/@jibarofoto",
-  "pagina": "https://www.pexels.com/photo/photo-of-person-s-open-hands-2258248/",
-  "pexels_id": 2258248,
+  "alt": "Una mano aperta col palmo in su, su fondo scuro",
+  "autore": "Milada Vigerova",
+  "autore_pagina": "https://www.pexels.com/@milivigerova",
+  "pagina": "https://www.pexels.com/photo/close-up-shot-of-left-hand-on-black-background-6037111/",
+  "pexels_id": 6037111,
   "licenza": "Licenza Pexels (uso libero, citazione gradita)",
   "uso": [
    "nozione: sebo-palmi"
   ],
-  "fuoco": "50% 50%",
+  "fuoco": "55% 50%",
   "larghezza": 1600,
-  "altezza": 1067,
+  "altezza": 1033,
   "originale": "media/foto/nozione-sebo-palmi.jpg"
  },
  {
@@ -1663,17 +1663,17 @@
  },
  {
   "nome": "rivista-acido-salicilico",
-  "alt": "Un uomo in accappatoio bianco si sciacqua il viso con le mani sopra il lavandino del bagno",
-  "autore": "Tima Miroshnichenko",
-  "autore_pagina": "https://www.pexels.com/@tima-miroshnichenko",
-  "pagina": "https://www.pexels.com/photo/man-in-white-bathrobe-washing-his-face-7608046/",
-  "pexels_id": 7608046,
+  "alt": "Un ragazzo si asciuga il viso con un asciugamano davanti allo specchio del bagno",
+  "autore": "MART PRODUCTION",
+  "autore_pagina": "https://www.pexels.com/@MART-PRODUCTION",
+  "pagina": "https://www.pexels.com/photo/man-in-white-shirt-using-towel-to-wipe-the-face-7163069/",
+  "pexels_id": 7163069,
   "licenza": "Licenza Pexels (uso libero, citazione gradita)",
   "uso": [
    "rivista: copertina dell'articolo acido-salicilico",
    "social"
   ],
-  "fuoco": "55% 40%",
+  "fuoco": "40% 35%",
   "larghezza": 1600,
   "altezza": 1067,
   "originale": "media/foto/rivista-acido-salicilico.jpg"
@@ -1714,33 +1714,33 @@
  },
  {
   "nome": "rivista-ceramidi",
-  "alt": "Un uomo con la barba, sorridente, si stende la crema sulle guance con le dita, davanti a una parete chiara",
-  "autore": "August de Richelieu",
-  "autore_pagina": "https://www.pexels.com/@august-de-richelieu",
-  "pagina": "https://www.pexels.com/photo/man-putting-on-cream-on-his-face-7433339/",
-  "pexels_id": 7433339,
+  "alt": "Un uomo con la barba sorride mentre una mano gli stende una maschera bianca sul viso",
+  "autore": "ROMAN ODINTSOV",
+  "autore_pagina": "https://www.pexels.com/@roman-odintsov",
+  "pagina": "https://www.pexels.com/photo/person-applying-facial-cream-to-a-bearded-man-5912294/",
+  "pexels_id": 5912294,
   "licenza": "Licenza Pexels (uso libero, citazione gradita)",
   "uso": [
    "rivista: copertina dell'articolo ceramidi",
    "social"
   ],
-  "fuoco": "35% 40%",
+  "fuoco": "50% 35%",
   "larghezza": 1600,
-  "altezza": 1066,
+  "altezza": 1067,
   "originale": "media/foto/rivista-ceramidi.jpg"
  },
  {
   "nome": "rivista-che-tipo-di-pelle-ho",
-  "alt": "Una donna con le treccine bionde si guarda la pelle del collo e del viso allo specchio del bagno",
-  "autore": "Tima Miroshnichenko",
-  "autore_pagina": "https://www.pexels.com/@tima-miroshnichenko",
-  "pagina": "https://www.pexels.com/photo/woman-in-gray-long-sleeve-shirt-looking-at-a-mirror-7608044/",
-  "pexels_id": 7608044,
+  "alt": "Una donna con i capelli raccolti si guarda la pelle del viso in uno specchio da bagno, toccandosi il mento",
+  "autore": "Andrea Piacquadio",
+  "autore_pagina": "https://www.pexels.com/@olly",
+  "pagina": "https://www.pexels.com/photo/upset-woman-examining-skin-in-small-mirror-3771830/",
+  "pexels_id": 3771830,
   "licenza": "Licenza Pexels (uso libero, citazione gradita)",
   "uso": [
    "rivista: copertina dell'articolo che-tipo-di-pelle-ho"
   ],
-  "fuoco": "45% 35%",
+  "fuoco": "72% 35%",
   "larghezza": 1600,
   "altezza": 1067,
   "originale": "media/foto/rivista-che-tipo-di-pelle-ho.jpg"
@@ -1795,16 +1795,16 @@
  },
  {
   "nome": "biotipo-riposo",
-  "alt": "Una ragazza dorme in un letto bianco, nella luce del mattino",
-  "autore": "cottonbro studio",
-  "autore_pagina": "https://www.pexels.com/@cottonbro",
-  "pagina": "https://www.pexels.com/photo/woman-girl-bed-bedroom-4045549/",
-  "pexels_id": 4045549,
+  "alt": "Una ragazza dorme in un letto bianco, avvolta nel piumone",
+  "autore": "Elvira Gibadullina",
+  "autore_pagina": "https://www.pexels.com/@elvira-gibadullina-2457991",
+  "pagina": "https://www.pexels.com/photo/woman-covered-in-white-blanket-lying-on-bed-4080038/",
+  "pexels_id": 4080038,
   "licenza": "Licenza Pexels (uso libero, citazione gradita)",
   "uso": [
    "biotipo:riposo"
   ],
-  "fuoco": "50% 45%",
+  "fuoco": "45% 40%",
   "larghezza": 1600,
   "altezza": 2400,
   "originale": "media/foto/biotipo-riposo.jpg"
@@ -1907,19 +1907,19 @@
  },
  {
   "nome": "rivista-acidi-esfolianti-aha-pha",
-  "alt": "Una ragazza con l'asciugamano tra i capelli passa un dischetto di cotone sulla guancia, il viso tagliato all'altezza del naso",
-  "autore": "Sora Shimazaki",
-  "autore_pagina": "https://www.pexels.com/@sora-shimazaki",
-  "pagina": "https://www.pexels.com/photo/crop-ethnic-woman-cleaning-face-with-cotton-pad-5938272/",
-  "pexels_id": 5938272,
+  "alt": "Una ragazza con i capelli ricci passa un dischetto di cotone sulla guancia",
+  "autore": "cottonbro studio",
+  "autore_pagina": "https://www.pexels.com/@cottonbro",
+  "pagina": "https://www.pexels.com/photo/woman-in-black-v-neck-shirt-4154190/",
+  "pexels_id": 4154190,
   "licenza": "Licenza Pexels (uso libero, citazione gradita)",
   "uso": [
    "rivista: copertina dell'articolo acidi-esfolianti-aha-pha",
    "social"
   ],
-  "fuoco": "35% 40%",
+  "fuoco": "70% 35%",
   "larghezza": 1600,
-  "altezza": 1066,
+  "altezza": 1067,
   "originale": "media/foto/rivista-acidi-esfolianti-aha-pha.jpg"
  },
  {
