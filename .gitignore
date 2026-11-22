@@ -48,3 +48,6 @@ feeds-out/
 
 # file compilati di Python
 __pycache__/
+
+# il lavoro della squadra sul Mac (brief, log, bacheca): non va nel repository (22/11/2026)
+/squadra/
