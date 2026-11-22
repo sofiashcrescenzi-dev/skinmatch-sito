@@ -1972,5 +1972,22 @@
   "larghezza": 1600,
   "altezza": 1065,
   "originale": "media/foto/rivista-peptidi-viso.jpg"
+ },
+ {
+  "nome": "rivista-centella-asiatica",
+  "alt": "Una ragazza con le lentiggini, i capelli bagnati e la pelle senza trucco, stende con le dita una crema bianca sulla guancia, alla luce del giorno",
+  "autore": "Yaroslav Shuraev",
+  "autore_pagina": "https://www.pexels.com/@yaroslav-shuraev",
+  "pagina": "https://www.pexels.com/photo/a-woman-applying-cream-on-face-6810869/",
+  "pexels_id": 6810869,
+  "licenza": "Licenza Pexels (uso libero, citazione gradita)",
+  "uso": [
+   "rivista: copertina dell'articolo centella-asiatica",
+   "social"
+  ],
+  "fuoco": "50% 30%",
+  "larghezza": 1600,
+  "altezza": 2400,
+  "originale": "media/foto/rivista-centella-asiatica.jpg"
  }
 ]
