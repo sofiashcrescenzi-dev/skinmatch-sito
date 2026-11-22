@@ -57,6 +57,13 @@ export default {
 
 async function servi(req, env, ctx) {
   const url = new URL(req.url);
+  // ⚠️ HTTP PORTA A HTTPS (22/11/2026): http://skinmatch.it rispondeva 200 in chiaro e Google aveva indicizzato il sito
+  // due volte, in http e in https (audit del 22/11 e studio di Friday, il PO: «sì»). Solo sul dominio vero: in locale si
+  // prova in http.
+  if (url.protocol === 'http:' && url.hostname === 'skinmatch.it') {
+    url.protocol = 'https:';
+    return Response.redirect(url.toString(), 301);
+  }
   const p = url.pathname;
   // il server MCP e la sua descrizione (worker/mcp.js)
   if (p === '/mcp' || p === '/mcp/') return mcp(req, env, ctx);
