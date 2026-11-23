@@ -1,6 +1,7 @@
 // IL WORKER DI SKINMATCH: il sito resta statico (out/), il Worker fa tre cose sole.
 // 1. /api/evento: somma i conteggi del sito (test iniziati e finiti, clic verso i negozi) per
-//    giorno, senza dati personali: niente risposte, niente IP, niente cookie (tappa 9).
+//    giorno, senza dati personali: niente IP, niente cookie (tappa 9); dal 23/11/2026 anche le risposte scelte e i
+//    prodotti proposti, solo come contatori sommati (mai quelle sulla salute).
 // 2. /admin e /api/admin: solo per chi passa da Cloudflare Access ed è nell'elenco ADMIN_EMAILS
 //    (Federico e Sofia). Il Worker ricontrolla il gettone di Access da sé: se Access non c'è
 //    ancora, o il gettone non torna, l'admin non si apre (meglio chiuso che aperto).
@@ -15,7 +16,12 @@ import { mcp, schedaServer } from './mcp.js';
 import test from '../src/data/test.json';
 import biotipi from '../src/data/biotipi.json';
 
-const TIPI_EVENTO = new Set(['test_inizio', 'test_fine', 'clic', 'guasto', 'arrivo']);
+const TIPI_EVENTO = new Set(['test_inizio', 'test_fine', 'proposti', 'clic', 'guasto', 'arrivo']);
+// ⚠️ LE RISPOSTE E I PRODOTTI PROPOSTI (23/11/2026, Federico: «sì inizia a registrare»): solo coppie «domanda:opzione»
+// che esistono nel test, mai quelle sulla salute (le toglie già il telefono, src/lib/eventi.ts; qui si ricontrolla), e
+// «biotipo|prodotto» per i prodotti proposti. Si somma 1 per giorno; l'evento non si salva.
+const NON_CONTARE = new Set(['condizioni', 'condizioni_cute', 'gravidanza', 'menopausa', 'farmaci']);
+const OPZIONI = new Map(test.domande.filter((d) => !NON_CONTARE.has(d.id)).map((d) => [d.id, new Set((d.opzioni || []).map((o) => o.id))]));
 // da dove arriva chi entra (13/11/2026, Federico: «dashboard … dati search console e IA»): solo la famiglia
 // della fonte e la sezione d'ingresso, decise nel telefono (src/components/Arrivi.tsx). Niente indirizzi interi.
 const FONTI = new Set(['chatgpt', 'perplexity', 'gemini', 'claude', 'copilot', 'altra_ia', 'google', 'bing', 'altro_motore', 'instagram', 'tiktok', 'facebook', 'youtube', 'threads', 'pinterest', 'link_in_bio', 'altro_sito', 'diretto']);
@@ -160,7 +166,8 @@ async function evento(req, env) {
     if (!success) return new Response(null, { status: 429 });
   }
   let e;
-  try { e = JSON.parse((await req.text()).slice(0, 2000)); } catch { return new Response(null, { status: 400 }); }
+  // 4.000 caratteri: con le risposte (23/11/2026) il «test_fine» supera i 2.000 di prima
+  try { e = JSON.parse((await req.text()).slice(0, 4000)); } catch { return new Response(null, { status: 400 }); }
   if (!e || !TIPI_EVENTO.has(e.e)) return new Response(null, { status: 400 });
   const g = oggi(), righe = [];
   if (e.e === 'test_inizio' && PERCORSI.has(e.p)) righe.push(['test_inizio', e.p]);
@@ -170,6 +177,19 @@ async function evento(req, env) {
     // la durata, a mezzi minuti: l'admin ne ricava il tempo medio di ogni percorso (16/10)
     const sec = Math.round(Number(e.s));
     if (sec >= 15 && sec <= 1800) righe.push(['durata', `${e.p}:${Math.round(sec / 30) * 30}`]);
+    // le risposte scelte, una riga per coppia «percorso:domanda:opzione» che esiste nel test
+    const viste = new Set();
+    for (const x of (Array.isArray(e.r) ? e.r : []).slice(0, 60)) {
+      const [d, o] = String(x).split(':');
+      if (OPZIONI.get(d)?.has(o) && !viste.has(x)) { viste.add(x); righe.push(['risposta', `${e.p}:${d}:${o}`]); }
+    }
+  }
+  // i prodotti proposti nella routine, col biotipo della loro area
+  if (e.e === 'proposti' && PERCORSI.has(e.p)) {
+    for (const x of [...new Set(Array.isArray(e.ids) ? e.ids : [])].slice(0, 24)) {
+      const [b, id] = String(x).split('|');
+      if (BIOTIPI.has(b) && /^[a-z0-9-]{2,80}$/.test(String(id))) righe.push(['proposto', `${b}|${id}`]);
+    }
   }
   if (e.e === 'clic' && /^[a-z0-9-]{2,80}$/.test(String(e.id))) righe.push(['clic', e.id], ['clic_negozio', breve(e.m, 40)], ['clic_da', breve(e.da)]);
   // un errore JavaScript (src/lib/guasti.ts): la pagina senza query e il messaggio, niente altro (30/10/2026)

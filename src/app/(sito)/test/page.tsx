@@ -8,7 +8,7 @@ import { ConTermini } from '@/components/Termini';
 import { useRouter } from 'next/navigation';
 import { codifica, indirizzoCondiviso } from '@/lib/condividi';
 import Foto from '@/components/Foto';
-import { segna } from '@/lib/eventi';
+import { segna, risposteDaContare } from '@/lib/eventi';
 import { Luna } from '@/components/Inviti';
 import Nozione from '@/components/Nozione';
 import dynamic from 'next/dynamic';
@@ -96,7 +96,11 @@ export default function TestPage() {
     if (!risultato) return;
     // quanto è durato, per il «circa N minuti» della scelta (solo i secondi, niente risposte)
     const secondi = s.inizio ? Math.round((Date.now() - s.inizio) / 1000) : 0;
-    segna({ e: 'test_fine', p: risultato.percorso.id, b: risultato.aree.map((a) => a.biotipo?.id || '').filter(Boolean), ...(secondi >= 15 && secondi <= 1800 ? { s: secondi } : {}) });
+    segna({ e: 'test_fine', p: risultato.percorso.id, b: risultato.aree.map((a) => a.biotipo?.id || '').filter(Boolean), ...(secondi >= 15 && secondi <= 1800 ? { s: secondi } : {}),
+      r: risposteDaContare(s.risposte as Record<string, unknown>) });
+    // i prodotti proposti, ognuno col biotipo della sua area (lib/eventi.ts): il consigliato di ogni passaggio e l'alternativa
+    const ids = risultato.aree.flatMap((a) => (a.biotipo ? a.passaggi.flatMap((ps) => [ps.consigliato, ps.alternativa].filter(Boolean).map((x) => `${a.biotipo!.id}|${x!.prodotto.id}`)) : []));
+    if (ids.length) segna({ e: 'proposti', p: risultato.percorso.id, ids: [...new Set(ids)].slice(0, 24) });
     // il risultato ha la sua pagina, con un link da condividere che porta il biotipo (lib/condividi.ts)
     router.push(indirizzoCondiviso(risultato, codifica(risultato.percorso.id, s.risposte)));
     // eslint-disable-next-line react-hooks/exhaustive-deps

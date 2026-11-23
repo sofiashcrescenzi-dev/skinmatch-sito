@@ -32,7 +32,7 @@ Le risposte che dai al test (compresi i dati sulla salute, come una condizione d
 ## Quali dati trattiamo
 
 - **Dati tecnici di navigazione.** Il sito è ospitato da Cloudflare, che per farlo funzionare e proteggerlo dagli attacchi tratta l'indirizzo IP e i dati tecnici della richiesta (browser, pagina, ora). Non li usiamo per sapere chi sei.
-- **Conteggi d'uso, anonimi.** Contiamo quanti test vengono iniziati e finiti, quali biotipi escono e quanti clic portano ai negozi, sommati per giorno. All'ingresso contiamo anche da che tipo di fonte arriva la visita (un motore di ricerca, un social, un altro sito, diretto) e la sezione in cui entra, mai l'indirizzo completo della pagina di provenienza: per riconoscere le app (Instagram, TikTok) il browser legge il proprio user agent, che non ci viene mandato. Per non contare due volte la stessa visita il browser tiene un segno nella memoria della scheda (sessionStorage), che si cancella quando la chiudi. Il conteggio non contiene indirizzi IP, identificativi o cookie e non permette di risalire a una persona: non è un dato personale.
+- **Conteggi d'uso, anonimi.** Contiamo quanti test vengono iniziati e finiti, quali biotipi escono e quanti clic portano ai negozi, sommati per giorno. Contiamo anche, sempre sommato per giorno, quante volte viene scelta ogni risposta del test e quante volte ogni prodotto compare nelle routine proposte per ciascun biotipo: dal tuo telefono parte solo l'elenco delle risposte scelte, che diventa un «+1» su dei contatori e non viene salvato. Le risposte sulla salute (condizioni della pelle e del cuoio capelluto, gravidanza, menopausa, farmaci) non vengono mai mandate. All'ingresso contiamo anche da che tipo di fonte arriva la visita (un motore di ricerca, un social, un altro sito, diretto) e la sezione in cui entra, mai l'indirizzo completo della pagina di provenienza: per riconoscere le app (Instagram, TikTok) il browser legge il proprio user agent, che non ci viene mandato. Per non contare due volte la stessa visita il browser tiene un segno nella memoria della scheda (sessionStorage), che si cancella quando la chiudi. Il conteggio non contiene indirizzi IP, identificativi o cookie e non permette di risalire a una persona: non è un dato personale.
 - **Le email che ci scrivi.** Se ci contatti, usiamo il tuo indirizzo e quello che ci scrivi solo per risponderti.
 - **L'area riservata.** Chi gestisce il sito entra nell'area riservata con il proprio indirizzo email, verificato da Cloudflare.
 
@@ -83,7 +83,7 @@ Non sono cookie ma la memoria del browser, e restano sul tuo dispositivo: a noi 
 - **La visita già contata** (memoria della sessione, «sm-arrivo»). Un segno che si cancella quando chiudi la scheda, perché la stessa visita non si conti due volte. Il sito riceve solo la famiglia della fonte (un motore di ricerca, un social, un'IA) e la sezione d'ingresso, senza sapere chi sei.
 - **La ricarica dopo un errore** (memoria della sessione, «skinmatch-ricaricata»). L'ora dell'ultima ricarica automatica, perché non si ripeta di continuo.
 
-Al sito arrivano solo dei conteggi: test iniziati e finiti, clic verso i negozi, errori delle pagine. Mai le risposte, mai chi sei.
+Al sito arrivano solo dei conteggi: test iniziati e finiti, quante volte è stata scelta ogni risposta (mai quelle sulla salute), i prodotti proposti, i clic verso i negozi, gli errori delle pagine. Mai le tue risposte come insieme, mai chi sei.
 
 ## Cookie tecnici
 
