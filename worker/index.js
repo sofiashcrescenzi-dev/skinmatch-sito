@@ -152,6 +152,13 @@ async function nonTrovata(req, env, url) {
 // ── 1. i conteggi ────────────────────────────────────────────────────────────
 async function evento(req, env) {
   if (req.method !== 'POST') return new Response(null, { status: 405 });
+  // ⚠️ UN LIMITE ALLE RICHIESTE (23/11/2026, il PO: «sì» a «evento-limite»): chiunque poteva gonfiare i numeri del
+  // Traffico mandando eventi a raffica. Il limitatore di Cloudflare (binding LIMITE_EVENTI in wrangler.jsonc, 30 al minuto)
+  // conta per indirizzo dentro Cloudflare: l'IP non si salva da nessuna parte. Senza il binding si va avanti come prima.
+  if (env.LIMITE_EVENTI) {
+    const { success } = await env.LIMITE_EVENTI.limit({ key: req.headers.get('cf-connecting-ip') || 'ignoto' });
+    if (!success) return new Response(null, { status: 429 });
+  }
   let e;
   try { e = JSON.parse((await req.text()).slice(0, 2000)); } catch { return new Response(null, { status: 400 }); }
   if (!e || !TIPI_EVENTO.has(e.e)) return new Response(null, { status: 400 });
@@ -182,11 +189,9 @@ async function evento(req, env) {
 let CERTI = null, CERTI_IL = 0;
 const b64u = (s) => Uint8Array.from(atob(s.replace(/-/g, '+').replace(/_/g, '/') + '==='.slice((s.length + 3) % 4)), (c) => c.charCodeAt(0));
 async function accesso(req, env) {
-  // ⚠️ ADMIN APERTO (il PO, 15/10/2026: «disattivare temporaneamente il blocco alla sezione admin,
-  // poi metteremo il block con Cloudflare una volta gestito dall'account di Sofia»). Con
-  // ADMIN_APERTO = "si" in wrangler.jsonc chiunque conosca l'indirizzo vede e modifica l'admin:
-  // resta fuori dai motori (robots e noindex). Si chiude rimettendo "no" quando Access è attivo.
-  if (env.ADMIN_APERTO === 'si') return { ok: true, email: 'admin aperto' };
+  // ⚠️ NIENTE PIÙ INTERRUTTORE «ADMIN APERTO» (23/11/2026, il PO: «sì» ad «admin-interruttore»). Dal 15/10 al 16/10 una
+  // variabile apriva lettura e scrittura dell'admin a chiunque: Access funziona dal 16/10, e un interruttore così basta
+  // sbagliarlo una volta. Si entra solo con Cloudflare Access (o in prova sul Mac, sotto).
   // solo in prova sul Mac (wrangler dev, .dev.vars): mai online, dove l'indirizzo non è localhost
   if (env.ADMIN_SVILUPPO === 'si' && new URL(req.url).hostname === 'localhost') return { ok: true, email: 'prova@localhost' };
   // la chiave temporanea del 15/10 (ADMIN_CHIAVE, ?chiave=…) è stata tolta il 7/11/2026: su workers.dev, dove Access non

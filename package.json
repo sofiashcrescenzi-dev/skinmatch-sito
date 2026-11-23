@@ -10,7 +10,8 @@
     "lint": "next lint",
     "deploy": "next build && npx wrangler deploy",
     "prebuild": "tsx scripts/guardiani.ts",
-    "guardiani": "tsx scripts/guardiani.ts"
+    "guardiani": "tsx scripts/guardiani.ts",
+    "prove": "node --test prove/*.test.mjs"
   },
   "dependencies": {
     "@remotion/player": "4.0.539",

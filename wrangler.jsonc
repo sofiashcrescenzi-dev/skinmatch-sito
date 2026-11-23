@@ -27,12 +27,13 @@
   "d1_databases": [
     { "binding": "DB", "database_name": "skinmatch-dati", "database_id": "b261e5c4-e4a2-4961-b573-36d9f8861312" }
   ],
+  // il limite agli eventi di /api/evento (23/11/2026): 30 al minuto per visitatore, contati da Cloudflare
+  "ratelimits": [{ "name": "LIMITE_EVENTI", "namespace_id": "2311", "simple": { "limit": 30, "period": 60 } }],
   "vars": {
     // chi può aprire l'admin (oltre a passare da Cloudflare Access)
     "ADMIN_EMAILS": "hello@agoranomos.cloud,sofiashcrescenzi@gmail.com",
-    // Chiuso il 16/10 su richiesta di Sofia; dal 7/11 niente più chiave temporanea (ADMIN_CHIAVE): resta solo Access.
-    // Non rimettere "si": l'admin aperto è modificabile da chiunque.
-    "ADMIN_APERTO": "no",
+    // Chiuso il 16/10 su richiesta di Sofia; dal 7/11 niente più chiave temporanea (ADMIN_CHIAVE); dal 23/11 niente più
+    // interruttore ADMIN_APERTO: si entra solo con Access.
     // Cloudflare Access attivo dal 16/10: team fragrant-dawn-e18a (fragrant-dawn-e18a.cloudflareaccess.com),
     // applicazione «Admin Skinmatch» su skinmatch.it/admin e skinmatch.it/api/admin, codice via email.
     "ACCESS_TEAM": "fragrant-dawn-e18a",

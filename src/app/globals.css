@@ -1010,3 +1010,33 @@ details.carta > summary::-webkit-details-marker { display: none; }
 .giro-opzioni th { font-size: 12px; color: var(--grigio); text-transform: uppercase; letter-spacing: .06em; }
 .giro-opzioni td:first-child { color: var(--grigio); width: 45%; }
 .giro-nota { border-left: 2px solid var(--riga-forte); padding-left: 10px; }
+
+/* ⚠️ I TOCCHI SUL TELEFONO E IL FUOCO DELLA TASTIERA (23/11/2026, il PO: «sì» a «tocchi-telefono» e «fuoco-tastiera»,
+   pagina «Skill alla prova su Skinmatch»). Misurati da taste-skill in un browser vero a 320, 390 e 1440 px:
+   - suggerimenti di ricerca alti 18 px e a 0-4 px l'uno dall'altro, chip alti 30 px a 6 px, link del piede alti 20 px;
+   - il fuoco sui link del menu cambiava di 1,32:1 sul fondo, quello della ricerca diventava più debole del riposo;
+   - niente «Salta al contenuto»; il tasto del menu usciva di 1 px dal bordo a 320 px.
+   Ogni cosa che si tocca è alta almeno 44 px e lontana almeno 8 px dalla vicina; il fuoco si vede (3:1 o più). */
+.salta { position: absolute; left: 12px; top: -80px; z-index: 2000; background: var(--cacao); color: var(--latte); padding: 12px 16px; border-radius: 10px; font-weight: 700; text-decoration: none; }
+.salta:focus { top: 12px; }
+#contenuto { outline: none; }
+.sm-nav-link:focus-visible, .sm-nav-cta:focus-visible, .sm-nav-burger:focus-visible { outline: 3px solid var(--f2); outline-offset: 2px; }
+.sm-nav-logo:focus-visible { outline: 3px solid var(--f2); outline-offset: 4px; border-radius: 8px; }
+.ricerca-centrale input:focus-visible { outline: 3px solid var(--f2); outline-offset: 6px; border-radius: 2px; }
+@media (pointer: coarse), (max-width: 760px) {
+  .chip { min-height: 44px; padding: 10px 16px; font-size: 14px; }
+  .riga-chip { gap: 8px; }
+  .rc-esempi { line-height: 2.9; }
+  .rc-esempi a { padding: 10px 2px; }
+  .ricerca-centrale input { min-height: 44px; }
+  .sm-nav-logo, .sm-nav-cta { min-height: 44px; }
+  .piede nav a { display: flex; align-items: center; min-height: 44px; }
+  .cerca-tutto, :not(p) > a.link { display: inline-flex; align-items: center; min-height: 44px; }
+}
+@media (max-width: 340px) {
+  .sm-nav-pill { padding-left: 12px; gap: 2px; }
+  .sm-nav-logo { margin-right: 2px; }
+  .sm-nav-logo span { font-size: 15px; }
+  .sm-nav-cta { padding: 8px 10px; }
+  .sm-nav-burger { min-width: 44px; padding: 10px 8px; margin-left: 0; }
+}

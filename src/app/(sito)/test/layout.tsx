@@ -2,8 +2,9 @@ import type { Metadata } from 'next';
 
 // dal 19/11/2026 (voto r-test) il titolo usa le parole di chi lo cerca: «test pelle viso», «che tipo di pelle ho», «gratis»
 export const metadata: Metadata = {
-  title: 'Test della pelle del viso gratis: che tipo di pelle hai e cosa usare',
-  description: 'Il test gratis per capire che tipo di pelle hai: domande su quello che vedi allo specchio, poi una routine con prodotti di tutte le marche e un’alternativa che di solito costa meno. Anche per cute, capelli e integratori.',
+  // titolo sotto i 65 caratteri con « | Skinmatch», descrizione sotto i 160 (23/11/2026, il PO: «sì» a «titoli-test»)
+  title: 'Che tipo di pelle hai? Il test gratis e cosa usare',
+  description: 'Che tipo di pelle hai? Rispondi su quello che vedi allo specchio: ti diamo la routine, un prodotto per passaggio e un’alternativa. Gratis, anche per i capelli.',
   alternates: { canonical: '/test', types: { 'text/markdown': '/md/test.md' } },
 };
 

@@ -227,6 +227,8 @@ async function messaggio(env, ctx, m) {
   }
 }
 
+const MAX_LOTTO = 20;
+
 export async function mcp(req, env, ctx) {
   if (req.method === 'OPTIONS') return new Response(null, { status: 204, headers: CORS });
   if (req.method === 'GET') {
@@ -238,6 +240,12 @@ export async function mcp(req, env, ctx) {
   let corpo;
   try { corpo = await req.json(); } catch { return risposta({ jsonrpc: '2.0', id: null, error: { code: -32700, message: 'JSON non valido' } }, 400); }
   if (Array.isArray(corpo)) {
+    // ⚠️ I LOTTI HANNO UN LIMITE (23/11/2026, prova delle skill di sicurezza): una richiesta con mille messaggi valeva
+    // mille esecuzioni e mille scritture su D1. Un assistente vero ne manda pochi; un lotto vuoto non è valido (JSON-RPC 2.0).
+    if (!corpo.length || corpo.length > MAX_LOTTO) {
+      const msg = corpo.length ? `Al massimo ${MAX_LOTTO} messaggi per richiesta` : 'Lotto vuoto';
+      return risposta({ jsonrpc: '2.0', id: null, error: { code: -32600, message: msg } }, 400);
+    }
     const fuori = (await Promise.all(corpo.map((m) => messaggio(env, ctx, m)))).filter(Boolean);
     return fuori.length ? risposta(fuori) : new Response(null, { status: 202, headers: CORS });
   }

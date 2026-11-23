@@ -7,6 +7,7 @@ import Catalogo from '@/components/Catalogo';
 import Foto from '@/components/Foto';
 import { Stendi } from '@/components/Inviti';
 import { incrociDellaCategoria, PER } from '@/lib/percorsi';
+import { indirizzo } from '@/lib/indirizzo';
 
 // Una categoria (/catalogo/sieri) o un filtro (/catalogo/k-beauty): lo stesso indirizzo corto,
 // i guardiani controllano che una categoria e un filtro non abbiano lo stesso nome.
@@ -36,6 +37,7 @@ export default async function GruppoPage({ params }: { params: Promise<{ slug: s
   const g = gruppo(slug);
   if (!g) notFound();
   const perTipo = g.tipo === 'categoria' ? incrociDellaCategoria(g.id) : [];
+  const lista = nelGruppo(g.id).filter((p) => indirizzo(p));
   return (
     <main className="contenitore sezione pila" style={{ ['--gap' as string]: 'clamp(28px, 5vw, 48px)' }}>
       <Link href="/catalogo" className="piccolo">← Tutto il catalogo</Link>
@@ -55,6 +57,17 @@ export default async function GruppoPage({ params }: { params: Promise<{ slug: s
         </nav>
       )}
       <Catalogo categoria={g.tipo === 'categoria' ? g.id : ''} tag={g.tipo === 'tag' ? g.id : ''} />
+      {/* L'ELENCO E IL PERCORSO PER GOOGLE (23/11/2026, il PO: «sì» a «dati-strutturati»): prima le liste del catalogo non
+          avevano dati strutturati. ItemList coi primi 30 prodotti (il totale in numberOfItems) e BreadcrumbList. */}
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify([{
+        '@context': 'https://schema.org', '@type': 'ItemList', name: g.nome, numberOfItems: lista.length,
+        itemListElement: lista.slice(0, 30).map((p, i) => ({ '@type': 'ListItem', position: i + 1, url: `https://skinmatch.it${indirizzo(p)}`, name: p.name })),
+      }, {
+        '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: [
+          { '@type': 'ListItem', position: 1, name: 'Catalogo', item: 'https://skinmatch.it/catalogo' },
+          { '@type': 'ListItem', position: 2, name: g.nome, item: `https://skinmatch.it/catalogo/${g.id}` },
+        ],
+      }]).replace(/</g, '\\u003c') }} />
     </main>
   );
 }

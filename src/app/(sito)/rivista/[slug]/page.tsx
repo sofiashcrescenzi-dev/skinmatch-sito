@@ -54,7 +54,7 @@ export default async function ArticoloPage({ params }: { params: Promise<{ slug:
         </div>
         <Invito href="/test">Fai il test</Invito>
       </section>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify([{
         '@context': 'https://schema.org', '@type': 'Article', headline: a.titolo, description: a.sommario, datePublished: a.pubblicato_il, dateModified: a.aggiornato_il || a.pubblicato_il,
         // 15/11/2026: con la firma «sofia» l'autrice è lei; con «redazione» la redazione con lei come contributrice (Firma.tsx)
         author: a.firma === 'sofia' ? { '@type': 'Person', name: 'Sofia Crescenzi', jobTitle: 'Medico estetico', url: 'https://sofiacrescenzi.it' } : { '@type': 'Organization', name: 'Redazione Skinmatch' },
@@ -62,7 +62,13 @@ export default async function ArticoloPage({ params }: { params: Promise<{ slug:
         ...(revisione(`articolo:${a.slug}`) ? { reviewedBy: { '@type': 'Person', name: 'Sofia Crescenzi', jobTitle: 'Medico estetico' }, lastReviewed: revisione(`articolo:${a.slug}`)!.data } : {}),
         publisher: { '@type': 'Organization', name: 'Skinmatch', url: 'https://skinmatch.it' }, inLanguage: 'it',
         image: a.immagine?.file ? `https://skinmatch.it/immagini/${a.immagine.file}-1600.webp` : undefined, mainEntityOfPage: `https://skinmatch.it/rivista/${a.slug}`,
-      }).replace(/</g, '\\u003c') }} />
+      }, {
+        // il percorso (23/11/2026, «dati-strutturati»)
+        '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: [
+          { '@type': 'ListItem', position: 1, name: 'Rivista', item: 'https://skinmatch.it/rivista' },
+          { '@type': 'ListItem', position: 2, name: a.titolo, item: `https://skinmatch.it/rivista/${a.slug}` },
+        ],
+      }]).replace(/</g, '\\u003c') }} />
     </main>
   );
 }
