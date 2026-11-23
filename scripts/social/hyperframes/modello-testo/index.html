@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="it">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/gsap.min.js"></script>
+    <style>
+      /* I token di Skinmatch (src/app/globals.css e media/brand/IDENTITA.md): gli stessi del sito. */
+      @font-face { font-family: "Familjen Grotesk"; src: url("assets/fonts/familjen-grotesk-latin.woff2") format("woff2"); font-weight: 400 700; }
+      @font-face { font-family: "Inclusive Sans"; src: url("assets/fonts/inclusive-sans-latin.woff2") format("woff2"); font-weight: 300 700; }
+      :root {
+        --cacao: #2E1C15;
+        --latte: #FAF6F4;
+        --velo: #F1E9E4;
+        --f1: #F6DDCC; --f2: #EBC3A6; --f3: #D29E78; --f4: #A8714E; --f5: #7B4B33; --f6: #4A2C1F;
+        --grigio: #66574F;
+      }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1080px; height: 1920px; overflow: hidden; background: var(--latte); }
+      #root { position: relative; width: 1080px; height: 1920px; background: var(--latte); font-family: "Inclusive Sans", sans-serif; color: var(--cacao); }
+
+      /* La striscia dei sei fototipi: il filo che porta da una battuta all'altra. */
+      #striscia { position: absolute; left: 120px; top: 420px; width: 768px; height: 28px; display: flex; }
+      #striscia i { flex: 1; height: 100%; transform-origin: left center; }
+
+      .battuta { position: absolute; left: 120px; top: 520px; width: 768px; }
+      .occhiello { font-family: "Inclusive Sans", sans-serif; font-weight: 700; font-size: 34px; letter-spacing: 0.02em; color: var(--f5); margin-bottom: 36px; }
+      .grande { font-family: "Familjen Grotesk", sans-serif; font-weight: 700; font-size: 96px; line-height: 1.0; letter-spacing: -0.035em; }
+      .medio { font-family: "Familjen Grotesk", sans-serif; font-weight: 700; font-size: 76px; line-height: 1.04; letter-spacing: -0.03em; }
+      .riga { display: block; }
+      .nota { font-family: "Familjen Grotesk", sans-serif; font-weight: 700; font-size: 60px; line-height: 1.08; letter-spacing: -0.02em; color: var(--f5); margin-top: 28px; max-width: 640px; }
+      .cifra { color: var(--f5); }
+
+      #chiusa { position: absolute; left: 120px; top: 1080px; width: 768px; }
+      #logo { width: 520px; height: auto; display: block; }
+      #indirizzo { font-family: "Inclusive Sans", sans-serif; font-weight: 700; font-size: 40px; margin-top: 30px; color: var(--cacao); }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="8" data-width="1080" data-height="1920">
+
+      <div id="striscia" class="clip" data-start="0" data-duration="8" data-track-index="0">
+        <i style="background:var(--f1)"></i><i style="background:var(--f2)"></i><i style="background:var(--f3)"></i>
+        <i style="background:var(--f4)"></i><i style="background:var(--f5)"></i><i style="background:var(--f6)"></i>
+      </div>
+
+      <!-- Battuta 1 (0-2,6 s): il gancio è già sullo schermo al fotogramma 0 -->
+      <div id="b1" class="battuta clip" data-start="0" data-duration="2.6" data-track-index="1">
+        <div class="occhiello" id="b1-occhiello">Il test della pelle · Macchie</div>
+        <div class="grande" id="b1-titolo"><span class="riga">Macchie</span><span class="riga">scure</span><span class="riga">che non</span><span class="riga">schiariscono?</span></div>
+      </div>
+
+      <!-- Battuta 2 (2,6-5,4 s) -->
+      <div id="b2" class="battuta clip" data-start="2.6" data-duration="2.8" data-track-index="1">
+        <div class="medio" id="b2-titolo"><span class="riga">La protezione</span><span class="riga">solare ogni</span><span class="riga">mattina, tutto</span><span class="riga">l'anno,</span></div>
+        <div class="nota" id="b2-nota">conta più di qualunque siero schiarente.</div>
+      </div>
+
+      <!-- Battuta 3 (5,4-8 s) -->
+      <div id="b3" class="battuta clip" data-start="5.4" data-duration="2.6" data-track-index="1">
+        <div class="medio" id="b3-titolo"><span class="riga">Le macchie</span><span class="riga">si attenuano</span><span class="riga">in <span class="cifra">mesi</span>, non</span><span class="riga">in settimane.</span></div>
+      </div>
+      <div id="chiusa" class="clip" data-start="5.75" data-duration="2.25" data-track-index="2">
+        <img id="logo" src="assets/logo.svg" alt="Skinmatch" />
+        <div id="indirizzo">skinmatch.it/test</div>
+      </div>
+    </div>
+    <script>
+      const tl = gsap.timeline({ paused: true });
+      const entra = "power3.out", esce = "power2.in";
+      const tessere = "#striscia i";
+
+      // 0: tutto è già fermo e leggibile (miniatura); la striscia si allunga da sinistra come un nastro di carnagioni.
+            tl.fromTo("#b1-titolo .riga", { y: 22 }, { y: 0, duration: 0.6, ease: entra, stagger: 0.06 }, 0);
+
+      // 2,1-2,55: la battuta 1 esce verso l'alto, la striscia la accompagna stringendosi a destra.
+      tl.to("#b1 > *", { y: -60, opacity: 0, duration: 0.42, ease: esce, stagger: 0.04 }, 2.1);
+      tl.to(tessere, { scaleX: 0.25, duration: 0.42, ease: esce, stagger: { each: 0.03, from: "end" } }, 2.12);
+
+      // 2,6: la battuta 2 entra dal basso nella stessa direzione in cui la 1 è uscita (legge del vettore).
+      tl.fromTo("#b2-titolo .riga", { y: 70, opacity: 0 }, { y: 0, opacity: 1, duration: 0.55, ease: entra, stagger: 0.07 }, 2.62);
+      tl.fromTo("#b2-nota", { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, ease: entra }, 3.05);
+      tl.to(tessere, { scaleX: 1, duration: 0.6, ease: entra, stagger: 0.05 }, 2.66);
+
+      // 4,9-5,35: esce la 2.
+      tl.to("#b2 > *", { y: -60, opacity: 0, duration: 0.42, ease: esce, stagger: 0.05 }, 4.9);
+      tl.to(tessere, { scaleX: 0.25, duration: 0.42, ease: esce, stagger: { each: 0.03, from: "end" } }, 4.92);
+
+      // 5,4: la battuta 3, poi il marchio sotto; fermo finale per la lettura.
+      tl.fromTo("#b3-titolo .riga", { y: 70, opacity: 0 }, { y: 0, opacity: 1, duration: 0.55, ease: entra, stagger: 0.07 }, 5.42);
+      tl.to(tessere, { scaleX: 1, duration: 0.6, ease: entra, stagger: 0.05 }, 5.46);
+      tl.fromTo("#chiusa > *", { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.45, ease: entra, stagger: 0.1 }, 5.77);
+
+      window.__timelines["main"] = tl;
+      tl.seek(0);
+    </script>
+  </body>
+</html>

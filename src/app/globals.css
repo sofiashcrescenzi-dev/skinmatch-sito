@@ -1026,8 +1026,8 @@ details.carta > summary::-webkit-details-marker { display: none; }
 @media (pointer: coarse), (max-width: 760px) {
   .chip { min-height: 44px; padding: 10px 16px; font-size: 14px; }
   .riga-chip { gap: 8px; }
-  .rc-esempi { line-height: 2.9; }
-  .rc-esempi a { padding: 10px 2px; }
+  .rc-esempi { line-height: 3.1; }
+  .rc-esempi a { padding: 13px 2px; }
   .ricerca-centrale input { min-height: 44px; }
   .sm-nav-logo, .sm-nav-cta { min-height: 44px; }
   .piede nav a { display: flex; align-items: center; min-height: 44px; }
@@ -1040,3 +1040,6 @@ details.carta > summary::-webkit-details-marker { display: none; }
   .sm-nav-cta { padding: 8px 10px; }
   .sm-nav-burger { min-width: 44px; padding: 10px 8px; margin-left: 0; }
 }
+/* il fuoco sulle fasce scure (secondo giro di taste-skill, 23/11/2026): il colore --clinico della regola generale lì si
+   vedeva a 1,17:1; sul cacao serve il chiaro, più spesso. */
+.test-primo :focus-visible, .rc-esempi a:focus-visible, .fascia-cerca a:focus-visible { outline: 3px solid var(--f2); outline-offset: 3px; border-radius: 4px; }
