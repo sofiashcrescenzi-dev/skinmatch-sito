@@ -1,6 +1,7 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import CalendarioPost from './CalendarioPost';
 import { SOCIAL, POST, RETI, STILI, LIMITI, candidati, type Social as Doc, type Rete, type Stile, type Bottone, type Post } from '@/lib/social';
 import { ARTICOLI } from '@/lib/dati';
 import { useDocumento, useApi, invia, BarraSalva, Campo, Testo, Titolo, Vuoto, quando } from './base';
@@ -237,12 +238,12 @@ function Salva({ p }: { p: Post }) {
     </span>
   );
 }
-function UnPost({ p, stato, poi }: { p: Post; stato?: Stato; poi: () => void }) {
+function UnPost({ p, stato, poi, aperto }: { p: Post; stato?: Stato; poi: () => void; aperto?: boolean }) {
   const [err, setErr] = useState('');
   const segna = async (s: string) => { setErr(''); try { await invia('/api/admin/social-stato', { id: p.id, stato: s }); poi(); } catch (e) { setErr((e as Error).message); } };
   const video = p.file.find((f) => f.endsWith('.mp4'));
   return (
-    <details className="carta">
+    <details className="carta" id={`post-${p.id}`} open={aperto || undefined}>
       <summary style={{ display: 'flex', gap: 10, flexWrap: 'wrap', justifyContent: 'space-between' }}>
         <span><b>{p.data.slice(8, 10)}/{p.data.slice(5, 7)} · {p.titolo}</b> <span className="piccolo">· {p.tipo === 'video' ? 'video' : 'carosello'}{p.sofia ? ' · da far rileggere a Sofia' : ''}</span></span>
         <span className="chip tenue">{stato?.stato === 'pubblicato' ? `pubblicato ${quando(stato.aggiornato_il)}` : stato?.stato === 'saltato' ? 'saltato' : 'da pubblicare'}</span>
@@ -278,16 +279,18 @@ function UnPost({ p, stato, poi }: { p: Post; stato?: Stato; poi: () => void }) 
   );
 }
 
-function Piano() {
+// il calendario (23/11/2026) e il piano leggono gli stessi stati; dal calendario un tocco apre il post nel piano
+function Piano({ apri }: { apri?: string | null }) {
   const api = useApi<{ stati: Stato[] }>('/api/admin/social-stato');
   const stati = Object.fromEntries((api.dati?.stati || []).map((s) => [s.id, s]));
   const prossimi = [...POST].reverse();
+  useEffect(() => { if (apri) document.getElementById(`post-${apri}`)?.scrollIntoView({ block: 'start', behavior: 'smooth' }); }, [apri]);
   return (
     <section className="pila" style={{ ['--gap' as string]: '10px' }}>
       <h2 className="titolo-3">Il piano dei post</h2>
       <p className="piccolo">Un’uscita ogni tre giorni: un video per Reels, TikTok e Shorts, un carosello per Instagram e Threads. Prima di pubblicare, Sofia rilegge quelli segnati.</p>
       {!prossimi.length && <Vuoto>I post compaiono qui quando il motore dei video li ha preparati.</Vuoto>}
-      {prossimi.map((p) => <UnPost key={p.id} p={p} stato={stati[p.id]} poi={api.ricarica} />)}
+      {prossimi.map((p) => <UnPost key={p.id} p={p} stato={stati[p.id]} poi={api.ricarica} aperto={apri === p.id} />)}
     </section>
   );
 }
@@ -352,7 +355,10 @@ function Numeri() {
 
 export default function Social() {
   const doc = useDocumento<Doc>('social', SOCIAL);
-  const [parte, setParte] = useState<'profili' | 'link' | 'kit' | 'piano' | 'numeri'>('piano');
+  const [parte, setParte] = useState<'calendario' | 'profili' | 'link' | 'kit' | 'piano' | 'numeri'>('calendario');
+  const [apri, setApri] = useState<string | null>(null);
+  const statiApi = useApi<{ stati: Stato[] }>('/api/admin/social-stato');
+  const statoDi = (p: Post) => (statiApi.dati?.stati || []).find((s) => s.id === p.id)?.stato || 'da_pubblicare';
   const d = doc.dati;
   if (doc.errore) return <Vuoto>Non riesco a leggere i social: {doc.errore}</Vuoto>;
   if (!d) return <Vuoto>Carico…</Vuoto>;
@@ -361,9 +367,10 @@ export default function Social() {
     <div className="pila" style={{ ['--gap' as string]: '20px' }}>
       <Titolo sotto="I profili di Instagram, TikTok, Threads e YouTube, la pagina skinmatch.it/link, il kit delle immagini, la voce e il piano dei post con le didascalie da copiare.">I social</Titolo>
       <div className="riga-chip">
-        {([['piano', 'Il piano'], ['numeri', 'I numeri'], ['profili', 'I profili'], ['link', 'La pagina dei link'], ['kit', 'Kit e voce']] as const).map(([k, n]) => <button key={k} type="button" className="chip" aria-pressed={parte === k} onClick={() => setParte(k)}>{n}</button>)}
+        {([['calendario', 'Il calendario'], ['piano', 'Il piano'], ['numeri', 'I numeri'], ['profili', 'I profili'], ['link', 'La pagina dei link'], ['kit', 'Kit e voce']] as const).map(([k, n]) => <button key={k} type="button" className="chip" aria-pressed={parte === k} onClick={() => setParte(k)}>{n}</button>)}
       </div>
-      {parte === 'piano' && <Piano />}
+      {parte === 'calendario' && <CalendarioPost post={POST} statoDi={statoDi} onApri={(id) => { setApri(id); setParte('piano'); }} />}
+      {parte === 'piano' && <Piano apri={apri} />}
       {parte === 'numeri' && <Numeri />}
       {parte === 'profili' && <Profili d={d} metti={metti} />}
       {parte === 'link' && <PaginaLink d={d} cambia={(l) => doc.setDati({ ...d, link: l })} />}
