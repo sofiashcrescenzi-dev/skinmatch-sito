@@ -38,6 +38,15 @@ export default function PaginaRisultato() {
     return () => window.removeEventListener('hashchange', leggi);
   }, []);
   const letto = useMemo(() => (codice ? decodifica(codice) : null), [codice]);
+  // ⚠️ I LINK DI PRIMA, RISCRITTI (24/11/2026, Federico: «i link non devono essere così facili con i codici delle
+  // scelte»): un link «2» o «3» si apre, ma l'indirizzo nella barra e quello che si condivide diventano «4» (mescolato).
+  // Non quando il metodo è cambiato: il codice vecchio porta l'avviso «il metodo è stato aggiornato».
+  const ricodificato = useMemo(() => (letto && letto !== 'vecchio' && !letto.metodoCambiato ? codifica(letto.percorso, letto.risposte) : ''), [letto]);
+  useEffect(() => {
+    if (ricodificato && codice && codice !== ricodificato && !codice.startsWith('4')) {
+      try { window.history.replaceState(window.history.state, '', `${window.location.pathname}${window.location.search}#${ricodificato}`); } catch { /* niente */ }
+    }
+  }, [ricodificato, codice]);
   const dati = letto === 'vecchio' ? null : letto;
   const percorso = dati ? percorsoPerId(dati.percorso) : null;
   const r = useMemo(() => (dati && percorso ? consiglia(percorso, dati.risposte) : null), [dati, percorso]);
@@ -56,11 +65,11 @@ export default function PaginaRisultato() {
     );
   }
   const m = messaggio(r, mio);
-  const indirizzo = indirizzoCondiviso(r, codice);
+  const indirizzo = indirizzoCondiviso(r, ricodificato || codice);
   const azioni = (
     <div className="azioni-risultato">
       {mio ? (<>
-        <BottoneSalva percorso={percorso.id} codice={codice} titolo={titoloDi(r) || percorso.nome} />
+        <BottoneSalva percorso={percorso.id} codice={ricodificato || codice} titolo={titoloDi(r) || percorso.nome} />
         <Condividi titolo={m.titolo} messaggio={m.testo} indirizzo={indirizzo} />
         <Copia messaggio={m.testo} indirizzo={indirizzo} />
         <Link href={`/test?percorso=${percorso.id}&nuovo=1`} className="bottone secondario"><Icona nome="aggiorna" size={18} />Rifai il test</Link>
