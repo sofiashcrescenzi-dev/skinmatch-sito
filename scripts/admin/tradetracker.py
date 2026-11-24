@@ -2,8 +2,17 @@
 """TRADETRACKER PER SKINMATCH (24/11/2026, Federico: «sono dentro tradetracker di skinmatch mi colleghi l'api sia per il
 tracciamento che per far tutto il resto?»).
 
-L'account è quello di Skinmatch (ID cliente 308198, sito affiliato 340738), separato da quello di Agoranomos: niente
-script né credenziali in comune (vedi la memoria «Skinmatch separato»). Il servizio è SOAP per affiliati
+L'account è quello di Skinmatch (ID cliente 308198, sito affiliato 519005), separato da quello di Agoranomos: niente
+script né credenziali in comune (vedi la memoria «Skinmatch separato»).
+
+Le campagne (24/11/2026, Federico: «metti laevia anche e candidati agli altri»): approvate subito Clubfarma (7%),
+Farmamia (6%), Saninforma (5%), Afrodite Profumeria (8,5%) e Laevia (5,6%); Farmacia Igea (6%) in attesa. I loro feed
+stanno in ~/.skinmatch-segreti.env come FEED_CLUBFARMA_TT, FEED_FARMAMIA, FEED_SANINFORMA, FEED_AFRODITE, FEED_LAEVIA.
+⚠️ I link dei feed non sono tutti su tc.tradetracker.net: Clubfarma, Farmamia e Saninforma usano il link diretto sul
+dominio del negozio (?tt=campagna_materiale_sito_riferimento&r=pagina), Laevia deals.laevia.it/c?…&r=riferimento&u=pagina.
+Lì «r» non è sempre il riferimento: prima di metterli nel catalogo si riscrivono nella forma
+https://tc.tradetracker.net/?c=<campagna>&m=<materiale>&a=519005&r=&u=<pagina>, così conSubid (src/lib/subid.ts) vale.
+⚠️ Clubfarma: gli ID del feed TradeTracker sono quelli di Awin (53.345 su 53.346), quindi le pagine cf-… restano. Il servizio è SOAP per affiliati
 (https://ws.tradetracker.com/soap/affiliate, rpc/encoded): la busta si scrive a mano perché le librerie SOAP gestiscono
 male questo stile; «authenticate» apre una sessione a cookie che vale per le chiamate dopo.
 
