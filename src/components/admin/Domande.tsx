@@ -43,7 +43,7 @@ function EditorOpzione({ o, cambia, togli, su, giu, test, area }: { o: Opzione; 
               <select value={String(v)} style={{ border: 0, background: 'transparent', font: 'inherit' }} onChange={(e) => { const sv = s?.valori.find((x) => String(x) === e.target.value); cambia({ ...o, scelte: { ...o.scelte, [k]: sv ?? e.target.value } }); }}>
                 {(s?.valori || [v]).map((x) => <option key={String(x)} value={String(x)}>{x === true ? 'sì' : String(x)}</option>)}
               </select>
-              <button type="button" style={{ border: 0, background: 'none', cursor: 'pointer' }} onClick={() => { const c = { ...o.scelte }; delete c[k]; cambia({ ...o, scelte: Object.keys(c).length ? c : undefined }); }} aria-label="Togli">×</button>
+              <button type="button" style={{ border: 0, background: 'none', cursor: 'pointer', minWidth: 32, minHeight: 32, fontSize: 18 }} onClick={() => { const c = { ...o.scelte }; delete c[k]; cambia({ ...o, scelte: Object.keys(c).length ? c : undefined }); }} aria-label="Togli">×</button>
             </span>
           );
         })}
@@ -52,7 +52,7 @@ function EditorOpzione({ o, cambia, togli, su, giu, test, area }: { o: Opzione; 
         </select>
       </div>
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px 12px', alignItems: 'center' }}>
-        <label className="piccolo" style={{ display: 'inline-flex', gap: 6, alignItems: 'center' }}>apre il consulto:
+        <label className="piccolo" style={{ display: 'inline-flex', flexWrap: 'wrap', gap: 6, alignItems: 'center', maxWidth: '100%' }}>apre il consulto:
           <select className="adm-input" style={{ width: 'auto', padding: '5px 8px' }} value={o.limite || ''} onChange={(e) => cambia({ ...o, limite: e.target.value || undefined })}>
             <option value="">no</option>{test.limiti.map((l) => <option key={l.id} value={l.id}>{l.titolo}</option>)}
           </select>
@@ -68,10 +68,10 @@ function EditorDomanda({ d, cambia, togli, test }: { d: Domanda; cambia: (d: Dom
   const usata = test.percorsi.filter((p) => p.domande.includes(d.id)).map((p) => p.nome);
   return (
     <details className="carta">
-      <summary style={{ display: 'flex', gap: 10, justifyContent: 'space-between', flexWrap: 'wrap' }}>
+      <summary><span style={{ display: 'flex', gap: 10, justifyContent: 'space-between', flexWrap: 'wrap' , alignItems: 'center' }}>
         <span><b>{d.testo}</b> <span className="piccolo">· {d.area} · {d.opzioni.length} risposte{d.multipla ? ' · più scelte' : ''}{d.saltabile ? ' · saltabile' : ''}</span></span>
         <span className="piccolo">{usata.length ? usata.join(', ') : 'in nessun percorso'}</span>
-      </summary>
+      </span></summary>
       <div className="pila" style={{ ['--gap' as string]: '12px', marginTop: 12 }}>
         <div className="adm-due">
           <Campo etichetta="Domanda"><Testo valore={d.testo} cambia={(v) => cambia({ ...d, testo: v })} /></Campo>

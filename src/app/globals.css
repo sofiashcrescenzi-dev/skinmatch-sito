@@ -228,7 +228,10 @@ img { max-width: 100%; }
 .adm-testa { position: sticky; top: 0; z-index: 50; background: color-mix(in srgb, var(--fondo) 96%, transparent); backdrop-filter: blur(10px); border-bottom: 1px solid var(--riga); }
 /* LE SCHEDE IN VERTICALE (13/11/2026, Federico): a sinistra dal tablet in su, in un menu a tendina sul telefono */
 .adm-corpo { display: grid; grid-template-columns: minmax(0, 1fr); gap: 0 28px; width: min(100% - 2 * var(--gutter), 1320px); margin-inline: auto; }
-.adm-lato { display: none; }
+/* ⚠️ 24/11/2026, Federico: «la visualizzazione mobile dell'admin è penosa». La colonna delle schede ha anche la classe
+   .adm-schede-v (display: grid), scritta dopo: con la stessa forza vinceva lei e sul telefono le 15 schede stavano in
+   colonna sopra ogni pagina, oltre al menu a tendina. Ora la regola ha più forza. */
+.adm-corpo > .adm-lato { display: none; }
 .adm-principale { min-width: 0; }
 .adm-schede-v { display: grid; gap: 2px; }
 .adm-schede-v a { font-size: 14.5px; font-weight: 600; color: var(--grigio); text-decoration: none; padding: 9px 12px; border-radius: 10px; }
@@ -240,7 +243,7 @@ img { max-width: 100%; }
 .adm-menu[open] > summary { margin-bottom: 8px; }
 @media (min-width: 900px) {
   .adm-corpo { grid-template-columns: 200px minmax(0, 1fr); }
-  .adm-lato { display: grid; align-content: start; position: sticky; top: 72px; padding-block: 24px; max-height: calc(100vh - 80px); overflow-y: auto; }
+  .adm-corpo > .adm-lato { display: grid; align-content: start; position: sticky; top: 72px; padding-block: 24px; max-height: calc(100vh - 80px); overflow-y: auto; }
   .adm-menu { display: none; }
 }
 .adm-schede { display: flex; gap: 2px; overflow-x: auto; padding-bottom: 8px; scrollbar-width: none; }
@@ -267,6 +270,28 @@ textarea.adm-input { resize: vertical; line-height: 1.5; }
 details.carta > summary { cursor: pointer; list-style: none; }
 details.carta > summary::-webkit-details-marker { display: none; }
 .adm-due { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr)); align-content: start; }
+/* L'ADMIN SUL TELEFONO (24/11/2026, Federico: «la visualizzazione mobile dell'admin skinmatch è penosa e ci sono pulsanti
+   che non cliccano. controllala per bene»). Dal giro di tutte le schede a 320 e 375 px:
+   - una casella con un testo lungo (le tendine dei biotipi, le proposte delle domande) allargava la pagina oltre lo schermo:
+     ogni pezzo di una colonna ora può stringersi, e le tendine non superano la loro colonna;
+   - i campi a 15 px facevano ingrandire la pagina a Safari a ogni tocco: sul telefono sono a 16 px e alti 44;
+   - caselle da spuntare di 13 px e titoli delle tendine alti 24 px: ora si toccano col dito;
+   - il menu delle schede su due colonne, che non esce dallo schermo nemmeno aperto (e si chiude cambiando scheda, Guscio.tsx);
+   - summary in inline-block e non in flex: Safari meno recente con un summary in flex non apre la tendina. */
+.adm .pila > *, .adm .adm-campo > * { min-width: 0; }
+.adm-principale { overflow-wrap: break-word; }   /* gli indirizzi lunghi delle fonti (Domande) andavano oltre lo schermo */
+.adm select { max-width: 100%; }
+.adm-menu > summary { display: inline-block; }
+@media (pointer: coarse), (max-width: 760px) {
+  .adm .adm-input, .adm select, .adm textarea { font-size: 16px; }
+  .adm .adm-input, .adm select { min-height: 44px; }
+  .adm input[type='checkbox'], .adm input[type='radio'] { width: 22px; height: 22px; accent-color: var(--testo); flex-shrink: 0; margin: 0; }
+  .adm details.carta > summary { padding-block: 10px; margin-block: -10px; }
+  .adm details:not(.carta):not(.adm-menu) > summary { padding-block: 12px; }
+  .adm .chip { min-width: 44px; justify-content: center; }
+  .adm-menu .adm-schede-v { grid-template-columns: repeat(2, minmax(0, 1fr)); max-height: calc(100dvh - 150px); overflow-y: auto; }
+  .adm-menu .adm-schede-v a { min-height: 44px; display: flex; align-items: center; }
+}
 
 /* ============================================================
    FOTOTIPI: i pezzi della direzione

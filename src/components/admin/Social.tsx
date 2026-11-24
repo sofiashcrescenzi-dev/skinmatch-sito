@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import CalendarioPost from './CalendarioPost';
+import CalendarioPost, { quandoDi, type Cal } from './CalendarioPost';
 import { SOCIAL, POST, RETI, STILI, LIMITI, candidati, type Social as Doc, type Rete, type Stile, type Bottone, type Post } from '@/lib/social';
 import { ARTICOLI } from '@/lib/dati';
 import { useDocumento, useApi, invia, BarraSalva, Campo, Testo, Titolo, Vuoto, quando } from './base';
@@ -238,16 +238,20 @@ function Salva({ p }: { p: Post }) {
     </span>
   );
 }
-function UnPost({ p, stato, poi, aperto }: { p: Post; stato?: Stato; poi: () => void; aperto?: boolean }) {
+function UnPost({ p, stato, poi, aperto, quando: q }: { p: Post; stato?: Stato; poi: () => void; aperto?: boolean; quando: { giorno: string; ora: string; spostato: boolean } }) {
   const [err, setErr] = useState('');
-  const segna = async (s: string) => { setErr(''); try { await invia('/api/admin/social-stato', { id: p.id, stato: s }); poi(); } catch (e) { setErr((e as Error).message); } };
+  const [fatto, setFatto] = useState('');
+  // ⚠️ 24/11/2026, Federico: «ci sono pulsanti che non cliccano». «Da pubblicare» su un post già da pubblicare non cambiava
+  // niente a vista: ora il bottone dello stato attuale è acceso e ogni tocco dice cosa ha segnato.
+  const segna = async (s: string) => { setErr(''); setFatto('Segno…'); try { await invia('/api/admin/social-stato', { id: p.id, stato: s }); setFatto(`Segnato: ${s === 'pubblicato' ? 'pubblicato' : s === 'saltato' ? 'saltato' : 'da pubblicare'}.`); poi(); } catch (e) { setFatto(''); setErr((e as Error).message); } };
+  const ora = stato?.stato || 'da_pubblicare';
   const video = p.file.find((f) => f.endsWith('.mp4'));
   return (
     <details className="carta" id={`post-${p.id}`} open={aperto || undefined}>
-      <summary style={{ display: 'flex', gap: 10, flexWrap: 'wrap', justifyContent: 'space-between' }}>
-        <span><b>{p.data.slice(8, 10)}/{p.data.slice(5, 7)} · {p.titolo}</b> <span className="piccolo">· {p.tipo === 'video' ? 'video' : 'carosello'}{p.sofia ? ' · da far rileggere a Sofia' : ''}</span></span>
+      <summary><span style={{ display: 'flex', gap: 10, flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'center' }}>
+        <span><b>{q.giorno.slice(8, 10)}/{q.giorno.slice(5, 7)} · {p.titolo}</b> <span className="piccolo">· {p.tipo === 'video' ? 'video' : 'carosello'}{p.sofia ? ' · da far rileggere a Sofia' : ''}</span></span>
         <span className="chip tenue">{stato?.stato === 'pubblicato' ? `pubblicato ${quando(stato.aggiornato_il)}` : stato?.stato === 'saltato' ? 'saltato' : 'da pubblicare'}</span>
-      </summary>
+      </span></summary>
       <div className="pila" style={{ ['--gap' as string]: '10px', marginTop: 10 }}>
         <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap', alignItems: 'flex-start' }}>
           {video
@@ -255,7 +259,7 @@ function UnPost({ p, stato, poi, aperto }: { p: Post; stato?: Stato; poi: () => 
             // eslint-disable-next-line @next/next/no-img-element
             : <img src={`${p.base}/${p.copertina}`} alt="" style={{ width: 220, maxWidth: '100%', borderRadius: 12 }} />}
           <div className="pila" style={{ ['--gap' as string]: '6px', flex: '1 1 260px', minWidth: 0 }}>
-            <span className="piccolo">Esce il {p.data.slice(8, 10)}/{p.data.slice(5, 7)} alle {p.ora} · porta a <a className="link" href={p.pagina} target="_blank" rel="noopener">{p.pagina}</a></span>
+            <span className="piccolo">Esce il {q.giorno.slice(8, 10)}/{q.giorno.slice(5, 7)} alle {q.ora}{q.spostato ? ' (spostato nel calendario)' : ''} · porta a <a className="link" href={p.pagina} target="_blank" rel="noopener">{p.pagina}</a></span>
             {p.sofia && <p className="avviso" style={{ fontSize: 14 }}><b>Sofia:</b> {p.sofia}</p>}
             <Salva p={p} />
             <span className="riga-chip">{p.file.map((f) => <a key={f} className="chip" href={`${p.base}/${f}`} download={`${p.slug || p.id}-${f}`}>⬇ {f}</a>)}</span>
@@ -269,9 +273,10 @@ function UnPost({ p, stato, poi, aperto }: { p: Post; stato?: Stato; poi: () => 
           </div>
         ))}
         <div className="riga-chip">
-          <button type="button" className="bottone" onClick={() => segna('pubblicato')}>L’ho pubblicato</button>
-          <button type="button" className="chip" onClick={() => segna('saltato')}>Saltato</button>
-          <button type="button" className="chip" onClick={() => segna('da_pubblicare')}>Da pubblicare</button>
+          <button type="button" className="bottone" aria-pressed={ora === 'pubblicato'} onClick={() => segna('pubblicato')}>{ora === 'pubblicato' ? 'Pubblicato ✓' : 'L’ho pubblicato'}</button>
+          <button type="button" className="chip" aria-pressed={ora === 'saltato'} onClick={() => segna('saltato')}>Saltato</button>
+          <button type="button" className="chip" aria-pressed={ora === 'da_pubblicare'} onClick={() => segna('da_pubblicare')}>Da pubblicare</button>
+          {fatto && <span className="piccolo" role="status">{fatto}</span>}
         </div>
         {err && <p className="piccolo" style={{ color: 'var(--attenzione)' }}>{err}</p>}
       </div>
@@ -280,17 +285,18 @@ function UnPost({ p, stato, poi, aperto }: { p: Post; stato?: Stato; poi: () => 
 }
 
 // il calendario (23/11/2026) e il piano leggono gli stessi stati; dal calendario un tocco apre il post nel piano
-function Piano({ apri }: { apri?: string | null }) {
+function Piano({ apri, cal }: { apri?: string | null; cal: Record<string, Cal> }) {
   const api = useApi<{ stati: Stato[] }>('/api/admin/social-stato');
   const stati = Object.fromEntries((api.dati?.stati || []).map((s) => [s.id, s]));
-  const prossimi = [...POST].reverse();
+  // nell'ordine del calendario: il giorno e l'ora spostati dal PO valgono più di quelli del piano
+  const prossimi = POST.map((p) => ({ p, q: quandoDi(p, cal[p.id]) })).sort((a, b) => `${a.q.giorno} ${a.q.ora}`.localeCompare(`${b.q.giorno} ${b.q.ora}`));
   useEffect(() => { if (apri) document.getElementById(`post-${apri}`)?.scrollIntoView({ block: 'start', behavior: 'smooth' }); }, [apri]);
   return (
     <section className="pila" style={{ ['--gap' as string]: '10px' }}>
       <h2 className="titolo-3">Il piano dei post</h2>
-      <p className="piccolo">Un’uscita ogni tre giorni: un video per Reels, TikTok e Shorts, un carosello per Instagram e Threads. Prima di pubblicare, Sofia rilegge quelli segnati.</p>
+      <p className="piccolo">Un’uscita ogni tre giorni: un video per Reels, TikTok e Shorts, un carosello per Instagram e TikTok. Prima di pubblicare, Sofia rilegge quelli segnati.</p>
       {!prossimi.length && <Vuoto>I post compaiono qui quando il motore dei video li ha preparati.</Vuoto>}
-      {prossimi.map((p) => <UnPost key={p.id} p={p} stato={stati[p.id]} poi={api.ricarica} aperto={apri === p.id} />)}
+      {prossimi.map(({ p, q }) => <UnPost key={p.id} p={p} quando={q} stato={stati[p.id]} poi={api.ricarica} aperto={apri === p.id} />)}
     </section>
   );
 }
@@ -359,6 +365,8 @@ export default function Social() {
   const [apri, setApri] = useState<string | null>(null);
   const statiApi = useApi<{ stati: Stato[] }>('/api/admin/social-stato');
   const statoDi = (p: Post) => (statiApi.dati?.stati || []).find((s) => s.id === p.id)?.stato || 'da_pubblicare';
+  const calApi = useApi<{ calendario: (Cal & { id: string })[] }>('/api/admin/social-calendario');
+  const cal: Record<string, Cal> = Object.fromEntries((calApi.dati?.calendario || []).map((c) => [c.id, c]));
   const d = doc.dati;
   if (doc.errore) return <Vuoto>Non riesco a leggere i social: {doc.errore}</Vuoto>;
   if (!d) return <Vuoto>Carico…</Vuoto>;
@@ -369,8 +377,9 @@ export default function Social() {
       <div className="riga-chip">
         {([['calendario', 'Il calendario'], ['piano', 'Il piano'], ['numeri', 'I numeri'], ['profili', 'I profili'], ['link', 'La pagina dei link'], ['kit', 'Kit e voce']] as const).map(([k, n]) => <button key={k} type="button" className="chip" aria-pressed={parte === k} onClick={() => setParte(k)}>{n}</button>)}
       </div>
-      {parte === 'calendario' && <CalendarioPost post={POST} statoDi={statoDi} onApri={(id) => { setApri(id); setParte('piano'); }} />}
-      {parte === 'piano' && <Piano apri={apri} />}
+      {parte === 'calendario' && (calApi.dati || calApi.errore) && <CalendarioPost post={POST} statoDi={statoDi} cal={cal} poi={calApi.ricarica} onApri={(id) => { setApri(id); setParte('piano'); }} />}
+      {parte === 'calendario' && calApi.caricando && <Vuoto>Carico il calendario…</Vuoto>}
+      {parte === 'piano' && <Piano apri={apri} cal={cal} />}
       {parte === 'numeri' && <Numeri />}
       {parte === 'profili' && <Profili d={d} metti={metti} />}
       {parte === 'link' && <PaginaLink d={d} cambia={(l) => doc.setDati({ ...d, link: l })} />}

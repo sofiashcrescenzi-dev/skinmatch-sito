@@ -22,10 +22,10 @@ export function Voce({ chiave, titolo, contenuto, ultima, poi, children, etichet
   };
   return (
     <details className="carta">
-      <summary style={{ display: 'flex', gap: 10, flexWrap: 'wrap', justifyContent: 'space-between' }}>
+      <summary><span style={{ display: 'flex', gap: 10, flexWrap: 'wrap', justifyContent: 'space-between' , alignItems: 'center' }}>
         <b>{titolo}</b>
         <span className="chip tenue" style={{ color: ok ? 'var(--bene)' : cambiato || ultima?.esito === 'da_cambiare' ? 'var(--attenzione)' : undefined }}>{stato}</span>
-      </summary>
+      </span></summary>
       <div className="pila" style={{ ['--gap' as string]: '10px', marginTop: 10 }}>
         {children || <p className="testo" style={{ whiteSpace: 'pre-line', fontSize: 15 }}>{contenuto}</p>}
         <input className="adm-input" value={nota} onChange={(e) => setNota(e.target.value)} placeholder="Una nota (obbligatoria se va cambiato)" />

@@ -63,15 +63,19 @@ export function BarraSalva({ doc, cosa }: { doc: { sporco: boolean; salva: (n: s
   const [nota, setNota] = useState('');
   const pubblica = async () => {
     doc.setMsg('Metto in coda la pubblicazione…');
-    try { await invia('/api/admin/pubblica', { cosa }); doc.setMsg('In coda: va online entro un quarto d\'ora, dopo i controlli dei guardiani. Lo stato è nella scheda «Squadra».'); }
+    try { await invia('/api/admin/pubblica', { cosa }); doc.setMsg('In coda: va online entro un quarto d\'ora, dopo i controlli dei guardiani. Se qualcosa non va, lo dice la scheda «Avvisi».'); }
     catch (e) { doc.setMsg((e as Error).message); }
   };
+  // ⚠️ 24/11/2026, Federico: «ci sono pulsanti che non cliccano». Erano Salva e Pubblica spenti quando non c'era niente da
+  // fare, in fondo a ogni pagina: sembravano bottoni e non rispondevano. Ora la barra compare solo quando serve, coi soli
+  // bottoni che fanno qualcosa.
+  if (!doc.sporco && !doc.nonPubblicato && !doc.msg) return null;
   return (
     <div className="adm-barra">
-      <span className="piccolo" role="status">{doc.msg || (doc.sporco ? 'Ci sono modifiche non salvate.' : doc.nonPubblicato ? 'Salvato, non ancora online.' : 'Tutto salvato.')}</span>
+      <span className="piccolo" role="status">{doc.msg || (doc.sporco ? 'Ci sono modifiche non salvate.' : 'Salvato, non ancora online.')}</span>
       {doc.sporco && <input value={nota} onChange={(e) => setNota(e.target.value)} placeholder="Cosa hai cambiato (facoltativo)" className="adm-input" style={{ flex: '1 1 200px' }} />}
-      <button type="button" className="bottone" disabled={!doc.sporco} onClick={() => doc.salva(nota).then(() => setNota(''))}>Salva</button>
-      <button type="button" className="bottone secondario" disabled={doc.sporco || !doc.nonPubblicato} onClick={pubblica}>Pubblica</button>
+      {doc.sporco && <button type="button" className="bottone" onClick={() => doc.salva(nota).then(() => setNota(''))}>Salva</button>}
+      {!doc.sporco && doc.nonPubblicato && <button type="button" className="bottone" onClick={pubblica}>Pubblica</button>}
     </div>
   );
 }

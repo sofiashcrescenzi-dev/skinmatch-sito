@@ -511,6 +511,38 @@ async function admin(req, env, url, email) {
     return json({ ok: true });
   }
 
+  if (via === 'social-calendario') {
+    // IL CALENDARIO DEI POST (24/11/2026, il PO: «se ci clicco sopra da telefono me lo apre, non me lo fa spostare»): il
+    // giorno e l'ora scelti spostando il post in admin › Social › Il calendario, e le reti su cui è già programmato. Senza
+    // riga vale il giorno del piano (src/data/social-post.json). La tabella si crea alla prima chiamata.
+    await DB.prepare('CREATE TABLE IF NOT EXISTS social_calendario (id TEXT PRIMARY KEY, giorno TEXT, ora TEXT, reti TEXT, chi TEXT, aggiornato_il TEXT)').run();
+    if (req.method === 'GET') {
+      const righe = await tutti('SELECT id, giorno, ora, reti, aggiornato_il FROM social_calendario');
+      return json({ calendario: righe.map((r) => ({ ...r, reti: (() => { try { return JSON.parse(r.reti || '{}'); } catch { return {}; } })() })) });
+    }
+    const { id } = corpo || {};
+    if (!/^[a-z0-9-]{3,120}$/.test(id || '')) return json({ errore: 'post sconosciuto' }, 400);
+    const prima = await DB.prepare('SELECT giorno, ora, reti FROM social_calendario WHERE id = ?1').bind(id).first();
+    let giorno = prima?.giorno ?? null, ora = prima?.ora ?? null, reti = (() => { try { return JSON.parse(prima?.reti || '{}'); } catch { return {}; } })();
+    if ('giorno' in corpo) {
+      if (corpo.giorno !== null && !/^20\d\d-[01]\d-[0-3]\d$/.test(corpo.giorno)) return json({ errore: 'giorno non valido' }, 400);
+      giorno = corpo.giorno;
+    }
+    if ('ora' in corpo) {
+      if (corpo.ora !== null && !/^[0-2]\d:[0-5]\d$/.test(corpo.ora)) return json({ errore: 'ora non valida' }, 400);
+      ora = corpo.ora;
+    }
+    if (corpo.reti && typeof corpo.reti === 'object') {
+      for (const [k, v] of Object.entries(corpo.reti)) {
+        if (!['instagram', 'tiktok', 'youtube'].includes(k)) continue;
+        if (v) reti[k] = new Date().toISOString(); else delete reti[k];
+      }
+    }
+    await DB.prepare("INSERT INTO social_calendario (id, giorno, ora, reti, chi, aggiornato_il) VALUES (?1, ?2, ?3, ?4, ?5, datetime('now')) ON CONFLICT (id) DO UPDATE SET giorno = excluded.giorno, ora = excluded.ora, reti = excluded.reti, chi = excluded.chi, aggiornato_il = excluded.aggiornato_il")
+      .bind(id, giorno, ora, JSON.stringify(reti), email).run();
+    return json({ ok: true, giorno, ora, reti });
+  }
+
   if (via === 'social-numeri') {
     // I NUMERI DI TIKTOK (19/11/2026, il PO: «mettiamo anche skinmatch, ma lo mandiamo sull'admin suo»): li scrive il Mac
     // (scripts/admin/social_tiktok.py, dall'API ufficiale, ogni 6 ore). Qui l'ultimo giorno di ogni profilo, i 90 giorni

@@ -73,10 +73,10 @@ export default function Biotipi() {
       <div className="riga-chip">{(['pelle', 'cute', 'integrazione'] as Area[]).map((a) => <button key={a} type="button" className="chip" aria-pressed={area === a} onClick={() => setArea(a)}>{NOMI_AREA[a]} · {d.biotipi.filter((b) => b.area === a).length}</button>)}</div>
       {d.biotipi.filter((b) => b.area === area).sort((a, b) => Number(a.tipo !== 'biotipo') - Number(b.tipo !== 'biotipo') || a.priorita - b.priorita).map((b) => (
         <details key={b.id} className="carta">
-          <summary style={{ display: 'flex', gap: 10, flexWrap: 'wrap', justifyContent: 'space-between' }}>
+          <summary><span style={{ display: 'flex', gap: 10, flexWrap: 'wrap', justifyContent: 'space-between' , alignItems: 'center' }}>
             <span><b>{b.titolo}</b> <span className="piccolo">· {b.tipo === 'tratto' ? 'tratto' : `priorità ${b.priorita}`} · {b.id}</span></span>
             <span className="riga-chip">{b.tag.map((t) => <span key={t} className="chip tenue">{d.tag.find((x) => x.id === t)?.nome || t}</span>)}</span>
-          </summary>
+          </span></summary>
           <EditorBiotipo b={b} doc={d} cambia={(x) => mettiB(b.id, x)} togli={() => mettiB(b.id, null)} />
         </details>
       ))}

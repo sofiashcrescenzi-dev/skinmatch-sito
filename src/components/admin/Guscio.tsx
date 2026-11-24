@@ -25,7 +25,8 @@ export default function Guscio({ children }: { children: React.ReactNode }) {
           <Link href="/" className="titolo" style={{ fontSize: 18, fontWeight: 600, textDecoration: 'none', color: 'var(--testo)' }}>Skinmatch · admin</Link>
           <span className="piccolo">{chi.dati?.email || (chi.errore ? 'accesso non attivo' : '…')}</span>
         </div>
-        <details className="contenitore adm-menu">
+        {/* key: cambiando scheda il menu si rimonta chiuso (prima restava aperto sopra la pagina nuova) */}
+        <details key={qui} className="contenitore adm-menu">
           <summary>{attuale} <span aria-hidden="true">▾</span></summary>
           <nav className="adm-schede-v" aria-label="Schede dell'admin">{elenco}</nav>
         </details>
