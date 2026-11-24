@@ -11,7 +11,8 @@ import Foto from '@/components/Foto';
 import FotoProdotto, { tonoProdotto } from '@/components/FotoProdotto';
 import Campione from '@/components/Campione';
 import Giornata from '@/components/Giornata';
-import GuardaRoutine from '@/components/GuardaRoutine';
+import { GuardaInSovrimpressione } from '@/components/GuardaRoutine';
+import { Condivisioni } from '@/components/Condividi';
 import ConsiglioMedico from '@/components/ConsiglioMedico';
 import { percheSimile } from '@/lib/simili';
 import { BISOGNI } from '@/lib/integratori';
@@ -102,7 +103,7 @@ const dataIt = (d: string) => new Date(d.slice(0, 10) + 'T12:00:00').toLocaleDat
 // la data del catalogo la scrive la pipeline (scripts/catalogo/al_sito.py) quando rigenera la selezione
 const DATA_CATALOGO = (prodotti as { _aggiornato?: string })._aggiornato || null;
 
-export default function Risultato({ r, azioni, condiviso, metodoCambiato }: { r: R; azioni: React.ReactNode; condiviso?: boolean; metodoCambiato?: boolean }) {
+export default function Risultato({ r, azioni, condiviso, metodoCambiato, condivisione }: { r: R; azioni: React.ReactNode; condiviso?: boolean; metodoCambiato?: boolean; condivisione?: { titolo: string; messaggio?: string; indirizzo?: string } }) {
   const gravidanza = r.profilo.scelte.gravidanza === true;
   const vegano = ['vegana', 'vegetariana'].includes(String(r.profilo.scelte.dieta));
   // i bisogni del giro integrativo rimasti senza prodotto (il motore li conta nel tetto di tre)
@@ -158,7 +159,16 @@ export default function Risultato({ r, azioni, condiviso, metodoCambiato }: { r:
         if (!a.biotipo) return null;
         return (
           <article key={a.area} className="carta" aria-label={NOMI_AREA[a.area]} style={{ display: 'grid', gap: 18, gridTemplateColumns: 'repeat(auto-fit, minmax(min(280px, 100%), 1fr))', alignItems: 'start' }}>
-            <Foto nome={fotoDi(a.biotipo)} className="foto-biotipo" sizes="(max-width: 760px) 100vw, 40vw" />
+            {/* ⚠️ 24/11/2026: sotto la foto restava uno spazio vuoto accanto al consiglio del medico; ora c'è il video della
+                routine, in sovrimpressione, e sotto tutti i modi di condividere (solo nel primo biotipo) */}
+            <div className="pila ris-foto" style={{ ['--gap' as string]: '14px' }}>
+              <Foto nome={fotoDi(a.biotipo)} className="foto-biotipo" sizes="(max-width: 760px) 100vw, 40vw" />
+              {ia === 0 && g.passi.length > 0 && (
+                <GuardaInSovrimpressione g={g} biotipo={a.biotipo.titolo} nome={a.area === 'pelle' ? 'Skin routine' : 'Routine'}
+                  testo={condiviso ? 'Guarda la sua routine' : 'Guarda la mia routine'} />
+              )}
+              {ia === 0 && condivisione && <Condivisioni {...condivisione} />}
+            </div>
             <div className="pila" style={{ ['--gap' as string]: '10px' }}>
               <span className="etichetta">{(condiviso ? SOPRA_SUO : SOPRA)[a.area]}</span>
               {/* il primo biotipo è il titolo della pagina (Friday, 16/10: il risultato non aveva un h1) */}
@@ -197,15 +207,13 @@ export default function Risultato({ r, azioni, condiviso, metodoCambiato }: { r:
                   <div className="riga-chip">{a.tratti.map((t) => <Link key={t.id} href={`/biotipi/${t.id}`} className="chip">{t.titolo}</Link>)}</div>
                 </div>
               )}
-              <Stendi href={`/biotipi/${a.biotipo.id}`}>Cosa usare e cosa evitare</Stendi>
             </div>
           </article>
         );
       })}
 
       {g.passi.length > 0 && <Giornata g={g} />}
-      {/* GUARDA LA TUA ROUTINE (15/11/2026): il video della giornata, coi prodotti della persona; il player si scarica solo al tocco */}
-      {g.passi.length > 0 && <GuardaRoutine g={g} biotipo={r.aree.find((a) => a.biotipo)?.biotipo?.titolo} />}
+      {/* il video della routine (15/11/2026) dal 24/11 si apre dal bottone sotto la foto del biotipo, in sovrimpressione */}
 
       {/* IL BUDGET (7/11/2026, voto d-budget): la routine resta dentro la cifra scelta; se non ci sta, lo diciamo */}
       {r.budget && (
@@ -221,6 +229,30 @@ export default function Risultato({ r, azioni, condiviso, metodoCambiato }: { r:
         <section key={gr.id} className="pila" style={{ ['--gap' as string]: '22px' }} aria-labelledby={`gruppo-${gr.id}`}>
           <h2 id={`gruppo-${gr.id}`} className="titolo-3 gruppo-titolo">{gr.nome}</h2>
           {gr.passi.map((p) => <PassoVista key={p.scelta.passaggio.id} p={p} da={da} />)}
+        </section>
+      ))}
+
+      {/* ⚠️ COSA USARE E COSA EVITARE, SOTTO I PRODOTTI (24/11/2026, Federico: «aprirei un'altra pagina ma forse lo metterei
+          sotto i prodotti»): prima era un link alla pagina del biotipo; ora le due liste stanno qui, la pagina resta per chi
+          vuole tutto */}
+      {r.aree.filter((a) => a.biotipo && (a.biotipo.cerca?.length || a.biotipo.evita?.length)).map((a, k, tutte) => (
+        <section key={`usa-${a.area}`} className="pila" style={{ ['--gap' as string]: '16px' }} aria-labelledby={`usa-${a.area}`}>
+          <h2 id={`usa-${a.area}`} className="titolo-3 gruppo-titolo">Cosa usare e cosa evitare{tutte.length > 1 ? ` · ${NOMI_AREA[a.area]}` : ''}</h2>
+          <div className="griglia" style={{ ['--min' as string]: '260px' }}>
+            {!!a.biotipo!.cerca?.length && (
+              <div className="carta pila" style={{ ['--gap' as string]: '10px' }}>
+                <h3 className="titolo-3">Cosa usare</h3>
+                <ul className="pila" style={{ ['--gap' as string]: '6px', paddingLeft: 18, listStyle: 'disc' }}>{a.biotipo!.cerca.map((c) => <li key={c}><ConTermini testo={c} /></li>)}</ul>
+              </div>
+            )}
+            {!!a.biotipo!.evita?.length && (
+              <div className="carta pila" style={{ ['--gap' as string]: '10px' }}>
+                <h3 className="titolo-3">Cosa evitare</h3>
+                <ul className="pila" style={{ ['--gap' as string]: '6px', paddingLeft: 18, listStyle: 'disc' }}>{a.biotipo!.evita.map((c) => <li key={c}><ConTermini testo={c} /></li>)}</ul>
+              </div>
+            )}
+          </div>
+          <Stendi href={`/biotipi/${a.biotipo!.id}`}>Tutto sul biotipo {a.biotipo!.titolo.toLowerCase()}</Stendi>
         </section>
       ))}
 

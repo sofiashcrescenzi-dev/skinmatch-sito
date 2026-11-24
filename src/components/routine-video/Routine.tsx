@@ -8,7 +8,9 @@ import { AbsoluteFill, Img, Sequence, interpolate, spring, useCurrentFrame, useV
 
 export type PassoVideo = { n: number; passaggio: string; prodotto: string; marca: string; foto?: string; ogni?: string };
 export type MomentoVideo = { id: string; nome: string; ora: string; passi: PassoVideo[] };
-export type DatiVideo = { biotipo?: string; momenti: MomentoVideo[]; settimana: PassoVideo[]; minuti: number; costo: number };
+// ⚠️ 24/11/2026: in chiusura due prezzi, dalla routine consigliata all'alternativa (Federico: «non con le scelte top ma
+// soltanto Skin Routine consigliata 120 €, l'alternativa 80 €, quindi dal max al min»); nome = «Skin routine» o «Routine»
+export type DatiVideo = { biotipo?: string; momenti: MomentoVideo[]; settimana: PassoVideo[]; minuti: number; costo: number; alternativa?: number; nome?: string };
 
 // la scala dei fototipi e i due toni del marchio (globals.css)
 const F = ['#f6ddcc', '#ebc3a6', '#d29e78', '#a8714e', '#7b4b33', '#4a2c1f'];
@@ -123,7 +125,7 @@ function Intro({ biotipo }: { biotipo?: string }) {
   );
 }
 
-function Fine({ minuti, costo }: { minuti: number; costo: number }) {
+function Fine({ minuti, costo, alternativa, nome = 'Routine' }: { minuti: number; costo: number; alternativa?: number; nome?: string }) {
   const f = useCurrentFrame(), { fps } = useVideoConfig();
   const conta = interpolate(f, [8, 44], [0, 1], { extrapolateLeft: 'clamp', extrapolateRight: 'clamp', easing: Easing.out(Easing.cubic) });
   const e = entra(f, 0, fps), s = entra(f, 30, fps), segno = entra(f, 44, fps);
@@ -134,8 +136,12 @@ function Fine({ minuti, costo }: { minuti: number; costo: number }) {
           <div style={{ fontFamily: TESTO, fontWeight: 700, fontSize: 40, color: F[1], opacity: e }}>Al giorno, circa</div>
           <div style={{ fontFamily: TIT, fontWeight: 700, fontSize: 210, lineHeight: 0.9, letterSpacing: '-0.04em', opacity: e }}>{Math.round(minuti * conta)} min</div>
         </>}
-        <div style={{ fontFamily: TESTO, fontWeight: 700, fontSize: 40, color: F[1], marginTop: 60, opacity: s }}>Con le scelte top</div>
+        <div style={{ fontFamily: TESTO, fontWeight: 700, fontSize: 40, color: F[1], marginTop: 60, opacity: s }}>{nome} consigliata</div>
         <div style={{ fontFamily: TIT, fontWeight: 700, fontSize: 110, lineHeight: 1, opacity: s }}>{euro(costo)}</div>
+        {alternativa != null && alternativa < costo - 0.5 && <>
+          <div style={{ fontFamily: TESTO, fontWeight: 700, fontSize: 40, color: F[1], marginTop: 34, opacity: entra(f, 40, fps) }}>L’alternativa</div>
+          <div style={{ fontFamily: TIT, fontWeight: 700, fontSize: 84, lineHeight: 1, opacity: entra(f, 40, fps) }}>{euro(alternativa)}</div>
+        </>}
       </div>
       <div style={{ position: 'absolute', left: 0, right: 0, bottom: 300, display: 'grid', justifyItems: 'center', gap: 20, opacity: segno }}>
         <Segno apri={1 - segno} />
@@ -152,7 +158,7 @@ export function Routine({ dati }: { dati: DatiVideo }) {
       <Sequence durationInFrames={INTRO + 8}><Intro biotipo={dati.biotipo} /></Sequence>
       {s.momenti.map(({ m, da, dur }) => <Sequence key={m.id} from={da} durationInFrames={dur + 8}><Momento m={m} dur={dur} /></Sequence>)}
       {s.settimana.dur > 0 && <Sequence from={s.settimana.da} durationInFrames={s.settimana.dur + 8}><Settimana passi={dati.settimana} /></Sequence>}
-      <Sequence from={s.outro}><Fine minuti={dati.minuti} costo={dati.costo} /></Sequence>
+      <Sequence from={s.outro}><Fine minuti={dati.minuti} costo={dati.costo} alternativa={dati.alternativa} nome={dati.nome} /></Sequence>
     </AbsoluteFill>
   );
 }

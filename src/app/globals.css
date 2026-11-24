@@ -1086,3 +1086,16 @@ details.carta > summary::-webkit-details-marker { display: none; }
 .seg-vai:hover{box-shadow:inset 0 0 0 1.5px var(--testo)}
 .seg-in-lavoro{list-style:none;margin:12px 0 0;padding:0;display:grid;gap:8px}
 .seg-in-lavoro li{display:grid;gap:2px;padding-bottom:8px;border-bottom:1px solid var(--riga)}
+
+/* ── Il risultato: video in sovrimpressione sotto la foto e le condivisioni (24/11/2026) ── */
+.ris-foto { align-content: start; min-width: 0; }
+.gr-apri { justify-self: start; }
+.gr-sovra { border: 0; padding: 0; background: transparent; max-width: none; max-height: none; width: 100%; height: 100%; margin: 0; }
+.gr-sovra::backdrop { background: rgba(46, 28, 21, 0.78); backdrop-filter: blur(3px); }
+.gr-sovra[open] { display: grid; place-items: center; }
+.gr-sovra-dentro { position: relative; width: min(400px, calc(100vw - 32px), calc((100svh - 48px) * 9 / 16)); }
+.gr-chiudi { position: absolute; top: -14px; right: -14px; z-index: 2; width: 44px; height: 44px; border-radius: 50%; border: 0; background: var(--latte, #fff); color: var(--cacao); font-size: 26px; line-height: 1; cursor: pointer; box-shadow: 0 6px 18px rgba(0,0,0,.25); }
+@media (max-width: 480px) { .gr-chiudi { top: 8px; right: 8px; } }
+.condivisioni { display: grid; gap: 8px; }
+.condivisioni-voci { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.condivisioni-voci .bottone { min-height: 40px; padding: 8px 14px; font-size: 14px; }

@@ -76,7 +76,7 @@ export default function PaginaRisultato() {
   const altri = PERCORSI_SCELTA.filter((x) => x.id !== percorso.id);
   return (
     <main className="contenitore sezione pila" style={{ ['--gap' as string]: 'clamp(32px, 5vw, 56px)' }}>
-      <Risultato r={r} azioni={azioni} condiviso={!mio} metodoCambiato={!!dati?.metodoCambiato} />
+      <Risultato r={r} azioni={azioni} condiviso={!mio} metodoCambiato={!!dati?.metodoCambiato} condivisione={{ titolo: m.titolo, messaggio: m.testo, indirizzo }} />
       {mio && (
         <section className="altri-test pila" aria-labelledby="altri-titolo" style={{ ['--gap' as string]: '14px' }}>
           <h2 id="altri-titolo" className="titolo-2">Ti interessa anche…</h2>

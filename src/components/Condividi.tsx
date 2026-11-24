@@ -42,3 +42,29 @@ export function Copia({ messaggio, indirizzo }: { messaggio?: string; indirizzo?
     </button>
   );
 }
+
+// ⚠️ TUTTI I MODI DI CONDIVIDERE (24/11/2026, Federico: «con sotto tutti i vari condividi»): sotto «Guarda la mia
+// routine», il foglio del telefono (dove c'è), WhatsApp, Telegram, Facebook, l'email e «Copia». Gli indirizzi sono quelli
+// pubblici di condivisione di ogni servizio: nessuno script esterno, il clic apre il servizio in una scheda nuova.
+export function Condivisioni({ titolo, messaggio, indirizzo }: { titolo: string; messaggio?: string; indirizzo?: string }) {
+  const [url, setUrl] = useState('');
+  useEffect(() => setUrl(pieno(indirizzo)), [indirizzo]);
+  const testo = messaggio || titolo;
+  const e = encodeURIComponent;
+  const voci: [string, string][] = url ? [
+    ['WhatsApp', `https://wa.me/?text=${e(`${testo}\n${url}`)}`],
+    ['Telegram', `https://t.me/share/url?url=${e(url)}&text=${e(testo)}`],
+    ['Facebook', `https://www.facebook.com/sharer/sharer.php?u=${e(url)}`],
+    ['Email', `mailto:?subject=${e(titolo)}&body=${e(`${testo}\n${url}`)}`],
+  ] : [];
+  return (
+    <div className="condivisioni" role="group" aria-label="Condividi il risultato">
+      <span className="piccolo">Condividi</span>
+      <div className="condivisioni-voci">
+        <Condividi titolo={titolo} messaggio={messaggio} indirizzo={indirizzo} testo="Altro…" />
+        {voci.map(([n, h]) => <a key={n} className="chip" href={h} target={n === 'Email' ? undefined : '_blank'} rel="noopener">{n}</a>)}
+        <Copia messaggio={messaggio} indirizzo={indirizzo} />
+      </div>
+    </div>
+  );
+}
