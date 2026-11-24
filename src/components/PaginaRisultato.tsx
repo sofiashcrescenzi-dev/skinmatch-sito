@@ -73,11 +73,13 @@ export default function PaginaRisultato() {
   );
   // ⚠️ GLI ALTRI TEST, PER INTERESSE (16/11/2026, Federico: «spingere sul poter fare i vari test in base al proprio
   // interesse»): in fondo al proprio risultato, gli altri due test con cosa ne esce; non più un generico «altro test».
-  const altri = PERCORSI_SCELTA.filter((x) => x.id !== percorso.id);
+  // ⚠️ 24/11/2026 (Federico: «togli test completo tra le alternative avendolo fatto»): il test completo rifà anche le
+  // domande del test appena finito, quindi non si propone; dopo il completo non c'è niente da proporre.
+  const altri = percorso.id === 'completo' ? [] : PERCORSI_SCELTA.filter((x) => x.id !== percorso.id && x.id !== 'completo');
   return (
     <main className="contenitore sezione pila" style={{ ['--gap' as string]: 'clamp(32px, 5vw, 56px)' }}>
       <Risultato r={r} azioni={azioni} condiviso={!mio} metodoCambiato={!!dati?.metodoCambiato} condivisione={{ titolo: m.titolo, messaggio: m.testo, indirizzo }} />
-      {mio && (
+      {mio && altri.length > 0 && (
         <section className="altri-test pila" aria-labelledby="altri-titolo" style={{ ['--gap' as string]: '14px' }}>
           <h2 id="altri-titolo" className="titolo-2">Ti interessa anche…</h2>
           <div className="griglia" style={{ ['--min' as string]: '240px' }}>
