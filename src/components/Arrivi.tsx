@@ -56,13 +56,26 @@ function sezione(): string {
   return ['test', 'risultato', 'biotipi', 'catalogo', 'rivista', 'glossario', 'integratori', 'chi-siamo', 'link'].includes(p) ? p : p === 'home' ? 'home' : 'altro';
 }
 
+// ⚠️ LA FONTE RESTA PER TUTTA LA VISITA (24/11/2026, Federico: «voglio che lo adegui anche per skinmatch», dopo la
+// Panoramica di Agoranomos con «Comprano» diviso per canale). Al posto dell'«1» di prima, sessionStorage tiene il nome
+// della famiglia (google, chatgpt, instagram…): la stessa cosa che parte col conteggio, nessun identificativo. Il clic
+// verso un negozio la rilegge (fonteVisita) per contare i clic di ogni fonte e scriverla nel SubID (lib/subid.ts).
+// «-» = la visita era già cominciata su Skinmatch (il referrer siamo noi): la fonte non si sa.
+let fonteMemoria = '';
+export function fonteVisita(): string {
+  if (fonteMemoria) return fonteMemoria;
+  try { const v = sessionStorage.getItem('sm-arrivo'); if (v && v !== '1') return v; } catch { /* niente */ }
+  return '';
+}
+
 export default function Arrivi() {
   useEffect(() => {
     try {
       if (sessionStorage.getItem('sm-arrivo')) return;
-      sessionStorage.setItem('sm-arrivo', '1');
     } catch { /* senza sessionStorage si conta lo stesso, al massimo due volte */ }
     const f = fonte();
+    fonteMemoria = f || '-';
+    try { sessionStorage.setItem('sm-arrivo', fonteMemoria); } catch { /* niente */ }
     if (f) segna({ e: 'arrivo', f, pg: sezione() });
   }, []);
   return null;

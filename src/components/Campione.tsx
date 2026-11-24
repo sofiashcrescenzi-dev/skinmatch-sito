@@ -2,6 +2,8 @@
 
 import { euro } from '@/lib/formato';
 import { segna } from '@/lib/eventi';
+import { fonteVisita } from '@/components/Arrivi';
+import { conSubid, subidPer } from '@/lib/subid';
 
 // i4 · Il campione: il prezzo e «Compra qui», due tasselli che si incontrano al passaggio (Federico,
 // 15/10: un bottone vero, non «Vedi su Liki24» sottolineato). Il negozio è nell'etichetta per chi
@@ -11,7 +13,12 @@ export default function Campione({ href, prezzo, dove, id, da, da_prezzo }: { hr
   return (
     <a className="campione" href={href} target="_blank" rel="sponsored nofollow noopener"
       aria-label={`Acquista${dove ? ` su ${dove}` : ''}, ${da_prezzo ? 'da ' : ''}${euro(prezzo)}`}
-      onClick={() => segna({ e: 'clic', id, m: dove || 'negozio', da })}>
+      onClick={(ev) => {
+        // la fonte della visita va nel conteggio dei clic e nel SubID del link (lib/subid.ts), al momento del clic
+        const f = fonteVisita();
+        ev.currentTarget.href = conSubid(href, subidPer(f, id));
+        segna({ e: 'clic', id, m: dove || 'negozio', da, ...(f && f !== '-' ? { f } : {}) });
+      }}>
       <span className="cp">{da_prezzo ? <small>da&nbsp;</small> : null}{euro(prezzo)}</span>
       <span className="cn">Acquista</span>
     </a>

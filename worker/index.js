@@ -191,7 +191,12 @@ async function evento(req, env) {
       if (BIOTIPI.has(b) && /^[a-z0-9-]{2,80}$/.test(String(id))) righe.push(['proposto', `${b}|${id}`]);
     }
   }
-  if (e.e === 'clic' && /^[a-z0-9-]{2,80}$/.test(String(e.id))) righe.push(['clic', e.id], ['clic_negozio', breve(e.m, 40)], ['clic_da', breve(e.da)]);
+  if (e.e === 'clic' && /^[a-z0-9-]{2,80}$/.test(String(e.id))) {
+    righe.push(['clic', e.id], ['clic_negozio', breve(e.m, 40)], ['clic_da', breve(e.da)]);
+    // dal 24/11/2026 il clic dice anche la fonte della visita (src/components/Arrivi.tsx): i clic di ogni fonte, per
+    // il percorso «arrivano → cliccano → comprano» della Dashboard; senza fonte nota si contano come «ignota»
+    righe.push(['clic_fonte', FONTI.has(e.f) ? e.f : 'ignota']);
+  }
   // un errore JavaScript (src/lib/guasti.ts): la pagina senza query e il messaggio, niente altro (30/10/2026)
   if (e.e === 'guasto') {
     const pagina = (String(e.pg || '').match(/^\/[a-z0-9/-]{0,60}/) || ['/'])[0].replace(/\/(catalogo|rivista|biotipi)\/.+/, '/$1/…');

@@ -84,14 +84,14 @@ export function Colonne({ titolo, dati, serie, formato = numero, altezza = 120, 
   );
 }
 
-export type Riga = { k: string; nome: string; valore: number; sotto?: string; colore?: string };
+export type Riga = { k: string; nome: string; valore: number; sotto?: string; colore?: string; testo?: string }; // testo: il numero già scritto (es. «≈ 3»)
 export function Barre({ titolo, righe, formato = numero, colore = 'var(--f4)', nota, vuoto = 'Ancora niente.' }:
   { titolo?: string; righe: Riga[]; formato?: (x: number) => string; colore?: string; nota?: ReactNode; vuoto?: string }) {
   const { box, mostra, nascondi, riquadro } = useRiquadro();
   const max = Math.max(0, ...righe.map((r) => r.valore || 0));
   const tot = righe.reduce((t, r) => t + (r.valore || 0), 0);
   const contenuto = (r: Riga) => (
-    <><b>{r.nome}</b><div><b>{formato(r.valore)}</b>{tot ? ` · ${Math.round(((r.valore || 0) / tot) * 100)}% del totale` : ''}</div>{r.sotto && <div style={{ opacity: 0.75 }}>{r.sotto}</div>}</>
+    <><b>{r.nome}</b><div><b>{(r.testo ?? formato(r.valore))}</b>{tot ? ` · ${Math.round(((r.valore || 0) / tot) * 100)}% del totale` : ''}</div>{r.sotto && <div style={{ opacity: 0.75 }}>{r.sotto}</div>}</>
   );
   return (
     <figure className="graf">
@@ -99,11 +99,11 @@ export function Barre({ titolo, righe, formato = numero, colore = 'var(--f4)', n
       {!righe.length ? <p className="piccolo">{vuoto}</p> : (
         <div ref={box} className="graf-barre" onPointerLeave={nascondi}>
           {righe.map((r) => (
-            <div key={r.k} tabIndex={0} aria-label={`${r.nome}: ${formato(r.valore)}${r.sotto ? `, ${r.sotto}` : ''}`}
+            <div key={r.k} tabIndex={0} aria-label={`${r.nome}: ${(r.testo ?? formato(r.valore))}${r.sotto ? `, ${r.sotto}` : ''}`}
               onPointerEnter={(e) => mostra(e, contenuto(r))} onPointerMove={(e) => mostra(e, contenuto(r))} onPointerDown={(e) => mostra(e, contenuto(r))}
               onFocus={(e) => mostra(e, contenuto(r))} onBlur={nascondi}>
               <i aria-hidden="true" style={{ width: `${max ? Math.max(1.5, ((r.valore || 0) / max) * 100) : 0}%`, background: r.colore || colore }} />
-              <span>{r.nome}</span><b>{formato(r.valore)}</b>
+              <span>{r.nome}</span><b>{(r.testo ?? formato(r.valore))}</b>
             </div>
           ))}
           {riquadro}

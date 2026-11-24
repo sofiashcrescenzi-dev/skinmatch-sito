@@ -7,6 +7,8 @@ import { useApi, Titolo, Vuoto } from './base';
 import { Colonne as Grafico, Barre } from './grafici';
 import Visibilita from './Visibilita';
 import AssistentiIA from './AssistentiIA';
+import Percorso from './Percorso';
+import { fonteDalSubid } from '@/lib/subid';
 
 // TRAFFICO E TEST FATTI (15/10/2026). I numeri vengono dai conteggi del sito (worker/index.js,
 // tabella eventi_giorno: niente dati personali) e dalle vendite che il Mac scarica ogni mattina
@@ -104,6 +106,8 @@ export default function Traffico({ vista }: { vista: 'traffico' | 'test' }) {
       <Titolo sotto="Chi arriva e da dove (anche dalle IA), cosa clicca verso i negozi e quanto rendono le vendite. I conteggi li fa il sito, senza dati personali; le vendite arrivano ogni mattina dalle reti di affiliazione; Google arriva in diretta da Search Console; PostHog si aggiunge quando è collegato.">Dashboard</Titolo>
       {scelta}
       {api.errore && <Vuoto>Non riesco a leggere i numeri: {api.errore}</Vuoto>}
+      {/* ci vedono → arrivano → comprano, con le cinque linguette (24/11/2026): vedi Percorso.tsx */}
+      {api.dati && <Percorso righe={r} vendite={vendite} giorni={giorni} />}
       <div className="adm-numeri">
         <div><span className="piccolo">Visite</span><b>{arrivi}</b><span className="piccolo">contate dal 13/11</span></div>
         <div><span className="piccolo">Dalle IA</span><b>{daIa}</b><span className="piccolo">{pc(daIa, arrivi)} delle visite</span></div>
@@ -162,7 +166,7 @@ export default function Traffico({ vista }: { vista: 'traffico' | 'test' }) {
             <div className="adm-numeri">{['confermate', 'in attesa', 'rifiutate'].filter((k) => stati[k]).map((k) => <div key={k}><span className="piccolo">Commissioni {k}</span><b>{euro(stati[k].c)}</b><span className="piccolo">{stati[k].n} vendite</span></div>)}</div>
             <div className="adm-numeri">{Object.entries(reti).map(([k, x]) => <div key={k}><span className="piccolo">{k}</span><b>{euro(x.commissione)}</b><span className="piccolo">{x.n} vendite · {euro(x.importo)}</span></div>)}</div>
             <div className="adm-tabella"><table><thead><tr><th>Data</th><th>Rete</th><th>Negozio</th><th className="num">Ordine</th><th className="num">Commissione</th><th>Stato</th><th>Da dove</th></tr></thead>
-              <tbody>{vendite.map((v) => <tr key={v.id}><td>{v.data}</td><td>{v.rete}</td><td>{v.negozio}</td><td className="num">{euro(v.importo || 0)}</td><td className="num">{euro(v.commissione || 0)}</td><td>{v.stato}</td><td className="piccolo">{v.subid || '—'}</td></tr>)}</tbody></table></div>
+              <tbody>{vendite.map((v) => <tr key={v.id}><td>{v.data}</td><td>{v.rete}</td><td>{v.negozio}</td><td className="num">{euro(v.importo || 0)}</td><td className="num">{euro(v.commissione || 0)}</td><td>{v.stato}</td><td className="piccolo">{fonteDalSubid(v.subid) ? `${NOMI_FONTE[fonteDalSubid(v.subid) as string] || fonteDalSubid(v.subid)}` : v.subid || '—'}</td></tr>)}</tbody></table></div>
           </>
         )}
       </section>

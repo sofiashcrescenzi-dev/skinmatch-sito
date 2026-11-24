@@ -13,7 +13,7 @@ export type Evento =
   | { e: 'test_inizio'; p: string }
   | { e: 'test_fine'; p: string; b: string[]; s?: number; r?: string[] } // s: i secondi dalla prima risposta al risultato
   | { e: 'proposti'; p: string; ids: string[] }
-  | { e: 'clic'; id: string; m: string; da: string }
+  | { e: 'clic'; id: string; m: string; da: string; f?: string } // f: la fonte della visita (Arrivi.tsx), dal 24/11/2026
   | { e: 'guasto'; m: string; pg: string }
   | { e: 'arrivo'; f: string; pg: string }; // la famiglia della fonte (chatgpt, google, instagram…) e la sezione d'ingresso // un errore JavaScript: il messaggio e il percorso, senza query né «#»
 
