@@ -873,6 +873,75 @@ details.carta > summary::-webkit-details-marker { display: none; }
 .bottone-filtri .quanti { display: inline-grid; place-items: center; min-width: 22px; height: 22px; padding: 0 6px; border-radius: 999px; background: var(--terra); color: var(--latte); font-size: 12.5px; font-variant-numeric: tabular-nums; }
 .pannello-filtri { background: var(--foglio); border: 1px solid var(--riga); border-radius: var(--raggio); padding: clamp(14px, 3vw, 22px); }
 .pannello-filtri[hidden] { display: none; }
+/* PRIMA LA TIPOLOGIA, POI I FILTRI (24/11/2026, Federico: «fammi selezionare prima la tipologia… Poi si attivano i filtri
+   sotto»). Al telefono tipologie e pillole stanno in una riga che scorre di lato fino ai bordi dello schermo (la pagina
+   non scorre); dai 900 px vanno a capo. Ogni cosa che si tocca è alta almeno 44 px. */
+.cerca-catalogo { max-width: 640px; }
+.passo-filtri { font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--grigio); }
+.scorri-x { display: flex; gap: 8px; overflow-x: auto; overscroll-behavior-x: contain; scroll-snap-type: x proximity; scrollbar-width: none;
+  margin-inline: calc(-1 * var(--gutter)); padding: 2px var(--gutter) 4px; scroll-padding-inline: var(--gutter); }
+.scorri-x::-webkit-scrollbar { display: none; }
+.scorri-x > * { flex: none; scroll-snap-align: start; }
+.tipologia { display: inline-flex; align-items: center; gap: 8px; min-height: 48px; padding: 0 16px 0 13px; border-radius: var(--raggio-piccolo);
+  border: 1px solid var(--riga); background: var(--foglio); color: var(--testo); font: inherit; font-size: 15px; font-weight: 600; cursor: pointer;
+  white-space: nowrap; transition: background-color .18s ease, border-color .18s ease, color .18s ease; }
+.tipologia .icona { color: var(--terra); flex: none; transition: color .18s ease; }
+.tipologia .conta { font-size: 13px; font-weight: 500; color: var(--grigio); font-variant-numeric: tabular-nums; }
+.tipologia[aria-pressed='true'] { background: var(--cacao); border-color: var(--cacao); color: var(--latte); }
+.tipologia[aria-pressed='true'] .icona { color: var(--f2); }
+.tipologia[aria-pressed='true'] .conta { color: var(--f1); }
+.pillola { display: inline-flex; align-items: center; gap: 6px; min-height: 44px; padding: 0 12px 0 16px; border-radius: 999px; border: 1px solid var(--riga-forte);
+  background: var(--foglio); color: var(--testo); font: inherit; font-size: 14px; font-weight: 600; cursor: pointer; white-space: nowrap;
+  transition: background-color .18s ease, border-color .18s ease, color .18s ease; }
+.pillola .icona { transition: transform .2s cubic-bezier(.2, 0, 0, 1); }
+.pillola.pieno { background: var(--accento-tenue); border-color: var(--terra); }
+.pillola[aria-expanded='true'] { background: var(--cacao); border-color: var(--cacao); color: var(--latte); }
+.pillola[aria-expanded='true'] .icona { transform: rotate(180deg); }
+@media (hover: hover) {
+  .tipologia:not([aria-pressed='true']):hover, .pillola:not([aria-expanded='true']):hover { border-color: var(--cacao); }
+}
+.tipologia:focus-visible, .pillola:focus-visible, .ordina-compatto select:focus-visible { outline: 3px solid var(--f2); outline-offset: 2px; }
+@media (min-width: 900px) {
+  .scorri-x { flex-wrap: wrap; overflow: visible; margin-inline: 0; padding: 0; }
+  /* le tipologie in colonne uguali: a capo «a scaletta» l'ultima restava sola sulla sua riga */
+  .tipologie.scorri-x { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); }
+  .tipologie .tipologia .conta { margin-left: auto; }
+}
+.pannello-piede { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 20px; }
+@media (prefers-reduced-motion: no-preference) {
+  #pannello-filtri { animation: pannello-entra .22s cubic-bezier(.2, 0, 0, 1); }
+  @keyframes pannello-entra { from { opacity: 0; transform: translateY(-6px); } }
+}
+.suggerimento-filtri { display: flex; align-items: center; gap: 8px; color: var(--grigio); }
+.riga-conta { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 16px; }
+.ordina-compatto { margin-left: auto; display: inline-flex; align-items: center; gap: 6px; color: var(--grigio); }
+.ordina-compatto select { font: inherit; font-size: 14px; font-weight: 600; color: var(--testo); min-height: 44px; padding: 0 30px 0 10px; border-radius: var(--raggio-piccolo);
+  border: 1px solid var(--riga); background: var(--foglio); appearance: none; cursor: pointer;
+  background-image: linear-gradient(45deg, transparent 50%, var(--grigio) 50%), linear-gradient(135deg, var(--grigio) 50%, transparent 50%);
+  background-position: calc(100% - 15px) 50%, calc(100% - 10px) 50%; background-size: 5px 5px; background-repeat: no-repeat; }
+@media (max-width: 420px) { .ordina-compatto { margin-left: 0; } }
+/* il prezzo: istogramma, due cursori sulla stessa riga (pollice 28 px, area da toccare 44 px), due campi da scrivere */
+.filtro-prezzo { display: grid; gap: 10px; max-width: 560px; }
+.prezzo-dice { font-size: 15px; font-variant-numeric: tabular-nums; }
+.prezzo-dice span { color: var(--grigio); }
+.prezzo-istogramma { display: flex; align-items: flex-end; gap: 2px; height: 52px; padding-inline: 14px; }
+.prezzo-istogramma i { flex: 1; min-height: 2px; border-radius: 3px 3px 0 0; background: var(--velo); transition: background-color .15s ease; }
+.prezzo-istogramma i.dentro { background: var(--f3); }
+.prezzo-scala { position: relative; height: 44px; margin-top: -6px; }
+.prezzo-binario { position: absolute; left: 14px; right: 14px; top: 50%; height: 4px; margin-top: -2px; border-radius: 2px; background: var(--riga); }
+.prezzo-binario b { position: absolute; top: 0; bottom: 0; border-radius: 2px; background: var(--cacao); }
+.prezzo-scala input[type='range'] { position: absolute; inset: 0; width: 100%; height: 44px; margin: 0; background: transparent; -webkit-appearance: none; appearance: none; pointer-events: none; }
+.prezzo-scala input[type='range']::-webkit-slider-runnable-track { height: 44px; background: transparent; border: 0; }
+.prezzo-scala input[type='range']::-moz-range-track { height: 44px; background: transparent; border: 0; }
+.prezzo-scala input[type='range']::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; pointer-events: auto; width: 28px; height: 28px; margin-top: 8px;
+  border-radius: 50%; background: var(--foglio); border: 2px solid var(--cacao); box-shadow: 0 2px 8px var(--ombra); cursor: grab; }
+.prezzo-scala input[type='range']::-moz-range-thumb { pointer-events: auto; width: 24px; height: 24px; border-radius: 50%; background: var(--foglio);
+  border: 2px solid var(--cacao); box-shadow: 0 2px 8px var(--ombra); cursor: grab; }
+.prezzo-scala input[type='range']:active::-webkit-slider-thumb { cursor: grabbing; transform: scale(1.08); }
+.prezzo-scala input[type='range']:focus-visible::-webkit-slider-thumb { outline: 3px solid var(--f2); outline-offset: 2px; }
+.prezzo-scala input[type='range']:focus-visible::-moz-range-thumb { outline: 3px solid var(--f2); outline-offset: 2px; }
+.prezzo-campi { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); align-items: end; gap: 10px; }
+.prezzo-trattino { padding-bottom: 12px; color: var(--grigio); }
 
 /* ============================================================
    ADMIN · I GRAFICI (19/11/2026, components/admin/grafici.tsx; gemello di quelli di Agoranomos)
