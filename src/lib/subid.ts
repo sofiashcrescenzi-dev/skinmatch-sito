@@ -22,12 +22,14 @@ export function fonteDalSubid(subid: string | null | undefined): string | null {
   return (m && FONTE_DEL_CODICE[m[1]]) || null;
 }
 
-/** Il link con il SubID: Adtraction lo vuole in «epi», Awin in «clickref». Gli altri link restano come sono. */
+/** Il link con il SubID: Adtraction lo vuole in «epi», Awin in «clickref», TradeTracker in «r». Gli altri restano come sono. */
 export function conSubid(href: string, subid: string): string {
   try {
     const u = new URL(href);
     if (/(^|\.)adt\d*\.com$|adtraction/.test(u.hostname)) u.searchParams.set('epi', subid);
     else if (/(^|\.)awin1\.com$/.test(u.hostname)) u.searchParams.set('clickref', subid);
+    // TradeTracker (24/11/2026): il riferimento dell'affiliato è «r», e torna con la vendita come «reference»
+    else if (/(^|\.)(tradetracker\.net|tradetracker\.com)$/.test(u.hostname)) u.searchParams.set('r', subid);
     else return href;
     return u.toString();
   } catch { return href; }

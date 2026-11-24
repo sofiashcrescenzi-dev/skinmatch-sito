@@ -100,6 +100,16 @@ def main():
             # ⚠️ un token scaduto si dice forte (3/11/2026: da tre giorni le vendite Awin non arrivavano e nessuno lo sapeva)
             print(f'Awin: {type(e).__name__} {getattr(e, "code", "")}')
             sys.exit(f'::error::Awin non risponde ({getattr(e, "code", type(e).__name__)}): rigenerare AWIN_API_TOKEN')
+    # ⚠️ TRADETRACKER (24/11/2026, Federico: «mi colleghi l'api sia per il tracciamento che per far tutto il resto»): il
+    # conto di Skinmatch (ID cliente 308198, sito 519005), credenziali in ~/.skinmatch-segreti.env; vedi tradetracker.py
+    if s.get('TRADETRACKER_CUSTOMER_ID') and s.get('TRADETRACKER_PASSPHRASE'):
+        try:
+            import tradetracker
+            vt = tradetracker.vendite(tradetracker.Sessione(s['TRADETRACKER_CUSTOMER_ID'], s['TRADETRACKER_PASSPHRASE']))
+            print(f'TradeTracker: {len(vt)} vendite')
+            vendite += vt
+        except Exception as e:
+            print(f'TradeTracker: {type(e).__name__} {str(e)[:120]}')
     for v in vendite:
         sql(f"INSERT INTO vendite (id, rete, negozio, data, importo, commissione, stato, subid) VALUES ({', '.join(L(v[k]) for k in ('id', 'rete', 'negozio', 'data', 'importo', 'commissione', 'stato', 'subid'))}) "
             f"ON CONFLICT (id) DO UPDATE SET stato = excluded.stato, commissione = excluded.commissione, importo = excluded.importo, aggiornato_il = datetime('now')")
