@@ -2,7 +2,8 @@
 
 import { useState } from 'react';
 import { PRODOTTI } from '@/lib/catalogo';
-import { TERMINI } from '@/lib/dati';
+import { ARTICOLI, TERMINI, contenutoArticolo } from '@/lib/dati';
+import { Voce, type Riga } from './VoceRevisione';
 import Markdown from '@/components/Markdown';
 import { useApi, invia, Titolo, Vuoto, quando } from './base';
 
@@ -14,7 +15,7 @@ type A = { id: number; slug: string; titolo: string; sommario: string; tipo: str
 const SCHEDE: [string, string][] = [['in_approvazione', 'Da approvare'], ['da_correggere', 'Da correggere'], ['approvato', 'Approvati, in uscita'], ['online', 'Online'], ['scartato', 'Scartati']];
 const leggiJ = (s: string) => { try { return JSON.parse(s || 'null'); } catch { return null; } };
 
-function Articolo({ a, poi }: { a: A; poi: () => void }) {
+function Articolo({ a, poi, ultima, poiRev }: { a: A; poi: () => void; ultima: Record<string, Riga>; poiRev: () => void }) {
   const [apri, setApri] = useState(false);
   const [nota, setNota] = useState(a.feedback || '');
   const [err, setErr] = useState('');
@@ -23,7 +24,7 @@ function Articolo({ a, poi }: { a: A; poi: () => void }) {
   const appr = ((leggiJ(a.approfondisce || '') || []) as string[])[0] || '';
   // il termine del glossario che l'articolo spiega: lo mette sotto il termine e nelle pagine dei prodotti con quell'attivo
   // la firma (7/11/2026, d-nome): «Redatto e controllato da» solo per i pezzi scritti da Sofia; per gli altri «Redazione
-  // Skinmatch · controllato da». Il nome di Sofia compare solo dopo la sua revisione (admin › Revisioni).
+  // Skinmatch · controllato da». Il nome di Sofia compare solo dopo la sua revisione (qui sotto, sugli articoli online).
   const firma = async (f: string) => { setErr(''); try { await invia('/api/admin/articoli', { id: a.id, feedback: nota, campi: { firma: f } }); poi(); } catch (e) { setErr((e as Error).message); } };
   const collega = async (t: string) => { setErr(''); try { await invia('/api/admin/articoli', { id: a.id, feedback: nota, campi: { approfondisce: JSON.stringify(t ? [t] : []) } }); poi(); } catch (e) { setErr((e as Error).message); } };
   const decidi = async (stato: string) => { setErr(''); try { await invia('/api/admin/articoli', { id: a.id, stato, feedback: nota }); poi(); } catch (e) { setErr((e as Error).message); } };
@@ -58,6 +59,13 @@ function Articolo({ a, poi }: { a: A; poi: () => void }) {
           {prodotti.length > 0 && <div className="piccolo"><b>Prodotti collegati:</b> {prodotti.map((id) => { const p = PRODOTTI.find((x) => x.id === id); return p ? `${p.brand} ${p.name}` : `${id} (non più in catalogo)`; }).join(' · ')}</div>}
         </div>
       )}
+      {/* ⚠️ IL CONTROLLO DI SOFIA PER LA FIRMA (24/11/2026): stava in admin › Revisioni, ora sta nella scheda dell'articolo
+          online. Vale il testo pubblicato (src/data/rivista.json): «Redatto/Redazione · controllato da» compare solo così. */}
+      {a.stato === 'online' && (() => { const pub = ARTICOLI.find((x) => x.slug === a.slug); return pub ? (
+        <Voce chiave={`articolo:${a.slug}`} titolo="Il controllo di Sofia (per la firma)" contenuto={contenutoArticolo(pub)} ultima={ultima[`articolo:${a.slug}`]} poi={poiRev}>
+          <p className="piccolo">Il testo è quello online qui sopra: «Leggi tutto». Con l’approvazione di Sofia la firma diventa «controllato da Sofia».</p>
+        </Voce>
+      ) : null; })()}
       {a.stato !== 'online' && (
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, alignItems: 'center' }}>
           <button type="button" className="chip" aria-pressed={a.stato === 'approvato'} onClick={() => decidi('approvato')}>Approva</button>
@@ -73,6 +81,9 @@ function Articolo({ a, poi }: { a: A; poi: () => void }) {
 
 export default function Rivista() {
   const api = useApi<{ articoli: A[] }>('/api/admin/articoli');
+  const rev = useApi<{ revisioni: Riga[] }>('/api/admin/revisioni');
+  const ultima: Record<string, Riga> = {};
+  for (const r of [...(rev.dati?.revisioni || [])].reverse()) ultima[r.chiave] = r;
   const [s, setS] = useState('in_approvazione');
   const tutti = api.dati?.articoli || [];
   const qui = tutti.filter((a) => a.stato === s);
@@ -82,7 +93,7 @@ export default function Rivista() {
       <div className="riga-chip" role="tablist">{SCHEDE.map(([k, n]) => <button key={k} type="button" role="tab" className="chip" aria-pressed={s === k} onClick={() => setS(k)}>{n} · {tutti.filter((a) => a.stato === k).length}</button>)}</div>
       {api.errore && <Vuoto>Non riesco a leggere gli articoli: {api.errore}</Vuoto>}
       {!api.caricando && !qui.length && !api.errore && <Vuoto>{s === 'in_approvazione' ? 'Niente da approvare adesso.' : 'Niente qui.'}</Vuoto>}
-      {qui.map((a) => <Articolo key={a.id} a={a} poi={api.ricarica} />)}
+      {qui.map((a) => <Articolo key={a.id} a={a} poi={api.ricarica} ultima={ultima} poiRev={rev.ricarica} />)}
     </div>
   );
 }
