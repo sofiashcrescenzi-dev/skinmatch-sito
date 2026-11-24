@@ -75,10 +75,14 @@ lancia() {   # lancia <agente> <brief>
 
 BACHECA="$Q/BACHECA.md"
 case "$AGENTE${COMPITO:+-$COMPITO}" in
+  # ⚠️ DAL 24/11/2026 PUBBLICA GITHUB (flusso Redazione, prova riuscita, pubblicazione 111): il Mac non pubblica più.
+  #    «Pubblica» dell'admin e il catalogo del mattino avviano il flusso; gli articoli approvati li pubblica il flusso
+  #    alle 8. I launchd com.skinmatch.squadra.pubblica e .pubblica-approvati sono spenti (launchctl disable): se il
+  #    flusso si rompe, si riaccendono con launchctl enable + bootstrap e qui si rimette «$SM/pubblica.py --approvati».
   mattina)
-    $SM/vendite.py; python3 "$SM_DIR/scripts/catalogo/aggiorna.py"; $SM/pubblica.py --approvati ;;
+    $SM/vendite.py; python3 "$SM_DIR/scripts/catalogo/aggiorna.py" ;;
   pubblica)
-    $SM/pubblica.py --approvati ;;
+    echo "turno pubblica: dal 24/11/2026 pubblica GitHub (flusso Redazione), qui non si fa niente" ;;
   zeno-rivista)
     lancia zeno "Rivista di Skinmatch, $OGGI. Segui la sezione «Skinmatch» delle tue istruzioni: prima gli articoli da correggere ($SM/registro.py elenco articoli --stato da_correggere), poi un articolo nuovo che porta al test o a prodotti del catalogo. Registralo con $SM/registro.py articolo. Una riga in $BACHECA." ;;
   zeno-novita)

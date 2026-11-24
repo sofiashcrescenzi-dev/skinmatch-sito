@@ -82,8 +82,12 @@ if prima != dopo:
         p = git('push', '--quiet')
         print('catalogo spinto su GitHub' if not p.returncode else f'push non riuscito: {p.stderr[-300:]}')
     sql("INSERT INTO pubblicazioni (chi, cosa) VALUES ('jarvis', 'catalogo aggiornato dal feed')")
+    # ⚠️ L'ACCOUNT GIUSTO (24/11/2026): l'account attivo di gh sul Mac è quello di PadelMate, che il repository di Sofia
+    # non lo vede. Il flusso si chiama con l'account di Federico (Kalegtros, collaboratore del repository).
+    import os
+    tok = subprocess.run(['gh', 'auth', 'token', '-u', 'Kalegtros'], capture_output=True, text=True).stdout.strip()
     d = subprocess.run(['gh', 'api', '-X', 'POST', 'repos/sofiashcrescenzi-dev/skinmatch-sito/dispatches', '-f', 'event_type=pubblica'],
-                       capture_output=True, text=True)
+                       capture_output=True, text=True, env={**os.environ, **({'GH_TOKEN': tok} if tok else {})})
     print('catalogo cambiato: pubblicazione in coda' + (' e flusso avviato' if not d.returncode else f' (flusso non avviato: {d.stderr[-200:]})'))
 else:
     print('catalogo invariato')
