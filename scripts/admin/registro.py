@@ -68,7 +68,7 @@ def articolo(a):
 
 def rapporto(a):
     corpo = Path(a.corpo).read_text(encoding='utf-8') if a.corpo else None
-    r = sql(f"INSERT INTO squadra (agente, tipo, titolo, sintesi, corpo, esito) VALUES ({L(a.agente)}, {L(a.tipo)}, {L(a.titolo)}, {L(a.sintesi)}, {L(corpo)}, {L(a.esito)}) RETURNING id")
+    r = sql(f"INSERT INTO squadra (agente, tipo, titolo, sintesi, corpo, esito, link) VALUES ({L(a.agente)}, {L(a.tipo)}, {L(a.titolo)}, {L(a.sintesi)}, {L(corpo)}, {L(a.esito)}, {L(a.link)}) RETURNING id")
     print(f"rapporto {r[0]['id']}")
 
 
@@ -76,7 +76,9 @@ def segnalazione(a):
     d = a.dettaglio
     if d and Path(d).is_file():
         d = Path(d).read_text(encoding='utf-8')
-    r = sql(f"INSERT INTO segnalazioni (rapporto_id, agente, gravita, titolo, dettaglio, proposta) VALUES ({L(a.rapporto)}, {L(a.agente)}, {L(a.gravita)}, {L(a.titolo)}, {L(d)}, {L(a.proposta)}) RETURNING id")
+    # ⚠️ 24/11/2026 (Federico): ogni avviso porta dove sta la cosa (--link, una pagina dell'admin o del sito) e quelli
+    # da leggere e basta hanno --solo-vista (in admin il tasto «Presa visione» al posto di Sì/Dopo/No)
+    r = sql(f"INSERT INTO segnalazioni (rapporto_id, agente, gravita, titolo, dettaglio, proposta, link, solo_vista) VALUES ({L(a.rapporto)}, {L(a.agente)}, {L(a.gravita)}, {L(a.titolo)}, {L(d)}, {L(a.proposta)}, {L(a.link)}, {1 if a.solo_vista else 0}) RETURNING id")
     print(f"segnalazione {r[0]['id']}: da decidere in skinmatch.it/admin/squadra")
 
 
@@ -160,12 +162,14 @@ x = sub.add_parser('articolo'); x.add_argument('--file', required=True)
 x = sub.add_parser('rapporto')
 for k in ('agente', 'tipo', 'titolo', 'sintesi'):
     x.add_argument(f'--{k}', required=True)
-x.add_argument('--corpo'); x.add_argument('--esito', default='ok', choices=['ok', 'attenzione', 'problema'])
+x.add_argument('--corpo'); x.add_argument('--esito', default='ok', choices=['ok', 'attenzione', 'problema']); x.add_argument('--link')
 x = sub.add_parser('segnalazione')
 x.add_argument('--agente', required=True); x.add_argument('--titolo', required=True)
 x.add_argument('--dettaglio'); x.add_argument('--proposta'); x.add_argument('--gravita'); x.add_argument('--rapporto', type=int)
+x.add_argument('--link', help="dove sta la cosa: /admin/biotipi, /admin/catalogo?q=lk-123, /risultato/secca…")
+x.add_argument('--solo-vista', action='store_true', help='solo da leggere: in admin «Presa visione» invece di Sì/Dopo/No')
 x = sub.add_parser('stato')
-x.add_argument('--id', required=True, type=int); x.add_argument('--stato', required=True, choices=['aperta', 'in_lavoro', 'dopo', 'fatta', 'scartata'])
+x.add_argument('--id', required=True, type=int); x.add_argument('--stato', required=True, choices=['aperta', 'in_lavoro', 'dopo', 'fatta', 'scartata', 'vista'])
 x.add_argument('--nota')
 x = sub.add_parser('riscrittura')
 x.add_argument('--percorso', required=True); x.add_argument('--dopo', required=True); x.add_argument('--motivo', required=True); x.add_argument('--agente', default='zeno')

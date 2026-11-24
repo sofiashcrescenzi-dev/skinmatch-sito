@@ -33,7 +33,7 @@ const BIOTIPI = new Set(biotipi.biotipi.map((b) => b.id));
 // social (8/11/2026): i profili e la pagina skinmatch.it/link, da admin › Social
 const DOCUMENTI = new Set(['test', 'biotipi', 'glossario', 'catalogo', 'negozi', 'nozioni', 'chisiamo', 'social', 'cruscotto']);
 const STATI_ARTICOLO = new Set(['in_approvazione', 'da_correggere', 'approvato', 'online', 'scartato']);
-const STATI_SEGNALAZIONE = new Set(['aperta', 'in_lavoro', 'dopo', 'fatta', 'scartata']);
+const STATI_SEGNALAZIONE = new Set(['aperta', 'in_lavoro', 'dopo', 'fatta', 'scartata', 'vista']);
 const STATI_MARCA = new Set(['da_studiare', 'da_contattare', 'contattata', 'risposto', 'decisa']);
 const breve = (s, n = 80) => String(s ?? '').replace(/[^\p{L}\p{N}_.\- ]/gu, '').slice(0, n);
 const json = (dati, stato = 200) => new Response(JSON.stringify(dati), { status: stato, headers: { 'content-type': 'application/json; charset=utf-8', 'cache-control': 'no-store' } });
@@ -566,7 +566,9 @@ async function admin(req, env, url, email) {
     // IL REGISTRO DELLE REVISIONI (7/11/2026, voto l-revisione): si aggiunge, non si cambia. L'ultima riga per chiave vale.
     if (req.method === 'GET') return json({ revisioni: await tutti('SELECT * FROM revisioni ORDER BY id DESC LIMIT 1000') });
     const { chiave, contenuto, esito, nota } = corpo || {};
-    if (!/^(metodo|biotipo:[a-z0-9-]+|consiglio:[a-z0-9-]+|articolo:[a-z0-9-]+)$/.test(chiave || '')) return json({ errore: 'chiave sconosciuta' }, 400);
+    // ⚠️ 24/11/2026: anche le voci del giro del 21/11 (admin › Revisione: i casi, le proposte di Zeno, le domande), che
+    // finivano in «chiave sconosciuta» quando Federico premeva «Sì, si fa»; gli id hanno anche il trattino basso
+    if (!/^(metodo|(biotipo|consiglio|articolo|caso|zeno|domanda):[a-z0-9_-]{1,80})$/.test(chiave || '')) return json({ errore: 'chiave sconosciuta' }, 400);
     if (!['approvato', 'da_cambiare'].includes(esito)) return json({ errore: 'esito sconosciuto' }, 400);
     if (typeof contenuto !== 'string' || !contenuto || contenuto.length > 200000) return json({ errore: 'contenuto mancante' }, 400);
     const r = await DB.prepare('INSERT INTO revisioni (chiave, contenuto, esito, nota, chi) VALUES (?1, ?2, ?3, ?4, ?5) RETURNING id')
@@ -576,7 +578,13 @@ async function admin(req, env, url, email) {
 
   if (via === 'squadra') {
     if (req.method === 'POST') {
-      // la decisione su una segnalazione: sì (in_lavoro), dopo, no (scartata), con una nota
+      // ⚠️ 24/11/2026: la presa visione di un rapporto («attenzione» o «problema» di Friday, Jarvis…): sparisce dagli avvisi
+      if (corpo && corpo.rapporto) {
+        const r = await DB.prepare("UPDATE squadra SET visto_il = datetime('now') WHERE id = ?1").bind(corpo.rapporto).run();
+        if (!r.meta?.changes) return json({ errore: 'rapporto non trovato' }, 404);
+        return json({ ok: true });
+      }
+      // la decisione su una segnalazione: sì (in_lavoro), dopo, no (scartata), vista (presa visione), con una nota
       const { id, stato, nota } = corpo || {};
       if (!STATI_SEGNALAZIONE.has(stato) || stato === 'fatta') return json({ errore: 'stato sconosciuto' }, 400);
       const r = await DB.prepare("UPDATE segnalazioni SET stato = ?2, nota_po = ?3, chi = ?4, aggiornato_il = datetime('now') WHERE id = ?1")
@@ -585,8 +593,8 @@ async function admin(req, env, url, email) {
       return json({ ok: true });
     }
     return json({
-      rapporti: await tutti('SELECT id, agente, tipo, titolo, sintesi, corpo, esito, creato_il FROM squadra ORDER BY id DESC LIMIT 30'),
-      pubblicazioni: await tutti('SELECT * FROM pubblicazioni ORDER BY id DESC LIMIT 10'),
+      rapporti: await tutti('SELECT id, agente, tipo, titolo, sintesi, corpo, esito, creato_il, link, visto_il FROM squadra ORDER BY id DESC LIMIT 30'),
+      pubblicazioni: await tutti('SELECT * FROM pubblicazioni ORDER BY id DESC LIMIT 20'),
       segnalazioni: await tutti("SELECT * FROM segnalazioni WHERE stato != 'fatta' OR aggiornato_il >= datetime('now', '-30 days') ORDER BY id DESC LIMIT 150"),
     });
   }

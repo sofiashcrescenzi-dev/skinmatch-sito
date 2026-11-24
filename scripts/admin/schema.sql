@@ -44,7 +44,8 @@ CREATE TABLE IF NOT EXISTS squadra (
 CREATE TABLE IF NOT EXISTS segnalazioni (
   id INTEGER PRIMARY KEY AUTOINCREMENT, rapporto_id INTEGER, agente TEXT NOT NULL, gravita TEXT, titolo TEXT NOT NULL,
   dettaglio TEXT, proposta TEXT, stato TEXT NOT NULL DEFAULT 'aperta', nota_po TEXT, chi TEXT,
-  creato_il TEXT NOT NULL DEFAULT (datetime('now')), aggiornato_il TEXT
+  creato_il TEXT NOT NULL DEFAULT (datetime('now')), aggiornato_il TEXT,
+  link TEXT, solo_vista INTEGER NOT NULL DEFAULT 0   -- 24/11/2026: dove sta la cosa; 1 = basta la presa visione
 );
 CREATE INDEX IF NOT EXISTS idx_segnalazioni_stato ON segnalazioni (stato, creato_il);
 
