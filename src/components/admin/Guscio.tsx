@@ -10,7 +10,9 @@ import { useApi } from './base';
 // stanno in un menu che si apre: in verticale, in colonna, non piu una fila da scorrere.
 const SCHEDE = [
   ['/admin', 'Dashboard'], ['/admin/squadra', 'Avvisi'], ['/admin/test', 'Test fatti'], ['/admin/domande', 'Domande'], ['/admin/glossario', 'Glossario'], ['/admin/nozioni', 'Nozioni'],
-  ['/admin/catalogo', 'Catalogo'], ['/admin/negozi', 'Negozi'], ['/admin/marche', 'Marche'], ['/admin/biotipi', 'Biotipi'], ['/admin/revisioni', 'Revisioni'], ['/admin/rivista', 'Rivista'], ['/admin/chi-siamo', 'Chi siamo'], ['/admin/social', 'Social'], ['/admin/icone', 'Icone'],
+  ['/admin/catalogo', 'Catalogo'], ['/admin/negozi', 'Negozi'], ['/admin/marche', 'Marche'], ['/admin/biotipi', 'Biotipi'], ['/admin/revisioni', 'Revisioni'], ['/admin/rivista', 'Rivista'], ['/admin/chi-siamo', 'Chi siamo'], ['/admin/social', 'Social'],
+  // ⚠️ 24/11/2026, pulizia (Federico: «fatta un po' di pulizia delle cose non più utili»): «Icone» è il catalogo per chi
+  // scrive il sito, non per Federico e Sofia; la pagina resta su /admin/icone
 ];
 
 export default function Guscio({ children }: { children: React.ReactNode }) {

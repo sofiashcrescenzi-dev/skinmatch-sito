@@ -139,7 +139,8 @@ export default function Traffico({ vista }: { vista: 'traffico' | 'test' }) {
       {/* gli assistenti IA e il server MCP (19/11/2026): vedi AssistentiIA.tsx */}
       <AssistentiIA />
 
-      <section className="pila" style={{ ['--gap' as string]: '12px' }}>
+      {/* PostHog: solo quando c'è (24/11/2026, pulizia: il riquadro vuoto «il posto è già pronto» non serviva) */}
+      {ph && <section className="pila" style={{ ['--gap' as string]: '12px' }}>
         <h2 className="titolo-2">PostHog</h2>
         {ph ? (
           <div className="adm-numeri">
@@ -147,8 +148,8 @@ export default function Traffico({ vista }: { vista: 'traffico' | 'test' }) {
             <div><span className="piccolo">Pagine viste</span><b>{ph.pagine_viste}</b></div>
             <div><span className="piccolo">Tempo medio</span><b>{ph.tempo_medio || '—'}</b></div>
           </div>
-        ) : <Vuoto>PostHog non è ancora attivo: quando c’è la chiave del progetto (e il banner dei cookie la consente) qui compaiono visitatori, percorsi e abbandoni del test. Il posto è già pronto.</Vuoto>}
-      </section>
+        ) : null}
+      </section>}
 
       <section className="pila" style={{ ['--gap' as string]: '12px' }}>
         <h2 className="titolo-2">Negozi e prodotti</h2>
@@ -161,7 +162,7 @@ export default function Traffico({ vista }: { vista: 'traffico' | 'test' }) {
 
       <section className="pila" style={{ ['--gap' as string]: '12px' }}>
         <h2 className="titolo-2">Vendite e commissioni</h2>
-        {!vendite.length ? <Vuoto>Nessuna vendita nel periodo. Le reti collegate: Adtraction (canale «SKINMATCH - Content IT»); CJ e Awin si aggiungono quando i programmi approvano Skinmatch.</Vuoto> : (
+        {!vendite.length ? <Vuoto>Nessuna vendita nel periodo. Le reti collegate: Adtraction (canale «SKINMATCH - Content IT») e Awin (il conto publisher SKINMATCH); le vendite arrivano ogni mattina.</Vuoto> : (
           <>
             <div className="adm-numeri">{['confermate', 'in attesa', 'rifiutate'].filter((k) => stati[k]).map((k) => <div key={k}><span className="piccolo">Commissioni {k}</span><b>{euro(stati[k].c)}</b><span className="piccolo">{stati[k].n} vendite</span></div>)}</div>
             <div className="adm-numeri">{Object.entries(reti).map(([k, x]) => <div key={k}><span className="piccolo">{k}</span><b>{euro(x.commissione)}</b><span className="piccolo">{x.n} vendite · {euro(x.importo)}</span></div>)}</div>
