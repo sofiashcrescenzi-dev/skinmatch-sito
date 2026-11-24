@@ -232,6 +232,11 @@ def oggetto(s):
 
 ALIAS_F = R / 'src' / 'data' / 'indirizzi-vecchi.json'
 ALIAS = json.loads(ALIAS_F.read_text())['vecchi'] if ALIAS_F.exists() else {}
+# le ricariche tolte il 24/11/2026 che hanno lo stesso prodotto completo nel catalogo: vecchio oggetto → id del completo
+RICARICA_VERSO = {'crema-vinoperfect-ricarica': 'lk-748915', 'crema-vinoperfect-ricarica-macchie-scure': 'lk-747140',
+                  'crema-excellage-ricarica': 'lk-879483',
+                  'siero-ricarica-resveratrol-lift': 'lk-512749', 'shampoo-curel-intensive-moisture-care-foaming': 'sv-6826',
+                  'shampoo-ma-cherie-ex-refill': 'sv-7482'}
 
 
 def indirizzi(scelti, vecchi):
@@ -562,6 +567,18 @@ def main(candidati=None):
     # con la sola etichetta USA, Comodynes segnato come Korff. Vedi esclusi.json.
     esclusi = json.loads((Path(__file__).parent / 'esclusi.json').read_text())['esclusi']
     schede = [s for s in schede if s['id'] not in esclusi]
+    # ⚠️ LE RICARICHE FUORI (24/11/2026, il PO: «se sono ricariche toglile e basta, a me serve il prodotto»). Una ricarica
+    # è la vaschetta da infilare nel vasetto che hai già: senza marca nella foto (le Vinoperfect di Liki24 sembravano
+    # secchi) e inutile a chi il prodotto non ce l'ha. Restano i prodotti completi con la custodia («Case & Refill» di
+    # Bakel) e i flaconi «ricaricabili» (la parola è un'altra). Gli indirizzi delle ricariche tolte rinviano al prodotto
+    # completo quando è lo stesso (RICARICA_VERSO, in indirizzi-vecchi.json), se no alla categoria (il Worker): mai un 404.
+    RICARICA = re.compile(r'\b(?:ricaric[ah]e?|refill)\b', re.I)
+    COMPLETO = re.compile(r'\bcase\b|custodia|vasetto|\bkit\b', re.I)
+    ricariche = {s['id'] for s in schede if RICARICA.search(s.get('titolo') or '') and not COMPLETO.search(s.get('titolo') or '')}
+    if ricariche:
+        print('ricariche tolte:', len(ricariche))
+    schede = [s for s in schede if s['id'] not in ricariche]
+    ALIAS.update(RICARICA_VERSO)
     # ⚠️ LO STESSO INCI DELLA STESSA MARCA IN DUE NEGOZI E LO STESSO PRODOTTO (segnalazione 10: 21 Korff fra Liki24 e
     # Farmaself con titoli diversi, che trova() non riconosceva). Resta il negozio che costa meno al ml; le altre
     # confezioni dello stesso negozio restano, sono i formati.
