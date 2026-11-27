@@ -27,7 +27,8 @@ export PATH="/usr/local/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin:$HOM
 CLAUDE=$(ls -d "$HOME"/.vscode/extensions/anthropic.claude-code-*/resources/native-binary/claude 2>/dev/null | sort -t- -k3 -V | tail -1)
 # ⚠️ L'ACCESSO DEI TURNI (27/11/2026): il token lungo di `claude setup-token` in ~/.claude-turni.token (solo del PO,
 # chmod 600), lo stesso dei turni di Agoranomos; se manca, resta l'accesso normale, che scade fra il 2 e il 5/12.
-[ -s "$HOME/.claude-turni.token" ] && export CLAUDE_CODE_OAUTH_TOKEN="$(tr -d '[:space:]' < "$HOME/.claude-turni.token")"
+TOKEN_TURNI=$(tr -d '[:space:]' < "$HOME/.claude-turni.token" 2>/dev/null)
+case "$TOKEN_TURNI" in sk-ant-?*) export CLAUDE_CODE_OAUTH_TOKEN="$TOKEN_TURNI" ;; esac; unset TOKEN_TURNI   # solo se è davvero un token
 SM="python3 $SM_DIR/scripts/admin"
 LUCCHETTO="$HOME/.squadra-turno.lock"
 CODA="$Q/coda-settimana.tsv"
