@@ -85,6 +85,16 @@ async function servi(req, env, ctx) {
       return new Response(PAGINA_CHIUSA(chi.motivo), { status: 403, headers: { 'content-type': 'text/html; charset=utf-8', 'cache-control': 'no-store', 'x-robots-tag': 'noindex' } });
     }
     if (p.startsWith('/api/admin/')) {
+      // ⚠️ I COMANDI SOLO DALLA PAGINA DELL'ADMIN (27/11/2026, Federico: «non voglio rischi di avere inserimenti»): qui
+      // il gettone si legge anche dal cookie CF_Authorization, che il browser allega da solo. Un POST, PUT o DELETE vale
+      // quindi solo se il browser dice che parte da skinmatch.it (Sec-Fetch-Site e Origin, non falsificabili da una
+      // pagina esterna): così un sito aperto da Federico o Sofia non può salvare o cancellare col loro accesso (CSRF).
+      if (!['GET', 'HEAD'].includes(req.method)) {
+        const sito = req.headers.get('sec-fetch-site'), origine = req.headers.get('origin');
+        let fuori = !!sito && sito !== 'same-origin';
+        if (origine) { try { if (new URL(origine).host !== url.host) fuori = true; } catch { fuori = true; } }
+        if (fuori) return json({ errore: 'Richiesta non ammessa.' }, 403);
+      }
       try { return await admin(req, env, url, chi.email); } catch (e) { return json({ errore: String(e && e.message || e) }, 500); }
     }
     const r = await env.ASSETS.fetch(req);
